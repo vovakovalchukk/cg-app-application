@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20f42617618cba21f380fed496ba9d10",
+    "content-hash": "d5dda87856fdb1640e6e1dea9282742d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1165,16 +1165,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "version": "1.20.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "77f678f917a8f94503c5b7ccc0abfbacebd4bdcc"
+                "reference": "14fcbd8cad3f14a428b3cba21d9abef90c154d4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-MIG-11-ebay-listing-templates-backend-875c01.zip",
-                "reference": "77f678f917a8f94503c5b7ccc0abfbacebd4bdcc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.6-ccb1c6.zip",
+                "reference": "14fcbd8cad3f14a428b3cba21d9abef90c154d4c",
                 "shasum": null
             },
             "require": {
@@ -1186,17 +1186,17 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "dev-MIG-11-ebay-listing-templates-backend as 1.19.4",
+                "channelgrabber/listing": "^1.19.4",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-MIG-11-ebay-listing-templates-backend as 1.46.4-dev",
+                "channelgrabber/order": "^1.46.9",
                 "channelgrabber/product": "^1.12.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
                 "channelgrabber/stock": ">=1.3.4",
                 "channelgrabber/tax": "^1.0.0",
-                "channelgrabber/template": "dev-MIG-11-ebay-listing-templates-backend as 1.6.11",
+                "channelgrabber/template": "^1.6.11",
                 "channelgrabber/user": "^1.19.4",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -1227,7 +1227,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-08-29T09:41:43+00:00"
+            "time": "2019-09-02T12:04:33+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1741,16 +1741,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "version": "1.19.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "99014f8c1962c38b1c8c67c115f9a00981d54270"
+                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-MIG-11-ebay-listing-templates-backend-1f2cf8.zip",
-                "reference": "99014f8c1962c38b1c8c67c115f9a00981d54270",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.4-e08244.zip",
+                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab",
                 "shasum": null
             },
             "require": {
@@ -1791,7 +1791,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-22T14:34:09+00:00"
+            "time": "2019-09-02T11:53:52+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2135,16 +2135,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "version": "1.46.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "805640d61c1114a624bd4bd558db449a979b1288"
+                "reference": "f7c572d5eb22a02a60af475838483422582a1016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-11-ebay-listing-templates-backend-de49d2.zip",
-                "reference": "805640d61c1114a624bd4bd558db449a979b1288",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.9-b2b509.zip",
+                "reference": "f7c572d5eb22a02a60af475838483422582a1016",
                 "shasum": null
             },
             "require": {
@@ -2219,7 +2219,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-08-12T08:35:55+00:00"
+            "time": "2019-09-02T11:53:31+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3519,16 +3519,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "version": "1.6.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9f57c9bb934769291b82053e09b4d45de37ccea6"
+                "reference": "af3f3b856aedb838eff6f60c7919e676a9e83070"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-643c06.zip",
-                "reference": "9f57c9bb934769291b82053e09b4d45de37ccea6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.11-4bd7e4.zip",
+                "reference": "af3f3b856aedb838eff6f60c7919e676a9e83070",
                 "shasum": null
             },
             "require": {
@@ -3540,7 +3540,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-MIG-11-ebay-listing-templates-backend as 1.46.4",
+                "channelgrabber/order": "^1.46.9",
                 "channelgrabber/product": "^1.10.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3575,7 +3575,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-25T13:44:50+00:00"
+            "time": "2019-09-02T11:59:28+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11442,39 +11442,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.1",
-            "alias_normalized": "1.20.1.0",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.19.4",
-            "alias_normalized": "1.19.4.0",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.46.7",
-            "alias_normalized": "1.46.7.0",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.6.11",
-            "alias_normalized": "1.6.11.0",
-            "version": "dev-MIG-11-ebay-listing-templates-backend",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
