@@ -331,7 +331,7 @@ class OrderDetailsController extends AbstractActionController
                 Module::ROUTE,
                 [],
                 [
-                    'query' => ['search' => $order->getExternalUsername() ?: $order->getBillingAddress()->getEmailAddress()]
+                    'query' => $this->getSearchParamsForBuyer($order)
                 ]
             )
         );
@@ -348,6 +348,14 @@ class OrderDetailsController extends AbstractActionController
         }
         $view->setVariable('messageUrl', $messageUrl);
         return $view;
+    }
+
+    protected function getSearchParamsForBuyer(Order $order): array
+    {
+        if ($order->getExternalUsername()) {
+            return ['search' => $order->getExternalUsername(), 'searchField' => ['order.externalUsername']];
+        }
+        return ['search' => $order->getBillingAddress()->getEmailAddress(), 'searchField' => ['billing.emailAddress']];
     }
 
     protected function getStatus($statusText, $messageText)

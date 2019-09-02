@@ -47,7 +47,8 @@ class EditorContainer extends React.Component {
         if (! event.detail) {
             return;
         }
-        this.resetEditor(function() {
+
+        this.resetEditor(() => {
             var purchaseOrder = event.detail;
             if (purchaseOrder.items && purchaseOrder.items.length) {
                 this.addItemRowMulti(purchaseOrder.items);
@@ -57,7 +58,7 @@ class EditorContainer extends React.Component {
                 purchaseOrderStatus: purchaseOrder.status,
                 purchaseOrderNumber: purchaseOrder.externalId
             });
-        }.bind(this));
+        });
     };
 
     resetEditor = (afterResetCallback) => {
@@ -145,7 +146,6 @@ class EditorContainer extends React.Component {
     };
 
     onDownloadPurchaseOrder = () => {
-
         this.downloadPurchaseOrderRequest = $.ajax({
             method: 'POST',
             data: {id: this.state.purchaseOrderId},
