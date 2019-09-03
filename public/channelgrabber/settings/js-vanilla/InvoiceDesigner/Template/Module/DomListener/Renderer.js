@@ -3,13 +3,15 @@ define([
     'jquery',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/Service',
-    'InvoiceDesigner/Template/Element/MapperAbstract'
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Module/DomListener/ElementManager'
 ], function(
     DomListenerAbstract,
     $,
     domManipulator,
     elementService,
-    ElementMapperAbstract
+    ElementMapperAbstract,
+    ElementManager
 ) {
     var Renderer = function()
     {
@@ -23,7 +25,21 @@ define([
         DomListenerAbstract.prototype.init.call(this, module);
         this.initElementSelectedListener()
             .initElementDeselectedListener()
-            .initTemplateChangeListener();
+            .initTemplateChangeListener()
+            .initClickOutsideNonElementRelevantUIListener();
+    };
+
+    Renderer.prototype.initClickOutsideNonElementRelevantUIListener = function initElementClickListeners() {
+        document.addEventListener('click', event => {
+            if (isAnElementClick(event)) {
+                return;
+            }
+            if (isAnInspectorClick(event) || isAnElementManagerClick(event)) {
+                event.stopPropagation();
+                return;
+            }
+            domManipulator.triggerElementDeletedEvent();
+        });
     };
 
     Renderer.prototype.initElementSelectedListener = function()
@@ -41,14 +57,7 @@ define([
         $(document).on(domManipulator.getElementDeselectedEvent(), (event, element) =>
         {
             this.getModule().elementDeselected(element);
-        });
-
-        document.addEventListener('click', event => {
-            if (isAnElementOrInspectorClick(event)) {
-                return;
-            }
-            this.getModule().elementDeselected();
-            domManipulator.markAsInactive('.'+ElementMapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
+            domManipulator.markAsInactive('.' + ElementMapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
         });
 
         return this;
@@ -76,9 +85,16 @@ define([
 
     return new Renderer();
 
-    function isAnElementOrInspectorClick(event) {
+    function isAnElementClick(event) {
         const elementClasses = '.' + elementService.getElementDomWrapperClass();
+        return !!event.target.closest(elementClasses);
+    }
+    function isAnInspectorClick(event) {
         const inspectorArea = '#element-inspector-bar';
-        return !!event.target.closest(elementClasses) || !!event.target.closest(inspectorArea);
+        return !!event.target.closest(inspectorArea);
+    }
+    function isAnElementManagerClick(event) {
+        const elementManager = ElementManager.getSelector();
+        return !!event.target.closest(elementManager);
     }
 });
