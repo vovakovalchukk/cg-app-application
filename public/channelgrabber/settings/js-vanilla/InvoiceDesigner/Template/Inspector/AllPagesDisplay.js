@@ -8,9 +8,6 @@ define([
     CGMustache
 ) {
     var AllPagesDisplay = function() {
-        console.log('allPagesDisplay');
-        
-        
         InspectorAbstract.call(this);
 
         this.setId('allPagesDisplay');
@@ -27,19 +24,17 @@ define([
     };
 
     AllPagesDisplay.prototype.showForElement = function(element, template, service) {
-        console.log('in showForElement');
-        //
         const templateUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache'
         };
         CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
-            let existingSelection = element.getDisplayOnAllPages();
+            const existingSelection = element.getDisplayOnAllPages();
 
             const checkbox = cgmustache.renderTemplate(
                 templates,
                 {
                     class: 'u-margin-right-small',
-//                    selected: false || existingSelection,
+                    selected: false || existingSelection,
                     id: AllPagesDisplay.ALL_PAGES_DISPLAY_CHECKBOX_ID,
                     name: 'display-on-all-pages',
                     label: 'Display On All Pages'
