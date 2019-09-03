@@ -25,7 +25,7 @@ define([
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function() {
                 self.styleText(textarea, inspector, element)
-                    .initDisplayOnAllPagesListener(inspector, element);
+                    .initDataFieldsChangeListener(inspector, element);
             }, timeout);
         });
 
