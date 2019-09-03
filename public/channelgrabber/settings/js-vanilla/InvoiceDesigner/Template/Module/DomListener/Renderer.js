@@ -29,7 +29,7 @@ define([
             .initClickOutsideNonElementRelevantUIListener();
     };
 
-    Renderer.prototype.initClickOutsideNonElementRelevantUIListener = function initElementClickListeners() {
+    Renderer.prototype.initClickOutsideNonElementRelevantUIListener = function() {
         document.addEventListener('click', event => {
             if (isAnElementClick(event)) {
                 return;
