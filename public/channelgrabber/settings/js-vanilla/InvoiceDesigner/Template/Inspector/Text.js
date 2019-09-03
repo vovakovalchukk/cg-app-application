@@ -53,36 +53,18 @@ define([
             dataFields: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             text: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/text.mustache',
             removeBlankLines: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
-            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache',
-////
-//            textAlign: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
-            var dataFields = cgmustache.renderTemplate(templates, self.getDataFieldsData(), "dataFields");
-            var removeBlankLines = cgmustache.renderTemplate(templates, self.getRemoveBlankLinesData(element), "removeBlankLines");
-
-            // todo - swap this out to mustache...
-            let textAlign = `<div>
-                <input class="inspector-text-align-radio" type="radio" id="left-align" name="text-align" checked>
-                <label class="inspector-text-align-label inspector-text-align-label-left" for="left-align" title="Align Left"></label>
-                
-                <input class="inspector-text-align-radio" type="radio" id="center-align" name="text-align">
-                <label class="inspector-text-align-label inspector-text-align-label-center" for="center-align" title="Align Center"></label>
-
-                <input class="inspector-text-align-radio" type="radio" id="right-align" name="text-align">
-                <label class="inspector-text-align-label inspector-text-align-label-right" for="right-align" title="Align Right"></label>  
-                
-                <input class="inspector-text-align-radio" type="radio" id="justified-align" name="text-align">
-                <label class="inspector-text-align-label inspector-text-align-label-justified" for="justified-align" title="Justify"></label>
-            </div>`
+            const textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
+            const dataFields = cgmustache.renderTemplate(templates, self.getDataFieldsData(), "dataFields");
+            const removeBlankLines = cgmustache.renderTemplate(templates, self.getRemoveBlankLinesData(element), "removeBlankLines");
 
             var text = cgmustache.renderTemplate(templates, {}, "text", {
                 textarea,
                 dataFields,
                 removeBlankLines,
-                textAlign
             });
 
             var collapsible = cgmustache.renderTemplate(templates, {
