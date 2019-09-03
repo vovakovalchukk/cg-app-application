@@ -12,11 +12,10 @@ define([
     'InvoiceDesigner/Template/Entity',
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/PrintPage/Entity',
+    'InvoiceDesigner/Template/MultiPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'
-], function(require)
-{
-    var Mapper = function()
-    {
+], function(require) {
+    var Mapper = function() {
 
     };
 
@@ -25,25 +24,28 @@ define([
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
     Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
+    Mapper.PATH_TO_MULTI_PAGE_ENTITY = 'InvoiceDesigner/Template/MultiPage/Entity';
 
-    Mapper.prototype.createNewTemplate = function()
-    {
-        var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
-        var template = new TemplateClass();
+    Mapper.prototype.createNewTemplate = function() {
+        const TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
+        const template = new TemplateClass();
 
-        var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
-        var paperPage = new PaperPageClass();
+        const PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
+        const paperPage = new PaperPageClass();
         template.setPaperPage(paperPage);
 
-        var PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
-        var printPage = new PrintPageClass();
+        const PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
+        const printPage = new PrintPageClass();
         template.setPrintPage(printPage);
+
+        const MultiPageClass = require(Mapper.PATH_TO_MULTI_PAGE_ENTITY);
+        const multiPage = new MultiPageClass();
+        template.setMultiPage(multiPage);
 
         return template;
     };
 
-    Mapper.prototype.fromJson = function(json)
-    {
+    Mapper.prototype.fromJson = function(json) {
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
@@ -63,20 +65,22 @@ define([
         template.setPaperPage(paperPage).setEditable(!!json.editable);
 
         let printPage = template.getPrintPage();
-        this.hydratePrintPageFromJson(printPage, json.printPage, populating);
+        this.hydratePrintPageFromJson(template, printPage, json.printPage, populating);
         template.setPrintPage(printPage).setEditable(!!json.editable);
+
+        let multiPage = template.getMultiPage();
+        this.hydrateMultiPageFromJson(template, multiPage, json.multiPage, populating);
+        template.setMultiPage(multiPage).setEditable(!!json.editable);
 
         return template;
     };
 
-    Mapper.prototype.createNewElement = function(elementType)
-    {
+    Mapper.prototype.createNewElement = function(elementType) {
         var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
         return elementMapper.createElement();
     };
 
-    Mapper.prototype.elementFromJson = function(elementData, populating)
-    {
+    Mapper.prototype.elementFromJson = function(elementData, populating) {
         var elementType = elementData.type.ucfirst();
         elementData.x = Number(elementData.x).ptToMm();
         elementData.y = Number(elementData.y).ptToMm();
@@ -90,27 +94,35 @@ define([
             elementData.lineHeight = Number(elementData.lineHeight).ptToMm();
         }
         if (elementData.borderWidth) {
-            elementData.borderWidth = Number(elementData.borderWidth).ptToMm(); 
+            elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
         element.hydrate(elementData, populating);
         return element;
     };
 
-    Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating)
-    {
+    Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {
         json.width = Number(json.width).ptToMm();
         json.height = Number(json.height).ptToMm();
 
         paperPage.hydrate(json, populating);
     };
 
-    Mapper.prototype.hydratePrintPageFromJson = function(printPage, json, populating)
-    {
+    Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
         printPage.hydrate(json, populating);
     };
 
-    Mapper.prototype.toJson = function(template)
-    {
+    Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {
+        if (!json) {
+            json = {};
+        }
+
+        json['columns'] = multiPage.getGridTrackValueFromDimension(template, 'width', json['width']);
+        json['rows'] = multiPage.getGridTrackValueFromDimension(template, 'height', json['height']);
+
+        multiPage.hydrate(json, populating);
+    };
+
+    Mapper.prototype.toJson = function(template) {
         var json = {
             storedETag: template.getStoredETag(),
             id: template.getId(),
@@ -120,20 +132,19 @@ define([
             organisationUnitId: template.getOrganisationUnitId(),
             paperPage: template.getPaperPage().toJson(),
             printPage: template.getPrintPage().toJson(),
+            multiPage: template.getMultiPage().toJson(),
             elements: [],
             editable: template.isEditable()
         };
 
-        template.getElements().each(function(element)
-        {
+        template.getElements().each(function(element) {
             json.elements.push(element.toJson());
         });
 
         return json;
     };
 
-    Mapper.prototype.toHtml = function(template)
-    {
+    Mapper.prototype.toHtml = function(template) {
         var paperPage = template.getPaperPage();
         let printPage = template.getPrintPage();
         var pageMapper = require(Mapper.PATH_TO_PAGE_MAPPER);

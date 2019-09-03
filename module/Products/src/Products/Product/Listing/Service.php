@@ -5,6 +5,9 @@ use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingService;
+use CG\Listing\Template\Collection as ListingTemplateCollection;
+use CG\Listing\Template\Filter as ListingTemplateFilter;
+use CG\Listing\Template\Service as ListingTemplateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -32,6 +35,8 @@ class Service implements LoggerAwareInterface
     protected $featureFlagsService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var ListingTemplateService */
+    protected $listingTemplateService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -39,7 +44,8 @@ class Service implements LoggerAwareInterface
         Sites $sites,
         SessionManager $sessionManager,
         FeatureFlagsService $featureFlagsService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        ListingTemplateService $listingTemplateService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->subscriptionService = $subscriptionService;
@@ -47,6 +53,7 @@ class Service implements LoggerAwareInterface
         $this->sessionManager = $sessionManager;
         $this->featureFlagsService = $featureFlagsService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->listingTemplateService = $listingTemplateService;
     }
 
     public function isListingCreationAllowed(): bool
@@ -94,5 +101,18 @@ class Service implements LoggerAwareInterface
     public function getManagePackageUrl(): string
     {
         return $this->sites->host('admin') . '/billing/package';
+    }
+
+    public function fetchListingTemplates(): ?ListingTemplateCollection
+    {
+        try {
+            $filter = (new ListingTemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
+            return $this->listingTemplateService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return null;
+        }
     }
 }

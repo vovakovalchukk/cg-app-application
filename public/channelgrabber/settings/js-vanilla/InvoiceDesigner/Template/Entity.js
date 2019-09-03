@@ -2,7 +2,6 @@ define([
     'InvoiceDesigner/Template/Element/Collection',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/Template/Entity'
 ], function(
     Collection,
     domManipulator,
@@ -18,6 +17,7 @@ define([
         let stateId;
         let paperPage;
         let printPage;
+        let multiPage;
 
         // Member vars to watch for changes
         var data = {
@@ -28,6 +28,10 @@ define([
             typeId: undefined,
             organisationUnitId: undefined,
             editable: true
+        };
+
+        this.getEntityName = function() {
+            return 'Template';
         };
 
         this.getElements = function()
@@ -61,6 +65,18 @@ define([
         {
             printPage = newPrintPage;
             printPage.subscribe(this);
+            return this;
+        };
+
+        this.getMultiPage = function()
+        {
+            return multiPage;
+        };
+
+        this.setMultiPage = function(newMultiPage)
+        {
+            multiPage = newMultiPage;
+            multiPage.subscribe(this);
             return this;
         };
 
@@ -184,9 +200,9 @@ define([
             return manipulator;
         };
 
-        this.notifyOfChange = function()
+        this.notifyOfChange = function(topicUpdates)
         {
-            this.getDomManipulator().triggerTemplateChangeEvent(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this, topicUpdates);
         };
     };
 
@@ -221,9 +237,9 @@ define([
         return this;
     };
 
-    Entity.prototype.publisherUpdate = function(element)
+    Entity.prototype.publisherUpdate = function(element, topicUpdates)
     {
-        this.notifyOfChange();
+        this.notifyOfChange(topicUpdates);
     };
 
     return Entity;

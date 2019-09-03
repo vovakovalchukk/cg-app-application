@@ -1,21 +1,21 @@
 define([
     'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/EntityHydrateAbstract',
     'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Constants',
+    'InvoiceDesigner/utility'
 ], function(
     templateService,
+    EntityAbstract,
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    Constants,
+    utility
 ) {
-    const MARGIN_TO_DIMENSION = {
-        top: 'height',
-        bottom: 'height',
-        left: 'width',
-        right: 'width'
-    };
-
-    let Entity = function() {
+    const Entity = function() {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
 
         let data = {
@@ -25,49 +25,33 @@ define([
                 left: null,
                 right: null
             },
-            dimension: {
-                height: null,
-                width: null
-            },
             visibility: false
         };
         let marginIndicatorElement = null;
 
-        this.getData = function(){
+        this.getData = function() {
             return data;
         };
 
         this.render = function(template, templatePageElement) {
             let data = this.getData();
             this.setVisibilityFromData(data);
-            let marginIndicatorElement = this.createMarginIndicatorElement(data);
+            this.renderMarginIndicatorElement(template, data, templatePageElement);
+        };
+
+        this.getEntityName = function() {
+            return 'PrintPage';
+        };
+
+        this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
+            let marginIndicatorElement = this.createMarginIndicatorElement(template, data);
             templatePageElement.prepend(marginIndicatorElement);
             this.setMarginIndicatorElement(marginIndicatorElement);
-
-            const paperPage = template.getPaperPage();
-
-            let storedHeightDimension = this.calculateHeightDimensionFromMargins(template);
-            let storedWidthDimension = this.calculateWidthDimensionFromMargins(template);
-            let height = storedHeightDimension ? storedHeightDimension : paperPage.getHeight();
-            let width = storedWidthDimension ? storedWidthDimension : paperPage.getWidth();
-
-            this.setDimension(template, "height", height);
-            this.setDimension(template, "width", width);
-
-            for (let margin in data.margin) {
-                let marginValue = data.margin[margin];
-                let desiredValue = typeof marginValue === "number" ? marginValue : 0;
-                this.setMargin(template, margin, desiredValue, true);
-                let dimensionValue = this.getNewDimensionValueFromMargin(margin, template);
-                this.setDimension(template, MARGIN_TO_DIMENSION[margin], dimensionValue);
-            }
-
-            this.setVisibility(false);
         };
 
         this.setVisibilityFromData = function(data) {
-            for (let direction in data.margin) {
-                if (!data.margin[direction]) {
+            for (let direction in this.getMargins()) {
+                if (!this.getMargin(direction)) {
                     continue;
                 }
                 this.setVisibility(true);
@@ -75,39 +59,8 @@ define([
             }
         };
 
-        this.setVisibility = function(value){
+        this.setVisibility = function(value) {
             data.visibility = value;
-        };
-
-        this.getNewDimensionValueFromMargin = function(direction, template){
-            if(MARGIN_TO_DIMENSION[direction] === 'height'){
-                return this.calculateHeightDimensionFromMargins(template);
-            }
-            return this.calculateWidthDimensionFromMargins(template);
-        };
-
-        this.calculateHeightDimensionFromMargins = function(template){
-            const paperPage = template.getPaperPage();
-            const printPage = template.getPrintPage();
-
-            let margins = printPage.getData().margin;
-
-            let topMargin = margins.top ? margins.top : 0;
-            let bottomMargin = margins.bottom ? margins.bottom : 0;
-
-            return paperPage.getHeight() - (topMargin + bottomMargin);
-        };
-
-        this.calculateWidthDimensionFromMargins = function(template){
-            const paperPage = template.getPaperPage();
-            const printPage = template.getPrintPage();
-
-            let margins = printPage.getData().margin;
-
-            let leftMargin = margins.left ? margins.left : 0;
-            let rightMargin = margins.right ? margins.right : 0;
-
-            return paperPage.getWidth() - (leftMargin + rightMargin)
         };
 
         this.setMarginIndicatorElement = function(element) {
@@ -118,12 +71,38 @@ define([
             return marginIndicatorElement;
         };
 
-        this.createMarginIndicatorElement = function({visibility}) {
-            let marginIndicatorElement = document.createElement('div');
+        this.createMarginIndicatorElement = function(template, {visibility}) {
+            const marginIndicatorElement = document.createElement('div');
+            const measurementUnit = template.getPaperPage().getMeasurementUnit();
+
             marginIndicatorElement.id = 'templateMarginIndicator';
             marginIndicatorElement.className = 'template-margin-indicator-element';
             marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
+            marginIndicatorElement.style.height = this.getHeight(template) + measurementUnit;
+            marginIndicatorElement.style.width = this.getWidth(template) + measurementUnit;
+
+            if (!data.margin) {
+                return marginIndicatorElement;
+            }
+
+            for (let margin in this.getMargins()) {
+                let marginValue = this.getMargin(margin);
+                let desiredValue = typeof marginValue === "number" ? marginValue : 0;
+                if (desiredValue < 0) {
+                    continue;
+                }
+                marginIndicatorElement.style[margin] = desiredValue + measurementUnit;
+            }
+
             return marginIndicatorElement;
+        };
+
+        this.getMargin = function(direction) {
+            return data['margin'][direction];
+        };
+
+        this.getMargins = function() {
+            return this.getData().margin;
         };
 
         this.setMargin = function(template, direction, value, populating) {
@@ -137,53 +116,54 @@ define([
 
             marginIndicatorElement.style[direction] = value + measurementUnit;
 
-            if(populating){
+            if (populating) {
                 data.margin[direction] = value;
                 return;
             }
 
             let newMarginState = Object.assign({}, data.margin);
             newMarginState[direction] = value;
-            this.set("margin", newMarginState);
+
+            this.set("margin", newMarginState, false, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: Constants.MARGIN_TO_DIMENSION[direction],
+                populating: false
+            }]);
         };
 
-        this.setDimension = function(template, dimension, value) {
-            const measurementUnit = template.getPaperPage().getMeasurementUnit();
-            let marginIndicatorElement = this.getMarginIndicatorElement();
-            dimension[dimension] = value;
-            marginIndicatorElement.style[dimension] = value + measurementUnit;
+        this.getHeight = function(template) {
+            const paperPage = template.getPaperPage();
+
+            let top = data.margin['top'] || 0;
+            let bottom = data.margin['bottom'] || 0;
+
+            let height = paperPage.getHeight() - top - bottom;
+            return height;
         };
 
-        this.getDimension = function(dimension) {
-            return data.dimension[dimension]
+        this.getWidth = function(template) {
+            const paperPage = template.getPaperPage();
+
+            let left = data.margin['left'] || 0;
+            let right = data.margin['right'] || 0;
+
+            let width = paperPage.getWidth() - left - right;
+            return width;
         };
 
-        this.setVisibility = function(isVisible){
+        this.setVisibility = function(isVisible) {
             data.visibility = isVisible;
-        };
-
-        this.get = function(field)
-        {
-            return data[field];
-        };
-
-        this.set = function(field, value, populating)
-        {
-            data[field] = value;
-
-            if (populating) {
-                return;
-            }
-
-            this.publish();
         };
     };
 
-    let combinedPrototype = createPrototype();
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
-    Entity.prototype = Object.create(combinedPrototype);
-
-    Entity.prototype.toJson = function(){
+    Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
         delete data.visibility;
         delete data.dimension;
@@ -192,12 +172,4 @@ define([
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
 });

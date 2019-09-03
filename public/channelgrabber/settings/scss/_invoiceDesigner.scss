@@ -1,3 +1,6 @@
+$module-grid-gap: 5px 15px;
+$indicator-border-color: #1477aa;
+
 .invoice-designer-container {
   height: 100vh;
 }
@@ -100,6 +103,7 @@
     background-size: cover;
     background-repeat:  no-repeat;
     background-position: left top;
+    overflow: hidden;
 }
 
 .template-paperpage:before, .template-paperpage:after {
@@ -122,32 +126,89 @@
     z-index: -1;
 }
 
-.printpage-fields-container{
+.invoice-designer-2x2-grid-container {
     display: grid;
-    //grid-template-columns: [col1] 50%  [col2] 50%;
-    grid-template-columns: 1fr 1fr;
+    grid-gap: $module-grid-gap;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     width: 100%;
-    grid-gap: 5px 20px;
 }
 
-.printpage-field-container{
+.invoice-designer-multi-page-module-container{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-gap: $module-grid-gap;
+    grid-template-areas:
+            "header1 header1"
+            "rowsInput colsInput"
+            "header2 header2"
+            "heightInput widthInput";
+    width: 100%;
+}
+
+.invoice-designer-multi-page-rows-input{
+    grid-area: rowsInput;
+}
+
+.invoice-designer-multi-page-cols-input{
+    grid-area: colsInput;
+}
+
+.invoice-designer-multi-page-height-input{
+    grid-area: heightInput;
+}
+
+.invoice-designer-multi-page-width-input{
+    grid-area: widthInput;
+}
+
+.invoice-designer-multi-page-header{
+    grid-area: header1;
+}
+
+.invoice-designer-multi-page-header2{
+    grid-area: header2;
+}
+
+.invoice-designer-grid-cell {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.printpage-input{
-    width: 50px;
+.invoice-designer-grid-input{
+    width: 40px;
 }
 
-.template-margin-indicator-element{
+.template-margin-indicator-element {
     position : absolute;
     width : 100%;
     height : 100%;
-    border : 2px dashed lightskyblue;
+    border : 1px dashed $indicator-border-color;
     box-sizing : border-box;
     z-index : 100;
     pointer-events : none;
+}
+
+.template-workable-area-indicator-element {
+    box-sizing: border-box;
+    position: relative;
+    background-color: transparent;
+    z-index: 10;
+    box-shadow: rgba(137, 137, 137, 0.3) 0px 0px 0px 1000in;
+    pointer-events: none;
+}
+
+.template-multi-page-guidelines-container-element {
+    z-index: 10;
+    pointer-events: none;
+    position: absolute;
+    box-sizing: border-box;
+    display: grid;
+}
+
+.template-multi-page-guidelines-cell-element {
+    border: dashed 1px $indicator-border-color;
+    box-sizing: border-box;
 }
 
 .template-element-ordertable{

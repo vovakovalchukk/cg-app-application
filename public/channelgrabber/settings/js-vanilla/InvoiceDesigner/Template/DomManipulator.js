@@ -50,10 +50,10 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates)
     {
         this.showSaveDiscardBar();
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template, performedUpdates]);
         return this;
     };
 
@@ -88,7 +88,7 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.setMarginValueToInput = function(selector, value) {
+    DomManipulator.prototype.setValueToInput = function(selector, value) {
         selector.value = value;
     };
 

@@ -3,21 +3,16 @@ define([
     'InvoiceDesigner/Template/Module/DomListener/PrintPage',
     'InvoiceDesigner/Template/PaperType/Entity',
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Constants'
 ], function(
     ModuleAbstract,
     PrintPageListener,
     PaperType,
     ElementMapperAbstract,
-    domManipulator
+    domManipulator,
+    Constants
 ) {
-    const MARGIN_TO_DIMENSION = {
-        top: 'height',
-        bottom: 'height',
-        left: 'width',
-        right: 'width'
-    };
-
     let PrintPage = function() {
         ModuleAbstract.call(this);
         this.setDomListener(new PrintPageListener());
@@ -37,21 +32,28 @@ define([
         let marginValues = printPage.getData().margin;
         let inputs = this.getDomListener().getInputs();
         for (let marginDirection in marginValues) {
-            domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection]);
+            let value = marginValues[marginDirection];
+            let input = inputs[marginDirection];
+            if (!value || !input) {
+                continue;
+            }
+            domManipulator.setValueToInput(inputs[marginDirection], marginValues[marginDirection]);
         }
     };
 
-    PrintPage.prototype.setPrintPageMargin = function(direction, value, populating) {
+    PrintPage.prototype.setPrintPageMargin = function(direction, value) {
         const template = this.getTemplate();
         const printPage = template.getPrintPage();
+        const multiPage = template.getMultiPage();
 
-        printPage.setMargin(template, direction, value, populating);
+        printPage.setMargin(template, direction, value);
 
-        let dimensionValue = printPage.getNewDimensionValueFromMargin(direction, template);
-
-        printPage.setDimension(template, MARGIN_TO_DIMENSION[direction], dimensionValue);
+        let dimension = Constants.MARGIN_TO_DIMENSION[direction];
+        let gridTrack = Constants.DIMENSION_TO_GRID_TRACK[dimension];
+        let gridTrackValue = multiPage.getGridTrack(gridTrack);
+        let maxValue = multiPage.calculateMaxDimensionValue(template, dimension, gridTrackValue);
+        multiPage.setDimension(dimension, maxValue);
     };
 
     return new PrintPage();
-
 });
