@@ -85,7 +85,7 @@ class EbayChannelFormComponent extends React.Component {
             return null;
         }
         return <Field
-            name="listingTemplate"
+            name="listingTemplateId"
             component={this.renderListingTemplateSelect}
             options={listingTemplates}
             displayTitle={"Listing Template"}
@@ -109,13 +109,14 @@ class EbayChannelFormComponent extends React.Component {
             </div>
         </label>;
     };
+    
     render() {
         let {listingTemplates, features} = this.props.productContextProps;
         return (
             <div className="ebay-channel-form-container channel-form-container">
                 {this.renderListingTemplatesField(listingTemplates, features.listingTemplates)}
                 {this.renderVariationImagePicker()}
-                <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required}/>
+                <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
                 {/** We have to hide the shipping service and shipping price, as new we will show a per category
                  shipping policy instead. We don't remove it completely as we might implement it again later */}
                 {/*<ShippingService shippingServices={this.props.shippingMethods} />*/}

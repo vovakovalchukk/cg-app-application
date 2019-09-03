@@ -205,20 +205,29 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));
         $view->setVariable('pickLocations', $this->pickListService->getPickListSettings($rootOuId)->getLocationNames());
         $view->setVariable('pickLocationValues', $this->pickListService->getPickListValues($rootOuId));
-        $view->setVariable('listingTemplates', $this->getListingTemplates());
+        $view->setVariable('listingTemplates', $this->getListingTemplateOptions());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
     }
 
-    protected function getListingTemplates()
+    protected function getListingTemplateOptions(): array
     {
-        return array(
-            ["id" => 1, "name" => "template1", "value" => "template1"],
-            ["id" => 2, "name" => "template2", "value" => "template2"],
-            ["id" => 3, "name" => "template3", "value" => "template3"]
-        );
+        $options = [];
+        $listingTemplates = $this->productListingService->fetchListingTemplates();
+        if (!$listingTemplates) {
+            return $options;
+        }
+
+        foreach ($listingTemplates as $listingTemplate) {
+            $options[] = [
+                'name' => $listingTemplate->getName(),
+                'value' => $listingTemplate->getId(),
+                'id' => $listingTemplate->getId(),
+            ];
+        }
+        return $options;
     }
 
     protected function getDetailsSidebar()

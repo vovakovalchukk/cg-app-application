@@ -15,7 +15,7 @@ function TemplateSelect(props) {
             classNames={'u-inline-block'}
         />
         <button onClick={props.deleteTemplate} className={"button u-margin-left-small"}>
-            delete
+            Delete
         </button>
     </FieldWithLabel>;
 }
