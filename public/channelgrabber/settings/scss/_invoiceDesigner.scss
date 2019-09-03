@@ -391,6 +391,7 @@ $indicator-border-color: #1477aa;
     display: block;
     margin: 5px 0px 5px 0px;
 }
+
 #template-selector{
     width: 100%;
     min-width: 100%;
@@ -398,6 +399,7 @@ $indicator-border-color: #1477aa;
     clear:both;
     margin-bottom: 8px;
 }
+
 #paper-type-dropdown {
     width: 100%;
     min-width: 100%;
@@ -405,6 +407,7 @@ $indicator-border-color: #1477aa;
     clear:both;
     margin-bottom: 8px;
 }
+
 .paper-type-dimensions-container {
     float: left;
     width: 100%;
@@ -412,33 +415,40 @@ $indicator-border-color: #1477aa;
     align-items: center;
     justify-content: space-between;
 }
+
 .paper-type-dimensions-input {
     width: 45px;
 }
+
 .med-element {
     width: 100%;
     float: left;
     clear:both;
 }
+
 .template-new-btn {
     width: 102px;
     float: left;
     clear:both;
 }
+
 .template-dup-btn {
     width: 100px;
     float: right;
 }
+
 .pdf-btn {
     width: 100%;
     float: left;
     clear:both;
 }
+
 .template-inputbox-holder {
     width: 94%;
     float: left;
     clear:both;
 }
+
 #heading-inspector {
     width: 100%;
     float: left;
@@ -453,9 +463,11 @@ $indicator-border-color: #1477aa;
         margin-top: -5px;
     }
 }
+
 .inspector-module {
     width: 100%;
 }
+
 .inspector-text-align-radio {
     width: 0;
     height: 0;
@@ -486,6 +498,7 @@ $indicator-border-color: #1477aa;
         background-position: center;
     }
 }
+
 .inspector-text-align-radio:checked + .inspector-text-align-label {
     background-color: #fff;
     border-color: #9a9a9a;
@@ -500,11 +513,11 @@ $indicator-border-color: #1477aa;
     }
 }
 
-
 .align_buttons {
     float: left;
     margin-left: 10px;
 }
+
 .color-picker {
     width: 100%!important;
     float: left;

@@ -3,8 +3,7 @@ define([
 ], function(
     $
 ) {
-
-    var AllPagesDisplay = function() {
+    const AllPagesDisplay = function() {
     };
 
     AllPagesDisplay.prototype.init = function(inspector, element) {
