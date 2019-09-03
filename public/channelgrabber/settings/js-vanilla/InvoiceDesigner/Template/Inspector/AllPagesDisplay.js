@@ -7,7 +7,7 @@ define([
     allPagesDisplayDomListener,
     CGMustache
 ) {
-    var AllPagesDisplay = function() {
+    const AllPagesDisplay = function() {
         InspectorAbstract.call(this);
 
         this.setId('allPagesDisplay');
