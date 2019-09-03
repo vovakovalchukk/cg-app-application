@@ -979,7 +979,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c60a37eec1a6b57212da4558d3b81f322c3d5d72"
+                "reference": "0a3a866b6fa94ac0cab48dda773aef52900286e3"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-10420-dpd-brexit-changes as 1.6.1",
