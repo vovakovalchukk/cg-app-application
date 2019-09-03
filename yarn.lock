@@ -2651,7 +2651,7 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-468-poll-the-check-endpoint-for-template-generation":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-447-invoice-designer-improvements":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#a3e1175f0b1c3282c4f25f8f2818eb292a030df9"
   dependencies:
