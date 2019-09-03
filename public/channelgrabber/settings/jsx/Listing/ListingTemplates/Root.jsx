@@ -32,7 +32,7 @@ const RootComponent = props => {
                                     setTemplateSelectValue(option);
                                     setTemplateInitialised(true);
                                     templateName.setValue(option.name);
-                                    templateHTML.setValue(option.html);
+                                    templateHTML.setValue(option.template);
                                 }}
                                 deleteTemplate={deleteTemplateHandler}
                 />
@@ -49,6 +49,7 @@ const RootComponent = props => {
                 <FieldWithLabel label={'Template Name'} className={'u-margin-top-small'}>
                     <Input
                         {...templateName}
+                        inputClassNames={'inputbox u-border-box'}
                     />
                 </FieldWithLabel>
                 }
@@ -61,8 +62,8 @@ const RootComponent = props => {
 
             {templateInitialised &&
             <div>
-                <button className={"u-margin-top-med button"} onClick={openPreview}>preview</button>
-                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>save</button>
+                <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
+                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
             </div>
             }
         </div>
@@ -78,7 +79,7 @@ const RootComponent = props => {
             url: '/settings/listing/preview',
             type: 'POST',
             dataType: 'json',
-            data: {html: templateHTML.value}
+            data: {template: templateHTML.value}
         });
 
         if (response.success) {
@@ -99,8 +100,9 @@ const RootComponent = props => {
 
     async function save() {
         const params = {
-            html: templateHTML.value,
+            template: templateHTML.value,
             id: templateSelectValue && templateSelectValue.id,
+            etag: templateSelectValue && templateSelectValue.etag,
             name: templateName.value
         };
         let response = await $.ajax({
@@ -111,6 +113,10 @@ const RootComponent = props => {
         });
 
         if (response.success) {
+            setTemplateSelectValue({
+                id: response.success.id,
+                etag: response.success.etag
+            });
             n.success(response.success.message);
             return;
         }
@@ -193,10 +199,13 @@ function useTemplateHtmlState(initialValue) {
     }
 
     function setTag(tag, position) {
-        if (position === undefined || !tag) {
+        if (!tag) {
             return;
         }
-        let newStr = `${value.slice(0, position)} {{${tag}}} ${value.slice(position)}`;
+        if(!position){
+            position = 0;
+        }
+        let newStr = `${value.slice(0, position)} ${tag} ${value.slice(position)}`;
         setValue(newStr);
     }
 
