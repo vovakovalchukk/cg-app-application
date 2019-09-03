@@ -20,9 +20,6 @@ define([
 
     Renderer.prototype.init = function(module)
     {
-        console.log('in renderer init');
-        
-        
         DomListenerAbstract.prototype.init.call(this, module);
         this.initElementSelectedListener()
             .initElementDeselectedListener()
@@ -47,7 +44,7 @@ define([
         });
 
         document.addEventListener('click', event => {
-            if (isAnElementClick(event)) {
+            if (isAnElementOrInspectorClick(event)) {
                 return;
             }
             this.getModule().elementDeselected();
@@ -79,8 +76,9 @@ define([
 
     return new Renderer();
 
-    function isAnElementClick(event) {
+    function isAnElementOrInspectorClick(event) {
         const elementClasses = '.' + elementService.getElementDomWrapperClass();
-        return event.target.closest(elementClasses);
+        const inspectorArea = '#element-inspector-bar';
+        return !!event.target.closest(elementClasses) || !!event.target.closest(inspectorArea);
     }
 });
