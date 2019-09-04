@@ -12,12 +12,16 @@ use CG\Intersoft\RoyalMail\Request\PostAbstract;
 use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
 use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Package;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use SimpleXMLElement;
 
-class Create extends PostAbstract
+class Create extends PostAbstract implements LoggerAwareInterface
 {
+    use LogTrait;
+
     static $requestNameSpace = 'createShipmentRequest';
 
     const DATE_FORMAT_SHIPMENT = 'Y-m-d';
@@ -116,11 +120,32 @@ class Create extends PostAbstract
             $deliveryAddress->getLine3()
         ];
 
+//        echo __METHOD__ . "\n <br>";
+
+//        $this->logDebugDump($address, 'ADDRESS', [], 'MYTEST');
+
+        $oneLineAddress = implode(' ', $address);
+
+//        echo __METHOD__ . " 1 \n <br>";
+
         $line1len = strlen($deliveryAddress->getLine1());
-        if ($line1len > 35) {
-            if (($line1len + strlen($deliveryAddress->getLine2()) + strlen($deliveryAddress->getLine3()) + 2) > (3 * 35)) {
+        $line2len = strlen($deliveryAddress->getLine2());
+        if ($line1len > 35 || $line2len > 35) {
+            if (strlen($oneLineAddress) > (3 * 35)) {
                 return $address;
             }
+
+            $address = explode(PHP_EOL, wordwrap($oneLineAddress, 35), 3);
+//            $this->logDebugDump($address, 'ADDRESS AFTER Explode', [], 'MYTEST');
+
+//            echo __METHOD__ . " 2 \n <br>";
+
+            $address = array_map('trim', $address);
+
+//            print_r($address);
+//            echo "\n <br>";
+//
+//            $this->logDebugDump($address, 'ADDRESS AFTER', [], 'MYTEST');
         }
 
         return $address;
@@ -129,13 +154,19 @@ class Create extends PostAbstract
     protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
+
+        $this->logDebugDump($deliveryAddress, 'DELIVERY ADDRESS', [], 'MYTEST');
+
         $destination = $xml->addChild('destination');
         if ($deliveryAddress->getCompanyName()) {
             $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
         }
-        $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
-        $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
-        $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
+
+        $address = $this->reformatDestinationAddressLines($deliveryAddress);
+
+        $destination->addChild('destinationAddressLine1', $this->sanitiseString($address[0] ?? null));
+        $destination->addChild('destinationAddressLine2', $this->sanitiseString($address[1] ?? null));
+        $destination->addChild('destinationAddressLine3', $this->sanitiseString($address[2] ?? null));
         $destination->addChild(
             'destinationCity',
             $this->sanitiseString($deliveryAddress->getLine4())
