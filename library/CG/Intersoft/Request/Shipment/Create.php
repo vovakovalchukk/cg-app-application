@@ -1,6 +1,7 @@
 <?php
 namespace CG\Intersoft\RoyalMail\Request\Shipment;
 
+use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SaturdayDeliveryInterface;
@@ -105,6 +106,24 @@ class Create extends PostAbstract
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
         $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
+    }
+
+    protected function reformatDestinationAddressLines(AddressInterface $deliveryAddress)
+    {
+        $address = [
+            $deliveryAddress->getLine1(),
+            $deliveryAddress->getLine2(),
+            $deliveryAddress->getLine3()
+        ];
+
+        $line1len = strlen($deliveryAddress->getLine1());
+        if ($line1len > 35) {
+            if (($line1len + strlen($deliveryAddress->getLine2()) + strlen($deliveryAddress->getLine3()) + 2) > (3 * 35)) {
+                return $address;
+            }
+        }
+
+        return $address;
     }
 
     protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
