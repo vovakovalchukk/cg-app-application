@@ -137,11 +137,12 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
             let searchProduct = action.payload.searchProduct,
                 productId = action.payload.cgProduct,
-                identifier = state.identifiers[productId];
+                productIdKey = fieldService.getVariationIdWithPrefix(productId),
+                identifier = state.identifiers[productIdKey];
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: Object.assign({}, state.identifiers[productId], {
+                    [productIdKey]: Object.assign({}, state.identifiers[productId], {
                         ean: identifier.ean ? identifier.ean : searchProduct.ean,
                         upc: identifier.upc ? identifier.upc : searchProduct.upc,
                         isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,
@@ -153,6 +154,7 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
         },
         "CLEAR_SELECTED_PRODUCT": function(state, action) {
             let productId = action.payload.productId,
+                productIdKey = fieldService.getVariationIdWithPrefix(productId),
                 variation = action.payload.variationData.find(function(variation) {
                     return variation.id == productId;
                 }),
@@ -160,7 +162,7 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: Object.assign({}, state.identifiers[productId], {
+                    [productIdKey]: Object.assign({}, state.identifiers[productIdKey], {
                         ean: identifier.ean,
                         upc: identifier.upc,
                         isbn: identifier.isbn,

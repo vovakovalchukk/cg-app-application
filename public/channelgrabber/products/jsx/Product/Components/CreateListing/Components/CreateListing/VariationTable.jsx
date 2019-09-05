@@ -25,7 +25,7 @@ const VariationRow = props => (
     </tr>
 );
 
-class VariationTableComponent extends React.PureComponent {
+class VariationTableComponent extends React.Component {
     static defaultProps = {
         variationsDataForProduct: [],
         product: {},

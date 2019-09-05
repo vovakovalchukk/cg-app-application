@@ -1,21 +1,26 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/EntityAbstract',
+    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Constants',
+    'InvoiceDesigner/utility'
 ], function(
     templateService,
     EntityHydrateAbstract,
-    PubSubAbstract
+    EntityAbstract,
+    PubSubAbstract,
+    Constants,
+    utility
 ) {
-    const DIMENSION_TO_TRACK = {
-        height: 'rows',
-        width: 'columns'
-    };
-    const TRACK_TO_DIMENSION = getKeyValueReverse(DIMENSION_TO_TRACK);
+    let {DIMENSION_TO_GRID_TRACK, GRID_TRACK_TO_DIMENSION} = Constants;
 
     const Entity = function() {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
+
+        this.subscribeToTopic(this.getTopicNames().paperSpace, updateDimensionsToMaxValues.bind(this));
 
         let data = {
             rows: null,
@@ -33,6 +38,11 @@ define([
         this.render = function(template, templatePageElement) {
             this.setVisibilityFromData(this.getHeight(), this.getWidth());
             this.renderWorkableAreaIndicator(template, templatePageElement);
+            this.renderMultiPageGuidelines(template, templatePageElement);
+        };
+
+        this.getEntityName = function() {
+            return 'MultiPage';
         };
 
         this.setVisibilityFromData = function(height, width) {
@@ -47,6 +57,33 @@ define([
             let workableAreaIndicatorElement = this.createWorkableAreaIndicator(template);
             templatePageElement.prepend(workableAreaIndicatorElement);
             this.setWorkableAreaIndicatorElement(workableAreaIndicatorElement);
+            return workableAreaIndicatorElement;
+        };
+
+        this.renderMultiPageGuidelines = function(template, templatePageElement) {
+            const paperPage = template.getPaperPage();
+            const printPage = template.getPrintPage();
+
+            const measurementUnit = paperPage.getMeasurementUnit();
+
+            let gridContainer = document.createElement('div');
+            gridContainer.className = 'template-multi-page-guidelines-container-element';
+            gridContainer.style.height = printPage.getHeight(template) + measurementUnit;
+            gridContainer.style.width = printPage.getWidth(template) + measurementUnit;
+            gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(Math.floor(this.get('columns')));
+            gridContainer.style.top = printPage.getMargin('top') + measurementUnit;
+            gridContainer.style.left = printPage.getMargin('left') + measurementUnit;
+            gridContainer.style.bottom = printPage.getMargin('bottom') + measurementUnit;
+            gridContainer.style.right = printPage.getMargin('right') + measurementUnit;
+
+            let numberOfCells = Math.floor(this.get('columns')) * Math.floor(this.get('rows'));
+            for (let i = 0; i < numberOfCells; i++) {
+                let cell = document.createElement('div');
+                cell.className = 'template-multi-page-guidelines-cell-element';
+                gridContainer.prepend(cell);
+            }
+
+            templatePageElement.prepend(gridContainer);
         };
 
         this.createWorkableAreaIndicator = function(template) {
@@ -56,10 +93,11 @@ define([
             const measurementUnit = paperPage.getMeasurementUnit();
 
             let element = document.createElement('div');
-
             let visibility = this.getVisibility();
-            let height = this.getHeight() + measurementUnit;
-            let width = this.getWidth() + measurementUnit;
+
+            let height = this.getHeight(template) + measurementUnit;
+            let width = this.getWidth(template) + measurementUnit;
+
             let top = printPage.getMargin('top') + measurementUnit;
             let left = printPage.getMargin('left') + measurementUnit;
 
@@ -94,16 +132,16 @@ define([
             return data['width'];
         };
 
+        this.getGridTrack = function(gridTrack) {
+            return data[gridTrack];
+        };
+
         this.setDimension = function(dimension, value) {
             this.set(dimension, value);
         };
 
-        this.getRelevantDimensionFromTrack = function(trackProperty) {
-            return TRACK_TO_DIMENSION[trackProperty];
-        };
-
-        this.get = function(field) {
-            return data[field];
+        this.getRelevantDimensionFromGridTrack = function(gridTrackProperty) {
+            return GRID_TRACK_TO_DIMENSION[gridTrackProperty];
         };
 
         this.setMultiple = function(fields, populating) {
@@ -119,20 +157,28 @@ define([
             this.publish();
         };
 
-        this.set = function(field, value, populating) {
-            data[field] = value;
+        function updateDimensionsToMaxValues(publishSettings) {
+            let {template, dimensionAffected, populating} = publishSettings;
+            const multiPage = template.getMultiPage();
+            const gridTrackValue = multiPage.getGridTrack(Constants.DIMENSION_TO_GRID_TRACK[dimensionAffected]);
 
-            if (populating) {
-                return;
-            }
+            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, gridTrackValue);
 
-            this.publish();
-        };
+            this.set(dimensionAffected, maxValue, populating);
+
+            publishSettings.recordEntityUpdate({
+                entity: this.getEntityName(),
+                field: dimensionAffected,
+                value: maxValue
+            })
+        }
     };
 
-    let combinedPrototype = createPrototype();
-
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.getDimensionValueToBeRelativeTo = function(template, dimension) {
         const paperPage = template.getPaperPage();
@@ -143,31 +189,40 @@ define([
 
         if (dimension === 'width') {
             paperPageDimension = paperPage.getWidth();
-            printPageDimension = printPage.getWidth();
+            printPageDimension = printPage.getWidth(template);
         } else {
             paperPageDimension = paperPage.getHeight();
-            printPageDimension = printPage.getHeight();
+            printPageDimension = printPage.getHeight(template);
         }
 
         return printPageDimension ? printPageDimension : paperPageDimension;
     };
 
-    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, trackValue) {
-        let trackProperty = DIMENSION_TO_TRACK[dimension];
+    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, gridTrackValue) {
+        let gridTrackProperty = DIMENSION_TO_GRID_TRACK[dimension];
 
-        let relevantDimension = TRACK_TO_DIMENSION[trackProperty];
+        let relevantDimension = GRID_TRACK_TO_DIMENSION[gridTrackProperty];
 
         let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, relevantDimension);
 
-        trackValue = parseInt(trackValue);
+        gridTrackValue = parseInt(gridTrackValue);
 
-        if (!trackValue) {
+        if (!gridTrackValue) {
             return dimensionValueToBeRelativeTo;
         }
 
-        let maxDimension = Math.floor(dimensionValueToBeRelativeTo / trackValue);
+        let maxDimension = dimensionValueToBeRelativeTo / gridTrackValue;
 
         return maxDimension;
+    };
+
+    Entity.prototype.getGridTrackValueFromDimension = function(template, dimension, dimensionValue) {
+        if (!dimensionValue) {
+            return;
+        }
+        let maximumArea = this.getDimensionValueToBeRelativeTo(template, dimension);
+        let gridTrackValue = maximumArea / dimensionValue;
+        return gridTrackValue;
     };
 
     Entity.prototype.toJson = function() {
@@ -183,22 +238,4 @@ define([
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
-
-    function getKeyValueReverse(forwardObject) {
-        let reversed = {};
-        for (let key in forwardObject) {
-            if (forwardObject.hasOwnProperty(key)) {
-                reversed[forwardObject[key]] = key;
-            }
-        }
-        return reversed;
-    }
 });

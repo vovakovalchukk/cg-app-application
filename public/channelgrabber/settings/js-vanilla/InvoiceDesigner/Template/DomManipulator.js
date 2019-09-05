@@ -50,10 +50,10 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates)
     {
         this.showSaveDiscardBar();
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template, performedUpdates]);
         return this;
     };
 

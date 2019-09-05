@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/Template/Service',
-    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityHydrateAbstract'
 ], function(
     templateService,
     EntityHydrateAbstract
@@ -20,6 +20,10 @@ define([
         this.getService = function()
         {
             return service;
+        };
+
+        this.getEntityName = function() {
+            return 'PaperType';
         };
 
         this.getId = function()

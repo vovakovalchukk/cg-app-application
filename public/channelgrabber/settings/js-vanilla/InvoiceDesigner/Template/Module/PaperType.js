@@ -77,12 +77,13 @@ define([
     };
 
     PaperType.prototype.changePaperDimension = function(property, newValue) {
-        let paperPage = this.getTemplate().getPaperPage();
+        const template = this.getTemplate();
+        const paperPage = template.getPaperPage();
         if (property === 'height') {
-            paperPage.setHeight(newValue);
+            paperPage.setHeight(template, newValue);
             return;
         }
-        paperPage.setWidth(newValue);
+        paperPage.setWidth(template, newValue);
     };
 
     PaperType.prototype.changeMeasurementUnit = function(value) {
@@ -104,7 +105,8 @@ define([
             throw 'InvalidSelectionException: InvoiceDesigner/Template/Module/PaperType.selectionMade() received an id which does not exist';
         }
 
-        let paperPage = this.getTemplate().getPaperPage();
+        const template = this.getTemplate();
+        const paperPage = template.getPaperPage();
 
         let height = selectedPaperType.getHeight();
         let width = selectedPaperType.getWidth();
@@ -113,18 +115,18 @@ define([
         setPaperDimensionFields({height, width});
 
         if (initialise) {
-            paperPage.set('height', height, true);
-            paperPage.set('width', width, true);
-            paperPage.set('paperType', paperTypeId, true);
+            paperPage.setHeight(template, height, true);
+            paperPage.setWidth(template, width, true);
+            paperPage.setPaperType(template, paperTypeId, true);
             return;
         }
 
         paperPage.setMeasurementUnit('mm');
         this.populateMeasurementUnitSelect('mm');
 
-        paperPage.setHeight(height);
-        paperPage.setWidth(width);
-        paperPage.setPaperType(paperTypeId);
+        paperPage.setHeight(template, height);
+        paperPage.setWidth(template, width);
+        paperPage.setPaperType(template, paperTypeId);
     };
 
     return new PaperType();

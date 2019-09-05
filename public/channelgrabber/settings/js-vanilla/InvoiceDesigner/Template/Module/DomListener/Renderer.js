@@ -45,9 +45,10 @@ define([
     Renderer.prototype.initTemplateChangeListener = function()
     {
         var self = this;
-        $(document).off(domManipulator.getTemplateChangedEvent()).on(domManipulator.getTemplateChangedEvent(), function(event, template)
+
+        $(document).on(domManipulator.getTemplateChangedEvent(), function(event, template, performedUpdates)
         {
-            self.getModule().templateChanged(template);
+            self.getModule().templateChanged(template, performedUpdates);
         });
         return this;
     };

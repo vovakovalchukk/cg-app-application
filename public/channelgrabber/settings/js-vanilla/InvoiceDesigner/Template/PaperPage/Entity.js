@@ -1,15 +1,20 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/PubSubAbstract',
-    'Common/IdGenerator'
+    'Common/IdGenerator',
+    'InvoiceDesigner/utility'
 ], function(
     EntityHydrateAbstract,
+    EntityAbstract,
     PubSubAbstract,
-    idGenerator
+    idGenerator,
+    utility
 ) {
     var Entity = function()
     {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
 
         var contents;
@@ -19,6 +24,10 @@ define([
             width: undefined,
             paperType: undefined,
             measurementUnit: undefined
+        };
+
+        this.getEntityName = function() {
+            return 'PaperPage';
         };
 
         this.getId = function()
@@ -40,9 +49,14 @@ define([
             return this.get('height');
         };
 
-        this.setHeight = function(newHeight)
+        this.setHeight = function(template, newHeight, populating)
         {
-            this.set('height', parseFloat(newHeight));
+            this.set("height", parseFloat(newHeight), populating, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: "height",
+                populating: false
+            }]);
             return this;
         };
 
@@ -51,9 +65,14 @@ define([
             return this.get('width');
         };
 
-        this.setWidth = function(newWidth)
+        this.setWidth = function(template, newWidth, populating)
         {
-            this.set('width', parseFloat(newWidth));
+            this.set('width', parseFloat(newWidth), populating, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: "width",
+                populating: false
+            }]);
             return this;
         };
 
@@ -77,21 +96,6 @@ define([
         {
             this.set('measurementUnit', value, populating);
             return this;
-        };
-
-        this.get = function(field)
-        {
-            return data[field];
-        };
-
-        this.set = function(field, value, populating)
-        {
-            data[field] = value;
-
-            if (populating) {
-                return;
-            }
-            this.publish();
         };
 
         this.getData = function()
@@ -119,25 +123,19 @@ define([
         };
     };
 
-    let combinedPrototype = createPrototype();
-
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
-        json.height = Number(json.height).mmToPt();
-        json.width = Number(json.width).mmToPt(); 
+        json.height = Number(json.height);
+        json.width = Number(json.width);
         return json;
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
 });

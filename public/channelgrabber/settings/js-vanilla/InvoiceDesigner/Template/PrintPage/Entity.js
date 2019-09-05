@@ -1,21 +1,21 @@
 define([
     'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Constants',
+    'InvoiceDesigner/utility'
 ], function(
     templateService,
+    EntityAbstract,
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    Constants,
+    utility
 ) {
-    const MARGIN_TO_DIMENSION = {
-        top: 'height',
-        bottom: 'height',
-        left: 'width',
-        right: 'width'
-    };
-
     const Entity = function() {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
 
         let data = {
@@ -24,10 +24,6 @@ define([
                 bottom: null,
                 left: null,
                 right: null
-            },
-            dimension: {
-                height: null,
-                width: null
             },
             visibility: false
         };
@@ -41,6 +37,10 @@ define([
             let data = this.getData();
             this.setVisibilityFromData(data);
             this.renderMarginIndicatorElement(template, data, templatePageElement);
+        };
+
+        this.getEntityName = function() {
+            return 'PrintPage';
         };
 
         this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
@@ -63,41 +63,6 @@ define([
             data.visibility = value;
         };
 
-        this.getNewDimensionValueFromMargin = function(direction, template) {
-            let margins = template.getPrintPage().getMargins();
-
-            if (MARGIN_TO_DIMENSION[direction] === 'height') {
-                return this.calculateHeightDimensionFromMargins(template, margins);
-            }
-            return this.calculateWidthDimensionFromMargins(template, margins);
-        };
-
-        this.calculateHeightDimensionFromMargins = function(template, margins) {
-            const paperPage = template.getPaperPage();
-
-            if(!margins){
-                return paperPage.getHeight();
-            }
-
-            let topMargin = margins.top ? margins.top : 0;
-            let bottomMargin = margins.bottom ? margins.bottom : 0;
-
-            return paperPage.getHeight() - (topMargin + bottomMargin);
-        };
-
-        this.calculateWidthDimensionFromMargins = function(template, margins) {
-            const paperPage = template.getPaperPage();
-
-            if(!margins){
-                return paperPage.getWidth();
-            }
-
-            let leftMargin = margins.left ? margins.left : 0;
-            let rightMargin = margins.right ? margins.right : 0;
-
-            return paperPage.getWidth() - (leftMargin + rightMargin)
-        };
-
         this.setMarginIndicatorElement = function(element) {
             marginIndicatorElement = element;
         };
@@ -113,10 +78,10 @@ define([
             marginIndicatorElement.id = 'templateMarginIndicator';
             marginIndicatorElement.className = 'template-margin-indicator-element';
             marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
-            marginIndicatorElement.style.height = this.getHeight() + measurementUnit;
-            marginIndicatorElement.style.width = this.getWidth() + measurementUnit;
+            marginIndicatorElement.style.height = this.getHeight(template) + measurementUnit;
+            marginIndicatorElement.style.width = this.getWidth(template) + measurementUnit;
 
-            if(!data.margin){
+            if (!data.margin) {
                 return marginIndicatorElement;
             }
 
@@ -158,53 +123,45 @@ define([
 
             let newMarginState = Object.assign({}, data.margin);
             newMarginState[direction] = value;
-            this.set("margin", newMarginState);
+
+            this.set("margin", newMarginState, false, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: Constants.MARGIN_TO_DIMENSION[direction],
+                populating: false
+            }]);
         };
 
-        this.setDimension = function(template, dimension, value) {
-            const measurementUnit = template.getPaperPage().getMeasurementUnit();
-            let marginIndicatorElement = this.getMarginIndicatorElement();
-            dimension[dimension] = value;
-            if (!marginIndicatorElement) {
-                return;
-            }
-            marginIndicatorElement.style[dimension] = value + measurementUnit;
+        this.getHeight = function(template) {
+            const paperPage = template.getPaperPage();
+
+            let top = data.margin['top'] || 0;
+            let bottom = data.margin['bottom'] || 0;
+
+            let height = paperPage.getHeight() - top - bottom;
+            return height;
         };
 
-        this.getDimension = function(dimension) {
-            return data.dimension[dimension]
-        };
+        this.getWidth = function(template) {
+            const paperPage = template.getPaperPage();
 
-        this.getHeight = function() {
-            return data.height;
-        };
+            let left = data.margin['left'] || 0;
+            let right = data.margin['right'] || 0;
 
-        this.getWidth = function() {
-            return data.width;
+            let width = paperPage.getWidth() - left - right;
+            return width;
         };
 
         this.setVisibility = function(isVisible) {
             data.visibility = isVisible;
         };
-
-        this.get = function(field) {
-            return data[field];
-        };
-
-        this.set = function(field, value, populating) {
-            data[field] = value;
-
-            if (populating) {
-                return;
-            }
-
-            this.publish();
-        };
     };
 
-    let combinedPrototype = createPrototype();
-
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
@@ -215,12 +172,4 @@ define([
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
 });

@@ -23,11 +23,39 @@ define([
     MultiPage.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.initialiseMultiPageInputs(template);
+        let templateDomManipulator = template.getDomManipulator();
+
+        $(document).on(
+            templateDomManipulator.getTemplateChangedEvent(),
+            this.reactToTemplateChange.bind(this)
+        );
+    };
+
+    MultiPage.prototype.reactToTemplateChange = function(event, template, performedUpdates) {
+        if (!performedUpdates) {
+            return;
+        }
+        let multiPageUpdate = performedUpdates.find(update => (
+            update.entity === template.getMultiPage().getEntityName()
+        ));
+        if (!multiPageUpdate) {
+            return;
+        }
+
+        let inputs = this.getDomListener().getInputs();
+        let inputToChange = inputs[multiPageUpdate.field];
+        let valueToApply = multiPageUpdate.value;
+        if (!inputToChange || (typeof valueToApply === "undefined")) {
+            return;
+        }
+        domManipulator.setValueToInput(inputToChange, valueToApply);
     };
 
     MultiPage.prototype.initialiseMultiPageInputs = function(template) {
-        let multiPageData = template.getMultiPage().getData();
-        let inputs = this.getDomListener().getInputs();
+        const multiPage = template.getMultiPage();
+        const multiPageData = multiPage.getData();
+        const inputs = this.getDomListener().getInputs();
+
         for (let property in multiPageData) {
             let input = inputs[property];
             let value = multiPageData[property];
@@ -38,18 +66,18 @@ define([
         }
     };
 
-    MultiPage.prototype.setTrack = function(value, track) {
+    MultiPage.prototype.setGridTrack = function(value, gridTrack) {
         const template = this.getTemplate();
         const multiPage = this.getTemplate().getMultiPage();
         const inputs = this.getDomListener().getInputs();
 
-        const dimensionProperty = multiPage.getRelevantDimensionFromTrack(track);
+        const dimensionProperty = multiPage.getRelevantDimensionFromGridTrack(gridTrack);
         const maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
 
         domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
 
         multiPage.setMultiple({
-            [track]: value,
+            [gridTrack]: value,
             [dimensionProperty]: maxDimensionValue
         });
     };

@@ -108,26 +108,17 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
-        if(!json){
-            json = {
-                'height': null,
-                'width': null
-            };
-        }
-
-        let height = printPage.calculateHeightDimensionFromMargins(template, json.margin);
-        let width = printPage.calculateWidthDimensionFromMargins(template, json.margin);
-
-        json['height'] = height;
-        json['width'] = width;
-
         printPage.hydrate(json, populating);
     };
 
     Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {
-        if(!json) {
+        if (!json) {
             json = {};
         }
+
+        json['columns'] = multiPage.getGridTrackValueFromDimension(template, 'width', json['width']);
+        json['rows'] = multiPage.getGridTrackValueFromDimension(template, 'height', json['height']);
+
         multiPage.hydrate(json, populating);
     };
 

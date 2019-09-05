@@ -81,21 +81,22 @@ class CreateListingPopup extends React.Component {
     };
 
     findSearchAccountId = () => {
-        let accountId = this.props.accounts.find(function(accountId) {
+        let accountId = Object.keys(this.props.accountsData).find((accountId) => {
             let accountData = this.props.accountsData[accountId];
-            return accountData.channel == 'ebay' && accountData.listingsAuthActive;
-        }, this);
+            return accountData.channel === 'ebay' && accountData.listingsAuthActive;
+        });
 
         return accountId > 0 ? accountId : null;
     };
 
     renderProductSearchComponent = () => {
-        if (!this.shouldRenderProductSearchComponent()) {
+        let searchAccountId = this.findSearchAccountId();
+        if (!this.shouldRenderProductSearchComponent(searchAccountId)) {
             return null;
         }
 
         return <ProductSearch
-            accountId={this.props.searchAccountId}
+            accountId={searchAccountId}
             mainProduct={this.props.product}
             variationsDataForProduct={this.props.variationsDataForProduct}
             clearSelectedProduct={this.props.clearSelectedProduct}
@@ -104,12 +105,12 @@ class CreateListingPopup extends React.Component {
         />;
     };
 
-    shouldRenderProductSearchComponent = () => {
+    shouldRenderProductSearchComponent = (searchAccountId) => {
         if (!this.props.productSearchActive) {
             return false;
         }
 
-        return !!this.props.searchAccountId;
+        return !!searchAccountId;
     };
 
     renderInputComponent = (field) => {

@@ -1,60 +1,112 @@
 <?php
 namespace Settings\ListingTemplate;
 
+use CG\Listing\Template\Collection as ListingTemplateCollection;
+use CG\Listing\Template\Entity as ListingTemplate;
+use CG\Listing\Template\Filter as ListingTemplateFilter;
+use CG\Listing\Template\Mapper as ListingTemplateMapper;
+use CG\Listing\Template\Service as ListingTemplateService;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Template\Element\SimpleString as SimpleStringElement;
+use CG\Template\ReplaceManager\Product as ProductTagReplacer;
+use CG\User\ActiveUserInterface;
+
 class Service
 {
     const FEATURE_FLAG = 'Ebay Listing Templates';
 
-    public function getListingTemplateTags(): array
-    {
-        return [
-            ['id'=> 1, 'tag' => 'title'],
-            ['id'=> 2, 'tag' => 'description'],
-            ['id'=> 2, 'tag' => 'bin'],
-            ['id'=> 2, 'tag' => 'brand'],
-            ['id'=> 2, 'tag' => 'manufacturer'],
-            ['id'=> 2, 'tag' => 'barcode'],
-            ['id'=> 2, 'tag' => 'weight'],
-            ['id'=> 2, 'tag' => 'tax'],
-            ['id'=> 2, 'tag' => 'condition'],
-            ['id'=> 2, 'tag' => 'image1'],
-            ['id'=> 2, 'tag' => 'image2'],
-            ['id'=> 2, 'tag' => 'image3'],
-            ['id'=> 2, 'tag' => 'image4'],
-            ['id'=> 2, 'tag' => 'image5'],
-            ['id'=> 2, 'tag' => 'image6'],
-            ['id'=> 2, 'tag' => 'image7'],
-            ['id'=> 2, 'tag' => 'image8'],
-            ['id'=> 2, 'tag' => 'image9'],
-            ['id'=> 2, 'tag' => 'image10']
-        ];
+    /** @var ListingTemplateService */
+    protected $listingTemplateService;
+    /** @var ListingTemplateMapper */
+    protected $listingTemplateMapper;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
+    /** @var ProductTagReplacer */
+    protected $productTagReplacer;
+
+    public function __construct(
+        ListingTemplateService $listingTemplateService,
+        ListingTemplateMapper $listingTemplateMapper,
+        ActiveUserInterface $activeUserContainer,
+        ProductTagReplacer $productTagReplacer
+    ) {
+        $this->listingTemplateService = $listingTemplateService;
+        $this->listingTemplateMapper = $listingTemplateMapper;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->productTagReplacer = $productTagReplacer;
     }
 
-    public function getUsersTemplates(): array
+    public function getListingTemplateTags(): array
     {
-        // todo - replace with non dummy data as part of TAC-433
-        return [
-            [
-                'id' => 1,
-                'name' => 'template1',
-                'html' => "<h1>Template 1 Title</h1>
-                    some content in the template
-                "
-            ],
-            [
-                'id' => 2,
-                'name' => 'template2',
-                'html' => "<h1>Template 2 Title</h1>
-                    some content in the template
-                "
-            ],
-            [
-                'id' => 3,
-                'name' => 'template3',
-                'html' => "<h1>Template 3 Title</h1>
-                    some content in the template
-                "
-            ]
-        ];
+        $tagOptions = [];
+        foreach ($this->productTagReplacer->getAvailableTags() as $name => $value) {
+            $tagOptions[] = ['name' => $name, 'value' => $value];
+        }
+        return $tagOptions;
+    }
+
+    public function getUsersTemplates(): ListingTemplateCollection
+    {
+        try {
+            $filter = (new ListingTemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
+
+            return $this->listingTemplateService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new ListingTemplateCollection(ListingTemplate::class, 'empty');
+        }
+    }
+
+    public function saveFromPostData(array $data): ListingTemplate
+    {
+        if (isset($data['id']) && (int)$data['id'] > 0) {
+            $template = $this->listingTemplateService->fetch($data['id']);
+            return $this->updateFromPostData($template, $data);
+        }
+        return $this->createFromPostData($data);
+    }
+
+    protected function createFromPostData(array $data): ListingTemplate
+    {
+        $data['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $template = $this->listingTemplateMapper->fromArray($data);
+        return $this->save($template);
+    }
+
+    protected function updateFromPostData(ListingTemplate $template, array $data): ListingTemplate
+    {
+        $template->setStoredETag($data['etag']);
+        unset($data['id'], $data['etag']);
+        foreach ($data as $field => $value) {
+            $setter = 'set' . ucfirst($field);
+            $template->{$setter}($value);
+        }
+        return $this->save($template);
+    }
+
+    protected function save(ListingTemplate $template): ListingTemplate
+    {
+        $savedTemplateHal = $this->listingTemplateService->save($template);
+        $savedTemplate = $this->listingTemplateMapper->fromHal($savedTemplateHal);
+        // Annoyingly save doesn't return an etag, have to fetch
+        return $this->listingTemplateService->fetch($savedTemplate->getId());
+    }
+
+    public function delete(int $id): void
+    {
+        $template = $this->listingTemplateService->fetch($id);
+        $this->listingTemplateService->remove($template);
+    }
+
+    public function renderPreviewHtml(string $template): string
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $element = new SimpleStringElement($template);
+        $product = new PreviewProduct($rootOuId);
+        $productDetail = new PreviewProductDetail($rootOuId);
+        $element = $this->productTagReplacer->replaceTagsOnElementForProductAndDetail($element, $product, $productDetail);
+        return $element->getReplacedText();
     }
 }
