@@ -82,6 +82,13 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData, populating) {
         var elementType = elementData.type.ucfirst();
+
+
+        if(elementType.toLowerCase().includes('table')) {
+            //todo - put dummy tableData in here...
+//            elementTable.tableColumns = []
+        }
+
         elementData.x = Number(elementData.x).ptToMm();
         elementData.y = Number(elementData.y).ptToMm();
         elementData.height = Number(elementData.height).ptToMm();
@@ -96,6 +103,7 @@ define([
         if (elementData.borderWidth) {
             elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
+        console.log('about to hydrate');
         element.hydrate(elementData, populating);
         return element;
     };
@@ -123,6 +131,9 @@ define([
     };
 
     Mapper.prototype.toJson = function(template) {
+        const paperPage = template.getPaperPage().toJson();
+        console.log('paperPage: ', paperPage);
+        
         var json = {
             storedETag: template.getStoredETag(),
             id: template.getId(),
@@ -130,7 +141,7 @@ define([
             typeId: template.getTypeId(),
             name: template.getName(),
             organisationUnitId: template.getOrganisationUnitId(),
-            paperPage: template.getPaperPage().toJson(),
+            paperPage,
             printPage: template.getPrintPage().toJson(),
             multiPage: template.getMultiPage().toJson(),
             elements: [],
