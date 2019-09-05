@@ -37,6 +37,7 @@ class Create extends PostAbstract implements LoggerAwareInterface
     const MAX_LEN_DESCRIPTION = 255;
     const MAX_LEN_DELIVERY_PHONE_NUMBER = 20;
     const MIN_FINANCIAL_VALUE = 0.01;
+    const MAX_ADDRESS_FIELDS = 3;
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -112,51 +113,9 @@ class Create extends PostAbstract implements LoggerAwareInterface
         return $xml;
     }
 
-    protected function reformatDestinationAddressLines(AddressInterface $deliveryAddress)
-    {
-        $address = [
-            $deliveryAddress->getLine1(),
-            $deliveryAddress->getLine2(),
-            $deliveryAddress->getLine3()
-        ];
-
-//        echo __METHOD__ . "\n <br>";
-
-//        $this->logDebugDump($address, 'ADDRESS', [], 'MYTEST');
-
-        $oneLineAddress = implode(' ', $address);
-
-//        echo __METHOD__ . " 1 \n <br>";
-
-        $line1len = strlen($deliveryAddress->getLine1());
-        $line2len = strlen($deliveryAddress->getLine2());
-        if ($line1len > 35 || $line2len > 35) {
-            if (strlen($oneLineAddress) > (3 * 35)) {
-                return $address;
-            }
-
-            $address = explode(PHP_EOL, wordwrap($oneLineAddress, 35), 3);
-//            $this->logDebugDump($address, 'ADDRESS AFTER Explode', [], 'MYTEST');
-
-//            echo __METHOD__ . " 2 \n <br>";
-
-            $address = array_map('trim', $address);
-
-//            print_r($address);
-//            echo "\n <br>";
-//
-//            $this->logDebugDump($address, 'ADDRESS AFTER', [], 'MYTEST');
-        }
-
-        return $address;
-    }
-
     protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
-
-        $this->logDebugDump($deliveryAddress, 'DELIVERY ADDRESS', [], 'MYTEST');
-
         $destination = $xml->addChild('destination');
         if ($deliveryAddress->getCompanyName()) {
             $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
@@ -340,6 +299,38 @@ class Create extends PostAbstract implements LoggerAwareInterface
             return '';
         }
         return htmlspecialchars(mb_substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
+    }
+
+    protected function reformatDestinationAddressLines(AddressInterface $deliveryAddress): array
+    {
+        $address = [
+            $deliveryAddress->getLine1(),
+            $deliveryAddress->getLine2(),
+            $deliveryAddress->getLine3()
+        ];
+
+        $line1len = mb_strlen($deliveryAddress->getLine1());
+        $line2len = mb_strlen($deliveryAddress->getLine2());
+        $line3len = mb_strlen($deliveryAddress->getLine3());
+        if ($line1len <= static::MAX_LEN_DEFAULT && $line2len <= static::MAX_LEN_DEFAULT && $line3len <= static::MAX_LEN_DEFAULT) {
+            return $address;
+        }
+
+        if (empty($address[2])) {
+            unset($address[2]);
+        }
+
+        $maxAvailableCharacters = static::MAX_ADDRESS_FIELDS * static::MAX_LEN_DEFAULT;
+        $oneLineAddress = implode(', ', $address);
+        $oneLineAddress = str_replace(',,', ',', $oneLineAddress);
+        if (strlen($oneLineAddress) > $maxAvailableCharacters) {
+            return $address;
+        }
+
+        $address = explode(PHP_EOL, wordwrap($oneLineAddress, static::MAX_LEN_DEFAULT), static::MAX_ADDRESS_FIELDS);
+        $address = array_map('trim', $address);
+
+        return $address;
     }
 
     protected function getDeliveryPhoneNumber(): string
