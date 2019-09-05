@@ -12,16 +12,12 @@ use CG\Intersoft\RoyalMail\Request\PostAbstract;
 use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
 use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Package;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use SimpleXMLElement;
 
-class Create extends PostAbstract implements LoggerAwareInterface
+class Create extends PostAbstract
 {
-    use LogTrait;
-
     static $requestNameSpace = 'createShipmentRequest';
 
     const DATE_FORMAT_SHIPMENT = 'Y-m-d';

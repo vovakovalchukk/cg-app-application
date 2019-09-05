@@ -65,8 +65,6 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        $this->logger->debug(print_r($shipment,1));
-
         $this->logger->debug('Booking Royal Mail Intersoft shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
         return ($this->shipmentBooker)($shipment);
     }
