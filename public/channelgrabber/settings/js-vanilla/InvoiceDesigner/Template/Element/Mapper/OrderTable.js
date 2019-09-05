@@ -18,44 +18,69 @@ define([
 
     OrderTable.prototype.getHtmlContents = function(element) {
         console.log('in geHtmlCOntents');
-        
         const tableColumns = element.getTableColumns();
-        var tableStyles = [];
-        var tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
-        tableStyles = this.addOptionalDomStyles(element, tableAttributes, tableStyles);
-        if (element.getBorderWidth()) {
-            tableStyles.push('border-style: solid');
-        }
-        var cssStyle = tableStyles.join('; ');
-//
+        const inlineStyles = this.getTableStyles(element);
 
-        const html = `<table class="template-element-ordertable-main" style="${cssStyle}">
+        const renderColumns = this.renderColumns.bind(this, tableColumns);
+
+        const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">
             <tr>
-                ${tableColumns.map(column => (
-                    `<th>${column.headerText}</th>`
+                ${renderColumns(column => (
+                    `<th style="${inlineStyles}">${column.headerText}</th>`
                 ))}
             </tr>
             <tr>
-                ${tableColumns.map(column => (
-                    `<td>${column.cellPlaceholder}</td>`
+                 ${renderColumns(column => (
+                    `<td style="${inlineStyles}">${column.cellPlaceholder}</td>`
                 ))}
-            </tr>   
+            </tr>
         </table>`;
+        return html;
 
-//
+
+//        const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">
+//            <tr>
+//                ${tableColumns.map(column => (
+//                    `<th style="${inlineStyles}">${column.headerText}</th>`
+//                )).join('')}
+//            </tr>
+//            <tr>
+//                ${tableColumns.map(column => (
+//                    `<td style="${inlineStyles}">${column.cellPlaceholder}</td>`
+//                )).join('')}
+//            </tr>
+//        </table>`;
+//        return html;
+
 //        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH + 'orderTable.mustache';
 //        var data = {
-//            tableStyles: cssStyle,
-//            tableHeaderStyles: cssStyle,
-//            tableDataStyles: cssStyle
+//            tableStyles: inlineStyles,
+//            tableHeaderStyles: inlineStyles,
+//            tableDataStyles: inlineStyles
 //        };
 //        var html = this.renderMustacheTemplate(templateUrl, data);
-        return html;
+//        return html;
     };
 
     OrderTable.prototype.createElement = function() {
         console.log('in create element');
         return new OrderTableElement();
+    };
+
+    OrderTable.prototype.renderColumns = function(tableColumns, render) {
+        return tableColumns.map(column => (
+            render(column)
+        )).join('');
+    };
+
+    OrderTable.prototype.getTableStyles = function(element) {
+        let tableStyles = [];
+        const tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
+        tableStyles = this.addOptionalDomStyles(element, tableAttributes, tableStyles);
+        if (element.getBorderWidth()) {
+            tableStyles.push('border-style: solid');
+        }
+        return tableStyles.join('; ');
     };
 
     return new OrderTable();
