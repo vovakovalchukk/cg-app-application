@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b13c1971163ca73e1712c0c4cf214ac",
+    "content-hash": "255c56a0f37f6bdf96d8df8a28fa1431",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2098,12 +2098,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "aa3520a14f3cfbaea14fc1cd3201d4dd77e7c4ac"
+                "reference": "dc47b6b27a93ab8f308f907e05b639efcd9316e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-472-template-printpage-and-multipage-backend-7a9de4.zip",
-                "reference": "aa3520a14f3cfbaea14fc1cd3201d4dd77e7c4ac"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-472-template-printpage-and-multipage-backend-324605.zip",
+                "reference": "dc47b6b27a93ab8f308f907e05b639efcd9316e2"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2178,7 +2178,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-09-05T09:45:49+00:00"
+            "time": "2019-09-09T08:36:16+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2431,22 +2431,22 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.2.1",
+            "version": "dev-TAC-472-template-printpage-and-multipage-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061"
+                "reference": "e51ae207573afef4193e8f2fe949d0d215e6e248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.1-e98dbd.zip",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-TAC-472-template-printpage-and-multipage-backend-b852a6.zip",
+                "reference": "e51ae207573afef4193e8f2fe949d0d215e6e248"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.6.9",
+                "channelgrabber/template": "dev-TAC-472-template-printpage-and-multipage-backend as 1.7.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2470,7 +2470,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-03T11:12:34+00:00"
+            "time": "2019-09-09T08:42:15+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -3451,12 +3451,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "88d61d65c7a93bc5b73cbd3e7e6d5014ad70c3bf"
+                "reference": "9f2871703fa41facdb80799db9cdd195e750f39f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-472-template-printpage-and-multipage-backend-80dba6.zip",
-                "reference": "88d61d65c7a93bc5b73cbd3e7e6d5014ad70c3bf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-472-template-printpage-and-multipage-backend-c77db1.zip",
+                "reference": "9f2871703fa41facdb80799db9cdd195e750f39f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3504,7 +3504,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-09-06T09:37:16+00:00"
+            "time": "2019-09-06T13:45:18+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11340,6 +11340,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.3.0",
+            "alias_normalized": "1.3.0.0",
+            "version": "dev-TAC-472-template-printpage-and-multipage-backend",
+            "package": "channelgrabber/picklist"
+        },
+        {
             "alias": "1.7.0",
             "alias_normalized": "1.7.0.0",
             "version": "dev-TAC-472-template-printpage-and-multipage-backend",
@@ -11356,6 +11362,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/picklist": 20,
         "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,

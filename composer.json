@@ -60,7 +60,7 @@
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.5.2",
-        "channelgrabber/picklist": "~1.2.1",
+        "channelgrabber/picklist": "dev-TAC-472-template-printpage-and-multipage-backend as 1.3.0",
         "channelgrabber/predis": "~1.1.5",
         "channelgrabber/product": "~1.18.0",
         "channelgrabber/profiling": "^1.1",
