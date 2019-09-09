@@ -8,21 +8,23 @@ define([
         return this;
     };
 
+    dragAndDropList.DELETE_ROW_DELETE_CLASSNAME = 'delete-row-item';
+
     dragAndDropList.prototype.generateList = function(columns, targetNode, listClass) {
         this.columns = columns.slice();
-        this.nodeMap = new Map;
+        this.rowMap = new Map;
         this.sortableListNode = null;
-
+        
         let html = `<div>
                     <h3>table columns</h3>
                     <div class="${listClass}">
                         ${this.columns.map(column => {
-            return `<div>
+                            return `<div>
                                     <a title="drag">drag</a>
                                         ${column.headerText}
-                                    <a title="delete">delete</a>
+                                    <a title="delete" class="${dragAndDropList.DELETE_ROW_DELETE_CLASSNAME}">delete</a>
                             </div>`
-        }).join('')}
+                        }).join('')}
                     </div>
                 </div>`;
 
@@ -32,12 +34,22 @@ define([
         this.sortableListNode = document.getElementsByClassName(listClass)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
-           this.nodeMap.set(node, this.columns[index]);
+           this.rowMap.set(node, this.columns[index]);
         });
 
         this.enableDragList();
 
         return fragment;
+    };
+
+    dragAndDropList.prototype.removeItemClick = function(rowNode) {
+        let columnForNode = this.rowMap.get(rowNode);
+
+        this.columns = this.columns.filter(column => column !== columnForNode)
+        this.rowMap.delete(rowNode);
+        rowNode.parentNode.removeChild(rowNode);
+
+        this.handleListChange(this.columns);
     };
 
     dragAndDropList.prototype.handleDrop = function(item) {
@@ -51,10 +63,12 @@ define([
         });
     };
 
-    dragAndDropList.prototype.enableDragItem = function(item) {
-        item.setAttribute('draggable', true)
-        item.ondrag = this.handleDrag.bind(this);
-        item.ondragend = this.handleDrop.bind(this);
+    dragAndDropList.prototype.enableDragItem = function(row) {
+        row.setAttribute('draggable', true)
+        row.ondrag = this.handleDrag.bind(this);
+        row.ondragend = this.handleDrop.bind(this);
+        let deleteNode = row.getElementsByClassName(dragAndDropList.DELETE_ROW_DELETE_CLASSNAME)[0];
+        deleteNode.onclick = this.removeItemClick.bind(this, row);
     };
 
     dragAndDropList.prototype.handleDrag = function(item) {
@@ -74,7 +88,7 @@ define([
         list.insertBefore(selectedItem, swapItem);
 
         [...list.children].forEach((node, index) => {
-            const columnJson = this.nodeMap.get(node);
+            const columnJson = this.rowMap.get(node);
             columnJson.position = index;
         });
     };
