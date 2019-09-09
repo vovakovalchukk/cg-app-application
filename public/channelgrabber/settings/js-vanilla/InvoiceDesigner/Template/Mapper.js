@@ -82,11 +82,29 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData, populating) {
         var elementType = elementData.type.ucfirst();
-
-
+//
+        //todo - remove this hack
         if(elementType.toLowerCase().includes('table')) {
-            //todo - put dummy tableData in here...
-//            elementTable.tableColumns = []
+            elementData.tableColumns = [             {
+                id: 'quantity',
+                position: 1,
+                default: true,
+                headerText: 'Quantity Test',
+                cellPlaceholder: '2'
+            }, {
+                id: 'description',
+                position: 2,
+                default: true,
+                headerText: 'Description Change',
+                cellPlaceholder: 'Duracell Battery 10pc'
+            },
+                {
+                    id: 'price',
+                    position: 3,
+                    default: true,
+                    headerText: 'Price of table',
+                    cellPlaceholder: '£4.00'
+                }]
         }
 
         elementData.x = Number(elementData.x).ptToMm();
@@ -103,7 +121,7 @@ define([
         if (elementData.borderWidth) {
             elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
-        console.log('about to hydrate');
+
         element.hydrate(elementData, populating);
         return element;
     };
@@ -132,8 +150,7 @@ define([
 
     Mapper.prototype.toJson = function(template) {
         const paperPage = template.getPaperPage().toJson();
-        console.log('paperPage: ', paperPage);
-        
+
         var json = {
             storedETag: template.getStoredETag(),
             id: template.getId(),

@@ -8,7 +8,8 @@ define([
     'InvoiceDesigner/Template/Inspector/Border',
     'InvoiceDesigner/Template/Inspector/OrderTableOptions',
     'InvoiceDesigner/Template/Inspector/Barcode',
-    'InvoiceDesigner/Template/Inspector/LinkedProducts'
+    'InvoiceDesigner/Template/Inspector/LinkedProducts',
+    'InvoiceDesigner/Template/Inspector/TableColumns'
 ], function(
     Collection,
     // Inspector variables here
@@ -19,7 +20,8 @@ define([
     border,
     orderTableOptions,
     barcode,
-    linkedProducts
+    linkedProducts,
+    tableColumns
 ) {
     var Service = function()
     {
@@ -58,7 +60,8 @@ define([
             border,
             orderTableOptions,
             barcode,
-            linkedProducts
+            linkedProducts,
+            tableColumns
         ];
 
         for (var key in inspectorsToAdd) {

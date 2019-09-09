@@ -172,7 +172,10 @@ define([
             var oldValue = data[field];
             data[field] = value;
 
-            if (oldValue === value || populating) {
+            var oldValue = JSON.stringify(data[field], null, 0);
+            data[field] = value;
+
+            if ((oldValue === value) || populating) {
                 return;
             }
             this.publish();

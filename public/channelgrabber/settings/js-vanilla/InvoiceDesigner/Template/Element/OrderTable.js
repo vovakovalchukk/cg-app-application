@@ -55,6 +55,10 @@ define([
 
         this.getTableColumns = function() {
             return this.get('tableColumns');
+        };
+
+        this.setTableColumns = function(tableColumns) {
+            return this.set('tableColumns', tableColumns);
         }
     };
 

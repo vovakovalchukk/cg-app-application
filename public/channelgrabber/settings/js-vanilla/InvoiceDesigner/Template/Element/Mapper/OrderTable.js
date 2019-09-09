@@ -18,7 +18,9 @@ define([
 
     OrderTable.prototype.getHtmlContents = function(element) {
         console.log('in geHtmlCOntents');
-        const tableColumns = element.getTableColumns();
+        const tableColumns = element.getTableColumns().sort((a,b) => {
+            return a.position - b.position;
+        });
         const inlineStyles = this.getTableStyles(element);
 
         const renderColumns = this.renderColumns.bind(this, tableColumns);
