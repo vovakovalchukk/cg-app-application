@@ -169,9 +169,15 @@ class CreateService extends ServiceAbstract
             $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
             $itemsData = new ItemDataCollection();
             $itemsData->attach($itemData);
+
+
+
             $orderItemsData = new OrderItemsData($order->getId(), $itemsData);
             $ordersItemsData->attach($orderItemsData);
         }
+
+        $this->logDebugDump($ordersItemsData, 'ORDERS ITEM DATA', [], 'MYTEST');
+
         return $ordersItemsData;
     }
 }
