@@ -7,8 +7,6 @@ define([
 ) {
     var OrderTable = function()
     {
-        console.log('in OrderTable instatiation');
-//
         const elementWidth = 700; // px
         const minHeight = 200; // px
         const tableColumns = TableStorage.getDefaultColumns();
