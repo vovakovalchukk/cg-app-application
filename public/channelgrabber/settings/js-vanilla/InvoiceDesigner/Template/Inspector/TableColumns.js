@@ -1,13 +1,15 @@
 define([
     'InvoiceDesigner/Template/InspectorAbstract',
     'InvoiceDesigner/dragAndDropList',
+    'InvoiceDesigner/Template/Storage/Table',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
+    TableStorage,
     CGMustache
 ) {
-    var TableColumns = function() {
+    let TableColumns = function() {
         InspectorAbstract.call(this);
 
         this.setId('tableColumns');
@@ -23,13 +25,16 @@ define([
     };
 
     TableColumns.prototype.showForElement = function(element) {
-        const targetNode = document.getElementById(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR.substring(1, TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR.length));
-        const tableColumns = element.getTableColumns();
+        const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
+        const columnsOnElement = element.getTableColumns();
 
-        const list = new dragAndDropList(function(columns) {
-            element.setTableColumns(columns)
+        const list = new dragAndDropList({
+            setItems: function(columns) {
+                element.setTableColumns(columns)
+            },
+            allItems: TableStorage.getColumns()
         });
-        const listNode = list.generateList(tableColumns.slice(), targetNode, 'drag-sort-enable');
+        const listNode = list.generateList(columnsOnElement.slice(), targetNode, 'drag-sort-enable');
 
         targetNode.append(listNode)
     };
