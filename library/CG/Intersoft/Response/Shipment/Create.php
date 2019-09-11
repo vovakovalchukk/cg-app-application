@@ -34,7 +34,7 @@ class Create implements ResponseInterface, FromXmlInterface
     {
         $completedShipment = $xml->completedShipment;
         $packages = [];
-        foreach ($completedShipment->packages as $package) {
+        foreach ($completedShipment->packages->package as $package) {
             $packages[] = Package::fromXml($package);
         }
         return new self(
