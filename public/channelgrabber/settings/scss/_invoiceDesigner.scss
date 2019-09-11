@@ -535,9 +535,18 @@ $indicator-border-color: #1477aa;
     visibility: hidden;
 };
 .invoice-designer-drag-icon {
-    width: 10px;
-    height: 10px;
+    width: 30px;
     background: red;
     display: inline-block;
     border: 1px solid green;
+}
+.invoice-designer-delete-icon {
+    width: 50px;
+}
+.invoice-designer-drag-list-select {
+    flex: 1 1 auto;
+    max-width: 100px;
+}
+.invoice-designer-drag-list-input {
+    flex: 1 1 auto;
 }

@@ -30,7 +30,7 @@ define([
 
         new dragAndDropList({
             setItems: function(columns) {
-                element.setTableColumns(columns)
+                element.setTableColumns(columns);
             },
             allItems: TableStorage.getColumns(),
             items: columnsOnElement.slice(),
