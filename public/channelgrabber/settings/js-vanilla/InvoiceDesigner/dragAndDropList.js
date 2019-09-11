@@ -1,14 +1,9 @@
 define([], function() {
-    const dragAndDropList = function({setItems, allItems, items, targetNode, listClasses = {
-        dragActive : 'drag-sort-active',
-        itemsContainer : 'drag-sort-enable',
-        listItem: 'drag-item',
-        dragIcon: 'drag-icon'
-    }}) {
+    const dragAndDropList = function({setItems, allItems, items, targetNode, listClasses }) {
         this.handleListChange = setItems;
         this.allItems = allItems;
         this.listClasses = listClasses;
-
+//
         this.renderedItems = items.slice();
         this.rowMap = new Map;
         this.sortableListNode = null;
@@ -17,7 +12,6 @@ define([], function() {
         return this.generateList();
     };
 
-    dragAndDropList.DELETE_ROW_CLASSNAME = 'delete-row-item';
     dragAndDropList.ADD_ROW_CLASSNAME = 'add-row-item';
 
     dragAndDropList.prototype.generateList = function() {
@@ -42,7 +36,7 @@ define([], function() {
 
         this.enableDragList();
         this.addAddOnClick();
-
+//
         return fragment;
     };
 
@@ -55,7 +49,7 @@ define([], function() {
             <a title="drag" class="${this.listClasses.dragIcon}"></a>
             <span>${column.displayText}</span>
             <span style="border:solid 1px red; width:100px;">${defaultInputText}</span>
-            <a title="delete" class="${dragAndDropList.DELETE_ROW_CLASSNAME}">delete</a>
+            <a title="delete" class="${this.listClasses.deleteClass}"></a>
         </li>`
     };
 
@@ -116,7 +110,7 @@ define([], function() {
         row.setAttribute('draggable', true)
         row.ondrag = this.handleDrag.bind(this);
         row.ondragend = this.handleDrop.bind(this);
-        let deleteNode = row.getElementsByClassName(dragAndDropList.DELETE_ROW_CLASSNAME)[0];
+        let deleteNode = row.getElementsByClassName(this.listClasses.deleteClass)[0];
         deleteNode.onclick = this.removeItemClick.bind(this, row);
     };
 

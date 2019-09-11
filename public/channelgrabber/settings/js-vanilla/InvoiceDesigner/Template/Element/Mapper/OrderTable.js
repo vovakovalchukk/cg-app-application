@@ -17,7 +17,6 @@ define([
     OrderTable.prototype = Object.create(MapperAbstract.prototype);
 
     OrderTable.prototype.getHtmlContents = function(element) {
-        console.log('in geHtmlCOntents');
         const tableColumns = element.getTableColumns().sort((a, b) => {
             return a.position - b.position;
         });

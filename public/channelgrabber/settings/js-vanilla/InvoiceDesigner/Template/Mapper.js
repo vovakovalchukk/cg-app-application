@@ -84,28 +84,28 @@ define([
         var elementType = elementData.type.ucfirst();
 //
         //todo - remove this hack
-        if(elementType.toLowerCase().includes('table')) {
-            elementData.tableColumns = [             {
-                id: 'quantity',
-                position: 1,
-                default: true,
-                headerText: 'Quantity Test',
-                cellPlaceholder: '2'
-            }, {
-                id: 'description',
-                position: 2,
-                default: true,
-                headerText: 'Description Change',
-                cellPlaceholder: 'Duracell Battery 10pc'
-            },
-                {
-                    id: 'price',
-                    position: 3,
-                    default: true,
-                    headerText: 'Price of table',
-                    cellPlaceholder: '£4.00'
-                }]
-        }
+//        if(elementType.toLowerCase().includes('table')) {
+//            elementData.tableColumns = [             {
+//                id: 'quantity',
+//                position: 1,
+//                default: true,
+//                headerText: 'Quantity Test',
+//                cellPlaceholder: '2'
+//            }, {
+//                id: 'description',
+//                position: 2,
+//                default: true,
+//                headerText: 'Description Change',
+//                cellPlaceholder: 'Duracell Battery 10pc'
+//            },
+//                {
+//                    id: 'price',
+//                    position: 3,
+//                    default: true,
+//                    headerText: 'Price of table',
+//                    cellPlaceholder: '£4.00'
+//                }]
+//        }
 
         elementData.x = Number(elementData.x).ptToMm();
         elementData.y = Number(elementData.y).ptToMm();
