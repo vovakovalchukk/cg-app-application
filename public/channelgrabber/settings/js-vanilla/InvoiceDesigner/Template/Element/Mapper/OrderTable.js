@@ -18,7 +18,7 @@ define([
 
     OrderTable.prototype.getHtmlContents = function(element) {
         console.log('in geHtmlCOntents');
-        const tableColumns = element.getTableColumns().sort((a,b) => {
+        const tableColumns = element.getTableColumns().sort((a, b) => {
             return a.position - b.position;
         });
         const inlineStyles = this.getTableStyles(element);
@@ -27,9 +27,10 @@ define([
 
         const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">
             <tr>
-                ${renderColumns(column => (
-                    `<th style="${inlineStyles}">${column.headerText}</th>`
-                ))}
+                ${renderColumns(column => {
+                    const headerText = column.displayText ? column.displayText : column.optionText;
+                    return `<th style="${inlineStyles}">${headerText}</th>`
+                })}
             </tr>
             <tr>
                  ${renderColumns(column => (
@@ -37,31 +38,8 @@ define([
                 ))}
             </tr>
         </table>`;
+
         return html;
-
-
-//        const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">
-//            <tr>
-//                ${tableColumns.map(column => (
-//                    `<th style="${inlineStyles}">${column.headerText}</th>`
-//                )).join('')}
-//            </tr>
-//            <tr>
-//                ${tableColumns.map(column => (
-//                    `<td style="${inlineStyles}">${column.cellPlaceholder}</td>`
-//                )).join('')}
-//            </tr>
-//        </table>`;
-//        return html;
-
-//        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH + 'orderTable.mustache';
-//        var data = {
-//            tableStyles: inlineStyles,
-//            tableHeaderStyles: inlineStyles,
-//            tableDataStyles: inlineStyles
-//        };
-//        var html = this.renderMustacheTemplate(templateUrl, data);
-//        return html;
     };
 
     OrderTable.prototype.createElement = function() {
