@@ -20,6 +20,9 @@ $indicator-border-color: #1477aa;
         background-color: #e6e6e6;
     }
 }
+.sidebar-invoice-designer {
+    user-select: none;
+}
 .save-template-inner {
     z-index: 110;
     .button {
