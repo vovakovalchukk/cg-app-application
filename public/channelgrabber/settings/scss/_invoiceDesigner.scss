@@ -518,3 +518,23 @@ $indicator-border-color: #1477aa;
 .positioning-mm {
     margin: 10px 0px 0px 3px;
 }
+.drag-and-drop-item-list {
+    margin:0;
+    padding: 0;
+    text-indent: 0;
+    list-style-type: none;
+}
+.invoice-designer-list-item {
+    display: flex;
+    justify-content: space-between;
+}
+.invoice-designer-list-item-drag-active {
+    visibility: hidden;
+};
+.invoice-designer-drag-icon {
+    width: 10px;
+    height: 10px;
+    background: red;
+    display: inline-block;
+    border: 1px solid green;
+}
