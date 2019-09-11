@@ -12,6 +12,7 @@ use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 use CG\ShipStation\Client;
@@ -64,15 +65,20 @@ class Service
         foreach ($orders as $order) {
             try {
                 $orderData = $ordersData->getById($order->getId());
+                /** @var OrderParcelsData $orderParcelsData */
+                $orderParcelsData = $ordersParcelsData->getById($order->getId());
                 $shipStationRates = $this->fetchRatesForOrderFromShipStation(
                     $order,
                     $orderData,
-                    $ordersParcelsData->getById($order->getId()),
+                    $orderParcelsData,
                     $shipStationAccount,
                     $shippingAccount,
                     $rootOu
                 );
-                $shipStationRates = $this->filterShipStationRatesByPackageType($shipStationRates, $orderData->getPackageType());
+                // There's only ever one parcel for USPS
+                /** @var ParcelData $parcelData */
+                $parcelData = $orderParcelsData->getParcels()->getFirst();
+                $shipStationRates = $this->filterShipStationRatesByPackageType($shipStationRates, $parcelData->getPackageType());
                 $orderRates = $this->mapShipstationRatesToOrderShippingRates($order->getId(), $shipStationRates);
                 $rates->attach($orderRates);
             } catch (ValidationException $e) {
