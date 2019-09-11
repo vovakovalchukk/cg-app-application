@@ -1,43 +1,40 @@
 define([], function() {
-    const dragAndDropList = function({setItems, allItems}) {
+    const dragAndDropList = function({setItems, allItems, items, targetNode, listClasses = {
+        dragActive : 'drag-sort-active',
+        itemsContainer : 'drag-sort-enable',
+        listItem: 'drag-item',
+        dragIcon: 'drag-icon'
+    }}) {
         this.handleListChange = setItems;
         this.allItems = allItems;
-        return this;
+        this.listClasses = listClasses;
+
+        this.renderedItems = items.slice();
+        this.rowMap = new Map;
+        this.sortableListNode = null;
+        this.targetNode = targetNode;
+
+        return this.generateList();
     };
 
     dragAndDropList.DELETE_ROW_CLASSNAME = 'delete-row-item';
     dragAndDropList.ADD_ROW_CLASSNAME = 'add-row-item';
 
-    function createItemRowHTML(column) {
-        //todo - NB - displayText to be later wrapped in an Input
-        //todo - NB - optionText to be interpretted as an option in a mustacheSelect
-        return `<li>
-            <a title="drag">drag</a>
-            <span>${column.displayText}</span>
-            <span style="border:solid 1px red; width:100px;">${column.optionText}</span>
-            <a title="delete" class="${dragAndDropList.DELETE_ROW_CLASSNAME}">delete</a>
-        </li>`
-    }
-
-    dragAndDropList.prototype.generateList = function(items, targetNode, listClass) {
-        this.renderedItems = items.slice();
-        this.rowMap = new Map;
-        this.sortableListNode = null;
-
+    dragAndDropList.prototype.generateList = function() {
         let html = `<div>
             <h3>table columns</h3>
-            <ul class="${listClass}">
+            <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.renderedItems.map(column => {
-                    return createItemRowHTML(column)
+                    return this.createItemRowHTML(column)
                 }).join('')}
             </ul>
             <a title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME}">add</a>
         </div>`;
 
         let fragment = document.createRange().createContextualFragment(html);
-        targetNode.append(fragment);
+        this.targetNode.append(fragment);
 
-        this.sortableListNode = document.getElementsByClassName(listClass)[0];
+        this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.renderedItems[index]);
@@ -47,6 +44,19 @@ define([], function() {
         this.addAddOnClick();
 
         return fragment;
+    };
+
+    dragAndDropList.prototype.createItemRowHTML = function(column) {
+        //todo - NB - displayText to be later wrapped in an Input
+        //todo - NB - optionText to be interpretted as an option in a mustacheSelect
+        let defaultInputText = column.displayText ? column.displayText : column.optionText;
+        console.log('in createItemRow');
+        return `<li class="${this.listClasses.listItem}">
+            <a title="drag" class="${this.listClasses.dragIcon}"></a>
+            <span>${column.displayText}</span>
+            <span style="border:solid 1px red; width:100px;">${defaultInputText}</span>
+            <a title="delete" class="${dragAndDropList.DELETE_ROW_CLASSNAME}">delete</a>
+        </li>`
     };
 
     dragAndDropList.prototype.getNewItem = function() {
@@ -60,7 +70,7 @@ define([], function() {
     dragAndDropList.prototype.addAddOnClick = function() {
         const addNode = document.querySelector(`.${dragAndDropList.ADD_ROW_CLASSNAME}`);
 
-        addNode.onclick = this.addClick;
+        addNode.onclick = this.addClick.bind(this);
     };
 
     dragAndDropList.prototype.addClick = function() {
@@ -73,7 +83,7 @@ define([], function() {
         newItem.position = this.renderedItems.length;
         this.renderedItems.push(newItem);
 
-        let newItemHTML = createItemRowHTML(newItem);
+        let newItemHTML = this.createItemRowHTML(newItem);
         let newRowNode = document.createRange().createContextualFragment(newItemHTML);
         this.sortableListNode.append(newRowNode);
 
@@ -92,7 +102,7 @@ define([], function() {
     };
 
     dragAndDropList.prototype.handleDrop = function(item) {
-        item.target.classList.remove('drag-sort-active');
+        item.target.classList.remove(this.listClasses.dragActive);
         this.handleListChange(this.renderedItems);
     };
 
@@ -116,7 +126,7 @@ define([], function() {
             x = event.clientX,
             y = event.clientY;
 
-        selectedItem.classList.add('drag-sort-active');
+        selectedItem.classList.add(this.listClasses.dragActive);
         let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
 
         if (list !== swapItem.parentNode) {
