@@ -75,7 +75,8 @@ class Service
                     $shippingAccount,
                     $rootOu
                 );
-                // There's only ever one parcel for USPS
+                // Currently only USPS require rates and there's only ever one parcel for them.
+                // If this changes then this logic will have to be updated.
                 /** @var ParcelData $parcelData */
                 $parcelData = $orderParcelsData->getParcels()->getFirst();
                 $shipStationRates = $this->filterShipStationRatesByPackageType($shipStationRates, $parcelData->getPackageType());
