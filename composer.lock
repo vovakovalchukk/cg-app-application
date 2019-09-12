@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d41a9a9d86d517291886de45ddc916db",
+    "content-hash": "0afae5745f5043609ec71b7c9f15e145",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1964,12 +1964,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "a0c7aa20a5524e511a4e0b5ae0551da81e1f62f3"
+                "reference": "e19c8ab3b7c46fd92fbf6d8e55f49c017021eb26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-45-uk-mail-multiple-parcels-6fc80e.zip",
-                "reference": "a0c7aa20a5524e511a4e0b5ae0551da81e1f62f3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-45-uk-mail-multiple-parcels-5039ac.zip",
+                "reference": "e19c8ab3b7c46fd92fbf6d8e55f49c017021eb26"
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -2009,7 +2009,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-11T14:12:03+00:00"
+            "time": "2019-09-12T10:09:38+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2094,16 +2094,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.9",
+            "version": "dev-CGIV-10737-multi-parcel-and-package-type-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f7c572d5eb22a02a60af475838483422582a1016"
+                "reference": "066be5c02fba9624970c791cfd7abde486484e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.9-b2b509.zip",
-                "reference": "f7c572d5eb22a02a60af475838483422582a1016"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10737-multi-parcel-and-package-type-bug-33e0ef.zip",
+                "reference": "066be5c02fba9624970c791cfd7abde486484e97"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2177,7 +2177,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-09-02T11:53:31+00:00"
+            "time": "2019-09-11T14:56:13+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11331,16 +11331,23 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.1",
-            "alias_normalized": "1.5.1.0",
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
             "version": "dev-MIG-45-uk-mail-multiple-parcels",
             "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.47.0",
+            "alias_normalized": "1.47.0.0",
+            "version": "dev-CGIV-10737-multi-parcel-and-package-type-bug",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
