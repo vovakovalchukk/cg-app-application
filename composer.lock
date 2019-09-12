@@ -1964,12 +1964,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "e19c8ab3b7c46fd92fbf6d8e55f49c017021eb26"
+                "reference": "330979d135535b0facfc1f606bec8d5d70769def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-45-uk-mail-multiple-parcels-5039ac.zip",
-                "reference": "e19c8ab3b7c46fd92fbf6d8e55f49c017021eb26"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-45-uk-mail-multiple-parcels-789c87.zip",
+                "reference": "330979d135535b0facfc1f606bec8d5d70769def"
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -2009,7 +2009,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-12T10:09:38+00:00"
+            "time": "2019-09-12T12:46:38+00:00"
         },
         {
             "name": "channelgrabber/notification",
