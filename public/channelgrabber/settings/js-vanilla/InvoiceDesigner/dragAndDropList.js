@@ -63,8 +63,10 @@ define([], function() {
 
         return `<li class="${this.listClasses.listItem}">
             <div title="drag" class="${this.listClasses.dragIcon}"></div>
-            ${select}
-            <input value="${defaultInputText}" class="inputbox ${this.listClasses.listItemInput}" />
+            <div>
+                <input value="${defaultInputText}" class="inputbox ${this.listClasses.listItemInput}" />
+                ${select}
+            </div>
             <div title="delete" class="${this.listClasses.deleteClass} invoice-designer-delete-icon"></div>
         </li>`;
     };
@@ -130,7 +132,6 @@ define([], function() {
             const observer = new MutationObserver(callback);
             observer.observe(selectInput, config);
         })
-
 
         //this is a spike to check that the map isn't plying up.
 //        let selectRows = document.querySelectorAll(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
