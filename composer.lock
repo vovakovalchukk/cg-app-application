@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e07b1d0279e05e4c4c1d4d84858c32fb",
+    "content-hash": "93ebafe2d5f0b2c00d5238deba35529c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -11331,14 +11331,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.1",
-            "alias_normalized": "1.5.1.0",
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
             "version": "dev-CGIV-10737-multi-parcel-and-package-type-bug",
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.46.10",
-            "alias_normalized": "1.46.10.0",
+            "alias": "1.47.0",
+            "alias_normalized": "1.47.0.0",
             "version": "dev-CGIV-10737-multi-parcel-and-package-type-bug",
             "package": "channelgrabber/order"
         }
