@@ -8,8 +8,6 @@ define([], function() {
         this.rowMap = new Map;
         this.sortableListNode = null;
         this.targetNode = targetNode;
-
-        return this.generateList();
     };
 
     const mustache = {};
@@ -20,16 +18,36 @@ define([], function() {
     dragAndDropList.prototype.generateList = async function() {
         await getTemplates();
 
-        let html = `<div>
-            <h3>table columns</h3>
+        let html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.renderedItems.map(column => {
-            return this.createItemRowHTML(column)
-        }).join('')}
+                    return this.createItemRowHTML(column)
+                }).join('')}
             </ul>
             <a title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME}">add</a>
         </div>`;
 
+        return html;
+//        let fragment = document.createRange().createContextualFragment(html);
+//        this.targetNode.append(fragment);
+//
+//        this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
+//
+//        [...this.sortableListNode.children].forEach((node, index) => {
+//            this.rowMap.set(node, this.renderedItems[index]);
+//        });
+//
+//        this.enableDragList();
+//        this.addAddOnClick();
+//        this.addSelectsOnChange();
+//
+//        return fragment;
+    };
+
+    dragAndDropList.prototype.initList = function(html) {
+        console.log('in initList');
+        
+        
         let fragment = document.createRange().createContextualFragment(html);
         this.targetNode.append(fragment);
 
@@ -38,7 +56,8 @@ define([], function() {
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.renderedItems[index]);
         });
-
+          
+        console.log('in generateList');
         this.enableDragList();
         this.addAddOnClick();
         this.addSelectsOnChange();
@@ -131,16 +150,7 @@ define([], function() {
             };
             const observer = new MutationObserver(callback);
             observer.observe(selectInput, config);
-        })
-
-        //this is a spike to check that the map isn't plying up.
-//        let selectRows = document.querySelectorAll(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
-//        selectRows.forEach(row=> {
-//            let input = row.querySelector('input');
-//            input.onchange = event => {
-//                console.log('you changing me...')
-//            }
-//        })
+        });
     };
 
     dragAndDropList.prototype.removeItemClick = function(rowNode) {

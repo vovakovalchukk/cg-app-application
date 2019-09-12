@@ -28,21 +28,41 @@ define([
         const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
         const columnsOnElement = element.getTableColumns();
 
-        new dragAndDropList({
-            setItems: function(columns) {
-                element.setTableColumns(columns);
-            },
-            allItems: TableStorage.getColumns(),
-            items: columnsOnElement.slice(),
-            targetNode,
-            listClasses: {
-                dragActive : 'invoice-designer-list-item-drag-active',
-                itemsContainer: 'drag-and-drop-list-list-item',
-                listItem: 'invoice-designer-list-item',
-                dragIcon : 'invoice-designer-drag-icon',
-                deleteClass: 'sprite sprite-delete-18-black',
-                listItemInput: 'invoice-designer-drag-list-input'
-            }
+        var self = this;
+        var templateUrlMap = {
+            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+        };
+
+        CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
+            const list = new dragAndDropList({
+                setItems: function(columns) {
+                    element.setTableColumns(columns);
+                },
+                allItems: TableStorage.getColumns(),
+                items: columnsOnElement.slice(),
+                targetNode,
+                listClasses: {
+                    dragActive : 'invoice-designer-list-item-drag-active',
+                    itemsContainer: 'drag-and-drop-list-list-item',
+                    listItem: 'invoice-designer-list-item',
+                    dragIcon : 'invoice-designer-drag-icon',
+                    deleteClass: 'sprite sprite-delete-18-black',
+                    listItemInput: 'invoice-designer-drag-list-input'
+                }
+            });
+
+            const listHtml = await list.generateList();
+            const collapsible = cgmustache.renderTemplate(templates, {
+                'display': true,
+                'title': 'Table Columns',
+                'id': 'table-collapsible'
+            }, "collapsible", {'content': listHtml});
+
+            const tableColumnsInspector = document.getElementById('tableColumns-inspector');
+            const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
+            tableColumnsInspector.append(document.createRange().createContextualFragment(template));
+
+            list.initList();
         });
     };
 
