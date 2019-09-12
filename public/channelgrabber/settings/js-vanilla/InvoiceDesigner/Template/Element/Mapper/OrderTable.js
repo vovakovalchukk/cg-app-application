@@ -21,7 +21,6 @@ define([
             return a.position - b.position;
         });
         const inlineStyles = this.getTableStyles(element);
-
         const renderColumns = this.renderColumns.bind(this, tableColumns);
 
         const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">

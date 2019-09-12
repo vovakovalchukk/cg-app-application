@@ -15,31 +15,10 @@ define([], function() {
     const mustache = {};
 
     dragAndDropList.ADD_ROW_CLASSNAME = 'add-row-item';
-    
-    async function getTemplates () {
-        if (mustache.templates && mustache.cgmustache) {
-            return mustache;
-        }
-        const promise = new Promise(function(resolve, reject) {
-            var templateUrlMap = {
-                select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
-                colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
-                align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
-                font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
-                collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
-            };
-            CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
-            {
-                mustache.templates = templates;
-                mustache.cgmustache = cgmustache;
-                resolve({templates, cgmustache});
-            });
-        });
-        return promise;
-    }
-    
+    dragAndDropList.DRAG_LIST_SELECT_CLASS = 'js-drag-list-select';
+
     dragAndDropList.prototype.generateList = async function() {
-        let mustache = await getTemplates();
+        await getTemplates();
 
         let html = `<div>
             <h3>table columns</h3>
@@ -62,41 +41,32 @@ define([], function() {
 
         this.enableDragList();
         this.addAddOnClick();
-//
+        this.addSelectsOnChange();
+
         return fragment;
     };
 
-    function processOptions(options){
-        return options.map(option => {
-            return {
-                title : option.optionText,
-                value: option.id
-            }
-        });
-    }
-
     dragAndDropList.prototype.createItemRowHTML = function(column) {
-        let defaultInputText = column.displayText ? column.displayText : column.optionText;
+        const defaultInputText = getDefaultInputValueFromOption(column);
+        const options = processOptions(this.allItems);
+        const selectedOption = options.find(option => (option.title === column.optionText));
+
         let select = mustache.cgmustache.renderTemplate(mustache.templates.select, {
 //            id:
-              name: `${column.id}`,
-              options: processOptions(this.allItems),
-              sizeClass: 'invoice-designer-drag-list-select',
-              holder: '-'
+            name: `${column.id}`,
+            options,
+            sizeClass: 'invoice-designer-drag-list-select',
+            holder: dragAndDropList.DRAG_LIST_SELECT_CLASS,
+            initialValue: selectedOption.value,
+            initialTitle: selectedOption.title
         });
-
-//
-//        <span style="border:solid 1px red; width:100px;">${column.optionText}</span>
-//
 
         return `<li class="${this.listClasses.listItem}">
             <div title="drag" class="${this.listClasses.dragIcon}"></div>
             ${select}
-            <input value="${defaultInputText}" class="inputbox invoice-designer-drag-list-input" />
+            <input value="${defaultInputText}" class="inputbox ${this.listClasses.listItemInput}" />
             <div title="delete" class="${this.listClasses.deleteClass} invoice-designer-delete-icon"></div>
-        </li>
-
-`
+        </li>`;
     };
 
     dragAndDropList.prototype.getNewItem = function() {
@@ -109,7 +79,6 @@ define([], function() {
 
     dragAndDropList.prototype.addAddOnClick = function() {
         const addNode = document.querySelector(`.${dragAndDropList.ADD_ROW_CLASSNAME}`);
-
         addNode.onclick = this.addClick.bind(this);
     };
 
@@ -134,6 +103,43 @@ define([], function() {
 
         this.rowMap.set(rowNodeInDom, newItem);
         this.handleListChange(this.renderedItems);
+    };
+
+    dragAndDropList.prototype.addSelectsOnChange = function() {
+        this.rowMap.forEach((columnJson, node) => {
+            const userInput = node.querySelector(`.${this.listClasses.listItemInput}`);
+
+            const selectForRow = node.querySelector(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
+            const selectInput = selectForRow.querySelector('input');
+
+            const config = {attributes: true};
+            const callback = (mutationsList) => {
+                for (let mutation of mutationsList) {
+                    if (mutation.type !== 'attributes' && mutation.attributeName !== 'value') {
+                        return;
+                    }
+                    console.log('this is the callback')
+                    // todo - change the associated INPUT....
+                    let optionSelected = this.allItems.find(item => (item.id === selectInput.value));
+
+                    userInput.value = getDefaultInputValueFromOption(optionSelected);
+
+                    //todo - trigger the handleChange
+                }
+            };
+            const observer = new MutationObserver(callback);
+            observer.observe(selectInput, config);
+        })
+
+
+        //this is a spike to check that the map isn't plying up.
+//        let selectRows = document.querySelectorAll(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
+//        selectRows.forEach(row=> {
+//            let input = row.querySelector('input');
+//            input.onchange = event => {
+//                console.log('you changing me...')
+//            }
+//        })
     };
 
     dragAndDropList.prototype.removeItemClick = function(rowNode) {
@@ -187,6 +193,10 @@ define([], function() {
         });
     };
 
+    function getDefaultInputValueFromOption(optionSelected) {
+        return optionSelected.displayText || optionSelected.optionText;
+    }
+
     function getAvailableItems() {
         return this.allItems.filter(item => {
             for (let renderedItem of this.renderedItems) {
@@ -196,6 +206,36 @@ define([], function() {
             }
             return true
         });
+    }
+
+    function processOptions(options) {
+        return options.map(option => {
+            return {
+                title: option.optionText,
+                value: option.id
+            }
+        });
+    }
+
+    async function getTemplates() {
+        if (mustache.templates && mustache.cgmustache) {
+            return mustache;
+        }
+        const promise = new Promise(function(resolve, reject) {
+            var templateUrlMap = {
+                select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
+                colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
+                align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
+                font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
+                collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+            };
+            CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache) {
+                mustache.templates = templates;
+                mustache.cgmustache = cgmustache;
+                resolve({templates, cgmustache});
+            });
+        });
+        return promise;
     }
 
     return dragAndDropList;

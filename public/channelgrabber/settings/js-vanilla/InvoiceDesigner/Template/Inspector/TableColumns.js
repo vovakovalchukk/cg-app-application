@@ -40,7 +40,8 @@ define([
                 itemsContainer: 'drag-and-drop-list-list-item',
                 listItem: 'invoice-designer-list-item',
                 dragIcon : 'invoice-designer-drag-icon',
-                deleteClass: 'sprite sprite-delete-18-black'
+                deleteClass: 'sprite sprite-delete-18-black',
+                listItemInput: 'invoice-designer-drag-list-input'
             }
         });
     };
