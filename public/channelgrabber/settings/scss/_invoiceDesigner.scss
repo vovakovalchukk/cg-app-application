@@ -530,12 +530,14 @@ $indicator-border-color: #1477aa;
 .invoice-designer-list-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .invoice-designer-list-item-drag-active {
     visibility: hidden;
 };
 .invoice-designer-drag-icon {
     width: 30px;
+    height: 30px;
     background: red;
     display: inline-block;
     border: 1px solid green;
