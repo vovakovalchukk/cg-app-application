@@ -15,15 +15,11 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
-class Mapper implements LoggerAwareInterface
+class Mapper
 {
-    use LogTrait;
-
     /** @var CAAccountMapper */
     protected $caAccountMapper;
     /** @var CAAddressMapper */
@@ -54,10 +50,6 @@ class Mapper implements LoggerAwareInterface
         if (isset($orderData['packageType']) && $orderData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
             $caPackageData['type'] = $this->ohParcelDataToCAPackageType($orderData, $shipmentClass);
         }
-
-        $this->logDebugDump($parcelData, 'PARCEL DATA', [], 'MYTEST');
-        $this->logDebugDump($itemsData, 'ITEMS DATA', [], 'MYTEST');
-
         if (isset($parcelData['itemParcelAssignment']) && $parcelData['itemParcelAssignment'] !== '' && is_a($packageClass, PackageContentsInterface::class, true)) {
             $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
         }
