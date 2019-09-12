@@ -4,6 +4,7 @@ namespace CG\Intersoft\RoyalMail;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
@@ -57,6 +58,8 @@ class Shipment implements
     protected $insuranceOption;
     /** @var AddressInterface */
     protected $collectionAddress;
+    /** @var LabelInterface[] */
+    protected $labels;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -207,14 +210,13 @@ class Shipment implements
      */
     public function getLabels()
     {
-        $labels = [];
-        foreach ($this->packages as $package) {
-            if (!$package->getLabel()) {
-                continue;
-            }
-            $labels[] = $package->getLabel();
-        }
-        return $labels;
+        return $this->labels;
+    }
+
+    public function setLabels(array $labels): Shipment
+    {
+        $this->labels = $labels;
+        return $this;
     }
 
     /**
