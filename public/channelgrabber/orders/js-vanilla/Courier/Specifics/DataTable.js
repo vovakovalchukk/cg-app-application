@@ -273,7 +273,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
         var data = {
             id: 'courier-package-type_' + templateData.orderId + '-' + templateData.parcelNumber,
             name: 'parcelData[' + templateData.orderId + '][' + templateData.parcelNumber + '][packageType]',
-            class: 'required',
+            class: 'required courier-package-type_' + templateData.orderId,
             options: []
         };
         for (var value in optionsObject.options) {
