@@ -59,6 +59,7 @@ class Service
                         'hours' => '23',
                         'minutes' => '59'
                     ],
+                    'lastXHours' => true,
                     'options' => [
                         [
                             'title' => 'All Time'
