@@ -21,27 +21,13 @@ define([], function() {
         let html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.renderedItems.map(column => {
-            return this.createItemRowHTML(column)
-        }).join('')}
+                    return this.createItemRowHTML(column)
+                }).join('')}
             </ul>
             <div title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME} ${this.listClasses.addIcon}"></div>
         </div>`;
 
         return html;
-//        let fragment = document.createRange().createContextualFragment(html);
-//        this.targetNode.append(fragment);
-//
-//        this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
-//
-//        [...this.sortableListNode.children].forEach((node, index) => {
-//            this.rowMap.set(node, this.renderedItems[index]);
-//        });
-//
-//        this.enableDragList();
-//        this.addAddOnClick();
-//        this.addSelectsOnChange();
-//
-//        return fragment;
     };
 
     dragAndDropList.prototype.initList = function(html) {
@@ -49,9 +35,10 @@ define([], function() {
 
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.renderedItems[index]);
+            this.enableDragItem(node);
+            this.enableDeleteItem(node);
         });
 
-        this.enableDragList();
         this.addAddOnClick();
         this.addSelectsOnChange();
     };
@@ -148,6 +135,9 @@ define([], function() {
     };
 
     dragAndDropList.prototype.removeItemClick = function(rowNode) {
+        console.log('in removeClick');
+        
+        
         let columnForNode = this.rowMap.get(rowNode);
 
         this.renderedItems = this.renderedItems.filter(column => column !== columnForNode);
@@ -160,12 +150,6 @@ define([], function() {
     dragAndDropList.prototype.handleDrop = function(item) {
         item.target.classList.remove(this.listClasses.dragActive);
         this.handleListChange(this.renderedItems);
-    };
-
-    dragAndDropList.prototype.enableDragList = function() {
-        [...this.sortableListNode.children].forEach((item) => {
-            this.enableDragItem(item)
-        });
     };
 
     dragAndDropList.prototype.enableDragItem = function(rowNode) {
