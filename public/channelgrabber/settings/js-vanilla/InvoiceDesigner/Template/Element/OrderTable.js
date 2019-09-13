@@ -9,6 +9,7 @@ define([
     {
         const elementWidth = 700; // px
         const minHeight = 200; // px
+
         const tableColumns = TableStorage.getDefaultColumns();
 
         var additionalData = {

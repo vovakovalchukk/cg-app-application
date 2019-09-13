@@ -26,14 +26,14 @@ define([
         const html = `<table class="template-element-ordertable-main" style="${inlineStyles}">
             <tr>
                 ${renderColumns(column => {
-                    const headerText = column.displayText ? column.displayText : column.optionText;
-                    return `<th style="${inlineStyles}">${headerText}</th>`
-                })}
+            const headerText = column.displayText ? column.displayText : column.optionText;
+            return `<th style="${inlineStyles}">${headerText}</th>`
+        })}
             </tr>
             <tr>
                  ${renderColumns(column => (
-                    `<td style="${inlineStyles}">${column.cellPlaceholder}</td>`
-                ))}
+            `<td style="${inlineStyles}">${column.cellPlaceholder}</td>`
+        ))}
             </tr>
         </table>`;
 
@@ -46,6 +46,13 @@ define([
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, render) {
+        tableColumns = tableColumns.filter(column => {
+            if (!column) {
+                return false;
+            }
+            return true;
+        });
+
         return tableColumns.map(column => (
             render(column)
         )).join('');
