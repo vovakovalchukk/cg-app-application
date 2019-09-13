@@ -46,6 +46,9 @@ class Mapper
             'length' => (isset($parcelData['length']) && $parcelData['length'] !== '' ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
             'number' => (isset($parcelData['number']) && $parcelData['number'] !== '' ? $parcelData['number'] : null),
         ];
+        if (!isset($parcelData['packageType']) && isset($orderData['packageType'])) {
+            $parcelData['packageType'] = $orderData['packageType'];
+        }
         if (isset($parcelData['packageType']) && $parcelData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
             $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
         }
