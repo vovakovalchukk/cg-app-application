@@ -17,7 +17,8 @@ return [
                 'label'  => 'Data Exchange',
                 'sprite' => 'sprite-exchange-white-18',
                 'order'  => 17,
-                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/dataExchange'
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/dataExchange',
+                'feature-flag' => Module::FEATURE_FLAG,
             ]
         ],
         'data-exchange-navigation' => [

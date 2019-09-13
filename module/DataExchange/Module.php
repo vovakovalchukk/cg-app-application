@@ -9,6 +9,7 @@ use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface, DependencyIndicatorInterface
 {
+    public const FEATURE_FLAG = 'Data Exchange';
     public const TEMPLATE_SIDEBAR = 'data-exchange/sidebar';
     public const ROUTE = 'DataExchange';
     public const PUBLIC_FOLDER = '/cg-built/data-exchange';
