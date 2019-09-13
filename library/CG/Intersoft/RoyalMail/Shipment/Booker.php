@@ -80,6 +80,7 @@ class Booker
             $shipmentNumbers[] = $rmPackage->getTrackingNumber();
         }
         $shipment->setCourierReference(implode(static::SHIP_NO_SEP, $shipmentNumbers));
+        $label = $response->getLabelImage();
 
         /** @var Package $package */
         foreach ($shipment->getPackages() as $package) {
@@ -87,18 +88,17 @@ class Booker
             if (!$rmPackage) {
                 break;
             }
-            $label = $response->getLabelImage();
+
             // We do not want to request a CN23 for US shipments as it is merged with the label by Intersoft already
             if (!$this->isDomesticShipment($shipment) && !$this->isUsShipment($shipment)) {
                 $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
                 $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
             }
-            if ($label) {
-                $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
-            }
             $package->setTrackingReference($rmPackage->getTrackingNumber());
             next($rmPackages);
         }
+        // Intersoft return all parcel labels in one PDF
+        $shipment->setLabels([new Label($label, LabelInterface::TYPE_PDF)]);
         return $shipment;
     }
 
