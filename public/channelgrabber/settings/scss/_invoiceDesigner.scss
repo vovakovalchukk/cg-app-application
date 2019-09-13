@@ -551,6 +551,7 @@ $indicator-border-color: #1477aa;
     pointer-events: none;
     border: 1px solid #b8c6ce;
     cursor: grab;
+    box-sizing: border-box;
 }
 .invoice-designer-delete-icon {
     width: 50px;

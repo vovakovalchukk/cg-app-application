@@ -45,23 +45,15 @@ define([], function() {
     };
 
     dragAndDropList.prototype.initList = function(html) {
-        console.log('in initList');
-
-        let fragment = document.createRange().createContextualFragment(html);
-        this.targetNode.append(fragment);
-
         this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.renderedItems[index]);
         });
 
-        console.log('in generateList');
         this.enableDragList();
         this.addAddOnClick();
         this.addSelectsOnChange();
-
-        return fragment;
     };
 
     dragAndDropList.prototype.createItemRowHTML = function(column) {

@@ -28,8 +28,7 @@ define([
         const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
         const columnsOnElement = element.getTableColumns();
 
-        var self = this;
-        var templateUrlMap = {
+        const templateUrlMap = {
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
 
