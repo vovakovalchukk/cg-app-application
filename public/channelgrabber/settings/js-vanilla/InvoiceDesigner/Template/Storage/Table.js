@@ -72,11 +72,8 @@ define([], function() {
         return {
             getColumns,
             getDefaultColumns: function() {
-                return getColumns().map(column => {
-                    if (!column.default) {
-                        return;
-                    }
-                    return column;
+                return getColumns().filter(column => {
+                    return column.default;
                 })
             },
             getTotals: function() {},
