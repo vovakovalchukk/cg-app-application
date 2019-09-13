@@ -45,7 +45,8 @@ define([
                     dragActive : 'invoice-designer-list-item-drag-active',
                     itemsContainer: 'drag-and-drop-list-list-item',
                     listItem: 'invoice-designer-list-item',
-                    dragIcon : 'invoice-designer-drag-icon',
+                    dragIcon : 'sprite sprite-drag-handle-black-24 invoice-designer-drag-icon',
+                    dragContainer: 'invoice-designer-drag-icon-container',
                     deleteClass: 'sprite sprite-delete-18-black',
                     listItemInput: 'invoice-designer-drag-list-input'
                 }

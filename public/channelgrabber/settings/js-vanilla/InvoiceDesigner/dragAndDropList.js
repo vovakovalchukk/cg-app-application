@@ -21,8 +21,8 @@ define([], function() {
         let html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.renderedItems.map(column => {
-                    return this.createItemRowHTML(column)
-                }).join('')}
+            return this.createItemRowHTML(column)
+        }).join('')}
             </ul>
             <a title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME}">add</a>
         </div>`;
@@ -46,8 +46,7 @@ define([], function() {
 
     dragAndDropList.prototype.initList = function(html) {
         console.log('in initList');
-        
-        
+
         let fragment = document.createRange().createContextualFragment(html);
         this.targetNode.append(fragment);
 
@@ -56,7 +55,7 @@ define([], function() {
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.renderedItems[index]);
         });
-          
+
         console.log('in generateList');
         this.enableDragList();
         this.addAddOnClick();
@@ -81,8 +80,10 @@ define([], function() {
         });
 
         return `<li class="${this.listClasses.listItem}">
-            <div title="drag" class="${this.listClasses.dragIcon}"></div>
-            <div>
+            <div class="${this.listClasses.dragContainer}">
+                <div title="drag" class="${this.listClasses.dragIcon}"></div>
+            </div>
+            <div class="invoice-designer-input-positioner">
                 <input value="${defaultInputText}" class="inputbox ${this.listClasses.listItemInput}" />
                 ${select}
             </div>
@@ -121,6 +122,7 @@ define([], function() {
         let rowNodeInDom = this.sortableListNode.children[this.sortableListNode.children.length - 1];
 
         this.enableDragItem(rowNodeInDom);
+        this.enableDeleteItem(rowNodeInDom);
 
         this.rowMap.set(rowNodeInDom, newItem);
         this.handleListChange(this.renderedItems);
@@ -178,6 +180,9 @@ define([], function() {
         rowNode.setAttribute('draggable', true)
         rowNode.ondrag = this.handleDrag.bind(this);
         rowNode.ondragend = this.handleDrop.bind(this);
+    };
+
+    dragAndDropList.prototype.enableDeleteItem = function(rowNode) {
         let deleteNode = rowNode.getElementsByClassName(this.listClasses.deleteClass)[0];
         deleteNode.onclick = this.removeItemClick.bind(this, rowNode);
     };
