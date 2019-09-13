@@ -2,7 +2,7 @@ define([], function() {
     const dragAndDropList = function({setItems, allItems, items, targetNode, listClasses}) {
         this.handleListChange = setItems;
         this.allItems = allItems;
-        this.renderedItems = items.slice();
+        this.initialItems = items.slice();
 
         this.listClasses = listClasses;
         this.rowMap = new Map;
@@ -17,10 +17,11 @@ define([], function() {
 
     dragAndDropList.prototype.generateList = async function() {
         await getTemplates();
-
-        let html = `<div class="inspector-holder">
+        
+        console.log('generating list.. creating new rows');
+        const html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
-                ${this.renderedItems.map(column => {
+                ${this.initialItems.map(column => {
                     return this.createItemRowHTML(column)
                 }).join('')}
             </ul>
@@ -34,7 +35,7 @@ define([], function() {
         this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
-            this.rowMap.set(node, this.renderedItems[index]);
+            this.rowMap.set(node, this.initialItems[index]);
             this.enableDragItem(node);
             this.enableDeleteItem(node);
         });
@@ -83,6 +84,12 @@ define([], function() {
         addNode.onclick = this.addClick.bind(this);
     };
 
+    dragAndDropList.prototype.changeList = function() {
+        this.updateColumnPositions();
+        const renderedColumns = this.getRenderedColumns();
+        this.handleListChange(renderedColumns);
+    };
+
     dragAndDropList.prototype.addClick = function() {
         let newItem = this.getNewItem();
 
@@ -90,8 +97,8 @@ define([], function() {
             return;
         }
 
-        newItem.position = this.renderedItems.length;
-        this.renderedItems.push(newItem);
+        newItem.position = this.initialItems.length;
+        this.initialItems.push(newItem);
 
         let newItemHTML = this.createItemRowHTML(newItem);
         let newRowNode = document.createRange().createContextualFragment(newItemHTML);
@@ -104,7 +111,8 @@ define([], function() {
         this.enableDeleteItem(rowNodeInDom);
 
         this.rowMap.set(rowNodeInDom, newItem);
-        this.handleListChange(this.renderedItems);
+
+        this.changeList();
     };
 
     dragAndDropList.prototype.addSelectsOnChange = function() {
@@ -116,17 +124,20 @@ define([], function() {
 
             const config = {attributes: true};
             const callback = (mutationsList) => {
-                for (let mutation of mutationsList) {
+                for (let mutation  of mutationsList) {
                     if (mutation.type !== 'attributes' && mutation.attributeName !== 'value') {
                         return;
                     }
-                    console.log('this is the callback')
-                    // todo - change the associated INPUT....
                     let optionSelected = this.allItems.find(item => (item.id === selectInput.value));
+                    optionSelected = Object.assign({}, optionSelected);
+                    optionSelected.position = columnJson.position;
 
                     userInput.value = getDefaultInputValueFromOption(optionSelected);
-
-                    //todo - trigger the handleChange
+                    debugger;
+                    this.rowMap.set(node, optionSelected);
+//                    const renderedColumns = this.getRenderedColumns();
+//                    this.handleListChange(renderedColumns);
+                    this.changeList();
                 }
             };
             const observer = new MutationObserver(callback);
@@ -134,22 +145,24 @@ define([], function() {
         });
     };
 
+    dragAndDropList.prototype.getRenderedColumns = function() {
+        return Array.from(this.rowMap, ([key, value]) => value);
+    };
+
     dragAndDropList.prototype.removeItemClick = function(rowNode) {
         console.log('in removeClick');
-        
-        
         let columnForNode = this.rowMap.get(rowNode);
 
-        this.renderedItems = this.renderedItems.filter(column => column !== columnForNode);
+        this.initialItems = this.initialItems.filter(column => column !== columnForNode);
         this.rowMap.delete(rowNode);
         rowNode.parentNode.removeChild(rowNode);
 
-        this.handleListChange(this.renderedItems);
+        this.changeList();
     };
 
     dragAndDropList.prototype.handleDrop = function(item) {
         item.target.classList.remove(this.listClasses.dragActive);
-        this.handleListChange(this.renderedItems);
+        this.changeList();
     };
 
     dragAndDropList.prototype.enableDragItem = function(rowNode) {
@@ -161,6 +174,16 @@ define([], function() {
     dragAndDropList.prototype.enableDeleteItem = function(rowNode) {
         let deleteNode = rowNode.getElementsByClassName(this.listClasses.deleteClass)[0];
         deleteNode.onclick = this.removeItemClick.bind(this, rowNode);
+    };
+
+    dragAndDropList.prototype.updateColumnPositions = function(list) {
+        [...this.sortableListNode.children].forEach((node, index) => {
+            const columnJson = this.rowMap.get(node);
+            columnJson.position = index;
+            console.log('this.rowMap: ', this.rowMap);
+
+            this.rowMap.set(node, columnJson);
+        });
     };
 
     dragAndDropList.prototype.handleDrag = function(item) {
@@ -178,11 +201,6 @@ define([], function() {
 
         swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
         list.insertBefore(selectedItem, swapItem);
-
-        [...list.children].forEach((node, index) => {
-            const columnJson = this.rowMap.get(node);
-            columnJson.position = index;
-        });
     };
 
     function getDefaultInputValueFromOption(optionSelected) {
@@ -191,7 +209,7 @@ define([], function() {
 
     function getAvailableItems() {
         return this.allItems.filter(item => {
-            for (let renderedItem of this.renderedItems) {
+            for (let renderedItem of this.initialItems) {
                 if (renderedItem.id === item.id) {
                     return false;
                 }
