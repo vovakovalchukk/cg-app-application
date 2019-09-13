@@ -711,16 +711,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.2",
+            "version": "1.43.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d"
+                "reference": "7faac7a31e2cc02397e5e37b18c0b20d02e02ff0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.2-b92d70.zip",
-                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.5-49a50e.zip",
+                "reference": "7faac7a31e2cc02397e5e37b18c0b20d02e02ff0",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -788,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-08-15T14:08:50+00:00"
+            "time": "2019-09-10T13:54:48+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1960,16 +1961,17 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "85f5f91165e7ab732e1d834b5c1d0d477dc91f84"
+                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.5.0-a2d11d.zip",
-                "reference": "85f5f91165e7ab732e1d834b5c1d0d477dc91f84"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.0-05f0a4.zip",
+                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -2009,7 +2011,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-07-24T09:56:38+00:00"
+            "time": "2019-09-13T09:18:04+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2094,16 +2096,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.9",
+            "version": "1.47.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f7c572d5eb22a02a60af475838483422582a1016"
+                "reference": "a12e6639af967d7e0db6a81336fa1f24d0fd3384"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.9-b2b509.zip",
-                "reference": "f7c572d5eb22a02a60af475838483422582a1016"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.0-21f9bf.zip",
+                "reference": "a12e6639af967d7e0db6a81336fa1f24d0fd3384",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2177,7 +2180,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-09-02T11:53:31+00:00"
+            "time": "2019-09-13T09:16:49+00:00"
         },
         {
             "name": "channelgrabber/partner",
