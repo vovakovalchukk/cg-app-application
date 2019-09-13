@@ -41,16 +41,12 @@ define([
     };
 
     OrderTable.prototype.createElement = function() {
-        console.log('in create element');
         return new OrderTableElement();
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, render) {
         tableColumns = tableColumns.filter(column => {
-            if (!column) {
-                return false;
-            }
-            return true;
+            return column;
         });
 
         return tableColumns.map(column => (

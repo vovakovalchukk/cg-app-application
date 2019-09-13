@@ -18,7 +18,6 @@ define([], function() {
     dragAndDropList.prototype.generateList = async function() {
         await getTemplates();
         
-        console.log('generating list.. creating new rows');
         const html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.initialItems.map(column => {
@@ -31,13 +30,14 @@ define([], function() {
         return html;
     };
 
-    dragAndDropList.prototype.initList = function(html) {
+    dragAndDropList.prototype.initList = function() {
         this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.initialItems[index]);
             this.enableDragItem(node);
             this.enableDeleteItem(node);
+            this.addInputChangeListener(node);
         });
 
         this.addAddOnClick();
@@ -64,11 +64,34 @@ define([], function() {
                 <div title="drag" class="${this.listClasses.dragIcon}"></div>
             </div>
             <div class="invoice-designer-input-positioner">
-                <input value="${defaultInputText}" class="inputbox ${this.listClasses.listItemInput}" />
+                <input 
+                    value="${defaultInputText}" 
+                    class="inputbox ${this.listClasses.listItemInput}" 
+                />
                 ${select}
             </div>
             <div title="delete" class="${this.listClasses.deleteClass} invoice-designer-delete-icon"></div>
         </li>`;
+    };
+
+    dragAndDropList.prototype.addInputChangeListener = function(rowNode) {
+        const columnValue = this.rowMap.get(rowNode);
+        const inputNode = rowNode.querySelector(`.${this.listClasses.listItemInput}`);
+
+        let timeoutId = null;
+        const timeout = 400;
+
+        const onChange = event => {
+            const value = event.target.value;
+            clearTimeout(timeoutId);
+
+            timeoutId = setTimeout(() => {
+                columnValue.displayText = value;
+                this.changeList();
+            }, timeout);
+        };
+
+        inputNode.oninput = onChange;
     };
 
     dragAndDropList.prototype.getNewItem = function() {
@@ -133,10 +156,8 @@ define([], function() {
                     optionSelected.position = columnJson.position;
 
                     userInput.value = getDefaultInputValueFromOption(optionSelected);
-                    debugger;
                     this.rowMap.set(node, optionSelected);
-//                    const renderedColumns = this.getRenderedColumns();
-//                    this.handleListChange(renderedColumns);
+
                     this.changeList();
                 }
             };
@@ -150,7 +171,6 @@ define([], function() {
     };
 
     dragAndDropList.prototype.removeItemClick = function(rowNode) {
-        console.log('in removeClick');
         let columnForNode = this.rowMap.get(rowNode);
 
         this.initialItems = this.initialItems.filter(column => column !== columnForNode);
@@ -180,9 +200,6 @@ define([], function() {
         [...this.sortableListNode.children].forEach((node, index) => {
             const columnJson = this.rowMap.get(node);
             columnJson.position = index;
-            console.log('this.rowMap: ', this.rowMap);
-
-            this.rowMap.set(node, columnJson);
         });
     };
 
@@ -234,9 +251,6 @@ define([], function() {
         const promise = new Promise(function(resolve, reject) {
             var templateUrlMap = {
                 select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
-                colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
-                align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
-                font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
                 collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
             };
             CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache) {
