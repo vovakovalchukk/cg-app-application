@@ -24,7 +24,7 @@ define([], function() {
             return this.createItemRowHTML(column)
         }).join('')}
             </ul>
-            <a title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME}">add</a>
+            <div title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME} ${this.listClasses.addIcon}"></div>
         </div>`;
 
         return html;

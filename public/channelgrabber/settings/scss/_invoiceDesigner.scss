@@ -555,6 +555,7 @@ $indicator-border-color: #1477aa;
 }
 .invoice-designer-delete-icon {
     width: 50px;
+    cursor: pointer;
 }
 .invoice-designer-drag-list-select {
     width: 100%;
@@ -566,4 +567,7 @@ $indicator-border-color: #1477aa;
 }
 .invoice-designer-input-positioner {
     margin-left: 28px;
+}
+.invoice-designer-drag-list-add-icon {
+    cursor: pointer;
 }

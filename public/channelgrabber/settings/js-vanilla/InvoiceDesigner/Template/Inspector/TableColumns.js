@@ -47,6 +47,7 @@ define([
                     dragIcon : 'sprite sprite-drag-handle-black-24 invoice-designer-drag-icon',
                     dragContainer: 'invoice-designer-drag-icon-container',
                     deleteClass: 'sprite sprite-delete-18-black',
+                    addIcon: 'invoice-designer-drag-list-add-icon sprite sprite-plus-18-black',
                     listItemInput: 'invoice-designer-drag-list-input'
                 }
             });
