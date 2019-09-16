@@ -313,14 +313,20 @@ define([
         return allAttribs;
     };
 
-    ElementAbstract.prototype.toJson = function()
+    ElementAbstract.prototype.formatCoreJsonPropertiesForBackend = function(json)
     {
-        var json = JSON.parse(JSON.stringify(this.getData()));
         json.x = Number(json.x).mmToPt();
         json.y = Number(json.y).mmToPt();
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
         json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
+        return json;
+    };
+
+    ElementAbstract.prototype.toJson = function()
+    {
+        let json = JSON.parse(JSON.stringify(this.getData()));
+        json = this.formatCoreJsonPropertiesForBackend(json);
         return json;
     };
 

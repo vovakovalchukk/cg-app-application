@@ -5,8 +5,7 @@ define([
     ElementAbstract,
     TableStorage
 ) {
-    var OrderTable = function()
-    {
+    var OrderTable = function() {
         const elementWidth = 700; // px
         const minHeight = 200; // px
 
@@ -15,13 +14,11 @@ define([
         var additionalData = {
             showVat: false,
             linkedProductsDisplay: null,
-            //todo - link this up with an inspector
             tableColumns
         };
 
         ElementAbstract.call(this, additionalData);
 
-        //todo - might need to set tableColumns ere...
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
@@ -29,26 +26,21 @@ define([
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
 
-
-        this.getLinkedProductsDisplay = function()
-        {
+        this.getLinkedProductsDisplay = function() {
             return this.get('linkedProductsDisplay');
         };
 
-        this.setLinkedProductsDisplay = function(newLinkedProductsDisplay)
-        {
+        this.setLinkedProductsDisplay = function(newLinkedProductsDisplay) {
             this.set('linkedProductsDisplay', newLinkedProductsDisplay);
             return this;
         };
 
-        this.getShowVat = function()
-        {
+        this.getShowVat = function() {
             return this.get('showVat');
         };
 
-        this.setShowVat = function(newShowVat)
-        {
-            this.set('showVat', !! newShowVat);
+        this.setShowVat = function(newShowVat) {
+            this.set('showVat', !!newShowVat);
             return this;
         };
 
@@ -58,10 +50,56 @@ define([
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
+        };
+
+        this.toJson = function() {
+            let json = JSON.parse(JSON.stringify(this.getData()));
+            json = this.formatCoreJsonPropertiesForBackend(json);
+            json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
+            return json;
         }
     };
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
 
     return OrderTable;
+
+    function formatTableColumnsForBackend(tableColumns) {
+        if(!tableColumns) {
+            return [];
+        }
+        const formatted = tableColumns.map(({id, position, displayText}) => {
+            return {
+                id,
+                position,
+                displayText
+            };
+        });
+
+        const allPositionsUndefined = areAllPositionsUndefined(formatted);
+        if(!allPositionsUndefined) {
+            return formatted;
+        }
+
+        const formattedWithDefaultPositions = provideDefaultPositions(formatted.slice());
+        return formattedWithDefaultPositions;
+    }
+
+    function areAllPositionsUndefined(columns) {
+        let allPositionsUndefined = true;
+        for(let column of columns) {
+            if(typeof column.position !== 'undefined'){
+                allPositionsUndefined = false;
+                break;
+            }
+        }
+        return allPositionsUndefined;
+    }
+    
+    function provideDefaultPositions(columns) {
+        for(let index = 0; index < columns.length; index++) {
+            columns[index].position = index;
+        }
+        return columns;
+    }
 });

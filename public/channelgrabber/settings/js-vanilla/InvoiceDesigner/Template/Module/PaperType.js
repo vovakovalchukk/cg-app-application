@@ -115,7 +115,6 @@ define([
         setPaperDimensionFields({height, width});
 
         if (initialise) {
-            debugger;
             paperPage.setHeight(template, height, true);
             paperPage.setWidth(template, width, true);
             paperPage.setPaperType(paperTypeId, true);
