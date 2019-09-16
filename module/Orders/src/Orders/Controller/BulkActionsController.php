@@ -916,7 +916,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             $progressKey = $this->getInvoiceProgressKey();
             $templates = $this->fetchTemplatesByIds($templateIds);
             $orders = $this->getOrdersFromInputWithLinked();
-            $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $progressKey);
+            $pdf = '';
+            if ($templates->count() > 0) {
+                $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $progressKey);
+            }
             if ($this->isDefaultInvoiceRequested($templateIds)) {
                 $defaultInvoicePdf = $this->invoiceService->generateInvoicesForOrders($orders, null, $progressKey);
                 $pdf = mergePdfData([$defaultInvoicePdf, $pdf]);
