@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dff992051823b35ae004fdc307f2deb2",
+    "content-hash": "f4f78c688c5a7b0a2bf8c8cf4891fce8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1998,16 +1998,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-MIG-45-uk-mail-multiple-parcels",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "526103178d6616a71d7b3e6152bf4a5fdca02ab5"
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-45-uk-mail-multiple-parcels-3ceab5.zip",
-                "reference": "526103178d6616a71d7b3e6152bf4a5fdca02ab5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.1-c51e9d.zip",
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029",
                 "shasum": null
             },
             "require": {
@@ -2048,7 +2048,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-13T11:06:35+00:00"
+            "time": "2019-09-16T07:52:53+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -11442,18 +11442,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.1",
-            "alias_normalized": "1.6.1.0",
-            "version": "dev-MIG-45-uk-mail-multiple-parcels",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
