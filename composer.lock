@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "beaa7028d8daee64c6c5a72837886992",
+    "content-hash": "c80ef7a8619d09a64b1b14ed79b04738",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1960,16 +1960,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.0-05f0a4.zip",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.1-c51e9d.zip",
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029"
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -2009,7 +2009,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-13T09:18:04+00:00"
+            "time": "2019-09-16T07:52:53+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4944,12 +4944,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fd6e5f898737d04932d62a3bc67a2b98688a2c4a"
+                "reference": "7a27a848360faa22bb05eec0374605cac2244d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-44-saved-order-filter-improvements-c30276.zip",
-                "reference": "fd6e5f898737d04932d62a3bc67a2b98688a2c4a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-44-saved-order-filter-improvements-b591b8.zip",
+                "reference": "7a27a848360faa22bb05eec0374605cac2244d7b"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5000,7 +5000,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-16T10:17:36+00:00"
+            "time": "2019-09-16T10:55:41+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11337,8 +11337,8 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.26.22",
-            "alias_normalized": "1.26.22.0",
+            "alias": "1.26.23",
+            "alias_normalized": "1.26.23.0",
             "version": "dev-MIG-44-saved-order-filter-improvements",
             "package": "channelgrabber/zf2-v4-ui"
         }
