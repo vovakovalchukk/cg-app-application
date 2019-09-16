@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb5c57a8af9e8214391ad7b8809e0264",
+    "content-hash": "1d9db18e91907827fa70ee30b213dda8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1998,16 +1998,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.0-05f0a4.zip",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.1-c51e9d.zip",
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029",
                 "shasum": null
             },
             "require": {
@@ -2048,7 +2048,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-13T09:18:04+00:00"
+            "time": "2019-09-16T07:52:53+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2139,12 +2139,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a1e8f67cdcae62fb982a158f226ae65d2cb5f132"
+                "reference": "74eb971a143fa2e2f19e6c69c13dff9dc8805589"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-03bce5.zip",
-                "reference": "a1e8f67cdcae62fb982a158f226ae65d2cb5f132",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-1f684f.zip",
+                "reference": "74eb971a143fa2e2f19e6c69c13dff9dc8805589",
                 "shasum": null
             },
             "require": {
@@ -2181,7 +2181,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "dev-TAC-447-invoice-designer-improvements as 1.7.0",
+                "channelgrabber/template": "^1.4.27",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2191,7 +2191,6 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
-                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -2220,7 +2219,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-09-12T13:42:08+00:00"
+            "time": "2019-08-16T12:50:39+00:00"
         },
         {
             "name": "channelgrabber/partner",
