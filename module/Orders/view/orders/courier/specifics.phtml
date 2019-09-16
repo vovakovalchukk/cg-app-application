@@ -1,7 +1,7 @@
 <?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/DataTableAbstract.js"></script>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/DataTable.js"></script>
+<?php $this->headScript()->appendFile(Orders\Module::PUBLIC_FOLDER . 'js/Courier/DataTableAbstract.js'); ?>
+<?php $this->headScript()->appendFile(Orders\Module::PUBLIC_FOLDER . 'js/Courier/Specifics/DataTable.js'); ?>
 <script type="text/javascript">
 <?php /* This is deliberately placed in the global scope so that other javascript files can access it */ ?>
 var courierAccountId = <?=$this->selectedCourier->getId();?>;
