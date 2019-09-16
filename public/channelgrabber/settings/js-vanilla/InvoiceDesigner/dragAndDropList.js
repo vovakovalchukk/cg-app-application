@@ -17,7 +17,7 @@ define([], function() {
 
     dragAndDropList.prototype.generateList = async function() {
         await getTemplates();
-        
+
         const html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.initialItems.map(column => {

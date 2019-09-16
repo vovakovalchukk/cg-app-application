@@ -65,7 +65,7 @@ define([
     return OrderTable;
 
     function formatTableColumnsForBackend(tableColumns) {
-        if(!tableColumns) {
+        if (!tableColumns) {
             return [];
         }
         const formatted = tableColumns.map(({id, position, displayText}) => {
@@ -77,7 +77,7 @@ define([
         });
 
         const allPositionsUndefined = areAllPositionsUndefined(formatted);
-        if(!allPositionsUndefined) {
+        if (!allPositionsUndefined) {
             return formatted;
         }
 
@@ -87,17 +87,17 @@ define([
 
     function areAllPositionsUndefined(columns) {
         let allPositionsUndefined = true;
-        for(let column of columns) {
-            if(typeof column.position !== 'undefined'){
+        for (let column of columns) {
+            if (typeof column.position !== 'undefined') {
                 allPositionsUndefined = false;
                 break;
             }
         }
         return allPositionsUndefined;
     }
-    
+
     function provideDefaultPositions(columns) {
-        for(let index = 0; index < columns.length; index++) {
+        for (let index = 0; index < columns.length; index++) {
             columns[index].position = index;
         }
         return columns;
