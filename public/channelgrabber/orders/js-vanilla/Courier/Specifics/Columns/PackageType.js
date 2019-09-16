@@ -11,7 +11,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         init.call(this);
     }
 
-    PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '#courier-package-type_';
+    PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '.courier-package-type_';
     PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER = '.courier-package-type-options';
     PackageType.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
 
@@ -70,21 +70,24 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             selected = selectedValue || firstValue;
         }
 
-        var data = {
-            id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
-            name: 'orderData[' + orderId + '][packageType]',
-            class: 'required',
-            options: []
-        };
-        for (var value in optionsObject) {
-            data.options.push({
-                title: optionsObject[value].title,
-                value: value,
-                selected: (value == selected)
-            });
-        }
-        var html = cgMustache.renderTemplate(template, data);
-        container.empty().append(html);
+        container.each(function (index, element) {
+            let parcelNumber = index + 1;
+            let data = {
+                id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('.', '') + orderId + '-' + parcelNumber,
+                name: 'parcelData[' + orderId + '][' + parcelNumber + '][packageType]',
+                class: 'required courier-package-type_' + orderId,
+                options: []
+            };
+            for (var value in optionsObject) {
+                data.options.push({
+                    title: optionsObject[value].title,
+                    value: value,
+                    selected: (value == selected)
+                });
+            }
+            var html = cgMustache.renderTemplate(template, data);
+            $(element).empty().append(html);
+        });
         return this;
     };
 

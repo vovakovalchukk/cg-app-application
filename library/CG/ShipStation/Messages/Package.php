@@ -113,7 +113,7 @@ class Package
             $parcelData->getWidth(),
             $parcelData->getHeight(),
             static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
-            $parcelData->getPackageType() ? $parcelData->getPackageType() : $orderData->getPackageType(),
+            $parcelData->getPackageType(),
             $insuranceAmount,
             $order->getCurrencyCode()
         );

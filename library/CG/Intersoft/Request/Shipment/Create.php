@@ -1,6 +1,7 @@
 <?php
 namespace CG\Intersoft\RoyalMail\Request\Shipment;
 
+use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SaturdayDeliveryInterface;
@@ -32,6 +33,8 @@ class Create extends PostAbstract
     const MAX_LEN_DESCRIPTION = 255;
     const MAX_LEN_DELIVERY_PHONE_NUMBER = 20;
     const MIN_FINANCIAL_VALUE = 0.01;
+    const MAX_ADDRESS_FIELDS = 3;
+    const MAX_ADDRESS_FIELDS_LEN = self::MAX_ADDRESS_FIELDS * self::MAX_LEN_DEFAULT;
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -114,6 +117,9 @@ class Create extends PostAbstract
         if ($deliveryAddress->getCompanyName()) {
             $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
         }
+
+        $deliveryAddress = $this->reformatDestinationAddressLines($deliveryAddress);
+
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
         $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
@@ -290,6 +296,64 @@ class Create extends PostAbstract
             return '';
         }
         return htmlspecialchars(mb_substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
+    }
+
+    protected function reformatDestinationAddressLines(AddressInterface $deliveryAddress): AddressInterface
+    {
+        if (!$this->isAnyAddressLineLongerThanMaxValue($deliveryAddress)) {
+            return $deliveryAddress;
+        }
+
+        $oneLineAddress = $this->combineAllAddressLinesToOne($deliveryAddress);
+        if ($this->isOneLineAddressLongerThanMaxAllAddressLineLength($oneLineAddress)) {
+            return $deliveryAddress;
+        }
+
+        $this->splitAddressIntoLines($deliveryAddress, $oneLineAddress);
+        return $deliveryAddress;
+    }
+
+    protected function isAnyAddressLineLongerThanMaxValue(AddressInterface $deliveryAddress): bool
+    {
+        $line1len = mb_strlen($deliveryAddress->getLine1());
+        $line2len = mb_strlen($deliveryAddress->getLine2());
+        $line3len = mb_strlen($deliveryAddress->getLine3());
+
+        return !($line1len <= static::MAX_LEN_DEFAULT
+            && $line2len <= static::MAX_LEN_DEFAULT
+            && $line3len <= static::MAX_LEN_DEFAULT
+        );
+    }
+
+    protected function isOneLineAddressLongerThanMaxAllAddressLineLength(string $oneLineAddress): bool
+    {
+        return strlen($oneLineAddress) > static::MAX_ADDRESS_FIELDS_LEN;
+    }
+
+    protected function combineAllAddressLinesToOne(AddressInterface $deliveryAddress): string
+    {
+        $address = [
+            $deliveryAddress->getLine1(),
+            $deliveryAddress->getLine2(),
+            $deliveryAddress->getLine3()
+        ];
+
+        if (empty($address[2])) {
+            unset($address[2]);
+        }
+
+        return str_replace(',,', ',', implode(', ', $address));
+    }
+
+    protected function splitAddressIntoLines(AddressInterface $deliveryAddress, string $oneLineAddress): void
+    {
+        $address = explode(PHP_EOL, wordwrap($oneLineAddress, static::MAX_LEN_DEFAULT), static::MAX_ADDRESS_FIELDS);
+        $address = array_map('trim', $address);
+
+        $deliveryAddress
+            ->setLine1($address[0] ?? null)
+            ->setLine2($address[1] ?? null)
+            ->setLine3($address[2] ?? null);
     }
 
     protected function getDeliveryPhoneNumber(): string
