@@ -49,8 +49,7 @@ define([], function() {
         const options = processOptions(this.allItems);
         const selectedOption = options.find(option => (option.title === column.optionText));
 
-        let select = mustache.cgmustache.renderTemplate(mustache.templates.select, {
-//            id:
+        const select = mustache.cgmustache.renderTemplate(mustache.templates.select, {
             name: `${column.id}`,
             options,
             sizeClass: 'invoice-designer-drag-list-select',
@@ -95,7 +94,7 @@ define([], function() {
     };
 
     dragAndDropList.prototype.getNewItem = function() {
-        let availableItems = getAvailableItems.call(this);
+        const availableItems = getAvailableItems(this.allItems, this.getRenderedColumns());
         if (!availableItems.length) {
             return;
         }
@@ -114,21 +113,22 @@ define([], function() {
     };
 
     dragAndDropList.prototype.addClick = function() {
-        let newItem = this.getNewItem();
+        const newItem = this.getNewItem();
 
         if (!newItem) {
             return;
         }
 
-        newItem.position = this.initialItems.length;
-        this.initialItems.push(newItem);
+        const renderedItems = this.getRenderedColumns();
+        newItem.position = renderedItems.length;
+        renderedItems.push(newItem);
 
         let newItemHTML = this.createItemRowHTML(newItem);
         let newRowNode = document.createRange().createContextualFragment(newItemHTML);
 
         this.sortableListNode.append(newRowNode);
 
-        let rowNodeInDom = this.sortableListNode.children[this.sortableListNode.children.length - 1];
+        const rowNodeInDom = this.sortableListNode.children[this.sortableListNode.children.length - 1];
 
         this.enableDragItem(rowNodeInDom);
         this.enableDeleteItem(rowNodeInDom);
@@ -171,12 +171,8 @@ define([], function() {
     };
 
     dragAndDropList.prototype.removeItemClick = function(rowNode) {
-        let columnForNode = this.rowMap.get(rowNode);
-
-        this.initialItems = this.initialItems.filter(column => column !== columnForNode);
         this.rowMap.delete(rowNode);
         rowNode.parentNode.removeChild(rowNode);
-
         this.changeList();
     };
 
@@ -192,7 +188,7 @@ define([], function() {
     };
 
     dragAndDropList.prototype.enableDeleteItem = function(rowNode) {
-        let deleteNode = rowNode.getElementsByClassName(this.listClasses.deleteClass)[0];
+        const deleteNode = rowNode.getElementsByClassName(this.listClasses.deleteClass)[0];
         deleteNode.onclick = this.removeItemClick.bind(this, rowNode);
     };
 
@@ -224,9 +220,9 @@ define([], function() {
         return optionSelected.displayText || optionSelected.optionText;
     }
 
-    function getAvailableItems() {
-        return this.allItems.filter(item => {
-            for (let renderedItem of this.initialItems) {
+    function getAvailableItems(allItems, renderedItems) {
+        return allItems.filter(item => {
+            for (let renderedItem of renderedItems) {
                 if (renderedItem.id === item.id) {
                     return false;
                 }
