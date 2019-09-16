@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "55879f4c0a17f54e3930a9d960ea2c69",
+    "content-hash": "0f89c16e90dd59b13d6c3ebf356eda11",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5051,16 +5051,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2234c29e9849466e486d85965cbf757ad2aacc3e"
+                "reference": "f03a0eff70ef0fe20ef455ebbd9d64ff06acd838"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-8dd3e8.zip",
-                "reference": "2234c29e9849466e486d85965cbf757ad2aacc3e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns-f9658a.zip",
+                "reference": "f03a0eff70ef0fe20ef455ebbd9d64ff06acd838",
                 "shasum": null
             },
             "require": {
@@ -5112,7 +5112,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-08-28T14:31:54+00:00"
+            "time": "2019-09-16T07:37:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11459,7 +11459,7 @@
         {
             "alias": "1.26.21",
             "alias_normalized": "1.26.21.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
