@@ -1995,16 +1995,17 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.0-05f0a4.zip",
-                "reference": "8cd0abff2e3b13cef0a9326dc20e77286d3f0604"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.1-c51e9d.zip",
+                "reference": "aa9990c59277bafb7c0a09c7bfbd0f6bd290b029",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -2044,7 +2045,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-09-13T09:18:04+00:00"
+            "time": "2019-09-16T07:52:53+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4975,16 +4976,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.21",
+            "version": "1.26.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "03f5be7b971ac9374a25c1222e07d9b46d98732e"
+                "reference": "31e266d64d9fac2fc72edcaf58b83713cb0133c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.21-2d3158.zip",
-                "reference": "03f5be7b971ac9374a25c1222e07d9b46d98732e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.22-09b196.zip",
+                "reference": "31e266d64d9fac2fc72edcaf58b83713cb0133c2",
+                "shasum": null
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5035,7 +5037,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-06T14:30:32+00:00"
+            "time": "2019-09-16T09:33:55+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
