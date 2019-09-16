@@ -1,6 +1,6 @@
 <?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
-<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/DataTableAbstract.js"></script>
-<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/Review/DataTable.js"></script>
+<?php $this->headScript()->appendFile(Orders\Module::PUBLIC_FOLDER . 'js/Courier/DataTableAbstract.js'); ?>
+<?php $this->headScript()->appendFile(Orders\Module::PUBLIC_FOLDER . 'js/Courier/Review/DataTable.js'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . '/cg-built/vendor/cg-common/dist/css/default.css',
     ['screen', 'print']) ?>
 
