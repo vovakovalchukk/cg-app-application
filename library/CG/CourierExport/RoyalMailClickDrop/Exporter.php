@@ -100,8 +100,6 @@ class Exporter implements ExporterInterface
         [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
 
         $addOn = $orderData['addOn'] ?? [];
-        $packageType = $orderData['packageType'] ?? '';
-        $serviceCode = $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn);
         $signature = $this->getSignatureSelection($addOn);
 
         foreach ($orderParcelsData as $orderParcelData) {
@@ -121,6 +119,9 @@ class Exporter implements ExporterInterface
                 if ($orderItems->count() > 1) {
                     $weight = $orderItemData['weight'] ?? '';
                 }
+
+                $packageType = $orderParcelData['packageType'] ?? '';
+                $serviceCode = $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn);
 
                 $export->addRowData(
                     [

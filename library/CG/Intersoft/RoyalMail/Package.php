@@ -39,9 +39,8 @@ class Package
         );
     }
 
-    public static function fromXml(\SimpleXMLElement $xml): Package
+    public static function fromXml(\SimpleXMLElement $package): Package
     {
-        $package = $xml->package;
         return new static(
             $package->packageId,
             $package->trackingNumber,
