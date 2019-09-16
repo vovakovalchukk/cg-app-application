@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4f78c688c5a7b0a2bf8c8cf4891fce8",
+    "content-hash": "e195fd481639d2b504ecd25dba48eacb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5050,16 +5050,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.21",
+            "version": "1.26.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "03f5be7b971ac9374a25c1222e07d9b46d98732e"
+                "reference": "31e266d64d9fac2fc72edcaf58b83713cb0133c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.21-2d3158.zip",
-                "reference": "03f5be7b971ac9374a25c1222e07d9b46d98732e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.22-09b196.zip",
+                "reference": "31e266d64d9fac2fc72edcaf58b83713cb0133c2",
                 "shasum": null
             },
             "require": {
@@ -5111,7 +5111,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-06T14:30:32+00:00"
+            "time": "2019-09-16T09:33:55+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
