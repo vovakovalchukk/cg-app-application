@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3857ce5cd1c7c6294f86af6d13bd934e",
+    "content-hash": "0b408b2922edc5e865ba7071fafb0694",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-MIG-46-split-email-verification-out-of-amazon-lib",
+            "version": "1.29.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "545ce8192ac153f12e0f99d9e0cd903467f177bd"
+                "reference": "d62160ee5daa5599554299e9574a85d64c84d9c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-46-split-email-verification-out-of-amazon-lib-a3872a.zip",
-                "reference": "545ce8192ac153f12e0f99d9e0cd903467f177bd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.6-2cdc81.zip",
+                "reference": "d62160ee5daa5599554299e9574a85d64c84d9c8",
                 "shasum": null
             },
             "require": {
@@ -357,7 +357,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
-                "channelgrabber/email-verification": "dev-MIG-46-split-email-verification-out-of-amazon-lib as 1.0.0",
+                "channelgrabber/email-verification": "^1.0.0",
                 "channelgrabber/exchangerate": "^1.1.1",
                 "channelgrabber/gearman": "^1.7.1",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
@@ -401,7 +401,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-09-13T13:55:43+00:00"
+            "time": "2019-09-16T12:26:14+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1328,16 +1328,16 @@
         },
         {
             "name": "channelgrabber/email-verification",
-            "version": "dev-MIG-46-split-email-verification-out-of-amazon-lib",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email-verification.git",
-                "reference": "4541efdfa93e2af31ca95a354eef0b0ba0a38bbf"
+                "reference": "f643d877b6c742cb583708693ef712ae3f8e14c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-verification/channelgrabber-email-verification-dev-MIG-46-split-email-verification-out-of-amazon-lib-882990.zip",
-                "reference": "4541efdfa93e2af31ca95a354eef0b0ba0a38bbf",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-verification/channelgrabber-email-verification-1.0.0-4a4c4b.zip",
+                "reference": "f643d877b6c742cb583708693ef712ae3f8e14c6",
                 "shasum": null
             },
             "require": {
@@ -1359,7 +1359,7 @@
                     "CG\\EmailVerification\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-13T13:47:30+00:00"
+            "time": "2019-09-16T12:16:46+00:00"
         },
         {
             "name": "channelgrabber/etag",
@@ -11478,25 +11478,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.29.5",
-            "alias_normalized": "1.29.5.0",
-            "version": "dev-MIG-46-split-email-verification-out-of-amazon-lib",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-46-split-email-verification-out-of-amazon-lib",
-            "package": "channelgrabber/email-verification"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/email-verification": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
