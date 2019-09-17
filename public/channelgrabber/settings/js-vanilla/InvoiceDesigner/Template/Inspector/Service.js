@@ -9,7 +9,8 @@ define([
     'InvoiceDesigner/Template/Inspector/OrderTableOptions',
     'InvoiceDesigner/Template/Inspector/Barcode',
     'InvoiceDesigner/Template/Inspector/LinkedProducts',
-    'InvoiceDesigner/Template/Inspector/TableColumns'
+    'InvoiceDesigner/Template/Inspector/TableColumns',
+    'InvoiceDesigner/Template/Inspector/AllPagesDisplay'
 ], function(
     Collection,
     // Inspector variables here
@@ -21,7 +22,8 @@ define([
     orderTableOptions,
     barcode,
     linkedProducts,
-    tableColumns
+    tableColumns,
+    allPagesDisplay
 ) {
     var Service = function()
     {
@@ -61,7 +63,8 @@ define([
             orderTableOptions,
             barcode,
             linkedProducts,
-            tableColumns
+            tableColumns,
+            allPagesDisplay
         ];
 
         for (var key in inspectorsToAdd) {
@@ -94,6 +97,8 @@ define([
         this.hideAll();
         var inspectors = this.getForElement(element);
         heading.showForElement(element, this.getTemplate(), this);
+        allPagesDisplay.showForElement(element, this.getTemplate(), this);
+
         inspectors.each(function(inspector)
         {
             inspector.showForElement(element);

@@ -394,6 +394,7 @@ $indicator-border-color: #1477aa;
     display: block;
     margin: 5px 0px 5px 0px;
 }
+
 #template-selector{
     width: 100%;
     min-width: 100%;
@@ -401,6 +402,7 @@ $indicator-border-color: #1477aa;
     clear:both;
     margin-bottom: 8px;
 }
+
 #paper-type-dropdown {
     width: 100%;
     min-width: 100%;
@@ -408,6 +410,7 @@ $indicator-border-color: #1477aa;
     clear:both;
     margin-bottom: 8px;
 }
+
 .paper-type-dimensions-container {
     float: left;
     width: 100%;
@@ -415,33 +418,40 @@ $indicator-border-color: #1477aa;
     align-items: center;
     justify-content: space-between;
 }
+
 .paper-type-dimensions-input {
     width: 45px;
 }
+
 .med-element {
     width: 100%;
     float: left;
     clear:both;
 }
+
 .template-new-btn {
     width: 102px;
     float: left;
     clear:both;
 }
+
 .template-dup-btn {
     width: 100px;
     float: right;
 }
+
 .pdf-btn {
     width: 100%;
     float: left;
     clear:both;
 }
+
 .template-inputbox-holder {
     width: 94%;
     float: left;
     clear:both;
 }
+
 #heading-inspector {
     width: 100%;
     float: left;
@@ -456,9 +466,47 @@ $indicator-border-color: #1477aa;
         margin-top: -5px;
     }
 }
+
 .inspector-module {
     width: 100%;
 }
+
+.inspector-text-align-radio {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.inspector-text-align-label {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #afafaf;
+    border-radius: 4px;
+    cursor: pointer;
+    &-left {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
+        background-position: center;
+    }
+    &-center {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
+        background-position: center;
+    }
+    &-right {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
+        background-position: center;
+    }
+    &-justified {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
+        background-position: center;
+    }
+}
+
+.inspector-text-align-radio:checked + .inspector-text-align-label {
+    background-color: #fff;
+    border-color: #9a9a9a;
+}
+
 #text-inspector-data-fields {
     margin-top: 10px;
     margin-bottom:15px;
@@ -472,6 +520,7 @@ $indicator-border-color: #1477aa;
     float: left;
     margin-left: 10px;
 }
+
 .color-picker {
     width: 100%!important;
     float: left;

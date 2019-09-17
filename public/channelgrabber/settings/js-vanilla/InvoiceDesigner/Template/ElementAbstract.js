@@ -21,7 +21,8 @@ define([
             y: 0,
             backgroundColour: undefined,
             borderWidth: 1,
-            borderColour: 'black'
+            borderColour: 'black',
+            allPagesDisplay: false
         };
         var baseInspectableAttributes = [];
         for (var field in data) {
@@ -160,6 +161,16 @@ define([
         {
             this.set('borderColour', newBorderColour);
             return this;
+        };
+
+        this.setDisplayOnAllPages = function(desiredValue, populating)
+        {
+            this.set('allPagesDisplay', desiredValue, populating);
+            return this;
+        };
+
+        this.getDisplayOnAllPages = function() {
+            return this.get('allPagesDisplay');
         };
 
         this.get = function(field)
@@ -338,6 +349,7 @@ define([
         this.setX(data.x, populating);
         this.setY(data.y, populating);
         this.setBorderWidth(data.borderWidth, populating);
+        this.setDisplayOnAllPages(data.allPagesDisplay, populating)
     };
 
     return ElementAbstract;

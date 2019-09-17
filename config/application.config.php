@@ -43,6 +43,7 @@ return array (
     38 => 'CG_Sagepay',
     39 => 'Tideways',
     40 => 'Partner',
+    41 => 'DataExchange',
   ),
   'module_listener_options' => 
   array (
