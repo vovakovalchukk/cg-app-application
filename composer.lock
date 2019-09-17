@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "305bdf257bc07b0397715124ce96a57f",
+    "content-hash": "816976f3dbd2ee4444e19ecc1ca2f2da",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2216,16 +2216,16 @@
         },
         {
             "name": "channelgrabber/partner",
-            "version": "dev-PTNR-45-shopblocks-partner-account",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "bdf425e63e8e87f7185b460b0657ab2167727950"
+                "reference": "d89239eea5e28e992d2e92e839d1334722b92958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-PTNR-45-shopblocks-partner-account-bc16f3.zip",
-                "reference": "bdf425e63e8e87f7185b460b0657ab2167727950"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-1.0.4-829c99.zip",
+                "reference": "d89239eea5e28e992d2e92e839d1334722b92958"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.4",
@@ -2249,7 +2249,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-17T08:43:40+00:00"
+            "time": "2019-09-17T09:30:26+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -11364,18 +11364,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-PTNR-45-shopblocks-partner-account",
-            "package": "channelgrabber/partner"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/partner": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
