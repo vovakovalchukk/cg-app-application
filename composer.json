@@ -57,7 +57,7 @@
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
         "channelgrabber/order": "~1.47.0",
-        "channelgrabber/partner": "~1.0.3",
+        "channelgrabber/partner": "1.0.4",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.5.2",
