@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b67d4cbdd37fffcfa0a70a90db065f3",
+    "content-hash": "fcabace927aa6fdddafc552118540217",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5089,16 +5089,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f03a0eff70ef0fe20ef455ebbd9d64ff06acd838"
+                "reference": "e599fb7b93b5e61870408866edcbc43a05ba6131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns-f9658a.zip",
-                "reference": "f03a0eff70ef0fe20ef455ebbd9d64ff06acd838",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-ce3525.zip",
+                "reference": "e599fb7b93b5e61870408866edcbc43a05ba6131",
                 "shasum": null
             },
             "require": {
@@ -5150,7 +5150,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-16T07:37:19+00:00"
+            "time": "2019-09-17T08:16:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11503,7 +11503,7 @@
         {
             "alias": "1.26.22",
             "alias_normalized": "1.26.22.0",
-            "version": "dev-TAC-511-order-table-element-changes-add-remove-and-sort-columns",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
