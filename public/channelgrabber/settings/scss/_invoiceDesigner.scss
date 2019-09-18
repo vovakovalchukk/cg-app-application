@@ -222,14 +222,14 @@ $indicator-border-color: #1477aa;
         float: none;
         margin: 0;
 
-        tr{
+        tr, td {
+            box-sizing: border-box;
             border: none;
             background: inherit;
+            cursor: default;
         }
 
         td{
-            border: none;
-            background: inherit;
             color: $color-black;
             text-align: left;
             height:7.5mm;

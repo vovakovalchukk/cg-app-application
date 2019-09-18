@@ -28,9 +28,9 @@ define([
         this.getInspectorService().hideAll();
     };
 
-    InspectorManager.prototype.elementSelected = function(element)
+    InspectorManager.prototype.elementSelected = function(element, event)
     {
-        this.getInspectorService().showForElement(element);
+        this.getInspectorService().showForElement(element, event);
     };
 
     InspectorManager.prototype.elementDeselected = function(element)

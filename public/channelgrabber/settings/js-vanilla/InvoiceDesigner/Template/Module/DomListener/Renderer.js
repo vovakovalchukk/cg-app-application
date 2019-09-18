@@ -77,9 +77,9 @@ define([
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).off('mousedown focus').on('mousedown focus', function()
+        $('#'+domId).off('mousedown focus').on('mousedown focus', function(event)
         {
-            domManipulator.triggerElementSelectedEvent(element);
+            domManipulator.triggerElementSelectedEvent(element, event);
         });
     };
 

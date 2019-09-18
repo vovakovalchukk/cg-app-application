@@ -11,10 +11,14 @@ define([
 
         const tableColumns = TableStorage.getDefaultColumns();
 
-        var additionalData = {
+        const additionalData = {
             showVat: false,
             linkedProductsDisplay: null,
-            tableColumns
+            tableColumns,
+            tableCells: []
+        };
+        const data = {
+            activeCellNodeId: null
         };
 
         ElementAbstract.call(this, additionalData);
@@ -50,6 +54,20 @@ define([
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
+        };
+
+        this.getActiveCellNodeId = function() {
+            return this.get('activeCellNodeId');
+        };
+
+        this.setActiveCellNodeId = function(nodeId, populating) {
+            console.log('in setACtiveCellNodeId');
+            //todo - move this into set if useful
+            let activeCellNodeId = this.getActiveCellNodeId();
+            if(activeCellNodeId === nodeId){
+                return;
+            }
+            return this.set('activeCellNodeId', nodeId, populating, true);
         };
 
         this.toJson = function() {

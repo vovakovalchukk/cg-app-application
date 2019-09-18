@@ -55,10 +55,10 @@ define([
         return this;
     };
 
-    PubSubAbstract.prototype.publish = function(performedUpdates) {
+    PubSubAbstract.prototype.publish = function(performedUpdates, bypassSaveDiscardBar) {
         var subscribers = this.getSubscribers();
         for (var key in subscribers) {
-            subscribers[key][PubSubAbstract.PUBLISH_METHOD](this, performedUpdates);
+            subscribers[key][PubSubAbstract.PUBLISH_METHOD](this, performedUpdates, bypassSaveDiscardBar);
         }
         return this;
     };

@@ -200,9 +200,9 @@ define([
             return manipulator;
         };
 
-        this.notifyOfChange = function(topicUpdates)
+        this.notifyOfChange = function(topicUpdates, bypassSaveDiscardBar)
         {
-            this.getDomManipulator().triggerTemplateChangeEvent(this, topicUpdates);
+            this.getDomManipulator().triggerTemplateChangeEvent(this, topicUpdates, bypassSaveDiscardBar);
         };
     };
 
@@ -237,9 +237,9 @@ define([
         return this;
     };
 
-    Entity.prototype.publisherUpdate = function(element, topicUpdates)
+    Entity.prototype.publisherUpdate = function(element, topicUpdates, bypassSaveDiscardBar)
     {
-        this.notifyOfChange(topicUpdates);
+        this.notifyOfChange(topicUpdates, bypassSaveDiscardBar);
     };
 
     return Entity;

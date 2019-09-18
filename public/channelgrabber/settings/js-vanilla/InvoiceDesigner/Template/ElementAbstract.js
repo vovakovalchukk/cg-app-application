@@ -178,7 +178,7 @@ define([
             return data[field];
         };
 
-        this.set = function(field, value, populating)
+        this.set = function(field, value, populating, bypassSaveDiscardBar)
         {
             var oldValue = data[field];
             data[field] = value;
@@ -189,7 +189,7 @@ define([
             if ((oldValue === value) || populating) {
                 return;
             }
-            this.publish();
+            this.publish(null, bypassSaveDiscardBar);
         };
 
         this.getData = function()
