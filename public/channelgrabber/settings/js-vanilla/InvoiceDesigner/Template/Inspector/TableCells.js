@@ -40,15 +40,16 @@ define([
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
-            const html = `<div> in the cellInspector</div>`;
+            const html = `<div class="inspector-holder"> in the cellInspector</div>`;
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Table Cell',
                 'id': 'table-cell-collapsible'
             }, "collapsible", {'content': html});
 
-            const tableColumnsInspector = document.getElementById('tableCells-inspector');
-            tableColumnsInspector.append(document.createRange().createContextualFragment(collapsible));
+            const tableCellsInspector = document.getElementById('tableCells-inspector');
+            const template = cgmustache.renderTemplate(collapsible, {}, 'tableCells');
+            tableCellsInspector.append(document.createRange().createContextualFragment(template));
         });
     };
 
