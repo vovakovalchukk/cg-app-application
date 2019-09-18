@@ -1,10 +1,12 @@
 define([
     'InvoiceDesigner/Template/InspectorAbstract',
+    'InvoiceDesigner/Template/Inspector/Font',
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
     'cg-mustache'
 ], function(
     InspectorAbstract,
+    Font,
     dragAndDropList,
     TableStorage,
     CGMustache
@@ -31,16 +33,58 @@ define([
         }
         this.nodeToColumnMap = this.createNodeToColumnMap(element, event);
         const relevantColumnData = this.getRelevantColumnData(element, event);
+
+        //todo - get the relevant tableCells data...
+        // here...
+
         let cellNode = event.target;
 
         element.setActiveCellNodeId(cellNode.id);
 
         const templateUrlMap = {
-            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+            select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
+            colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
+            align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
+            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache',
+            font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
+
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
-            const html = `<div class="inspector-holder"> in the cellInspector</div>`;
+
+//            var templateUrlMap = {
+//                select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
+//                colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
+//                align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
+//                font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
+//                collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+//            };
+//            CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
+//            {
+            //todo - pass params into these when we know the format for the saved data against cells
+            let fontSizeData = Font.getFontSizeViewData();
+            let fontFamilyData = Font.getFontFamilyViewData();
+            let fontColorData = Font.getFontColourViewData();
+
+            var fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
+            var fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
+            var fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+            var align = cgmustache.renderTemplate(templates, null, "align");
+            var font = cgmustache.renderTemplate(templates, {}, "font", {
+                'fontSize': fontSize,
+                'fontFamily': fontFamily,
+                'fontColour': fontColour,
+                'align': align
+            });
+            console.log('font: ', font);
+            
+            const html = `<div class="inspector-holder"> 
+                            in the cellInspector
+                            <span class="heading-medium">Font</span>
+                            ${font}
+                          </div>`;
+
+
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Table Cell',

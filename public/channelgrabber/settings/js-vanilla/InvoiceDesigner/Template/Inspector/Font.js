@@ -42,15 +42,15 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element), "select");
-            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element), "select");
-            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData(element), "colourPicker");
-            var align = cgmustache.renderTemplate(templates, self.getFontAlignViewData(element), "align");
+            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element.getFontSize()), "select");
+            console.log('self.getFontSizeViewData(element.getFontSize()): ', self.getFontSizeViewData(element.getFontSize()));
+            
+            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element.getFontFamily()), "select");
+            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData( element.getFontColour()), "colourPicker");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
                 'fontSize': fontSize,
                 'fontFamily': fontFamily,
                 'fontColour': fontColour,
-                'align': align
             });
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -62,11 +62,11 @@ define([
         });
     };
 
-    Font.prototype.getFontSizeViewData = function(element)
+    Font.prototype.getFontSizeViewData = function(fontSizeSelected)
     {
         var fontSizeOptions = [];
         for (var fontSizeSize = Font.MINIMUM_FONT_SIZE; fontSizeSize <= Font.MAXIMUM_FONT_SIZE; fontSizeSize++) {
-            var selected = (element.getFontSize() == fontSizeSize);
+            var selected = (fontSizeSelected == fontSizeSize);
             fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
         }
         return {
@@ -76,7 +76,7 @@ define([
         };
     };
 
-    Font.prototype.getFontFamilyViewData = function(element)
+    Font.prototype.getFontFamilyViewData = function(fontFamilySelected)
     {
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
@@ -84,7 +84,7 @@ define([
             {'title': 'Times New Roman', 'value': 'TimesRoman'}
         ];
         for (var key in fontFamilyOptions) {
-            if (fontFamilyOptions[key]['value'] == element.getFontFamily()) {
+            if (fontFamilyOptions[key]['value'] == fontFamilySelected) {
                 fontFamilyOptions[key]['selected'] = true;
             }
         }
@@ -95,11 +95,11 @@ define([
         };
     };
 
-    Font.prototype.getFontColourViewData = function(element)
+    Font.prototype.getFontColourViewData = function(fontColorSelected)
     {
         return {
             'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID,
-            'initialColour': element.getFontColour()
+            'initialColour': fontColorSelected
         };
     };
 
