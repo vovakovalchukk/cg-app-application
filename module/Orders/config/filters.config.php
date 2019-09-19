@@ -40,6 +40,8 @@ return [
                 [
                     'type' => 'Row',
                     'filters' => [
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_PAYMENT_DATE_RANGE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_DISPATCH_DATE_RANGE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_CURRENCY_CODE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_TOTAL),
