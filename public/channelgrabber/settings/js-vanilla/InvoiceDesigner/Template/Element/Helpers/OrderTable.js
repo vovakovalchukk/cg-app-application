@@ -4,7 +4,6 @@ define([], function() {
     };
 
     OrderTableHelper.prototype.formatTableCellsFromColumns = function(columns) {
-        console.log('in formatTableCellsFromColumns');
         const tableCells = [];
         for (let column of columns) {
             let cellHeader = {
@@ -21,10 +20,10 @@ define([], function() {
         return tableCells;
     };
 
-    OrderTableHelper.prototype.getCellDataFromDomId = function(id, tableCells) {
+    OrderTableHelper.prototype.getCellDataIndexFromDomId = function(id, tableCells) {
         let [columnId, tagFromId, elementId] = id.split('-');
 
-        return tableCells.find(({column, cellTag}) => {
+        return tableCells.findIndex(({column, cellTag}) => {
             return tagFromId === cellTag && column === columnId;
         });
     };

@@ -20,16 +20,17 @@ define([
 
         this.setId('tableCells');
         this.setInspectedAttributes(['tableCells']);
+
+        const idPrefix = 'tableCells';
+
+        this.FONT_FAMILY_ID = `${idPrefix}-font-family`;
+        this.FONT_SIZE_ID = `${idPrefix}-font-size`;
+        this.FONT_ALIGN_ID = `${idPrefix}-font-align`;
+        this.FONT_COLOR_ID = `${idPrefix}-font-color`;
     };
 
     TableCells.TABLE_COLUMNS_INSPECTOR_SELECTOR = '#tableCells-inspector';
     TableCells.TABLE_COLUMNS_CELL_ACTIVE_CLASS = 'invoice-designer-table-cell-active';
-
-    //TODO - put ids in here
-    TableCells.FONT_FAMILY_ID = '';
-    TableCells.FONT_SIZE_ID = '';
-    TableCells.FONT_ALIGN_ID ='';
-    TableCells.FONT_COLOR_ID = '';
 
     TableCells.prototype = Object.create(InspectorAbstract.prototype);
 
@@ -47,9 +48,9 @@ define([
 
         let cellNode = event.target;
         element.setActiveCellNodeId(cellNode.id);
-        const tableCells = element.getTableCells();
-        this.cellData = orderTableHelper.getCellDataFromDomId(cellNode.id, tableCells);
 
+        const tableCells = element.getTableCells();
+        this.cellDataIndex = orderTableHelper.getCellDataIndexFromDomId(cellNode.id, tableCells);
 
         const templateUrlMap = {
             select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
@@ -60,7 +61,7 @@ define([
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
-            const font = getFontHTML(cgmustache, templates);
+            const font = this.getFontHTML(cgmustache, templates);
 
             const html = `<div class="inspector-holder"> 
                             in the cellInspector
@@ -82,6 +83,26 @@ define([
         });
     };
 
+    //todo - pass params into these when we know the format for the saved data against cells
+    TableCells.prototype.getFontHTML = function(cgmustache, templates) {
+        const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
+        const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
+        const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
+        const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
+
+        const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
+        const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
+        const fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+        const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
+        const font = cgmustache.renderTemplate(templates, {}, "font", {
+            'fontSize': fontSize,
+            'fontFamily': fontFamily,
+            'fontColour': fontColour,
+            'align': align
+        });
+        return font;
+    };
+
     TableCells.prototype.createNodeToColumnMap = function(element, event) {
         const map = new Map;
         const node = event.currentTarget;
@@ -98,26 +119,27 @@ define([
         return map;
     };
 
-    TableCells.prototype.getRelevantColumnData = function(element, event) {
-        const clickedElement = event.target;
-        return this.nodeToColumnMap.get(clickedElement);
+    TableCells.prototype.setTableCellProperty = function(element, property, value) {
+        const tableCells = element.getTableCells();
+        const cellToAffect = tableCells[this.cellDataIndex];
+        cellToAffect[property] = value;
+        element.setTableCells(tableCells);
     };
 
     TableCells.prototype.setFontFamily = function(element, fontFamily) {
-        //todo - these need to set the fontFamily on the tableCells.
-//        element.setFontFamily(fontFamily);
+        this.setTableCellProperty(element, 'fontFamily', fontFamily);
     };
 
     TableCells.prototype.setFontSize = function(element, fontSize) {
-//        element.setFontSize(fontSize);
+        this.setTableCellProperty(element, 'fontSize', fontSize);
     };
 
     TableCells.prototype.setAlign = function(element, align) {
-//        element.setAlign(align);
+        this.setTableCellProperty(element, 'align', align);
     };
 
     TableCells.prototype.setFontColour = function(element, colour) {
-//        element.setFontColour(colour);
+        this.setTableCellProperty(element, 'colour', colour);
     };
 
     return new TableCells();
@@ -126,25 +148,5 @@ define([
         const clickedElement = event.target;
         const tag = clickedElement.tagName.toLowerCase();
         return tag === 'th' || tag === 'td';
-    }
-
-    //todo - pass params into these when we know the format for the saved data against cells
-    function getFontHTML(cgmustache, templates) {
-        const fontSizeData = Font.getFontSizeViewData();
-        const fontFamilyData = Font.getFontFamilyViewData();
-        const fontColorData = Font.getFontColourViewData();
-        const fontAlignData = Font.getFontAlignViewData();
-
-        const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
-        const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
-        const fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
-        const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
-        const font = cgmustache.renderTemplate(templates, {}, "font", {
-            'fontSize': fontSize,
-            'fontFamily': fontFamily,
-            'fontColour': fontColour,
-            'align': align
-        });
-        return font;
     }
 });

@@ -60,7 +60,7 @@ define([
         };
 
         this.getTableCells = function() {
-            return this.get('tableCells');
+            return this.get('tableCells').slice();
         };
 
         this.setTableCells = function(tableCells) {
@@ -72,8 +72,6 @@ define([
         };
 
         this.setActiveCellNodeId = function(nodeId, populating) {
-            console.log('in setACtiveCellNodeId');
-            //todo - move this into set if useful
             let activeCellNodeId = this.getActiveCellNodeId();
             if(activeCellNodeId === nodeId){
                 return;

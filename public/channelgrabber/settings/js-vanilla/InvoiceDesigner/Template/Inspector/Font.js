@@ -43,8 +43,7 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element.getFontSize()), "select");
-            console.log('self.getFontSizeViewData(element.getFontSize()): ', self.getFontSizeViewData(element.getFontSize()));
-            
+
             var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element.getFontFamily()), "select");
             var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData( element.getFontColour()), "colourPicker");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
@@ -62,7 +61,7 @@ define([
         });
     };
 
-    Font.prototype.getFontSizeViewData = function(fontSizeSelected)
+    Font.prototype.getFontSizeViewData = function(fontSizeSelected, id)
     {
         var fontSizeOptions = [];
         for (var fontSizeSize = Font.MINIMUM_FONT_SIZE; fontSizeSize <= Font.MAXIMUM_FONT_SIZE; fontSizeSize++) {
@@ -70,13 +69,13 @@ define([
             fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
         }
         return {
-            'id': Font.FONT_INSPECTOR_FONT_SIZE_ID,
+            'id': id || Font.FONT_INSPECTOR_FONT_SIZE_ID,
             'name': Font.FONT_INSPECTOR_FONT_SIZE_ID,
             'options': fontSizeOptions
         };
     };
 
-    Font.prototype.getFontFamilyViewData = function(fontFamilySelected)
+    Font.prototype.getFontFamilyViewData = function(fontFamilySelected, id)
     {
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
@@ -89,24 +88,24 @@ define([
             }
         }
         return {
-            'id': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
+            'id': id || Font.FONT_INSPECTOR_FONT_FAMILY_ID,
             'name': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
             'options': fontFamilyOptions
         };
     };
 
-    Font.prototype.getFontColourViewData = function(fontColorSelected)
+    Font.prototype.getFontColourViewData = function(fontColorSelected, id)
     {
         return {
-            'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID,
+            'id': id || Font.FONT_INSPECTOR_FONT_COLOUR_ID,
             'initialColour': fontColorSelected
         };
     };
 
-    Font.prototype.getFontAlignViewData = function(alignSelected)
+    Font.prototype.getFontAlignViewData = function(alignSelected, id)
     {
         var alignViewData = {
-            'id': Font.FONT_INSPECTOR_ALIGN_ID
+            'id': id || Font.FONT_INSPECTOR_ALIGN_ID
         };
         alignViewData[alignSelected] = true;
         return alignViewData;

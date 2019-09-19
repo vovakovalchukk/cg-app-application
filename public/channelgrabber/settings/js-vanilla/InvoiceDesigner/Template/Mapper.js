@@ -111,7 +111,6 @@ define([
     };
 
     Mapper.prototype.formatTableCellsFromJson = function({tableCells, tableColumns}) {
-        console.log('in formatTableCEllsFromJson in Mapper');
         // todo - identify whether this is going to be needed or not. If not, you can remove the Helper for Table
         return tableCells;
     };

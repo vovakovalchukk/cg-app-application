@@ -16,6 +16,7 @@ define([
     TableCellsDomListener.prototype.init = function(inspector, element)
     {
         $('#' + inspector.FONT_FAMILY_ID).off('change').on('change', (event, selectBox, id) => {
+            console.log('on change');
             inspector.setFontFamily(element, id);
         });
 
