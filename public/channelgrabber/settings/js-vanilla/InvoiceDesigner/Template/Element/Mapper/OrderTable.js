@@ -1,9 +1,11 @@
 define([
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/Element/OrderTable'
+    'InvoiceDesigner/Template/Element/OrderTable',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
 ], function(
     MapperAbstract,
-    OrderTableElement
+    OrderTableElement,
+    orderTableHelper
 ) {
     var OrderTable = function() {
         MapperAbstract.call(this);
@@ -25,14 +27,14 @@ define([
 
         const html = `<table class="template-element-ordertable-main" style="${tableInlineStyles}">
             <tr>
-                ${renderColumns('th', (column, inlineStyles) => {
+                ${renderColumns('th', (column, inlineStyles, cellId) => {
                     const headerText = column.displayText ? column.displayText : column.optionText;
-                    return `<th id="${column.id}-th" style="${inlineStyles}">${headerText}</th>`
+                    return `<th id="${cellId}" style="${inlineStyles}">${headerText}</th>`
                 })}
             </tr>
             <tr>
-                 ${renderColumns('td', (column, inlineStyles) => (
-                    `<td id="${column.id}-td" style="${inlineStyles}">${column.cellPlaceholder}</td>`
+                 ${renderColumns('td', (column, inlineStyles, cellId) => (
+                    `<td id="${cellId}" style="${inlineStyles}">${column.cellPlaceholder}</td>`
                 ))}
             </tr>
         </table>`;
@@ -51,14 +53,17 @@ define([
 
         return tableColumns.map(column => {
             let inlineStyles = this.getColumnInlineStyles(column, element, tag);
-            return render(column, inlineStyles);
+            let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
+            return render(column, inlineStyles, cellId);
         }).join('');
     };
 
     OrderTable.prototype.getColumnInlineStyles = function(column, element, tag) {
         let inlineStyles = this.getTableStyles(element).slice();
         let activeNodeId = element.getActiveCellNodeId();
-        if (activeNodeId === `${column.id}-${tag}`) {
+        const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
+
+        if (activeNodeId === cellNodeIdForCell) {
             for(let index = 0; index < inlineStyles.length; index++){
                 if(inlineStyles[index].includes('border-color')){
                     inlineStyles[index] = 'border-color: #5fafda';

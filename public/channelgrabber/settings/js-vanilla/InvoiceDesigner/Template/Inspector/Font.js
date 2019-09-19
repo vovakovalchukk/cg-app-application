@@ -103,12 +103,12 @@ define([
         };
     };
 
-    Font.prototype.getFontAlignViewData = function(element)
+    Font.prototype.getFontAlignViewData = function(alignSelected)
     {
         var alignViewData = {
             'id': Font.FONT_INSPECTOR_ALIGN_ID
         };
-        alignViewData[element.getAlign()] = true;
+        alignViewData[alignSelected] = true;
         return alignViewData;
     };
 

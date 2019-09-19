@@ -1,5 +1,6 @@
 define([
     'require',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
@@ -14,7 +15,10 @@ define([
     'InvoiceDesigner/Template/PrintPage/Entity',
     'InvoiceDesigner/Template/MultiPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'
-], function(require) {
+], function(
+    require,
+    OrderTableHelper
+) {
     var Mapper = function() {
 
     };
@@ -97,9 +101,19 @@ define([
         if (elementData.borderWidth) {
             elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
+        if(elementData.tableCells) {
+            //todo - TBC - make this based on expected data from backend.
+            elementData.tableCells = this.formatTableCellsFromJson(elementData)
+        }
 
         element.hydrate(elementData, populating);
         return element;
+    };
+
+    Mapper.prototype.formatTableCellsFromJson = function({tableCells, tableColumns}) {
+        console.log('in formatTableCEllsFromJson in Mapper');
+        // todo - identify whether this is going to be needed or not. If not, you can remove the Helper for Table
+        return tableCells;
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {

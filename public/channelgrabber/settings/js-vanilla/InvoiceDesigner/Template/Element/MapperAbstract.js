@@ -67,6 +67,7 @@ define([
     MapperAbstract.prototype.toHtml = function(element)
     {
         var domId = MapperAbstract.getDomId(element);
+
         var wrapperCssStyle = this.getDomWrapperStyles(element).join('; ');
         var wrapperCssClasses = this.getDomWrapperClasses(element).join(' ');
         var cssClasses = this.getDomClasses(element).join(' ');

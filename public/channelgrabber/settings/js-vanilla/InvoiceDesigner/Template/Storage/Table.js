@@ -1,4 +1,7 @@
-define([], function() {
+define([
+
+], function(
+) {
     const allColumns = [
         {
             "id": "quantityOrdered",
@@ -67,21 +70,49 @@ define([], function() {
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
         }
     ];
-
+//        {
+//            cellId: columnId-tr,
+//            column: ,
+//            cellTag: 'td',
+//            fontFamily,
+//            fontSize,
+//            fontAlign,
+//            fontColor
+//        }
     const TableStorage = (function() {
         return {
             getColumns,
-            getDefaultColumns: function() {
-                return getColumns().filter(column => {
-                    return column.default;
-                })
-            },
+            getDefaultColumns,
+//            getDefaultTableCells: function(columns) {
+////                const defaultColumns = getDefaultColumns();
+////                const tableCells = [];
+////                for (let column of defaultColumns) {
+////
+////
+////                    let cellHeader = {
+////                        column: column.id,
+////                    };
+////                    let cellData = {
+////                        column: column.id,
+////                        cellTag: 'td',
+////                    };
+////                    tableCells.push(cellHeader);
+////                    tableCells.push(cellData);
+////                }
+////                return tableCells;
+//            },
             getTotals: function() {},
             getSortBy: function() {}
         };
 
         function getColumns() {
             return allColumns
+        }
+
+        function getDefaultColumns() {
+            return getColumns().filter(column => {
+                return column.default;
+            });
         }
     }());
 

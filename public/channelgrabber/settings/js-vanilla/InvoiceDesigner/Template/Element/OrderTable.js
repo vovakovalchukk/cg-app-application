@@ -1,21 +1,24 @@
 define([
     'InvoiceDesigner/Template/ElementAbstract',
-    'InvoiceDesigner/Template/Storage/Table'
+    'InvoiceDesigner/Template/Storage/Table',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
 ], function(
     ElementAbstract,
-    TableStorage
+    TableStorage,
+    OrderTableHelper
 ) {
-    var OrderTable = function() {
+    const OrderTable = function() {
         const elementWidth = 700; // px
         const minHeight = 200; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
+        const tableCells = OrderTableHelper.formatTableCellsFromColumns(tableColumns);
 
         const additionalData = {
             showVat: false,
             linkedProductsDisplay: null,
             tableColumns,
-            tableCells: []
+            tableCells
         };
         const data = {
             activeCellNodeId: null
@@ -54,6 +57,14 @@ define([
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
+        };
+
+        this.getTableCells = function() {
+            return this.get('tableCells');
+        };
+
+        this.setTableCells = function(tableCells) {
+            return this.set('tableCells', tableCells);
         };
 
         this.getActiveCellNodeId = function() {
