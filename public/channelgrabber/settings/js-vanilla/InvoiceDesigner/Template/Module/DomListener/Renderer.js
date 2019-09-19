@@ -90,8 +90,11 @@ define([
         return !!event.target.closest(elementClasses);
     }
     function isAnInspectorClick(event) {
-        const inspectorArea = '#element-inspector-bar';
-        return !!event.target.closest(inspectorArea);
+        const inspectorAreaId = 'element-inspector-bar';
+        let inspectorAreaNode = event.path.find(node => {
+            return node.id === inspectorAreaId;
+        });
+        return !!inspectorAreaNode;
     }
     function isAnElementManagerClick(event) {
         const elementManager = ElementManager.getSelector();
