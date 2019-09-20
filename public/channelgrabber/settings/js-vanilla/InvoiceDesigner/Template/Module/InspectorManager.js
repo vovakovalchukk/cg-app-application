@@ -35,6 +35,7 @@ define([
 
     InspectorManager.prototype.elementDeselected = function(element)
     {
+        this.getInspectorService().removeCellSelections(element);
         this.getInspectorService().hideAll();
     };
 

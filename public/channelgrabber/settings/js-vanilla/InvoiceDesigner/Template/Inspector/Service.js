@@ -1,5 +1,6 @@
 define([
     'InvoiceDesigner/Template/Inspector/Collection',
+    'InvoiceDesigner/Template/Element/OrderTable',
     // Inspector requires here
     'InvoiceDesigner/Template/Inspector/Text',
     'InvoiceDesigner/Template/Inspector/Heading',
@@ -14,6 +15,7 @@ define([
     'InvoiceDesigner/Template/Inspector/TableCells'
 ], function(
     Collection,
+    OrderTable,
     // Inspector variables here
     text,
     heading,
@@ -55,7 +57,7 @@ define([
     Service.prototype.init = function(template)
     {
         this.setTemplate(template);
-        
+
         var inspectorsToAdd = [
             // Inspector variables here
             text,
@@ -140,17 +142,21 @@ define([
         return inspectorsForElement;
     };
 
-    Service.prototype.hideAllButTableCellInspector = function (event){
-        console.log('in hideAllButTableCellInspector... (in service) event: ', event);
-        var inspectors = this.getForElement(event.detail.element);
-        inspectors.each(function(inspector)
-        {
-            if (inspector.getId() === 'tableCells') {
-                return;
-            }
-            inspector.hide();
-        });
+    Service.prototype.removeCellSelections = function() {
+        const allElements = this.getTemplate().getElements().getItems();
+        const orderTable = new OrderTable;
 
+        for (let id in allElements) {
+            let element = allElements[id];
+            let type = element.getType();
+
+            if (type !== orderTable.getType()) {
+                continue;
+            }
+
+            element.setActiveCellNodeId('');
+            return;
+        }
     };
 
     return new Service();
