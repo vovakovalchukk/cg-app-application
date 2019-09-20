@@ -471,34 +471,33 @@ $indicator-border-color: #1477aa;
     width: 100%;
 }
 
-.inspector-text-align-radio {
+.inspector-text-format-radio {
     width: 0;
     height: 0;
     opacity: 0;
 }
 
-.inspector-text-align-label {
+.inspector-text-format-label {
     display: inline-block;
     width: 2rem;
     height: 2rem;
     border: 1px solid #afafaf;
     border-radius: 4px;
     cursor: pointer;
-    &-left {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
-        background-position: center;
+    opacity: 0.6;
+    background-position: center;
+    background-size: cover;
+    &-bold {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-bold-32.png');
     }
-    &-center {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
-        background-position: center;
+    &-italic {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-italic-32.png');
     }
-    &-right {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
-        background-position: center;
+    &-underline {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-underline-32.png');
     }
-    &-justified {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
-        background-position: center;
+    &:hover {
+        opacity: 1;
     }
 }
 

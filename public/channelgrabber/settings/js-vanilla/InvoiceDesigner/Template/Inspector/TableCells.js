@@ -38,6 +38,18 @@ define([
         this.getDomManipulator().render(TableCells.TABLE_COLUMNS_INSPECTOR_SELECTOR, "");
     };
 
+    function getTextFormattingHtml() {
+        return `<div>
+                <input class="inspector-text-format-radio" type="radio" id="text-bold" name="text-bold" checked>
+                <label class="inspector-text-format-label inspector-text-format-label-bold" for="text-bold" title="Bold"></label>
+                
+                <input class="inspector-text-format-radio" type="radio" id="text-italic" name="text-italic">
+                <label class="inspector-text-format-label inspector-text-format-label-italic" for="text-italic" title="Italic"></label>
+
+                <input class="inspector-text-format-radio" type="radio" id="text-underline" name="text-underline">
+                <label class="inspector-text-format-label inspector-text-format-label-underline" for="text-underline" title="Underline"></label>  
+            </div>`;
+    }
     TableCells.prototype.showForElement = function(element, event) {
         if (!isCellClick(event)) {
             return;
@@ -58,13 +70,40 @@ define([
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
-            const font = this.getFontHTML(cgmustache, templates);
+            const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
+            fontSizeData.sizeClass = 'u-width-100px';
+            const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
+            const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
+            const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
+            fontAlignData.containerClass = 'u-flex-left u-width-100pc';
+
+            const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
+            const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
+            const fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+            const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
+
+            let textFormatting = getTextFormattingHtml()
 
             const html = `<div class="inspector-holder"> 
-                            in the cellInspector
                             <span class="heading-medium">Font</span>
-                            ${font}
+                            <div>
+                                ${textFormatting}
+                            </div>
+                            
+                            <div>${align}</div>
+                            <div>${fontFamily}</div>
+                            <div>
+                                <span class="u-inline-block">${fontSize}</span>
+                                <span class="u-inline-block">${fontColour}</span>                                                       </div>
                           </div>`;
+
+//            const html = `<div class="inspector-holder">
+//                            in the cellInspector
+//                            <span class="heading-medium">Font</span>
+//                            ${font}
+//                          </div>`;
+
+
 
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -99,7 +138,7 @@ define([
                 'fontFamily': fontFamily,
                 'fontColour': fontColour,
                 'align': align
-        });
+            });
 
         return font;
     };
