@@ -38,5 +38,9 @@ define([
         this.getInspectorService().hideAll();
     };
 
+    InspectorManager.prototype.tableCellClick = function(event) {
+        this.getInspectorService().hideAllButTableCellInspector(event);
+    };
+
     return new InspectorManager();
 });

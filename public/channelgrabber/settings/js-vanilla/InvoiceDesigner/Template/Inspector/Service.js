@@ -98,7 +98,13 @@ define([
     Service.prototype.showForElement = function(element, event)
     {
         this.hideAll();
-        var inspectors = this.getForElement(element);
+        const inspectors = this.getForElement(element);
+
+        if (isTableCellClick(event, element)) {
+            inspectors.getItems().tableCells.showForElement(element, event);
+            return;
+        }
+
         heading.showForElement(element, this.getTemplate(), this);
         allPagesDisplay.showForElement(element, this.getTemplate(), this);
 
@@ -134,5 +140,24 @@ define([
         return inspectorsForElement;
     };
 
+    Service.prototype.hideAllButTableCellInspector = function (event){
+        console.log('in hideAllButTableCellInspector... (in service) event: ', event);
+        var inspectors = this.getForElement(event.detail.element);
+        inspectors.each(function(inspector)
+        {
+            if (inspector.getId() === 'tableCells') {
+                return;
+            }
+            inspector.hide();
+        });
+
+    };
+
     return new Service();
+
+    function isTableCellClick(event, element) {
+        const tag = event.target.tagName.toLowerCase();
+        const isCellTag =  tag === 'th' || tag === 'td';
+        return event.target.id.includes(element.getId()) && isCellTag;
+    }
 });

@@ -42,12 +42,23 @@ define([
         if (!isCellClick(event)) {
             return;
         }
-        this.nodeToColumnMap = this.createNodeToColumnMap(element, event);
-        //todo - get the relevant tableCells data...
-        // here...
 
         let cellNode = event.target;
         element.setActiveCellNodeId(cellNode.id);
+
+        let customEvent = new CustomEvent(
+            "tableCellClick",
+            {
+                detail: {
+                    cellNode,
+                    element
+                },
+                bubbles: true,
+                cancelable: true
+            }
+        );
+
+        document.getElementById(cellNode.id).dispatchEvent(customEvent);
 
         const tableCells = element.getTableCells();
         this.cellDataIndex = orderTableHelper.getCellDataIndexFromDomId(cellNode.id, tableCells);

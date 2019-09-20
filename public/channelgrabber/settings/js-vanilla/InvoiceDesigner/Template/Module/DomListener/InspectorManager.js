@@ -19,6 +19,7 @@ define([
         DomListenerAbstract.prototype.init.call(this, module);
         this.initElementSelectedListener();
         this.initElementDeselectedListener();
+        this.initTableCellClickListener();
     };
 
     InspectorManager.prototype.initElementSelectedListener = function()
@@ -38,6 +39,12 @@ define([
         {
             self.getModule().elementDeselected(element);
         });
+    };
+
+    InspectorManager.prototype.initTableCellClickListener = function() {
+        document.addEventListener("tableCellClick", event => {
+            this.getModule().tableCellClick(event);
+        }, false);
     };
 
     return new InspectorManager();

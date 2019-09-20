@@ -23,29 +23,29 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'success' : function invoiceFetchSuccess(data) {
                 let templateData = JSON.parse(data['template']);
 
-                templateData.elements[0].tableColumns = [
-                    {
-                        "id": "quantityOrdered",
-                        default: true,
-                        "cellPlaceholder": "2",
-                        displayText: "QTY",
-                        "optionText": "Quantity Ordered"
-                    },
-                    {
-                        "id": "skuOrdered",
-                        default: true,
-                        displayText: 'Item #',
-                        "optionText": "Sku Ordered",
-                        "cellPlaceholder": "BATTERY10pc"
-                    },
-                    {
-                        "id": "unitPriceIncVAT",
-                        default: true,
-                        "displayText": "Price",
-                        "optionText": "Unit Price inc VAT",
-                        "cellPlaceholder": "£6"
-                    }
-                ];
+//                templateData.elements[0].tableColumns = [
+//                    {
+//                        "id": "quantityOrdered",
+//                        default: true,
+//                        "cellPlaceholder": "2",
+//                        displayText: "QTY",
+//                        "optionText": "Quantity Ordered"
+//                    },
+//                    {
+//                        "id": "skuOrdered",
+//                        default: true,
+//                        displayText: 'Item #',
+//                        "optionText": "Sku Ordered",
+//                        "cellPlaceholder": "BATTERY10pc"
+//                    },
+//                    {
+//                        "id": "unitPriceIncVAT",
+//                        default: true,
+//                        "displayText": "Price",
+//                        "optionText": "Unit Price inc VAT",
+//                        "cellPlaceholder": "£6"
+//                    }
+//                ];
 
                 template = self.getMapper().fromJson(templateData);
             },
