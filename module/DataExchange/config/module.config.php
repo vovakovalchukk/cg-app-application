@@ -1,6 +1,7 @@
 <?php
 
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\FtpAccountController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
 use Zend\Mvc\Router\Http\Literal;
@@ -22,16 +23,15 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
-            // Example container with pages
-            'Example' => [
-                'label' => 'Example',
+            'Accounts' => [
+                'label' => 'Accounts',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
-                    'Example' => [
-                        'label' => 'Example',
-                        'title' => 'Example',
-                        'route' => Module::ROUTE . '/' . IndexController::ROUTE_EXAMPLE
+                    'Ftp' => [
+                        'label' => 'FTP',
+                        'title' => 'FTP',
+                        'route' => Module::ROUTE . '/' . FtpAccountController::ROUTE
                     ]
                 ]
             ],
@@ -58,12 +58,13 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    IndexController::ROUTE_EXAMPLE => [
+                    FtpAccountController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/example',
+                            'route' => '/accounts/ftp',
                             'defaults' => [
-                                'action' => 'example'
+                                'controller' => FtpAccountController::class,
+                                'action' => 'index'
                             ]
                         ],
                     ]
