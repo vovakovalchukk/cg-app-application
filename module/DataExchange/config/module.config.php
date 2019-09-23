@@ -1,6 +1,7 @@
 <?php
 
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\StockImportController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
 use Zend\Mvc\Router\Http\Literal;
@@ -22,16 +23,15 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
-            // Example container with pages
-            'Example' => [
-                'label' => 'Example',
+            'Stock' => [
+                'label' => 'Stock',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
-                    'Example' => [
-                        'label' => 'Example',
-                        'title' => 'Example',
-                        'route' => Module::ROUTE . '/' . IndexController::ROUTE_EXAMPLE
+                    'Import' => [
+                        'label' => 'Import',
+                        'title' => 'Import',
+                        'route' => Module::ROUTE . '/' . StockImportController::ROUTE
                     ]
                 ]
             ],
@@ -58,15 +58,18 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    IndexController::ROUTE_EXAMPLE => [
+                    StockImportController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/example',
+                            'route' => '/stock/import',
                             'defaults' => [
-                                'action' => 'example'
+                                'controller' => StockImportController::class,
+                                'action' => 'index'
                             ]
                         ],
-                    ]
+                        'may_terminate' => true,
+                        'child_routes' => []
+                    ],
                 ]
             ]
         ],
