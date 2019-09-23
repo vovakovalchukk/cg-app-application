@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68f3eae0f083623d77afa912961db309",
+    "content-hash": "e68848f8c20e3e1dd924d3ccaf66e6d4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1307,16 +1307,16 @@
         },
         {
             "name": "channelgrabber/email-account",
-            "version": "1.0.0",
+            "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email-account.git",
-                "reference": "d964d81ad43dfb7755b2bb733954f93c417f98a5"
+                "reference": "2fd16518ce7a0d6d33196075c7e0c45f5e56d195"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-account/channelgrabber-email-account-1.0.0-436d72.zip",
-                "reference": "d964d81ad43dfb7755b2bb733954f93c417f98a5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-account/channelgrabber-email-account-dev-MIG-32-data-exchange-app-backend-for-accounts-39e25a.zip",
+                "reference": "2fd16518ce7a0d6d33196075c7e0c45f5e56d195"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -1342,7 +1342,7 @@
                     "CG\\EmailAccount\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-20T10:53:21+00:00"
+            "time": "2019-09-23T12:37:35+00:00"
         },
         {
             "name": "channelgrabber/email-verification",
@@ -11576,12 +11576,19 @@
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
             "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
+            "package": "channelgrabber/email-account"
+        },
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
             "package": "channelgrabber/ftp-account"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/email-account": 20,
         "channelgrabber/ftp-account": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

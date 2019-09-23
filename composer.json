@@ -39,7 +39,7 @@
         "channelgrabber/ebay": "~1.20.6",
         "channelgrabber/ekm": "~1.10.14",
         "channelgrabber/email": "~1.1.1",
-        "channelgrabber/email-account": "~1.0.0",
+        "channelgrabber/email-account": "dev-MIG-32-data-exchange-app-backend-for-accounts as 1.0.1",
         "channelgrabber/email-verification": "~1.0.0",
         "channelgrabber/etag": "~1.7.1",
         "channelgrabber/etsy": "~1.1.0",

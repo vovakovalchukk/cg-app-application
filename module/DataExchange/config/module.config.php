@@ -1,6 +1,7 @@
 <?php
 
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
@@ -32,7 +33,12 @@ return [
                         'label' => 'FTP',
                         'title' => 'FTP',
                         'route' => Module::ROUTE . '/' . FtpAccountController::ROUTE
-                    ]
+                    ],
+                    'Email' => [
+                        'label' => 'Email',
+                        'title' => 'Email',
+                        'route' => Module::ROUTE . '/' . EmailAccountController::ROUTE
+                    ],
                 ]
             ],
         ]
@@ -97,7 +103,19 @@ return [
                                 ],
                             ],
                         ]
-                    ]
+                    ],
+                    EmailAccountController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/accounts/email',
+                            'defaults' => [
+                                'controller' => EmailAccountController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => []
+                    ],
                 ]
             ]
         ],
