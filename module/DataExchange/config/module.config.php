@@ -87,6 +87,15 @@ return [
                                     ]
                                 ],
                             ],
+                            FtpAccountController::ROUTE_TEST => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/test',
+                                    'defaults' => [
+                                        'action' => 'test'
+                                    ]
+                                ],
+                            ],
                         ]
                     ]
                 ]

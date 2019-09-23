@@ -14,6 +14,7 @@ class FtpAccountController extends AbstractActionController
     public const ROUTE = 'FtpAccount';
     public const ROUTE_SAVE = 'Save';
     public const ROUTE_REMOVE = 'Remove';
+    public const ROUTE_TEST = 'Test';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -78,6 +79,16 @@ class FtpAccountController extends AbstractActionController
         }
         return $this->jsonModelFactory->newInstance([
             'success' => true,
+            'id' => $id,
+        ]);
+    }
+
+    public function testAction()
+    {
+        $id = $this->params()->fromPost('id');
+        $success = $this->service->testConnection($id);
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success,
             'id' => $id,
         ]);
     }

@@ -7,6 +7,7 @@ use CG\FtpAccount\Filter as FtpAccountFilter;
 use CG\FtpAccount\Mapper as FtpAccountMapper;
 use CG\FtpAccount\PasswordCryptor as PasswordCryptor;
 use CG\FtpAccount\Service as FtpAccountService;
+use CG\FtpAccount\Tester as FtpAccountTester;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 
@@ -20,17 +21,21 @@ class Service
     protected $passwordCryptor;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var FtpAccountTester */
+    protected $ftpAccountTester;
 
     public function __construct(
         FtpAccountService $ftpAccountService,
         FtpAccountMapper $ftpAccountMapper,
         PasswordCryptor $passwordCryptor,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        FtpAccountTester $ftpAccountTester
     ) {
         $this->ftpAccountService = $ftpAccountService;
         $this->ftpAccountMapper = $ftpAccountMapper;
         $this->passwordCryptor = $passwordCryptor;
         $this->activeUserContainer = $activeUserContainer;
+        $this->ftpAccountTester = $ftpAccountTester;
     }
 
     public function fetchAllForActiveUser(): array
@@ -117,5 +122,11 @@ class Service
     {
         $entity = $this->ftpAccountService->fetch($id);
         $this->ftpAccountService->remove($entity);
+    }
+
+    public function testConnection(int $id): bool
+    {
+        $entity = $this->ftpAccountService->fetch($id);
+        return ($this->ftpAccountTester)($entity);
     }
 }
