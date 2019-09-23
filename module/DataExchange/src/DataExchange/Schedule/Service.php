@@ -3,6 +3,7 @@ namespace DataExchange\Schedule;
 
 use CG\DataExchangeSchedule\Entity as Schedule;
 use CG\DataExchangeSchedule\Filter as ScheduleFilter;
+use CG\DataExchangeSchedule\Mapper as ScheduleMapper;
 use CG\DataExchangeSchedule\Options\Stock\Import as StockImportOptions;
 use CG\DataExchangeSchedule\Service as ScheduleService;
 use CG\DataExchangeTemplate\Collection as TemplateCollection;
@@ -20,6 +21,8 @@ class Service
 {
     /** @var ScheduleService */
     protected $scheduleService;
+    /** @var ScheduleMapper */
+    protected $scheduleMapper;
     /** @var TemplateService */
     protected $templateService;
     /** @var FtpAccountService */
@@ -29,11 +32,13 @@ class Service
 
     public function __construct(
         ScheduleService $scheduleService,
+        ScheduleMapper $scheduleMapper,
         TemplateService $templateService,
         FtpAccountService $ftpAccountService,
         ActiveUserInterface $activeUserContainer
     ) {
         $this->scheduleService = $scheduleService;
+        $this->scheduleMapper = $scheduleMapper;
         $this->templateService = $templateService;
         $this->ftpAccountService = $ftpAccountService;
         $this->activeUserContainer = $activeUserContainer;
@@ -139,5 +144,52 @@ class Service
             $options[$ftpAccount->getId()] = $ftpAccount->getName();
         }
         return $options;
+    }
+
+    public function saveStockImportForActiveUser(array $data): Schedule
+    {
+        $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
+        if (isset($data['action'])) {
+            $data['options'] = ['action' => $data['action']];
+            unset($data['action']);
+        }
+        return $this->saveForActiveUser($data, Schedule::TYPE_STOCK, Schedule::OPERATION_IMPORT);
+    }
+
+    public function saveForActiveUser(array $data, string $type, string $operation): Schedule
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $data['organisationUnitId'] = $rootOuId;
+        $data['type'] = $type;
+        $data['operation'] = $operation;
+        if (!isset($data['id'])) {
+            return $this->saveNew($data);
+        }
+        return $this->saveExisting($data);
+    }
+
+    protected function saveNew(array $data): Schedule
+    {
+        $entity = $this->scheduleMapper->fromArray($data);
+        return $this->save($entity);
+    }
+
+    protected function saveExisting(array $data): Schedule
+    {
+        $fetchedEntity = $this->scheduleService->fetch($data['id']);
+        $entityArray = array_merge($fetchedEntity->toArray(), $data);
+        $updatedEntity = $this->scheduleMapper->fromArray($entityArray);
+        $updatedEntity->setStoredETag($data['etag'] ?? $fetchedEntity->getStoredETag());
+        return $this->save($updatedEntity);
+    }
+
+    protected function save(Schedule $entity): Schedule
+    {
+        $entityHal = $this->scheduleService->save($entity);
+        $entity = $this->scheduleMapper->fromHal($entityHal);
+        if (!$entity->getStoredETag()) {
+            return $this->scheduleService->fetch($entity->getId());
+        }
+        return $entity;
     }
 }

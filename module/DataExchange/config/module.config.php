@@ -68,7 +68,18 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => []
+                        'child_routes' => [
+                            StockImportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
                     ],
                 ]
             ]

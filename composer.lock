@@ -1089,12 +1089,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "cd6bf2c86c6e63656b76033cfff991b5bd07d43f"
+                "reference": "f19eef05092b54d650f58f938cb44f51c52b3e99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-36-data-exchange-app-backend-for-schedules-ee0c30.zip",
-                "reference": "cd6bf2c86c6e63656b76033cfff991b5bd07d43f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-36-data-exchange-app-backend-for-schedules-f7e9b7.zip",
+                "reference": "f19eef05092b54d650f58f938cb44f51c52b3e99"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1114,7 +1114,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-23T14:52:55+00:00"
+            "time": "2019-09-24T14:43:01+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
