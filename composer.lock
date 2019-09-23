@@ -1555,12 +1555,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ftp-account.git",
-                "reference": "cae5e6f46d55746b5bb7510e4b7fb77c9757bce6"
+                "reference": "e60de4333c34b23d14934d454805a8fa3c3fe24a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ftp-account/channelgrabber-ftp-account-dev-MIG-32-data-exchange-app-backend-for-accounts-29e1a3.zip",
-                "reference": "cae5e6f46d55746b5bb7510e4b7fb77c9757bce6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ftp-account/channelgrabber-ftp-account-dev-MIG-32-data-exchange-app-backend-for-accounts-32634b.zip",
+                "reference": "e60de4333c34b23d14934d454805a8fa3c3fe24a"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -1589,7 +1589,7 @@
                     "CG\\FtpAccount\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-23T11:48:49+00:00"
+            "time": "2019-09-23T13:40:06+00:00"
         },
         {
             "name": "channelgrabber/gearman",
