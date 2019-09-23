@@ -84,4 +84,10 @@ class Service
         }
         return $entity;
     }
+
+    public function remove(int $id): void
+    {
+        $entity = $this->emailAccountService->fetch($id);
+        $this->emailAccountService->remove($entity);
+    }
 }

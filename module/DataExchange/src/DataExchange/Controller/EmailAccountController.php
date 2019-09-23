@@ -65,4 +65,18 @@ class EmailAccountController extends AbstractActionController
         }
         return $this->jsonModelFactory->newInstance($response);
     }
+
+    public function removeAction()
+    {
+        $id = $this->params()->fromPost('id');
+        try {
+            $this->service->remove($id);
+        } catch (NotFound $e) {
+            // No-op
+        }
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'id' => $id,
+        ]);
+    }
 }

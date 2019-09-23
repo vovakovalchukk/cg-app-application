@@ -124,6 +124,15 @@ return [
                                     ]
                                 ],
                             ],
+                            EmailAccountController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                 ]
