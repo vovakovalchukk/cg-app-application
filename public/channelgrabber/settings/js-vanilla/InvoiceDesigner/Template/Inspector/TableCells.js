@@ -27,6 +27,8 @@ define([
         this.FONT_SIZE_ID = `${idPrefix}-font-size`;
         this.FONT_ALIGN_ID = `${idPrefix}-font-align`;
         this.FONT_COLOR_ID = `${idPrefix}-font-color`;
+        this.BACKGROUND_COLOR_ID = `${idPrefix}-background-color`;
+        this.MEASUREMENT_UNIT_ID = `${idPrefix}-measurement-unit`;
     };
 
     TableCells.TABLE_COLUMNS_INSPECTOR_SELECTOR = '#tableCells-inspector';
@@ -38,19 +40,6 @@ define([
         this.getDomManipulator().render(TableCells.TABLE_COLUMNS_INSPECTOR_SELECTOR, "");
     };
 
-    function getTextFormattingHtml() {
-
-        return `<div>
-                <input class="inspector-text-format-radio" type="checkbox" id="text-bold" name="text-bold">
-                <label class="inspector-text-format-label inspector-text-format-label-bold" htmlFor="text-bold" title="Bold"></label>
-                
-                <input class="inspector-text-format-radio" type="checkbox" id="text-italic" name="text-italic">
-                <label class="inspector-text-format-label inspector-text-format-label-italic" htmlFor="text-italic" title="Italic"></label>
-
-                <input class="inspector-text-format-radio" type="checkbox" id="text-underline" name="text-underline">
-                <label class="inspector-text-format-label inspector-text-format-label-underline" htmlFor="text-underline" title="Underline"></label>
-            </div>`;
-    }
     TableCells.prototype.showForElement = function(element, event) {
         if (!isCellClick(event)) {
             return;
@@ -75,27 +64,52 @@ define([
             fontSizeData.sizeClass = 'u-width-100px';
             const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
             const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
+            const backgroundColorData = Font.getFontColourViewData(null, this.BACKGROUND_COLOR_ID);
             const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
             fontAlignData.containerClass = 'u-flex-left u-width-100pc';
+            const measurementUnitData = this.getMeasurementUnitData();
+            measurementUnitData.sizeClass = 'small';
 
             const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
             const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
-            const fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+            const fontColorPicker = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
             const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
+            const backgroundColorPicker = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
+            const measurementUnitSelect = cgmustache.renderTemplate(templates, measurementUnitData, "select");
 
-            let textFormatting = getTextFormattingHtml()
+            const textFormatting = getTextFormattingHtml();
 
             const html = `<div class="inspector-holder"> 
-                            <span class="heading-medium">Font</span>
-                            <div>
-                                ${textFormatting}
-                            </div>
-                            
-                            <div>${align}</div>
-                            <div>${fontFamily}</div>
-                            <div>
+                            <div class="u-defloat u-margin-top-med u-overflow-hidden">
+                                <div>
+                                    ${textFormatting}
+                                </div>
+                                
+                                <div>${align}</div>
+                                <div>${fontFamily}</div>
                                 <span class="u-inline-block">${fontSize}</span>
-                                <span class="u-inline-block">${fontColour}</span>                                                       </div>
+                                <span class="u-inline-block">${fontColorPicker}</span>                                                      
+                             </div>
+                             
+                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
+                                <h2> Background Colour</h2>
+                                ${backgroundColorPicker}
+                             </div>
+                             
+                             <div class="u-defloat u-margin-top-med u-overflow-hidden"> 
+                                <h2>Column Width</h2>
+                                <div>
+                                    If left blank ChannelGrabber will automatically adjust the width of the column to best fit the table.
+                                </div>    
+                                <div class="u-flex-v-center">
+                                    <span>
+                                        <input class="inputbox u-width-80px" type="number" title="Column Width" />
+                                    </span>
+                                    <span>
+                                        ${measurementUnitSelect}
+                                    </span>
+                                </div>
+                             </div>
                           </div>`;
 
 //            const html = `<div class="inspector-holder">
@@ -103,8 +117,6 @@ define([
 //                            <span class="heading-medium">Font</span>
 //                            ${font}
 //                          </div>`;
-
-
 
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -118,6 +130,25 @@ define([
 
             tableCellsDomListener.init(this, element);
         });
+    };
+
+    TableCells.prototype.getMeasurementUnitData = function() {
+        return {
+            id: this.MEASUREMENT_UNIT_ID,
+            name: 'table-cells-measurement-unit',
+            options: [
+                {
+                    selected: true,
+                    title: 'mm',
+                    value: 'mm'
+                },
+                {
+                    title: 'in',
+                    value: 'in'
+                }
+            ],
+            sizeClass: "u-width-80px"
+        }
     };
 
     TableCells.prototype.getFontHTML = function(cgmustache, templates) {
@@ -168,6 +199,19 @@ define([
     };
 
     return new TableCells();
+
+    function getTextFormattingHtml() {
+        return `<div>
+                <input class="inspector-text-format-radio" type="checkbox" id="text-bold" name="text-bold">
+                <label class="inspector-text-format-label inspector-text-format-label-bold" htmlFor="text-bold" title="Bold"></label>
+                
+                <input class="inspector-text-format-radio" type="checkbox" id="text-italic" name="text-italic">
+                <label class="inspector-text-format-label inspector-text-format-label-italic" htmlFor="text-italic" title="Italic"></label>
+
+                <input class="inspector-text-format-radio" type="checkbox" id="text-underline" name="text-underline">
+                <label class="inspector-text-format-label inspector-text-format-label-underline" htmlFor="text-underline" title="Underline"></label>
+            </div>`;
+    }
 
     function isCellClick(event) {
         const clickedElement = event.target;
