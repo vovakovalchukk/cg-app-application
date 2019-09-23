@@ -39,15 +39,16 @@ define([
     };
 
     function getTextFormattingHtml() {
-        return `<div>
-                <input class="inspector-text-format-radio" type="radio" id="text-bold" name="text-bold" checked>
-                <label class="inspector-text-format-label inspector-text-format-label-bold" for="text-bold" title="Bold"></label>
-                
-                <input class="inspector-text-format-radio" type="radio" id="text-italic" name="text-italic">
-                <label class="inspector-text-format-label inspector-text-format-label-italic" for="text-italic" title="Italic"></label>
 
-                <input class="inspector-text-format-radio" type="radio" id="text-underline" name="text-underline">
-                <label class="inspector-text-format-label inspector-text-format-label-underline" for="text-underline" title="Underline"></label>  
+        return `<div>
+                <input class="inspector-text-format-radio" type="checkbox" id="text-bold" name="text-bold">
+                <label class="inspector-text-format-label inspector-text-format-label-bold" htmlFor="text-bold" title="Bold"></label>
+                
+                <input class="inspector-text-format-radio" type="checkbox" id="text-italic" name="text-italic">
+                <label class="inspector-text-format-label inspector-text-format-label-italic" htmlFor="text-italic" title="Italic"></label>
+
+                <input class="inspector-text-format-radio" type="checkbox" id="text-underline" name="text-underline">
+                <label class="inspector-text-format-label inspector-text-format-label-underline" htmlFor="text-underline" title="Underline"></label>
             </div>`;
     }
     TableCells.prototype.showForElement = function(element, event) {
