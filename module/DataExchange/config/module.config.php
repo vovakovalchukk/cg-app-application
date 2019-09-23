@@ -114,7 +114,17 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => []
+                        'child_routes' => [
+                            EmailAccountController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                            ],
+                        ]
                     ],
                 ]
             ]

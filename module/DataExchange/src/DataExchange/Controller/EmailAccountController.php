@@ -40,4 +40,29 @@ class EmailAccountController extends AbstractActionController
             'emailAccounts' => $this->service->fetchAllForActiveUser(),
         ]);
     }
+
+    public function saveAction()
+    {
+        $data = $this->params()->fromPost();
+        try {
+            $entity = $this->service->saveForActiveUser($data);
+            $response = [
+                'success' => true,
+                'id' => $entity->getId(),
+                'etag' => $entity->getStoredETag(),
+            ];
+        } catch (Conflict $e) {
+            $response = [
+                'success' => false,
+                'message' => 'Someone else has modified that record. Please refresh the page and try again.',
+            ];
+        } catch (NotModified $e) {
+            $response = [
+                'success' => true,
+                'id' => $data['id'],
+                'etag' => $data['etag'],
+            ];
+        }
+        return $this->jsonModelFactory->newInstance($response);
+    }
 }
