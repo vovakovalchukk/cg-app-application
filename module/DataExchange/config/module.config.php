@@ -133,6 +133,15 @@ return [
                                     ]
                                 ],
                             ],
+                            EmailAccountController::ROUTE_VERIFY => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/verify',
+                                    'defaults' => [
+                                        'action' => 'verify'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                 ]

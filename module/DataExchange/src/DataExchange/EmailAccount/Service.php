@@ -5,6 +5,7 @@ use CG\EmailAccount\Entity as EmailAccount;
 use CG\EmailAccount\Mapper as EmailAccountMapper;
 use CG\EmailAccount\Filter as EmailAccountFilter;
 use CG\EmailAccount\Service as EmailAccountService;
+use CG\EmailVerification\Service as EmailVerificationService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 
@@ -16,15 +17,19 @@ class Service
     protected $emailAccountMapper;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var EmailVerificationService */
+    protected $emailVerificationService;
 
     public function __construct(
         EmailAccountService $emailAccountService,
         EmailAccountMapper $emailAccountMapper,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        EmailVerificationService $emailVerificationService
     ) {
         $this->emailAccountService = $emailAccountService;
         $this->emailAccountMapper = $emailAccountMapper;
         $this->activeUserContainer = $activeUserContainer;
+        $this->emailVerificationService = $emailVerificationService;
     }
 
     public function fetchAllForActiveUser(): array
@@ -89,5 +94,13 @@ class Service
     {
         $entity = $this->emailAccountService->fetch($id);
         $this->emailAccountService->remove($entity);
+    }
+
+    public function verify(int $id): string
+    {
+        /** @var EmailAccount $entity */
+        $entity = $this->emailAccountService->fetch($id);
+        $this->emailVerificationService->verifyEmailIdentity($entity->getAddress());
+        return $this->emailVerificationService->getVerificationStatus($entity->getAddress());
     }
 }

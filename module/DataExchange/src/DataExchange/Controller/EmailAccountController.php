@@ -14,6 +14,7 @@ class EmailAccountController extends AbstractActionController
     public const ROUTE = 'EmailAccount';
     public const ROUTE_SAVE = 'Save';
     public const ROUTE_REMOVE = 'Remove';
+    public const ROUTE_VERIFY = 'Verify';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -77,6 +78,17 @@ class EmailAccountController extends AbstractActionController
         return $this->jsonModelFactory->newInstance([
             'success' => true,
             'id' => $id,
+        ]);
+    }
+
+    public function verifyAction()
+    {
+        $id = $this->params()->fromPost('id');
+        $verificationStatus = $this->service->verify($id);
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'id' => $id,
+            'verificationStatus' => $verificationStatus,
         ]);
     }
 }
