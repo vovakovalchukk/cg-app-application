@@ -112,4 +112,10 @@ class Service
         }
         return $entity;
     }
+
+    public function remove(int $id): void
+    {
+        $entity = $this->ftpAccountService->fetch($id);
+        $this->ftpAccountService->remove($entity);
+    }
 }
