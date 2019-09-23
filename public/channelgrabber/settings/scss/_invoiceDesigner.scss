@@ -475,6 +475,12 @@ $indicator-border-color: #1477aa;
     width: 0;
     height: 0;
     opacity: 0;
+
+    //width: 2rem;
+    //height: 2rem;
+    //opacity: 0;
+    //position: absolute;
+    //cursor: pointer;
 }
 
 .inspector-text-format-label {
@@ -483,10 +489,11 @@ $indicator-border-color: #1477aa;
     height: 2rem;
     border: 1px solid #afafaf;
     border-radius: 4px;
-    cursor: pointer;
     opacity: 0.6;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
+    //pointer-events: none;
     &-bold {
         background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-bold-32.png');
     }

@@ -27,6 +27,9 @@ define([
         this.FONT_SIZE_ID = `${idPrefix}-font-size`;
         this.FONT_ALIGN_ID = `${idPrefix}-font-align`;
         this.FONT_COLOR_ID = `${idPrefix}-font-color`;
+        this.FONT_BOLD_ID = `${idPrefix}-font-bold`;
+        this.FONT_ITALIC_ID = `${idPrefix}-font-italic`;
+        this.FONT_UNDERLINE_ID = `${idPrefix}-font-underline`;
         this.BACKGROUND_COLOR_ID = `${idPrefix}-background-color`;
         this.MEASUREMENT_UNIT_ID = `${idPrefix}-measurement-unit`;
     };
@@ -73,11 +76,13 @@ define([
             const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
             const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
             const fontColorPicker = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+//            const fontColorPicker = `<input type="color" id="${this.FONT_COLOR_ID}" name="font color">`;
+
             const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
             const backgroundColorPicker = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
             const measurementUnitSelect = cgmustache.renderTemplate(templates, measurementUnitData, "select");
 
-            const textFormatting = getTextFormattingHtml();
+            const textFormatting = this.getTextFormattingHtml();
 
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
@@ -92,7 +97,7 @@ define([
                              </div>
                              
                              <div class="u-defloat u-margin-top-med u-overflow-hidden">
-                                <h2> Background Colour</h2>
+                                <h2>Background Colour</h2>
                                 ${backgroundColorPicker}
                              </div>
                              
@@ -151,6 +156,26 @@ define([
         }
     };
 
+    TableCells.prototype. getTextFormattingHtml = function() {
+//        return `<div>
+//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
+//
+//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
+//
+//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
+//            </div>`;
+        return `<div>
+                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
+                <label class="inspector-text-format-label inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
+
+                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
+                <label class="inspector-text-format-label inspector-text-format-label-italic" for="${this.FONT_ITALIC_ID}" title="Italic"></label>
+
+                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
+                <label class="inspector-text-format-label inspector-text-format-label-underline" for="${this.FONT_UNDERLINE_ID}" title="Underline"></label>
+            </div>`;
+    }
+
     TableCells.prototype.getFontHTML = function(cgmustache, templates) {
         const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
         const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
@@ -175,6 +200,12 @@ define([
         return font;
     };
 
+    TableCells.prototype.getTableCellProperty = function(element, property) {
+        const tableCells = element.getTableCells();
+        const currentCell = tableCells[this.cellDataIndex];
+        return currentCell[property];
+    };
+
     TableCells.prototype.setTableCellProperty = function(element, property, value) {
         const tableCells = element.getTableCells();
         const cellToAffect = tableCells[this.cellDataIndex];
@@ -182,6 +213,16 @@ define([
         element.setTableCells(tableCells);
     };
 
+    TableCells.prototype.toggleBold = function(element) {
+        console.log('in toggleBold');
+        
+        
+        const currentBold = this.getTableCellProperty(element, 'bold');
+        const boldToSet = typeof currentBold === 'boolean' ? !currentBold : true;
+        // need to do an inverse
+        this.setTableCellProperty(element, 'bold', boldToSet)
+    };
+    
     TableCells.prototype.setFontFamily = function(element, fontFamily) {
         this.setTableCellProperty(element, 'fontFamily', fontFamily);
     };
@@ -199,19 +240,6 @@ define([
     };
 
     return new TableCells();
-
-    function getTextFormattingHtml() {
-        return `<div>
-                <input class="inspector-text-format-radio" type="checkbox" id="text-bold" name="text-bold">
-                <label class="inspector-text-format-label inspector-text-format-label-bold" htmlFor="text-bold" title="Bold"></label>
-                
-                <input class="inspector-text-format-radio" type="checkbox" id="text-italic" name="text-italic">
-                <label class="inspector-text-format-label inspector-text-format-label-italic" htmlFor="text-italic" title="Italic"></label>
-
-                <input class="inspector-text-format-radio" type="checkbox" id="text-underline" name="text-underline">
-                <label class="inspector-text-format-label inspector-text-format-label-underline" htmlFor="text-underline" title="Underline"></label>
-            </div>`;
-    }
 
     function isCellClick(event) {
         const clickedElement = event.target;
