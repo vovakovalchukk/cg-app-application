@@ -8,7 +8,8 @@ define([], function() {
         for (let column of columns) {
             let cellHeader = {
                 column: column.id,
-                cellTag: 'th'
+                cellTag: 'th',
+                bold: true
             };
             let cellData = {
                 column: column.id,

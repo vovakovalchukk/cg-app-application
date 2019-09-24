@@ -63,15 +63,23 @@ define([
         let inlineStyles = this.getTableStyles(element).slice();
         let activeNodeId = element.getActiveCellNodeId();
         const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
+        const currentCell =  element.getTableCells().find(cell => {
+            return cell.column === column.id & cell.cellTag === tag;
+        });
 
-        if (activeNodeId === cellNodeIdForCell) {
-            for(let index = 0; index < inlineStyles.length; index++){
-                if(inlineStyles[index].includes('border-color')){
-                    inlineStyles[index] = 'border-color: #5fafda';
-                    break;
-                }
-            }
+        if (activeNodeId === cellNodeIdForCell) {;
+            applyCellSelectedStyle(inlineStyles);
         }
+
+        currentCell.bold ? inlineStyles.push('font-weight: bold') : inlineStyles.push('font-weight: normal');
+        currentCell.italic && inlineStyles.push('font-style: italic');
+        currentCell.underline && inlineStyles.push('text-decoration: underline');
+
+        const alignStyle = getAlignStyle(currentCell);
+        inlineStyles.push(alignStyle);
+
+
+
         return inlineStyles.join('; ');
     };
 
@@ -86,4 +94,20 @@ define([
     };
 
     return new OrderTable();
+
+    function applyCellSelectedStyle(inlineStyles) {
+        for (let index = 0; index < inlineStyles.length; index++) {
+            if (inlineStyles[index].includes('border-color')) {
+                inlineStyles[index] = 'border-color: #5fafda';
+                break;
+            }
+        }
+    }
+
+    function getAlignStyle(currentCell) {
+        if (!currentCell.align) {
+            return '';
+        }
+        return `text-align: ${currentCell.align}`;
+    }
 });

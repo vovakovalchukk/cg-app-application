@@ -24,6 +24,7 @@ define([
             FONT_UNDERLINE_ID,
             FONT_ITALIC_ID,
             BACKGROUND_COLOR_ID,
+            COLUMN_WIDTH_ID,
             MEASUREMENT_UNIT_ID
         } = inspector;
 
@@ -37,48 +38,33 @@ define([
 
         this.initTextFormattingHandlers(inspector, element);
 
-//
-//        $('#' + FONT_FAMILY_ID).off('change').on('change', (event, selectBox, id) => {
-//            console.log('on change');
-//            inspector.setFontFamily(element, id);
-//        });
-//
-//        $('#' + FONT_SIZE_ID).off('change').on('change', (event, selectBox, id) => {
-//            inspector.setFontSize(element, id);
-//        });
-//
-//        $('#' + FONT_ALIGN_ID).off('change').on('change', (event, align) => {
-//            inspector.setAlign(element, align);
-//        });
-//
-//        $('#' + FONT_COLOR_ID).off('change keyup paste').on('change keyup paste', () => {
-//            inspector.setFontColour(element, this.getDomManipulator().getValue(this));
-//        });
+        this.backgroundColorInput = document.getElementById(BACKGROUND_COLOR_ID);
+
+        this.initCellFormattingHandlers(inspector, element);
+
+        this.columnWidthInput = document.getElementById(COLUMN_WIDTH_ID);
+        this.measurementUnitInput = document.getElementById(MEASUREMENT_UNIT_ID);
+
+        this.initColumnHandlers(inspector, element)
     };
     
     TableCellsDomListener.prototype.initTextFormattingHandlers = function(inspector, element) {
-        console.log('in initTextFormattingHandlers');
         this.boldInput.onclick = event => {
-            console.log('in underlineInput', {event, inspector})
-            inspector.toggleBold(element);
+            inspector.toggleProperty(element, 'bold');
         };
         this.italicInput.onclick = event => {
-            console.log('in italicInput',event);
+            inspector.toggleProperty(element, 'italic');
         };
         this.underlineInput.onclick = event => {
-            console.log('in underlineInput', {event, inspector})
-//            inspector.setBold()
+            inspector.toggleProperty(element, 'underline');
         };
         this.fontFamilyInput.onchange = (event, selectBox, id) => {
-            console.log('font family change');
             inspector.setFontFamily(element, id);
         };
         this.fontSizeInput.onchange = (event, selectBox, id) => {
-            console.log('fontsize onchange');
             inspector.setFontSize(element, id);
         };
         this.fontAlignInput.onchange = (event, align) => {
-            console.log('fotn align onchange');
             inspector.setAlign(element, align);
         };
 
@@ -87,6 +73,26 @@ define([
             inspector.setFontColour(element, value);
         };
         this.fontColorInput.onchange = this.fontColorInput.onkeyup = this.fontColorInput.onpaste = colorInputChange;
+    };
+
+    TableCellsDomListener.prototype.initCellFormattingHandlers = function(inspector, element) {
+        const backgroundColourChange = event => {
+            const value = event.target.value;
+            inspector.setBackgroundColour(element, value)
+        };
+        this.backgroundColorInput.onchange = this.backgroundColorInput.onkeyup = this.backgroundColorInput.onpaste = backgroundColourChange;
+    };
+
+    TableCellsDomListener.prototype.initColumnHandlers = function(inspector, element) {
+        this.columnWidthInput.onchange = event => {
+            const value = event.target.value;
+            inspector.setColumnWidth(element, value);
+        };
+        this.measurementUnitInput.onchange = event => {
+            console.log('in measurementunit input');
+            const value = event.target.value;
+            inspector.setWidthMeasurementUnit(element, value);
+        };
     };
 
     return new TableCellsDomListener();

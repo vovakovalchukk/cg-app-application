@@ -31,6 +31,7 @@ define([
         this.FONT_ITALIC_ID = `${idPrefix}-font-italic`;
         this.FONT_UNDERLINE_ID = `${idPrefix}-font-underline`;
         this.BACKGROUND_COLOR_ID = `${idPrefix}-background-color`;
+        this.COLUMN_WIDTH_ID = `${idPrefix}-column-width`;
         this.MEASUREMENT_UNIT_ID = `${idPrefix}-measurement-unit`;
     };
 
@@ -96,19 +97,19 @@ define([
                                 <span class="u-inline-block">${fontColorPicker}</span>                                                      
                              </div>
                              
-                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
+                             <div class="u-defloat u-margin-top-med u-inline-block">
                                 <h2>Background Colour</h2>
                                 ${backgroundColorPicker}
                              </div>
                              
-                             <div class="u-defloat u-margin-top-med u-overflow-hidden"> 
+                             <div class="u-defloat u-margin-top-med u-inline-block"> 
                                 <h2>Column Width</h2>
                                 <div>
                                     If left blank ChannelGrabber will automatically adjust the width of the column to best fit the table.
                                 </div>    
                                 <div class="u-flex-v-center">
                                     <span>
-                                        <input class="inputbox u-width-80px" type="number" title="Column Width" />
+                                        <input id="${this.COLUMN_WIDTH_ID}" class="inputbox u-width-80px" type="number" title="Column Width" />
                                     </span>
                                     <span>
                                         ${measurementUnitSelect}
@@ -157,13 +158,7 @@ define([
     };
 
     TableCells.prototype. getTextFormattingHtml = function() {
-//        return `<div>
-//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
-//
-//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
-//
-//                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
-//            </div>`;
+        // todo - change classnames from radio button as it is no longer semantic
         return `<div>
                 <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
                 <label class="inspector-text-format-label inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
@@ -201,8 +196,7 @@ define([
     };
 
     TableCells.prototype.getTableCellProperty = function(element, property) {
-        const tableCells = element.getTableCells();
-        const currentCell = tableCells[this.cellDataIndex];
+        const currentCell = this.getCurrentCell(element);
         return currentCell[property];
     };
 
@@ -213,16 +207,37 @@ define([
         element.setTableCells(tableCells);
     };
 
-    TableCells.prototype.toggleBold = function(element) {
-        console.log('in toggleBold');
-        
-        
-        const currentBold = this.getTableCellProperty(element, 'bold');
-        const boldToSet = typeof currentBold === 'boolean' ? !currentBold : true;
-        // need to do an inverse
-        this.setTableCellProperty(element, 'bold', boldToSet)
+    TableCells.prototype.getCurrentCell = function(element) {
+        const tableCells = element.getTableCells();
+        const cellToAffect = tableCells[this.cellDataIndex];
+        return cellToAffect;
     };
-    
+
+    TableCells.prototype.toggleProperty = function(element, property) {
+        const currentValue = this.getTableCellProperty(element, property);
+        const valueToSet = typeof currentValue === 'boolean' ? !currentValue : true;
+        this.setTableCellProperty(element, property, valueToSet)
+    };
+
+    TableCells.prototype.setColumnWidth = function(element, value) {
+        const currentCell = this.getCurrentCell(element);
+        const tableColumns = element.getTableColumns().slice();
+
+        const columnIndexForCurrentCell = getColumnIndexForCurrentCell(tableColumns, currentCell);
+
+        tableColumns[columnIndexForCurrentCell].width = parseInt(value);
+        element.setTableColumns(tableColumns);
+    };
+
+    TableCells.prototype.setWidthMeasurementUnit = function(element, value) {
+        const currentCell = this.getCurrentCell(element);
+        const tableColumns = element.getTableColumns().slice();
+        const columnIndexForCurrentCell = getColumnIndexForCurrentCell(tableColumns, currentCell);
+
+        tableColumns[columnIndexForCurrentCell].widthMeasurementUnit = value;
+        element.setTableColumns(tableColumns);
+    };
+
     TableCells.prototype.setFontFamily = function(element, fontFamily) {
         this.setTableCellProperty(element, 'fontFamily', fontFamily);
     };
@@ -239,11 +254,21 @@ define([
         this.setTableCellProperty(element, 'colour', colour);
     };
 
+    TableCells.prototype.setBackgroundColour = function(element, colour) {
+        this.setTableCellProperty(element, 'backgroundColour', colour);
+    };
+
     return new TableCells();
 
     function isCellClick(event) {
         const clickedElement = event.target;
         const tag = clickedElement.tagName.toLowerCase();
         return tag === 'th' || tag === 'td';
+    }
+
+    function getColumnIndexForCurrentCell(tableColumns, currentCell) {
+        return tableColumns.findIndex(column => {
+            return column.id === currentCell.column
+        });
     }
 });
