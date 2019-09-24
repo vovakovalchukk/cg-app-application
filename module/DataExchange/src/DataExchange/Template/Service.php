@@ -132,6 +132,12 @@ class Service
 
     public function remove(string $type, int $id): void
     {
+        $template = $this->fetchTemplateByTypeAndId($type, $id);
+        $this->templateService->remove($template);
+    }
+
+    protected function fetchTemplateByTypeAndId(string $type, int $id): Template
+    {
         $filter = (new TemplateFilter())
             ->setLimit(1)
             ->setPage(1)
@@ -139,32 +145,30 @@ class Service
             ->setId([$id]);
 
         $templateCollection = $this->templateService->fetchCollectionByFilter($filter);
-        $this->templateService->remove($templateCollection->getFirst());
+        return $templateCollection->getFirst();
     }
 
     protected function saveNewTemplate(string $type, array $templateArray): Template
     {
+        $templateArray = array_merge($templateArray, [
+            'type' => $type,
+            'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+        ]);
+
         $template = $this->templateMapper->fromArray($templateArray);
-        $this->setTypeAndOuIdOnTemplate($type, $template);
-        return $this->templateService->save($template);
+        $this->templateService->save($template);
+        return $this->templateService->fetch($template->getId());
     }
 
     protected function updateExistingTemplate(string $type, array $templateArray, int $templateId): Template
     {
         /** @var Template $existingTemplate */
-        $existingTemplate = $this->templateService->fetch($templateId);
+        $existingTemplate = $this->fetchTemplateByTypeAndId($type, $templateId);
         $updatedTemplate = $this->templateMapper->fromArray(
             array_merge($existingTemplate->toArray(), $templateArray)
         );
-        $this->setTypeAndOuIdOnTemplate($type, $updatedTemplate);
         $updatedTemplate->setStoredETag($templateArray['etag'] ?? $existingTemplate->getETag());
-        return $this->templateService->save($updatedTemplate);
-    }
-
-    protected function setTypeAndOuIdOnTemplate(string $type, Template $template): void
-    {
-        $template
-            ->setOrganisationUnitId($this->activeUserContainer->getActiveUserRootOrganisationUnitId())
-            ->setType($type);
+        $this->templateService->save($updatedTemplate);
+        return $this->templateService->fetch($updatedTemplate->getId());
     }
 }
