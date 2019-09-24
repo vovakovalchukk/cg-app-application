@@ -79,6 +79,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            StockImportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                 ]

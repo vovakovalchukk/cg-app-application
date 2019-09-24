@@ -192,4 +192,10 @@ class Service
         }
         return $entity;
     }
+
+    public function remove(int $id): void
+    {
+        $entity = $this->scheduleService->fetch($id);
+        $this->scheduleService->remove($entity);
+    }
 }

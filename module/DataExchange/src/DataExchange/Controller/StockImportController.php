@@ -3,6 +3,7 @@ namespace DataExchange\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use DataExchange\Schedule\Service;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -12,6 +13,7 @@ class StockImportController extends AbstractActionController
 {
     public const ROUTE = 'StockImport';
     public const ROUTE_SAVE = 'Save';
+    public const ROUTE_REMOVE = 'Remove';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -77,5 +79,19 @@ class StockImportController extends AbstractActionController
             // Nulls sometimes come through as the empty string which confuses matters at the mapping stage
             return ($value !== null && $value !== '');
         });
+    }
+
+    public function removeAction()
+    {
+        $id = $this->params()->fromPost('id');
+        try {
+            $this->service->remove($id);
+        } catch (NotFound $e) {
+            // No-op
+        }
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'id' => $id,
+        ]);
     }
 }
