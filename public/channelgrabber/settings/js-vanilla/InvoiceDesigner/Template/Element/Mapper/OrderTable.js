@@ -10,7 +10,7 @@ define([
     var OrderTable = function() {
         MapperAbstract.call(this);
 
-        var optionalAttribs = ['x', 'y'];
+        const optionalAttribs = ['x', 'y'];
         this.getOptionalAttribs = function() {
             return optionalAttribs;
         };
@@ -19,7 +19,6 @@ define([
     OrderTable.prototype = Object.create(MapperAbstract.prototype);
 
     OrderTable.prototype.getHtmlContents = function(element) {
-        console.log('rendering htmlcontents');
         const tableColumns = element.getTableColumns().sort((a, b) => {
             return a.position - b.position;
         });
@@ -60,8 +59,8 @@ define([
     };
 
     OrderTable.prototype.getColumnInlineStyles = function(column, element, tag) {
-        let inlineStyles = this.getTableStyles(element).slice();
-        let activeNodeId = element.getActiveCellNodeId();
+        const inlineStyles = this.getTableStyles(element).slice();
+        const activeNodeId = element.getActiveCellNodeId();
         const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
         const currentCell =  element.getTableCells().find(cell => {
             return cell.column === column.id & cell.cellTag === tag;
@@ -77,7 +76,6 @@ define([
 
         const alignStyle = getAlignStyle(currentCell);
         inlineStyles.push(alignStyle);
-
 
 
         return inlineStyles.join('; ');
@@ -97,10 +95,11 @@ define([
 
     function applyCellSelectedStyle(inlineStyles) {
         for (let index = 0; index < inlineStyles.length; index++) {
-            if (inlineStyles[index].includes('border-color')) {
-                inlineStyles[index] = 'border-color: #5fafda';
-                break;
+            if (!inlineStyles[index].includes('border-color')) {
+                continue;
             }
+            inlineStyles[index] = 'border-color: #5fafda';
+            break;
         }
     }
 

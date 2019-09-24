@@ -47,16 +47,16 @@ define([
 
         this.initColumnHandlers(inspector, element)
     };
-    
+
     TableCellsDomListener.prototype.initTextFormattingHandlers = function(inspector, element) {
         this.boldInput.onclick = event => {
-            inspector.toggleProperty(element, 'bold');
+            inspector.toggleProperty(element, 'bold', this.boldInput);
         };
         this.italicInput.onclick = event => {
-            inspector.toggleProperty(element, 'italic');
+            inspector.toggleProperty(element, 'italic', this.italicInput);
         };
         this.underlineInput.onclick = event => {
-            inspector.toggleProperty(element, 'underline');
+            inspector.toggleProperty(element, 'underline', this.underlineInput);
         };
         this.fontFamilyInput.onchange = (event, selectBox, id) => {
             inspector.setFontFamily(element, id);
@@ -67,7 +67,6 @@ define([
         this.fontAlignInput.onchange = (event, align) => {
             inspector.setAlign(element, align);
         };
-
         const colorInputChange = event => {
             const value = event.target.value;
             inspector.setFontColour(element, value);

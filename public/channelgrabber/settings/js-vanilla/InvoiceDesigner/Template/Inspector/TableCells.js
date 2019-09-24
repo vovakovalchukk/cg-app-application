@@ -15,6 +15,8 @@ define([
     orderTableHelper,
     CGMustache
 ) {
+    const TEXT_FORMATTING_CLASS = 'inspector-text-format';
+
     let TableCells = function() {
         InspectorAbstract.call(this);
 
@@ -77,13 +79,12 @@ define([
             const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
             const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
             const fontColorPicker = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
-//            const fontColorPicker = `<input type="color" id="${this.FONT_COLOR_ID}" name="font color">`;
 
             const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
             const backgroundColorPicker = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
             const measurementUnitSelect = cgmustache.renderTemplate(templates, measurementUnitData, "select");
 
-            const textFormatting = this.getTextFormattingHtml();
+            const textFormatting = this.getTextFormattingHtml(element);
 
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
@@ -118,12 +119,6 @@ define([
                              </div>
                           </div>`;
 
-//            const html = `<div class="inspector-holder">
-//                            in the cellInspector
-//                            <span class="heading-medium">Font</span>
-//                            ${font}
-//                          </div>`;
-
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Table Cell',
@@ -157,42 +152,32 @@ define([
         }
     };
 
-    TableCells.prototype. getTextFormattingHtml = function() {
+    TableCells.prototype. getTextFormattingHtml = function(element) {
+        //todo - need to style based on active setting
+        const currentCell = this.getCurrentCell(element);
+
+        const getActive = (value) => {
+            if (!value) {
+                return '';
+            }
+            return 'inspector-text-format-label-active'
+        };
+
+        const boldActiveClass = getActive(currentCell['bold']);
+        const italicActiveClass = getActive(currentCell['italic']);
+        const underlineActiveClass = getActive(currentCell['underline']);
+
         // todo - change classnames from radio button as it is no longer semantic
         return `<div>
-                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
-                <label class="inspector-text-format-label inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
+                <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
+                <label class="${TEXT_FORMATTING_CLASS}-label ${boldActiveClass} inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
 
-                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
-                <label class="inspector-text-format-label inspector-text-format-label-italic" for="${this.FONT_ITALIC_ID}" title="Italic"></label>
+                <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
+                <label class="${TEXT_FORMATTING_CLASS}-label ${italicActiveClass} inspector-text-format-label-italic" for="${this.FONT_ITALIC_ID}" title="Italic"></label>
 
-                <input class="inspector-text-format-radio" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
-                <label class="inspector-text-format-label inspector-text-format-label-underline" for="${this.FONT_UNDERLINE_ID}" title="Underline"></label>
+                <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
+                <label class="${TEXT_FORMATTING_CLASS}-label ${underlineActiveClass}  inspector-text-format-label-underline" for="${this.FONT_UNDERLINE_ID}" title="Underline"></label>
             </div>`;
-    }
-
-    TableCells.prototype.getFontHTML = function(cgmustache, templates) {
-        const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
-        const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
-        const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
-        const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
-
-        const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
-        const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
-        const fontColour = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
-        const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
-
-        const font = cgmustache.renderTemplate(templates, {
-                'ignoreHolder': true
-            },
-            "font", {
-                'fontSize': fontSize,
-                'fontFamily': fontFamily,
-                'fontColour': fontColour,
-                'align': align
-            });
-
-        return font;
     };
 
     TableCells.prototype.getTableCellProperty = function(element, property) {
@@ -213,10 +198,20 @@ define([
         return cellToAffect;
     };
 
-    TableCells.prototype.toggleProperty = function(element, property) {
+    TableCells.prototype.toggleProperty = function(element, property, input) {
         const currentValue = this.getTableCellProperty(element, property);
         const valueToSet = typeof currentValue === 'boolean' ? !currentValue : true;
+        const activeClass = `${TEXT_FORMATTING_CLASS}-label-active`;
+
         this.setTableCellProperty(element, property, valueToSet)
+
+        const inputLabel = input.labels[0];
+
+        if(inputLabel.classList.contains(activeClass)) {
+            inputLabel.classList.remove(activeClass);
+            return;
+        }
+        inputLabel.classList.add(activeClass);
     };
 
     TableCells.prototype.setColumnWidth = function(element, value) {
