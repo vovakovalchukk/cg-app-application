@@ -65,7 +65,7 @@ define([
             inspector.setFontSize(element, id);
         };
         this.fontAlignInput.onchange = (event, align) => {
-            inspector.setAlign(element, align);
+            inspector.setAlign(element, align, this.fontAlignInput);
         };
         const colorInputChange = event => {
             const value = event.target.value;

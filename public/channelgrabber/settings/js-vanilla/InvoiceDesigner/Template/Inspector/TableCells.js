@@ -207,7 +207,7 @@ define([
 
         const inputLabel = input.labels[0];
 
-        if(inputLabel.classList.contains(activeClass)) {
+        if (inputLabel.classList.contains(activeClass)) {
             inputLabel.classList.remove(activeClass);
             return;
         }
@@ -241,8 +241,15 @@ define([
         this.setTableCellProperty(element, 'fontSize', fontSize);
     };
 
-    TableCells.prototype.setAlign = function(element, align) {
+    TableCells.prototype.setAlign = function(element, align, input) {
+        console.log('in setAlign input: ', input);
+        const alignArray = ['left', 'center', 'right', 'justified'];
+        const alignIndex = alignArray.indexOf(align);
+
+        const alignIconClicked = input.children[alignIndex];
         this.setTableCellProperty(element, 'align', align);
+
+        alignIconClicked.classList.add(`${this.FONT_ALIGN_ID}-active`);
     };
 
     TableCells.prototype.setFontColour = function(element, colour) {

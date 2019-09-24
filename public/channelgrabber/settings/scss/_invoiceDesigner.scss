@@ -503,9 +503,12 @@ $indicator-border-color: #1477aa;
     }
 }
 
-.inspector-text-align-radio:checked + .inspector-text-align-label {
-    background-color: #fff;
-    border-color: #9a9a9a;
+.tableCells-font-align {
+    box-sizing: border-box;
+    border: solid 1px transparent;
+    &.active {
+        border: solid 1px grey;
+    }
 }
 
 #text-inspector-data-fields {
