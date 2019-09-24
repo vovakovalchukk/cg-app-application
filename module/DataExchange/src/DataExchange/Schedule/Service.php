@@ -10,6 +10,10 @@ use CG\DataExchangeTemplate\Collection as TemplateCollection;
 use CG\DataExchangeTemplate\Entity as Template;
 use CG\DataExchangeTemplate\Filter as TemplateFilter;
 use CG\DataExchangeTemplate\Service as TemplateService;
+use CG\EmailAccount\Collection as EmailAccountCollection;
+use CG\EmailAccount\Entity as EmailAccount;
+use CG\EmailAccount\Filter as EmailAccountFilter;
+use CG\EmailAccount\Service as EmailAccountService;
 use CG\FtpAccount\Collection as FtpAccountCollection;
 use CG\FtpAccount\Entity as FtpAccount;
 use CG\FtpAccount\Filter as FtpAccountFilter;
@@ -27,6 +31,8 @@ class Service
     protected $templateService;
     /** @var FtpAccountService */
     protected $ftpAccountService;
+    /** @var EmailAccountService */
+    protected $emailAccountService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
 
@@ -35,18 +41,25 @@ class Service
         ScheduleMapper $scheduleMapper,
         TemplateService $templateService,
         FtpAccountService $ftpAccountService,
+        EmailAccountService $emailAccountService,
         ActiveUserInterface $activeUserContainer
     ) {
         $this->scheduleService = $scheduleService;
         $this->scheduleMapper = $scheduleMapper;
         $this->templateService = $templateService;
         $this->ftpAccountService = $ftpAccountService;
+        $this->emailAccountService = $emailAccountService;
         $this->activeUserContainer = $activeUserContainer;
     }
 
     public function fetchStockImportsForActiveUser(): array
     {
         return $this->fetchForActiveUser(Schedule::TYPE_STOCK, Schedule::OPERATION_IMPORT);
+    }
+
+    public function fetchStockExportsForActiveUser(): array
+    {
+        return $this->fetchForActiveUser(Schedule::TYPE_STOCK, Schedule::OPERATION_EXPORT);
     }
 
     protected function fetchForActiveUser(string $type, string $operation): array
@@ -142,6 +155,49 @@ class Service
         /** @var FtpAccount $ftpAccount */
         foreach ($ftpAccounts as $ftpAccount) {
             $options[$ftpAccount->getId()] = $ftpAccount->getName();
+        }
+        return $options;
+    }
+
+    public function fetchEmailFromAccountOptionsForActiveUser(): array
+    {
+        $verified = true;
+        return $this->fetchEmailAccountOptionsForActiveUser(EmailAccount::TYPE_FROM, $verified);
+    }
+
+    public function fetchEmailToAccountOptionsForActiveUser(): array
+    {
+        return $this->fetchEmailAccountOptionsForActiveUser(EmailAccount::TYPE_TO);
+    }
+
+    protected function fetchEmailAccountOptionsForActiveUser(string $type, ?bool $verified = null): array
+    {
+        try {
+            $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            $filter = $this->buildEmailAccountFilter($rootOuId, $type, $verified);
+            $emailAccounts = $this->emailAccountService->fetchCollectionByFilter($filter);
+            return $this->emailAccountsToOptions($emailAccounts);
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function buildEmailAccountFilter(int $rootOuId, string $type, ?bool $verified = null): EmailAccountFilter
+    {
+        return (new EmailAccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId([$rootOuId])
+            ->setType([$type])
+            ->setVerified($verified);
+    }
+
+    protected function emailAccountsToOptions(EmailAccountCollection $emailAccounts): array
+    {
+        $options = [];
+        /** @var EmailAccount $emailAccount */
+        foreach ($emailAccounts as $emailAccount) {
+            $options[$emailAccount->getId()] = $emailAccount->getAddress();
         }
         return $options;
     }

@@ -1,6 +1,7 @@
 <?php
 
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
@@ -32,6 +33,11 @@ return [
                         'label' => 'Import',
                         'title' => 'Import',
                         'route' => Module::ROUTE . '/' . StockImportController::ROUTE
+                    ],
+                    'Export' => [
+                        'label' => 'Export',
+                        'title' => 'Export',
+                        'route' => Module::ROUTE . '/' . StockExportController::ROUTE
                     ]
                 ]
             ],
@@ -90,6 +96,18 @@ return [
                                 'may_terminate' => true,
                             ],
                         ]
+                    ],
+                    StockExportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stock/export',
+                            'defaults' => [
+                                'controller' => StockExportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => []
                     ],
                 ]
             ]
