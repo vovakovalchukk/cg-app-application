@@ -1,9 +1,10 @@
 <?php
 
 use DataExchange\Controller\IndexController;
-use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
+use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
+use DataExchange\Controller\TemplateController;
 
 return [
     'view_manager' => [
@@ -22,19 +23,6 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
-            // Example container with pages
-            'Example' => [
-                'label' => 'Example',
-                'uri' => '',
-                'class' => 'heading-medium',
-                'pages' => [
-                    'Example' => [
-                        'label' => 'Example',
-                        'title' => 'Example',
-                        'route' => Module::ROUTE . '/' . IndexController::ROUTE_EXAMPLE
-                    ]
-                ]
-            ],
         ]
     ],
     'service_manager' => [
@@ -58,14 +46,39 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    IndexController::ROUTE_EXAMPLE => [
+                    TemplateController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/example',
+                            'route' => '/stock/templates',
                             'defaults' => [
-                                'action' => 'example'
+                                'controller' => TemplateController::class,
+                                'action' => 'index',
+
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            TemplateController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'save'
+                                    ]
+                                ]
+                            ],
+                            TemplateController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'remove'
+                                    ]
+                                ]
+                            ],
+                        ]
                     ]
                 ]
             ]

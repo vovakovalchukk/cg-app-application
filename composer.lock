@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "181f7f968dba227bf25a9dec13c89be4",
+    "content-hash": "5b1724a444f3cb44c9e3061e6ff0dfcf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1098,6 +1098,40 @@
                 }
             },
             "time": "2018-05-16T13:09:15+00:00"
+        },
+        {
+            "name": "channelgrabber/data-exchange-template",
+            "version": "dev-MIG-28-data-exchange-template-endpoint",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
+                "reference": "80cb1d19e63af5184e2c8773af302afbaf0a7731"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-28-data-exchange-template-endpoint-76eb89.zip",
+                "reference": "80cb1d19e63af5184e2c8773af302afbaf0a7731",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\DataExchangeTemplate\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-23T09:59:16+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -11478,10 +11512,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-MIG-28-data-exchange-template-endpoint",
+            "package": "channelgrabber/data-exchange-template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/data-exchange-template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
