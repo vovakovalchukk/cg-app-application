@@ -83,7 +83,7 @@ return [
                         'options' => [
                             'route' => '/:type/templates',
                             'constraints' => [
-                                'type' => implode('|', DataExchangeTemplate::getAllowedTypes())
+                                'type' => implode('|', TemplateController::getAllowedRouteTypes())
                             ],
                             'defaults' => [
                                 'controller' => TemplateController::class,

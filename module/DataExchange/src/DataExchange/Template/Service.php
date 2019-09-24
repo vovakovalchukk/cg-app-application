@@ -101,7 +101,12 @@ class Service
             $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
             $filter = $this->buildTemplateFilter($ouId, $type);
             $templateCollection = $this->templateService->fetchCollectionByFilter($filter);
-            return $templateCollection->toArray();
+            $templatesArray = [];
+            /** @var Template $template */
+            foreach ($templateCollection as $template) {
+                $templatesArray[] = $template->toArray();
+            }
+            return $templatesArray;
         } catch (NotFound $exception) {
             return [];
         }

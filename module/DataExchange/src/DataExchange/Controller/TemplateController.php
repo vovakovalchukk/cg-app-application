@@ -1,6 +1,7 @@
 <?php
 namespace DataExchange\Controller;
 
+use CG\DataExchangeTemplate\Entity as Template;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -22,6 +23,11 @@ class TemplateController extends AbstractActionController implements LoggerAware
 
     const LOG_CODE = 'DataExchangeTemplateController';
 
+    const ROUTE_ALLOWED_TYPES_MAP = [
+        Template::TYPE_STOCK => Template::TYPE_STOCK,
+        'orders' => Template::TYPE_ORDER
+    ];
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -39,9 +45,15 @@ class TemplateController extends AbstractActionController implements LoggerAware
         $this->templateService = $templateService;
     }
 
+    public static function getAllowedRouteTypes(): array
+    {
+        return array_keys(static::ROUTE_ALLOWED_TYPES_MAP);
+    }
+
     protected function fetchTypeFromRoute(): string
     {
-        return $this->params()->fromRoute('type', null);
+        $type = $this->params()->fromRoute('type', null);
+        return static::ROUTE_ALLOWED_TYPES_MAP[$type];
     }
 
     public function indexAction()
