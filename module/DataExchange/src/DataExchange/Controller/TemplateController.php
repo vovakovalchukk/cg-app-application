@@ -20,6 +20,8 @@ class TemplateController extends AbstractActionController implements LoggerAware
     const ROUTE_SAVE = 'DataExchangeTemplateSave';
     const ROUTE_REMOVE = 'DataExchangeTemplateRemove';
 
+    const LOG_CODE = 'DataExchangeTemplateController';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -27,19 +29,34 @@ class TemplateController extends AbstractActionController implements LoggerAware
     /** @var TemplateService */
     protected $templateService;
 
-    public function __construct(ViewModelFactory $viewModelFactory)
-    {
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        JsonModelFactory $jsonModelFactory,
+        TemplateService $templateService
+    ) {
         $this->viewModelFactory = $viewModelFactory;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->templateService = $templateService;
+    }
+
+    protected function fetchTypeFromRoute(): string
+    {
+        return $this->params()->fromRoute('type', null);
     }
 
     public function indexAction()
     {
-        return $this->viewModelFactory->newInstance([
+        $type = $this->fetchTypeFromRoute();
+        $viewModel = $this->viewModelFactory->newInstance();
+        $viewModel->setTemplate('data-exchange/' . $type . '/template.phtml');
+        $viewModel->setVariables([
             'isHeaderBarVisible' => false,
             'subHeaderHide' => true,
-            'stockTemplates' => $this->templateService->fetchAllTemplatesForActiveUser(),
-            'cgFieldOptions' => TemplateService::getCgFieldOptions()
+            'templates' => $this->templateService->fetchAllTemplatesForActiveUser($type),
+            'cgFieldOptions' => TemplateService::getCgFieldOptionsByType($type)
         ]);
+
+        return $viewModel;
     }
 
     public function saveAction()
@@ -49,7 +66,8 @@ class TemplateController extends AbstractActionController implements LoggerAware
 
         $success = false;
         try {
-            $template = $this->templateService->saveForActiveUser($templateArray, $templateId > 0 ? $templateId : null);
+            $type = $this->fetchTypeFromRoute();
+            $template = $this->templateService->saveForActiveUser($type, $templateArray, $templateId > 0 ? $templateId : null);
             $success = true;
             $response = [
                 'template' => $template->toArray(),
@@ -76,14 +94,16 @@ class TemplateController extends AbstractActionController implements LoggerAware
 
     public function removeAction()
     {
+        $type = $this->fetchTypeFromRoute();
+
         $templateId = $this->params()->fromPost('id', 0);
         $success = true;
         $response = [];
 
         try {
-            $this->templateService->remove($templateId);
+            $this->templateService->remove($type, $templateId);
         } catch (NotFound $e) {
-            // No-op
+            $response = ['message' => 'The template you are trying to delete no longer exists.'];
         } catch (\Throwable $e) {
             $this->logErrorException($e);
             $success = false;

@@ -1,10 +1,12 @@
 <?php
 
+use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\TemplateController;
 use DataExchange\Module;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
-use DataExchange\Controller\TemplateController;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'view_manager' => [
@@ -23,6 +25,36 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
+            'Stock' => [
+                'label' => 'Stock',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => DataExchangeTemplate::TYPE_STOCK
+                        ]
+                    ]
+                ]
+            ],
+            'Orders' => [
+                'label' => 'Orders',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => DataExchangeTemplate::TYPE_ORDER
+                        ]
+                    ]
+                ]
+            ],
         ]
     ],
     'service_manager' => [
@@ -47,9 +79,12 @@ return [
                 'may_terminate' => true,
                 'child_routes' => [
                     TemplateController::ROUTE => [
-                        'type' => Literal::class,
+                        'type' => Segment::class,
                         'options' => [
-                            'route' => '/stock/templates',
+                            'route' => '/:type/templates',
+                            'constraints' => [
+                                'type' => implode('|', DataExchangeTemplate::getAllowedTypes())
+                            ],
                             'defaults' => [
                                 'controller' => TemplateController::class,
                                 'action' => 'index',
