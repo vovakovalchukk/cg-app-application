@@ -255,13 +255,10 @@ class ProductsJsonController extends AbstractActionController
             $filterParams['embeddedDataToReturn'] = null;
         }
 
-        if (isset($filterParams['returnNonEmptyNames'])) {
-
-        }
-
         $requestFilter = $this->filterMapper->fromArray($filterParams)
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
             ->setEmbeddedDataToReturn($filterParams['embeddedDataToReturn'])
+            ->setReturnNonEmptyNames($filterParams['returnNonEmptyNames'] ?? false)
             ->setLimit($limit)
             ->setPage($page);
 
