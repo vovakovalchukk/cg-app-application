@@ -5,6 +5,7 @@ define([
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/Template/Inspector/Heading',
     'cg-mustache'
 ], function(
     InspectorAbstract,
@@ -13,6 +14,7 @@ define([
     dragAndDropList,
     TableStorage,
     orderTableHelper,
+    Heading,
     CGMustache
 ) {
     const TEXT_FORMATTING_CLASS = 'inspector-text-format';
@@ -62,7 +64,8 @@ define([
             colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
             align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache',
-            font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache'
+            font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
+            heading: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/heading.mustache'
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
@@ -71,8 +74,11 @@ define([
             const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
             const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
             const backgroundColorData = Font.getFontColourViewData(null, this.BACKGROUND_COLOR_ID);
+
             const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
             fontAlignData.containerClass = 'u-flex-left u-width-100pc';
+            fontAlignData.showJustify = true;
+
             const measurementUnitData = this.getMeasurementUnitData();
             measurementUnitData.sizeClass = 'small';
 
@@ -86,13 +92,17 @@ define([
 
             const textFormatting = this.getTextFormattingHtml(element);
 
+            const heading = cgmustache.renderTemplate(templates, {'type' : "Table Cells"}, "heading");
+            const headingNode = document.querySelector(Heading.getHeadingInspectorSelector());
+            headingNode.innerHTML = heading;
+
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
                                 <div>
                                     ${textFormatting}
                                 </div>
                                 
-                                <div>${align}</div>
+                                <div class="u-flex-left">${align}</div>
                                 <div>${fontFamily}</div>
                                 <span class="u-inline-block">${fontSize}</span>
                                 <span class="u-inline-block">${fontColorPicker}</span>                                                      
@@ -119,19 +129,15 @@ define([
                              </div>
                           </div>`;
 
-            const collapsible = cgmustache.renderTemplate(templates, {
-                'display': true,
-                'title': 'Table Cell',
-                'id': 'table-cell-collapsible'
-            }, "collapsible", {'content': html});
-
             const tableCellsInspector = document.getElementById('tableCells-inspector');
-            const template = cgmustache.renderTemplate(collapsible, {}, 'tableCells');
+            const template = cgmustache.renderTemplate(html, {}, 'tableCells');
             tableCellsInspector.append(document.createRange().createContextualFragment(template));
 
             tableCellsDomListener.init(this, element);
         });
     };
+
+    TableCells.prototype
 
     TableCells.prototype.getMeasurementUnitData = function() {
         return {
@@ -242,8 +248,7 @@ define([
     };
 
     TableCells.prototype.setAlign = function(element, align, input) {
-        console.log('in setAlign input: ', input);
-        const alignArray = ['left', 'center', 'right', 'justified'];
+        const alignArray = ['left', 'center', 'right', 'justify'];
         const alignIndex = alignArray.indexOf(align);
 
         const alignIconClicked = input.children[alignIndex];

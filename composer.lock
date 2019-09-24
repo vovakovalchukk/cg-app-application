@@ -5093,7 +5093,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f0a09b4fddf2498b7305aec41ba95b16a28f66a8"
+                "reference": "7dce02bf74c39c75c5116ebd4c642a37dc29ef85"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",

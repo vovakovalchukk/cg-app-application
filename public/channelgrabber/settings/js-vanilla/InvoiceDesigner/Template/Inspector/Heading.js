@@ -51,5 +51,9 @@ define([
         return Heading.HEADING_INSPECTOR_DELETE_ID;
     };
 
+    Heading.prototype.getHeadingInspectorSelector = function() {
+        return Heading.HEADING_INSPECTOR_SELECTOR;
+    };
+
     return new Heading();
 });

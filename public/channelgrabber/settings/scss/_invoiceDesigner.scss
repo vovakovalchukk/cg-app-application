@@ -476,16 +476,30 @@ $indicator-border-color: #1477aa;
     height: 0;
     opacity: 0;
 }
-.inspector-text-format-label {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+
+.inspector-formatting-button {
     border: 1px solid #afafaf;
-    border-radius: 4px;
-    opacity: 0.6;
-    background-position: center;
-    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
     cursor: pointer;
+    opacity: 0.6;
+    box-sizing: border-box;
+    margin-right: 0.2rem;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.inspector-text-format-input {
+    position: absolute;
+}
+
+.inspector-text-format-label {
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    @extend .inspector-formatting-button;
     &-bold {
         background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-bold-32.png');
     }
@@ -495,17 +509,13 @@ $indicator-border-color: #1477aa;
     &-underline {
         background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-underline-32.png');
     }
-    &:hover {
-        opacity: 0.8;
-    }
     &-active {
         opacity: 1;
     }
 }
 
 .tableCells-font-align {
-    box-sizing: border-box;
-    border: solid 1px transparent;
+    @extend .inspector-formatting-button;
     &.active {
         border: solid 1px grey;
     }
