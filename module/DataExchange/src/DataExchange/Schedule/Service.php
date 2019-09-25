@@ -243,7 +243,20 @@ class Service
         return $this->saveForActiveUser($data, Schedule::TYPE_STOCK, Schedule::OPERATION_IMPORT);
     }
 
-    public function saveForActiveUser(array $data, string $type, string $operation): Schedule
+    public function saveStockExportForActiveUser(array $data): Schedule
+    {
+        if (isset($data['toDataExchangeAccountId'])) {
+            [$type, $id] = explode('-', $data['toDataExchangeAccountId']);
+            $data['toDataExchangeAccountId'] = $id;
+            $data['toDataExchangeAccountType'] = $type;
+        }
+        if (isset($data['fromDataExchangeAccountId'])) {
+            $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_EMAIL;
+        }
+        return $this->saveForActiveUser($data, Schedule::TYPE_STOCK, Schedule::OPERATION_EXPORT);
+    }
+
+    protected function saveForActiveUser(array $data, string $type, string $operation): Schedule
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $data['organisationUnitId'] = $rootOuId;

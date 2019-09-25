@@ -1,31 +1,13 @@
 <?php
 namespace DataExchange\Controller;
 
-use DataExchange\Schedule\Service;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_UI\View\Prototyper\ViewModelFactory;
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\DataExchangeSchedule\Entity as Schedule;
 
-class StockExportController extends AbstractActionController
+class StockExportController extends AbstractScheduleController
 {
     public const ROUTE = 'StockExport';
-
-    /** @var ViewModelFactory */
-    protected $viewModelFactory;
-    /** @var JsonModelFactory */
-    protected $jsonModelFactory;
-    /** @var Service */
-    protected $service;
-
-    public function __construct(
-        ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory,
-        Service $service
-    ) {
-        $this->viewModelFactory = $viewModelFactory;
-        $this->jsonModelFactory = $jsonModelFactory;
-        $this->service = $service;
-    }
+    public const ROUTE_SAVE = 'Save';
+    public const ROUTE_REMOVE = 'Remove';
 
     public function indexAction()
     {
@@ -37,5 +19,10 @@ class StockExportController extends AbstractActionController
             'fromAccountOptions' => $this->service->fetchEmailFromAccountOptionsForActiveUser(),
             'toAccountOptions' => $this->service->fetchEmailToAndFtpAccountOptionsForActiveUser(),
         ]);
+    }
+
+    protected function saveForType(array $data): Schedule
+    {
+        return $this->service->saveStockExportForActiveUser($data);
     }
 }
