@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "181f7f968dba227bf25a9dec13c89be4",
+    "content-hash": "59f2546606273e664c83e5a1e8bb1670",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -333,6 +333,45 @@
                 "tag"
             ],
             "time": "2017-03-13T09:14:27+00:00"
+        },
+        {
+            "name": "channelgrabber/access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-access.git",
+                "reference": "3dd4f18584d7bd343f03ffc9f62b8b85f00e01d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/access/channelgrabber-access-1.0.0-5e8cef.zip",
+                "reference": "3dd4f18584d7bd343f03ffc9f62b8b85f00e01d5",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/billing": "^1.20.16",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.16.10",
+                "channelgrabber/usage-check": "^1.2.4",
+                "channelgrabber/user": "^1.26.8",
+                "php": ">=7.1",
+                "zendframework/zend-di": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Access\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Access\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-05T12:42:31+00:00"
         },
         {
             "name": "channelgrabber/amazon",
@@ -3724,16 +3763,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.6",
+            "version": "1.26.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.9-da9ebe.zip",
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4",
                 "shasum": null
             },
             "require": {
@@ -3779,7 +3818,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-04-04T07:40:33+00:00"
+            "time": "2019-09-19T10:14:15+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4091,6 +4130,57 @@
                 }
             },
             "time": "2014-10-15T12:09:57+00:00"
+        },
+        {
+            "name": "channelgrabber/zf2-access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/access-module.git",
+                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.0-6ec7a2.zip",
+                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/access": "^1.0.0",
+                "channelgrabber/billing": "^1.20.16",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.16.10",
+                "channelgrabber/usage": "^1.0.7",
+                "channelgrabber/usage-check": "^1.2.4",
+                "channelgrabber/user": "^1.26.8",
+                "channelgrabber/zf2-installer": "^1.0.6",
+                "php": ">=7.1",
+                "zendframework/zend-config": "~2.3",
+                "zendframework/zend-loader": "~2.3",
+                "zendframework/zend-modulemanager": "~2.3",
+                "zendframework/zend-session": "~2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_Access"
+            },
+            "autoload": {
+                "psr-4": {
+                    "CG_Access\\": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG_Access\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-05T12:53:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
