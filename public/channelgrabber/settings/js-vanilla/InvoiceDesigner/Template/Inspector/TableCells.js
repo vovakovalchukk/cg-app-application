@@ -97,15 +97,22 @@ define([
             headingContainerNode.innerHTML = headingHTML;
 
             const html = `<div class="inspector-holder"> 
-                            <div class="u-defloat u-margin-top-med u-overflow-hidden">
-                                <div>
+                            <div class="u-defloat u-margin-top-med">
+                                <div class="u-flex-left u-margin-bottom-xsmall">
                                     ${textFormattingHTML}
                                 </div>
-                                
-                                <div class="u-flex-left">${alignHTML}</div>
-                                <div>${fontFamily}</div>
-                                <span class="u-inline-block">${fontSize}</span>
-                                <span class="u-inline-block">${fontColorPicker}</span>                                                      
+                                <div class="u-flex-left u-margin-bottom-xsmall">
+                                    ${alignHTML}
+                                </div>
+                                <div class="u-margin-bottom-xsmall u-float-left">
+                                    ${fontFamily}
+                                </div>
+                                <span class="u-float-left u-margin-bottom-xsmall">
+                                    ${fontSize}
+                                </span>
+                                <span class="u-float-left u-margin-bottom-xsmall">
+                                    ${fontColorPicker}
+                                </span>                                                      
                              </div>
                              
                              <div class="u-defloat u-margin-top-med u-inline-block">
@@ -170,16 +177,14 @@ define([
         const italicActiveClass = getActive(currentCell['italic']);
         const underlineActiveClass = getActive(currentCell['underline']);
 
-        return `<div>
-                <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
+        return `<input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
                 <label class="${TEXT_FORMATTING_CLASS}-label ${boldActiveClass} inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
 
                 <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_ITALIC_ID}" name="${this.FONT_ITALIC_ID}">
                 <label class="${TEXT_FORMATTING_CLASS}-label ${italicActiveClass} inspector-text-format-label-italic" for="${this.FONT_ITALIC_ID}" title="Italic"></label>
 
                 <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_UNDERLINE_ID}" name="${this.FONT_UNDERLINE_ID}">
-                <label class="${TEXT_FORMATTING_CLASS}-label ${underlineActiveClass}  inspector-text-format-label-underline" for="${this.FONT_UNDERLINE_ID}" title="Underline"></label>
-            </div>`;
+                <label class="${TEXT_FORMATTING_CLASS}-label ${underlineActiveClass}  inspector-text-format-label-underline" for="${this.FONT_UNDERLINE_ID}" title="Underline"></label>`;
     };
 
     TableCells.prototype.getTableCellProperty = function(element, property) {
@@ -244,13 +249,7 @@ define([
     };
 
     TableCells.prototype.setAlign = function(element, align, input) {
-        const alignArray = ['left', 'center', 'right', 'justify'];
-        const alignIndex = alignArray.indexOf(align);
-
-        const alignIconClicked = input.children[alignIndex];
         this.setTableCellProperty(element, 'align', align);
-
-        alignIconClicked.classList.add(`${this.FONT_ALIGN_ID}-active`);
     };
 
     TableCells.prototype.setFontColour = function(element, colour) {

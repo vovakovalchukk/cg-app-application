@@ -486,6 +486,7 @@ $indicator-border-color: #1477aa;
     opacity: 0.6;
     box-sizing: border-box;
     margin-right: 0.2rem;
+    display: block;
     &:hover {
         opacity: 0.8;
     }
@@ -517,7 +518,7 @@ $indicator-border-color: #1477aa;
 .tableCells-font-align {
     @extend .inspector-formatting-button;
     &.active {
-        border: solid 1px grey;
+        opacity: 1;
     }
 }
 
