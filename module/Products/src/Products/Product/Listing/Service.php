@@ -64,42 +64,14 @@ class Service implements LoggerAwareInterface
     public function isListingCreationAllowed(): bool
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $cachedStatus = $this->getCachedListingCreationAllowed();
-        if ($cachedStatus !== null) {
-            $this->logDebug('Got Listing Creation Allowed status for OU %d from cache: %s', ['ou' => $rootOuId, $cachedStatus ? 'allowed' : 'not allowed'], [static::LOG_CODE, 'ListingCreation', 'Cached'], ['rootOu' => $rootOuId]);
-            return $cachedStatus;
-        }
 
         $listingCreationAccess = $this->accessService->hasListingsAccess();
         if ($listingCreationAccess) {
-            $this->setCachedListingCreationAllowed($listingCreationAccess);
             $this->logDebug('Listing creation is allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
             return true;
         }
         $this->logDebug('Listing creation is NOT allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'NotAllowed'], ['rootOu' => $rootOuId]);
-        // Don't cache when false so that when users add Listings we don't have to invalidate any cache
         return false;
-    }
-
-    protected function getCachedListingCreationAllowed(): ?bool
-    {
-        $session = $this->sessionManager->getStorage();
-        if (!isset($session['ListingCreation'], $session['ListingCreation']['allowed'], $session['ListingCreation']['timestamp']) ||
-            $session['ListingCreation']['timestamp'] + static::CACHE_TTL < time()) {
-            return null;
-        }
-        return $session['ListingCreation']['allowed'];
-    }
-
-    protected function setCachedListingCreationAllowed(bool $allowed)
-    {
-        $session = $this->sessionManager->getStorage();
-        if (!isset($session['ListingCreation'])) {
-            $session['ListingCreation'] = [];
-        }
-        $session['ListingCreation']['allowed'] = $allowed;
-        $session['ListingCreation']['timestamp'] = time();
-        return $this;
     }
 
     public function getManagePackageUrl(): string
