@@ -1,6 +1,7 @@
 <?php
 
 use DataExchange\Controller\IndexController;
+use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
@@ -38,6 +39,18 @@ return [
                         'label' => 'Export',
                         'title' => 'Export',
                         'route' => Module::ROUTE . '/' . StockExportController::ROUTE
+                    ]
+                ]
+            ],
+            'Orders' => [
+                'label' => 'Orders',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Export' => [
+                        'label' => 'Export',
+                        'title' => 'Export',
+                        'route' => Module::ROUTE . '/' . OrderExportController::ROUTE
                     ]
                 ]
             ],
@@ -119,6 +132,39 @@ return [
                                 'may_terminate' => true,
                             ],
                             StockExportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    OrderExportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/order/export',
+                            'defaults' => [
+                                'controller' => OrderExportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            OrderExportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderExportController::ROUTE_REMOVE => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/remove',

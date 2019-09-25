@@ -20,6 +20,7 @@ use CG\FtpAccount\Filter as FtpAccountFilter;
 use CG\FtpAccount\Service as FtpAccountService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG\UserPreference\Client\Service as UserPreferenceService;
 
 class Service
 {
@@ -33,6 +34,8 @@ class Service
     protected $ftpAccountService;
     /** @var EmailAccountService */
     protected $emailAccountService;
+    /** @var UserPreferenceService */
+    protected $userPreferenceService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
 
@@ -42,6 +45,7 @@ class Service
         TemplateService $templateService,
         FtpAccountService $ftpAccountService,
         EmailAccountService $emailAccountService,
+        UserPreferenceService $userPreferenceService,
         ActiveUserInterface $activeUserContainer
     ) {
         $this->scheduleService = $scheduleService;
@@ -49,6 +53,7 @@ class Service
         $this->templateService = $templateService;
         $this->ftpAccountService = $ftpAccountService;
         $this->emailAccountService = $emailAccountService;
+        $this->userPreferenceService = $userPreferenceService;
         $this->activeUserContainer = $activeUserContainer;
     }
 
@@ -60,6 +65,11 @@ class Service
     public function fetchStockExportsForActiveUser(): array
     {
         return $this->fetchForActiveUser(Schedule::TYPE_STOCK, Schedule::OPERATION_EXPORT);
+    }
+
+    public function fetchOrderExportsForActiveUser(): array
+    {
+        return $this->fetchForActiveUser(Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
     }
 
     protected function fetchForActiveUser(string $type, string $operation): array
@@ -102,6 +112,11 @@ class Service
     public function fetchStockTemplateOptionsForActiveUser(): array
     {
         return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_STOCK);
+    }
+
+    public function fetchOrderTemplateOptionsForActiveUser(): array
+    {
+        return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_ORDER);
     }
 
     protected function fetchTemplateOptionsForActiveUser(string $type): array
@@ -233,6 +248,17 @@ class Service
         return $combined;
     }
 
+    public function fetchSavedFilterOptionsForActiveUser(): array
+    {
+        $userPreference = $this->userPreferenceService->fetch($this->activeUserContainer->getActiveUser()->getId());
+        $preference = $userPreference->getPreference();
+        if (!isset($preference['order-saved-filters'])) {
+            return [];
+        }
+        $filterNames = array_keys($preference['order-saved-filters']);
+        return array_combine($filterNames, $filterNames);
+    }
+
     public function saveStockImportForActiveUser(array $data): Schedule
     {
         $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
@@ -245,6 +271,22 @@ class Service
 
     public function saveStockExportForActiveUser(array $data): Schedule
     {
+        $data = $this->prepareExportDataForSaving($data);
+        return $this->saveForActiveUser($data, Schedule::TYPE_STOCK, Schedule::OPERATION_EXPORT);
+    }
+
+    public function saveOrderExportForActiveUser(array $data): Schedule
+    {
+        $data = $this->prepareExportDataForSaving($data);
+        if (isset($data['savedFilterName'])) {
+            $data['options'] = ['savedFilterName' => $data['savedFilterName']];
+            unset($data['savedFilterName']);
+        }
+        return $this->saveForActiveUser($data, Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
+    }
+
+    protected function prepareExportDataForSaving(array $data): array
+    {
         if (isset($data['toDataExchangeAccountId'])) {
             [$type, $id] = explode('-', $data['toDataExchangeAccountId']);
             $data['toDataExchangeAccountId'] = $id;
@@ -253,7 +295,7 @@ class Service
         if (isset($data['fromDataExchangeAccountId'])) {
             $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_EMAIL;
         }
-        return $this->saveForActiveUser($data, Schedule::TYPE_STOCK, Schedule::OPERATION_EXPORT);
+        return $data;
     }
 
     protected function saveForActiveUser(array $data, string $type, string $operation): Schedule
