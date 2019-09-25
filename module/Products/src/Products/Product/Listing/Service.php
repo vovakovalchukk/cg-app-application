@@ -1,6 +1,7 @@
 <?php
 namespace Products\Product\Listing;
 
+use CG_Access\Service as AccessService;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\FeatureFlags\Service as FeatureFlagsService;
@@ -37,6 +38,8 @@ class Service implements LoggerAwareInterface
     protected $organisationUnitService;
     /** @var ListingTemplateService */
     protected $listingTemplateService;
+    /** @var AccessService */
+    protected $accessService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -45,7 +48,8 @@ class Service implements LoggerAwareInterface
         SessionManager $sessionManager,
         FeatureFlagsService $featureFlagsService,
         OrganisationUnitService $organisationUnitService,
-        ListingTemplateService $listingTemplateService
+        ListingTemplateService $listingTemplateService,
+        AccessService $accessService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->subscriptionService = $subscriptionService;
@@ -54,6 +58,7 @@ class Service implements LoggerAwareInterface
         $this->featureFlagsService = $featureFlagsService;
         $this->organisationUnitService = $organisationUnitService;
         $this->listingTemplateService = $listingTemplateService;
+        $this->accessService = $accessService;
     }
 
     public function isListingCreationAllowed(): bool
@@ -65,16 +70,15 @@ class Service implements LoggerAwareInterface
             return $cachedStatus;
         }
 
-        try {
-            $this->subscriptionService->getCurrentPackageForOuId($rootOuId, Licence::TYPE_LISTING);
-            $this->setCachedListingCreationAllowed(true);
+        $listingCreationAccess = $this->accessService->hasListingsAccess();
+        if ($listingCreationAccess) {
+            $this->setCachedListingCreationAllowed($listingCreationAccess);
             $this->logDebug('Listing creation is allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
             return true;
-        } catch (NotFound $e) {
-            $this->logDebug('Listing creation is NOT allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'NotAllowed'], ['rootOu' => $rootOuId]);
-            // Don't cache when false so that when users add Listings we don't have to invalidate any cache
-            return false;
         }
+        $this->logDebug('Listing creation is NOT allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'NotAllowed'], ['rootOu' => $rootOuId]);
+        // Don't cache when false so that when users add Listings we don't have to invalidate any cache
+        return false;
     }
 
     protected function getCachedListingCreationAllowed(): ?bool
