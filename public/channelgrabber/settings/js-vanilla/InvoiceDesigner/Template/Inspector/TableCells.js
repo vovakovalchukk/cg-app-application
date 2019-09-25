@@ -53,7 +53,7 @@ define([
             return;
         }
 
-        let cellNode = event.target;
+        const cellNode = event.target;
         element.setActiveCellNodeId(cellNode.id);
 
         const tableCells = element.getTableCells();
@@ -86,23 +86,23 @@ define([
             const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
             const fontColorPicker = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
 
-            const align = cgmustache.renderTemplate(templates, fontAlignData, "align");
-            const backgroundColorPicker = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
-            const measurementUnitSelect = cgmustache.renderTemplate(templates, measurementUnitData, "select");
+            const alignHTML = cgmustache.renderTemplate(templates, fontAlignData, "align");
+            const backgroundColorPickerHTML = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
+            const measurementUnitSelectHTML = cgmustache.renderTemplate(templates, measurementUnitData, "select");
 
-            const textFormatting = this.getTextFormattingHtml(element);
+            const textFormattingHTML = this.getTextFormattingHtml(element);
 
-            const heading = cgmustache.renderTemplate(templates, {'type' : "Table Cells"}, "heading");
-            const headingNode = document.querySelector(Heading.getHeadingInspectorSelector());
-            headingNode.innerHTML = heading;
+            const headingHTML = cgmustache.renderTemplate(templates, {'type' : "Table Cells"}, "heading");
+            const headingContainerNode = document.querySelector(Heading.getHeadingInspectorSelector());
+            headingContainerNode.innerHTML = headingHTML;
 
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med u-overflow-hidden">
                                 <div>
-                                    ${textFormatting}
+                                    ${textFormattingHTML}
                                 </div>
                                 
-                                <div class="u-flex-left">${align}</div>
+                                <div class="u-flex-left">${alignHTML}</div>
                                 <div>${fontFamily}</div>
                                 <span class="u-inline-block">${fontSize}</span>
                                 <span class="u-inline-block">${fontColorPicker}</span>                                                      
@@ -110,7 +110,7 @@ define([
                              
                              <div class="u-defloat u-margin-top-med u-inline-block">
                                 <h2>Background Colour</h2>
-                                ${backgroundColorPicker}
+                                ${backgroundColorPickerHTML}
                              </div>
                              
                              <div class="u-defloat u-margin-top-med u-inline-block"> 
@@ -123,21 +123,19 @@ define([
                                         <input id="${this.COLUMN_WIDTH_ID}" class="inputbox u-width-80px" type="number" title="Column Width" />
                                     </span>
                                     <span>
-                                        ${measurementUnitSelect}
+                                        ${measurementUnitSelectHTML}
                                     </span>
                                 </div>
                              </div>
                           </div>`;
 
             const tableCellsInspector = document.getElementById('tableCells-inspector');
-            const template = cgmustache.renderTemplate(html, {}, 'tableCells');
-            tableCellsInspector.append(document.createRange().createContextualFragment(template));
+            const tableCellsHTML = cgmustache.renderTemplate(html, {}, 'tableCells');
+            tableCellsInspector.append(document.createRange().createContextualFragment(tableCellsHTML));
 
             tableCellsDomListener.init(this, element);
         });
     };
-
-    TableCells.prototype
 
     TableCells.prototype.getMeasurementUnitData = function() {
         return {
@@ -159,7 +157,6 @@ define([
     };
 
     TableCells.prototype. getTextFormattingHtml = function(element) {
-        //todo - need to style based on active setting
         const currentCell = this.getCurrentCell(element);
 
         const getActive = (value) => {
@@ -173,7 +170,6 @@ define([
         const italicActiveClass = getActive(currentCell['italic']);
         const underlineActiveClass = getActive(currentCell['underline']);
 
-        // todo - change classnames from radio button as it is no longer semantic
         return `<div>
                 <input class="${TEXT_FORMATTING_CLASS}-input" type="checkbox" id="${this.FONT_BOLD_ID}" name="${this.FONT_BOLD_ID}">
                 <label class="${TEXT_FORMATTING_CLASS}-label ${boldActiveClass} inspector-text-format-label-bold" for="${this.FONT_BOLD_ID}" title="Bold"></label>
