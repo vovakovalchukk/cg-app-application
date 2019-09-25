@@ -68,7 +68,8 @@ class Service
             $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
             $filter = $this->buildScheduleFilter($rootOuId, $type, $operation);
             $schedules = $this->scheduleService->fetchCollectionByFilter($filter);
-            return $schedules->toArray();
+            $schedulesArray = $schedules->toArray();
+            return $this->collapseScheduleArrays($schedulesArray);
         } catch (NotFound $e) {
             return [];
         }
@@ -82,6 +83,20 @@ class Service
             ->setOrganisationUnitId([$rootOuId])
             ->setType([$type])
             ->setOperation([$operation]);
+    }
+
+    protected function collapseScheduleArrays(array $schedulesArray): array
+    {
+        // Merge the options in to the main array
+        foreach ($schedulesArray as &$scheduleArray) {
+            if (!isset($scheduleArray['options'])) {
+                continue;
+            }
+            unset($scheduleArray['options']['version']);
+            $scheduleArray = array_merge($scheduleArray, $scheduleArray['options']);
+            unset($scheduleArray['options']);
+        }
+        return $schedulesArray;
     }
 
     public function fetchStockTemplateOptionsForActiveUser(): array
