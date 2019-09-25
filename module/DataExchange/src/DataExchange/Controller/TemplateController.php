@@ -9,6 +9,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use DataExchange\Template\Fields\Factory as FieldsFactory;
 use DataExchange\Template\Service as TemplateService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -65,7 +66,7 @@ class TemplateController extends AbstractActionController implements LoggerAware
             'isHeaderBarVisible' => false,
             'subHeaderHide' => true,
             'templates' => $this->templateService->fetchAllTemplatesForActiveUser($type),
-            'cgFieldOptions' => TemplateService::getCgFieldOptionsByType($type)
+            'cgFieldOptions' => FieldsFactory::fetchFieldsForType($type)
         ]);
 
         return $viewModel;
