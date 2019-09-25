@@ -156,6 +156,7 @@ define([
 
     TableCells.prototype.getFontColorPickerHTML = function(templates, cellData) {
         const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
+        fontColorData.initialColour = cellData.fontColor;
         const fontColorHTML = this.cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
         return fontColorHTML;
     };

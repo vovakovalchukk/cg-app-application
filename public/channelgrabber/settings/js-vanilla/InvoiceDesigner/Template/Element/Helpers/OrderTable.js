@@ -14,8 +14,11 @@ define([], function() {
             let cellData = {
                 column: column.id,
                 cellTag: 'td',
-//                fontFamily: 'Courier',
-//                fontSize: 8
+
+                //todo - remove this hack
+                fontColor: '#7cae25',
+                fontFamily: 'Courier',
+                fontSize: 8
             };
             tableCells.push(cellHeader);
             tableCells.push(cellData);
