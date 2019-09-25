@@ -16,7 +16,8 @@ define([], function() {
                 cellTag: 'td',
 
                 //todo - remove this hack
-                fontColor: '#7cae25',
+                backgroundColour: '#7cae25',
+                fontColour: '#7cae25',
                 fontFamily: 'Courier',
                 fontSize: 8
             };

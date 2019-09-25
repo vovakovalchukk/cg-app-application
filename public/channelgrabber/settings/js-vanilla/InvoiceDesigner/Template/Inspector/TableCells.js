@@ -150,13 +150,14 @@ define([
 
     TableCells.prototype.getBackgroundColorHTML = function(templates, cellData) {
         const backgroundColorData = Font.getFontColourViewData(null, this.BACKGROUND_COLOR_ID);
+        backgroundColorData.initialColour = cellData.backgroundColour;
         const backgroundColorPickerHTML = this.cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
         return backgroundColorPickerHTML;
     };
 
     TableCells.prototype.getFontColorPickerHTML = function(templates, cellData) {
         const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
-        fontColorData.initialColour = cellData.fontColor;
+        fontColorData.initialColour = cellData.fontColour;
         const fontColorHTML = this.cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
         return fontColorHTML;
     };
