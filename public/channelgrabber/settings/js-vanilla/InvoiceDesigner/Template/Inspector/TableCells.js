@@ -70,35 +70,18 @@ define([
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
-            const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
-            fontSizeData.sizeClass = 'u-width-100px';
-            const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
-            const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
-            const backgroundColorData = Font.getFontColourViewData(null, this.BACKGROUND_COLOR_ID);
+            this.cgmustache = cgmustache;
 
-            const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
-            fontAlignData.containerClass = 'u-flex-left u-width-100pc';
-            fontAlignData.showJustify = true;
-            if (cellData.align) {
-                fontAlignData[cellData.align] = true;
-            }
-
-            const measurementUnitData = this.getMeasurementUnitData();
-            measurementUnitData.sizeClass = 'small';
-
-            const fontSize = cgmustache.renderTemplate(templates, fontSizeData, "select");
-            const fontFamily = cgmustache.renderTemplate(templates, fontFamilyData, "select");
-            const fontColorPicker = cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
-
-            const alignHTML = cgmustache.renderTemplate(templates, fontAlignData, "align");
-            const backgroundColorPickerHTML = cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
-            const measurementUnitSelectHTML = cgmustache.renderTemplate(templates, measurementUnitData, "select");
+            this.applyHeader(templates);
 
             const textFormattingHTML = this.getTextFormattingHtml(element);
+            const alignHTML = this.getAlignHTML(templates, cellData);
+            const fontFamilyHTML = this.getFontFamilyHTML(templates);
+            const fontSizeHTML = this.getFontSizeHTML(templates, cellData);
+            const fontColorPickerHTML = this.getFontColorPickerHTML(templates, cellData);
 
-            const headingHTML = cgmustache.renderTemplate(templates, {'type' : "Table Cells"}, "heading");
-            const headingContainerNode = document.querySelector(Heading.getHeadingInspectorSelector());
-            headingContainerNode.innerHTML = headingHTML;
+            const backgroundColorPickerHTML = this.getBackgroundColorHTML(templates, cellData);
+            const measurementUnitSelectHTML = this.getMeasurementUnitHTML(templates, cellData);
 
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med">
@@ -109,13 +92,13 @@ define([
                                     ${alignHTML}
                                 </div>
                                 <div class="u-margin-bottom-xsmall u-float-left">
-                                    ${fontFamily}
+                                    ${fontFamilyHTML}
                                 </div>
                                 <span class="u-float-left u-margin-bottom-xsmall">
-                                    ${fontSize}
+                                    ${fontSizeHTML}
                                 </span>
                                 <span class="u-float-left u-margin-bottom-xsmall">
-                                    ${fontColorPicker}
+                                    ${fontColorPickerHTML}
                                 </span>                                                      
                              </div>
                              
@@ -146,6 +129,55 @@ define([
 
             tableCellsDomListener.init(this, element);
         });
+    };
+
+    TableCells.prototype.applyHeader = function(templates) {
+        const headingHTML = this.cgmustache.renderTemplate(templates, {'type': "Table Cells"}, "heading");
+        const headingContainerNode = document.querySelector(Heading.getHeadingInspectorSelector());
+        headingContainerNode.innerHTML = headingHTML;
+    };
+
+    TableCells.prototype.getMeasurementUnitHTML = function(templates, cellData) {
+        const measurementUnitData = this.getMeasurementUnitData();
+        measurementUnitData.sizeClass = 'small';
+        const measurementUnitSelectHTML = this.cgmustache.renderTemplate(templates, measurementUnitData, "select");
+        return measurementUnitSelectHTML;
+    };
+
+    TableCells.prototype.getBackgroundColorHTML = function(templates, cellData) {
+        const backgroundColorData = Font.getFontColourViewData(null, this.BACKGROUND_COLOR_ID);
+        const backgroundColorPickerHTML = this.cgmustache.renderTemplate(templates, backgroundColorData, "colourPicker");
+        return backgroundColorPickerHTML;
+    };
+
+    TableCells.prototype.getFontColorPickerHTML = function(templates, cellData) {
+        const fontColorData = Font.getFontColourViewData(null, this.FONT_COLOR_ID);
+        const fontColorHTML = this.cgmustache.renderTemplate(templates, fontColorData, "colourPicker");
+        return fontColorHTML;
+    };
+
+    TableCells.prototype.getFontSizeHTML = function(templates, cellData) {
+        const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
+        fontSizeData.sizeClass = 'u-width-100px';
+        const fontSizeHTML = this.cgmustache.renderTemplate(templates, fontSizeData, "select");
+        return fontSizeHTML;
+    };
+
+    TableCells.prototype.getAlignHTML = function(templates, cellData) {
+        const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
+        fontAlignData.containerClass = 'u-flex-left u-width-100pc';
+        fontAlignData.showJustify = true;
+        if (cellData.align) {
+            fontAlignData[cellData.align] = true;
+        }
+        const alignHTML = this.cgmustache.renderTemplate(templates, fontAlignData, "align");
+        return alignHTML;
+    };
+
+    TableCells.prototype.getFontFamilyHTML = function(templates) {
+        const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
+        const fontFamilyHTML = this.cgmustache.renderTemplate(templates, fontFamilyData, "select");
+        return fontFamilyHTML;
     };
 
     TableCells.prototype.getMeasurementUnitData = function() {
