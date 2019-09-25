@@ -36,7 +36,7 @@
         "channelgrabber/courieradapter": "~1.6.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange-schedule": "dev-MIG-36-data-exchange-app-backend-for-schedules as 1.0.0",
-        "channelgrabber/data-exchange-template": "dev-MIG-28-data-exchange-template-endpoint as 1.0.0",
+        "channelgrabber/data-exchange-template": "~1.0.0",
         "channelgrabber/di": "~2.3.1",
         "channelgrabber/ebay": "~1.20.6",
         "channelgrabber/ekm": "~1.10.14",

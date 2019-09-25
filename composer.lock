@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "370a8a45b3e44336f07905994c1b1d20",
+    "content-hash": "f4c3da3eb65c7d7569a9fca64d1e151a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1089,12 +1089,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "f19eef05092b54d650f58f938cb44f51c52b3e99"
+                "reference": "a26048c6d21b472c0edde06c35332601b44abbe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-36-data-exchange-app-backend-for-schedules-f7e9b7.zip",
-                "reference": "f19eef05092b54d650f58f938cb44f51c52b3e99"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-36-data-exchange-app-backend-for-schedules-fca7be.zip",
+                "reference": "a26048c6d21b472c0edde06c35332601b44abbe5"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1114,20 +1114,20 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-24T14:43:01+00:00"
+            "time": "2019-09-25T10:15:10+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
-            "version": "dev-MIG-28-data-exchange-template-endpoint",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
-                "reference": "80cb1d19e63af5184e2c8773af302afbaf0a7731"
+                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-28-data-exchange-template-endpoint-76eb89.zip",
-                "reference": "80cb1d19e63af5184e2c8773af302afbaf0a7731"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.0-162107.zip",
+                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1147,7 +1147,7 @@
                     "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-23T09:59:16+00:00"
+            "time": "2019-09-24T12:06:12+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -11516,12 +11516,6 @@
             "package": "channelgrabber/data-exchange-schedule"
         },
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-28-data-exchange-template-endpoint",
-            "package": "channelgrabber/data-exchange-template"
-        },
-        {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
             "version": "dev-MIG-36-data-exchange-app-backend-for-schedules",
@@ -11532,7 +11526,6 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/data-exchange-schedule": 20,
-        "channelgrabber/data-exchange-template": 20,
         "channelgrabber/ftp-account": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
