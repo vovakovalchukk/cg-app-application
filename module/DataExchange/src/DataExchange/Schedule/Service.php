@@ -217,6 +217,22 @@ class Service
         return $options;
     }
 
+    public function fetchEmailToAndFtpAccountOptionsForActiveUser(): array
+    {
+        $emailToAccounts = $this->fetchEmailToAccountOptionsForActiveUser();
+        $ftpAccounts = $this->fetchFtpAccountOptionsForActiveUser();
+        $combined = [];
+        $type = Schedule::ACCOUNT_TYPE_EMAIL;
+        foreach ($emailToAccounts as $id => $emailToAccount) {
+            $combined[$type.'-'.$id] = $emailToAccount;
+        }
+        $type = Schedule::ACCOUNT_TYPE_FTP;
+        foreach ($ftpAccounts as $id => $ftpAccount) {
+            $combined[$type.'-'.$id] = $ftpAccount;
+        }
+        return $combined;
+    }
+
     public function saveStockImportForActiveUser(array $data): Schedule
     {
         $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;

@@ -35,7 +35,7 @@ class StockExportController extends AbstractActionController
             'stockExportSchedules' => $this->service->fetchStockExportsForActiveUser(),
             'stockTemplateOptions' => $this->service->fetchStockTemplateOptionsForActiveUser(),
             'fromAccountOptions' => $this->service->fetchEmailFromAccountOptionsForActiveUser(),
-            'toAccountOptions' => $this->service->fetchEmailToAccountOptionsForActiveUser(),
+            'toAccountOptions' => $this->service->fetchEmailToAndFtpAccountOptionsForActiveUser(),
         ]);
     }
 }
