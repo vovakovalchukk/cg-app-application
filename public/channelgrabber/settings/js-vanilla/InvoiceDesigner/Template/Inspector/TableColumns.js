@@ -25,7 +25,6 @@ define([
     };
 
     TableColumns.prototype.showForElement = function(element) {
-        console.log('in showForElement TableColumns...');
         const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
         const columnsOnElement = element.getTableColumns();
 

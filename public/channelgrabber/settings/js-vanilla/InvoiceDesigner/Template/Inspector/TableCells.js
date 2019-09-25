@@ -60,6 +60,10 @@ define([
         this.cellDataIndex = orderTableHelper.getCellDataIndexFromDomId(cellNode.id, tableCells);
         const cellData = tableCells[this.cellDataIndex];
 
+        if (!cellData) {
+            return;
+        }
+
         const templateUrlMap = {
             select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
@@ -76,7 +80,7 @@ define([
 
             const textFormattingHTML = this.getTextFormattingHtml(element);
             const alignHTML = this.getAlignHTML(templates, cellData);
-            const fontFamilyHTML = this.getFontFamilyHTML(templates);
+            const fontFamilyHTML = this.getFontFamilyHTML(templates, cellData);
             const fontSizeHTML = this.getFontSizeHTML(templates, cellData);
             const fontColorPickerHTML = this.getFontColorPickerHTML(templates, cellData);
 
@@ -174,8 +178,11 @@ define([
         return alignHTML;
     };
 
-    TableCells.prototype.getFontFamilyHTML = function(templates) {
+    TableCells.prototype.getFontFamilyHTML = function(templates, cellData) {
         const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
+        if (cellData.fontFamily) {
+            applyFontFamilyInitialValue(fontFamilyData, cellData);
+        }
         const fontFamilyHTML = this.cgmustache.renderTemplate(templates, fontFamilyData, "select");
         return fontFamilyHTML;
     };
@@ -308,5 +315,16 @@ define([
         return tableColumns.findIndex(column => {
             return column.id === currentCell.column
         });
+    }
+
+    function applyFontFamilyInitialValue(fontFamilyData, cellData) {
+        const fontFamilyInitial = fontFamilyData.options.find(option => {
+            return option.value = cellData.fontFamily;
+        });
+        if (!fontFamilyInitial) {
+            return;
+        }
+        fontFamilyData.initialTitle = fontFamilyInitial.title;
+        fontFamilyData.initialValue = fontFamilyInitial.value;
     }
 });
