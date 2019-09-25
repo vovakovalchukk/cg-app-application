@@ -163,6 +163,9 @@ define([
     TableCells.prototype.getFontSizeHTML = function(templates, cellData) {
         const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
         fontSizeData.sizeClass = 'u-width-100px';
+        if (cellData.fontSize) {
+            applyInitialSelection(fontSizeData, cellData, 'fontSize');
+        }
         const fontSizeHTML = this.cgmustache.renderTemplate(templates, fontSizeData, "select");
         return fontSizeHTML;
     };
@@ -181,7 +184,7 @@ define([
     TableCells.prototype.getFontFamilyHTML = function(templates, cellData) {
         const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
         if (cellData.fontFamily) {
-            applyFontFamilyInitialValue(fontFamilyData, cellData);
+            applyInitialSelection(fontFamilyData, cellData, 'fontFamily');
         }
         const fontFamilyHTML = this.cgmustache.renderTemplate(templates, fontFamilyData, "select");
         return fontFamilyHTML;
@@ -316,15 +319,15 @@ define([
             return column.id === currentCell.column
         });
     }
-
-    function applyFontFamilyInitialValue(fontFamilyData, cellData) {
-        const fontFamilyInitial = fontFamilyData.options.find(option => {
-            return option.value = cellData.fontFamily;
+    
+    function applyInitialSelection(data, cellData, property) {
+        const initialOption = data.options.find(option => {
+            return option.value == cellData[property];
         });
-        if (!fontFamilyInitial) {
+        if (!initialOption) {
             return;
         }
-        fontFamilyData.initialTitle = fontFamilyInitial.title;
-        fontFamilyData.initialValue = fontFamilyInitial.value;
+        data.initialTitle = initialOption.title;
+        data.initialValue = initialOption.value;
     }
 });
