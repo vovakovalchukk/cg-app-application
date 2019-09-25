@@ -70,37 +70,11 @@ define([
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
         }
     ];
-//        {
-//            cellId: columnId-tr,
-//            column: ,
-//            cellTag: 'td',
-//            fontFamily,
-//            fontSize,
-//            fontAlign,
-//            fontColor
-//        }
+
     const TableStorage = (function() {
         return {
             getColumns,
             getDefaultColumns,
-//            getDefaultTableCells: function(columns) {
-////                const defaultColumns = getDefaultColumns();
-////                const tableCells = [];
-////                for (let column of defaultColumns) {
-////
-////
-////                    let cellHeader = {
-////                        column: column.id,
-////                    };
-////                    let cellData = {
-////                        column: column.id,
-////                        cellTag: 'td',
-////                    };
-////                    tableCells.push(cellHeader);
-////                    tableCells.push(cellData);
-////                }
-////                return tableCells;
-//            },
             getTotals: function() {},
             getSortBy: function() {}
         };

@@ -58,6 +58,7 @@ define([
 
         const tableCells = element.getTableCells();
         this.cellDataIndex = orderTableHelper.getCellDataIndexFromDomId(cellNode.id, tableCells);
+        const cellData = tableCells[this.cellDataIndex];
 
         const templateUrlMap = {
             select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
@@ -78,6 +79,9 @@ define([
             const fontAlignData = Font.getFontAlignViewData(null, this.FONT_ALIGN_ID);
             fontAlignData.containerClass = 'u-flex-left u-width-100pc';
             fontAlignData.showJustify = true;
+            if (cellData.align) {
+                fontAlignData[cellData.align] = true;
+            }
 
             const measurementUnitData = this.getMeasurementUnitData();
             measurementUnitData.sizeClass = 'small';

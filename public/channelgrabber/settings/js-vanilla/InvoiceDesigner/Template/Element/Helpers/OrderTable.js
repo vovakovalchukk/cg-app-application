@@ -13,7 +13,7 @@ define([], function() {
             };
             let cellData = {
                 column: column.id,
-                cellTag: 'td'
+                cellTag: 'td',
             };
             tableCells.push(cellHeader);
             tableCells.push(cellData);
