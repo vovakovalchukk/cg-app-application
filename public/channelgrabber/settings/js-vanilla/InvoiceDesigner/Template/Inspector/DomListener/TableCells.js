@@ -59,8 +59,6 @@ define([
             inspector.toggleProperty(element, 'underline', this.underlineInput);
         };
         this.fontFamilyInput.onchange = (event, selectBox, id) => {
-            console.log('in fontFamily onchange id: ', id);
-
             inspector.setFontFamily(element, id);
         };
         this.fontSizeInput.onchange = (event, selectBox, id) => {

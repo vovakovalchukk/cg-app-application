@@ -158,18 +158,11 @@ define([
     };
 
     function applySelectedToMeasurementUnit(measurementUnitData, columnData, value) {
-        if (!value) {
-            measurementUnitData.options[0].selected = true;
-            return;
-        }
         const optionIndex = measurementUnitData.options.findIndex(option => {
             return option.value == value;
         });
         const optionToSelect = measurementUnitData.options[optionIndex];
-        if (!optionToSelect) {
-            measurementUnitData.options[0].selected = true;
-            return;
-        }
+
         optionToSelect.selected = true;
     }
 

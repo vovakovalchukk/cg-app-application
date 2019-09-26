@@ -180,13 +180,10 @@ define([
 
         this.set = function(field, value, populating, bypassSaveDiscardBar)
         {
-            var oldValue = data[field];
+            var oldValue = stringify(data[field]);
             data[field] = value;
 
-            var oldValue = JSON.stringify(data[field], null, 0);
-            data[field] = value;
-
-            if ((oldValue === value) || populating) {
+            if ((oldValue === stringify(value)) || populating) {
                 return;
             }
             this.publish(null, bypassSaveDiscardBar);
@@ -353,4 +350,8 @@ define([
     };
 
     return ElementAbstract;
+
+    function stringify(value) {
+        return Object.assign({}, JSON.stringify(value, null, 1));
+    }
 });

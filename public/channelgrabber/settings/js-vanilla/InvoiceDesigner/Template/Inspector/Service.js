@@ -144,13 +144,12 @@ define([
 
     Service.prototype.removeCellSelections = function() {
         const allElements = this.getTemplate().getElements().getItems();
-        const orderTable = new OrderTable;
 
         for (let id in allElements) {
             let element = allElements[id];
             let type = element.getType();
 
-            if (type !== orderTable.getType()) {
+            if (type !== 'OrderTable') {
                 continue;
             }
 

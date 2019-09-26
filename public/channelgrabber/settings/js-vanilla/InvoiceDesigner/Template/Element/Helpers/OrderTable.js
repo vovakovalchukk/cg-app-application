@@ -48,7 +48,7 @@ define([], function() {
         return tableColumns.findIndex(column => {
             return column.id === cell.column
         });
-    }
+    };
 
     return new OrderTableHelper;
-})
+});
