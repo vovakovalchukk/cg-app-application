@@ -64,9 +64,7 @@ class Service implements LoggerAwareInterface
     public function isListingCreationAllowed(): bool
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-
-        $listingCreationAccess = $this->accessService->hasListingsAccess();
-        if ($listingCreationAccess) {
+        if ($this->accessService->hasListingsAccess()) {
             $this->logDebug('Listing creation is allowed for OU %d', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
             return true;
         }
