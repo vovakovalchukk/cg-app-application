@@ -64,6 +64,8 @@ define([
             return;
         }
 
+        const tableColumns = element.getTableColumns();
+
         const templateUrlMap = {
             select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
@@ -85,7 +87,8 @@ define([
             const fontColorPickerHTML = this.getFontColorPickerHTML(templates, cellData);
 
             const backgroundColorPickerHTML = this.getBackgroundColorHTML(templates, cellData);
-            const measurementUnitSelectHTML = this.getMeasurementUnitHTML(templates, cellData);
+            const columnWidthHTML = this.getColumnWidthHTML(templates, cellData, tableColumns);
+            const measurementUnitSelectHTML = this.getMeasurementUnitHTML(templates, cellData, tableColumns);
 
             const html = `<div class="inspector-holder"> 
                             <div class="u-defloat u-margin-top-med">
@@ -118,7 +121,7 @@ define([
                                 </div>    
                                 <div class="u-flex-v-center">
                                     <span>
-                                        <input id="${this.COLUMN_WIDTH_ID}" class="inputbox u-width-80px" type="number" title="Column Width" />
+                                        ${columnWidthHTML}
                                     </span>
                                     <span>
                                         ${measurementUnitSelectHTML}
@@ -141,9 +144,46 @@ define([
         headingContainerNode.innerHTML = headingHTML;
     };
 
-    TableCells.prototype.getMeasurementUnitHTML = function(templates, cellData) {
+    TableCells.prototype.getColumnWidthHTML = function(templates, cellData, tableColumns) {
+        const columnIndex = getColumnIndexForCell(tableColumns, cellData);
+        const value = parseInt(tableColumns[columnIndex].width);
+        const html = `<input 
+                        id="${this.COLUMN_WIDTH_ID}" 
+                        class="inputbox u-width-80px" 
+                        type="number" 
+                        value="${value}" 
+                        title="Column Width"
+                      />`;
+        return html;
+    };
+
+    function applySelectedToMeasurementUnit(measurementUnitData, columnData, value) {
+        if (!value) {
+            measurementUnitData.options[0].selected = true;
+            return;
+        }
+        const optionIndex = measurementUnitData.options.findIndex(option => {
+            return option.value == value;
+        });
+        const optionToSelect = measurementUnitData.options[optionIndex];
+        if (!optionToSelect) {
+            measurementUnitData.options[0].selected = true;
+            return;
+        }
+        optionToSelect.selected = true;
+    }
+
+    TableCells.prototype.getMeasurementUnitHTML = function(templates, cellData, tableColumns) {
         const measurementUnitData = this.getMeasurementUnitData();
         measurementUnitData.sizeClass = 'small';
+        measurementUnitData.widthMeasurementUnit = cellData.widthMeasurementUnit;
+
+        const columnIndex = getColumnIndexForCell(tableColumns, cellData);
+        const columnData = tableColumns[columnIndex];
+        const value = columnData.widthMeasurementUnit;
+
+        applySelectedToMeasurementUnit(measurementUnitData, columnData, value)
+
         const measurementUnitSelectHTML = this.cgmustache.renderTemplate(templates, measurementUnitData, "select");
         return measurementUnitSelectHTML;
     };
@@ -165,8 +205,9 @@ define([
     TableCells.prototype.getFontSizeHTML = function(templates, cellData) {
         const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
         fontSizeData.sizeClass = 'u-width-100px';
+        const defaultSize = cellData.tag === 'td' ? 9 : 10;
         if (cellData.fontSize) {
-            applyInitialSelection(fontSizeData, cellData, 'fontSize');
+            applyInitialSelection(fontSizeData, cellData['fontSize'], defaultSize);
         }
         const fontSizeHTML = this.cgmustache.renderTemplate(templates, fontSizeData, "select");
         return fontSizeHTML;
@@ -186,7 +227,7 @@ define([
     TableCells.prototype.getFontFamilyHTML = function(templates, cellData) {
         const fontFamilyData = Font.getFontFamilyViewData(null, this.FONT_FAMILY_ID);
         if (cellData.fontFamily) {
-            applyInitialSelection(fontFamilyData, cellData, 'fontFamily');
+            applyInitialSelection(fontFamilyData, cellData['fontFamily']);
         }
         const fontFamilyHTML = this.cgmustache.renderTemplate(templates, fontFamilyData, "select");
         return fontFamilyHTML;
@@ -198,7 +239,6 @@ define([
             name: 'table-cells-measurement-unit',
             options: [
                 {
-                    selected: true,
                     title: 'mm',
                     value: 'mm'
                 },
@@ -273,7 +313,7 @@ define([
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
 
-        const columnIndexForCurrentCell = getColumnIndexForCurrentCell(tableColumns, currentCell);
+        const columnIndexForCurrentCell = getColumnIndexForCell(tableColumns, currentCell);
 
         tableColumns[columnIndexForCurrentCell].width = parseInt(value);
         element.setTableColumns(tableColumns);
@@ -282,7 +322,7 @@ define([
     TableCells.prototype.setWidthMeasurementUnit = function(element, value) {
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
-        const columnIndexForCurrentCell = getColumnIndexForCurrentCell(tableColumns, currentCell);
+        const columnIndexForCurrentCell = getColumnIndexForCell(tableColumns, currentCell);
 
         tableColumns[columnIndexForCurrentCell].widthMeasurementUnit = value;
         element.setTableColumns(tableColumns);
@@ -316,19 +356,30 @@ define([
         return tag === 'th' || tag === 'td';
     }
 
-    function getColumnIndexForCurrentCell(tableColumns, currentCell) {
+    function getColumnIndexForCell(tableColumns, cell) {
         return tableColumns.findIndex(column => {
-            return column.id === currentCell.column
+            return column.id === cell.column
         });
     }
     
-    function applyInitialSelection(data, cellData, property) {
+    function applyInitialSelection(data, valueForCell, defaultValue) {
         const initialOption = data.options.find(option => {
-            return option.value == cellData[property];
+            return option.value == valueForCell;
         });
-        if (!initialOption) {
+
+        if (!initialOption && !defaultValue) {
             return;
         }
+
+        if (!initialOption) {
+            const defaultOption = data.options.find(option => {
+                return option.value == defaultValue;
+            });
+            data.initialTitle = defaultOption.title;
+            data.initialValue = defaultOption.value;
+            return;
+        }
+
         data.initialTitle = initialOption.title;
         data.initialValue = initialOption.value;
     }

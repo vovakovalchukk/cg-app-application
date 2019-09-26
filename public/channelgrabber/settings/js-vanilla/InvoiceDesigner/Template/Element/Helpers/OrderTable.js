@@ -20,6 +20,8 @@ define([], function() {
                 fontColour: '#7cae25',
                 fontFamily: 'Courier',
                 fontSize: 8
+
+                //
             };
             tableCells.push(cellHeader);
             tableCells.push(cellData);
