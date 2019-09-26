@@ -6,6 +6,7 @@ use CG\EmailAccount\Mapper as EmailAccountMapper;
 use CG\EmailAccount\Filter as EmailAccountFilter;
 use CG\EmailAccount\Service as EmailAccountService;
 use CG\EmailVerification\Service as EmailVerificationService;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 
@@ -101,6 +102,16 @@ class Service
         /** @var EmailAccount $entity */
         $entity = $this->emailAccountService->fetch($id);
         $this->emailVerificationService->verifyEmailIdentity($entity->getAddress());
-        return $this->emailVerificationService->getVerificationStatus($entity->getAddress());
+        $status = $this->emailVerificationService->getVerificationStatus($entity->getAddress());
+        $isVerified = $this->emailVerificationService->isStatusVerified($status);
+
+        try {
+            $entity->setVerificationStatus($status)
+                ->setVerified($isVerified);
+            $this->emailAccountService->save($entity);
+        } catch (NotModified $e) {
+            // No-op
+        }
+        return $status;
     }
 }
