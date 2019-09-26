@@ -35,7 +35,7 @@ return [
                         'title' => 'Templates',
                         'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
                         'params' => [
-                            'type' => DataExchangeTemplate::TYPE_STOCK
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_STOCK)
                         ]
                     ]
                 ]
@@ -50,7 +50,7 @@ return [
                         'title' => 'Templates',
                         'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
                         'params' => [
-                            'type' => DataExchangeTemplate::TYPE_ORDER
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER)
                         ]
                     ]
                 ]
@@ -83,7 +83,7 @@ return [
                         'options' => [
                             'route' => '/:type/templates',
                             'constraints' => [
-                                'type' => implode('|', array_keys(TemplateController::getAllowedRouteTypes()))
+                                'type' => implode('|', TemplateController::getAllowedRouteTypes())
                             ],
                             'defaults' => [
                                 'controller' => TemplateController::class,

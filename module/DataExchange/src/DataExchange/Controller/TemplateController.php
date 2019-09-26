@@ -29,6 +29,11 @@ class TemplateController extends AbstractActionController implements LoggerAware
         'orders' => Template::TYPE_ORDER
     ];
 
+    const TEMPLATE_TYPE_TO_ROUTE_TYPE_MAP = [
+        Template::TYPE_STOCK => Template::TYPE_STOCK,
+        Template::TYPE_ORDER => 'orders'
+    ];
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -49,6 +54,11 @@ class TemplateController extends AbstractActionController implements LoggerAware
     public static function getAllowedRouteTypes(): array
     {
         return array_keys(static::ROUTE_ALLOWED_TYPES_MAP);
+    }
+
+    public static function getRouteTypeForTemplateType(string $type): string
+    {
+        return static::TEMPLATE_TYPE_TO_ROUTE_TYPE_MAP[$type] ?? Template::TYPE_STOCK;
     }
 
     protected function fetchTypeFromRoute(): string
