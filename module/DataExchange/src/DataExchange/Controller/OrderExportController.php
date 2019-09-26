@@ -5,7 +5,7 @@ use CG\DataExchangeSchedule\Entity as Schedule;
 
 class OrderExportController extends AbstractScheduleController
 {
-    public const ROUTE = 'StockExport';
+    public const ROUTE = 'OrdersExport';
     public const ROUTE_SAVE = 'Save';
     public const ROUTE_REMOVE = 'Remove';
 
