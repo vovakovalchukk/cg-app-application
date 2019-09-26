@@ -1,4 +1,26 @@
-<?php
-// To be done in MIG-33
-?>
-<h1>Email Accounts</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="category-template-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('Email Accounts'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'EmailAccount': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/EmailAccount',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+            }
+        });
+        require(["EmailAccount/App"], function(App) {
+            let app = new App(
+                document.getElementById('app-mount-node'),
+                {
+                    emailAccounts: <?= json_encode($emailAccounts); ?>
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

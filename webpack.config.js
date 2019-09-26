@@ -20,6 +20,7 @@ module.exports = {
         "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
+        "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
     },
     module: {
         rules: [
