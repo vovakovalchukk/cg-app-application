@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e68848f8c20e3e1dd924d3ccaf66e6d4",
+    "content-hash": "fd4e72fcd7ca554605935f1095d7a185",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1082,6 +1082,40 @@
                 }
             },
             "time": "2018-05-16T13:09:15+00:00"
+        },
+        {
+            "name": "channelgrabber/data-exchange-template",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
+                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.0-162107.zip",
+                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\DataExchangeTemplate\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-24T12:06:12+00:00"
         },
         {
             "name": "channelgrabber/db",

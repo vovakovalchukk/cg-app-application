@@ -1,11 +1,14 @@
 <?php
 
+use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
 use DataExchange\Controller\IndexController;
 use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
-use DataExchange\Navigation\Factory as DataExchangeNavigation;
+use DataExchange\Controller\TemplateController;
 use DataExchange\Module;
+use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'view_manager' => [
@@ -24,6 +27,36 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
+            'Stock' => [
+                'label' => 'Stock',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_STOCK)
+                        ]
+                    ]
+                ]
+            ],
+            'Orders' => [
+                'label' => 'Orders',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER)
+                        ]
+                    ]
+                ]
+            ],
             'Accounts' => [
                 'label' => 'Accounts',
                 'uri' => '',
@@ -144,6 +177,43 @@ return [
                             ],
                         ]
                     ],
+                    TemplateController::ROUTE => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/:type/templates',
+                            'constraints' => [
+                                'type' => implode('|', TemplateController::getAllowedRouteTypes())
+                            ],
+                            'defaults' => [
+                                'controller' => TemplateController::class,
+                                'action' => 'index',
+
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            TemplateController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'save'
+                                    ]
+                                ]
+                            ],
+                            TemplateController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'remove'
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ]
                 ]
             ]
         ],
