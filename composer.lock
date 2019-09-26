@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd4e72fcd7ca554605935f1095d7a185",
+    "content-hash": "46d39667f2455bbc79ab34b0d8246183",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1084,6 +1084,39 @@
             "time": "2018-05-16T13:09:15+00:00"
         },
         {
+            "name": "channelgrabber/data-exchange-schedule",
+            "version": "dev-MIG-36-data-exchange-app-backend-for-schedules",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
+                "reference": "a26048c6d21b472c0edde06c35332601b44abbe5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-36-data-exchange-app-backend-for-schedules-fca7be.zip",
+                "reference": "a26048c6d21b472c0edde06c35332601b44abbe5"
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\DataExchangeSchedule\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-25T10:15:10+00:00"
+        },
+        {
             "name": "channelgrabber/data-exchange-template",
             "version": "1.0.0",
             "source": {
@@ -1094,8 +1127,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.0-162107.zip",
-                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328",
-                "shasum": null
+                "reference": "10ef5010d1d4c4bc6f59b29670e459480e88c328"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1585,16 +1617,16 @@
         },
         {
             "name": "channelgrabber/ftp-account",
-            "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
+            "version": "dev-QA-MIG-32-MIG-36",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ftp-account.git",
-                "reference": "e60de4333c34b23d14934d454805a8fa3c3fe24a"
+                "reference": "3b0ec459c1cf5049892fb62f5d7f34b98cee8e1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ftp-account/channelgrabber-ftp-account-dev-MIG-32-data-exchange-app-backend-for-accounts-32634b.zip",
-                "reference": "e60de4333c34b23d14934d454805a8fa3c3fe24a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ftp-account/channelgrabber-ftp-account-dev-QA-MIG-32-MIG-36-74c368.zip",
+                "reference": "3b0ec459c1cf5049892fb62f5d7f34b98cee8e1d"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -1623,7 +1655,7 @@
                     "CG\\FtpAccount\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-23T13:40:06+00:00"
+            "time": "2019-09-26T12:41:02+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -11607,6 +11639,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-MIG-36-data-exchange-app-backend-for-schedules",
+            "package": "channelgrabber/data-exchange-schedule"
+        },
+        {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
             "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
@@ -11615,13 +11653,14 @@
         {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
-            "version": "dev-MIG-32-data-exchange-app-backend-for-accounts",
+            "version": "dev-QA-MIG-32-MIG-36",
             "package": "channelgrabber/ftp-account"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/data-exchange-schedule": 20,
         "channelgrabber/email-account": 20,
         "channelgrabber/ftp-account": 20,
         "phpish/link_header": 20,
