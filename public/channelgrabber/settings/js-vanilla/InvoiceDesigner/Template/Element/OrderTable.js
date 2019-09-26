@@ -12,7 +12,7 @@ define([
         const minHeight = 200; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
-        const tableCells = OrderTableHelper.formatTableCellsFromColumns(tableColumns);
+        const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
             showVat: false,

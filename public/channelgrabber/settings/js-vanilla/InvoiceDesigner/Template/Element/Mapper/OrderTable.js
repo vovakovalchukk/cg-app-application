@@ -52,13 +52,13 @@ define([
         });
 
         return tableColumns.map(column => {
-            let inlineStyles = this.getColumnInlineStyles(column, element, tag);
+            let inlineStyles = this.getCellInlineStyles(column, element, tag);
             let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
             return render(column, inlineStyles, cellId);
         }).join('');
     };
 
-    OrderTable.prototype.getColumnInlineStyles = function(column, element, tag) {
+    OrderTable.prototype.getCellInlineStyles = function(column, element, tag) {
         const inlineStyles = this.getTableStyles(element).slice();
         const activeNodeId = element.getActiveCellNodeId();
         const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
@@ -66,17 +66,22 @@ define([
             return cell.column === column.id & cell.cellTag === tag;
         });
 
-        if (activeNodeId === cellNodeIdForCell) {;
+        if (activeNodeId === cellNodeIdForCell) {
             applyCellSelectedStyle(inlineStyles);
         }
 
-        currentCell.bold ? inlineStyles.push('font-weight: bold') : inlineStyles.push('font-weight: normal');
-        currentCell.italic && inlineStyles.push('font-style: italic');
-        currentCell.underline && inlineStyles.push('text-decoration: underline');
+        applyTextFormattingInlineStyles(inlineStyles, currentCell);
+        applyAlignInlineStyle(inlineStyles, currentCell);
+        applyFontFamilyInlineStyle(inlineStyles, currentCell);
+        applyFontSizeInlineStyle(inlineStyles, currentCell);
+        applyFontColourInlineStyle(inlineStyles, currentCell);
+        applyBackgroundColourInlineStyle(inlineStyles, currentCell);
 
-        const alignStyle = getAlignStyle(currentCell);
-        inlineStyles.push(alignStyle);
-
+        if (tag === 'th') {
+            const tableColumns = element.getTableColumns();
+            const columnIndexForCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
+            applyColumnWidth(inlineStyles, tableColumns[columnIndexForCell]);
+        }
 
         return inlineStyles.join('; ');
     };
@@ -101,6 +106,45 @@ define([
             inlineStyles[index] = 'border-color: #5fafda';
             break;
         }
+    }
+
+    function applyColumnWidth(inlineStyles, column) {
+        const width = `width: ${column.width}${column.widthMeasurementUnit}`;
+        inlineStyles.push(width);
+    }
+
+    function applyBackgroundColourInlineStyle(inlineStyles, currentCell) {
+        const backgroundColorStyle = `background-color: ${currentCell.backgroundColour}`;
+        inlineStyles.push(backgroundColorStyle);
+    }
+
+    function applyFontColourInlineStyle(inlineStyles, currentCell) {
+        const fontColourStyle = `color: ${currentCell.fontColour}`;
+        inlineStyles.push(fontColourStyle);
+    }
+    
+    function applyFontSizeInlineStyle(inlineStyles, currentCell) {
+        const fontSizeStyle = `font-size: ${currentCell.fontSize}pt`;
+        inlineStyles.push(fontSizeStyle);
+    }
+
+    function applyTextFormattingInlineStyles(inlineStyles, currentCell) {
+        currentCell.bold ? inlineStyles.push('font-weight: bold') : inlineStyles.push('font-weight: normal');
+        currentCell.italic && inlineStyles.push('font-style: italic');
+        currentCell.underline && inlineStyles.push('text-decoration: underline');
+    }
+
+    function applyAlignInlineStyle(inlineStyles, currentCell) {
+        const alignStyle = getAlignStyle(currentCell);
+        inlineStyles.push(alignStyle);
+    }
+
+    function applyFontFamilyInlineStyle(inlineStyles, currentCell) {
+        if (!currentCell.fontFamily) {
+            return;
+        }
+        const fontStrToApply = currentCell.fontFamily === 'TimesRoman' ? 'Times New Roman' : currentCell.fontFamily;
+        inlineStyles.push(`font-family: ${fontStrToApply}`);
     }
 
     function getAlignStyle(currentCell) {

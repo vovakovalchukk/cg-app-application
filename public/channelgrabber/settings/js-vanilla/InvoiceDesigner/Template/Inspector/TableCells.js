@@ -145,7 +145,7 @@ define([
     };
 
     TableCells.prototype.getColumnWidthHTML = function(templates, cellData, tableColumns) {
-        const columnIndex = getColumnIndexForCell(tableColumns, cellData);
+        const columnIndex = orderTableHelper.getColumnIndexForCell(tableColumns, cellData);
         const value = parseInt(tableColumns[columnIndex].width);
         const html = `<input 
                         id="${this.COLUMN_WIDTH_ID}" 
@@ -178,7 +178,7 @@ define([
         measurementUnitData.sizeClass = 'small';
         measurementUnitData.widthMeasurementUnit = cellData.widthMeasurementUnit;
 
-        const columnIndex = getColumnIndexForCell(tableColumns, cellData);
+        const columnIndex = orderTableHelper.getColumnIndexForCell(tableColumns, cellData);
         const columnData = tableColumns[columnIndex];
         const value = columnData.widthMeasurementUnit;
 
@@ -205,10 +205,11 @@ define([
     TableCells.prototype.getFontSizeHTML = function(templates, cellData) {
         const fontSizeData = Font.getFontSizeViewData(null, this.FONT_SIZE_ID);
         fontSizeData.sizeClass = 'u-width-100px';
-        const defaultSize = cellData.tag === 'td' ? 9 : 10;
+        
         if (cellData.fontSize) {
-            applyInitialSelection(fontSizeData, cellData['fontSize'], defaultSize);
+            applyInitialSelection(fontSizeData, cellData['fontSize']);
         }
+
         const fontSizeHTML = this.cgmustache.renderTemplate(templates, fontSizeData, "select");
         return fontSizeHTML;
     };
@@ -313,7 +314,7 @@ define([
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
 
-        const columnIndexForCurrentCell = getColumnIndexForCell(tableColumns, currentCell);
+        const columnIndexForCurrentCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
 
         tableColumns[columnIndexForCurrentCell].width = parseInt(value);
         element.setTableColumns(tableColumns);
@@ -322,7 +323,7 @@ define([
     TableCells.prototype.setWidthMeasurementUnit = function(element, value) {
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
-        const columnIndexForCurrentCell = getColumnIndexForCell(tableColumns, currentCell);
+        const columnIndexForCurrentCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
 
         tableColumns[columnIndexForCurrentCell].widthMeasurementUnit = value;
         element.setTableColumns(tableColumns);
@@ -341,7 +342,7 @@ define([
     };
 
     TableCells.prototype.setFontColour = function(element, colour) {
-        this.setTableCellProperty(element, 'colour', colour);
+        this.setTableCellProperty(element, 'fontColour', colour);
     };
 
     TableCells.prototype.setBackgroundColour = function(element, colour) {
@@ -356,27 +357,12 @@ define([
         return tag === 'th' || tag === 'td';
     }
 
-    function getColumnIndexForCell(tableColumns, cell) {
-        return tableColumns.findIndex(column => {
-            return column.id === cell.column
-        });
-    }
-    
-    function applyInitialSelection(data, valueForCell, defaultValue) {
+    function applyInitialSelection(data, valueForCell) {
         const initialOption = data.options.find(option => {
             return option.value == valueForCell;
         });
 
-        if (!initialOption && !defaultValue) {
-            return;
-        }
-
         if (!initialOption) {
-            const defaultOption = data.options.find(option => {
-                return option.value == defaultValue;
-            });
-            data.initialTitle = defaultOption.title;
-            data.initialValue = defaultOption.value;
             return;
         }
 

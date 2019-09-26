@@ -89,10 +89,8 @@ define([
             const value = event.target.value;
             inspector.setColumnWidth(element, value);
         };
-        this.measurementUnitInput.onchange = event => {
-            console.log('in measurementunit input');
-            const value = event.target.value;
-            inspector.setWidthMeasurementUnit(element, value);
+        this.measurementUnitInput.onchange = (event, selectBox, id) => {
+            inspector.setWidthMeasurementUnit(element, id);
         };
     };
 

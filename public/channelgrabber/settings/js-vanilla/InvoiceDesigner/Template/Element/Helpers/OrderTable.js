@@ -3,25 +3,28 @@ define([], function() {
         return this;
     };
 
-    OrderTableHelper.prototype.formatTableCellsFromColumns = function(columns) {
+    OrderTableHelper.prototype.formatDefaultTableCellsFromColumns = function(columns) {
         const tableCells = [];
+        const commonDefaults = {
+            backgroundColor: '',
+            fontColour: '#222',
+            align: 'left',
+            fontFamily: 'Arial'
+        };
+
         for (let column of columns) {
             let cellHeader = {
                 column: column.id,
                 cellTag: 'th',
-                bold: true
+                bold: true,
+                fontSize: 10,
+                ...commonDefaults
             };
             let cellData = {
                 column: column.id,
                 cellTag: 'td',
-
-                //todo - remove this hack
-                backgroundColour: '#7cae25',
-                fontColour: '#7cae25',
-                fontFamily: 'Courier',
-                fontSize: 8
-
-                //
+                fontSize: 9,
+                ...commonDefaults
             };
             tableCells.push(cellHeader);
             tableCells.push(cellData);
@@ -40,6 +43,12 @@ define([], function() {
     OrderTableHelper.prototype.generateCellDomId = function(columnId, tag, elementId) {
         return `${columnId}-${tag}-${elementId}`;
     };
+
+    OrderTableHelper.prototype.getColumnIndexForCell = function(tableColumns, cell) {
+        return tableColumns.findIndex(column => {
+            return column.id === cell.column
+        });
+    }
 
     return new OrderTableHelper;
 })

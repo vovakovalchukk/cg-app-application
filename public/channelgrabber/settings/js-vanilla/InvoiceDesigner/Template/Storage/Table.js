@@ -85,10 +85,8 @@ define([
 
         function getDefaultColumns() {
             return getColumns().filter(column => {
-                // todo - remove these hacks once confirmed values from backend are working as expected
-                column.width = 200;
-                column.widthMeasurementUnit = 'in';
-
+                column.width = 4;
+                column.widthMeasurementUnit = 'mm';
                 return column.default;
             });
         }
