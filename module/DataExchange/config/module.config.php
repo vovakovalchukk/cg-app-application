@@ -83,7 +83,7 @@ return [
                         'options' => [
                             'route' => '/:type/templates',
                             'constraints' => [
-                                'type' => implode('|', TemplateController::getAllowedRouteTypes())
+                                'type' => implode('|', array_keys(TemplateController::getAllowedRouteTypes()))
                             ],
                             'defaults' => [
                                 'controller' => TemplateController::class,
