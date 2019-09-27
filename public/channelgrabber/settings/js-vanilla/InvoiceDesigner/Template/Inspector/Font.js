@@ -43,13 +43,12 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element.getFontSize()), "select");
-
             var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element.getFontFamily()), "select");
             var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData( element.getFontColour()), "colourPicker");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
                 'fontSize': fontSize,
                 'fontFamily': fontFamily,
-                'fontColour': fontColour,
+                'fontColour': fontColour
             });
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -105,7 +104,8 @@ define([
     Font.prototype.getFontAlignViewData = function(alignSelected, id)
     {
         var alignViewData = {
-            'id': id || Font.FONT_INSPECTOR_ALIGN_ID
+            'id': id || Font.FONT_INSPECTOR_ALIGN_ID,
+            'containerClass': 'u-display-flex'
         };
         alignViewData[alignSelected] = true;
         return alignViewData;

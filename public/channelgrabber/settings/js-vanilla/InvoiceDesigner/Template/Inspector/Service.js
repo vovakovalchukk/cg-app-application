@@ -161,6 +161,9 @@ define([
     return new Service();
 
     function isTableCellClick(event, element) {
+        if (!event) {
+            return;
+        }
         const tag = event.target.tagName.toLowerCase();
         const isCellTag =  tag === 'th' || tag === 'td';
         return event.target.id.includes(element.getId()) && isCellTag;
