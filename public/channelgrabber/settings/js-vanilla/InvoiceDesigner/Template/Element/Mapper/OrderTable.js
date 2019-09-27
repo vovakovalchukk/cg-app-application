@@ -1,10 +1,10 @@
 define([
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/Element/OrderTable',
+    'InvoiceDesigner/Template/Element/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable'
 ], function(
     MapperAbstract,
-    OrderTableElement,
+    TableElement,
     orderTableHelper
 ) {
     var OrderTable = function() {
@@ -43,7 +43,7 @@ define([
     };
 
     OrderTable.prototype.createElement = function() {
-        return new OrderTableElement();
+        return new TableElement();
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, element, tag, render) {
