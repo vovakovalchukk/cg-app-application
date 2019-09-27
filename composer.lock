@@ -5093,12 +5093,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e599fb7b93b5e61870408866edcbc43a05ba6131"
+                "reference": "b47b4a1ab3493e03a1611cff4f02760d5806a04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-ce3525.zip",
-                "reference": "e599fb7b93b5e61870408866edcbc43a05ba6131",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-cd9032.zip",
+                "reference": "b47b4a1ab3493e03a1611cff4f02760d5806a04c",
                 "shasum": null
             },
             "require": {
@@ -5150,7 +5150,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-17T08:16:33+00:00"
+            "time": "2019-09-27T09:46:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
