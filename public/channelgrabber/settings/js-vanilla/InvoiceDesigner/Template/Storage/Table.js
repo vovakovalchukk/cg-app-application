@@ -1,7 +1,4 @@
-define([
-
-], function(
-) {
+define([], function() {
     const allColumns = [
         {
             "id": "quantityOrdered",
