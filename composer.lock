@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "27761065575dfc2981803bb0e2f006f9",
+    "content-hash": "ad90d12e4ed8692f18bfe53ce3764180",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -655,38 +655,40 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.15",
+            "version": "1.16.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb"
+                "reference": "192b9ec8afa68011e0f72beaec2a951d58c007c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.15-67ece4.zip",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.25-af5a6f.zip",
+                "reference": "192b9ec8afa68011e0f72beaec2a951d58c007c7",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.5",
+                "channelgrabber/billing": "^1.20.14",
                 "channelgrabber/channel": "^1.32.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/feature-flags": "^2.0.1",
-                "channelgrabber/gearman": "^1.4.3",
+                "channelgrabber/gearman": "^1.4.4",
                 "channelgrabber/http": "^1.3.25",
-                "channelgrabber/listing": "^1.11.11",
+                "channelgrabber/listing": "^1.19.2",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.0",
+                "channelgrabber/opsgenie": "^1.1.0",
                 "channelgrabber/order": "^1.28.14",
                 "channelgrabber/predis": "^1.0.11",
                 "channelgrabber/product": "^1.16.7",
+                "channelgrabber/purge": "^1.0.6",
                 "channelgrabber/settings": "^1.5.3",
-                "channelgrabber/slim": "^1.13.0",
-                "channelgrabber/stdlib": "^2.16.3",
-                "channelgrabber/stock": "^1.10.1",
+                "channelgrabber/slim": "^1.14.4",
+                "channelgrabber/stdlib": "^2.16.6",
+                "channelgrabber/stock": "^1.16.0",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.24",
@@ -697,6 +699,9 @@
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.4",
                 "phpunit/phpunit": "^6.3"
+            },
+            "suggest": {
+                "ext-pcntl": "Allows for handling signals in commands"
             },
             "type": "library",
             "extra": {
@@ -715,7 +720,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-24T10:27:15+00:00"
+            "time": "2019-08-27T08:26:15+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -5089,16 +5094,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-514-users-to-be-to-click-into-cells",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b47b4a1ab3493e03a1611cff4f02760d5806a04c"
+                "reference": "b7aad3396def0569fdd5edfe9a3e84cf96e163b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-cd9032.zip",
-                "reference": "b47b4a1ab3493e03a1611cff4f02760d5806a04c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-514-users-to-be-to-click-into-cells-eaa6ba.zip",
+                "reference": "b7aad3396def0569fdd5edfe9a3e84cf96e163b6",
                 "shasum": null
             },
             "require": {
@@ -5150,7 +5155,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-27T09:46:52+00:00"
+            "time": "2019-09-27T09:47:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11503,7 +11508,7 @@
         {
             "alias": "1.26.23",
             "alias_normalized": "1.26.23.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-514-users-to-be-to-click-into-cells",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

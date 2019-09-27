@@ -111,7 +111,7 @@
         "channelgrabber/zf2-stdlib": "~1.3.1",
         "channelgrabber/zf2-tideways": "~1.0.1",
         "channelgrabber/zf2-usage": "~1.1.0",
-        "channelgrabber/zf2-v4-ui": "dev-TAC-514-users-to-be-able-to-click-into-cells as 1.26.23",
+        "channelgrabber/zf2-v4-ui": "dev-TAC-514-users-to-be-to-click-into-cells as 1.26.23",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",
