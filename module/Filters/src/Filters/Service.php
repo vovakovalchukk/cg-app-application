@@ -45,52 +45,17 @@ class Service
     const FILTER_ORDER_EMAILED = 'orderIsEmailed';
     const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
     const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
+    const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
+    const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
 
-    static protected function getOrderFilters()
+    protected static function getOrderFilters()
     {
         $orderCountStatusGroups = Status::getOrderCountStatusGroups();
 
         return [
-            self::FILTER_ORDER_DATE_RANGE => [
-                'filterType' => 'date-range',
-                'variables' => [
-                    'name' => 'purchaseDate',
-                    'time' => [
-                        'hours' => '23',
-                        'minutes' => '59'
-                    ],
-                    'options' => [
-                        [
-                            'title' => 'All Time'
-                        ],
-                        [
-                            'title' => 'Today',
-                            'from' => 'today',
-                            'to' => '23:59'
-                        ],
-                        [
-                            'title' => 'Last 7 days',
-                            'from' => '-7 days',
-                            'to' => '23:59'
-                        ],
-                        [
-                            'title' => 'Month to date',
-                            'from' => 'midnight first day of this month',
-                            'to' => '23:59'
-                        ],
-                        [
-                            'title' => 'Year to date',
-                            'from' => 'first day of January',
-                            'to' => '23:59'
-                        ],
-                        [
-                            'title' => 'The previous month',
-                            'from' => 'midnight first day of last month',
-                            'to' => '23:59 last day of last month',
-                        ]
-                    ]
-                ]
-            ],
+            self::FILTER_ORDER_DATE_RANGE => static::getDateRangeConfig('purchaseDate', 'Ordered', true),
+            self::FILTER_ORDER_PAYMENT_DATE_RANGE => static::getDateRangeConfig('paymentDate', 'Paid', false),
+            self::FILTER_ORDER_DISPATCH_DATE_RANGE => static::getDateRangeConfig('dispatchDate', 'Dispatched', false),
             self::FILTER_ORDER_STATUS => [
                 'filterType' => 'customSelectGroup',
                 'variables' => [
@@ -559,7 +524,7 @@ class Service
         ];
     }
 
-    static function getFilter(string $filterKey, array $extra = [])
+    public static function getFilter(string $filterKey, array $extra = [])
     {
         $filter = self::getOrderFilters()[$filterKey];
         if (empty($extra)) {
@@ -575,5 +540,53 @@ class Service
         }
 
         return $filter;
+    }
+
+    protected static function getDateRangeConfig(string $name, string $title, bool $visible): array
+    {
+        return [
+            'filterType' => 'date-range',
+            'visible' => $visible,
+            'variables' => [
+                'name' => $name,
+                'title' => $title,
+                'isOptional' => !$visible,
+                'time' => [
+                    'hours' => '23',
+                    'minutes' => '59'
+                ],
+                'lastXHours' => true,
+                'options' => [
+                    [
+                        'title' => 'All Time'
+                    ],
+                    [
+                        'title' => 'Today',
+                        'from' => 'today',
+                        'to' => '23:59'
+                    ],
+                    [
+                        'title' => 'Last 7 days',
+                        'from' => '-7 days',
+                        'to' => '23:59'
+                    ],
+                    [
+                        'title' => 'Month to date',
+                        'from' => 'midnight first day of this month',
+                        'to' => '23:59'
+                    ],
+                    [
+                        'title' => 'Year to date',
+                        'from' => 'first day of January',
+                        'to' => '23:59'
+                    ],
+                    [
+                        'title' => 'The previous month',
+                        'from' => 'midnight first day of last month',
+                        'to' => '23:59 last day of last month',
+                    ]
+                ]
+            ]
+        ];
     }
 }
