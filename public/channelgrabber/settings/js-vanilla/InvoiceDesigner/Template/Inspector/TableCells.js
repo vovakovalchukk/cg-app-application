@@ -162,7 +162,9 @@ define([
             return option.value == value;
         });
         const optionToSelect = measurementUnitData.options[optionIndex];
-
+        if (!optionToSelect) {
+            return;
+        }
         optionToSelect.selected = true;
     }
 

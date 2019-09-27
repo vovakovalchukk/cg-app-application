@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/Element/Table',
+    'InvoiceDesigner/Template/Element/OrderTable',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable'
 ], function(
     MapperAbstract,

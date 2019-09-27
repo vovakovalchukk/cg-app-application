@@ -6,7 +6,7 @@ define([], function() {
     OrderTableHelper.prototype.formatDefaultTableCellsFromColumns = function(columns) {
         const tableCells = [];
         const commonDefaults = {
-            backgroundColor: '',
+            backgroundColour: '',
             fontColour: '#222',
             align: 'left',
             fontFamily: 'Arial'

@@ -26,7 +26,7 @@ define([
 
         ElementAbstract.call(this, additionalData);
 
-        this.set('type', 'Table', true);
+        this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
             .setMinWidth(elementWidth)
