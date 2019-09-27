@@ -85,9 +85,6 @@ define([
 
         function getDefaultColumns() {
             return getColumns().filter(column => {
-                // todo - remove the width default
-                column.width = 4;
-
                 column.widthMeasurementUnit = 'mm';
                 return column.default;
             });

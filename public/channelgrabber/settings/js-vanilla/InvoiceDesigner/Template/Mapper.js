@@ -102,7 +102,6 @@ define([
             elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
         if(elementData.tableCells) {
-            //todo - TBC - make this based on expected data from backend.
             elementData.tableCells = this.formatTableCellsFromJson(elementData)
         }
 
@@ -111,7 +110,6 @@ define([
     };
 
     Mapper.prototype.formatTableCellsFromJson = function({tableCells, tableColumns}) {
-        // todo - identify whether this is going to be needed or not. If not, you can remove the Helper for Table
         return tableCells;
     };
 
