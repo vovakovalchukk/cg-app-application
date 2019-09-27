@@ -1,6 +1,5 @@
 define([
     'InvoiceDesigner/Template/Inspector/Collection',
-    'InvoiceDesigner/Template/Element/OrderTable',
     // Inspector requires here
     'InvoiceDesigner/Template/Inspector/Text',
     'InvoiceDesigner/Template/Inspector/Heading',
@@ -15,7 +14,6 @@ define([
     'InvoiceDesigner/Template/Inspector/TableCells'
 ], function(
     Collection,
-    OrderTable,
     // Inspector variables here
     text,
     heading,

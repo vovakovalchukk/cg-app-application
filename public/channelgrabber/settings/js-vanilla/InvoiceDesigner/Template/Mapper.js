@@ -101,16 +101,9 @@ define([
         if (elementData.borderWidth) {
             elementData.borderWidth = Number(elementData.borderWidth).ptToMm();
         }
-        if(elementData.tableCells) {
-            elementData.tableCells = this.formatTableCellsFromJson(elementData)
-        }
 
         element.hydrate(elementData, populating);
         return element;
-    };
-
-    Mapper.prototype.formatTableCellsFromJson = function({tableCells, tableColumns}) {
-        return tableCells;
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {
