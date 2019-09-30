@@ -76,8 +76,14 @@ define([], function() {
                     return column.default;
                 })
             },
-            getTotals: function() {},
-            getSortBy: function() {}
+            getDefaultSortBy: function() {
+                const defaultSortBy = getColumns().filter(column => {
+                    return column.id === "descriptionInternal"
+                });
+                defaultSortBy[0].position = 0;
+                return defaultSortBy;
+            },
+            getTotals: function() {}
         };
 
         function getColumns() {

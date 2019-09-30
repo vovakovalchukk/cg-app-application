@@ -10,11 +10,13 @@ define([
         const minHeight = 200; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
+        const tableSortBy = TableStorage.getDefaultSortBy();
 
         var additionalData = {
             showVat: false,
             linkedProductsDisplay: null,
-            tableColumns
+            tableColumns,
+            tableSortBy
         };
 
         ElementAbstract.call(this, additionalData);
@@ -50,6 +52,14 @@ define([
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
+        };
+
+        this.getTableSortBy = function() {
+            return this.get('tableSortBy');
+        };
+
+        this.setTableSortBy = function(newSortBy) {
+            this.set('tableSortBy', newSortBy);
         };
 
         this.toJson = function() {

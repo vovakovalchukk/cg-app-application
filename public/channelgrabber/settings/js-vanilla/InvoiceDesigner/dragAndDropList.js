@@ -1,9 +1,21 @@
 define([], function() {
-    const dragAndDropList = function({setItems, allItems, items, targetNode, listClasses}) {
+    const dragAndDropList = function(settings) {
+        let {
+            id,
+            setItems,
+            allItems,
+            items,
+            itemLimit,
+            targetNode,
+            listClasses,
+            renderTextInput
+        } = settings;
+        this.id = id;
         this.handleListChange = setItems;
         this.allItems = allItems;
-        this.initialItems = items.slice();
-
+        this.items = items.slice();
+        this.itemLimit = itemLimit;
+        this.renderTextInput = !!renderTextInput;
         this.listClasses = listClasses;
         this.rowMap = new Map;
         this.sortableListNode = null;
@@ -20,9 +32,9 @@ define([], function() {
 
         const html = `<div class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
-                ${this.initialItems.map(column => {
-                    return this.createItemRowHTML(column)
-                }).join('')}
+                ${this.items.map(column => {
+            return this.createItemRowHTML(column)
+        }).join('')}
             </ul>
             <div title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME} ${this.listClasses.addIcon}"></div>
         </div>`;
@@ -34,9 +46,12 @@ define([], function() {
         this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
 
         [...this.sortableListNode.children].forEach((node, index) => {
-            this.rowMap.set(node, this.initialItems[index]);
+            this.rowMap.set(node, this.items[index]);
             this.enableDragItem(node);
             this.enableDeleteItem(node);
+            if (!this.renderTextInput) {
+                return;
+            }
             this.addInputChangeListener(node);
         });
 
@@ -45,7 +60,6 @@ define([], function() {
     };
 
     dragAndDropList.prototype.createItemRowHTML = function(column) {
-        const defaultInputText = getDefaultInputValueFromOption(column);
         const options = processOptions(this.allItems);
         const selectedOption = options.find(option => (option.title === column.optionText));
 
@@ -57,20 +71,29 @@ define([], function() {
             initialValue: selectedOption.value,
             initialTitle: selectedOption.title
         });
+        const textInput = this.getTextInput(column);
 
         return `<li class="${this.listClasses.listItem}">
             <div class="${this.listClasses.dragContainer}">
                 <div title="drag" class="${this.listClasses.dragIcon}"></div>
             </div>
             <div class="invoice-designer-input-positioner">
-                <input 
-                    value="${defaultInputText}" 
-                    class="inputbox ${this.listClasses.listItemInput}" 
-                />
+                ${textInput}
                 ${select}
             </div>
             <div title="delete" class="${this.listClasses.deleteClass} invoice-designer-delete-icon"></div>
         </li>`;
+    };
+
+    dragAndDropList.prototype.getTextInput = function(column) {
+        if (!this.renderTextInput) {
+            return '';
+        }
+        const defaultInputText = getDefaultInputValueFromOption(column);
+        return `<input 
+                    value="${defaultInputText}" 
+                    class="inputbox ${this.listClasses.listItemInput}" 
+                />`
     };
 
     dragAndDropList.prototype.addInputChangeListener = function(rowNode) {
@@ -112,10 +135,19 @@ define([], function() {
         this.handleListChange(renderedColumns);
     };
 
+    dragAndDropList.prototype.hasReachedItemLimit = function() {
+        if (typeof this.itemLimit == 'undefined') {
+            return false;
+        }
+        return this.rowMap.size >= this.itemLimit;
+    };
+
     dragAndDropList.prototype.addClick = function() {
         const newItem = this.getNewItem();
 
-        if (!newItem) {
+        console.log('in addClick');
+
+        if (!newItem || this.hasReachedItemLimit()) {
             return;
         }
 

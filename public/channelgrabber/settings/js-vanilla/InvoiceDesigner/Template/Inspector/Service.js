@@ -10,7 +10,8 @@ define([
     'InvoiceDesigner/Template/Inspector/Barcode',
     'InvoiceDesigner/Template/Inspector/LinkedProducts',
     'InvoiceDesigner/Template/Inspector/TableColumns',
-    'InvoiceDesigner/Template/Inspector/AllPagesDisplay'
+    'InvoiceDesigner/Template/Inspector/AllPagesDisplay',
+    'InvoiceDesigner/Template/Inspector/TableSortBy'
 ], function(
     Collection,
     // Inspector variables here
@@ -23,7 +24,8 @@ define([
     barcode,
     linkedProducts,
     tableColumns,
-    allPagesDisplay
+    allPagesDisplay,
+    tableSortBy
 ) {
     var Service = function()
     {
@@ -64,6 +66,7 @@ define([
             barcode,
             linkedProducts,
             tableColumns,
+            tableSortBy,
             allPagesDisplay
         ];
 
