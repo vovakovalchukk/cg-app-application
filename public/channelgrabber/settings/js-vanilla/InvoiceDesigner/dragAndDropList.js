@@ -61,7 +61,9 @@ define([], function() {
 
     dragAndDropList.prototype.createItemRowHTML = function(column) {
         const options = processOptions(this.allItems);
-        const selectedOption = options.find(option => (option.title === column.optionText));
+        const selectedOption = options.find(option => (
+            option.value === column.id || option.value === column.column
+        ));
 
         const select = mustache.cgmustache.renderTemplate(mustache.templates.select, {
             name: `${column.id}`,

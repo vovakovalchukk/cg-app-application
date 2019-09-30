@@ -40,6 +40,7 @@ define([
                 allItems: TableStorage.getColumns(),
                 items: columnsOnElement.slice(),
                 targetNode,
+                renderTextInput: true,
                 listClasses: {
                     dragActive: 'invoice-designer-list-item-drag-active',
                     itemsContainer: 'drag-and-drop-list-list-item',
