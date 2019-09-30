@@ -180,6 +180,10 @@ define([
         const allPossibleColumns = TableStorage.getColumns();
         const tableColumns = elementJSON.tableColumns;
 
+        if (!Array.isArray(tableColumns)) {
+            return elementJSON;
+        }
+
         const formattedColumns = tableColumns.map(column => {
             const matchedColumnInStorage = allPossibleColumns.find(storageColumn => {
                 return storageColumn.id === column.id;
