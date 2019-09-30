@@ -58,7 +58,7 @@ define([
             currentPaperType
         );
 
-        let currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
+        let currentMeasurementUnit = isValidMeasurementUnit(paperPage.getMeasurementUnit()) || PaperType.DEFAULT_MEASUREMENT_UNIT;
         paperPage.setMeasurementUnit(currentMeasurementUnit, true);
         this.populateMeasurementUnitSelect(currentMeasurementUnit);
 
@@ -137,5 +137,9 @@ define([
 
         heightInput.value = height;
         widthInput.value = width;
+    }
+
+    function isValidMeasurementUnit(measurementUnit) {
+        return measurementUnit === 'mm' || measurementUnit === 'in';
     }
 });
