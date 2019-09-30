@@ -45,6 +45,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
         var templateString = JSON.stringify(templateJSON);
         n.notice('Saving template');
 
+        debugger;
+
         $.ajax({
             'url' : '/settings/invoice/save',
             'data' : {'template' : templateString},

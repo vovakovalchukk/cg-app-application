@@ -34,7 +34,7 @@ define([
 
         CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
             const list = new dragAndDropList({
-                setItems: function(newSortBy) {
+                setItems: function setItems(newSortBy) {
                     element.setTableSortBy(newSortBy);
                 },
                 id: 'table-sort-by-dnd',

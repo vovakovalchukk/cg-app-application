@@ -66,6 +66,7 @@ define([
             let json = JSON.parse(JSON.stringify(this.getData()));
             json = this.formatCoreJsonPropertiesForBackend(json);
             json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
+            json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
             return json;
         }
     };
@@ -93,6 +94,22 @@ define([
 
         const formattedWithDefaultPositions = provideDefaultPositions(formatted.slice());
         return formattedWithDefaultPositions;
+    }
+
+    function formatTableSortByForBackend(tableSortBy) {
+        if (!tableSortBy) {
+            return [];
+        }
+
+        const formatted = tableSortBy.map((sortByItem) => {
+            let {id, position} = sortByItem;
+            return {
+                column: id,
+                position
+            };
+        });
+
+        return formatted;
     }
 
     function areAllPositionsUndefined(columns) {

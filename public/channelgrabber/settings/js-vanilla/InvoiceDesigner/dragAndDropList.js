@@ -145,8 +145,6 @@ define([], function() {
     dragAndDropList.prototype.addClick = function() {
         const newItem = this.getNewItem();
 
-        console.log('in addClick');
-
         if (!newItem || this.hasReachedItemLimit()) {
             return;
         }
@@ -187,7 +185,10 @@ define([], function() {
                     optionSelected = Object.assign({}, optionSelected);
                     optionSelected.position = columnJson.position;
 
-                    userInput.value = getDefaultInputValueFromOption(optionSelected);
+                    if (this.renderTextInput) {
+                        userInput.value = getDefaultInputValueFromOption(optionSelected);
+                    }
+
                     this.rowMap.set(node, optionSelected);
 
                     this.changeList();
