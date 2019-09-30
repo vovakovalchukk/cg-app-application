@@ -41,7 +41,6 @@ define([
                 allItems: TableStorage.getColumns(),
                 items: tableSortBy.slice(),
                 itemLimit: 3,
-                //todo - check is this is necessary as it may be redundant looking further on
                 listClasses: {
                     dragActive: 'invoice-designer-list-item-drag-active',
                     itemsContainer: 'drag-and-drop-list-list-item',

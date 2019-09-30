@@ -39,7 +39,6 @@ define([
                 },
                 allItems: TableStorage.getColumns(),
                 items: columnsOnElement.slice(),
-                targetNode,
                 id: 'table-columns-dnd',
                 renderTextInput: true,
                 listClasses: {
