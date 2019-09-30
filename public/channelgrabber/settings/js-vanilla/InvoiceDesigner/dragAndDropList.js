@@ -29,21 +29,22 @@ define([], function() {
 
     dragAndDropList.prototype.generateList = async function() {
         await getTemplates();
-
-        const html = `<div class="inspector-holder">
+        const addButton = this.renderAddButton();
+        const html = `<div id="${this.id}" class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.items.map(column => {
             return this.createItemRowHTML(column)
         }).join('')}
             </ul>
-            <div title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME} ${this.listClasses.addIcon}"></div>
+            ${addButton}
         </div>`;
 
         return html;
     };
 
     dragAndDropList.prototype.initList = function() {
-        this.sortableListNode = document.getElementsByClassName(this.listClasses.itemsContainer)[0];
+        const listContainer = document.getElementById(this.id).getElementsByTagName('ul')[0];
+        this.sortableListNode = listContainer;
 
         [...this.sortableListNode.children].forEach((node, index) => {
             this.rowMap.set(node, this.items[index]);
@@ -57,6 +58,13 @@ define([], function() {
 
         this.addAddOnClick();
         this.addSelectsOnChange();
+    };
+
+    dragAndDropList.prototype.renderAddButton = function() {
+        if (this.hasReachedItemLimit()) {
+            return '';
+        }
+        return `<div title="add" class="${dragAndDropList.ADD_ROW_CLASSNAME} ${this.listClasses.addIcon}"></div>`
     };
 
     dragAndDropList.prototype.createItemRowHTML = function(column) {
@@ -127,7 +135,7 @@ define([], function() {
     };
 
     dragAndDropList.prototype.addAddOnClick = function() {
-        const addNode = document.querySelector(`.${dragAndDropList.ADD_ROW_CLASSNAME}`);
+        const addNode = document.getElementById(this.id).querySelector(`.${dragAndDropList.ADD_ROW_CLASSNAME}`);
         addNode.onclick = this.addClick.bind(this);
     };
 
@@ -227,7 +235,7 @@ define([], function() {
         deleteNode.onclick = this.removeItemClick.bind(this, rowNode);
     };
 
-    dragAndDropList.prototype.updateColumnPositions = function(list) {
+    dragAndDropList.prototype.updateColumnPositions = function() {
         [...this.sortableListNode.children].forEach((node, index) => {
             const columnJson = this.rowMap.get(node);
             columnJson.position = index;
