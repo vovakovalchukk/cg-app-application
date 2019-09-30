@@ -13,7 +13,8 @@ define([
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/PrintPage/Entity',
     'InvoiceDesigner/Template/MultiPage/Entity',
-    'InvoiceDesigner/Template/PaperPage/Mapper'
+    'InvoiceDesigner/Template/PaperPage/Mapper',
+    'InvoiceDesigner/Template/Storage/Table'
 ], function(require) {
     var Mapper = function() {
 
@@ -25,6 +26,7 @@ define([
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
     Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
     Mapper.PATH_TO_MULTI_PAGE_ENTITY = 'InvoiceDesigner/Template/MultiPage/Entity';
+    Mapper.PATH_TO_STORAGE_TABLE = 'InvoiceDesigner/Template/Storage/Table';
 
     Mapper.prototype.createNewTemplate = function() {
         const TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
@@ -56,6 +58,9 @@ define([
         template.hydrate(json, populating);
         for (var key in json.elements) {
             var elementData = json.elements[key];
+            if (elementData.type === 'OrderTable') {
+                elementData = applyDefaultsToOrderTableColumns(elementData);
+            }
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
@@ -169,4 +174,24 @@ define([
     };
 
     return new Mapper();
+
+    function applyDefaultsToOrderTableColumns(elementJSON) {
+        const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
+        const allPossibleColumns = TableStorage.getColumns();
+        const tableColumns = elementJSON.tableColumns;
+
+        const formattedColumns = tableColumns.map(column => {
+            const matchedColumnInStorage = allPossibleColumns.find(storageColumn => {
+                return storageColumn.id === column.id;
+            });
+            let {cellPlaceholder} = matchedColumnInStorage;
+            return {
+                ...column,
+                cellPlaceholder
+            }
+        });
+
+        elementJSON.tableColumns = formattedColumns;
+        return elementJSON;
+    }
 });
