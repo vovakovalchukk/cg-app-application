@@ -12,4 +12,9 @@ export default reducerCreator(initialState, {
             })
         });
     },
+    "ACCOUNT_DELETED_SUCCESSFULLY": (state, action) => {
+        let newState = Object.assign({}, state);
+        delete newState[action.payload.id];
+        return newState;
+    }
 });

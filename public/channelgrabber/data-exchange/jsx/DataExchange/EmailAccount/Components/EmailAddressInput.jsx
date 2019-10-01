@@ -39,7 +39,8 @@ class EmailAddressInputComponent extends React.Component {
         isVerifiable: false,
         verifiedStatus: null,
         isVerified: false,
-        onVerifyClick: () => {}
+        onVerifyClick: () => {},
+        type: 'text'
     };
 
     render() {
@@ -55,6 +56,7 @@ class EmailAddressInputComponent extends React.Component {
             name={this.props.name}
             placeholder={this.props.placeholder}
             onChange={this.onChange.bind(this)}
+            type={this.props.type ? this.props.type : 'text'}
         />;
     }
 

@@ -17,6 +17,9 @@ const TableCellContainer = styled.td`
     display: flex;
     align-items: center;
 `;
+const RemoveIconContainer = styled.span`
+    cursor: pointer;
+`;
 
 class EmailAccountsTable extends React.Component {
     static defaultProps = {
@@ -71,9 +74,12 @@ class EmailAccountsTable extends React.Component {
     };
 
     renderRemoveColumn = (account) => {
-        return <RemoveIcon
-            className={'remove-icon-new'}
-        />;
+        return <RemoveIconContainer>
+            <RemoveIcon
+                className={'remove-icon-new'}
+                onClick={this.props.actions.removeEmailAddress.bind(this, account)}
+            />
+        </RemoveIconContainer>;
     };
 
     render() {
