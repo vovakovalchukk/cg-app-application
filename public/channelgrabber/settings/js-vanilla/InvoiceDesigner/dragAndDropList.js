@@ -175,6 +175,7 @@ define([], function() {
 
         //todo - add select listener
         this.addSelectMutationObserverForItem(rowNodeInDom, newItem);
+        this.addInputChangeListener(rowNodeInDom);
 
         //todo - add input listener
 
