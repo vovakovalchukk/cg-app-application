@@ -1,4 +1,6 @@
 define([], function() {
+    let selectCounter = 0;
+
     const dragAndDropList = function(settings) {
         let {
             id,
@@ -73,8 +75,11 @@ define([], function() {
             option.value === column.id || option.value === column.column
         ));
 
+        const selectName = this.createSelectName(column);
+        selectCounter ++;
+
         const select = mustache.cgmustache.renderTemplate(mustache.templates.select, {
-            name: `${column.id}`,
+            name: `${selectName}`,
             options,
             sizeClass: 'invoice-designer-drag-list-select',
             holder: dragAndDropList.DRAG_LIST_SELECT_CLASS,
@@ -127,7 +132,8 @@ define([], function() {
     };
 
     dragAndDropList.prototype.getNewItem = function() {
-        const availableItems = getAvailableItems(this.allItems, this.getRenderedColumns());
+        const renderedColumns = this.getRenderedColumns();
+        const availableItems = getAvailableItems(this.allItems, renderedColumns);
         if (!availableItems.length) {
             return;
         }
@@ -173,11 +179,8 @@ define([], function() {
         this.enableDragItem(rowNodeInDom);
         this.enableDeleteItem(rowNodeInDom);
 
-        //todo - add select listener
         this.addSelectMutationObserverForItem(rowNodeInDom, newItem);
         this.addInputChangeListener(rowNodeInDom);
-
-        //todo - add input listener
 
         this.rowMap.set(rowNodeInDom, newItem);
 
@@ -217,6 +220,10 @@ define([], function() {
         };
         const observer = new MutationObserver(callback);
         observer.observe(selectInput, config);
+    };
+
+    dragAndDropList.prototype.createSelectName = function(column) {
+        return `${this.id}-${selectCounter}-${column.position}`
     };
 
     dragAndDropList.prototype.getRenderedColumns = function() {
