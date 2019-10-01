@@ -1,7 +1,18 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import EmailAddressInputComponent from "./EmailAddressInput";
+import RemoveIcon from 'Common/Components/RemoveIcon';
 
 const TYPE_FROM = 'from';
 const TYPE_TO = 'to';
+
+const AccountsTableContainer = styled.div`
+`;
+const TableCellContainer = styled.td`
+    text-align: left;
+    display: flex;
+    align-items: center;
+`;
 
 class EmailAccountsTable extends React.Component {
     static defaultProps = {
@@ -9,58 +20,65 @@ class EmailAccountsTable extends React.Component {
         type: TYPE_TO
     };
 
-    isTypeFrom() {
-        return this.props.type == TYPE_FROM;
-    }
+    isTypeFrom = () => {
+        return this.props.type.toString().trim() === TYPE_FROM;
+    };
 
-    renderTableHeader() {
+    renderTableHeader = () => {
         return <tr>
-            <th colSpan={this.isTypeFrom() ? "3" : "2"}>
+            <th>
                 {"Send " + this.props.type + " Email Address"}
             </th>
         </tr>;
-    }
+    };
 
-    renderAccountRows() {
+    renderAccountRows = () => {
         const isTypeFrom = this.isTypeFrom();
 
         let accounts = this.props.accounts.map(account => {
-            return <tr>
-                <td>{account.address}</td>
-                {isTypeFrom ? this.renderVerifyColumn(account) : null}
-                <td>{this.renderRemoveColumn(account)}</td>
-            </tr>;
+            return this.renderAccountRow(account);
         });
 
-        accounts.push(this.addEmptyTableRow());
-
         return accounts;
-    }
+    };
 
-    renderVerifyColumn(account) {
-        return <td>"Verify " + {account.id}</td>;
-    }
-
-    addEmptyTableRow() {
+    renderAccountRow = (account) => {
         return <tr>
-            <td>empty</td>
+            <TableCellContainer>
+                {this.renderEmailAddressInput(account)}
+                {this.renderRemoveColumn(account)}
+            </TableCellContainer>
+        </tr>
+    };
+
+    renderEmailAddressInput = (account) => {
+        return <EmailAddressInputComponent
+            type="email"
+            value={account.address}
+            placeholder="Enter an email address here"
+            name={this.props.type + '.' + (account.id ? account.id : 'new')}
+            isVerifiable={this.isTypeFrom()}
+            verifiedStatus={''}
+        />
+    };
+
+    addEmptyTableRow = () => {
+        return <tr>
+            <td>{this.renderAddressField({address: "", id: null})}</td>
             {this.isTypeFrom() ? <td></td> : null}
             <td></td>
         </tr>;
-    }
+    };
 
-    renderRemoveColumn(account) {
-        return <span className="remove-icon">
-            <i
-                className='fa fa-2x fa-minus-square icon-create-listing'
-                aria-hidden='true'
-            />
-        </span>;
-    }
+    renderRemoveColumn = (account) => {
+        return <RemoveIcon
+            className={'remove-icon-new'}
+        />;
+    };
 
     render() {
-        return (
-            <div className={"email-accounts"}>
+        return <AccountsTableContainer>
+            <form name={this.props.type + "EmailAccounts"}>
                 <table>
                     <thead>
                         {this.renderTableHeader()}
@@ -69,8 +87,8 @@ class EmailAccountsTable extends React.Component {
                         {this.renderAccountRows()}
                     </tbody>
                 </table>
-            </div>
-        );
+            </form>
+        </AccountsTableContainer>;
     }
 }
 
