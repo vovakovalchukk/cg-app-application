@@ -54,12 +54,12 @@ class EmailAddressInputComponent extends React.Component {
             value={this.props.value}
             name={this.props.name}
             placeholder={this.props.placeholder}
-            onChange={this.props.onChange}
+            onChange={this.onChange.bind(this)}
         />;
     }
 
     onChange(input) {
-        this.props.onChange(input);
+        this.props.onChange(input.target.value);
     }
 
     renderVerificationStatus() {

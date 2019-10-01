@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import EmailAddressInputComponent from "./EmailAddressInput";
 import RemoveIcon from 'Common/Components/RemoveIcon';
+import EmailAddressInputComponent from "./EmailAddressInput";
 
 const TYPE_FROM = 'from';
 const TYPE_TO = 'to';
@@ -20,7 +20,7 @@ const TableCellContainer = styled.td`
 
 class EmailAccountsTable extends React.Component {
     static defaultProps = {
-        accounts: [],
+        accounts: {},
         type: TYPE_TO
     };
 
@@ -39,11 +39,10 @@ class EmailAccountsTable extends React.Component {
     renderAccountRows = () => {
         const isTypeFrom = this.isTypeFrom();
 
-        let accounts = this.props.accounts.map(account => {
+        return Object.keys(this.props.accounts).map(id => {
+            let account = this.props.accounts[id];
             return this.renderAccountRow(account);
         });
-
-        return accounts;
     };
 
     renderAccountRow = (account) => {
@@ -58,20 +57,17 @@ class EmailAccountsTable extends React.Component {
     renderEmailAddressInput = (account) => {
         return <EmailAddressInputComponent
             type="email"
-            value={account.address}
+            value={account.newAddress}
             placeholder="Enter an email address here"
-            name={this.props.type + '.' + (account.id ? account.id : 'new')}
+            name={this.props.type + '.' + account.id}
             isVerifiable={this.isTypeFrom()}
             verifiedStatus={''}
+            onChange={this.updateEmailAddress.bind(this, account.id)}
         />
     };
 
-    addEmptyTableRow = () => {
-        return <tr>
-            <td>{this.renderAddressField({address: "", id: null})}</td>
-            {this.isTypeFrom() ? <td></td> : null}
-            <td></td>
-        </tr>;
+    updateEmailAddress(accountId, newAddress) {
+        this.props.actions.changeEmailAddress(accountId, newAddress);
     };
 
     renderRemoveColumn = (account) => {

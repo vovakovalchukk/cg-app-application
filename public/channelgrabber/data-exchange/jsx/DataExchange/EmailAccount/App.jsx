@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import RootContainer from './Components/Root';
 import CombinedReducer from './Reducers/Combined';
+import EmailAccountsComponent from "./Components/EmailAccounts";
     
 let App = function(mountingNode, data) {
     let store = createStore(
         CombinedReducer,
         {
-            emailAccounts: data.emailAccounts,
+            emailAccounts: formatEmailAccounts(data.emailAccounts)
         }
     );
 
     ReactDOM.render(
         <Provider store={store}>
-            <RootContainer/>
+            <EmailAccountsComponent/>
         </Provider>,
         mountingNode
     );
@@ -23,3 +23,12 @@ let App = function(mountingNode, data) {
 
 export default App;
 
+const formatEmailAccounts = (emailAccounts) => {
+    let emailAccountsObject = {};
+    emailAccounts.forEach(emailAccount => {
+        emailAccountsObject[emailAccount.id] = Object.assign(emailAccount, {
+            newAddress: emailAccount.address
+        });
+    });
+    return emailAccountsObject;
+};

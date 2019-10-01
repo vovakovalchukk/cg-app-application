@@ -1,10 +1,12 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import EmailAccountsTable, {EmailAccountTypeFrom, EmailAccountTypeTo} from "./AccountsTable";
+import Actions from "../Actions/Actions";
 
 class EmailAccountsComponent extends React.Component {
     static defaultProps = {
-        accounts: []
+        accounts: {}
     };
 
     renderAccountsTableForType = (type) => {
@@ -12,13 +14,19 @@ class EmailAccountsComponent extends React.Component {
         return <EmailAccountsTable
             accounts={accounts}
             type={type}
+            actions={this.props.actions}
         />;
     };
 
     filterAccountsByType = (type) => {
-        return this.props.accounts.filter(account => {
-            return account.type == type;
+        let accountsForType = {};
+        Object.keys(this.props.accounts).forEach(accountId => {
+            let account = this.props.accounts[accountId];
+            if (account.type.toString().trim() === type) {
+                accountsForType[accountId] = account;
+            }
         });
+        return accountsForType;
     };
 
     render() {
@@ -29,16 +37,22 @@ class EmailAccountsComponent extends React.Component {
     }
 }
 
-let mapStateToProps = function(state) {
+const mapStateToProps = function(state) {
     return {
         accounts: state.emailAccounts
     }
 };
 
-let mapDispatchToProps = function (dispatch) {
-    return {};
+const mapDispatchToProps = function(dispatch) {
+    return {
+        actions: bindActionCreators(
+            Actions,
+            dispatch
+        ),
+        actionTest: Actions
+    };
 };
 
-let EmailAccountsConnector = connect(mapStateToProps, mapDispatchToProps);
+const EmailAccountsConnector = connect(mapStateToProps, mapDispatchToProps);
 
 export default EmailAccountsConnector(EmailAccountsComponent);
