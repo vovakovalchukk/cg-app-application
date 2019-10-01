@@ -7,6 +7,10 @@ const TYPE_FROM = 'from';
 const TYPE_TO = 'to';
 
 const AccountsTableContainer = styled.div`
+    width: 600px;
+`;
+const TableContainer = styled.table`
+    margin-bottom: 20px;
 `;
 const TableCellContainer = styled.td`
     text-align: left;
@@ -79,14 +83,14 @@ class EmailAccountsTable extends React.Component {
     render() {
         return <AccountsTableContainer>
             <form name={this.props.type + "EmailAccounts"}>
-                <table>
+                <TableContainer>
                     <thead>
                         {this.renderTableHeader()}
                     </thead>
                     <tbody>
                         {this.renderAccountRows()}
                     </tbody>
-                </table>
+                </TableContainer>
             </form>
         </AccountsTableContainer>;
     }
