@@ -50,16 +50,18 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates)
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates, bypassSaveDiscardBar)
     {
-        this.showSaveDiscardBar();
+        if (!bypassSaveDiscardBar) {
+            this.showSaveDiscardBar();
+        }
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template, performedUpdates]);
         return this;
     };
 
-    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
+    DomManipulator.prototype.triggerElementSelectedEvent = function(element, event)
     {
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element, event]);
         return this;
     };
 

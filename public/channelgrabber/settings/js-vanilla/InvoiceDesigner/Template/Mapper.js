@@ -1,5 +1,6 @@
 define([
     'require',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
@@ -15,7 +16,10 @@ define([
     'InvoiceDesigner/Template/MultiPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper',
     'InvoiceDesigner/Template/Storage/Table'
-], function(require) {
+], function(
+    require,
+    OrderTableHelper
+) {
     var Mapper = function() {
 
     };

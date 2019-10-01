@@ -77,9 +77,9 @@ define([
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).off('mousedown focus').on('mousedown focus', function()
+        $('#'+domId).off('mousedown focus').on('mousedown focus', function(event)
         {
-            domManipulator.triggerElementSelectedEvent(element);
+            domManipulator.triggerElementSelectedEvent(element, event);
         });
     };
 
@@ -90,8 +90,11 @@ define([
         return !!event.target.closest(elementClasses);
     }
     function isAnInspectorClick(event) {
-        const inspectorArea = '#element-inspector-bar';
-        return !!event.target.closest(inspectorArea);
+        const inspectorAreaId = 'element-inspector-bar';
+        let inspectorAreaNode = event.path.find(node => {
+            return node.id === inspectorAreaId;
+        });
+        return !!inspectorAreaNode;
     }
     function isAnElementManagerClick(event) {
         const elementManager = ElementManager.getSelector();

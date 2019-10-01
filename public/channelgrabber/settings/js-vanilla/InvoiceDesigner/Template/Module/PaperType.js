@@ -57,7 +57,6 @@ define([
             this.getAvailablePaperTypes(),
             currentPaperType
         );
-
         let currentMeasurementUnit = isValidMeasurementUnit(paperPage.getMeasurementUnit()) || PaperType.DEFAULT_MEASUREMENT_UNIT;
         paperPage.setMeasurementUnit(currentMeasurementUnit, true);
         this.populateMeasurementUnitSelect(currentMeasurementUnit);

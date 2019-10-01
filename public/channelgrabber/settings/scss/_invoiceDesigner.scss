@@ -222,14 +222,14 @@ $indicator-border-color: #1477aa;
         float: none;
         margin: 0;
 
-        tr{
+        tr, td {
+            box-sizing: border-box;
             border: none;
             background: inherit;
+            cursor: default;
         }
 
         td{
-            border: none;
-            background: inherit;
             color: $color-black;
             text-align: left;
             height:7.5mm;
@@ -471,40 +471,55 @@ $indicator-border-color: #1477aa;
     width: 100%;
 }
 
-.inspector-text-align-radio {
+.inspector-text-format-input {
     width: 0;
     height: 0;
     opacity: 0;
 }
 
-.inspector-text-align-label {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
+.inspector-formatting-button {
     border: 1px solid #afafaf;
-    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
     cursor: pointer;
-    &-left {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
-        background-position: center;
-    }
-    &-center {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
-        background-position: center;
-    }
-    &-right {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
-        background-position: center;
-    }
-    &-justified {
-        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
-        background-position: center;
+    opacity: 0.6;
+    box-sizing: border-box;
+    margin-right: 0.2rem;
+    display: block;
+    &:hover {
+        opacity: 0.8;
     }
 }
 
-.inspector-text-align-radio:checked + .inspector-text-align-label {
-    background-color: #fff;
-    border-color: #9a9a9a;
+.inspector-text-format-input {
+    position: absolute;
+}
+
+.inspector-text-format-label {
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    @extend .inspector-formatting-button;
+    &-bold {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-bold-32.png');
+    }
+    &-italic {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-italic-32.png');
+    }
+    &-underline {
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/text-underline-32.png');
+    }
+    &-active {
+        opacity: 1;
+    }
+}
+
+.tableCells-font-align {
+    @extend .inspector-formatting-button;
+    &.active {
+        opacity: 1;
+    }
 }
 
 #text-inspector-data-fields {

@@ -71,11 +71,6 @@ define([], function() {
     const TableStorage = (function() {
         return {
             getColumns,
-            getDefaultColumns: function() {
-                return getColumns().filter(column => {
-                    return column.default;
-                })
-            },
             getDefaultSortBy: function() {
                 const defaultSortBy = getColumns().filter(column => {
                     return column.id === "descriptionInternal"
@@ -83,11 +78,20 @@ define([], function() {
                 defaultSortBy[0].position = 0;
                 return defaultSortBy;
             },
-            getTotals: function() {}
+            getTotals: function() {},
+            getDefaultColumns,
+            getSortBy: function() {}
         };
 
         function getColumns() {
             return allColumns
+        }
+
+        function getDefaultColumns() {
+            return getColumns().filter(column => {
+                column.widthMeasurementUnit = 'mm';
+                return column.default;
+            });
         }
     }());
 

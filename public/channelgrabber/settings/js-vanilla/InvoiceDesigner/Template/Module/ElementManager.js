@@ -30,7 +30,7 @@ define([
             },{ value: 'Text',
                 icon: 'sprite-text-element-1520-black',
                 element: 'Text'
-            },{ value: 'Order Table',
+            },{ value: 'Table',
                 icon: 'sprite-order-table-1520-black',
                 element: 'OrderTable'
             },{ value: 'Box',

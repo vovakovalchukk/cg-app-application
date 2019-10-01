@@ -1,22 +1,29 @@
 define([
     'InvoiceDesigner/Template/ElementAbstract',
-    'InvoiceDesigner/Template/Storage/Table'
+    'InvoiceDesigner/Template/Storage/Table',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
 ], function(
     ElementAbstract,
-    TableStorage
+    TableStorage,
+    OrderTableHelper
 ) {
-    var OrderTable = function() {
+    const OrderTable = function() {
         const elementWidth = 700; // px
         const minHeight = 200; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
+        const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
-        var additionalData = {
+        const additionalData = {
             showVat: false,
             linkedProductsDisplay: null,
             tableColumns,
-            tableSortBy
+            tableSortBy,
+            tableCells
+        };
+        const data = {
+            activeCellNodeId: null
         };
 
         ElementAbstract.call(this, additionalData);
@@ -60,6 +67,26 @@ define([
 
         this.setTableSortBy = function(newSortBy) {
             this.set('tableSortBy', newSortBy);
+        };
+
+        this.getTableCells = function() {
+            return this.get('tableCells').slice();
+        };
+
+        this.setTableCells = function(tableCells) {
+            return this.set('tableCells', tableCells);
+        };
+
+        this.getActiveCellNodeId = function() {
+            return this.get('activeCellNodeId');
+        };
+
+        this.setActiveCellNodeId = function(nodeId, populating) {
+            let activeCellNodeId = this.getActiveCellNodeId();
+            if(activeCellNodeId === nodeId){
+                return;
+            }
+            return this.set('activeCellNodeId', nodeId, populating, true);
         };
 
         this.toJson = function() {
