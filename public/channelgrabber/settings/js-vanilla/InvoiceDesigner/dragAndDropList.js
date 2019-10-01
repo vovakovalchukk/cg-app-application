@@ -173,6 +173,11 @@ define([], function() {
         this.enableDragItem(rowNodeInDom);
         this.enableDeleteItem(rowNodeInDom);
 
+        //todo - add select listener
+        this.addSelectMutationObserverForItem(rowNodeInDom, newItem);
+
+        //todo - add input listener
+
         this.rowMap.set(rowNodeInDom, newItem);
 
         this.changeList();
@@ -180,33 +185,37 @@ define([], function() {
 
     dragAndDropList.prototype.addSelectsOnChange = function() {
         this.rowMap.forEach((columnJson, node) => {
-            const userInput = node.querySelector(`.${this.listClasses.listItemInput}`);
-
-            const selectForRow = node.querySelector(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
-            const selectInput = selectForRow.querySelector('input');
-
-            const config = {attributes: true};
-            const callback = (mutationsList) => {
-                for (let mutation  of mutationsList) {
-                    if (mutation.type !== 'attributes' && mutation.attributeName !== 'value') {
-                        return;
-                    }
-                    let optionSelected = this.allItems.find(item => (item.id === selectInput.value));
-                    optionSelected = Object.assign({}, optionSelected);
-                    optionSelected.position = columnJson.position;
-
-                    if (this.renderTextInput) {
-                        userInput.value = getDefaultInputValueFromOption(optionSelected);
-                    }
-
-                    this.rowMap.set(node, optionSelected);
-
-                    this.changeList();
-                }
-            };
-            const observer = new MutationObserver(callback);
-            observer.observe(selectInput, config);
+            this.addSelectMutationObserverForItem(node, columnJson);
         });
+    };
+
+    dragAndDropList.prototype.addSelectMutationObserverForItem = function(node, columnJson) {
+        const userInput = node.querySelector(`.${this.listClasses.listItemInput}`);
+
+        const selectForRow = node.querySelector(`.${dragAndDropList.DRAG_LIST_SELECT_CLASS}`);
+        const selectInput = selectForRow.querySelector('input');
+
+        const config = {attributes: true};
+        const callback = (mutationsList) => {
+            for (let mutation  of mutationsList) {
+                if (mutation.type !== 'attributes' && mutation.attributeName !== 'value') {
+                    return;
+                }
+                let optionSelected = this.allItems.find(item => (item.id === selectInput.value));
+                optionSelected = Object.assign({}, optionSelected);
+                optionSelected.position = columnJson.position;
+
+                if (this.renderTextInput) {
+                    userInput.value = getDefaultInputValueFromOption(optionSelected);
+                }
+
+                this.rowMap.set(node, optionSelected);
+
+                this.changeList();
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(selectInput, config);
     };
 
     dragAndDropList.prototype.getRenderedColumns = function() {
