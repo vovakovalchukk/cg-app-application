@@ -258,6 +258,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter = $this->filterMapper->fromArray($filterParams)
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
             ->setEmbeddedDataToReturn($filterParams['embeddedDataToReturn'])
+            ->setReturnNonEmptyNames($filterParams['returnNonEmptyNames'] ?? false)
             ->setLimit($limit)
             ->setPage($page);
 
