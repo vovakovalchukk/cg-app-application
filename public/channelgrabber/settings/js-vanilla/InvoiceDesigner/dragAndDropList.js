@@ -180,7 +180,9 @@ define([], function() {
         this.enableDeleteItem(rowNodeInDom);
 
         this.addSelectMutationObserverForItem(rowNodeInDom, newItem);
-        this.addInputChangeListener(rowNodeInDom);
+        if (this.renderInput) {
+            this.addInputChangeListener(rowNodeInDom);
+        }
 
         this.rowMap.set(rowNodeInDom, newItem);
 
