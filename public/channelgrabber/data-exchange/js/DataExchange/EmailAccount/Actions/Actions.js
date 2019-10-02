@@ -27,7 +27,6 @@ export default {
                 return;
             }
 
-            n.notice('Your email address ' + account.address + ' is being deleted..', 2000);
             let response = await deleteAccountAjax(account.id);
 
             if (response.success === true) {
@@ -37,6 +36,21 @@ export default {
             }
 
             dispatch(ResponseActions.accountDeleteFailed(type, index, 'There was an error while deleting your email address. Please try again or contact support if the problem persists.'));
+        };
+    },
+    saveEmailAddress: (type, index, account) => {
+        return async function (dispatch) {
+            let response = await saveAccountAjax(account);
+
+            if (response.success !== true) {
+                dispatch(ResponseActions.accountSaveFailed(type, index, account));
+                return;
+            }
+
+            let updatedAccount = Object.assign({}, account);
+            !!response.etag ? updatedAccount.etag = response.etag : false;
+
+            dispatch(ResponseActions.accountSavedSuccessfully(type, index, updatedAccount));
         };
     }
 };
@@ -49,6 +63,34 @@ const deleteAccountAjax = async function (id) {
         data: {
             id: id
         },
+        success: function (response) {
+            return response;
+        },
+        error: function (error) {
+            return error;
+        }
+    });
+};
+
+const saveAccountAjax = async function (account) {
+    let postData = {
+        type: account.type,
+        address: account.newAddress
+    };
+
+    if (account.id) {
+        postData.id = account.id;
+    }
+
+    if (account.etag) {
+        postData.etag = account.etag;
+    }
+
+    return $.ajax({
+        context: this,
+        url: '/dataExchange/accounts/email/save',
+        type: 'POST',
+        data: postData,
         success: function (response) {
             return response;
         },

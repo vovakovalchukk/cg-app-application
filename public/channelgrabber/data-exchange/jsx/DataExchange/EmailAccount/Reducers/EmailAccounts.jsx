@@ -33,5 +33,17 @@ export default reducerCreator(initialState, {
         return Object.assign({}, state, {
             [action.payload.type]: accountsForType
         });
-    }
+    },
+    "ACCOUNT_SAVED_SUCCESSFULLY": (state, action) => {
+        let accountsForType = state[action.payload.type].slice(),
+            account = Object.assign({}, action.payload.account, {
+                address: action.payload.account.newAddress
+            });
+
+        accountsForType[action.payload.index] = Object.assign({}, accountsForType[action.payload.index], account);
+
+        return Object.assign({}, state, {
+            [action.payload.type]: accountsForType
+        });
+    },
 });

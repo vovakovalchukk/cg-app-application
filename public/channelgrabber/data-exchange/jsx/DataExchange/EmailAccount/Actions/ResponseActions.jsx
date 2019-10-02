@@ -18,5 +18,16 @@ export default {
                 message
             }
         }
-    }
+    },
+    accountSavedSuccessfully: (type, index, account) => {
+        return {
+            type: "ACCOUNT_SAVED_SUCCESSFULLY",
+            payload: {
+                type,
+                index,
+                account
+            }
+        }
+    },
+    accountSaveFailed: () => {}
 };

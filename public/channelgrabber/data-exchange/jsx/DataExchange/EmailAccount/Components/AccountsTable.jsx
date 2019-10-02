@@ -27,6 +27,14 @@ class EmailAccountsTable extends React.Component {
         type: TYPE_TO
     };
 
+    static SAVE_TIMEOUT_DURATION = 5000;
+
+    saveTimeoutIds = {};
+
+    componentDidMount() {
+        this.addNewEmailAccount();
+    };
+
     isTypeFrom = () => {
         return this.props.type.toString().trim() === TYPE_FROM;
     };
@@ -66,31 +74,69 @@ class EmailAccountsTable extends React.Component {
             name={this.props.type + '.' + index}
             isVerifiable={this.isTypeFrom()}
             verifiedStatus={account.verifiedStatus}
-            onChange={this.updateEmailAddress.bind(this, index)}
+            onChange={this.updateEmailAddress.bind(this, account, index)}
         />
     };
 
-    updateEmailAddress(index, newAddress) {
+    updateEmailAddress = (account, index, newAddress) => {
         this.props.actions.changeEmailAddress(this.props.type, index, newAddress);
-        if (this.isLastAccount(index) && newAddress !== '') {
-            this.props.actions.addNewEmailAccount(this.props.type, {
-                type: this.props.type,
-                id: null,
-                verifiedStatus: null,
-                verified: false,
-                address: '',
-                newAddress: ''
-            });
+
+        if (this.isLastAccount(index)) {
+            this.addNewEmailAccount(index);
         }
+
+        this.handleSaveAccount(account, index, newAddress);
+    };
+
+    addNewEmailAccount = () => {
+        this.props.actions.addNewEmailAccount(this.props.type, {
+            type: this.props.type,
+            id: null,
+            verifiedStatus: null,
+            verified: false,
+            address: '',
+            newAddress: ''
+        });
+    };
+
+    handleSaveAccount = (account, index, newAddress) => {
+        this.clearTimeoutForAccountSave(index);
+
+        account = Object.assign(account, {newAddress: newAddress});
+        if (account.address == newAddress) {
+            return;
+        }
+
+        let timeoutId = window.setTimeout((index, account) => {
+            this.props.actions.saveEmailAddress(this.props.type, index, account);
+        }, EmailAccountsTable.SAVE_TIMEOUT_DURATION, index, account);
+
+        this.saveTimeoutIds = Object.assign(this.saveTimeoutIds, {
+            [index]: timeoutId
+        });
+    };
+
+    clearTimeoutForAccountSave = (index) => {
+        if (!this.saveTimeoutIds[index]) {
+            return;
+        }
+
+        window.clearTimeout(this.saveTimeoutIds[index]);
+        delete this.saveTimeoutIds[index];
     };
 
     renderRemoveColumn = (account, index) => {
         return <RemoveIconContainer>
             <RemoveIcon
                 className={'remove-icon-new'}
-                onClick={this.props.actions.removeEmailAddress.bind(this, this.props.type, index, account)}
+                onClick={this.removeEmailAddress.bind(this, index, account)}
             />
         </RemoveIconContainer>;
+    };
+
+    removeEmailAddress = (index, account) => {
+        this.clearTimeoutForAccountSave(index);
+        this.props.actions.removeEmailAddress(this.props.type, index, account);
     };
 
     render() {
