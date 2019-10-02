@@ -132,6 +132,10 @@ class EmailAccountsTable extends React.Component {
     };
 
     renderRemoveColumn = (account, index) => {
+        if (this.isLastAccount(index)) {
+            return null;
+        }
+
         return <RemoveIconContainer>
             <RemoveIcon
                 className={'remove-icon-new'}
