@@ -55,16 +55,19 @@ export default {
                 return;
             }
 
-            let updatedAccount = Object.assign({}, account);
-            !!response.etag ? (updatedAccount.etag = response.etag) : false;
+            let updatedAccount = Object.assign({}, account, {
+                id: response.id,
+                etag: response.etag ? response.etag : false
+            });
 
             n.success('The email address ' + account.address + ' was successfully saved.');
             dispatch(ResponseActions.accountSavedSuccessfully(type, index, updatedAccount));
+            return updatedAccount;
         };
     },
-    verifyEmailAddress: (type, index, account) => {
+    verifyEmailAddress: (type, index, accountId) => {
         return async function(dispatch) {
-            let response = await verifyEmailAjax(account.id);
+            let response = await verifyEmailAjax(accountId);
 
             if (response.success !== true) {
                 // fail
