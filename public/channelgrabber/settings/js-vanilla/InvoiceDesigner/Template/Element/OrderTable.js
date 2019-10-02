@@ -13,6 +13,7 @@ define([
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
+        const tableTotals = TableStorage.getDefaultTableTotals();
 
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
@@ -21,7 +22,8 @@ define([
             linkedProductsDisplay: null,
             tableColumns,
             tableSortBy,
-            tableCells
+            tableCells,
+            tableTotals
         };
         const data = {
             activeCellNodeId: null
@@ -68,6 +70,14 @@ define([
 
         this.setTableSortBy = function(newSortBy) {
             this.set('tableSortBy', newSortBy);
+        };
+
+        this.getTableTotals = function() {
+            return this.get('tableTotals').slice();
+        };
+
+        this.setTableTotals = function(tableTotals) {
+            this.set('tableTotals', tableTotals);
         };
 
         this.getTableCells = function() {

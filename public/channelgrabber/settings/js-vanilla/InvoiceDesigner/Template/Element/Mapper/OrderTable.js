@@ -25,6 +25,8 @@ define([
         const tableInlineStyles = this.getTableStyles(element).slice();
         const renderColumns = this.renderColumns.bind(this, tableColumns, element);
 
+        const renderTotalRow = this.renderTotalRow.bind(this, element.getTableTotals(), element)
+
         const html = `<table class="template-element-ordertable-main" style="${tableInlineStyles}">
             <tr>
                 ${renderColumns('th', (column, inlineStyles, cellId) => {
@@ -37,13 +39,28 @@ define([
                     `<td id="${cellId}" style="${inlineStyles}">${column.cellPlaceholder}</td>`
                 ))}
             </tr>
-        </table>`;
+        </table>
+        <div class="template-element-ordertable-totals">
+            <table>
+                <tbody>
+                    ${renderTotalRow(total => (
+                        `<tr><th>${total.displayText}</th><td>${total.placeholder}</td></tr>`
+                    ))}
+                </tbody>
+            </table>
+        </div>`;
 
         return html;
     };
 
     OrderTable.prototype.createElement = function() {
         return new TableElement();
+    };
+
+    OrderTable.prototype.renderTotalRow = function(tableTotals, element, render) {
+        return tableTotals.map(total => {
+            return render(total);
+        }).join('');
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, element, tag, render) {
