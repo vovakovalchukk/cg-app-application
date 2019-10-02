@@ -47,10 +47,6 @@ define([
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, element, tag, render) {
-        tableColumns = tableColumns.filter(column => {
-            return column;
-        });
-
         return tableColumns.map(column => {
             let inlineStyles = this.getCellInlineStyles(column, element, tag);
             let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
@@ -63,11 +59,15 @@ define([
         const activeNodeId = element.getActiveCellNodeId();
         const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
         const currentCell =  element.getTableCells().find(cell => {
-            return cell.column === column.id & cell.cellTag === tag;
+            return cell.column === column.id && cell.cellTag === tag;
         });
 
         if (activeNodeId === cellNodeIdForCell) {
             applyCellSelectedStyle(inlineStyles);
+        }
+
+        if (!currentCell) {
+            return inlineStyles.join('; ');
         }
 
         applyTextFormattingInlineStyles(inlineStyles, currentCell);

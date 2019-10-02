@@ -2,11 +2,13 @@ define([
     'InvoiceDesigner/Template/InspectorAbstract',
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
     TableStorage,
+    orderTableHelper,
     CGMustache
 ) {
     let TableColumns = function() {
@@ -35,6 +37,10 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
             const list = new dragAndDropList({
                 setItems: function setItems(columns) {
+                    const currentTableCells = element.getTableCells().slice();
+                    const reducedTableCells = removeAssociatedTableCellsFromRemovedTableColumns(currentTableCells, columns);
+                    const newTableCells = addNewTableCellsForNewlyAddedColumns(columns, reducedTableCells);
+                    element.setTableCells(newTableCells);
                     element.setTableColumns(columns);
                 },
                 allItems: TableStorage.getColumns(),
@@ -69,4 +75,20 @@ define([
     };
 
     return new TableColumns();
+
+    function removeAssociatedTableCellsFromRemovedTableColumns(currentTableCells, columns) {
+        return currentTableCells.filter(tableCell => (
+            !!columns.find(column => (column.id === tableCell.column))
+        ));
+    }
+    function addNewTableCellsForNewlyAddedColumns(columns, reducedTableCells) {
+        const newColumns = columns.filter(column => (
+            !reducedTableCells.find(cell => (
+                cell.column === column.id
+            ))
+        ));
+        const createdCells = orderTableHelper.formatDefaultTableCellsFromColumns(newColumns);
+        const newTableCells = reducedTableCells.concat(createdCells);
+        return newTableCells;
+    }
 });

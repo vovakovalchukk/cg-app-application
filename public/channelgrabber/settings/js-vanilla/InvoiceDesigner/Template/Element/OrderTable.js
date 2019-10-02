@@ -13,6 +13,7 @@ define([
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
+
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
