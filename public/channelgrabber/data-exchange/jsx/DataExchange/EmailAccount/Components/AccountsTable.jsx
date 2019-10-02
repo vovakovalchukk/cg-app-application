@@ -23,12 +23,16 @@ const RemoveIconContainer = styled.span`
 
 class EmailAccountsTable extends React.Component {
     static defaultProps = {
-        accounts: {},
+        accounts: [],
         type: TYPE_TO
     };
 
     isTypeFrom = () => {
         return this.props.type.toString().trim() === TYPE_FROM;
+    };
+
+    isLastAccount = (index) => {
+        return index === this.props.accounts.length -1;
     };
 
     renderTableHeader = () => {
@@ -40,44 +44,51 @@ class EmailAccountsTable extends React.Component {
     };
 
     renderAccountRows = () => {
-        const isTypeFrom = this.isTypeFrom();
-
-        return Object.keys(this.props.accounts).map(id => {
-            let account = this.props.accounts[id];
-            return this.renderAccountRow(account);
+        return this.props.accounts.map((account, index) => {
+            return this.renderAccountRow(account, index);
         });
     };
 
-    renderAccountRow = (account) => {
+    renderAccountRow = (account, index) => {
         return <tr>
             <TableCellContainer>
-                {this.renderEmailAddressInput(account)}
-                {this.renderRemoveColumn(account)}
+                {this.renderEmailAddressInput(account, index)}
+                {this.renderRemoveColumn(account, index)}
             </TableCellContainer>
         </tr>
     };
 
-    renderEmailAddressInput = (account) => {
+    renderEmailAddressInput = (account, index) => {
         return <EmailAddressInputComponent
             type="email"
             value={account.newAddress}
             placeholder="Enter an email address here"
-            name={this.props.type + '.' + account.id}
+            name={this.props.type + '.' + index}
             isVerifiable={this.isTypeFrom()}
-            verifiedStatus={''}
-            onChange={this.updateEmailAddress.bind(this, account.id)}
+            verifiedStatus={account.verifiedStatus}
+            onChange={this.updateEmailAddress.bind(this, index)}
         />
     };
 
-    updateEmailAddress(accountId, newAddress) {
-        this.props.actions.changeEmailAddress(accountId, newAddress);
+    updateEmailAddress(index, newAddress) {
+        this.props.actions.changeEmailAddress(this.props.type, index, newAddress);
+        if (this.isLastAccount(index) && newAddress !== '') {
+            this.props.actions.addNewEmailAccount(this.props.type, {
+                type: this.props.type,
+                id: null,
+                verifiedStatus: null,
+                verified: false,
+                address: '',
+                newAddress: ''
+            });
+        }
     };
 
-    renderRemoveColumn = (account) => {
+    renderRemoveColumn = (account, index) => {
         return <RemoveIconContainer>
             <RemoveIcon
                 className={'remove-icon-new'}
-                onClick={this.props.actions.removeEmailAddress.bind(this, account)}
+                onClick={this.props.actions.removeEmailAddress.bind(this, this.props.type, index, account)}
             />
         </RemoveIconContainer>;
     };

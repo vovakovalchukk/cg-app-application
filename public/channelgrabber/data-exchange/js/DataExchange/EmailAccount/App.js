@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { applyMiddleware } from "redux";
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
 import CombinedReducer from './Reducers/Combined';
 import EmailAccountsComponent from "./Components/EmailAccounts";
+import { EmailAccountTypeFrom, EmailAccountTypeTo } from "./Components/AccountsTable";
 
 let enhancer = applyMiddleware(thunk);
 
@@ -32,11 +32,20 @@ let App = function (mountingNode, data) {
 export default App;
 
 const formatEmailAccounts = emailAccounts => {
-    let emailAccountsObject = {};
-    emailAccounts.forEach(emailAccount => {
-        emailAccountsObject[emailAccount.id] = Object.assign(emailAccount, {
-            newAddress: emailAccount.address
+    return {
+        [EmailAccountTypeFrom]: formatAccountsForType(emailAccounts, EmailAccountTypeFrom),
+        [EmailAccountTypeTo]: formatAccountsForType(emailAccounts, EmailAccountTypeTo)
+    };
+};
+
+const formatAccountsForType = (accounts, type) => {
+    let accountsForType = accounts.filter(account => {
+        return account.type.toString().trim() === type;
+    });
+
+    return accountsForType.map(account => {
+        return Object.assign(account, {
+            newAddress: account.address
         });
     });
-    return emailAccountsObject;
 };

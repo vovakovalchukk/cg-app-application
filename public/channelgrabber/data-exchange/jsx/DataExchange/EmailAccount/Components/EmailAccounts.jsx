@@ -10,23 +10,12 @@ class EmailAccountsComponent extends React.Component {
     };
 
     renderAccountsTableForType = (type) => {
-        let accounts = this.filterAccountsByType(type);
+        let accounts = this.props.accounts[type];
         return <EmailAccountsTable
             accounts={accounts}
             type={type}
             actions={this.props.actions}
         />;
-    };
-
-    filterAccountsByType = (type) => {
-        let accountsForType = {};
-        Object.keys(this.props.accounts).forEach(accountId => {
-            let account = this.props.accounts[accountId];
-            if (account.type.toString().trim() === type) {
-                accountsForType[accountId] = account;
-            }
-        });
-        return accountsForType;
     };
 
     render() {

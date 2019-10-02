@@ -1,18 +1,20 @@
 export default {
-    accountDeletedSuccessfully: id => {
+    accountDeletedSuccessfully: (type, index) => {
         return {
             type: "ACCOUNT_DELETED_SUCCESSFULLY",
             payload: {
-                id
+                type,
+                index
             }
         };
     },
-    accountDeleteFailed: (id, message) => {
+    accountDeleteFailed: (type, index, message) => {
         n.error(message);
         return {
             type: "ACCOUNT_DELETE_FAILED",
             payload: {
-                id,
+                type,
+                index,
                 message
             }
         };

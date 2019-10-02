@@ -1,26 +1,42 @@
 import ResponseActions from "./ResponseActions";
 
 export default {
-    changeEmailAddress: (id, newAddress) => {
+    changeEmailAddress: (type, index, newAddress) => {
         return {
             type: "CHANGE_EMAIL_ADDRESS",
             payload: {
-                id,
+                type,
+                index,
                 newAddress
             }
         };
     },
-    removeEmailAddress: account => {
+    addNewEmailAccount: (type, account) => {
+        return {
+            type: "ADD_NEW_EMAIL_ACCOUNT",
+            payload: {
+                type,
+                account
+            }
+        };
+    },
+    removeEmailAddress: (type, index, account) => {
         return async function (dispatch) {
+            if (account.id === null) {
+                dispatch(ResponseActions.accountDeletedSuccessfully(type, index));
+                return;
+            }
+
             n.notice('Your email address ' + account.address + ' is being deleted..', 2000);
             let response = await deleteAccountAjax(account.id);
 
             if (response.success === true) {
-                dispatch(ResponseActions.accountDeletedSuccessfully(account.id));
+                n.success('The email address ' + account.newAddress + ' was deleted successfully');
+                dispatch(ResponseActions.accountDeletedSuccessfully(type, index));
                 return;
             }
 
-            dispatch(ResponseActions.accountDeleteFailed(account.id, 'There was an error while deleting your email address. Please try again or contact support if the problem persists.'));
+            dispatch(ResponseActions.accountDeleteFailed(type, index, 'There was an error while deleting your email address. Please try again or contact support if the problem persists.'));
         };
     }
 };
