@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "54e1d96fdabebad57ad5a180e3cd8519",
+    "content-hash": "67d02fe0d841059d684d952e2db8a132",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3665,6 +3665,40 @@
             "time": "2017-10-10T13:08:18+00:00"
         },
         {
+            "name": "channelgrabber/stripe",
+            "version": "dev-TAC-490-stripe-add-card-details",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-stripe.git",
+                "reference": "3dc39b94d90e539c2299d5cbae478279a9b5e68d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stripe/channelgrabber-stripe-dev-TAC-490-stripe-add-card-details-9b5609.zip",
+                "reference": "3dc39b94d90e539c2299d5cbae478279a9b5e68d",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Stripe\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Stripe\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-10-02T07:58:40+00:00"
+        },
+        {
             "name": "channelgrabber/tax",
             "version": "1.0.2",
             "source": {
@@ -4328,16 +4362,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.9",
+            "version": "dev-TAC-490-stripe-add-card-details",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
+                "reference": "7110dbc2e8394ee795fa6a2f654f0014c40ab98d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.9-32881f.zip",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-TAC-490-stripe-add-card-details-bc9db8.zip",
+                "reference": "7110dbc2e8394ee795fa6a2f654f0014c40ab98d",
                 "shasum": null
             },
             "require": {
@@ -4375,7 +4409,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-05-17T08:48:18+00:00"
+            "time": "2019-10-02T08:02:42+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -11755,10 +11789,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-TAC-490-stripe-add-card-details",
+            "package": "channelgrabber/stripe"
+        },
+        {
+            "alias": "1.2.10",
+            "alias_normalized": "1.2.10.0",
+            "version": "dev-TAC-490-stripe-add-card-details",
+            "package": "channelgrabber/zf2-billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stripe": 20,
+        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
