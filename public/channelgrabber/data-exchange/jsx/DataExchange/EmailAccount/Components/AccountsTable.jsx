@@ -75,6 +75,7 @@ class EmailAccountsTable extends React.Component {
             isVerifiable={this.isTypeFrom()}
             verifiedStatus={account.verifiedStatus}
             onChange={this.updateEmailAddress.bind(this, account, index)}
+            onKeyPressEnter={this.onKeyPressEnter.bind(this, account, index)}
         />
     };
 
@@ -123,6 +124,11 @@ class EmailAccountsTable extends React.Component {
 
         window.clearTimeout(this.saveTimeoutIds[index]);
         delete this.saveTimeoutIds[index];
+    };
+
+    onKeyPressEnter = (account, index) => {
+        this.clearTimeoutForAccountSave(index);
+        this.props.actions.saveEmailAddress(this.props.type, index, account);
     };
 
     renderRemoveColumn = (account, index) => {

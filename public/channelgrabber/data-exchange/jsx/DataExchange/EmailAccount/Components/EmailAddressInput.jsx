@@ -36,6 +36,7 @@ class EmailAddressInputComponent extends React.Component {
         value: '',
         placeholder: '',
         onChange: () => {},
+        onKeyPressEnter: () => {},
         isVerifiable: false,
         verifiedStatus: null,
         isVerified: false,
@@ -55,13 +56,22 @@ class EmailAddressInputComponent extends React.Component {
             value={this.props.value}
             name={this.props.name}
             placeholder={this.props.placeholder}
-            onChange={this.onChange.bind(this)}
             type={this.props.type ? this.props.type : 'text'}
+            onChange={this.onChange.bind(this)}
+            onKeyPress={this.onKeyPress.bind(this)}
         />;
     }
 
-    onChange(input) {
-        this.props.onChange(input.target.value);
+    onChange(event) {
+        this.props.onChange(event.target.value);
+    }
+
+    onKeyPress(event) {
+        if (event.key !== "Enter") {
+            return;
+        }
+
+        this.props.onKeyPressEnter(this.props.value);
     }
 
     renderVerificationStatus() {

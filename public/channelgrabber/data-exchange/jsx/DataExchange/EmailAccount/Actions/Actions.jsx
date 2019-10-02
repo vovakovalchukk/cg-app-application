@@ -49,13 +49,16 @@ export default {
             let response = await saveAccountAjax(account);
 
             if (response.success !== true) {
-                dispatch(ResponseActions.accountSaveFailed(type, index, account));
+                let message = response.message ? response.message  : 'There was an error while saving your email address. Please contact support if the problem persists';
+                n.error(message);
+                dispatch(ResponseActions.accountSaveFailed(type, index, account, message));
                 return;
             }
 
             let updatedAccount = Object.assign({}, account);
             !!response.etag ? (updatedAccount.etag = response.etag) : false;
 
+            n.success('The email address ' + account.address + ' was successfully saved.');
             dispatch(ResponseActions.accountSavedSuccessfully(type, index, updatedAccount));
         };
     }

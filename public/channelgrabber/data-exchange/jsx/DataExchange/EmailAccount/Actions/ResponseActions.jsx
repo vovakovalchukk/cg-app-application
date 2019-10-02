@@ -29,5 +29,15 @@ export default {
             }
         }
     },
-    accountSaveFailed: () => {}
+    accountSaveFailed: (type, index, account, message) => {
+        return {
+            type: "ACCOUNT_SAVE_FAILED",
+            payload: {
+                type,
+                index,
+                account,
+                message
+            }
+        }
+    }
 };
