@@ -61,6 +61,17 @@ export default {
             n.success('The email address ' + account.address + ' was successfully saved.');
             dispatch(ResponseActions.accountSavedSuccessfully(type, index, updatedAccount));
         };
+    },
+    verifyEmailAddress: (type, index, account) => {
+        return async function(dispatch) {
+            let response = await verifyEmailAjax(account.id);
+
+            if (response.success !== true) {
+                // fail
+            }
+
+            dispatch(ResponseActions.accountVerificationUpdate(type, index, response.verificationStatus));
+        };
     }
 };
 
@@ -100,6 +111,23 @@ const saveAccountAjax = async function (account) {
         url: '/dataExchange/accounts/email/save',
         type: 'POST',
         data: postData,
+        success: function (response) {
+            return response;
+        },
+        error: function (error) {
+            return error;
+        }
+    });
+};
+
+const verifyEmailAjax = async function (id) {
+    return $.ajax({
+        context: this,
+        url: '/dataExchange/accounts/email/verify',
+        type: 'POST',
+        data: {
+            id: id
+        },
         success: function (response) {
             return response;
         },

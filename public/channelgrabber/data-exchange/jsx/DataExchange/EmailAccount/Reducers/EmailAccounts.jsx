@@ -60,5 +60,16 @@ export default reducerCreator(initialState, {
         return Object.assign({}, state, {
             [action.payload.type]: accountsForType
         });
+    },
+    "ACCOUNT_VERIFICATION_UPDATE": (state, action) => {
+        let accountsForType = state[action.payload.type].slice();
+
+        accountsForType[action.payload.index] = Object.assign({}, accountsForType[action.payload.index], {
+            verificationStatus: action.payload.verificationStatus
+        });
+
+        return Object.assign({}, state, {
+            [action.payload.type]: accountsForType
+        });
     }
 });

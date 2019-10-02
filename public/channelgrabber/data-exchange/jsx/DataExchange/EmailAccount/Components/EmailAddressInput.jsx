@@ -7,15 +7,18 @@ const EmailInputContainer = styled.div`
     align-items: center;
     padding: 0 10px;
 `;
-
 const InputContainer = styled.input`
     float: none;
     outline: none;
 `;
-
 const ButtonContainer = styled.div`
     margin-left: 10px;
     width: 80px;
+`;
+const VerificationStatus = styled.span`
+    margin-left: 10px;
+    padding: 10px;
+    width: 70px;
 `;
 
 const STATUS_PENDING = 'Pending';
@@ -30,6 +33,13 @@ const STATUS = {
     verified: STATUS_VERIFIED,
 };
 
+const STATUS_TO_CLASS_NAME_MAP = {
+    [STATUS.pending]: 'pending',
+    [STATUS.failed]: 'error',
+    [STATUS.tempFailure]: 'error',
+    [STATUS.verified]: 'success',
+};
+
 class EmailAddressInputComponent extends React.Component {
     static defaultProps = {
         name: '',
@@ -38,7 +48,7 @@ class EmailAddressInputComponent extends React.Component {
         onChange: () => {},
         onKeyPressEnter: () => {},
         isVerifiable: false,
-        verifiedStatus: null,
+        verificationStatus: null,
         isVerified: false,
         onVerifyClick: () => {},
         type: 'text'
@@ -79,7 +89,7 @@ class EmailAddressInputComponent extends React.Component {
             return null;
         }
 
-        if (!this.props.isVerified) {
+        if (!this.props.isVerified && this.props.verificationStatus === null) {
             return this.renderVerifyButton();
         }
 
@@ -96,7 +106,14 @@ class EmailAddressInputComponent extends React.Component {
     }
 
     renderVerificationStatusLabel() {
-        return <span>{this.props.verifiedStatus}</span>;
+        return <VerificationStatus className={this.getClassNameForVerificationStatus()}>
+            {this.props.verificationStatus}
+        </VerificationStatus>;
+    }
+
+    getClassNameForVerificationStatus() {
+        let statusClass = STATUS_TO_CLASS_NAME_MAP[this.props.verificationStatus];
+        return 'status ' + (statusClass ? statusClass : 'pending');
     }
 }
 

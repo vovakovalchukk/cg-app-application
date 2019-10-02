@@ -73,9 +73,10 @@ class EmailAccountsTable extends React.Component {
             placeholder="Enter an email address here"
             name={this.props.type + '.' + index}
             isVerifiable={this.isTypeFrom()}
-            verifiedStatus={account.verifiedStatus}
+            verificationStatus={account.verificationStatus}
             onChange={this.updateEmailAddress.bind(this, account, index)}
             onKeyPressEnter={this.onKeyPressEnter.bind(this, account, index)}
+            onVerifyClick={this.props.actions.verifyEmailAddress.bind(this, this.props.type, index, account)}
         />
     };
 
@@ -93,7 +94,7 @@ class EmailAccountsTable extends React.Component {
         this.props.actions.addNewEmailAccount(this.props.type, {
             type: this.props.type,
             id: null,
-            verifiedStatus: null,
+            verificationStatus: null,
             verified: false,
             address: '',
             newAddress: ''

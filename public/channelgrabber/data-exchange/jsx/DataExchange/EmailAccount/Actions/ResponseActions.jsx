@@ -39,5 +39,15 @@ export default {
                 message
             }
         }
+    },
+    accountVerificationUpdate: (type, index, verificationStatus) => {
+        return {
+            type: "ACCOUNT_VERIFICATION_UPDATE",
+            payload: {
+                type,
+                index,
+                verificationStatus
+            }
+        }
     }
 };
