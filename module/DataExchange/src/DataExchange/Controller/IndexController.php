@@ -7,8 +7,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
 {
-    public const ROUTE_EXAMPLE = 'Example';
-
     /** @var ViewModelFactory */
     protected $viewModelFactory;
 
@@ -20,14 +18,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         // MIG-42 should redirect to the history page here
-        return $this->redirect()->toRoute(Module::ROUTE . '/' . static::ROUTE_EXAMPLE);
-    }
-
-    public function exampleAction()
-    {
-        return $this->viewModelFactory->newInstance([
-            'isHeaderBarVisible' => false,
-            'subHeaderHide' => true
-        ]);
+        return $this->redirect()->toRoute(Module::ROUTE . '/' . FtpAccountController::ROUTE);
     }
 }

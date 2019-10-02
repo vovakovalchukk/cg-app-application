@@ -44,6 +44,7 @@ return array (
     39 => 'Tideways',
     40 => 'Partner',
     41 => 'DataExchange',
+    42 => 'CG_Access',
   ),
   'module_listener_options' => 
   array (
