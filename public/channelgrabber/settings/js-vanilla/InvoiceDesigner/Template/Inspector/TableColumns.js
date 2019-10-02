@@ -18,16 +18,15 @@ define([
         this.setInspectedAttributes(['tableColumns']);
     };
 
-    TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR = '#tableColumns-inspector';
+    TableColumns.TABLE_COLUMNS_INSPECTOR_ID = 'tableColumns-inspector';
 
     TableColumns.prototype = Object.create(InspectorAbstract.prototype);
 
     TableColumns.prototype.hide = function() {
-        this.getDomManipulator().render(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR, "");
+        this.getDomManipulator().render(`#${TableColumns.TABLE_COLUMNS_INSPECTOR_ID}`, "");
     };
 
     TableColumns.prototype.showForElement = function(element) {
-        const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
         const columnsOnElement = element.getTableColumns();
 
         const templateUrlMap = {
@@ -66,7 +65,7 @@ define([
                 'id': 'table-collapsible'
             }, "collapsible", {'content': listHtml});
 
-            const tableColumnsInspector = document.getElementById('tableColumns-inspector');
+            const tableColumnsInspector = document.getElementById(TableColumns.TABLE_COLUMNS_INSPECTOR_ID);
             const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
             tableColumnsInspector.append(document.createRange().createContextualFragment(template));
 

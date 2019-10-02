@@ -29,7 +29,18 @@ define([
     TableTotals.prototype.showForElement = function(element) {
         console.log('in TableTotals showForElement ', element);
 
+        const listHtml = await list.generateList();
+        const collapsible = cgmustache.renderTemplate(templates, {
+            'display': true,
+            'title': 'Table Columns',
+            'id': 'table-collapsible'
+        }, "collapsible", {'content': listHtml});
 
+        const tableColumnsInspector = document.getElementById('tableColumns-inspector');
+        const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
+        tableColumnsInspector.append(document.createRange().createContextualFragment(template));
+
+        list.initList();
     };
 
     return new TableTotals();
