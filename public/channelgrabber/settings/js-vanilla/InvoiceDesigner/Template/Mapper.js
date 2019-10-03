@@ -60,10 +60,12 @@ define([
         var template = this.createNewTemplate();
         var populating = true;
         template.hydrate(json, populating);
+
         for (var key in json.elements) {
             var elementData = json.elements[key];
             if (elementData.type === 'OrderTable') {
-                elementData = applyDefaultsToOrderTableColumns(elementData);
+                elementData.tableColumns = applyDefaultsToOrderTableColumns(elementData.tableColumns);
+                elementData.tableTotals = applyDefaultsToTableTotals(elementData.tableTotals);
             }
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
@@ -159,11 +161,11 @@ define([
 
     Mapper.prototype.toHtml = function(template) {
         var paperPage = template.getPaperPage();
-        let printPage = template.getPrintPage();
         var pageMapper = require(Mapper.PATH_TO_PAGE_MAPPER);
 
         var elementsHtml = '';
         var elements = template.getElements();
+
         elements.each(function(element) {
             var elementType = element.getType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
@@ -179,13 +181,12 @@ define([
 
     return new Mapper();
 
-    function applyDefaultsToOrderTableColumns(elementJSON) {
+    function applyDefaultsToOrderTableColumns(tableColumns) {
         const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
         const allPossibleColumns = TableStorage.getColumns();
-        const tableColumns = elementJSON.tableColumns;
 
         if (!Array.isArray(tableColumns)) {
-            return elementJSON;
+            return TableStorage.getDefaultColumns();
         }
 
         const formattedColumns = tableColumns.map(column => {
@@ -199,7 +200,29 @@ define([
             }
         });
 
-        elementJSON.tableColumns = formattedColumns;
-        return elementJSON;
+        return formattedColumns;
+    }
+
+    function applyDefaultsToTableTotals(tableTotals) {
+        const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
+        const allTableTotals = TableStorage.getTableTotals();
+
+        if(!Array.isArray(tableTotals)) {
+            return [];
+        }
+
+        const formattedTotals = tableTotals.map(total => {
+            const matchedTotalInStorage = allTableTotals.find(storageTotal => {
+                return storageTotal.id === total.id;
+            });
+            let {id, position, displayText} = total;
+            return {
+                ...matchedTotalInStorage,
+                id,
+                position,
+                displayText
+            };
+        });
+        return formattedTotals;
     }
 });

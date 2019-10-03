@@ -14,7 +14,6 @@ define([
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
         const tableTotals = TableStorage.getDefaultTableTotals();
-
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
@@ -25,10 +24,6 @@ define([
             tableCells,
             tableTotals
         };
-        const data = {
-            activeCellNodeId: null
-        };
-
 
         ElementAbstract.call(this, additionalData);
 
@@ -106,6 +101,7 @@ define([
             json = this.formatCoreJsonPropertiesForBackend(json);
             json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
+            json.tableTotals = formatTableTotalsForBackend(json.tableTotals);
             return json;
         }
     };
@@ -114,6 +110,19 @@ define([
 
     return OrderTable;
 
+    function formatTableTotalsForBackend(tableTotals) {
+        if (!tableTotals) {
+            return [];
+        }
+        const formatted = tableTotals.map(({id, displayText, position}) => {
+            return {
+                id,
+                position,
+                displayText
+            };
+        });
+        return formatted;
+    }
     function formatTableColumnsForBackend(tableColumns) {
         if (!tableColumns) {
             return [];

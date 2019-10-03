@@ -38,7 +38,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
         var errorMap = {
             "413": "Template is too large to save, try resizing or removing large elements like images"
         };
-        
+
         n.notice('Preparing template');
 
         var templateJSON = self.getMapper().toJson(template);
