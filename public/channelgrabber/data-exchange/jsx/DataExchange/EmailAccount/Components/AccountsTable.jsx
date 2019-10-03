@@ -44,11 +44,12 @@ class EmailAccountsTable extends React.Component {
     }
 
     beforeunload(e) {
+        console.log(this.saveTimeoutIds);
         if (Object.keys(this.saveTimeoutIds).length === 0) {
             return false;
         }
 
-        e.preventDefault();
+         e.preventDefault();
          e.returnValue = true;
     }
 
@@ -138,8 +139,9 @@ class EmailAccountsTable extends React.Component {
             return;
         }
 
-        let timeoutId = window.setTimeout((index, account) => {
-            this.props.actions.saveEmailAddress(this.props.type, index, account);
+        let timeoutId = window.setTimeout(async (index, account) => {
+            await this.props.actions.saveEmailAddress(this.props.type, index, account);
+            this.clearTimeoutForAccountSave(index);
         }, EmailAccountsTable.SAVE_TIMEOUT_DURATION, index, account);
 
         this.saveTimeoutIds = Object.assign(this.saveTimeoutIds, {
