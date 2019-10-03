@@ -26,6 +26,7 @@
 /nbproject
 /public/*/*/css
 /public/channelgrabber/common/js/
+/public/channelgrabber/data-exchange/js/
 /public/channelgrabber/orders/js/
 /public/channelgrabber/products/js/
 /public/channelgrabber/redux/js/

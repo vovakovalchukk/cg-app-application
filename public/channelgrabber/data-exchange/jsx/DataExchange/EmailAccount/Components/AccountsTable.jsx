@@ -43,6 +43,10 @@ class EmailAccountsTable extends React.Component {
         return index === this.props.accounts.length -1;
     };
 
+    isAddressChanged = (account) => {
+        return account.address.toString().trim() !== account.newAddress.toString().trim();
+    };
+
     renderTableHeader = () => {
         return <tr>
             <th>
@@ -73,7 +77,7 @@ class EmailAccountsTable extends React.Component {
             placeholder="Enter an email address here"
             name={this.props.type + '.' + index}
             isVerifiable={this.isTypeFrom()}
-            verificationStatus={account.verificationStatus}
+            verificationStatus={this.isAddressChanged(account) ? null : account.verificationStatus}
             onChange={this.updateEmailAddress.bind(this, account, index)}
             onKeyPressEnter={this.onKeyPressEnter.bind(this, account, index)}
             onVerifyClick={this.verifyEmailAddress.bind(this, account, index)}
@@ -105,7 +109,7 @@ class EmailAccountsTable extends React.Component {
         this.clearTimeoutForAccountSave(index);
 
         account = Object.assign(account, {newAddress: newAddress});
-        if (account.address == newAddress) {
+        if (!this.isAddressChanged(account)) {
             return;
         }
 
@@ -134,7 +138,7 @@ class EmailAccountsTable extends React.Component {
 
     async verifyEmailAddress(account, index) {
         let accountId = account.id;
-        if (!accountId) {
+        if (this.isAddressChanged(account)) {
             this.clearTimeoutForAccountSave(index);
             let response = await this.props.actions.saveEmailAddress(this.props.type, index, account);
             accountId = response.id;
