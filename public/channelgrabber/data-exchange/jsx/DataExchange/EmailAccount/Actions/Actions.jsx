@@ -60,7 +60,7 @@ export default {
                 etag: response.etag ? response.etag : false
             });
 
-            n.success('The email address ' + account.address + ' was successfully saved.');
+            n.success('The email address ' + account.newAddress + ' was successfully saved.');
             dispatch(ResponseActions.accountSavedSuccessfully(type, index, updatedAccount));
             return updatedAccount;
         };

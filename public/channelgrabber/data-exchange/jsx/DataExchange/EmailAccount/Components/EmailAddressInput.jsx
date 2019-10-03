@@ -96,11 +96,16 @@ class EmailAddressInputComponent extends React.Component {
         return this.renderVerificationStatusLabel();
     }
 
+    isValidEmailAddress() {
+        return this.props.value.toString().length > 5;
+    }
+
     renderVerifyButton() {
         return <ButtonContainer>
             <ButtonComponent
                 text={"Verify"}
                 onClick={this.props.onVerifyClick}
+                disabled={!this.isValidEmailAddress()}
             />
         </ButtonContainer>;
     }

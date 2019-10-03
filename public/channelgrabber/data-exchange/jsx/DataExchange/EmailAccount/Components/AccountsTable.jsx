@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import RemoveIcon from 'Common/Components/RemoveIcon';
+import PopupComponent from 'Common/Components/Popup';
 import EmailAddressInputComponent from "./EmailAddressInput";
 
 const TYPE_FROM = 'from';
@@ -143,7 +144,8 @@ class EmailAccountsTable extends React.Component {
             let response = await this.props.actions.saveEmailAddress(this.props.type, index, account);
             accountId = response.id;
         }
-        return this.props.actions.verifyEmailAddress(this.props.type, index, accountId);
+        await this.props.actions.verifyEmailAddress(this.props.type, index, accountId);
+        window.triggerEvent('triggerPopup');
     };
 
     renderRemoveColumn = (account, index) => {
@@ -164,6 +166,22 @@ class EmailAccountsTable extends React.Component {
         this.props.actions.removeEmailAddress(this.props.type, index, account);
     };
 
+    renderConfirmationPopup = () => {
+        if (!this.isTypeFrom()) {
+            return null;
+        }
+
+        return <PopupComponent
+                headerText='Confirmation'
+                yesButtonText='Ok'
+                renderNoButton={false}
+        >
+                <strong>Excellent!</strong><br/>
+                <p>Now we just need you to confirm your email address.</p>
+                <p>Please check your inbox for a confirmation email from Amazon Web Services.</p>
+        </PopupComponent>;
+    };
+
     render() {
         return <AccountsTableContainer>
             <form name={this.props.type + "EmailAccounts"}>
@@ -176,6 +194,7 @@ class EmailAccountsTable extends React.Component {
                     </tbody>
                 </TableContainer>
             </form>
+            {this.renderConfirmationPopup()}
         </AccountsTableContainer>;
     }
 }
