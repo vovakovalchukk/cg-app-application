@@ -31,7 +31,7 @@ define([
         const tableSortBy = element.getTableSortBy().sort((a, b) => {
             return a.position - b.position;
         });
-        const listClasses = dragAndDropHelper.getDefaultDragAndDropClasses();
+        const listClasses = dragAndDropHelper.getDefaultDragAndDropCSSClasses();
 
         const templateUrlMap = {
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'

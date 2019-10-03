@@ -3,7 +3,7 @@ define([], function() {
         return this;
     };
 
-    dragAndDropHelper.prototype.getDefaultDragAndDropClasses = function() {
+    dragAndDropHelper.prototype.getDefaultDragAndDropCSSClasses = function() {
         return {
             dragActive: 'invoice-designer-list-item-drag-active',
             itemsContainer: 'drag-and-drop-list-list-item',
