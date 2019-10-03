@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EmailValidator from "email-validator";
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import PopupComponent from 'Common/Components/Popup';
-import EmailAddressInputComponent from "./EmailAddressInput";
+import EmailAddressInputComponent from "Common/Components/EmailAddressInput";
 
 const TYPE_FROM = 'from';
 const TYPE_TO = 'to';
