@@ -28,7 +28,9 @@ define([
 
     TableSortBy.prototype.showForElement = function(element) {
         const targetNode = document.querySelector(TableSortBy.TABLE_SORTBY_COLUMNS_INSPECTOR);
-        const tableSortBy = element.getTableSortBy();
+        const tableSortBy = element.getTableSortBy().sort((a, b) => {
+            return a.position - b.position;
+        });
         const listClasses = dragAndDropHelper.getDefaultDragAndDropClasses();
 
         const templateUrlMap = {
