@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import EmailValidator from "email-validator";
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import PopupComponent from 'Common/Components/Popup';
 import EmailAddressInputComponent from "./EmailAddressInput";
@@ -46,6 +47,10 @@ class EmailAccountsTable extends React.Component {
 
     isAddressChanged = (account) => {
         return account.address.toString().trim() !== account.newAddress.toString().trim();
+    };
+
+    isEmailAddressValid = (email) => {
+          return EmailValidator.validate(email);
     };
 
     renderTableHeader = () => {
@@ -114,6 +119,10 @@ class EmailAccountsTable extends React.Component {
             return;
         }
 
+        if (!this.isEmailAddressValid(account.newAddress)) {
+            return;
+        }
+
         let timeoutId = window.setTimeout((index, account) => {
             this.props.actions.saveEmailAddress(this.props.type, index, account);
         }, EmailAccountsTable.SAVE_TIMEOUT_DURATION, index, account);
@@ -134,6 +143,11 @@ class EmailAccountsTable extends React.Component {
 
     onKeyPressEnter = (account, index) => {
         this.clearTimeoutForAccountSave(index);
+
+        if (!this.isEmailAddressValid(account.newAddress)) {
+            return;
+        }
+
         this.props.actions.saveEmailAddress(this.props.type, index, account);
     };
 

@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
+import EmailValidator from "email-validator";
 import ButtonComponent from "Common/Components/Button";
 
 const EmailInputContainer = styled.div`
@@ -10,6 +11,7 @@ const EmailInputContainer = styled.div`
 const InputContainer = styled.input`
     float: none;
     outline: none;
+    border-color: ${props => !props.isAddressValid ? 'red !important' : 'auto'};
 `;
 const ButtonContainer = styled.div`
     margin-left: 10px;
@@ -51,7 +53,7 @@ class EmailAddressInputComponent extends React.Component {
         verificationStatus: null,
         isVerified: false,
         onVerifyClick: () => {},
-        type: 'text'
+        type: 'email',
     };
 
     render() {
@@ -69,6 +71,7 @@ class EmailAddressInputComponent extends React.Component {
             type={this.props.type ? this.props.type : 'text'}
             onChange={this.onChange.bind(this)}
             onKeyPress={this.onKeyPress.bind(this)}
+            isAddressValid={this.isValidEmailAddress() || this.isEmpty()}
         />;
     }
 
@@ -97,7 +100,16 @@ class EmailAddressInputComponent extends React.Component {
     }
 
     isValidEmailAddress() {
-        return this.props.value.toString().length > 5;
+        const email = this.props.value.toString();
+        if (email.length < 5) {
+            return false;
+        }
+
+        return EmailValidator.validate(email);
+    }
+
+    isEmpty() {
+        return this.props.value.toString().trim().length === 0;
     }
 
     renderVerifyButton() {
