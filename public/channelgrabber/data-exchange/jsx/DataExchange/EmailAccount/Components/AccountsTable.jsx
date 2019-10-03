@@ -33,9 +33,24 @@ class EmailAccountsTable extends React.Component {
 
     saveTimeoutIds = {};
 
+
     componentDidMount() {
         this.addNewEmailAccount();
+        window.addEventListener('beforeunload', this.beforeunload.bind(this));
     };
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.beforeunload.bind(this));
+    }
+
+    beforeunload(e) {
+        if (Object.keys(this.saveTimeoutIds).length === 0) {
+            return false;
+        }
+
+        e.preventDefault();
+         e.returnValue = true;
+    }
 
     isTypeFrom = () => {
         return this.props.type.toString().trim() === TYPE_FROM;
