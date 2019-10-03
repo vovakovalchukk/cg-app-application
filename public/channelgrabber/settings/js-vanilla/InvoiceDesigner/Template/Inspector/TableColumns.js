@@ -3,12 +3,14 @@ define([
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/Template/Inspector/Helpers/dragAndDrop',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
     TableStorage,
     orderTableHelper,
+    dragAndDropHelper,
     CGMustache
 ) {
     let TableColumns = function() {
@@ -29,6 +31,8 @@ define([
     TableColumns.prototype.showForElement = function(element) {
         const columnsOnElement = element.getTableColumns();
 
+        const listClasses = dragAndDropHelper.getDefaultDragAndDropClasses();
+
         const templateUrlMap = {
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
@@ -46,16 +50,7 @@ define([
                 items: columnsOnElement.slice(),
                 id: 'table-columns-dnd',
                 renderTextInput: true,
-                listClasses: {
-                    dragActive: 'invoice-designer-list-item-drag-active',
-                    itemsContainer: 'drag-and-drop-list-list-item',
-                    listItem: 'invoice-designer-list-item',
-                    dragIcon: 'sprite sprite-drag-handle-black-24 invoice-designer-drag-icon',
-                    dragContainer: 'invoice-designer-drag-icon-container',
-                    deleteClass: 'sprite sprite-delete-18-black',
-                    addIcon: 'invoice-designer-drag-list-add-icon sprite sprite-plus-18-black',
-                    listItemInput: 'invoice-designer-drag-list-input'
-                }
+                listClasses
             });
 
             const listHtml = await list.generateList();

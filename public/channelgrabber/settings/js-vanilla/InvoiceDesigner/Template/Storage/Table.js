@@ -69,31 +69,35 @@ define([], function() {
     ];
     const allTableTotals = [
         {
-            total: 'postageAndPackagingCost',
+            id: 'postageAndPackagingCost',
             displayText: 'Postage & Packing',
             position: 0,
             placeholder: '£4.00',
+            optionText: "Postage & Packaging Cost",
             default: true
         },
         {
-            total: 'totalExVat',
+            id: 'totalExVat',
             displayText: 'Subtotal',
             position: 1,
             placeholder: '£4.00',
+            optionText: "Total ex VAT",
             default: true
         },
         {
-            total: 'totalVat',
+            id: 'totalVat',
             displayText: 'VAT',
             position: 2,
             placeholder: '£0.80',
+            optionText: "Total VAT",
             default: true
         },
         {
-            total: 'total',
+            id: 'total',
             displayText: 'Total',
             position: 3,
             placeholder: '£4.80',
+            optionText: "Total",
             default: true
         }
     ];

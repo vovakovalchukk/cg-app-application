@@ -3,12 +3,14 @@ define([
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/Template/Inspector/Helpers/dragAndDrop',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
     TableStorage,
     orderTableHelper,
+    dragAndDropHelper,
     CGMustache
 ) {
     let TableTotals = function() {
@@ -18,29 +20,48 @@ define([
         this.setInspectedAttributes(['tableTotals']);
     };
 
-    TableTotals.TABLE_COLUMNS_INSPECTOR_SELECTOR = '#tableTotals-inspector';
+    TableTotals.TABLE_TOTALS_INSPECTOR_ID = 'tableTotals-inspector';
 
     TableTotals.prototype = Object.create(InspectorAbstract.prototype);
 
     TableTotals.prototype.hide = function() {
-        this.getDomManipulator().render(TableTotals.TABLE_COLUMNS_INSPECTOR_SELECTOR, "");
+        this.getDomManipulator().render(`#${TableTotals.TABLE_TOTALS_INSPECTOR_ID}`, "");
     };
 
     TableTotals.prototype.showForElement = function(element) {
-        console.log('in TableTotals showForElement ', element);
+        const tableTotals = element.getTableTotals();
+        const allTableTotals = TableStorage.getTableTotals();
+        const listClasses = dragAndDropHelper.getDefaultDragAndDropClasses();
 
-        const listHtml = await list.generateList();
-        const collapsible = cgmustache.renderTemplate(templates, {
-            'display': true,
-            'title': 'Table Columns',
-            'id': 'table-collapsible'
-        }, "collapsible", {'content': listHtml});
+        const templateUrlMap = {
+            collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
+        };
+        CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
+            const list = new dragAndDropList({
+                setItems: function setItems(items) {
+                    console.log('items: ', items);
+                    element.setTableTotals(items);
+                },
+                allItems: allTableTotals,
+                items: tableTotals,
+                id: 'table-totals-dnd',
+                renderTextInput: true,
+                listClasses
+            });
+            const listHtml = await list.generateList();
 
-        const tableColumnsInspector = document.getElementById('tableColumns-inspector');
-        const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
-        tableColumnsInspector.append(document.createRange().createContextualFragment(template));
+            const collapsible = cgmustache.renderTemplate(templates, {
+                'display': true,
+                'title': 'Table Totals',
+                'id': 'table-collapsible'
+            }, "collapsible", {'content': listHtml});
 
-        list.initList();
+            const tableTotalsInspector = document.getElementById(TableTotals.TABLE_TOTALS_INSPECTOR_ID);
+            const template = cgmustache.renderTemplate(collapsible, {}, 'tableTotals');
+            tableTotalsInspector.append(document.createRange().createContextualFragment(template));
+
+            list.initList();
+        });
     };
 
     return new TableTotals();

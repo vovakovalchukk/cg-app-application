@@ -22,10 +22,13 @@ define([
         const tableColumns = element.getTableColumns().sort((a, b) => {
             return a.position - b.position;
         });
+        const tableTotals = element.getTableTotals().sort((a, b) => {
+            return a.position - b.position;
+        });
         const tableInlineStyles = this.getTableStyles(element).slice();
         const renderColumns = this.renderColumns.bind(this, tableColumns, element);
 
-        const renderTotalRow = this.renderTotalRow.bind(this, element.getTableTotals(), element)
+        const renderTotalRow = this.renderTotalRow.bind(this, tableTotals, element);
 
         const html = `<table class="template-element-ordertable-main" style="${tableInlineStyles}">
             <tr>

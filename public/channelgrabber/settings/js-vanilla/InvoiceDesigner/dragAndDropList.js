@@ -35,8 +35,8 @@ define([], function() {
         const html = `<div id="${this.id}" class="inspector-holder">
             <ul class="${this.listClasses.itemsContainer} drag-and-drop-item-list">
                 ${this.items.map(column => {
-            return this.createItemRowHTML(column)
-        }).join('')}
+                    return this.createItemRowHTML(column)
+                }).join('')}
             </ul>
             ${addButton}
         </div>`;

@@ -29,6 +29,7 @@ define([
             activeCellNodeId: null
         };
 
+
         ElementAbstract.call(this, additionalData);
 
         this.set('type', 'OrderTable', true);
@@ -73,7 +74,7 @@ define([
         };
 
         this.getTableTotals = function() {
-            return this.get('tableTotals').slice();
+            return this.get('tableTotals');
         };
 
         this.setTableTotals = function(tableTotals) {

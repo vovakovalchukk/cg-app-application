@@ -10,6 +10,7 @@ define([
     'InvoiceDesigner/Template/Inspector/Barcode',
     'InvoiceDesigner/Template/Inspector/LinkedProducts',
     'InvoiceDesigner/Template/Inspector/TableColumns',
+    'InvoiceDesigner/Template/Inspector/TableTotals',
     'InvoiceDesigner/Template/Inspector/AllPagesDisplay',
     'InvoiceDesigner/Template/Inspector/TableSortBy',
     'InvoiceDesigner/Template/Inspector/TableCells'
@@ -25,6 +26,7 @@ define([
     barcode,
     linkedProducts,
     tableColumns,
+    tableTotals,
     allPagesDisplay,
     tableSortBy,
     tableCells
@@ -69,6 +71,7 @@ define([
             linkedProducts,
             tableColumns,
             tableSortBy,
+            tableTotals,
             allPagesDisplay,
             tableCells
         ];
