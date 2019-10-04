@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import EmailAccounts from './EmailAccounts';
+import FtpAccounts from './FtpAccounts';
 
 let CombinedReducer = combineReducers({
-    emailAccounts: EmailAccounts
+    ftpAccounts: FtpAccounts
 });
 
 export default CombinedReducer;

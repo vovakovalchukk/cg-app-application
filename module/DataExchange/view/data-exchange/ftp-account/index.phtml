@@ -1,4 +1,28 @@
-<?php
-// To be done in MIG-33
-?>
-<h1>FTP Accounts</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="ftp-accounts-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('FTP Accounts and Settings'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'FtpAccount': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/FtpAccount',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+            }
+        });
+        require(["FtpAccount/App"], function(App) {
+            let app = new App(
+                document.getElementById('app-mount-node'),
+                {
+                    ftpAccounts: <?= json_encode($ftpAccounts); ?>,
+                    accountTypeOptions: <?= json_encode($ftpAccountTypeOptions); ?>,
+                    defaultPorts: <?= json_encode($ftpDefaultPorts); ?>,
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

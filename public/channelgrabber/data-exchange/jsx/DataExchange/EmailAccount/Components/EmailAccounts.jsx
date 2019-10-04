@@ -1,8 +1,13 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import styled from "styled-components";
 import EmailAccountsTable, {EmailAccountTypeFrom, EmailAccountTypeTo} from "./AccountsTable";
 import Actions from "../Actions/Actions";
+
+const Container = styled.div`
+    margin-top:45px;
+`;
 
 class EmailAccountsComponent extends React.Component {
     static defaultProps = {
@@ -19,10 +24,10 @@ class EmailAccountsComponent extends React.Component {
     };
 
     render() {
-        return (<div>
+        return (<Container>
             {this.renderAccountsTableForType(EmailAccountTypeFrom)}
             {this.renderAccountsTableForType(EmailAccountTypeTo)}
-        </div>);
+        </Container>);
     }
 }
 
@@ -37,8 +42,7 @@ const mapDispatchToProps = function(dispatch) {
         actions: bindActionCreators(
             Actions,
             dispatch
-        ),
-        actionTest: Actions
+        )
     };
 };
 

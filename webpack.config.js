@@ -21,6 +21,7 @@ module.exports = {
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
+        "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
     },
     module: {
         rules: [
