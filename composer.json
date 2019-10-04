@@ -84,7 +84,7 @@
         "channelgrabber/stdlib": "~2.16.9",
         "channelgrabber/stock": "~1.17.1",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "~1.6.12",
+        "channelgrabber/template": "dev-TAC-525-TemplateImageCache as 1.6.13",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.4",
         "channelgrabber/user": "~1.26.6",

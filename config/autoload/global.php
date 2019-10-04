@@ -124,6 +124,7 @@ use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 
 // Invoice Image Client
 use CG\Template\Image\ClientInterface as ImageTemplateClient;
+use CG\Template\Image\Client\Redis as ImageTemplateRedisClient;
 use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 
 // Couriers
@@ -217,7 +218,7 @@ $config = array(
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
-                ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
+                ImageTemplateClient::class => ImageTemplateRedisClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -654,6 +655,11 @@ $config = array(
                 'parameters' => [
                     'config' => 'app_config'
                 ]
+            ],
+            ImageTemplateRedisClient::class => [
+                'parameters' => [
+                    'fallbackClient' => ImageTemplateGuzzleClient::class,
+                ],
             ],
             ImageTemplateGuzzleClient::class => [
                 'parameters' => [
