@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
-import FtpAccounts from './FtpAccounts';
+import Accounts from './Accounts';
+import InitialAccounts from "./InitialAccounts";
 
 let CombinedReducer = combineReducers({
-    ftpAccounts: FtpAccounts
+    accounts: Accounts,
+    initialAccounts: InitialAccounts
 });
 
 export default CombinedReducer;

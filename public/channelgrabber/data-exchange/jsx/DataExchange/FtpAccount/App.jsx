@@ -4,7 +4,7 @@ import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import CombinedReducer from './Reducers/Combined';
-import FtpAccountsComponent from "./Components/FtpAccounts";
+import FtpAccountsComponent from "./Components/Accounts";
 
 let enhancer = applyMiddleware(thunk);
 
@@ -23,7 +23,8 @@ let App = function(mountingNode, data) {
     let store = createStore(
         CombinedReducer,
         {
-            ftpAccounts: data.ftpAccounts
+            accounts: data.ftpAccounts,
+            initialAccounts: data.ftpAccounts
         },
         enhancer
     );

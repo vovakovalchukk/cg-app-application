@@ -1,7 +1,7 @@
 import reducerCreator from 'Common/Reducers/creator';
 
 let initialState = {
-    ftpAccounts: {}
+    initialAccounts: []
 };
 
 export default reducerCreator(initialState, {});
