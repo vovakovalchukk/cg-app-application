@@ -1,11 +1,17 @@
 <?php
 
+use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
 use DataExchange\Controller\IndexController;
 use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
+use DataExchange\Controller\OrderExportController;
+use DataExchange\Controller\StockExportController;
+use DataExchange\Controller\StockImportController;
+use DataExchange\Controller\TemplateController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'view_manager' => [
@@ -24,6 +30,51 @@ return [
             ]
         ],
         'data-exchange-navigation' => [
+            'Stock' => [
+                'label' => 'Stock',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Import' => [
+                        'label' => 'Import',
+                        'title' => 'Import',
+                        'route' => Module::ROUTE . '/' . StockImportController::ROUTE
+                    ],
+                    'Export' => [
+                        'label' => 'Export',
+                        'title' => 'Export',
+                        'route' => Module::ROUTE . '/' . StockExportController::ROUTE
+                    ],
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_STOCK)
+                        ]
+                    ]
+                ]
+            ],
+            'Orders' => [
+                'label' => 'Orders',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Export' => [
+                        'label' => 'Export',
+                        'title' => 'Export',
+                        'route' => Module::ROUTE . '/' . OrderExportController::ROUTE
+                    ],
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER)
+                        ]
+                    ]
+                ]
+            ],
             'Accounts' => [
                 'label' => 'Accounts',
                 'uri' => '',
@@ -141,6 +192,142 @@ return [
                                         'action' => 'verify'
                                     ]
                                 ],
+                            ],
+                        ]
+                    ],
+                    TemplateController::ROUTE => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/:type/templates',
+                            'constraints' => [
+                                'type' => implode('|', TemplateController::getAllowedRouteTypes())
+                            ],
+                            'defaults' => [
+                                'controller' => TemplateController::class,
+                                'action' => 'index',
+
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            TemplateController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'save'
+                                    ]
+                                ]
+                            ],
+                            TemplateController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'controller' => TemplateController::class,
+                                        'action' => 'remove'
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ],
+                    StockImportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stock/import',
+                            'defaults' => [
+                                'controller' => StockImportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            StockImportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            StockImportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    StockExportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stock/export',
+                            'defaults' => [
+                                'controller' => StockExportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            StockExportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            StockExportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    OrderExportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/order/export',
+                            'defaults' => [
+                                'controller' => OrderExportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            OrderExportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderExportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
                             ],
                         ]
                     ],
