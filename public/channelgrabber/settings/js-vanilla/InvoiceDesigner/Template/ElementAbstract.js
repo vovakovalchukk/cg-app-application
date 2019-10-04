@@ -49,8 +49,6 @@ define([
         var minHeight = null;
         var maxHeight = null;
 
-
-
         this.getId = function()
         {
             if (!this.get('id')) {
