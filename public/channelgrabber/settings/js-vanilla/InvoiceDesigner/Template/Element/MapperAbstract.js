@@ -171,7 +171,7 @@ define([
         }
 
         if (element.getErrorBorder()) {
-            domStyles.push('border: 2px red dashed');
+            domStyles.push('border: 2px #ec4832 dashed');
         }
 
         return domStyles;

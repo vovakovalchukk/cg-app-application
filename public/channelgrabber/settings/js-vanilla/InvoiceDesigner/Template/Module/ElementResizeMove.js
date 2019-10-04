@@ -46,12 +46,8 @@ define([
 
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
-        console.log('elementMoved...');
-        // todo - apply (safe) border here if element is in the safe zone
-
-
         var element = this.getElementByDomId(elementDomId);
-        this.isElementInPrintableArea(element.id) ? element.setErrorBorder(false) : element.setErrorBorder(true);
+        this.isElementInPrintableArea(elementDomId) ? element.setErrorBorder(false) : element.setErrorBorder(true);
 
         element.setX(position.left.pxToMm());
         element.setY(position.top.pxToMm());
@@ -66,11 +62,10 @@ define([
 
     ElementResizeMove.prototype.isElementInPrintableArea = function(elementId)
     {
-        const domIdPrefix = ElementMapperAbstract.getDomIdPrefix();
         const workableAreaIndicator = document.getElementById('workableAreaIndicator');
         const areaRect = workableAreaIndicator.getBoundingClientRect();
 
-        let node = document.getElementById(`${domIdPrefix}${elementId}`);
+        let node = document.getElementById(elementId);
         let elementRect = node.getBoundingClientRect();
 
         let isWithinLeftBoundary = elementRect.left >= areaRect.left;

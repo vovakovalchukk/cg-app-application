@@ -1,11 +1,13 @@
 define([
         'InvoiceDesigner/Template/StorageAbstract',
         'InvoiceDesigner/Template/Module/ElementResizeMove',
+        'InvoiceDesigner/Template/Element/MapperAbstract',
         'jquery'
     ],
     function(
         StorageAbstract,
         ElementResizeMove,
+        ElementMapperAbstract,
         $
     ) {
         var Ajax = function() {
@@ -47,10 +49,12 @@ define([
 
         function getInvalidElementIds(template, templateJSON) {
             const invalidIds = [];
+            const domIdPrefix = ElementMapperAbstract.getDomIdPrefix();
+
             for (let element of templateJSON.elements) {
-                let isElementValid = ElementResizeMove.isElementInPrintableArea(element.id);
+                let domId = `${domIdPrefix}${element.id}`;
+                let isElementValid = ElementResizeMove.isElementInPrintableArea(domId);
                 if (!isElementValid) {
-//                return false;
                     invalidIds.push(element.id);
                 }
             }
