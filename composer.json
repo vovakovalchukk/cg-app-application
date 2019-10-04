@@ -60,7 +60,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "~1.47.1",
+        "channelgrabber/order": "dev-CGIV-10298-phone-number-with-0-prefix as 1.47.2",
         "channelgrabber/partner": "1.0.4",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",

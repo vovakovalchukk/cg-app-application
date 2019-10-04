@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba880695812feb204c11aa36ed23f841",
+    "content-hash": "1599185213e4185e05665df5470f6043",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2276,16 +2276,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.1",
+            "version": "dev-CGIV-10298-phone-number-with-0-prefix",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "30bac93c286c3dbcff71cb64e37595cb703c041f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.1-86d7b6.zip",
-                "reference": "30bac93c286c3dbcff71cb64e37595cb703c041f"
+                "reference": "13f4b827426e91525588b7220b738c3c2c467b6c"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -11637,13 +11632,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.47.2",
+            "alias_normalized": "1.47.2.0",
+            "version": "dev-CGIV-10298-phone-number-with-0-prefix",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
