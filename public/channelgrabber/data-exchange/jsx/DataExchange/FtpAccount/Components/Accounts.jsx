@@ -14,6 +14,10 @@ class FtpAccountsComponent extends React.Component {
         defaultPorts: {}
     };
 
+    componentDidMount = () => {
+        this.addNewFtpAccount();
+    };
+
     renderTableHeader = () => {
         return <tr>
             <th>Type</th>
@@ -72,17 +76,21 @@ class FtpAccountsComponent extends React.Component {
 
     onInputValueChange = (index, property, newValue) => {
         if (this.isLastAccount(index)) {
-            this.props.actions.addNewAccount({
-                initialDir: 'public_html',
-                password: '',
-                port: this.props.defaultPorts.ftp,
-                server: '',
-                type: 'ftp',
-                username: ''
-            });
+            this.addNewFtpAccount();
         }
 
         this.props.actions.updateInputValue(index, property, newValue);
+    };
+
+    addNewFtpAccount = () => {
+        this.props.actions.addNewAccount({
+            initialDir: 'public_html',
+            password: '',
+            port: this.props.defaultPorts.ftp,
+            server: '',
+            type: 'ftp',
+            username: ''
+        });
     };
 
     isLastAccount = (index) => {

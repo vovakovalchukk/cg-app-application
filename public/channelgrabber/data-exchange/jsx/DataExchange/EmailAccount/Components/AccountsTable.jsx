@@ -33,7 +33,6 @@ class EmailAccountsTable extends React.Component {
 
     saveTimeoutIds = {};
 
-
     componentDidMount() {
         this.addNewEmailAccount();
         window.addEventListener('beforeunload', this.beforeunload.bind(this));
