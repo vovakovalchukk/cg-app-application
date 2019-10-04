@@ -47,8 +47,8 @@ define([
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
         var element = this.getElementByDomId(elementDomId);
-        this.isElementInPrintableArea(elementDomId) ? element.setErrorBorder(false) : element.setErrorBorder(true);
 
+        element.applyErrorBorderIfNeeded();
         element.setX(position.left.pxToMm());
         element.setY(position.top.pxToMm());
     };
@@ -59,6 +59,8 @@ define([
         var element = this.getTemplate().getElements().getById(elementId);
         return element;
     };
+
+
 
     ElementResizeMove.prototype.isElementInPrintableArea = function(elementId)
     {

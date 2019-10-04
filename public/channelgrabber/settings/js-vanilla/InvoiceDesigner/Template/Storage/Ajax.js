@@ -2,13 +2,15 @@ define([
         'InvoiceDesigner/Template/StorageAbstract',
         'InvoiceDesigner/Template/Module/ElementResizeMove',
         'InvoiceDesigner/Template/Element/MapperAbstract',
-        'jquery'
+        'jquery',
+        'InvoiceDesigner/Template/Element/Helpers/Element',
     ],
     function(
         StorageAbstract,
         ElementResizeMove,
         ElementMapperAbstract,
-        $
+        $,
+        ElementHelper
     ) {
         var Ajax = function() {
             StorageAbstract.call(this);
@@ -47,28 +49,6 @@ define([
             return template;
         };
 
-        function getInvalidElementIds(template, templateJSON) {
-            const invalidIds = [];
-            const domIdPrefix = ElementMapperAbstract.getDomIdPrefix();
-
-            for (let element of templateJSON.elements) {
-                let domId = `${domIdPrefix}${element.id}`;
-                let isElementValid = ElementResizeMove.isElementInPrintableArea(domId);
-                if (!isElementValid) {
-                    invalidIds.push(element.id);
-                }
-            }
-            return invalidIds;
-        }
-        function applyBordersToOffendingElements(template, elementIds) {
-            let templateElements = template.getElements().getItems();
-            elementIds.forEach((id, index) => {
-                let element = templateElements[id];
-                let populating = index < elementIds.length - 1;
-                element.setErrorBorder(true, populating);
-            });
-        }
-
         Ajax.prototype.save = function(template) {
             var self = this;
 
@@ -77,7 +57,6 @@ define([
             };
 
             n.notice('Preparing template');
-
             var templateJSON = self.getMapper().toJson(template);
             var templateString = JSON.stringify(templateJSON);
 
@@ -115,4 +94,26 @@ define([
         };
 
         return new Ajax();
+
+        function getInvalidElementIds(template, templateJSON) {
+            const invalidIds = [];
+            const templateElements = template.getElements().getItems();
+            for (let elementJSON of templateJSON.elements) {
+                let element = templateElements[elementJSON.id]
+                let domId = ElementHelper.getElementDomId(element);
+                let isElementValid = ElementResizeMove.isElementInPrintableArea(domId);
+                if (!isElementValid) {
+                    invalidIds.push(elementJSON.id);
+                }
+            }
+            return invalidIds;
+        }
+        function applyBordersToOffendingElements(template, elementIds) {
+            let templateElements = template.getElements().getItems();
+            elementIds.forEach((id, index) => {
+                let element = templateElements[id];
+                let populating = index < elementIds.length - 1;
+                element.setErrorBorder(true, populating);
+            });
+        }
     });

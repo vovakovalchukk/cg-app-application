@@ -1,10 +1,14 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
     'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Template/Element/Helpers/Element',
+    'InvoiceDesigner/Template/Module/ElementResizeMove',
     'Common/IdGenerator'
 ], function(
     EntityHydrateAbstract,
     PubSubAbstract,
+    ElementHelper,
+    ElementResizeMove,
     idGenerator
 ) {
     var ElementAbstract = function(additionalData)
@@ -44,6 +48,8 @@ define([
         var maxWidth = null;
         var minHeight = null;
         var maxHeight = null;
+
+
 
         this.getId = function()
         {
@@ -302,8 +308,21 @@ define([
             for (var key in inspectors) {
                 this.disableBaseInspector(inspectors[key]);
             }
+        };
+
+        this.getDomId = function() {
+            this.applyErrorBorderIfNeeded = function()
+            {
+                const elementDomId = ElementHelper.getElementDomId(this);
+                ElementResizeMove.isElementInPrintableArea(elementDomId) ? this.setErrorBorder(false) : this.setErrorBorder(true);
+            };
         }
 
+        this.applyErrorBorderIfNeeded = function()
+        {
+            const elementDomId = ElementHelper.getElementDomId(this);
+            ElementResizeMove.isElementInPrintableArea(elementDomId) ? this.setErrorBorder(false) : this.setErrorBorder(true);
+        };
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
          */
