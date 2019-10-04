@@ -308,19 +308,13 @@ define([
             }
         };
 
-        this.getDomId = function() {
-            this.applyErrorBorderIfNeeded = function()
-            {
-                const elementDomId = ElementHelper.getElementDomId(this);
-                ElementResizeMove.isElementInPrintableArea(elementDomId) ? this.setErrorBorder(false) : this.setErrorBorder(true);
-            };
-        }
-
         this.applyErrorBorderIfNeeded = function()
         {
             const elementDomId = ElementHelper.getElementDomId(this);
-            ElementResizeMove.isElementInPrintableArea(elementDomId) ? this.setErrorBorder(false) : this.setErrorBorder(true);
+            ElementResizeMove.isElementInPrintableArea(elementDomId) ?
+                this.setErrorBorder(false) : this.setErrorBorder(true);
         };
+
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
          */
