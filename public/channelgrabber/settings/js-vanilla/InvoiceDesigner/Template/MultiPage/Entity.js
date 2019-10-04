@@ -26,8 +26,7 @@ define([
             rows: null,
             columns: null,
             width: null,
-            height: null,
-            visibility: false
+            height: null
         };
         let workableAreaIndicatorElement = null;
 
@@ -36,21 +35,12 @@ define([
         };
 
         this.render = function(template, templatePageElement) {
-            this.setVisibilityFromData(this.getHeight(), this.getWidth());
             this.renderWorkableAreaIndicator(template, templatePageElement);
             this.renderMultiPageGuidelines(template, templatePageElement);
         };
 
         this.getEntityName = function() {
             return 'MultiPage';
-        };
-
-        this.setVisibilityFromData = function(height, width) {
-            if (!height || !width) {
-                this.setVisiblity(false);
-                return;
-            }
-            this.setVisiblity(true);
         };
 
         this.renderWorkableAreaIndicator = function(template, templatePageElement) {
@@ -86,6 +76,14 @@ define([
             templatePageElement.prepend(gridContainer);
         };
 
+        this.getDimensionForWorkableAreaIndicator = function(template, dimension) {
+            const multiPageDimensionValue = this.getData()[dimension];
+            if (multiPageDimensionValue) {
+                return multiPageDimensionValue;
+            }
+            return this.getDimensionValueToBeRelativeTo(template, dimension);
+        };
+
         this.createWorkableAreaIndicator = function(template) {
             const paperPage = template.getPaperPage();
             const printPage = template.getPrintPage();
@@ -93,10 +91,9 @@ define([
             const measurementUnit = paperPage.getMeasurementUnit();
 
             let element = document.createElement('div');
-            let visibility = this.getVisibility();
 
-            let height = this.getHeight(template) + measurementUnit;
-            let width = this.getWidth(template) + measurementUnit;
+            let height = this.getDimensionForWorkableAreaIndicator(template, 'height') + measurementUnit;
+            let width = this.getDimensionForWorkableAreaIndicator(template, 'width') + measurementUnit;
 
             let top = printPage.getMargin('top') + measurementUnit;
             let left = printPage.getMargin('left') + measurementUnit;
@@ -107,21 +104,12 @@ define([
             element.style.width = width;
             element.style.top = top;
             element.style.left = left;
-            element.style.visibility = visibility ? 'visible' : 'hidden';
 
             return element;
         };
 
         this.setWorkableAreaIndicatorElement = function(newElement) {
             workableAreaIndicatorElement = newElement;
-        };
-
-        this.setVisiblity = function(value) {
-            data['visibility'] = value;
-        };
-
-        this.getVisibility = function() {
-            return data['visibility'];
         };
 
         this.getHeight = function() {
@@ -229,7 +217,6 @@ define([
         let data = Object.assign({}, this.getData());
         delete data.rows;
         delete data.columns;
-        delete data.visibility;
         if (!data.width || !data.height) {
             return {};
         }

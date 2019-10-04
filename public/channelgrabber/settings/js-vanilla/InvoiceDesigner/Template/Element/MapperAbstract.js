@@ -39,6 +39,11 @@ define([
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
     MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
 
+    MapperAbstract.getDomIdPrefix = function()
+    {
+        return MapperAbstract.ELEMENT_DOM_ID_PREFIX;
+    };
+
     MapperAbstract.getDomId = function(element)
     {
         return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
@@ -164,6 +169,11 @@ define([
         for (var key in extraDomStyles) {
             domStyles.push(extraDomStyles[key]);
         }
+
+        if (element.getErrorBorder()) {
+            domStyles.push('border: 2px red dashed');
+        }
+
         return domStyles;
     };
 

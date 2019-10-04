@@ -22,6 +22,7 @@ define([
             backgroundColour: undefined,
             borderWidth: 1,
             borderColour: 'black',
+            errorBorder: false,
             allPagesDisplay: false
         };
         var baseInspectableAttributes = [];
@@ -171,6 +172,14 @@ define([
 
         this.getDisplayOnAllPages = function() {
             return this.get('allPagesDisplay');
+        };
+
+        this.setErrorBorder = function(value, populating) {
+            this.set('errorBorder', value, populating);
+        };
+
+        this.getErrorBorder = function() {
+            return this.get('errorBorder');
         };
 
         this.get = function(field)

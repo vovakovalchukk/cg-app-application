@@ -17,14 +17,12 @@ define([
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
+            errorBorder: false,
             showVat: false,
             linkedProductsDisplay: null,
             tableColumns,
             tableSortBy,
             tableCells
-        };
-        const data = {
-            activeCellNodeId: null
         };
 
         ElementAbstract.call(this, additionalData);

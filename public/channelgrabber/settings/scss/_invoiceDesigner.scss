@@ -93,7 +93,6 @@ $indicator-border-color: #1477aa;
 
 .template-element{
     cursor: move;
-    box-sizing: border-box;
     @include user-select(none);
 }
 

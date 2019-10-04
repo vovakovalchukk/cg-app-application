@@ -46,7 +46,13 @@ define([
 
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
+        console.log('elementMoved...');
+        // todo - apply (safe) border here if element is in the safe zone
+
+
         var element = this.getElementByDomId(elementDomId);
+        this.isElementInPrintableArea(element.id) ? element.setErrorBorder(false) : element.setErrorBorder(true);
+
         element.setX(position.left.pxToMm());
         element.setY(position.top.pxToMm());
     };
@@ -56,6 +62,26 @@ define([
         var elementId = ElementMapperAbstract.getElementIdFromDomId(elementDomId);
         var element = this.getTemplate().getElements().getById(elementId);
         return element;
+    };
+
+    ElementResizeMove.prototype.isElementInPrintableArea = function(elementId)
+    {
+        const domIdPrefix = ElementMapperAbstract.getDomIdPrefix();
+        const workableAreaIndicator = document.getElementById('workableAreaIndicator');
+        const areaRect = workableAreaIndicator.getBoundingClientRect();
+
+        let node = document.getElementById(`${domIdPrefix}${elementId}`);
+        let elementRect = node.getBoundingClientRect();
+
+        let isWithinLeftBoundary = elementRect.left >= areaRect.left;
+        let isWithinRightBoundary = elementRect.right <= areaRect.right;
+        let isWithinTopBoundary = elementRect.top >= areaRect.top;
+        let isWithinBottomBoundary = elementRect.bottom <= areaRect.bottom;
+
+        return (isWithinLeftBoundary &&
+            isWithinRightBoundary &&
+            isWithinTopBoundary &&
+            isWithinBottomBoundary);
     };
 
     return new ElementResizeMove();
