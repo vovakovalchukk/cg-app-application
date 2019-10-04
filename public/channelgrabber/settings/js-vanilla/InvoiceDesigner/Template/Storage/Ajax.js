@@ -18,7 +18,6 @@ define([
 
         Ajax.prototype.fetch = function(id) {
             var template;
-            var self = this;
             if (!id) {
                 throw 'InvalidArgumentException: InvoiceDesigner\Template\Storage\Ajax::fetch must be passed an id';
             }
@@ -28,9 +27,9 @@ define([
                 'method': 'POST',
                 'dataType': 'json',
                 'async': false,
-                'success': function invoiceFetchSuccess(data) {
+                'success': data => {
                     let templateData = JSON.parse(data['template']);
-                    template = self.getMapper().fromJson(templateData);
+                    template = this.getMapper().fromJson(templateData);
                 },
                 'error': function() {
                     throw 'Unable to load template';
@@ -45,7 +44,7 @@ define([
             };
 
             n.notice('Preparing template');
-            const templateJSON = self.getMapper().toJson(template);
+            const templateJSON = this.getMapper().toJson(template);
             const templateString = JSON.stringify(templateJSON);
 
             const invalidElementIds = getInvalidElementIds(template, templateJSON);
@@ -100,7 +99,7 @@ define([
             const templateElements = template.getElements().getItems();
             elementIds.forEach((id, index) => {
                 let element = templateElements[id];
-                let populating = index < elementIds.length - 1;
+                let populating = elementIds.length === 1 || index < elementIds.length - 1;
                 element.setErrorBorder(true, populating);
             });
         }
