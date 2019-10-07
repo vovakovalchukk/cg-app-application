@@ -47,7 +47,10 @@ define([
             <table>
                 <tbody>
                     ${renderTotalRow(total => (
-                        `<tr><th>${total.displayText}</th><td>${total.placeholder}</td></tr>`
+                        `<tr>
+                            <th>${total.displayText}</th>
+                            <td>${total.placeholder}</td>
+                        </tr>`
                     ))}
                 </tbody>
             </table>

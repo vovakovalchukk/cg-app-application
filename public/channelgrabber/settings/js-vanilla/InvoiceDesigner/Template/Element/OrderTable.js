@@ -123,6 +123,7 @@ define([
         });
         return formatted;
     }
+
     function formatTableColumnsForBackend(tableColumns) {
         if (!tableColumns) {
             return [];
@@ -149,15 +150,13 @@ define([
             return [];
         }
 
-        const formatted = tableSortBy.map((sortByItem) => {
+        return tableSortBy.map((sortByItem) => {
             let {id, position} = sortByItem;
             return {
                 column: id,
                 position
             };
         });
-
-        return formatted;
     }
 
     function areAllPositionsUndefined(columns) {

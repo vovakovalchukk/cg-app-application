@@ -53,7 +53,7 @@ define([
                 'display': true,
                 'title': 'Table Totals',
                 'id': 'table-collapsible'
-            }, "collapsible", {'content': listHtml});
+            }, 'collapsible', {'content': listHtml});
 
             const tableTotalsInspector = document.getElementById(TableTotals.TABLE_TOTALS_INSPECTOR_ID);
             const template = cgmustache.renderTemplate(collapsible, {}, 'tableTotals');
