@@ -49,7 +49,7 @@ define([
 
             const invalidElementIds = getInvalidElementIds(template, templateJSON);
             if (invalidElementIds.length) {
-                applyBordersToOffendingElements(template, invalidElementIds);
+                applyBordersToInvalidElements(template, invalidElementIds);
                 n.error('Template cannot be saved due to there being some elements outside of the printable area');
                 return;
             }
@@ -95,7 +95,7 @@ define([
             }
             return invalidIds;
         }
-        function applyBordersToOffendingElements(template, elementIds) {
+        function applyBordersToInvalidElements(template, elementIds) {
             const templateElements = template.getElements().getItems();
             elementIds.forEach((id, index) => {
                 let element = templateElements[id];
