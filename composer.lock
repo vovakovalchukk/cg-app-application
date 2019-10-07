@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c520fca97ed6d9b7e79564a00a3ee28",
+    "content-hash": "015659369fdff404e6e16e4e3c12515f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1014,16 +1014,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.0",
+            "version": "dev-CGIV-10325-parcelforec-address-split-irish-address",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.0-91e6a1.zip",
-                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa"
+                "reference": "690c2c4f94edf31bdfb946fa3ffcde3bb529e3d6"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.0",
@@ -11726,13 +11721,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-CGIV-10325-parcelforec-address-split-irish-address",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
