@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b970fbe73c6addf2509b6bee88b806f",
+    "content-hash": "0c520fca97ed6d9b7e79564a00a3ee28",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2314,16 +2314,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-10298-phone-number-with-0-prefix",
+            "version": "1.47.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "13f4b827426e91525588b7220b738c3c2c467b6c"
+                "reference": "c2127050e170bc6bbbbe7aa1c7dc3024b69587fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10298-phone-number-with-0-prefix-64de29.zip",
-                "reference": "13f4b827426e91525588b7220b738c3c2c467b6c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.2-3fb5d9.zip",
+                "reference": "c2127050e170bc6bbbbe7aa1c7dc3024b69587fc"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2397,7 +2397,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-04T13:46:41+00:00"
+            "time": "2019-10-07T08:09:13+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -10446,8 +10446,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11727,18 +11726,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.2",
-            "alias_normalized": "1.47.2.0",
-            "version": "dev-CGIV-10298-phone-number-with-0-prefix",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
