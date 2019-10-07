@@ -1,11 +1,13 @@
 define([
     'cg-mustache',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/Template/Element/Service'
+    'InvoiceDesigner/Template/Element/Service',
+    'InvoiceDesigner/Template/Element/Helpers/Element'
 ], function(
     CGMustache,
     domManipulator,
-    elementService
+    elementService,
+    ElementHelper
 ) {
     var MapperAbstract = function()
     {
@@ -44,14 +46,9 @@ define([
         return MapperAbstract.ELEMENT_DOM_ID_PREFIX;
     };
 
-    MapperAbstract.getDomId = function(element)
-    {
-        return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
-    };
-
     MapperAbstract.getDomWrapperId = function(element)
     {
-        return MapperAbstract.getDomId(element)+'-wrapper';
+        return ElementHelper.getElementDomId(element)+'-wrapper';
     };
 
     MapperAbstract.getElementIdFromDomId = function(domId)
@@ -71,7 +68,7 @@ define([
 
     MapperAbstract.prototype.toHtml = function(element)
     {
-        var domId = MapperAbstract.getDomId(element);
+        var domId = ElementHelper.getElementDomId(element);
 
         var wrapperCssStyle = this.getDomWrapperStyles(element).join('; ');
         var wrapperCssClasses = this.getDomWrapperClasses(element).join(' ');

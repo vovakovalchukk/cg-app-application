@@ -4,6 +4,7 @@ define([
     'InvoiceDesigner/Template/Mapper',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/Helpers/Element',
     // Template Module requires here
     'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/TemplateType',
@@ -22,7 +23,8 @@ define([
     templateAjaxStorage,
     templateMapper,
     templateDomManipulator,
-    ElementMapperAbstract
+    ElementMapperAbstract,
+    ElementHelper
 ) {
     var Service = function()
     {
@@ -194,7 +196,7 @@ define([
         const printPage = template.getPrintPage();
         const multiPage = template.getMultiPage();
 
-        const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
+        const templatePageElementId = ElementHelper.getElementDomId(paperPage);
 
         let html = this.getMapper().toHtml(template);
         let domManipulator = this.getDomManipulator();

@@ -1,9 +1,11 @@
 define([
     'cg-mustache',
-    'InvoiceDesigner/Template/Element/MapperAbstract'
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/Helpers/Element'
 ], function(
     CGMustache,
-    MapperAbstract
+    MapperAbstract,
+    ElementHelper
 ) {
     var Mapper = function()
     {
@@ -20,7 +22,7 @@ define([
 
     Mapper.prototype.toHtml = function(paperPage)
     {
-        var domId = MapperAbstract.getDomId(paperPage);
+        var domId = ElementHelper.getElementDomId(paperPage);
         var cssClasses = this.getDomClasses(paperPage).join(' ');
         var cssStyle = this.getDomStyles(paperPage).join('; ');
         var htmlContents = paperPage.getHtmlContents();

@@ -1,16 +1,14 @@
-define([
-    'InvoiceDesigner/Template/Element/MapperAbstract',
-], function(
-    ElementMapperAbstract
-) {
+define([], function() {
     const ElementHelper = function() {
         return this;
     };
 
+    ElementHelper.ELEMENT_DOM_CLASS = 'template-element';
+
     ElementHelper.prototype.getElementDomId = function(element) {
-        const domIdPrefix = ElementMapperAbstract.getDomIdPrefix();
+        const domIdPrefix = ElementHelper.ELEMENT_DOM_CLASS;
         const elementId = element.getId();
-        return `${domIdPrefix}${elementId}`
+        return `${domIdPrefix}-${elementId}`
     };
 
     return new ElementHelper;
