@@ -658,6 +658,7 @@ $config = array(
             ],
             ImageTemplateRedisClient::class => [
                 'parameters' => [
+                    'redis' => 'invoice-images_redis',
                     'fallbackClient' => ImageTemplateGuzzleClient::class,
                 ],
             ],
