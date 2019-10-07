@@ -185,11 +185,11 @@ define([
         const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
         const allPossibleColumns = TableStorage.getColumns();
 
-        if (!Array.isArray(tableColumns)) {
+        if (!Array.isArray(tableColumns) || !tableColumns.length) {
             return TableStorage.getDefaultColumns();
         }
 
-        const formattedColumns = tableColumns.map(column => {
+        return tableColumns.map(column => {
             const matchedColumnInStorage = allPossibleColumns.find(storageColumn => {
                 return storageColumn.id === column.id;
             });
@@ -199,19 +199,17 @@ define([
                 cellPlaceholder
             }
         });
-
-        return formattedColumns;
     }
 
     function applyDefaultsToTableTotals(tableTotals) {
         const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
         const allTableTotals = TableStorage.getTableTotals();
 
-        if(!Array.isArray(tableTotals)) {
+        if(!Array.isArray(tableTotals) || !tableTotals.length) {
             return [];
         }
 
-        const formattedTotals = tableTotals.map(total => {
+        return tableTotals.map(total => {
             const matchedTotalInStorage = allTableTotals.find(storageTotal => {
                 return storageTotal.id === total.id;
             });
@@ -223,6 +221,5 @@ define([
                 displayText
             };
         });
-        return formattedTotals;
     }
 });

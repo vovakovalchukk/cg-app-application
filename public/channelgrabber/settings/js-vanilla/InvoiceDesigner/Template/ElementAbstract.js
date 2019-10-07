@@ -24,6 +24,7 @@ define([
             borderColour: 'black',
             allPagesDisplay: false
         };
+
         var baseInspectableAttributes = [];
         for (var field in data) {
             baseInspectableAttributes.push(field);

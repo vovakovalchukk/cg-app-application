@@ -39,7 +39,6 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, async (templates, cgmustache) => {
             const list = new dragAndDropList({
                 setItems: function setItems(items) {
-                    console.log('items: ', items);
                     element.setTableTotals(items);
                 },
                 allItems: allTableTotals,
