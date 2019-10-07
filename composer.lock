@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c260e9f6e5a779c0c5bd9b76fd88ca7",
+    "content-hash": "f532a4542d799b4b5342b05c0bad409e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -333,6 +333,45 @@
                 "tag"
             ],
             "time": "2017-03-13T09:14:27+00:00"
+        },
+        {
+            "name": "channelgrabber/access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-access.git",
+                "reference": "3dd4f18584d7bd343f03ffc9f62b8b85f00e01d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/access/channelgrabber-access-1.0.0-5e8cef.zip",
+                "reference": "3dd4f18584d7bd343f03ffc9f62b8b85f00e01d5",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/billing": "^1.20.16",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.16.10",
+                "channelgrabber/usage-check": "^1.2.4",
+                "channelgrabber/user": "^1.26.8",
+                "php": ">=7.1",
+                "zendframework/zend-di": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Access\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Access\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-05T12:42:31+00:00"
         },
         {
             "name": "channelgrabber/amazon",
@@ -3711,25 +3750,25 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ec6b0909906981d1ee5469080208624f93356141"
+                "reference": "91c7b0cc66f1031becef73423c62896a53b857d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-f3b89c.zip",
-                "reference": "ec6b0909906981d1ee5469080208624f93356141",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-c80077.zip",
+                "reference": "91c7b0cc66f1031becef73423c62896a53b857d6",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": ">=1.6.0,<2.0.0",
+                "channelgrabber/channel": "^1.6.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.46.9",
-                "channelgrabber/product": "^1.10.1",
+                "channelgrabber/order": "dev-TAC-447-invoice-designer-improvements as 1.47.2",
+                "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/user": "^1.26.0",
@@ -3739,9 +3778,9 @@
                 "php": ">=7.1",
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "picqer/php-barcode-generator": "~0.2.1",
-                "zendframework/zend-di": ">=2.2.5,<3.0",
-                "zendframework/zend-i18n": ">=2.2.5,<3.0",
-                "zendframework/zend-view": ">=2.2.6,<3.0",
+                "zendframework/zend-di": "^2.2.5",
+                "zendframework/zend-i18n": "^2.2.5",
+                "zendframework/zend-view": "^2.2.6",
                 "zendframework/zendpdf": "2.0.2.2"
             },
             "require-dev": {
@@ -3765,7 +3804,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-09-16T10:36:14+00:00"
+            "time": "2019-10-04T07:36:48+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3878,16 +3917,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.6",
+            "version": "1.26.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.9-da9ebe.zip",
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4",
                 "shasum": null
             },
             "require": {
@@ -3933,7 +3972,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-04-04T07:40:33+00:00"
+            "time": "2019-09-19T10:14:15+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4245,6 +4284,57 @@
                 }
             },
             "time": "2014-10-15T12:09:57+00:00"
+        },
+        {
+            "name": "channelgrabber/zf2-access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/access-module.git",
+                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.0-6ec7a2.zip",
+                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/access": "^1.0.0",
+                "channelgrabber/billing": "^1.20.16",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.16.10",
+                "channelgrabber/usage": "^1.0.7",
+                "channelgrabber/usage-check": "^1.2.4",
+                "channelgrabber/user": "^1.26.8",
+                "channelgrabber/zf2-installer": "^1.0.6",
+                "php": ">=7.1",
+                "zendframework/zend-config": "~2.3",
+                "zendframework/zend-loader": "~2.3",
+                "zendframework/zend-modulemanager": "~2.3",
+                "zendframework/zend-session": "~2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_Access"
+            },
+            "autoload": {
+                "psr-4": {
+                    "CG_Access\\": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG_Access\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-09-05T12:53:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -4832,16 +4922,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6"
+                "reference": "25eb9c44bdb672587aa91414705682e1c5fd4a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.7-c490a5.zip",
-                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.8-fb345b.zip",
+                "reference": "25eb9c44bdb672587aa91414705682e1c5fd4a65",
                 "shasum": null
             },
             "require": {
@@ -4850,6 +4940,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/stdlib": "^2.13.0",
                 "channelgrabber/user": "^1.22.7",
+                "channelgrabber/zf2-access": "^1.0.0",
                 "php": ">=7.1",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5",
@@ -4878,7 +4969,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-31T07:06:22+00:00"
+            "time": "2019-10-04T12:03:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -11760,8 +11851,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.47.1",
-            "alias_normalized": "1.47.1.0",
+            "alias": "1.47.2",
+            "alias_normalized": "1.47.2.0",
             "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/order"
         },
