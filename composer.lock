@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f532a4542d799b4b5342b05c0bad409e",
+    "content-hash": "74d1f11ae203ffce1190804a38cdff3a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5331,16 +5331,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-514-users-to-be-to-click-into-cells",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b7aad3396def0569fdd5edfe9a3e84cf96e163b6"
+                "reference": "d4ecfd48765d935a449a7292921d19c64d8a4bf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-514-users-to-be-to-click-into-cells-eaa6ba.zip",
-                "reference": "b7aad3396def0569fdd5edfe9a3e84cf96e163b6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-246f44.zip",
+                "reference": "d4ecfd48765d935a449a7292921d19c64d8a4bf2",
                 "shasum": null
             },
             "require": {
@@ -5392,7 +5392,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-09-27T09:47:29+00:00"
+            "time": "2019-10-08T15:19:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11871,7 +11871,7 @@
         {
             "alias": "1.26.24",
             "alias_normalized": "1.26.24.0",
-            "version": "dev-TAC-514-users-to-be-to-click-into-cells",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
