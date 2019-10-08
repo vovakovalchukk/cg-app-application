@@ -3670,12 +3670,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stripe.git",
-                "reference": "3dc39b94d90e539c2299d5cbae478279a9b5e68d"
+                "reference": "748b5c02c19f0cc1e5e94764a09897822a7916e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stripe/channelgrabber-stripe-dev-TAC-490-stripe-add-card-details-9b5609.zip",
-                "reference": "3dc39b94d90e539c2299d5cbae478279a9b5e68d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stripe/channelgrabber-stripe-dev-TAC-490-stripe-add-card-details-2446c1.zip",
+                "reference": "748b5c02c19f0cc1e5e94764a09897822a7916e0",
                 "shasum": null
             },
             "require": {
@@ -3696,7 +3696,7 @@
                     "CG\\Stripe\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-02T07:58:40+00:00"
+            "time": "2019-10-08T10:27:52+00:00"
         },
         {
             "name": "channelgrabber/tax",
@@ -3909,16 +3909,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.6",
+            "version": "1.26.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.9-da9ebe.zip",
+                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4",
                 "shasum": null
             },
             "require": {
@@ -3964,7 +3964,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-04-04T07:40:33+00:00"
+            "time": "2019-09-19T10:14:15+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4366,12 +4366,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "7110dbc2e8394ee795fa6a2f654f0014c40ab98d"
+                "reference": "ceb0f2fd8cb6d2435dcbbd5640d613b8bd3e87a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-TAC-490-stripe-add-card-details-bc9db8.zip",
-                "reference": "7110dbc2e8394ee795fa6a2f654f0014c40ab98d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-TAC-490-stripe-add-card-details-cc70be.zip",
+                "reference": "ceb0f2fd8cb6d2435dcbbd5640d613b8bd3e87a4",
                 "shasum": null
             },
             "require": {
@@ -4380,6 +4380,7 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.13.0",
                 "channelgrabber/stdlib": "^2.15.0",
+                "channelgrabber/stripe": "dev-TAC-490-stripe-add-card-details as 1.0.2",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.25",
                 "channelgrabber/zf2-installer": "^1.0.6",
@@ -4409,7 +4410,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-10-02T08:02:42+00:00"
+            "time": "2019-10-08T09:05:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
