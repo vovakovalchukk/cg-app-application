@@ -3749,13 +3749,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1f4d8761ad8a15976113675b9d87b7619980ff88"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-525-TemplateImageCache-a2600b.zip",
-                "reference": "1f4d8761ad8a15976113675b9d87b7619980ff88",
-                "shasum": null
+                "reference": "3eb9035430ceb939a9c22e2c989894eea92ce901"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11859,8 +11853,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
