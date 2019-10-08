@@ -1,10 +1,16 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import styled from "styled-components";
 import Actions from "../Actions/Actions";
 import TypeColumn from "./Column/Type";
 import InputColumn from "./Column/Input";
 import FtpTestColumn from "./Column/FtpTest";
+import RemoveIcon from "Common/Components/RemoveIcon";
+
+const IconContainer = styled.span`
+    cursor: pointer;
+`;
 
 class FtpAccountsComponent extends React.Component {
     static defaultProps = {
@@ -18,6 +24,10 @@ class FtpAccountsComponent extends React.Component {
         this.addNewFtpAccount();
     };
 
+    isLastAccount = (index) => {
+        return this.props.accounts.length - 1 === index;
+    };
+
     renderTableHeader = () => {
         return <tr>
             <th>Type</th>
@@ -27,6 +37,7 @@ class FtpAccountsComponent extends React.Component {
             <th>Port</th>
             <th>Initial directory</th>
             <th>Test</th>
+            <th>Actions</th>
         </tr>;
     };
 
@@ -40,6 +51,7 @@ class FtpAccountsComponent extends React.Component {
                 <td>{this.renderInputColumnForType(account, index, 'port', 'number')}</td>
                 <td>{this.renderTextInputColumn(account, index, 'initialDir')}</td>
                 <td>{this.renderFtpTestColumn(account, index)}</td>
+                <td>{this.renderRemoveColumn(account, index)}</td>
             </tr>;
         });
     };
@@ -56,7 +68,28 @@ class FtpAccountsComponent extends React.Component {
         return <FtpTestColumn
             account={account}
             index={index}
+            onClick={this.props.actions.testFtpAccount.bind(this, index, account)}
         />
+    };
+
+    renderRemoveColumn = (account, index) => {
+        return <span>
+            <IconContainer>
+                <i
+                    className={'fa fa-2x fa-floppy-o'}
+                    aria-hidden="true"
+                    onClick={this.props.actions.saveAccount.bind(this, index, account)}
+                />
+            </IconContainer>
+            {!this.isLastAccount(index) &&
+                <IconContainer>
+                    <RemoveIcon
+                        className={'remove-icon-new'}
+                        onClick={this.props.actions.removeAccount.bind(this, index, account)}
+                    />
+                </IconContainer>
+            }
+        </span>
     };
 
     renderTextInputColumn = (account, index, property) => {
@@ -91,10 +124,6 @@ class FtpAccountsComponent extends React.Component {
             type: 'ftp',
             username: ''
         });
-    };
-
-    isLastAccount = (index) => {
-        return this.props.accounts.length - 1 === index;
     };
 
     render() {
