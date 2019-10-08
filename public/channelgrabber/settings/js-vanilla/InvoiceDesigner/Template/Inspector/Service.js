@@ -109,7 +109,10 @@ define([
         }
 
         heading.showForElement(element, this.getTemplate(), this);
-        allPagesDisplay.showForElement(element, this.getTemplate(), this);
+        
+        if (element.getType() !== 'OrderTable') {
+            allPagesDisplay.showForElement(element, this.getTemplate(), this);
+        }
 
         inspectors.each(function(inspector)
         {
