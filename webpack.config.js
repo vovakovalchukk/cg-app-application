@@ -20,7 +20,8 @@ module.exports = {
         "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
-    },
+        "data-exchange/js/DataExchange/StockTemplates/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockTemplates/Index.jsx",
+},
     module: {
         rules: [
             {
@@ -79,6 +80,7 @@ module.exports = {
         alias: {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
+            DataExchange: path.resolve(__dirname, 'public', 'channelgrabber', 'data-exchange', 'jsx', 'DataExchange'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             Courier: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'Courier'),

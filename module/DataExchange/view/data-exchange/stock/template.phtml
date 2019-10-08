@@ -10,24 +10,24 @@ require.config({
 $(document).ready(function() {
     const rootNode = document.getElementById('stock-templates-root');
     require([
-        "StockTemplates/App",
+        "StockTemplates/Index",
     ],
     function(
-        StockTemplates
+        StockTemplatesIndex
     ) {
-            const stockTemplates = new StockTemplates(
-                rootNode,
-                //<?= $this->templates ?>,
-            );
-        }
-    );
+        new StockTemplatesIndex(
+            rootNode,
+            <?= json_encode($this->templates) ?>,
+            <?= json_encode($this->cgFieldOptions) ?>
+        );
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large">
+    <h2 class="heading-large">
         Stock Templates
-    </span>
+    </h2>
 </div>
 <div class="module clearfix">
     <div id="stock-templates-root" class="u-clear-both u-margin-top-med"></div>
