@@ -1,1 +1,34 @@
-<h1>Stock Templates</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'StockTemplates': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/StockTemplates',
+        'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+    }
+});
+$(document).ready(function() {
+    const rootNode = document.getElementById('stock-templates-root');
+    require([
+        "StockTemplates/App",
+    ],
+    function(
+        StockTemplates
+    ) {
+            const stockTemplates = new StockTemplates(
+                rootNode,
+                //<?= $this->templates ?>,
+            );
+        }
+    );
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large">
+        Stock Templates
+    </span>
+</div>
+<div class="module clearfix">
+    <div id="stock-templates-root" class="u-clear-both u-margin-top-med"></div>
+</div>
