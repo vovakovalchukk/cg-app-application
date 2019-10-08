@@ -102,7 +102,7 @@
         "channelgrabber/zf2-email-template": "~1.0.26",
         "channelgrabber/zf2-go-cardless": "~2.0.1",
         "channelgrabber/zf2-hal": "~1.0.7",
-        "channelgrabber/zf2-logclient": "~1.5.1",
+        "channelgrabber/zf2-logclient": "dev-CGIV-10981-zf2-request-log-duration as 1.5.2",
         "channelgrabber/zf2-login": "~1.6.9",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.1.0",
