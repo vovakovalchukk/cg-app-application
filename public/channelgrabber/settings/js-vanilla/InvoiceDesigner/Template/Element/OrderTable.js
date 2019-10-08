@@ -114,14 +114,13 @@ define([
         if (!tableTotals) {
             return [];
         }
-        const formatted = tableTotals.map(({id, displayText, position}) => {
+        return tableTotals.map(({id, displayText, position}) => {
             return {
                 id,
                 position,
                 displayText
             };
         });
-        return formatted;
     }
 
     function formatTableColumnsForBackend(tableColumns) {
