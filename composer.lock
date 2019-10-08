@@ -1018,12 +1018,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "05017cc02d42d9cd7d7600857e1fab0e2653f662"
+                "reference": "eaaf0fb3c91787494fc1ca89c48ef97fff10043d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10325-parcelforec-address-split-irish-address-f3d266.zip",
-                "reference": "05017cc02d42d9cd7d7600857e1fab0e2653f662"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10325-parcelforec-address-split-irish-address-4be10f.zip",
+                "reference": "eaaf0fb3c91787494fc1ca89c48ef97fff10043d"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.0",
@@ -1057,7 +1057,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-08T09:32:28+00:00"
+            "time": "2019-10-08T11:23:36+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
