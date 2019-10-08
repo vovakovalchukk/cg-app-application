@@ -67,10 +67,45 @@ define([], function() {
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
         }
     ];
+    const allTableTotals = [
+        {
+            id: 'postageAndPackagingCost',
+            displayText: 'Postage & Packing',
+            position: 0,
+            placeholder: '£4.00',
+            optionText: "Postage & Packaging Cost",
+            default: true
+        },
+        {
+            id: 'totalExVat',
+            displayText: 'Subtotal',
+            position: 1,
+            placeholder: '£4.00',
+            optionText: "Total ex VAT",
+            default: true
+        },
+        {
+            id: 'totalVat',
+            displayText: 'VAT',
+            position: 2,
+            placeholder: '£0.80',
+            optionText: "Total VAT",
+            default: true
+        },
+        {
+            id: 'total',
+            displayText: 'Total',
+            position: 3,
+            placeholder: '£4.80',
+            optionText: "Total",
+            default: true
+        }
+    ];
 
     const TableStorage = (function() {
         return {
             getColumns,
+            getTableTotals,
             getDefaultSortBy: function() {
                 const defaultSortBy = getColumns().filter(column => {
                     return column.id === "descriptionInternal"
@@ -78,13 +113,22 @@ define([], function() {
                 defaultSortBy[0].position = 0;
                 return defaultSortBy;
             },
-            getTotals: function() {},
-            getDefaultColumns,
-            getSortBy: function() {}
+            getDefaultTableTotals,
+            getDefaultColumns
         };
 
         function getColumns() {
             return allColumns
+        }
+
+        function getTableTotals() {
+            return allTableTotals;
+        }
+
+        function getDefaultTableTotals() {
+            return getTableTotals().filter(total => {
+                return total.default;
+            });
         }
 
         function getDefaultColumns() {

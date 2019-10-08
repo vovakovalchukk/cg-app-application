@@ -3,12 +3,14 @@ define([
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/Template/Inspector/Helpers/dragAndDrop',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
     TableStorage,
     orderTableHelper,
+    dragAndDropHelper,
     CGMustache
 ) {
     let TableColumns = function() {
@@ -18,17 +20,18 @@ define([
         this.setInspectedAttributes(['tableColumns']);
     };
 
-    TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR = '#tableColumns-inspector';
+    TableColumns.TABLE_COLUMNS_INSPECTOR_ID = 'tableColumns-inspector';
 
     TableColumns.prototype = Object.create(InspectorAbstract.prototype);
 
     TableColumns.prototype.hide = function() {
-        this.getDomManipulator().render(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR, "");
+        this.getDomManipulator().render(`#${TableColumns.TABLE_COLUMNS_INSPECTOR_ID}`, "");
     };
 
     TableColumns.prototype.showForElement = function(element) {
-        const targetNode = document.querySelector(TableColumns.TABLE_COLUMNS_INSPECTOR_SELECTOR);
         const columnsOnElement = element.getTableColumns();
+
+        const listClasses = dragAndDropHelper.getDefaultDragAndDropCSSClasses();
 
         const templateUrlMap = {
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
@@ -47,16 +50,7 @@ define([
                 items: columnsOnElement.slice(),
                 id: 'table-columns-dnd',
                 renderTextInput: true,
-                listClasses: {
-                    dragActive: 'invoice-designer-list-item-drag-active',
-                    itemsContainer: 'drag-and-drop-list-list-item',
-                    listItem: 'invoice-designer-list-item',
-                    dragIcon: 'sprite sprite-drag-handle-black-24 invoice-designer-drag-icon',
-                    dragContainer: 'invoice-designer-drag-icon-container',
-                    deleteClass: 'sprite sprite-delete-18-black',
-                    addIcon: 'invoice-designer-drag-list-add-icon sprite sprite-plus-18-black',
-                    listItemInput: 'invoice-designer-drag-list-input'
-                }
+                listClasses
             });
 
             const listHtml = await list.generateList();
@@ -66,7 +60,7 @@ define([
                 'id': 'table-collapsible'
             }, "collapsible", {'content': listHtml});
 
-            const tableColumnsInspector = document.getElementById('tableColumns-inspector');
+            const tableColumnsInspector = document.getElementById(TableColumns.TABLE_COLUMNS_INSPECTOR_ID);
             const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
             tableColumnsInspector.append(document.createRange().createContextualFragment(template));
 

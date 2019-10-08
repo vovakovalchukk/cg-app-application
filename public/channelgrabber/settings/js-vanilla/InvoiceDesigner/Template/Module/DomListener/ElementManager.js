@@ -20,9 +20,9 @@ define([
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $(ElementManager.SELECTOR).off('click').click(function () {
+        $(ElementManager.SELECTOR).off('click').click(function (event) {
             var elementType = $(this).data('element');
-            self.getModule().addElementToCurrentTemplate(elementType);
+            self.getModule().addElementToCurrentTemplate(elementType, event);
         });
     };
 

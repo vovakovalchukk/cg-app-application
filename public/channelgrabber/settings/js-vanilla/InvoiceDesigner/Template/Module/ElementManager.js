@@ -74,11 +74,11 @@ define([
         this.getDomManipulator().show(this.getDomListener().getContainerSelector());
     };
 
-    ElementManager.prototype.addElementToCurrentTemplate = function(elementName)
+    ElementManager.prototype.addElementToCurrentTemplate = function(elementName, event)
     {
         var element = this.getTemplateService().getMapper().createNewElement(elementName);
         this.getTemplate().addElement(element);
-        this.getDomManipulator().triggerElementSelectedEvent(element);
+        this.getDomManipulator().triggerElementSelectedEvent(element, event);
     };
 
     return new ElementManager();

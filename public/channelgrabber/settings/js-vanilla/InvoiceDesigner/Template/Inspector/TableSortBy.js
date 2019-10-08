@@ -2,11 +2,13 @@ define([
     'InvoiceDesigner/Template/InspectorAbstract',
     'InvoiceDesigner/dragAndDropList',
     'InvoiceDesigner/Template/Storage/Table',
+    'InvoiceDesigner/Template/Inspector/Helpers/dragAndDrop',
     'cg-mustache'
 ], function(
     InspectorAbstract,
     dragAndDropList,
     TableStorage,
+    dragAndDropHelper,
     CGMustache
 ) {
     let TableSortBy = function() {
@@ -26,7 +28,10 @@ define([
 
     TableSortBy.prototype.showForElement = function(element) {
         const targetNode = document.querySelector(TableSortBy.TABLE_SORTBY_COLUMNS_INSPECTOR);
-        const tableSortBy = element.getTableSortBy();
+        const tableSortBy = element.getTableSortBy().sort((a, b) => {
+            return a.position - b.position;
+        });
+        const listClasses = dragAndDropHelper.getDefaultDragAndDropCSSClasses();
 
         const templateUrlMap = {
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
@@ -41,16 +46,7 @@ define([
                 allItems: TableStorage.getColumns(),
                 items: tableSortBy.slice(),
                 itemLimit: 3,
-                listClasses: {
-                    dragActive: 'invoice-designer-list-item-drag-active',
-                    itemsContainer: 'drag-and-drop-list-list-item',
-                    listItem: 'invoice-designer-list-item',
-                    dragIcon: 'sprite sprite-drag-handle-black-24 invoice-designer-drag-icon',
-                    dragContainer: 'invoice-designer-drag-icon-container',
-                    deleteClass: 'sprite sprite-delete-18-black',
-                    addIcon: 'invoice-designer-drag-list-add-icon sprite sprite-plus-18-black',
-                    listItemInput: 'invoice-designer-drag-list-input'
-                }
+                listClasses
             });
 
             const listHtml = await list.generateList();

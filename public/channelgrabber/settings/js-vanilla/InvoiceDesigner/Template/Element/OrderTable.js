@@ -13,7 +13,7 @@ define([
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
-
+        const tableTotals = TableStorage.getDefaultTableTotals();
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
@@ -22,7 +22,8 @@ define([
             linkedProductsDisplay: null,
             tableColumns,
             tableSortBy,
-            tableCells
+            tableCells,
+            tableTotals
         };
 
         ElementAbstract.call(this, additionalData);
@@ -68,6 +69,14 @@ define([
             this.set('tableSortBy', newSortBy);
         };
 
+        this.getTableTotals = function() {
+            return this.get('tableTotals');
+        };
+
+        this.setTableTotals = function(tableTotals) {
+            this.set('tableTotals', tableTotals);
+        };
+
         this.getTableCells = function() {
             return this.get('tableCells').slice();
         };
@@ -93,6 +102,7 @@ define([
             json = this.formatCoreJsonPropertiesForBackend(json);
             json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
+            json.tableTotals = formatTableTotalsForBackend(json.tableTotals);
             return json;
         }
     };
@@ -100,6 +110,19 @@ define([
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
 
     return OrderTable;
+
+    function formatTableTotalsForBackend(tableTotals) {
+        if (!tableTotals) {
+            return [];
+        }
+        return tableTotals.map(({id, displayText, position}) => {
+            return {
+                id,
+                position,
+                displayText
+            };
+        });
+    }
 
     function formatTableColumnsForBackend(tableColumns) {
         if (!tableColumns) {
@@ -127,15 +150,13 @@ define([
             return [];
         }
 
-        const formatted = tableSortBy.map((sortByItem) => {
+        return tableSortBy.map((sortByItem) => {
             let {id, position} = sortByItem;
             return {
                 column: id,
                 position
             };
         });
-
-        return formatted;
     }
 
     function areAllPositionsUndefined(columns) {
