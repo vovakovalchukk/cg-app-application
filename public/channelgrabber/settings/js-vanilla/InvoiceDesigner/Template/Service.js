@@ -17,7 +17,6 @@ define([
     'InvoiceDesigner/Template/Module/Name',
     'InvoiceDesigner/Template/Module/ImageUpload',
     'InvoiceDesigner/Template/Module/ElementResizeMove',
-    'InvoiceDesigner/Template/Module/ToPdf'
 ], function(
     require,
     templateAjaxStorage,
@@ -44,8 +43,7 @@ define([
             'InvoiceDesigner/Template/Module/AddDiscardBar',
             'InvoiceDesigner/Template/Module/Name',
             'InvoiceDesigner/Template/Module/ImageUpload',
-            'InvoiceDesigner/Template/Module/ElementResizeMove',
-            'InvoiceDesigner/Template/Module/ToPdf'
+            'InvoiceDesigner/Template/Module/ElementResizeMove'
         ];
 
         this.getStorage = function()
