@@ -11,6 +11,9 @@ import RemoveIcon from "Common/Components/RemoveIcon";
 const IconContainer = styled.span`
     cursor: pointer;
 `;
+const TypeCellContainer = styled.td`
+    overflow: visible;
+`;
 
 class FtpAccountsComponent extends React.Component {
     static defaultProps = {
@@ -44,7 +47,7 @@ class FtpAccountsComponent extends React.Component {
     renderAccountRows = () => {
         return this.props.accounts.map((account, index) => {
             return <tr>
-                <td>{this.renderTypeColumn(account, index)}</td>
+                <TypeCellContainer>{this.renderTypeColumn(account, index)}</TypeCellContainer>
                 <td>{this.renderTextInputColumn(account, index, 'username')}</td>
                 <td>{this.renderInputColumnForType(account, index, 'password', 'password')}</td>
                 <td>{this.renderTextInputColumn(account, index, 'server')}</td>
