@@ -57,7 +57,7 @@ define([
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Table Columns',
-                'id': 'table-collapsible'
+                'id': 'table-columns-collapsible'
             }, "collapsible", {'content': listHtml});
 
             const tableColumnsInspector = document.getElementById(TableColumns.TABLE_COLUMNS_INSPECTOR_ID);

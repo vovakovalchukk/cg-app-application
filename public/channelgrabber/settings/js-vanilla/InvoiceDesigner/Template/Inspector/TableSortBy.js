@@ -53,7 +53,7 @@ define([
             const collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Sort By',
-                'id': 'sortby-collapsible'
+                'id': 'table-sortby-collapsible'
             }, "collapsible", {'content': listHtml});
 
             const template = cgmustache.renderTemplate(collapsible, {}, 'tableColumn');
