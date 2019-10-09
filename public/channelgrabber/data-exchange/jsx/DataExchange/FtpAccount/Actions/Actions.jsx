@@ -45,10 +45,11 @@ export default {
     },
     saveAccount: (index, account) => {
         return async function(dispatch) {
+            n.notice((!account.id ? 'Saving' : 'Updating') + ' your account', 2000);
             let response = await saveAccountAjax(account);
 
             if (response.success === true) {
-                n.success('The account was updated successfully.');
+                n.success('The account was ' + (!account.id ? 'saved' : 'updated') + ' successfully.');
                 dispatch(ResponseActions.accountUpdatedSuccessfully(index, account, response));
                 return;
             }
