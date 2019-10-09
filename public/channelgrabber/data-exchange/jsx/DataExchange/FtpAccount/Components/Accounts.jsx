@@ -7,6 +7,9 @@ import TypeColumn from "./Column/Type";
 import InputColumn from "./Column/Input";
 import FtpTestColumn from "./Column/FtpTest";
 
+const Container = styled.div`
+    margin-top: 45px;
+`;
 const IconContainer = styled.span`
     cursor: pointer;
     margin-right: 10px;
@@ -135,7 +138,7 @@ class FtpAccountsComponent extends React.Component {
     };
 
     render() {
-        return <div>
+        return <Container>
             <form name={'ftpAccount'}>
                 <table>
                     <thead>
@@ -146,7 +149,7 @@ class FtpAccountsComponent extends React.Component {
                     </tbody>
                 </table>
             </form>
-        </div>;
+        </Container>;
     }
 }
 
