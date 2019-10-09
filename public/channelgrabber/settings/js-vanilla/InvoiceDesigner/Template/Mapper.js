@@ -81,7 +81,7 @@ define([
         template.setPrintPage(printPage).setEditable(!!json.editable);
 
         let multiPage = template.getMultiPage();
-        this.hydrateMultiPageFromJson(template, multiPage, json.multiPage, populating);
+        this.hydrateMultiPageFromJson(template, multiPage, json.multiPerPage, populating);
         template.setMultiPage(multiPage).setEditable(!!json.editable);
 
         return template;
@@ -122,14 +122,15 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
+        json.margin.top = json.margin.height ? json.margin.height : 0;
+        json.margin.bottom = json.margin.bottom ? json.margin.bottom : 0;
+        json.margin.left = json.margin.left ? json.margin.left : 0;
+        json.margin.right = json.margin.right ? json.margin.right : 0;
+
         printPage.hydrate(json, populating);
     };
 
     Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {
-        if (!json) {
-            json = {};
-        }
-
         json['columns'] = multiPage.getGridTrackValueFromDimension(template, 'width', json['width']);
         json['rows'] = multiPage.getGridTrackValueFromDimension(template, 'height', json['height']);
 
@@ -148,7 +149,7 @@ define([
             organisationUnitId: template.getOrganisationUnitId(),
             paperPage,
             printPage: template.getPrintPage().toJson(),
-            multiPage: template.getMultiPage().toJson(),
+            multiPerPage: template.getMultiPage().toJson(),
             elements: [],
             editable: template.isEditable()
         };
