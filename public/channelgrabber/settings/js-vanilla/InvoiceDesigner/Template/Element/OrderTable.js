@@ -1,29 +1,20 @@
 define([
-    'InvoiceDesigner/Template/ElementAbstract',
-    'InvoiceDesigner/Template/Storage/Table',
-    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
+    'InvoiceDesigner/Template/ElementAbstract'
 ], function(
-    ElementAbstract,
-    TableStorage,
-    OrderTableHelper
+    ElementAbstract
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
         const minHeight = 200; // px
 
-        const tableColumns = TableStorage.getDefaultColumns();
-        const tableSortBy = TableStorage.getDefaultSortBy();
-        const tableTotals = TableStorage.getDefaultTableTotals();
-        const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
-
         const additionalData = {
             errorBorder: false,
             showVat: false,
             linkedProductsDisplay: null,
-            tableColumns,
-            tableSortBy,
-            tableCells,
-            tableTotals
+            tableColumns: [],
+            tableSortBy: [],
+            tableCells: [],
+            tableTotals: []
         };
 
         ElementAbstract.call(this, additionalData);

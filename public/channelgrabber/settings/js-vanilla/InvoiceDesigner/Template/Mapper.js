@@ -65,6 +65,7 @@ define([
             var elementData = json.elements[key];
             if (elementData.type === 'OrderTable') {
                 elementData.tableColumns = applyDefaultsToOrderTableColumns(elementData.tableColumns);
+                elementData.tableCells = applyDefaultsToOrderTableCells(elementData);
                 elementData.tableTotals = applyDefaultsToTableTotals(elementData.tableTotals);
             }
             var element = this.elementFromJson(elementData, populating);
@@ -199,6 +200,13 @@ define([
                 cellPlaceholder
             }
         });
+    }
+
+    function applyDefaultsToOrderTableCells(elementData) {
+        let {tableCells, tableColumns} = elementData;
+        if(!Array.isArray(tableCells) || !tableCells.length) {
+            return OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
+        }
     }
 
     function applyDefaultsToTableTotals(tableTotals) {
