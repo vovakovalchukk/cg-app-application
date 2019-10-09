@@ -205,7 +205,7 @@ define([
 
     function applyDefaultsToOrderTableCells(elementData) {
         let {tableCells, tableColumns} = elementData;
-        if(!Array.isArray(tableCells) || !tableCells.length) {
+        if (!Array.isArray(tableCells) || !tableCells.length) {
             return OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
         }
     }
@@ -214,7 +214,7 @@ define([
         const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
         const allTableTotals = TableStorage.getTableTotals();
 
-        if(!Array.isArray(tableTotals) || !tableTotals.length) {
+        if (!Array.isArray(tableTotals) || !tableTotals.length) {
             return [];
         }
 
