@@ -21,7 +21,7 @@ export default {
     },
     removeAccount: (index, account) => {
         return async function(dispatch) {
-            if (account.id === null) {
+            if (!account.id) {
                 dispatch(ResponseActions.accountDeletedSuccessfully(index));
                 return
             }

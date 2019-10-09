@@ -6,13 +6,16 @@ import Actions from "../Actions/Actions";
 import TypeColumn from "./Column/Type";
 import InputColumn from "./Column/Input";
 import FtpTestColumn from "./Column/FtpTest";
-import RemoveIcon from "Common/Components/RemoveIcon";
 
 const IconContainer = styled.span`
     cursor: pointer;
+    margin-right: 10px;
 `;
 const TypeCellContainer = styled.td`
     overflow: visible;
+`;
+const TableHeader = styled.th`
+    width: ${props => props.width ? props.width : 'auto'};
 `;
 
 class FtpAccountsComponent extends React.Component {
@@ -33,14 +36,14 @@ class FtpAccountsComponent extends React.Component {
 
     renderTableHeader = () => {
         return <tr>
-            <th>Type</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Server</th>
-            <th>Port</th>
-            <th>Initial directory</th>
-            <th>Test</th>
-            <th>Actions</th>
+            <TableHeader width={'100px'}>Type</TableHeader>
+            <TableHeader>Username</TableHeader>
+            <TableHeader>Password</TableHeader>
+            <TableHeader>Server</TableHeader>
+            <TableHeader>Port</TableHeader>
+            <TableHeader>Initial directory</TableHeader>
+            <TableHeader>Test</TableHeader>
+            <TableHeader width={'80px'}>Actions</TableHeader>
         </tr>;
     };
 
@@ -54,7 +57,7 @@ class FtpAccountsComponent extends React.Component {
                 <td>{this.renderInputColumnForType(account, index, 'port', 'number')}</td>
                 <td>{this.renderTextInputColumn(account, index, 'initialDir')}</td>
                 <td>{this.renderFtpTestColumn(account, index)}</td>
-                <td>{this.renderRemoveColumn(account, index)}</td>
+                <td>{this.renderActionsColumn(account, index)}</td>
             </tr>;
         });
     };
@@ -76,19 +79,20 @@ class FtpAccountsComponent extends React.Component {
         />
     };
 
-    renderRemoveColumn = (account, index) => {
+    renderActionsColumn = (account, index) => {
         return <span>
             <IconContainer>
                 <i
-                    className={'fa fa-2x fa-floppy-o'}
+                    className={'fa fa-2x fa-check-square-o'}
                     aria-hidden="true"
                     onClick={this.props.actions.saveAccount.bind(this, index, account)}
                 />
             </IconContainer>
             {!this.isLastAccount(index) &&
                 <IconContainer>
-                    <RemoveIcon
-                        className={'remove-icon-new'}
+                    <i
+                        className={'fa fa-2x fa-trash-o'}
+                        aria-hidden="true"
                         onClick={this.props.actions.removeAccount.bind(this, index, account)}
                     />
                 </IconContainer>

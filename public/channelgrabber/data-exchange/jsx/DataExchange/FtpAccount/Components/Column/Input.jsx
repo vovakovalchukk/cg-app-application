@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Input = styled.input`
     width: auto;
+    max-width: 70%;
 `;
 
 class InputColumn extends React.Component {
