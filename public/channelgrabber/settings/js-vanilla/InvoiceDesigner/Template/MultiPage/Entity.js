@@ -23,8 +23,8 @@ define([
         this.subscribeToTopic(this.getTopicNames().paperSpace, updateDimensionsToMaxValues.bind(this));
 
         let data = {
-            rows: null,
-            columns: null,
+            rows: 1,
+            columns: 1,
             width: null,
             height: null
         };
@@ -206,7 +206,7 @@ define([
 
     Entity.prototype.getGridTrackValueFromDimension = function(template, dimension, dimensionValue) {
         if (!dimensionValue) {
-            return;
+            return 1;
         }
         let maximumArea = this.getDimensionValueToBeRelativeTo(template, dimension);
         let gridTrackValue = maximumArea / dimensionValue;
