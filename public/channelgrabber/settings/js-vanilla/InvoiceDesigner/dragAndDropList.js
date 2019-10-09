@@ -90,7 +90,7 @@ define([], function() {
 
         return `<li class="${this.listClasses.listItem}">
             <div class="${this.listClasses.dragContainer}">
-                <div title="drag" class="${this.listClasses.dragIcon}"></div>
+                <div title="click and hold to drag items" class="${this.listClasses.dragIcon}"></div>
             </div>
             <div class="invoice-designer-input-positioner">
                 ${textInput}
@@ -244,7 +244,7 @@ define([], function() {
     };
 
     dragAndDropList.prototype.enableDragItem = function(rowNode) {
-        rowNode.setAttribute('draggable', true)
+        rowNode.setAttribute('draggable', true);
         rowNode.ondrag = this.handleDrag.bind(this);
         rowNode.ondragend = this.handleDrop.bind(this);
     };

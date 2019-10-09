@@ -592,10 +592,8 @@ $indicator-border-color: #1477aa;
 .invoice-designer-list-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
     position: relative;
-    cursor: grab;
 }
 .invoice-designer-list-item-drag-active {
     visibility: hidden;
@@ -607,15 +605,17 @@ $indicator-border-color: #1477aa;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     position: absolute;
     background: #f3f3f3;
-    pointer-events: none;
-    border: 1px solid #b8c6ce;
     cursor: grab;
+    border: 1px solid transparent;
     box-sizing: border-box;
+    &:hover {
+        border: 1px solid #b8c6ce;
+    }
 }
 .invoice-designer-delete-icon {
+    margin-top: 5px;
     width: 50px;
     cursor: pointer;
 }
@@ -628,7 +628,8 @@ $indicator-border-color: #1477aa;
     box-sizing: border-box;
 }
 .invoice-designer-input-positioner {
-    margin-left: 28px;
+    margin-left: 30px;
+    margin-right: 8px;
 }
 .invoice-designer-drag-list-add-icon {
     cursor: pointer;
