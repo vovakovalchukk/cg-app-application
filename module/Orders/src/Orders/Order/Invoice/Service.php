@@ -8,6 +8,7 @@ use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Gearman\Generator\SetPrintedDate as PrintedDateGenerator;
 use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Order\Client\Invoice\Service as ClientService;
+use CG\Order\Client\Invoice\Template\Cache as TemplateCache;
 use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
 use CG\Order\Client\Invoice\Validator as InvoiceValidator;
 use CG\Order\Service\Filter;
@@ -15,8 +16,6 @@ use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailer;
 use CG\Order\Shared\Tax\Service as TaxService;
-use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
-use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
@@ -37,17 +36,19 @@ class Service extends ClientService implements StatsAwareInterface
     const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
     const EVENT_INVOICES_PRINTED = 'Invoices Printed';
 
-    /** @var OrderService $orderService */
+    /** @var TemplateFactory */
+    protected $templateFactory;
+    /** @var OrderService */
     protected $orderService;
-    /** @var ElementFactory $elementFactory */
+    /** @var ElementFactory */
     protected $elementFactory;
-    /** @var ProgressStorage $progressStorage */
+    /** @var ProgressStorage */
     protected $progressStorage;
-    /** @var IntercomEventService $intercomEventService */
+    /** @var IntercomEventService */
     protected $intercomEventService;
-    /** @var ActiveUserContainer $activeUserContainer */
+    /** @var ActiveUserContainer */
     protected $activeUserContainer;
-    /** @var PrintedDateGenerator $printedDateGenerator */
+    /** @var PrintedDateGenerator */
     protected $printedDateGenerator;
     /** @var TaxService */
     protected $taxService;
@@ -67,9 +68,8 @@ class Service extends ClientService implements StatsAwareInterface
 
     public function __construct(
         RendererService $rendererService,
+        TemplateCache $templateCache,
         TemplateFactory $templateFactory,
-        InvoiceSettingsService $invoiceSettingsService,
-        InvoiceMappingService $invoiceMappingService,
         OrderService $orderService,
         ElementFactory $elementFactory,
         ProgressStorage $progressStorage,
@@ -82,7 +82,8 @@ class Service extends ClientService implements StatsAwareInterface
         InvoiceEmailer $invoiceEmailer,
         InvoiceValidator $invoiceValidator
     ) {
-        parent::__construct($rendererService, $templateFactory, $invoiceSettingsService, $invoiceMappingService);
+        parent::__construct($rendererService, $templateCache);
+        $this->templateFactory = $templateFactory;
         $this->orderService = $orderService;
         $this->elementFactory = $elementFactory;
         $this->progressStorage = $progressStorage;
@@ -224,7 +225,7 @@ class Service extends ClientService implements StatsAwareInterface
         }
     }
 
-    public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null)
+    public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null): string
     {
         $this->key = $key;
         $this->resetGenerationProgress();
