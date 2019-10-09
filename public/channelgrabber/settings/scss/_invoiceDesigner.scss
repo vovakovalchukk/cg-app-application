@@ -279,7 +279,7 @@ $indicator-border-color: #1477aa;
       float: left;
       margin: 5px 0px 5px 0px;
       padding: 6px 5px 6px 5px!important;
-      height: auto;
+      height: 60px;
       @include box-sizing(border);
       &:nth-child(even) {
         clear:both;
@@ -290,6 +290,11 @@ $indicator-border-color: #1477aa;
         float: left;
         clear:both;
         position: relative;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        margin-bottom:auto;
+        margin-left: -3px;
         .icon {
           float: left;
           clear:both;
