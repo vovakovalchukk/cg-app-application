@@ -3,6 +3,7 @@ $indicator-border-color: #1477aa;
 
 .invoice-designer-container {
   height: 100vh;
+  background-color: #e6e6e6;
 }
 .button {
   font-family: $fonts-default;
@@ -16,7 +17,6 @@ $indicator-border-color: #1477aa;
     height: 100%;
     .invoice-template-container {
         overflow-x: auto;
-        height: 100%;
         background-color: #e6e6e6;
     }
 }
