@@ -8,12 +8,24 @@ const InputContainer = styled.div`
 
 class FtpTestColumn extends React.Component {
     static defaultProps = {
-        onClick: () => {}
+        onClick: () => {},
+        hasAccountChanged: true
+    };
+
+    onClick = () => {
+        if (this.props.hasAccountChanged) {
+            return;
+        }
+        this.props.onClick;
+    };
+
+    getClassName = () => {
+        return "button" + (this.props.hasAccountChanged ? ' disabled' : '');
     };
 
     render() {
         return (
-            <InputContainer className="button" onClick={this.props.onClick}>
+            <InputContainer className={this.getClassName()} onClick={this.props.onClick}>
                 <i className="fa fa-2x fa-wifi" aria-hidden="true"/>
                 <span className="button-text">Test connection</span>
             </InputContainer>

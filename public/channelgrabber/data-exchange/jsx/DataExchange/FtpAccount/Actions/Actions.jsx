@@ -53,7 +53,7 @@ export default {
                 return;
             }
 
-            let message = response.message? response.message : 'There was an error while saving your FTP account. Please try again or contact support if the problem persists.';
+            let message = response.message ? response.message : 'There was an error while saving your FTP account. Please try again or contact support if the problem persists.';
             n.error(message);
         };
     },

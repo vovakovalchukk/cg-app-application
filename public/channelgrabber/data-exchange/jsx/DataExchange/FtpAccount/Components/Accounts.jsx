@@ -6,13 +6,10 @@ import Actions from "../Actions/Actions";
 import TypeColumn from "./Column/Type";
 import InputColumn from "./Column/Input";
 import FtpTestColumn from "./Column/FtpTest";
+import ActionsColumn from "./Column/Actions";
 
 const Container = styled.div`
     margin-top: 45px;
-`;
-const IconContainer = styled.span`
-    cursor: pointer;
-    margin-right: 10px;
 `;
 const TypeCellContainer = styled.td`
     overflow: visible;
@@ -35,6 +32,17 @@ class FtpAccountsComponent extends React.Component {
 
     isLastAccount = (index) => {
         return this.props.accounts.length - 1 === index;
+    };
+
+    getInitialAccountValueForAccount = (index) => {
+        return this.props.initialAccounts[index] ? this.props.initialAccounts[index] : {};
+    };
+
+    hasAccountChanged = (index, account) => {
+        let initialAccount = this.getInitialAccountValueForAccount(index);
+        return !(Object.keys(account).reduce((isInitial, key) => {
+            return isInitial && account[key] == initialAccount[key];
+        }));
     };
 
     renderTableHeader = () => {
@@ -79,28 +87,18 @@ class FtpAccountsComponent extends React.Component {
             account={account}
             index={index}
             onClick={this.props.actions.testFtpAccount.bind(this, index, account)}
+            hasAccountChanged={this.hasAccountChanged(index, account)}
         />
     };
 
     renderActionsColumn = (account, index) => {
-        return <span>
-            <IconContainer>
-                <i
-                    className={'fa fa-2x fa-check-square-o'}
-                    aria-hidden="true"
-                    onClick={this.props.actions.saveAccount.bind(this, index, account)}
-                />
-            </IconContainer>
-            {!this.isLastAccount(index) &&
-                <IconContainer>
-                    <i
-                        className={'fa fa-2x fa-trash-o'}
-                        aria-hidden="true"
-                        onClick={this.props.actions.removeAccount.bind(this, index, account)}
-                    />
-                </IconContainer>
-            }
-        </span>
+        return <ActionsColumn
+            account={account}
+            index={index}
+            actions={this.props.actions}
+            removeIconVisible={!this.isLastAccount(index)}
+            hasAccountChanged={this.hasAccountChanged(index, account)}
+        />;
     };
 
     renderTextInputColumn = (account, index, property) => {
