@@ -92,7 +92,7 @@ define([], function() {
             <div class="${this.listClasses.dragContainer}">
                 <div title="click and hold to drag items" class="${this.listClasses.dragIcon}"></div>
             </div>
-            <div class="invoice-designer-input-positioner">
+            <div class="invoice-designer-input-positioner u-width-100pc">
                 ${textInput}
                 ${select}
             </div>
