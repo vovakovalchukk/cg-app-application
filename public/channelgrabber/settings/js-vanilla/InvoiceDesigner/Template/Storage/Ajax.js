@@ -50,7 +50,7 @@ define([
             const invalidElementIds = getInvalidElementIds(template, templateJSON);
             if (invalidElementIds.length) {
                 applyBordersToInvalidElements(template, invalidElementIds);
-                n.error('Template cannot be saved due to there being some elements outside of the printable area');
+                n.error('Template cannot be saved due to elements outside of the printable area');
                 return;
             }
 
