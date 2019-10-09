@@ -31,7 +31,7 @@ export default {
 
             if (response.success === true) {
                 n.success('The account was deleted successfully');
-                dispatch(ResponseActions.accountDeletedSuccessfully(type, index));
+                dispatch(ResponseActions.accountDeletedSuccessfully(index));
                 return;
             }
 

@@ -32,6 +32,11 @@ class TypeColumn extends React.Component {
         this.props.updateInputValue(this.props.index, 'type', option.value);
     };
 
+    componentDidMount = () => {
+        // This is hack to force a re-render of the Select Component. If we don't do this, then the selected option doesn't work on the first render
+        this.props.updateInputValue(this.props.index, 'type', this.props.account.type);
+    };
+
     render() {
         return <SelectComponent
             options={this.formatOptions()}
