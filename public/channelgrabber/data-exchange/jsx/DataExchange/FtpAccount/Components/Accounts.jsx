@@ -64,6 +64,7 @@ class FtpAccountsComponent extends React.Component {
             account={account}
             index={index}
             options={this.props.accountTypeOptions}
+            updateInputValue={this.props.actions.updateInputValue}
         />
     };
 

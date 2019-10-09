@@ -59,6 +59,7 @@ export default {
     },
     testFtpAccount: (index, account) => {
         return async function(dispatch) {
+            n.notice('Please wait while we test the connection to your server: ' + account.server + ':' + account.port);
             let response = await testFtpAccountAjax(account.id);
 
             if (response.success === true) {
@@ -66,7 +67,7 @@ export default {
                 return;
             }
 
-            n.error('Couldn\'t connect to the FTP server.');
+            n.error('Couldn\'t connect to the FTP server. Please update the connection details and try again');
         }
     }
 };

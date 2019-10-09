@@ -5,7 +5,9 @@ import SelectComponent from "Common/Components/Select";
 class TypeColumn extends React.Component {
     static defaultProps = {
         account: {},
-        options: {}
+        index: 0,
+        options: {},
+        updateInputValue: () => {}
     };
 
     formatOptions = () => {
@@ -26,10 +28,15 @@ class TypeColumn extends React.Component {
         }
     };
 
+    onOptionsChange = (option) => {
+        this.props.updateInputValue(this.props.index, 'type', option.value);
+    };
+
     render() {
         return <SelectComponent
             options={this.formatOptions()}
             selectedOption={this.findSelectedOption()}
+            onOptionChange={this.onOptionsChange}
         />;
     }
 }
