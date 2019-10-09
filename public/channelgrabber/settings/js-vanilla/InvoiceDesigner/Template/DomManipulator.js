@@ -119,6 +119,7 @@ define([
         let view = {
             id: selectId,
             options: applySelectedToOptions(),
+            ulClass: 'u-max-height-initial',
             ...settings
         };
 

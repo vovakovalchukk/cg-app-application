@@ -645,6 +645,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             "isOptional" => false,
             "id" => static::PAPER_TYPE_DROPDOWN_ID,
             "name" => static::PAPER_TYPE_DROPDOWN_ID,
+            "ulClass" => static::PAPER_TYPE_DROPDOWN_ID,
             "options" => []
         ];
         $paperTypeSelect = $this->viewModelFactory->newInstance($paperTypeDropDownConfig);

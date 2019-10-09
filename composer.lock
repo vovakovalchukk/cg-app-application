@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "74d1f11ae203ffce1190804a38cdff3a",
+    "content-hash": "599bcd0736232e0ac1c44be119a36ad9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5331,16 +5331,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-528-snagging-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d4ecfd48765d935a449a7292921d19c64d8a4bf2"
+                "reference": "8c5a067aa3774fca054d16ed6feba0e44a4be417"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-246f44.zip",
-                "reference": "d4ecfd48765d935a449a7292921d19c64d8a4bf2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-528-snagging-ui-2c235e.zip",
+                "reference": "8c5a067aa3774fca054d16ed6feba0e44a4be417",
                 "shasum": null
             },
             "require": {
@@ -5392,7 +5392,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-10-08T15:19:20+00:00"
+            "time": "2019-10-09T10:43:45+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11871,7 +11871,7 @@
         {
             "alias": "1.26.24",
             "alias_normalized": "1.26.24.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-528-snagging-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
