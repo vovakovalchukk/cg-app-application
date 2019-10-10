@@ -2319,12 +2319,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "874d2d3d1544254d539c6ce4fc047b0b578893af"
+                "reference": "e63b04038d624413b9b45afc4198301121513199"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-39-data-exchange-process-scheduled-exchanges-a1a477.zip",
-                "reference": "874d2d3d1544254d539c6ce4fc047b0b578893af"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-39-data-exchange-process-scheduled-exchanges-ef5599.zip",
+                "reference": "e63b04038d624413b9b45afc4198301121513199"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2400,7 +2400,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-10T09:20:52+00:00"
+            "time": "2019-10-10T14:23:02+00:00"
         },
         {
             "name": "channelgrabber/partner",
