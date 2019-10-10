@@ -117,7 +117,7 @@ class AccountsTable extends React.Component {
     handleSaveAccount = (account, index, newAddress) => {
         this.clearTimeoutForAccountSave(index);
 
-        let mergedAccount = Object.assign(account, {newAddress: newAddress});
+        let mergedAccount = Object.assign({}, account, {newAddress: newAddress});
         if (!this.isAddressChanged(mergedAccount)) {
             return;
         }
