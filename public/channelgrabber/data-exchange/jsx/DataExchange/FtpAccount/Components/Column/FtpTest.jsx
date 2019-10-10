@@ -16,7 +16,7 @@ class FtpTestColumn extends React.Component {
         if (this.props.hasAccountChanged) {
             return;
         }
-        this.props.onClick;
+        this.props.onClick();
     };
 
     getClassName = () => {
@@ -25,7 +25,7 @@ class FtpTestColumn extends React.Component {
 
     render() {
         return (
-            <InputContainer className={this.getClassName()} onClick={this.props.onClick}>
+            <InputContainer className={this.getClassName()} onClick={this.onClick}>
                 <i className="fa fa-2x fa-wifi" aria-hidden="true"/>
                 <span className="button-text">Test connection</span>
             </InputContainer>
