@@ -23,6 +23,7 @@ const App = props => {
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
     return (
+        <div>
         <InitialFormSection>
             <TemplateSelect options={templates} selectedOption={templateSelectValue}
                             onOptionChange={(option) => {
@@ -53,12 +54,13 @@ const App = props => {
                     />
                 </FieldWithLabel>
             }
-
             <FieldMapper
 
 
             />
         </InitialFormSection>
+
+        </div>
     );
 
     async function deleteTemplateHandler() {
