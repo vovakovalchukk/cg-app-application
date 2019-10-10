@@ -11,9 +11,6 @@ const TYPE_TO = 'to';
 const AccountsTableContainer = styled.div`
     width: 600px;
 `;
-const RemoveIconContainer = styled.span`
-    cursor: pointer;
-`;
 
 class AccountsTable extends React.Component {
     static defaultProps = {
