@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6b7384e777ae24a79a860c7160aa27f",
+    "content-hash": "ff63812f720674a474aeaf2c525f2945",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5333,7 +5333,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-528-snagging-ui",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -5341,7 +5341,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-528-snagging-ui-088094.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-088094.zip",
                 "reference": "2d63a57b1244b2e1ae60d28e61ec6a138828bec3",
                 "shasum": null
             },
@@ -11873,7 +11873,7 @@
         {
             "alias": "1.26.24",
             "alias_normalized": "1.26.24.0",
-            "version": "dev-TAC-528-snagging-ui",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
