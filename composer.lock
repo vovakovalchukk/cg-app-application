@@ -2319,12 +2319,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4e157adacf1dc61fd96e6a174458b4a3d3f98dd4"
+                "reference": "76f3490947a40e9c8d2ba16d7bf3bb7d172c7bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-3337aa.zip",
-                "reference": "4e157adacf1dc61fd96e6a174458b4a3d3f98dd4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-710faa.zip",
+                "reference": "76f3490947a40e9c8d2ba16d7bf3bb7d172c7bf1"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2400,7 +2400,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-09T15:10:35+00:00"
+            "time": "2019-10-10T08:01:25+00:00"
         },
         {
             "name": "channelgrabber/partner",
