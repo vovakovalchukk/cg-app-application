@@ -613,11 +613,7 @@ $indicator-border-color: #1477aa;
     position: absolute;
     background: #f3f3f3;
     cursor: grab;
-    border: 1px solid transparent;
     box-sizing: border-box;
-    &:hover {
-        border: 1px solid #b8c6ce;
-    }
 }
 .invoice-designer-delete-icon {
     margin-top: 5px;
