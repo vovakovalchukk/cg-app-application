@@ -49,7 +49,7 @@ export default {
             let response = await saveAccountAjax(account);
 
             if (response.success !== true) {
-                let message = response.message ? response.message  : 'There was an error while saving your email address. Please contact support if the problem persists';
+                let message = response.message || 'There was an error while saving your email address. Please contact support if the problem persists';
                 n.error(message);
                 dispatch(ResponseActions.accountSaveFailed(type, index, account, message));
                 return;
@@ -67,10 +67,12 @@ export default {
     },
     verifyEmailAddress: (type, index, accountId) => {
         return async function(dispatch) {
+            n.notice('Verifying your email address...', 2000);
             let response = await verifyEmailAjax(accountId);
 
             if (response.success !== true) {
-                // fail
+                n.error('There was an error while verifying your email address. Please try again or contact support if the problem persists.');
+                return;
             }
 
             dispatch(ResponseActions.accountVerificationUpdate(type, index, response.verificationStatus));

@@ -11,7 +11,7 @@ import ActionsColumn from "./Column/Actions";
 const Container = styled.div`
     margin-top: 45px;
 `;
-const TypeCellContainer = styled.td`
+const TypeCell = styled.td`
     overflow: visible;
 `;
 const TableHeader = styled.th`
@@ -61,7 +61,7 @@ class FtpAccountsComponent extends React.Component {
     renderAccountRows = () => {
         return this.props.accounts.map((account, index) => {
             return <tr>
-                <TypeCellContainer>{this.renderTypeColumn(account, index)}</TypeCellContainer>
+                <TypeCell>{this.renderTypeColumn(account, index)}</TypeCell>
                 <td>{this.renderTextInputColumn(account, index, 'username')}</td>
                 <td>{this.renderInputColumnForType(account, index, 'password', 'password')}</td>
                 <td>{this.renderTextInputColumn(account, index, 'server')}</td>

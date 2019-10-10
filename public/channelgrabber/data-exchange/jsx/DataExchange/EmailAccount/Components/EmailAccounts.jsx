@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import styled from "styled-components";
-import EmailAccountsTable, {EmailAccountTypeFrom, EmailAccountTypeTo} from "./AccountsTable";
+import AccountsTable, {EmailAccountTypeFrom, EmailAccountTypeTo} from "./AccountsTable";
 import Actions from "../Actions/Actions";
 
 const Container = styled.div`
@@ -16,7 +16,7 @@ class EmailAccountsComponent extends React.Component {
 
     renderAccountsTableForType = (type) => {
         let accounts = this.props.accounts[type];
-        return <EmailAccountsTable
+        return <AccountsTable
             accounts={accounts}
             type={type}
             actions={this.props.actions}

@@ -11,19 +11,11 @@ const TYPE_TO = 'to';
 const AccountsTableContainer = styled.div`
     width: 600px;
 `;
-const TableContainer = styled.table`
-    margin-bottom: 20px;
-`;
-const TableCellContainer = styled.td`
-    text-align: left;
-    display: flex;
-    align-items: center;
-`;
 const RemoveIconContainer = styled.span`
     cursor: pointer;
 `;
 
-class EmailAccountsTable extends React.Component {
+class AccountsTable extends React.Component {
     static defaultProps = {
         accounts: [],
         type: TYPE_TO
@@ -43,7 +35,6 @@ class EmailAccountsTable extends React.Component {
     }
 
     beforeunload(e) {
-        console.log(this.saveTimeoutIds);
         if (Object.keys(this.saveTimeoutIds).length === 0) {
             return false;
         }
@@ -65,7 +56,7 @@ class EmailAccountsTable extends React.Component {
     };
 
     isEmailAddressValid = (email) => {
-          return EmailValidator.validate(email);
+        return EmailValidator.validate(email);
     };
 
     renderTableHeader = () => {
@@ -84,10 +75,10 @@ class EmailAccountsTable extends React.Component {
 
     renderAccountRow = (account, index) => {
         return <tr>
-            <TableCellContainer>
+            <td className={'u-flex-v-center u-text-align-left'}>
                 {this.renderEmailAddressInput(account, index)}
                 {this.renderRemoveColumn(account, index)}
-            </TableCellContainer>
+            </td>
         </tr>
     };
 
@@ -129,19 +120,19 @@ class EmailAccountsTable extends React.Component {
     handleSaveAccount = (account, index, newAddress) => {
         this.clearTimeoutForAccountSave(index);
 
-        account = Object.assign(account, {newAddress: newAddress});
-        if (!this.isAddressChanged(account)) {
+        let mergedAccount = Object.assign(account, {newAddress: newAddress});
+        if (!this.isAddressChanged(mergedAccount)) {
             return;
         }
 
-        if (!this.isEmailAddressValid(account.newAddress)) {
+        if (!this.isEmailAddressValid(mergedAccount.newAddress)) {
             return;
         }
 
-        let timeoutId = window.setTimeout(async (index, account) => {
-            await this.props.actions.saveEmailAddress(this.props.type, index, account);
+        let timeoutId = window.setTimeout(async (index, mergedAccount) => {
+            await this.props.actions.saveEmailAddress(this.props.type, index, mergedAccount);
             this.clearTimeoutForAccountSave(index);
-        }, EmailAccountsTable.SAVE_TIMEOUT_DURATION, index, account);
+        }, AccountsTable.SAVE_TIMEOUT_DURATION, index, mergedAccount);
 
         this.saveTimeoutIds = Object.assign(this.saveTimeoutIds, {
             [index]: timeoutId
@@ -183,12 +174,12 @@ class EmailAccountsTable extends React.Component {
             return null;
         }
 
-        return <RemoveIconContainer>
+        return <span className={'u-cursor-pointer'}>
             <RemoveIcon
                 className={'remove-icon-new'}
-                onClick={this.removeEmailAddress.bind(this, index, account)}
+                onClick={() => {this.removeEmailAddress(index, account)}}
             />
-        </RemoveIconContainer>;
+        </span>;
     };
 
     removeEmailAddress = (index, account) => {
@@ -215,19 +206,19 @@ class EmailAccountsTable extends React.Component {
     render() {
         return <AccountsTableContainer>
             <form name={this.props.type + "EmailAccounts"}>
-                <TableContainer>
+                <table className={'u-margin-bottom-med'}>
                     <thead>
                         {this.renderTableHeader()}
                     </thead>
                     <tbody>
                         {this.renderAccountRows()}
                     </tbody>
-                </TableContainer>
+                </table>
             </form>
             {this.renderConfirmationPopup()}
         </AccountsTableContainer>;
     }
 }
 
-export default EmailAccountsTable;
+export default AccountsTable;
 export {TYPE_FROM as EmailAccountTypeFrom, TYPE_TO as EmailAccountTypeTo};

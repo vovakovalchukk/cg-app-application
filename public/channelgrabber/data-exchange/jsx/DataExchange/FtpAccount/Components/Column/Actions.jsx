@@ -28,7 +28,6 @@ class ActionsColumn extends React.Component {
         </IconContainer>;
     };
 
-
     renderRemoveIcon = () => {
         return <IconContainer isHidden={!this.props.removeIconVisible}>
             <i

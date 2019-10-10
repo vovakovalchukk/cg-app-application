@@ -51,9 +51,9 @@ const formatAccountsForType = (accounts, type) => {
         return account.type.toString().trim() === type;
     });
 
-    return accountsForType.map((account) => {
-        return Object.assign(account, {
-            newAddress: account.address
-        });
+    accountsForType.forEach((account) => {
+        account.newAddress = account.address;
     });
+
+    return accountsForType;
 };

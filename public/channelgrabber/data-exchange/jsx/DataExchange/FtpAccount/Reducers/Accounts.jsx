@@ -33,7 +33,4 @@ export default reducerCreator(initialState, {
         });
         return newState;
     },
-    "TEST_FTP_ACCOUNT_SUCCESSFUL": (state, action) => {
-        return state;
-    }
 });

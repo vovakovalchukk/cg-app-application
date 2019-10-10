@@ -1,6 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
 
-let initialState = {
+const initialState = {
     emailAccounts: {}
 };
 
@@ -33,10 +33,6 @@ export default reducerCreator(initialState, {
         return Object.assign({}, state, {
             [action.payload.type]: accountsForType
         });
-    },
-    "ACCOUNT_DELETE_FAILED": (state, action) => {
-        // No-op, the delete failed so nothing to do in the UI
-        return state;
     },
     "ACCOUNT_SAVED_SUCCESSFULLY": (state, action) => {
         let accountsForType = state[action.payload.type].slice(),
