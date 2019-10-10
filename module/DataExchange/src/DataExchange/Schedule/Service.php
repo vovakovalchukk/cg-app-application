@@ -279,7 +279,10 @@ class Service
     {
         $data = $this->prepareExportDataForSaving($data);
         if (isset($data['savedFilterName'])) {
-            $data['options'] = ['savedFilterName' => $data['savedFilterName']];
+            $data['options'] = [
+                'savedFilterName' => $data['savedFilterName'],
+                'savedFilterUserId' => $this->activeUserContainer->getActiveUser()->getId(),
+            ];
             unset($data['savedFilterName']);
         }
         return $this->saveForActiveUser($data, Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);

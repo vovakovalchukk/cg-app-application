@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5ae61e63db21f2f42f7abf1bcfee55c",
+    "content-hash": "6fc4084839502ab06539061ba45902f3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1123,16 +1123,16 @@
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "1.0.1",
+            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "6da9bb773076f0983af7f09f46e389a2fddd8151"
+                "reference": "699f9a02589f9483fe4c5ab749de0b3e73cb1953"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-1.0.1-396e1e.zip",
-                "reference": "6da9bb773076f0983af7f09f46e389a2fddd8151"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-39-data-exchange-process-scheduled-exchanges-695d0b.zip",
+                "reference": "699f9a02589f9483fe4c5ab749de0b3e73cb1953"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1152,7 +1152,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-27T09:57:21+00:00"
+            "time": "2019-10-10T10:23:34+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -11731,6 +11731,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
+            "package": "channelgrabber/data-exchange-schedule"
+        },
+        {
             "alias": "1.47.5",
             "alias_normalized": "1.47.5.0",
             "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
@@ -11740,6 +11746,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/data-exchange-schedule": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
