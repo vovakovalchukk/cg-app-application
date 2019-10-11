@@ -22,6 +22,7 @@ module.exports = {
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
+        "data-exchange/js/DataExchange/StockExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/App.jsx",
     },
     module: {
         rules: [
