@@ -1,6 +1,7 @@
 import React, {useReducer} from 'react';
 import styled from "styled-components";
 import scheduleReducer from "../ScheduleReducer";
+import ActionsColumn from "./ActionsColumn";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -47,7 +48,7 @@ const Table = (props) => {
                 <td>{renderInputColumnForType(schedule, index, 'filename')}</td>
                 <td>{schedule.frequency}</td>
                 <td>When</td>
-                <td>Actions</td>
+                <td>{renderActions(index, schedule)}</td>
             </tr>;
         });
     };
@@ -86,6 +87,34 @@ const Table = (props) => {
         return schedules.length - 1 === index;
     };
 
+    const renderActions = (index, schedule) => {
+        return <ActionsColumn
+            removeIconVisible={!isLastEntry(index)}
+            saveIconDisabled={false}
+            onSave={() => handleScheduleSave(index, schedule)}
+            onDelete={() => handleScheduleDelete(index, schedule)}
+        />
+    };
+
+    async function handleScheduleSave() {
+        return false;
+    }
+
+    async function handleScheduleDelete(index, schedule) {
+        n.notice(`Deleting your schedule ${schedule.name}...`, 2000);
+        const response = await deleteSchedule(schedule.id);
+        if (!response.success) {
+            n.error('The schedule couldn\'t be deleted. Please try again or contact support if the problem persists');
+            return;
+        }
+
+        n.success('The schedule was successfully deleted');
+        dispatch({
+            type: 'scheduleDeletedSuccessfully',
+            payload: {index}
+        });
+    }
+
     return <Container>
         <form name={'stockExportSchedule'}>
             <table>
@@ -123,3 +152,18 @@ const buildEmptySchedule = () => {
         toDataExchangeAccountType: null
     }
 };
+
+async function saveSchedule() {
+
+}
+
+async function deleteSchedule(id) {
+    return $.ajax({
+        url: window.location.href + '/remove',
+        type: 'POST',
+        dataType: 'json',
+        data: {id},
+        success: (response) => response,
+        error: (error) => error
+    });
+}
