@@ -55,11 +55,15 @@ const FieldRows = (props) => {
             let desiredValue = e.target.value;
             props.changeCgField(index, desiredValue);
         };
-        rowParams['cgField'] = row.cgField;
+        rowParams['selectedField'] = props.selectOptions.find((option) => {
+            return option.value === row.cgField
+        });
         rowParams['fileField'] = row.fileField;
         rowParams['deleteRow'] = () => {
             props.removeFieldRow(index);
         };
+        
+        console.log('rowParams: ', {rowParams, row});
         return props.renderRow({index, ...rowParams});
     });
 };
@@ -77,6 +81,7 @@ const FieldMapper = (props) => {
                 changeCgField={changeCgField}
                 changeFileField={changeFileField}
                 removeFieldRow={removeFieldRow}
+                selectOptions={cgFieldOptions}
                 addFieldRow={addFieldRow}
                 renderRow={(rowParams) => (
                     <React.Fragment>
@@ -97,8 +102,7 @@ const FieldMapper = (props) => {
                             filterable={cgFieldOptions.length > 10}
                             autoSelectFirst={false}
                             className={'u-width-100pc'}
-//                            title={"choose your template to load"}
-                            selectedOption={rowParams.cgField}
+                            selectedOption={rowParams.selectedField}
                             onOptionChange={rowParams.onSelectChange}
                             classNames={'u-inline-block'}
                         />

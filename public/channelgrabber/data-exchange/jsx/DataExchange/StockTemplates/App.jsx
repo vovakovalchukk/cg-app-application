@@ -53,8 +53,7 @@ const App = props => {
 
     const templateState = useTemplateState(defaultTemplate);
 
-
-    let formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
+    const formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
 
     const [cgFieldOptions, setCgFieldOptions] = useState(formattedCgFieldOptions);
 
@@ -69,7 +68,6 @@ const App = props => {
                                         templateName.setValue(option.name);
                                         // todo - set field mapper component
                                         // templateHTML.setValue(option.template);
-                                        debugger;
                                         templateState.setTemplate(option)
                                     }}
                                     deleteTemplate={deleteTemplateHandler}
@@ -95,12 +93,9 @@ const App = props => {
                 <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
-                    //todo - extract method
                     cgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
                         console.log('in removeFieldRow');
-                        //todo something like the below
-                        // selectOptions.updateOptions(/)
                         templateState.deleteFieldRow();
                     }}
                     //todo - extract method
@@ -144,10 +139,6 @@ const App = props => {
 export default App;
 
 function useTemplateState(initialTemplate) {
-//    let initialTemplateToUse = typeof initialTemplate === 'object' ? initialTemplate : {
-//        id: null,
-//        fields: []
-//    };
     const [template, setTemplate] = useState(initialTemplate);
 
     const INPUT_FIELD = 'cgField';
