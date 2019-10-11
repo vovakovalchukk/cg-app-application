@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 import Input from 'Common/Components/Input';
@@ -25,6 +25,8 @@ const defaultTemplate = {
     columnMap: [defaultColumn]
 };
 
+let maxNumberOfCgOptions = null;
+
 const App = props => {
     const formattedTemplates = formatTemplates(props.templates);
 
@@ -41,6 +43,10 @@ const App = props => {
     const formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
 
     const [cgFieldOptions, setCgFieldOptions] = useState(formattedCgFieldOptions);
+
+    useEffect(() => {
+        maxNumberOfCgOptions = cgFieldOptions.length;
+    }, []);
 
     return (
         <div>
@@ -85,19 +91,36 @@ const App = props => {
                     addFieldRow = {templateState.addFieldRow}
                     cgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
-                        templateState.deleteFieldRow();
+                        templateState.deleteFieldRow(rowIndex);
                     }}
                     //todo - extract method
                     changeFileField = {(rowIndex, desiredValue) => {
-                        templateState.changeFileField(rowIndex, desiredValue)
+                        changeField(rowIndex, desiredValue, 'fileField')
                     }}
-                    changeCgField = {(rowIndex, option) => {
-                        templateState.changeCgField(rowIndex, option.value)
+                    changeCgField = {(rowIndex, desiredValue) => {
+                        changeField(rowIndex, desiredValue, 'cgField')
                     }}
                 />
             </InitialFormSection>
         </div>
     );
+
+    function changeField(rowIndex, desiredValue, propertyName) {
+        let column = templateState.template.columnMap[rowIndex];
+        let isPreviouslyBlankRow = !column.cgField && !column.fileField;
+
+        if (propertyName === 'cgField') {
+            templateState.changeCgField(rowIndex, desiredValue);
+        } else {
+            templateState.changeFileField(rowIndex, desiredValue);
+        }
+
+        if (!shouldAddNewRow(rowIndex, templateState.template, isPreviouslyBlankRow)) {
+            return;
+        }
+
+        templateState.addFieldRow();
+    }
 
     async function deleteTemplateHandler() {
         if (!templateSelectValue) {
@@ -130,7 +153,6 @@ export default App;
 function useTemplateState(initialTemplate) {
     const [template, setTemplate] = useState(initialTemplate);
 
-    console.log('in useTemplateState', template);
     const INPUT_FIELD = 'cgField';
     const SELECT_FIELD = 'fileField';
 
@@ -142,11 +164,11 @@ function useTemplateState(initialTemplate) {
     let columnMap = [...template.columnMap];
 
     function addFieldRow() {
-        let columnMap = columnMap.slice();
-        columnMap.push(blankRow);
+        let newColumnMap = [...columnMap];
+        newColumnMap.push(blankRow);
         setTemplate({
             ...template,
-            columnMap
+            columnMap: newColumnMap
         });
     }
 
@@ -161,7 +183,6 @@ function useTemplateState(initialTemplate) {
 
     function changeCgField(fieldIndex, desiredValue) {
         // todo - need to to find out whether the template at this point is referencing templates
-        console.log('in changeCgField (in hook) ');
         let newColumnMap = [...columnMap];
         newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
         setTemplate({
@@ -262,4 +283,10 @@ function deepCopyObject(object) {
     let newObject = JSON.stringify(object, null, 1);
     newObject = JSON.parse(newObject);
     return newObject;
+}
+
+function shouldAddNewRow(rowIndex, template, isBlankRow) {
+    let isNotLastRow = rowIndex === template.columnMap.length - 1;
+    let isNotAtMaxRows = template.columnMap.length !== maxNumberOfCgOptions;
+    return isNotLastRow && isBlankRow && isNotAtMaxRows;
 }

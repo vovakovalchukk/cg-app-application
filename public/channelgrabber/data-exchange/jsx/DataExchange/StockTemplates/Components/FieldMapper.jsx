@@ -34,6 +34,8 @@ const RowArrow = styled.div`
     grid-column: 3;
     display: flex;
     justify-content: center;
+    transform: scale(2);
+    transform-origin: center;
 `;
 const RowSelect = styled(Select)`
     grid-column: 4;
@@ -52,15 +54,16 @@ const FieldRows = (props) => {
             props.changeFileField(index, desiredValue)
         };
         rowParams['onSelectChange'] = (option) => {
-            console.log('creating onSelectCHange method');
-            
-            
-            props.changeCgField(index, option);
+            props.changeCgField(index, option.value);
+        };
+        rowParams['deleteTemplate'] = () => {
+            props.removeFieldRow(index);
         };
         rowParams['selectedField'] = props.selectOptions.find((option) => {
             return option.value === row.cgField
         });
         rowParams['fileField'] = row.fileField;
+
 //        rowParams['deleteRow'] = () => {
 //            props.removeFieldRow(index);
 //        };
@@ -71,8 +74,8 @@ const FieldRows = (props) => {
 };
 
 const FieldMapper = (props) => {
+    console.log('in fieldMapper render');
 //    console.log('FieldMapper props.template: ', props.template);
-
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, cgFieldOptions} = props;
     return (<MapperContainer className={'u-margin-top-xxlarge'}>
             <HeaderRow>
@@ -98,7 +101,7 @@ const FieldMapper = (props) => {
                         />
 
                         <RowArrow>
-                            ->
+                            →
                         </RowArrow>
 
                         <RowSelect
@@ -111,7 +114,7 @@ const FieldMapper = (props) => {
                             classNames={'u-inline-block'}
                         />
 
-                        <RowDelete onClick={props.deleteTemplate} className={"button"}>
+                        <RowDelete onClick={rowParams.deleteTemplate} className={"button"}>
                             Delete
                         </RowDelete>
                     </React.Fragment>
