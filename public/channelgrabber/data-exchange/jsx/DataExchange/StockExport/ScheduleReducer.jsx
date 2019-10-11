@@ -22,7 +22,8 @@ const scheduleReducer = (state, action) => {
             const newState = [...state];
             newState[action.payload.index] = {
                 ...newState[action.payload.index],
-                etag: action.payload.response.etag
+                etag: action.payload.response.etag,
+                id: action.payload.response.id
             };
             return newState;
         }

@@ -96,8 +96,21 @@ const Table = (props) => {
         />
     };
 
-    async function handleScheduleSave() {
-        return false;
+    async function handleScheduleSave(index, schedule) {
+        n.notice((schedule.id ? 'Saving' : 'Updating') + ` your ${schedule.name} schedule...`, 2000);
+        const response = await saveSchedule(schedule);
+        if (!response.success) {
+            n.error('Couldn\'t ' + (schedule.id ? 'save' : 'update') + ` your ${schedule.name} schedule, please try again or contact support if the problem persists`);
+            return;
+        }
+
+        dispatch({
+            type: 'scheduleSavedSuccessfully',
+            payload: {
+                index,
+                response
+            }
+        });
     }
 
     async function handleScheduleDelete(index, schedule) {
@@ -153,8 +166,15 @@ const buildEmptySchedule = () => {
     }
 };
 
-async function saveSchedule() {
-
+async function saveSchedule(schedule) {
+    return $.ajax({
+        url: window.location.href + '/save',
+        type: 'POST',
+        dataType: 'json',
+        data: schedule,
+        success: (response) => response,
+        error: (error) => error
+    });
 }
 
 async function deleteSchedule(id) {
