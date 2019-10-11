@@ -65,7 +65,7 @@ const FieldRows = (props) => {
 };
 
 const FieldMapper = (props) => {
-    let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow} = props;
+    let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, cgFieldOptions} = props;
     return (<MapperContainer className={'u-margin-top-xxlarge'}>
             <HeaderRow>
                 <MapperColumn1Header>File Column Header</MapperColumn1Header>
@@ -93,9 +93,7 @@ const FieldMapper = (props) => {
                         </RowArrow>
 
                         <RowSelect
-                            // todo - get this from available options
-                            options={props.options}
-                            filterable={true}
+                            options={cgFieldOptions}
                             autoSelectFirst={false}
                             className={'u-width-100pc'}
 //                            title={"choose your template to load"}

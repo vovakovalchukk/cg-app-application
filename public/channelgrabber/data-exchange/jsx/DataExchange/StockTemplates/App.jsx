@@ -51,10 +51,13 @@ const App = props => {
     const [templateInitialised, setTemplateInitialised] = useState(false);
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
-    //todo - change this to come from the templates.
+    const templateState = useTemplateState(defaultTemplate);
 
-    let templateState = useTemplateState(defaultTemplate);
-    // todo ^ this needs to read from available templates
+
+    let formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
+
+    const [cgFieldOptions, setCgFieldOptions] = useState(formattedCgFieldOptions);
+
     return (
         <div>
             <InitialFormSection>
@@ -66,7 +69,6 @@ const App = props => {
                                         templateName.setValue(option.name);
                                         // todo - set field mapper component
                                         // templateHTML.setValue(option.template);
-
                                         debugger;
                                         templateState.setTemplate(option)
                                     }}
@@ -76,9 +78,6 @@ const App = props => {
                     <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
                         setTemplateInitialised(true);
                         templateName.setValue(newTemplateName.value);
-                        //                    templateHTML.setValue('');
-                        //todo - set field mapper component
-
                         templateState.setTemplate(defaultTemplate)
                     }}
                     />
@@ -97,6 +96,7 @@ const App = props => {
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
                     //todo - extract method
+                    cgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
                         console.log('in removeFieldRow');
                         //todo something like the below
@@ -148,7 +148,6 @@ function useTemplateState(initialTemplate) {
 //        id: null,
 //        fields: []
 //    };
-
     const [template, setTemplate] = useState(initialTemplate);
 
     const INPUT_FIELD = 'cgField';
@@ -244,4 +243,16 @@ function useFormInputState(initialValue) {
         onChange,
         setValue
     }
+}
+
+function formatCgFieldOptions(cgFieldOptions){
+    let options = [];
+    for (let key in cgFieldOptions) {
+        options.push({
+            title: key,
+            name: key,
+            value: cgFieldOptions[key]
+        });
+    }
+    return options;
 }
