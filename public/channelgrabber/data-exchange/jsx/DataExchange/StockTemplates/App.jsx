@@ -15,6 +15,15 @@ const InitialFormSection = styled.section`
   max-width: 700px
 `;
 
+const defaultTemplate = {
+    id: null,
+    name: '',
+    type: 'stock',
+    columnMap: [{
+        cgField: '',
+        fileField: ''
+    }]
+};
 
 //format to be sent to backend
 //{
@@ -43,15 +52,6 @@ const App = props => {
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
     //todo - change this to come from the templates.
-    const defaultTemplate = {
-        id: null,
-        name: '',
-        type: 'stock',
-        columnMap: [{
-            cgField: '',
-            fileField: ''
-        }]
-    };
 
     let templateState = useTemplateState(defaultTemplate);
     // todo ^ this needs to read from available templates
@@ -78,7 +78,8 @@ const App = props => {
                         templateName.setValue(newTemplateName.value);
                         //                    templateHTML.setValue('');
                         //todo - set field mapper component
-                        setTemplateSelectValue({});
+
+                        templateState.setTemplate(defaultTemplate)
                     }}
                     />
 
