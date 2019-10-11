@@ -51,9 +51,8 @@ const FieldRows = (props) => {
             let desiredValue = e.target.value;
             props.changeFileField(index, desiredValue)
         };
-        rowParams['onSelectChange'] = () => {
-            let desiredValue = e.target.value;
-            props.changeCgField(index, desiredValue);
+        rowParams['onSelectChange'] = (option) => {
+            props.changeCgField(index, option);
         };
         rowParams['selectedField'] = props.selectOptions.find((option) => {
             return option.value === row.cgField

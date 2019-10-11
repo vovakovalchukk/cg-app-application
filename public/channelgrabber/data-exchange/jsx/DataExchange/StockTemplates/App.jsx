@@ -95,15 +95,14 @@ const App = props => {
                     addFieldRow = {templateState.addFieldRow}
                     cgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
-                        console.log('in removeFieldRow');
                         templateState.deleteFieldRow();
                     }}
                     //todo - extract method
                     changeFileField = {(rowIndex, desiredValue) => {
                         templateState.changeFileField(rowIndex, desiredValue)
                     }}
-                    changeCgField = {(rowIndex, desiredValue) => {
-                        templateState.changeCgField(rowIndex, desiredValue)
+                    changeCgField = {(rowIndex, option) => {
+                        templateState.changeCgField(rowIndex, option.value)
                     }}
                 />
             </InitialFormSection>
@@ -161,29 +160,29 @@ function useTemplateState(initialTemplate) {
     }
 
     function deleteFieldRow(index) {
-        let columnMap = columnMap.slice();
-        columnMap.splice(index, 1);
+        let newColumnMap = columnMap.slice();
+        newColumnMap.splice(index, 1);
         setTemplate({
             ...template,
-            columnMap
+            columnMap: newColumnMap
         });
     }
 
     function changeCgField(fieldIndex, desiredValue) {
-        let columnMap = columnMap.slice();
-        columnMap[fieldIndex][INPUT_FIELD] = desiredValue;
+        let newColumnMap = columnMap.slice();
+        newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
         setTemplate({
             ...template,
-            columnMap
+            columnMap: newColumnMap
         });
     }
 
     function changeFileField(fieldIndex, desiredValue) {
-        let columnMap = columnMap.slice();
-        columnMap[fieldIndex][SELECT_FIELD] = desiredValue;
+        let newColumnMap = columnMap.slice();
+        newColumnMap[fieldIndex][SELECT_FIELD] = desiredValue;
         setTemplate({
             ...template,
-            columnMap
+            columnMap: newColumnMap
         })
     }
 
