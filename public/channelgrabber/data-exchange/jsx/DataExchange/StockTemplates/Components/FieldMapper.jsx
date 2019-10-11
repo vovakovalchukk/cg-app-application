@@ -1,5 +1,4 @@
 import React from 'react';
-import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import Input from 'Common/Components/Input';
 import Select from 'Common/Components/Select';
 import styled from 'styled-components';
@@ -33,6 +32,8 @@ const RowInput = styled(Input)`
 `;
 const RowArrow = styled.div`
     grid-column: 3;
+    display: flex;
+    justify-content: center;
 `;
 const RowSelect = styled(Select)`
     grid-column: 4;
@@ -41,17 +42,30 @@ const RowDelete = styled.button`
     grid-column: 5;
 `;
 
-const FieldMapper = props => {
-    const rows = [{}, {}, {}, {}];
+const FieldRows = (props) => {
+    return props.rows.map((row, index) => {
+        let rowParams = {};
+        rowParams['columnName'] = `Column ${index + 1}`;
+        rowParams['inputId'] = `column-${index + 1}-input`;
+        rowParams['onInputChange'] = (e) => {
+            let desiredValue = e.target.value;
+            props.changeFileField(index, desiredValue)
+        };
+        rowParams['onSelectChange'] = () => {
+            let desiredValue = e.target.value;
+            props.changeCgField(index, desiredValue);
+        };
+        rowParams['cgField'] = row.cgField;
+        rowParams['fileField'] = row.fileField;
+        rowParams['deleteRow'] = () => {
+            props.removeFieldRow(index);
+        };
+        return props.renderRow({index, ...rowParams});
+    });
+};
 
-    const FieldRows = ({renderRow}) => {
-        return rows.map((row, index) => {
-            let columnName = `Column ${index + 1}`;
-            let inputId = `column-${index + 1}-input`;
-            return renderRow(row, columnName, inputId);
-        });
-    };
-
+const FieldMapper = (props) => {
+    let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow} = props;
     return (<MapperContainer className={'u-margin-top-xxlarge'}>
             <HeaderRow>
                 <MapperColumn1Header>File Column Header</MapperColumn1Header>
@@ -59,12 +73,19 @@ const FieldMapper = props => {
             </HeaderRow>
 
             <FieldRows
-                renderRow={(row, columnName, inputId) => (
+                rows={template.columnMap}
+                changeCgField={changeCgField}
+                changeFileField={changeFileField}
+                removeFieldRow={removeFieldRow}
+                addFieldRow={addFieldRow}
+                renderRow={(rowParams) => (
                     <React.Fragment>
-                        <RowLabel htmlFor={inputId}>{columnName}</RowLabel>
+                        <RowLabel htmlFor={rowParams.inputId}>{rowParams.columnName}</RowLabel>
                         <RowInput
-                            id={inputId}
+                            id={rowParams.inputId}
                             inputClassNames={'inputbox u-border-box'}
+                            value={rowParams.fileField}
+                            onChange={rowParams.onInputChange}
                         />
 
                         <RowArrow>
@@ -72,12 +93,14 @@ const FieldMapper = props => {
                         </RowArrow>
 
                         <RowSelect
+                            // todo - get this from available options
                             options={props.options}
                             filterable={true}
                             autoSelectFirst={false}
-                            title={"choose your template to load"}
-                            selectedOption={props.selectedOption}
-                            onOptionChange={props.onOptionChange}
+                            className={'u-width-100pc'}
+//                            title={"choose your template to load"}
+                            selectedOption={rowParams.cgField}
+                            onOptionChange={rowParams.onSelectChange}
                             classNames={'u-inline-block'}
                         />
 
