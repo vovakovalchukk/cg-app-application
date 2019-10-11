@@ -94,6 +94,7 @@ const FieldMapper = (props) => {
 
                         <RowSelect
                             options={cgFieldOptions}
+                            filterable={cgFieldOptions.length > 10}
                             autoSelectFirst={false}
                             className={'u-width-100pc'}
 //                            title={"choose your template to load"}
