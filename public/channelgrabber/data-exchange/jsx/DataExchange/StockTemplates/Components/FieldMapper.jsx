@@ -52,22 +52,27 @@ const FieldRows = (props) => {
             props.changeFileField(index, desiredValue)
         };
         rowParams['onSelectChange'] = (option) => {
+            console.log('creating onSelectCHange method');
+            
+            
             props.changeCgField(index, option);
         };
         rowParams['selectedField'] = props.selectOptions.find((option) => {
             return option.value === row.cgField
         });
         rowParams['fileField'] = row.fileField;
-        rowParams['deleteRow'] = () => {
-            props.removeFieldRow(index);
-        };
-        
-        console.log('rowParams: ', {rowParams, row});
+//        rowParams['deleteRow'] = () => {
+//            props.removeFieldRow(index);
+//        };
+
+//        console.log('rowParams: ', {rowParams, row});
         return props.renderRow({index, ...rowParams});
     });
 };
 
 const FieldMapper = (props) => {
+//    console.log('FieldMapper props.template: ', props.template);
+
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, cgFieldOptions} = props;
     return (<MapperContainer className={'u-margin-top-xxlarge'}>
             <HeaderRow>

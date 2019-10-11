@@ -9,42 +9,27 @@ import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
 
-
 const InitialFormSection = styled.section`
   padding-top: 1rem;
   max-width: 700px
 `;
 
+const defaultColumn = {
+    cgField: '',
+    fileField: ''
+};
 const defaultTemplate = {
     id: null,
     name: '',
     type: 'stock',
-    columnMap: [{
-        cgField: '',
-        fileField: ''
-    }]
+    columnMap: [defaultColumn]
 };
 
-//format to be sent to backend
-//{
-//    "id": integer,
-//    "type": string,
-//    "name": string,
-//    "organisationUnitId": integer,
-//    "columnMap": [
-//    {
-//        "id": integer,
-//        "cgField": string,
-//        "fileField": string
-//    },
-//    ...more objects like the previous one can go here
-//]
-//}
-
-
 const App = props => {
-    console.log('props: ', props);
-    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(props.templates);
+    const formattedTemplates = formatTemplates(props.templates);
+
+    let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
+
     const templateName = useFormInputState('');
     const newTemplateName = useFormInputState('');
 
@@ -61,14 +46,19 @@ const App = props => {
         <div>
             <InitialFormSection>
                 <div className={'u-defloat'}>
-                    <TemplateSelect options={templates} selectedOption={templateSelectValue}
-                                    onOptionChange={(option) => {
-                                        setTemplateSelectValue(option);
+                    <TemplateSelect options={templates}
+                                    selectedOption={templateSelectValue}
+                                    onOptionChange={(chosenTemplate) => {
+                                        setTemplateSelectValue(chosenTemplate);
                                         setTemplateInitialised(true);
-                                        templateName.setValue(option.name);
+                                        templateName.setValue(chosenTemplate.name);
                                         // todo - set field mapper component
                                         // templateHTML.setValue(option.template);
-                                        templateState.setTemplate(option)
+//                                      //todo - remove if not useful
+                                        let templateToSet = deepCopyObject(chosenTemplate);
+
+                                        templateState.setTemplate(templateToSet);
+//                                        templateState.setTemplate({...defaultTemplate});
                                     }}
                                     deleteTemplate={deleteTemplateHandler}
                     />
@@ -140,6 +130,7 @@ export default App;
 function useTemplateState(initialTemplate) {
     const [template, setTemplate] = useState(initialTemplate);
 
+    console.log('in useTemplateState', template);
     const INPUT_FIELD = 'cgField';
     const SELECT_FIELD = 'fileField';
 
@@ -148,7 +139,7 @@ function useTemplateState(initialTemplate) {
         [SELECT_FIELD]: ""
     };
 
-    let columnMap = template.columnMap;
+    let columnMap = [...template.columnMap];
 
     function addFieldRow() {
         let columnMap = columnMap.slice();
@@ -169,7 +160,9 @@ function useTemplateState(initialTemplate) {
     }
 
     function changeCgField(fieldIndex, desiredValue) {
-        let newColumnMap = columnMap.slice();
+        // todo - need to to find out whether the template at this point is referencing templates
+        console.log('in changeCgField (in hook) ');
+        let newColumnMap = [...columnMap];
         newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
         setTemplate({
             ...template,
@@ -245,4 +238,28 @@ function formatCgFieldOptions(cgFieldOptions){
         });
     }
     return options;
+}
+
+function addBlankRowToColumnMap(templateColumnMap) {
+    templateColumnMap.push({...defaultColumn});
+    return templateColumnMap;
+}
+
+function formatTemplates(templates, cgFieldOptionsLength) {
+    return templates.map((template) => {
+        if (template.columnMap.length === cgFieldOptionsLength) {
+            return template;
+        }
+        let newColumnMap = addBlankRowToColumnMap([...template.columnMap]);
+        return {
+            ...template,
+            columnMap: newColumnMap
+        };
+    })
+}
+
+function deepCopyObject(object) {
+    let newObject = JSON.stringify(object, null, 1);
+    newObject = JSON.parse(newObject);
+    return newObject;
 }
