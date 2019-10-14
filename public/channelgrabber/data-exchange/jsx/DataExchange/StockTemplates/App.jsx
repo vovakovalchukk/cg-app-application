@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
-// todo - move these over to cg-common
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
+import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
+const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 
 const InitialFormSection = styled.section`
   padding-top: 1rem;
@@ -25,7 +26,7 @@ const defaultTemplate = {
     columnMap: [defaultColumn]
 };
 
-let maxNumberOfCgOptions = null;
+let initialCgOptions = null;
 
 const App = props => {
     const formattedTemplates = formatTemplates(props.templates);
@@ -42,11 +43,12 @@ const App = props => {
 
     const formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
 
-    const [cgFieldOptions, setCgFieldOptions] = useState(formattedCgFieldOptions);
+    const {cgFieldOptions, availableCgFieldOptions, setCgFieldOptions, updateCgOptionsFromSelections} = useCgOptionsState(formattedCgFieldOptions);
 
-    useEffect(() => {
-        maxNumberOfCgOptions = cgFieldOptions.length;
-    }, []);
+    if(!initialCgOptions) {
+        initialCgOptions = cgFieldOptions;
+    }
+
 
     return (
         <div>
@@ -86,21 +88,26 @@ const App = props => {
                     }
                 </div>
 
-                <FieldMapper
+                {templateInitialised && <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
-                    cgFieldOptions={cgFieldOptions}
+                    availableCgFieldOptions={availableCgFieldOptions}
+                    allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
                         templateState.deleteFieldRow(rowIndex);
+                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
                     //todo - extract method
                     changeFileField = {(rowIndex, desiredValue) => {
                         changeField(rowIndex, desiredValue, 'fileField')
+                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
                     changeCgField = {(rowIndex, desiredValue) => {
-                        changeField(rowIndex, desiredValue, 'cgField')
+                        //todo - reduce number of options
+                            changeField(rowIndex, desiredValue, 'cgField');
+                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
-                />
+                />}
             </InitialFormSection>
         </div>
     );
@@ -150,104 +157,6 @@ const App = props => {
 
 export default App;
 
-function useTemplateState(initialTemplate) {
-    const [template, setTemplate] = useState(initialTemplate);
-
-    const INPUT_FIELD = 'cgField';
-    const SELECT_FIELD = 'fileField';
-
-    const blankRow = {
-        [INPUT_FIELD]: "",
-        [SELECT_FIELD]: ""
-    };
-
-    let columnMap = [...template.columnMap];
-
-    function addFieldRow() {
-        let newColumnMap = [...columnMap];
-        newColumnMap.push(blankRow);
-        setTemplate({
-            ...template,
-            columnMap: newColumnMap
-        });
-    }
-
-    function deleteFieldRow(index) {
-        let newColumnMap = columnMap.slice();
-        newColumnMap.splice(index, 1);
-        setTemplate({
-            ...template,
-            columnMap: newColumnMap
-        });
-    }
-
-    function changeCgField(fieldIndex, desiredValue) {
-        // todo - need to to find out whether the template at this point is referencing templates
-        let newColumnMap = [...columnMap];
-        newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
-        setTemplate({
-            ...template,
-            columnMap: newColumnMap
-        });
-    }
-
-    function changeFileField(fieldIndex, desiredValue) {
-        let newColumnMap = columnMap.slice();
-        newColumnMap[fieldIndex][SELECT_FIELD] = desiredValue;
-        setTemplate({
-            ...template,
-            columnMap: newColumnMap
-        })
-    }
-
-    return {
-        template,
-        setTemplate,
-        addFieldRow,
-        deleteFieldRow,
-        changeCgField,
-        changeFileField
-    };
-}
-
-function useTemplatesState(initialTemplates) {
-    initialTemplates = Array.isArray(initialTemplates) ? initialTemplates : [];
-    const formattedTemplates = initialTemplates.map(template => {
-        return {
-            ...template,
-            value: template.name
-        };
-    });
-    const [templates, setTemplates] = useState(formattedTemplates);
-
-    function deleteTemplateInState(template) {
-        if (!template) {
-            return;
-        }
-        let newTemplates = templates.slice();
-        let templateIndex = newTemplates.findIndex(temp => temp === template);
-        newTemplates.splice(templateIndex, 1);
-        setTemplates(newTemplates);
-    }
-
-    return {
-        templates,
-        setTemplates,
-        deleteTemplateInState
-    };
-}
-
-function useFormInputState(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    function onChange(e) {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange,
-        setValue
-    }
-}
 
 function formatCgFieldOptions(cgFieldOptions){
     let options = [];
@@ -287,6 +196,6 @@ function deepCopyObject(object) {
 
 function shouldAddNewRow(rowIndex, template, isBlankRow) {
     let isNotLastRow = rowIndex === template.columnMap.length - 1;
-    let isNotAtMaxRows = template.columnMap.length !== maxNumberOfCgOptions;
+    let isNotAtMaxRows = template.columnMap.length !== initialCgOptions.length;
     return isNotLastRow && isBlankRow && isNotAtMaxRows;
 }
