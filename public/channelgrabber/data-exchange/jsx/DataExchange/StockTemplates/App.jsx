@@ -11,9 +11,11 @@ import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
 import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 
+const containerWidth = 600;
+
 const InitialFormSection = styled.section`
   padding-top: 1rem;
-  max-width: 700px
+  max-width: ${containerWidth}px;
 `;
 
 const defaultColumn = {
@@ -104,6 +106,7 @@ const App = props => {
                         changeField(rowIndex, desiredValue, 'cgField');
                         updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
+                    containerWidth={containerWidth}
                 />}
             </InitialFormSection>
         </div>

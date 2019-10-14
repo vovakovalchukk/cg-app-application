@@ -4,20 +4,22 @@ import Select from 'Common/Components/Select';
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import styled from 'styled-components';
 
-const gridTemplateColumns = `grid-template-columns: 6rem 1fr 3rem 1fr 6rem;`;
+
+function getGridTemplateColumns (containerWidth){
+    return `grid-template-columns: ${containerWidth / 5}px 1fr 3rem 1fr 6rem;`;
+}
 
 const MapperContainer = styled.div`
     display: grid;
-    grid-gap: 10px;
-    ${gridTemplateColumns}
-    width: 50rem;
+    row-gap: 10px;
+    ${props => getGridTemplateColumns(props.containerWidth)};
+    width: inherit;
 `;
 const HeaderRow = styled.div`
     grid-column: 1/-1;
     grid-row: 1;
     display: grid;
-    grid-gap: 10px;
-    ${gridTemplateColumns}
+    ${props => getGridTemplateColumns(props.containerWidth)};
 `;
 const MapperColumn1Header = styled.div`
     grid-column: 2 ;
@@ -37,6 +39,7 @@ const RowArrow = styled.div`
     justify-content: center;
     transform: scale(2);
     transform-origin: center;
+    line-height: 2.2rem;
 `;
 const RowSelect = styled(Select)`
     grid-column: 4;
@@ -79,8 +82,8 @@ const FieldMapper = (props) => {
 
 //    console.log('FieldMapper props.template: ', props.template);
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, availableCgFieldOptions, allCgFieldOptions} = props;
-    return (<MapperContainer className={'u-margin-top-xxlarge'}>
-            <HeaderRow>
+    return (<MapperContainer className={'u-margin-top-xxlarge'} containerWidth={props.containerWidth}>
+            <HeaderRow containerWidth={props.containerWidth}>
                 <MapperColumn1Header>File Column Header</MapperColumn1Header>
                 <MapperColumn2Header>Channelgrabber Field</MapperColumn2Header>
             </HeaderRow>

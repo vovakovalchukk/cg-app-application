@@ -9,7 +9,7 @@ import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 
 const InitialFormSection = styled.section`
-  max-width: 700px
+  max-width: 600px
 `;
 
 let previewWindow = null;

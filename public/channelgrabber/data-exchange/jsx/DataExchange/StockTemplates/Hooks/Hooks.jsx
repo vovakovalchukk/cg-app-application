@@ -28,25 +28,6 @@ const stockTemplatesHooks = {
                 columnMap: newColumnMap
             };
             setTemplate(newTemplate);
-//            return {
-//                "id": null,
-//                "name": "",
-//                "type": "stock",
-//                "columnMap": [
-//                    {
-//                        "cgField": "sku",
-//                        "fileField": ""
-//                    },
-//                    {
-//                        "cgField": "quantity",
-//                        "fileField": ""
-//                    },
-//                    {
-//                        "cgField": "name",
-//                        "fileField": ""
-//                    }
-//                ]
-//            };
         }
 
         function deleteFieldRow(rowIndex, availableOptionsLength) {
