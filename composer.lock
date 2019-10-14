@@ -2368,6 +2368,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "b621e75a082b2134b1c8282fb557b89129d559e3"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10990-cannot-email-invoices-831577.zip",
+                "reference": "b621e75a082b2134b1c8282fb557b89129d559e3",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
