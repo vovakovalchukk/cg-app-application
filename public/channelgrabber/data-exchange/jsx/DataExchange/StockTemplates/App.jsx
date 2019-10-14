@@ -31,9 +31,6 @@ let initialCgOptions = null;
 
 const App = props => {
     const formattedTemplates = formatTemplates(props.templates);
-    console.log('re-render');
-    
-    
     let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
 
     const templateName = useFormInputState('');
@@ -96,15 +93,15 @@ const App = props => {
                     availableCgFieldOptions={availableCgFieldOptions}
                     allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
-                        updateCgOptionsFromSelections(templateState.template, initialCgOptions);
-                        templateState.deleteFieldRow(rowIndex);
+                        let template = templateState.deleteFieldRow(rowIndex, availableCgFieldOptions.length);
+                        updateCgOptionsFromSelections(template, initialCgOptions);
                     }}
                     changeFileField = {(rowIndex, desiredValue) => {
-                        changeField(rowIndex, desiredValue, 'fileField')
+                        changeField(rowIndex, desiredValue, 'fileField');
                         updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
                     changeCgField = {(rowIndex, desiredValue) => {
-                            changeField(rowIndex, desiredValue, 'cgField');
+                        changeField(rowIndex, desiredValue, 'cgField');
                         updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
                 />}
@@ -164,6 +161,7 @@ function formatCgFieldOptions(cgFieldOptions){
         options.push({
             title: key,
             name: key,
+
             value: cgFieldOptions[key]
         });
     }

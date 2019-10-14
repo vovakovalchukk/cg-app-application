@@ -49,17 +49,19 @@ const stockTemplatesHooks = {
 //            };
         }
 
-        function deleteFieldRow(rowIndex) {
+        function deleteFieldRow(rowIndex, availableOptionsLength) {
             const columnMap = getColumnMap();
-            const shouldAddBlankRow = rowIndex === template.columnMap.length - 1;
+            const shouldAddBlankRow = availableOptionsLength === 0;
             if (shouldAddBlankRow) {
                 columnMap.push(getBlankRow());
             }
             columnMap.splice(rowIndex, 1);
-            setTemplate({
+            const newTemplate = {
                 ...template,
                 columnMap
-            });
+            };
+            setTemplate(newTemplate);
+            return newTemplate;
         }
 
         function changeCgField(fieldIndex, desiredValue) {
