@@ -32,6 +32,11 @@ class InputColumn extends React.Component {
             placeholder={this.props.placeholder}
             type={this.props.type}
             onChange={this.onChange}
+            autoComplete={this.props.type === 'password' ? 'new-password' : 'off'}
+            // We need to render the field as read-only then make it editable on focus to prevent browsers from auto-filling
+            // the username and password in the FTP account table
+            readOnly={true}
+            onFocus={(event) => {event.target.removeAttribute('readonly')}}
         />;
     }
 }

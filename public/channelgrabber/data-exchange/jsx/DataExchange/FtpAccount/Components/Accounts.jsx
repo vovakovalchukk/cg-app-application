@@ -137,7 +137,7 @@ class FtpAccountsComponent extends React.Component {
 
     render() {
         return <Container>
-            <form name={'ftpAccount'}>
+            <form name={'ftpAccount'} autoComplete={'off'}>
                 <table>
                     <thead>
                         {this.renderTableHeader()}
