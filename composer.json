@@ -60,7 +60,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "~1.47.4",
+        "channelgrabber/order": "dev-CGIV-10990-cannot-email-invoices as 1.47.5",
         "channelgrabber/partner": "1.0.4",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
