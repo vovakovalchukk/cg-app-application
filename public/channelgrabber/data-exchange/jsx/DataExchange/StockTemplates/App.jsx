@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
+//todo - move these to Common
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
@@ -65,7 +66,6 @@ const App = props => {
                                         // templateHTML.setValue(option.template);
 //                                      //todo - remove if not useful
                                         let templateToSet = deepCopyObject(chosenTemplate);
-
                                         templateState.setTemplate(templateToSet);
 //                                        templateState.setTemplate({...defaultTemplate});
                                     }}
@@ -89,7 +89,8 @@ const App = props => {
                     }
                 </div>
 
-                {templateInitialised && <FieldMapper
+                {templateInitialised &&
+                <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
                     availableCgFieldOptions={availableCgFieldOptions}
@@ -108,9 +109,49 @@ const App = props => {
                     }}
                     containerWidth={containerWidth}
                 />}
+
+                {templateInitialised &&
+                <div>
+                    <button className={"u-margin-top-med button"} onClick={saveTemplate}>Save</button>
+                </div>
+                }
             </InitialFormSection>
         </div>
     );
+
+    async function saveTemplate() {
+        const params = {
+            ...templateState.template,
+            type: 'stock',
+            name: templateName.value
+        };
+
+        if (!params.name) {
+            n.error('Please choose a name for your template.');
+            return;
+        }
+
+        let response = await $.ajax({
+            url: '/settings/listing/save',
+            type: 'POST',
+            dataType: 'json',
+            data: params
+        });
+
+        if (response.success) {
+            //todo - change this to be useful
+            setTemplateSelectValue({
+                id: response.success.id,
+                etag: response.success.etag
+            });
+            n.success(response.success.message);
+            return;
+        }
+        if (!response.error || !response.error.message) {
+            return;
+        }
+        n.error(response.error.message);
+    }
 
     function changeField(rowIndex, desiredValue, propertyName) {
         let column = templateState.template.columnMap[rowIndex];
