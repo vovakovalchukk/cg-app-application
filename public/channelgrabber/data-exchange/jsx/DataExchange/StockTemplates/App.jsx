@@ -62,12 +62,8 @@ const App = props => {
                                         setTemplateSelectValue(chosenTemplate);
                                         setTemplateInitialised(true);
                                         templateName.setValue(chosenTemplate.name);
-                                        // todo - set field mapper component
-                                        // templateHTML.setValue(option.template);
-//                                      //todo - remove if not useful
                                         let templateToSet = deepCopyObject(chosenTemplate);
                                         templateState.setTemplate(templateToSet);
-//                                        templateState.setTemplate({...defaultTemplate});
                                     }}
                                     deleteTemplate={deleteTemplateHandler}
                     />
@@ -75,7 +71,8 @@ const App = props => {
                     <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
                         setTemplateInitialised(true);
                         templateName.setValue(newTemplateName.value);
-                        templateState.setTemplate(defaultTemplate)
+                        let templateToSet = deepCopyObject(defaultTemplate);
+                        templateState.setTemplate(templateToSet)
                     }}
                     />
 
