@@ -7,6 +7,7 @@ import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
+
 import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 
@@ -30,7 +31,9 @@ let initialCgOptions = null;
 
 const App = props => {
     const formattedTemplates = formatTemplates(props.templates);
-
+    console.log('re-render');
+    
+    
     let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
 
     const templateName = useFormInputState('');
@@ -48,7 +51,6 @@ const App = props => {
     if(!initialCgOptions) {
         initialCgOptions = cgFieldOptions;
     }
-
 
     return (
         <div>
@@ -94,16 +96,14 @@ const App = props => {
                     availableCgFieldOptions={availableCgFieldOptions}
                     allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
+                        updateCgOptionsFromSelections(templateState.template, initialCgOptions);
                         templateState.deleteFieldRow(rowIndex);
-                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
-                    //todo - extract method
                     changeFileField = {(rowIndex, desiredValue) => {
                         changeField(rowIndex, desiredValue, 'fileField')
                         updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}
                     changeCgField = {(rowIndex, desiredValue) => {
-                        //todo - reduce number of options
                             changeField(rowIndex, desiredValue, 'cgField');
                         updateCgOptionsFromSelections(templateState.template, initialCgOptions)
                     }}

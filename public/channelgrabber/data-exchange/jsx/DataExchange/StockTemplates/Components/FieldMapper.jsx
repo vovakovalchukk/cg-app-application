@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import Input from 'Common/Components/Input';
 import Select from 'Common/Components/Select';
+import RemoveIcon from 'Common/Components/RemoveIcon';
 import styled from 'styled-components';
 
 const gridTemplateColumns = `grid-template-columns: 6rem 1fr 3rem 1fr 6rem;`;
@@ -46,7 +47,6 @@ const RowDelete = styled.button`
 
 const FieldRows = (props) => {
     return props.rows.map((row, index) => {
-
         let rowParams = {};
         rowParams['columnName'] = `Column ${index + 1}`;
         rowParams['inputId'] = `column-${index + 1}-input`;
@@ -67,7 +67,8 @@ const FieldRows = (props) => {
 //        rowParams['deleteRow'] = () => {
 //            props.removeFieldRow(index);
 //        };
-
+        rowParams['shouldRenderDelete'] = props.rows.length -1 !== index ||
+            (rowParams.fileField || rowParams.selectedField);
 //        console.log('rowParams: ', {rowParams, row});
         return props.renderRow({index, ...rowParams});
     });
@@ -75,7 +76,6 @@ const FieldRows = (props) => {
 
 const FieldMapper = (props) => {
     console.log('in fieldMapper render');
-    useWhyDidYouUpdate('FieldMapper', props);
 
 //    console.log('FieldMapper props.template: ', props.template);
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, availableCgFieldOptions, allCgFieldOptions} = props;
@@ -116,9 +116,9 @@ const FieldMapper = (props) => {
                             classNames={'u-inline-block'}
                         />
 
-                        <RowDelete onClick={rowParams.deleteTemplate} className={"button"}>
-                            Delete
-                        </RowDelete>
+                        {rowParams.shouldRenderDelete &&
+                            <RemoveIcon onClick={rowParams.deleteTemplate}/>}
+
                     </React.Fragment>
                 )}
             />

@@ -12,29 +12,59 @@ const stockTemplatesHooks = {
             [SELECT_FIELD]: ""
         };
 
-        let columnMap = [...template.columnMap];
-
-        function addFieldRow() {
-            let newColumnMap = [...columnMap];
-            newColumnMap.push(blankRow);
-            setTemplate({
-                ...template,
-                columnMap: newColumnMap
-            });
+        function getColumnMap() {
+            return [...template.columnMap]
         }
 
-        function deleteFieldRow(index) {
-            let newColumnMap = columnMap.slice();
-            newColumnMap.splice(index, 1);
-            setTemplate({
+        function getBlankRow() {
+            return {...blankRow};
+        }
+
+        function addFieldRow() {
+            let newColumnMap = getColumnMap();
+            newColumnMap.push(blankRow);
+            const newTemplate = {
                 ...template,
                 columnMap: newColumnMap
+            };
+            setTemplate(newTemplate);
+//            return {
+//                "id": null,
+//                "name": "",
+//                "type": "stock",
+//                "columnMap": [
+//                    {
+//                        "cgField": "sku",
+//                        "fileField": ""
+//                    },
+//                    {
+//                        "cgField": "quantity",
+//                        "fileField": ""
+//                    },
+//                    {
+//                        "cgField": "name",
+//                        "fileField": ""
+//                    }
+//                ]
+//            };
+        }
+
+        function deleteFieldRow(rowIndex) {
+            const columnMap = getColumnMap();
+            const shouldAddBlankRow = rowIndex === template.columnMap.length - 1;
+            if (shouldAddBlankRow) {
+                columnMap.push(getBlankRow());
+            }
+            columnMap.splice(rowIndex, 1);
+            setTemplate({
+                ...template,
+                columnMap
             });
         }
 
         function changeCgField(fieldIndex, desiredValue) {
             // todo - need to to find out whether the template at this point is referencing templates
-            let newColumnMap = [...columnMap];
+            let newColumnMap = getColumnMap();
             newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
             setTemplate({
                 ...template,
@@ -43,7 +73,7 @@ const stockTemplatesHooks = {
         }
 
         function changeFileField(fieldIndex, desiredValue) {
-            let newColumnMap = columnMap.slice();
+            let newColumnMap = getColumnMap();
             newColumnMap[fieldIndex][SELECT_FIELD] = desiredValue;
             setTemplate({
                 ...template,
@@ -54,6 +84,8 @@ const stockTemplatesHooks = {
         return {
             template,
             setTemplate,
+            getBlankRow,
+            getColumnMap,
             addFieldRow,
             deleteFieldRow,
             changeCgField,
