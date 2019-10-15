@@ -18,15 +18,11 @@ const InitialFormSection = styled.section`
   max-width: ${containerWidth}px;
 `;
 
-const defaultColumn = {
-    cgField: '',
-    fileField: ''
-};
 const defaultTemplate = {
     id: null,
     name: '',
     type: 'stock',
-    columnMap: [defaultColumn]
+    columnMap: [FormattingService.getDefaultColumn()]
 };
 
 let initialCgOptions = null;
@@ -111,7 +107,7 @@ const App = props => {
                     <button
                         className={"u-margin-top-med button"}
                         onClick={saveTemplate}
-                        disabled={shouldDisableSave()}
+                        disabled={isSaveDisabled()}
                     >
                         Save
                     </button>
@@ -121,7 +117,11 @@ const App = props => {
         </div>
     );
 
-    function shouldDisableSave() {
+    function isSaveDisabled() {
+        if (typeof templateSelectValue !== 'object' || !Object.keys(templateSelectValue).length) {
+            return false;
+        }
+
         let templateSelectValueForComparison = FormattingService.formatTemplateForSave(
             {...templateSelectValue},
             templateName.value
@@ -140,6 +140,16 @@ const App = props => {
             return;
         }
         applySelectOptionChangesAfterSave(response);
+    }
+
+    async function deleteTemplateHandler() {
+        const response = await XHRService.deleteTemplate(templateSelectValue);
+        if (!response.success) {
+            return;
+        }
+        const newTemplates = templates.filter((template) => template.id !== response.templateId);
+        setTemplates(newTemplates);
+        setTemplateSelectValue({});
     }
 
     function applySelectOptionChangesAfterSave(response) {
@@ -168,42 +178,6 @@ const App = props => {
         }
 
         templateState.addFieldRow();
-    }
-
-    async function deleteTemplateHandler() {
-
-
-        //todo - test and implement this
-
-        if (!templateSelectValue) {
-            return;
-        }
-        let response = null;
-        try {
-            response = await $.ajax({
-                url: '/dataExchange/stock/templates/remove',
-                type: 'POST',
-                dataType: 'json',
-                data: {id: templateSelectValue.id}
-            });
-
-        } catch(error) {
-            console.log('error',error);
-
-
-        }
-        if (response.success) {
-            n.success(response.success.message);
-            deleteTemplateInState(templateSelectValue);
-            templateName.setValue('');
-            templateHTML.setValue('');
-            return;
-        }
-
-        if (!response.error || !response.error.message) {
-            return;
-        }
-        n.error(response.error.message);
     }
 };
 
