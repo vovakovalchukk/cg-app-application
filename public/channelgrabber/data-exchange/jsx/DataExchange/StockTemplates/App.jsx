@@ -1,18 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import FormattingService from 'DataExchange/StockTemplates/Formatting/Service';
-
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
-
-//todo - move these to Common
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
-
 import XHRService from 'DataExchange/StockTemplates/XHR/Service';
-
+import FormattingService from 'DataExchange/StockTemplates/Formatting/Service';
 import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
+
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 
 const containerWidth = 600;
@@ -36,7 +32,7 @@ const defaultTemplate = {
 let initialCgOptions = null;
 
 const App = props => {
-    const formattedTemplates = formatTemplates(props.templates);
+    const formattedTemplates = FormattingService.formatTemplates(props.templates);
     let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
 
     const templateName = useFormInputState('');
@@ -47,7 +43,7 @@ const App = props => {
 
     const templateState = useTemplateState(defaultTemplate);
 
-    const formattedCgFieldOptions = formatCgFieldOptions(props.cgFieldOptions);
+    const formattedCgFieldOptions = FormattingService.formatCgFieldOptions(props.cgFieldOptions);
 
     const {cgFieldOptions, availableCgFieldOptions, setCgFieldOptions, updateCgOptionsFromSelections} = useCgOptionsState(formattedCgFieldOptions);
 
@@ -116,7 +112,6 @@ const App = props => {
                         className={"u-margin-top-med button"}
                         onClick={saveTemplate}
                         disabled={shouldDisableSave()}
-//                        disabled={true}
                     >
                         Save
                     </button>
@@ -127,7 +122,6 @@ const App = props => {
     );
 
     function shouldDisableSave() {
-        debugger;
         let templateSelectValueForComparison = FormattingService.formatTemplateForSave(
             {...templateSelectValue},
             templateName.value
@@ -142,35 +136,21 @@ const App = props => {
 
     async function saveTemplate() {
         const response = await XHRService.saveTemplate(templateState, templateName);
-
         if (!response.success) {
             return;
         }
-        console.log('templates: ', templates);
-        
-        debugger;
-//        const newTemplate = templateState.applyIdToTemplate(response.template.id);
+        applySelectOptionChangesAfterSave(response);
+    }
 
+    function applySelectOptionChangesAfterSave(response) {
         const newTemplate = response.template;
-
         const newSelectOption = {
             ...newTemplate,
             value: newTemplate.name
         };
-        const newTemplates = formatTemplates([...templates, newSelectOption]);
+        const newTemplates = FormattingService.formatTemplates([...templates, newSelectOption]);
         setTemplates(newTemplates);
-
-
         setTemplateSelectValue(newSelectOption);
-
-//        templateState.setTemplate(
-//            ...templateState.template,
-//
-//        );
-
-        //todo - maybe need to set the template from the response
-        
-        
     }
 
     function changeField(rowIndex, desiredValue, propertyName) {
@@ -228,50 +208,6 @@ const App = props => {
 };
 
 export default App;
-
-function formatCgFieldOptions(cgFieldOptions){
-    let options = [];
-    for (let key in cgFieldOptions) {
-        options.push({
-            title: key,
-            name: key,
-
-            value: cgFieldOptions[key]
-        });
-    }
-    return options;
-}
-
-function addBlankRowToColumnMap(templateColumnMap) {
-    templateColumnMap.push({...defaultColumn});
-    return templateColumnMap;
-}
-
-function formatTemplates(templates, cgFieldOptionsLength) {
-    return templates.map((template) => {
-        if (template.columnMap.length === cgFieldOptionsLength || blankRowExistsAlreadyInTemplate(template)) {
-            return template;
-        }
-        let newColumnMap = addBlankRowToColumnMap([...template.columnMap]);
-        return {
-            ...template,
-            columnMap: newColumnMap
-        };
-    })
-}
-
-function blankRowExistsAlreadyInTemplate(template) {
-    let columns = template.columnMap;
-    if (!columns.length) {
-        return false;
-    }
-    let lastColumn = columns[columns.length - 1];
-    return isBlankColumn(lastColumn)
-}
-
-function isBlankColumn(column) {
-    return !column.fileField && !column.cgField;
-}
 
 function deepCopyObject(object) {
     let newObject = JSON.stringify(object, null, 1);
