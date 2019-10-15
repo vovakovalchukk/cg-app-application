@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 //todo - fix all this shuffle
-import Input from '../../../../../../../cg-np-common/dist/js/Common/Components/Input';
-import FieldWithLabel from '../../../../../../../cg-np-common/dist/js/Common/Components/FieldWithLabel';
-import AddTemplate from '../../../../settings/jsx/Listing/ListingTemplates/Components/AddTemplate';
-import TemplateSelect from '../../../../settings/jsx/Listing/ListingTemplates/Components/TemplateSelect';
-import FieldMapper from './Components/FieldMapper';
-import XHRService from './XHR/Service';
-import FormattingService from './Formatting/Service';
-import Hooks from './Hooks/Hooks';
+import Input from 'Common/Components/Input';
+import FieldWithLabel from 'Common/Components/FieldWithLabel';
+import AddTemplate from 'ListingTemplates/Components/AddTemplate';
+import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
+import FieldMapper from 'DataExchange/Templates/Components/FieldMapper';
+import XHRService from 'DataExchange/Templates/XHR/Service';
+import FormattingService from 'DataExchange/Templates/Formatting/Service';
+import Hooks from 'DataExchange/Templates/Hooks/Hooks';
 
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 

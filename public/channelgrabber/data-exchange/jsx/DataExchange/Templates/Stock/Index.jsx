@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TemplateFieldMapper from '../TemplateFieldMapper.jsx';
+import TemplateFieldMapper from 'DataExchange/Templates/TemplateFieldMapper.jsx';
 
 const StockTemplates = function(
     mountingNode,

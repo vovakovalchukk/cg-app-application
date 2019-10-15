@@ -1,9 +1,8 @@
 import React, {useRef, useEffect} from 'react';
-import Input from '../../../../../../../../cg-np-common/dist/js/Common/Components/Input';
-import Select from '../../../../../../../../cg-np-common/dist/js/Common/Components/Select';
-import RemoveIcon from '../../../../../../../../cg-np-common/dist/js/Common/Components/RemoveIcon';
+import Input from 'Common/Components/Input';
+import Select from 'Common/Components/Select';
+import RemoveIcon from 'Common/Components/RemoveIcon';
 import styled from 'styled-components';
-
 
 function getGridTemplateColumns (containerWidth){
     return `grid-template-columns: ${containerWidth / 5}px 1fr 3rem 1fr 6rem;`;
@@ -44,9 +43,6 @@ const RowArrow = styled.div`
 const RowSelect = styled(Select)`
     grid-column: 4;
 `;
-const RowDelete = styled.button`
-    grid-column: 5;
-`;
 
 const FieldRows = (props) => {
     return props.rows.map((row, index) => {
@@ -67,21 +63,15 @@ const FieldRows = (props) => {
             return option.value === row.cgField
         });
         rowParams['fileField'] = row.fileField;
-//        rowParams['deleteRow'] = () => {
-//            props.removeFieldRow(index);
-//        };
         rowParams['shouldRenderDelete'] = props.rows.length -1 !== index ||
             (rowParams.fileField || rowParams.selectedField);
-//        console.log('rowParams: ', {rowParams, row});
         return props.renderRow({index, ...rowParams});
     });
 };
 
 const FieldMapper = (props) => {
-    console.log('in fieldMapper render');
-
-//    console.log('FieldMapper props.template: ', props.template);
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, availableCgFieldOptions, allCgFieldOptions} = props;
+
     return (<MapperContainer className={'u-margin-top-xxlarge'} containerWidth={props.containerWidth}>
             <HeaderRow containerWidth={props.containerWidth}>
                 <MapperColumn1Header>File Column Header</MapperColumn1Header>
@@ -130,38 +120,3 @@ const FieldMapper = (props) => {
 };
 
 export default FieldMapper;
-
-// Hook
-function useWhyDidYouUpdate(name, props) {
-    // Get a mutable ref object where we can store props ...
-    // ... for comparison next time this hook runs.
-    const previousProps = useRef();
-
-    useEffect(() => {
-        if (previousProps.current) {
-            // Get all keys from previous and current props
-            const allKeys = Object.keys({ ...previousProps.current, ...props });
-            // Use this object to keep track of changed props
-            const changesObj = {};
-            // Iterate through keys
-            allKeys.forEach(key => {
-                // If previous is different from current
-                if (previousProps.current[key] !== props[key]) {
-                    // Add to changesObj
-                    changesObj[key] = {
-                        from: previousProps.current[key],
-                        to: props[key]
-                    };
-                }
-            });
-
-            // If changesObj not empty then output to console
-            if (Object.keys(changesObj).length) {
-                console.log('[why-did-you-update]', name, changesObj);
-            }
-        }
-
-        // Finally update previousProps with current props for next hook call
-        previousProps.current = props;
-    });
-}

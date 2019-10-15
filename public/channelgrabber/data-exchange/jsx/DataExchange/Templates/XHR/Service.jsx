@@ -1,4 +1,4 @@
-import FormattingService from '../Formatting/Service';
+import FormattingService from 'DataExchange/Templates/Formatting/Service';
 
 const DEFAULT_SAVE_ERROR_MESSAGE = 'There was an error submitting your template. Please contact support for assistance.';
 const DEFAULT_DELETE_ERROR_MESSAGE = 'There was an error deleting your template. Please contact support for assistance.';
