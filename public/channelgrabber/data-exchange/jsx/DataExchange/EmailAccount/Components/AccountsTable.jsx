@@ -117,7 +117,8 @@ class AccountsTable extends React.Component {
     handleSaveAccount = (account, index, newAddress) => {
         this.clearTimeoutForAccountSave(index);
 
-        let mergedAccount = Object.assign({}, account, {newAddress: newAddress});
+        const mergedAccount = this.buildAccountForSaving(account, index, newAddress);
+
         if (!this.isAddressChanged(mergedAccount)) {
             return;
         }
@@ -148,11 +149,24 @@ class AccountsTable extends React.Component {
     onKeyPressEnter = (account, index) => {
         this.clearTimeoutForAccountSave(index);
 
-        if (!this.isEmailAddressValid(account.newAddress)) {
+        const mergedAccount = this.buildAccountForSaving(account, index, account.newAddress);
+
+        if (!this.isAddressChanged(mergedAccount)) {
             return;
         }
 
-        this.props.actions.saveEmailAddress(this.props.type, index, account);
+        if (!this.isEmailAddressValid(mergedAccount.newAddress)) {
+            return;
+        }
+
+        this.props.actions.saveEmailAddress(this.props.type, index, mergedAccount);
+    };
+
+    buildAccountForSaving = (account, index, newAddress) => {
+        return Object.assign({}, account, {newAddress: newAddress}, {
+            verified: false,
+            verificationStatus: null
+        });
     };
 
     async verifyEmailAddress(account, index) {

@@ -53,6 +53,7 @@ const formatAccountsForType = (accounts, type) => {
 
     accountsForType.forEach((account) => {
         account.newAddress = account.address;
+        account.verificationStatus = account.verificationStatus || null;
     });
 
     return accountsForType;
