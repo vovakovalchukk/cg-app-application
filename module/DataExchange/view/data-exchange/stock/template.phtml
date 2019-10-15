@@ -3,14 +3,14 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
-        'StockTemplates': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/StockTemplates',
+        'Templates': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/Templates',
         'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
     }
 });
 $(document).ready(function() {
     const rootNode = document.getElementById('stock-templates-root');
     require([
-        "StockTemplates/Index",
+        "Templates/Stock/Index",
     ],
     function(
         StockTemplatesIndex

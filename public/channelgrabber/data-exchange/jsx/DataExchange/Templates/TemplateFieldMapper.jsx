@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import Input from 'Common/Components/Input';
-import FieldWithLabel from 'Common/Components/FieldWithLabel';
-import AddTemplate from 'ListingTemplates/Components/AddTemplate';
-import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
-import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
-import XHRService from 'DataExchange/StockTemplates/XHR/Service';
-import FormattingService from 'DataExchange/StockTemplates/Formatting/Service';
-import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
+import Input from '../../../../../../../cg-np-common/dist/js/Common/Components/Input';
+import FieldWithLabel from '../../../../../../../cg-np-common/dist/js/Common/Components/FieldWithLabel';
+import AddTemplate from '../../../../settings/jsx/Listing/ListingTemplates/Components/AddTemplate';
+import TemplateSelect from '../../../../settings/jsx/Listing/ListingTemplates/Components/TemplateSelect';
+import FieldMapper from './Components/FieldMapper';
+import XHRService from './XHR/Service';
+import FormattingService from './Formatting/Service';
+import Hooks from './Hooks/Hooks';
 
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
 
@@ -27,7 +27,7 @@ const defaultTemplate = {
 
 let initialCgOptions = null;
 
-const App = props => {
+const TemplateFieldMapper = props => {
     const formattedTemplates = FormattingService.formatTemplates(props.templates);
     let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
 
@@ -181,7 +181,7 @@ const App = props => {
     }
 };
 
-export default App;
+export default TemplateFieldMapper;
 
 function deepCopyObject(object) {
     let newObject = JSON.stringify(object, null, 1);

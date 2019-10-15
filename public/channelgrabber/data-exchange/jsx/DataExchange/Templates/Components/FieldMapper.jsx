@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
-import Input from 'Common/Components/Input';
-import Select from 'Common/Components/Select';
-import RemoveIcon from 'Common/Components/RemoveIcon';
+import Input from '../../../../../../../../cg-np-common/dist/js/Common/Components/Input';
+import Select from '../../../../../../../../cg-np-common/dist/js/Common/Components/Select';
+import RemoveIcon from '../../../../../../../../cg-np-common/dist/js/Common/Components/RemoveIcon';
 import styled from 'styled-components';
 
 

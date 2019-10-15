@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppComponent from 'DataExchange/StockTemplates/App.jsx';
+import TemplateFieldMapper from '../TemplateFieldMapper.jsx';
 
 const StockTemplates = function(
     mountingNode,
@@ -10,7 +10,7 @@ const StockTemplates = function(
     console.log('{mountingNode, templates, cgFieldOptions}: ', {mountingNode, templates, cgFieldOptions});
     
     ReactDOM.render(
-        <AppComponent
+        <TemplateFieldMapper
             templates={templates}
             cgFieldOptions={cgFieldOptions}
         />,
