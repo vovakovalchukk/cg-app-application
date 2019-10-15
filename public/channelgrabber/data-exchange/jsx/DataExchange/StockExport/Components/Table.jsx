@@ -1,12 +1,15 @@
 import React, {useReducer} from 'react';
 import styled from "styled-components";
 import scheduleReducer from "../ScheduleReducer";
-import ActionsColumn from "./ActionsColumn";
+import ActionsColumn from "./Column/Actions";
+import TemplateColumn from "./Column/Template";
+import SendToAccountColumn from "./Column/SendToAccount";
+import SendFromAccount from "./Column/SendFromAccount";
 
 const Container = styled.div`
     margin-top: 45px;
 `;
-const TypeCellContainer = styled.td`
+const SelectDropDownCell = styled.td`
     overflow: visible;
 `;
 const TableHeader = styled.th`
@@ -18,7 +21,7 @@ const Input = styled.input`
 `;
 
 const Table = (props) => {
-    const initialSchedules = [...props.stockExportSchedules, buildEmptySchedule()];
+    const initialSchedules = [...props.stockExportSchedules, buildEmptySchedule(props)];
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
     const renderTableHeader = () => {
@@ -26,8 +29,8 @@ const Table = (props) => {
             <TableHeader width={'80px'}>Enabled</TableHeader>
             <TableHeader>Rule name</TableHeader>
             <TableHeader>Template</TableHeader>
-            <TableHeader>Send to</TableHeader>
-            <TableHeader>Send from</TableHeader>
+            <TableHeader width={'250px'}>Send to</TableHeader>
+            <TableHeader width={'250px'}>Send from</TableHeader>
             <TableHeader>Email Subject</TableHeader>
             <TableHeader>File name</TableHeader>
             <TableHeader>Frequency</TableHeader>
@@ -41,9 +44,9 @@ const Table = (props) => {
             return <tr>
                 <td>{schedule.active ? 'Active' : 'Not active'}</td>
                 <td>{renderInputColumnForType(schedule, index, 'name')}</td>
-                <td>{schedule.templateId}</td>
-                <td>{schedule.toDataExchangeAccountId}</td>
-                <td>{schedule.fromDataExchangeAccountType}</td>
+                <SelectDropDownCell>{renderTemplateColumn(schedule, index)}</SelectDropDownCell>
+                <SelectDropDownCell>{renderSendToAccountColumn(schedule, index)}</SelectDropDownCell>
+                <SelectDropDownCell>{schedule.toDataExchangeAccountType === 'email' ? renderSendFromAccountColumn(schedule, index) : null}</SelectDropDownCell>
                 <td>Subject</td>
                 <td>{renderInputColumnForType(schedule, index, 'filename')}</td>
                 <td>{schedule.frequency}</td>
@@ -63,12 +66,46 @@ const Table = (props) => {
         />;
     };
 
+    const renderTemplateColumn = (schedule, index) => {
+        return <TemplateColumn
+            schedule={schedule}
+            index={index}
+            stockTemplateOptions={props.stockTemplateOptions}
+            onChange={(templateId) => {handleInputValueChanged(index, 'templateId', templateId)}}
+        />;
+    };
+
+    const renderSendToAccountColumn = (schedule, index) => {
+        return <SendToAccountColumn
+            schedule={schedule}
+            index={index}
+            toAccountOptions={props.toAccountOptions}
+            onChange={(sendToAccount) => {
+                const [accountType, accountId] = sendToAccount.split('-');
+                handleInputValueChanged(index, 'toDataExchangeAccountId', accountId);
+                handleInputValueChanged(index, 'toDataExchangeAccountType', accountType);
+            }}
+        />;
+    };
+
+    const renderSendFromAccountColumn = (schedule, index) => {
+        return <SendFromAccount
+            schedule={schedule}
+            index={index}
+            fromAccountOptions={props.fromAccountOptions}
+            onChange={(sendFromAccountId) => {
+                handleInputValueChanged(index, 'fromDataExchangeAccountType', 'email');
+                handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId);
+            }}
+        />;
+    };
+
     const handleInputValueChanged = (index, property, newValue) => {
         if (isLastEntry(index)) {
             dispatch({
                 type: 'addNewSchedule',
                 payload: {
-                    schedule: buildEmptySchedule()
+                    schedule: buildEmptySchedule(props)
                 }
             });
         }
@@ -114,14 +151,18 @@ const Table = (props) => {
     }
 
     async function handleScheduleDelete(index, schedule) {
-        n.notice(`Deleting your schedule ${schedule.name}...`, 2000);
-        const response = await deleteSchedule(schedule.id);
-        if (!response.success) {
-            n.error('The schedule couldn\'t be deleted. Please try again or contact support if the problem persists');
-            return;
+        if (schedule.id) {
+            n.notice(`Deleting your schedule ${schedule.name}...`, 2000);
+
+            const response = await deleteSchedule(schedule.id);
+            if (!response.success) {
+                n.error('The schedule couldn\'t be deleted. Please try again or contact support if the problem persists');
+                return;
+            }
+
+            n.success('The schedule was successfully deleted');
         }
 
-        n.success('The schedule was successfully deleted');
         dispatch({
             type: 'scheduleDeletedSuccessfully',
             payload: {index}
@@ -147,7 +188,7 @@ Table.defaultProps = {
 
 export default Table;
 
-const buildEmptySchedule = () => {
+const buildEmptySchedule = (props) => {
     return {
         active: false,
         date: null,
