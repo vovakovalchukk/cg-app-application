@@ -18,14 +18,35 @@ class ActionsColumn extends React.Component {
     };
 
     renderSaveIcon = () => {
-        return <IconContainer disabled={!this.props.hasAccountChanged}>
+        const saveIconDisabled = !this.isAccountValidForSaving();
+        return <IconContainer disabled={saveIconDisabled}>
             <i
                 className={'fa fa-2x fa-check-square-o'}
                 aria-hidden="true"
-                onClick={this.props.hasAccountChanged ? this.props.actions.saveAccount.bind(this, this.props.index, this.props.account) :  () => {}}
+                onClick={!saveIconDisabled ? () => {this.props.actions.saveAccount(this.props.index, this.props.account)} : () => {}}
                 title={'Save'}
             />
         </IconContainer>;
+    };
+
+    isAccountValidForSaving = () => {
+        if (!this.props.hasAccountChanged) {
+            return false;
+        }
+
+        if (this.props.account.username.toString().trim().length < 2) {
+            return false;
+        }
+
+        if (this.props.account.server.toString().trim().length < 3) {
+            return false;
+        }
+
+        if (this.props.account.port.toString().trim().length < 2) {
+            return false;
+        }
+
+        return true;
     };
 
     renderRemoveIcon = () => {
