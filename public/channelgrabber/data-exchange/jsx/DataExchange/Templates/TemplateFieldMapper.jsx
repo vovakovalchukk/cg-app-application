@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-//todo - fix all this shuffle
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import AddTemplate from 'Common/Components/Templates/AddTemplate';
@@ -37,7 +36,7 @@ const TemplateFieldMapper = props => {
 
     const {cgFieldOptions, availableCgFieldOptions, setCgFieldOptions, updateCgOptionsFromSelections} = useCgOptionsState(formattedCgFieldOptions);
 
-    if(!initialCgOptions) {
+    if (!initialCgOptions) {
         initialCgOptions = cgFieldOptions;
     }
 

@@ -39,7 +39,7 @@ const FormattingService = {
             };
         })
     },
-    formatCgFieldOptions: function(cgFieldOptions){
+    formatCgFieldOptions: function(cgFieldOptions) {
         let options = [];
         for (let key in cgFieldOptions) {
             options.push({
@@ -56,7 +56,7 @@ const FormattingService = {
             fileField: ''
         };
     },
-    getDefaultTemplate: function(templateType){
+    getDefaultTemplate: function(templateType) {
         return {
             id: null,
             name: '',

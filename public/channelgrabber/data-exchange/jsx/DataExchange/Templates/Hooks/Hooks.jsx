@@ -142,4 +142,3 @@ const stockTemplatesHooks = {
 };
 
 export default stockTemplatesHooks;
-

@@ -7,8 +7,6 @@ const StockTemplates = function(
     templates,
     cgFieldOptions
 ) {
-    console.log('{mountingNode, templates, cgFieldOptions}: ', {mountingNode, templates, cgFieldOptions});
-    
     ReactDOM.render(
         <TemplateFieldMapper
             templates={templates}
