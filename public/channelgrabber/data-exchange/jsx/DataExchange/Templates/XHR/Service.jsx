@@ -4,7 +4,8 @@ const DEFAULT_SAVE_ERROR_MESSAGE = 'There was an error submitting your template.
 const DEFAULT_DELETE_ERROR_MESSAGE = 'There was an error deleting your template. Please contact support for assistance.';
 
 const XHRService = {
-    saveTemplate: async function saveTemplate(templateState, templateName) {
+    saveTemplate: async function saveTemplate(templateState, templateName, templateType) {
+        debugger;
         let formattedTemplate = FormattingService.formatTemplateForSave(templateState.template, templateName.value);
         const data = {
             template: formattedTemplate
@@ -18,7 +19,7 @@ const XHRService = {
         let response = null;
         try {
             response = await $.ajax({
-                url: '/dataExchange/stock/templates/save',
+                url: `/dataExchange/${templateType}/templates/save`,
                 type: 'POST',
                 dataType: 'json',
                 data
@@ -37,14 +38,14 @@ const XHRService = {
         }
         return response;
     },
-    deleteTemplate: async function deleteTemplate(templateSelectValue) {
+    deleteTemplate: async function deleteTemplate(templateSelectValue, templateType) {
         if (!templateSelectValue) {
             return;
         }
         let response = null;
         try {
             response = await $.ajax({
-                url: '/dataExchange/stock/templates/remove',
+                url: `/dataExchange/${templateType}/templates/remove`,
                 type: 'POST',
                 dataType: 'json',
                 data: {id: templateSelectValue.id}

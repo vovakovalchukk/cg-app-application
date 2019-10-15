@@ -55,7 +55,6 @@ const stockTemplatesHooks = {
         }
 
         function changeCgField(fieldIndex, desiredValue) {
-            // todo - need to to find out whether the template at this point is referencing templates
             let newColumnMap = getColumnMap();
             newColumnMap[fieldIndex][INPUT_FIELD] = desiredValue;
             setTemplate({
@@ -96,20 +95,9 @@ const stockTemplatesHooks = {
         });
         const [templates, setTemplates] = useState(formattedTemplates);
 
-        function deleteTemplateInState(template) {
-            if (!template) {
-                return;
-            }
-            let newTemplates = templates.slice();
-            let templateIndex = newTemplates.findIndex(temp => temp === template);
-            newTemplates.splice(templateIndex, 1);
-            setTemplates(newTemplates);
-        }
-
         return {
             templates,
-            setTemplates,
-            deleteTemplateInState
+            setTemplates
         };
     },
 

@@ -55,6 +55,14 @@ const FormattingService = {
             cgField: '',
             fileField: ''
         };
+    },
+    getDefaultTemplate: function(templateType){
+        return {
+            id: null,
+            name: '',
+            type: templateType,
+            columnMap: [FormattingService.getDefaultColumn()]
+        }
     }
 };
 

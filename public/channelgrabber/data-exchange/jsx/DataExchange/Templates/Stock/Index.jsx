@@ -13,6 +13,7 @@ const StockTemplates = function(
         <TemplateFieldMapper
             templates={templates}
             cgFieldOptions={cgFieldOptions}
+            templateType={'stock'}
         />,
         mountingNode
     );

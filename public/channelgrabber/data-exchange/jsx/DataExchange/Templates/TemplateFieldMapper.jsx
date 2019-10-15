@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+//todo - fix all this shuffle
 import Input from '../../../../../../../cg-np-common/dist/js/Common/Components/Input';
 import FieldWithLabel from '../../../../../../../cg-np-common/dist/js/Common/Components/FieldWithLabel';
 import AddTemplate from '../../../../settings/jsx/Listing/ListingTemplates/Components/AddTemplate';
@@ -18,18 +19,11 @@ const InitialFormSection = styled.section`
   max-width: ${containerWidth}px;
 `;
 
-const defaultTemplate = {
-    id: null,
-    name: '',
-    type: 'stock',
-    columnMap: [FormattingService.getDefaultColumn()]
-};
-
 let initialCgOptions = null;
 
 const TemplateFieldMapper = props => {
     const formattedTemplates = FormattingService.formatTemplates(props.templates);
-    let {templates, setTemplates, deleteTemplateInState} = useTemplatesState(formattedTemplates);
+    let {templates, setTemplates} = useTemplatesState(formattedTemplates);
 
     const templateName = useFormInputState('');
     const newTemplateName = useFormInputState('');
@@ -37,7 +31,7 @@ const TemplateFieldMapper = props => {
     const [templateInitialised, setTemplateInitialised] = useState(false);
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
-    const templateState = useTemplateState(defaultTemplate);
+    const templateState = useTemplateState(FormattingService.getDefaultTemplate(props.templateType));
 
     const formattedCgFieldOptions = FormattingService.formatCgFieldOptions(props.cgFieldOptions);
 
@@ -66,7 +60,7 @@ const TemplateFieldMapper = props => {
                     <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
                         setTemplateInitialised(true);
                         templateName.setValue(newTemplateName.value);
-                        let templateToSet = deepCopyObject(defaultTemplate);
+                        let templateToSet = deepCopyObject(FormattingService.getDefaultTemplate(props.templateType));
                         templateState.setTemplate(templateToSet)
                     }}
                     />
@@ -135,7 +129,7 @@ const TemplateFieldMapper = props => {
     }
 
     async function saveTemplate() {
-        const response = await XHRService.saveTemplate(templateState, templateName);
+        const response = await XHRService.saveTemplate(templateState, templateName, props.templateType);
         if (!response.success) {
             return;
         }
@@ -143,7 +137,7 @@ const TemplateFieldMapper = props => {
     }
 
     async function deleteTemplateHandler() {
-        const response = await XHRService.deleteTemplate(templateSelectValue);
+        const response = await XHRService.deleteTemplate(templateSelectValue, props.templateType);
         if (!response.success) {
             return;
         }
