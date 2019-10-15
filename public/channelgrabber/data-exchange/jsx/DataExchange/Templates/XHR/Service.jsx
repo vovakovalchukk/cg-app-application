@@ -5,7 +5,6 @@ const DEFAULT_DELETE_ERROR_MESSAGE = 'There was an error deleting your template.
 
 const XHRService = {
     saveTemplate: async function saveTemplate(templateState, templateName, templateType) {
-        debugger;
         let formattedTemplate = FormattingService.formatTemplateForSave(templateState.template, templateName.value);
         const data = {
             template: formattedTemplate

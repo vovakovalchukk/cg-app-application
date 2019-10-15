@@ -3,8 +3,8 @@ import styled from 'styled-components';
 //todo - fix all this shuffle
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
-import AddTemplate from 'ListingTemplates/Components/AddTemplate';
-import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
+import AddTemplate from 'Common/Components/Templates/AddTemplate';
+import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
 import FieldMapper from 'DataExchange/Templates/Components/FieldMapper';
 import XHRService from 'DataExchange/Templates/XHR/Service';
 import FormattingService from 'DataExchange/Templates/Formatting/Service';
@@ -144,6 +144,7 @@ const TemplateFieldMapper = props => {
         const newTemplates = templates.filter((template) => template.id !== response.templateId);
         setTemplates(newTemplates);
         setTemplateSelectValue({});
+        setTemplateInitialised(false);
     }
 
     function applySelectOptionChangesAfterSave(response) {
