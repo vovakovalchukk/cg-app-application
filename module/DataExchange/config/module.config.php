@@ -7,6 +7,7 @@ use DataExchange\Controller\FtpAccountController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockImportController;
+use DataExchange\Controller\StockImportManualController;
 use DataExchange\Controller\TemplateController;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
@@ -259,6 +260,16 @@ return [
                                     'route' => '/remove',
                                     'defaults' => [
                                         'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            StockImportManualController::ROUTE_UPLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/upload',
+                                    'defaults' => [
+                                        'action' => 'upload'
                                     ]
                                 ],
                                 'may_terminate' => true,
