@@ -51,3 +51,4 @@ Frequency.defaultProps = {
 };
 
 export default Frequency;
+export {FREQUENCY_HOURLY, FREQUENCY_DAILY, FREQUENCY_WEEKLY, FREQUENCY_MONTHLY};
