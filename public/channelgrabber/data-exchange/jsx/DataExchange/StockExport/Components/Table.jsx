@@ -5,6 +5,7 @@ import ActionsColumn from "./Column/Actions";
 import TemplateColumn from "./Column/Template";
 import SendToAccountColumn from "./Column/SendToAccount";
 import SendFromAccount from "./Column/SendFromAccount";
+import Frequency from "./Column/Frequency";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -49,7 +50,7 @@ const Table = (props) => {
                 <SelectDropDownCell>{schedule.toDataExchangeAccountType === 'email' ? renderSendFromAccountColumn(schedule, index) : null}</SelectDropDownCell>
                 <td>Subject</td>
                 <td>{renderInputColumnForType(schedule, index, 'filename')}</td>
-                <td>{schedule.frequency}</td>
+                <SelectDropDownCell>{renderFrequencyColumn(schedule, index)}</SelectDropDownCell>
                 <td>When</td>
                 <td>{renderActions(index, schedule)}</td>
             </tr>;
@@ -58,7 +59,6 @@ const Table = (props) => {
 
     const renderInputColumnForType = (schedule, index, property, type = 'text') => {
         return <Input
-            index={index}
             property={property}
             type={type}
             value={schedule[property] || ''}
@@ -78,7 +78,6 @@ const Table = (props) => {
     const renderSendToAccountColumn = (schedule, index) => {
         return <SendToAccountColumn
             schedule={schedule}
-            index={index}
             toAccountOptions={props.toAccountOptions}
             onChange={(sendToAccount) => {
                 const [accountType, accountId] = sendToAccount.split('-');
@@ -91,11 +90,19 @@ const Table = (props) => {
     const renderSendFromAccountColumn = (schedule, index) => {
         return <SendFromAccount
             schedule={schedule}
-            index={index}
             fromAccountOptions={props.fromAccountOptions}
             onChange={(sendFromAccountId) => {
                 handleInputValueChanged(index, 'fromDataExchangeAccountType', 'email');
                 handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId);
+            }}
+        />;
+    };
+
+    const renderFrequencyColumn = (schedule, index) => {
+        return <Frequency
+            schedule={schedule}
+            onChange={(frequency) => {
+                handleInputValueChanged(index, 'frequency', frequency);
             }}
         />;
     };

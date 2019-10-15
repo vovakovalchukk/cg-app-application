@@ -39,7 +39,6 @@ const SendFromAccount = (props) => {
 
 SendFromAccount.defaultProps = {
     schedule: {},
-    index: 0,
     fromAccountOptions: {},
     onChange: () => {}
 };
