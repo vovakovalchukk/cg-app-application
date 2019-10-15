@@ -100,7 +100,9 @@ const deleteAccountAjax = async function (id) {
 const saveAccountAjax = async function (account) {
     let postData = {
         type: account.type,
-        address: account.newAddress
+        address: account.newAddress,
+        verified: account.verified,
+        verificationStatus: account.verificationStatus
     };
 
     if (account.id) {
