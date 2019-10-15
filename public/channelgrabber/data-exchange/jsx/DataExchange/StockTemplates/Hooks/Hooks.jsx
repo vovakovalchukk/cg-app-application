@@ -20,6 +20,15 @@ const stockTemplatesHooks = {
             return {...blankRow};
         }
 
+        function applyIdToTemplate(id) {
+            const newTemplate = {
+                ...template,
+                id
+            };
+            setTemplate(newTemplate);
+            return newTemplate;
+        }
+
         function addFieldRow() {
             let newColumnMap = getColumnMap();
             newColumnMap.push(blankRow);
@@ -42,7 +51,7 @@ const stockTemplatesHooks = {
                 columnMap
             };
             setTemplate(newTemplate);
-            return newTemplate;
+            return ncolumnMapewTemplate;
         }
 
         function changeCgField(fieldIndex, desiredValue) {
@@ -69,6 +78,7 @@ const stockTemplatesHooks = {
             setTemplate,
             getBlankRow,
             getColumnMap,
+            applyIdToTemplate,
             addFieldRow,
             deleteFieldRow,
             changeCgField,

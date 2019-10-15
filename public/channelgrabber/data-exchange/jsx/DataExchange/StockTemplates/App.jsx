@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import FormattingService from 'DataExchange/StockTemplates/Formatting/Service';
 
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
@@ -8,6 +9,8 @@ import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 import FieldMapper from 'DataExchange/StockTemplates/Components/FieldMapper';
+
+import XHRService from 'DataExchange/StockTemplates/XHR/Service';
 
 import Hooks from 'DataExchange/StockTemplates/Hooks/Hooks';
 const {useTemplatesState, useTemplateState, useFormInputState, useCgOptionsState} = Hooks;
@@ -109,45 +112,65 @@ const App = props => {
 
                 {templateInitialised &&
                 <div>
-                    <button className={"u-margin-top-med button"} onClick={saveTemplate}>Save</button>
+                    <button
+                        className={"u-margin-top-med button"}
+                        onClick={saveTemplate}
+                        disabled={shouldDisableSave()}
+//                        disabled={true}
+                    >
+                        Save
+                    </button>
                 </div>
                 }
             </InitialFormSection>
         </div>
     );
 
+    function shouldDisableSave() {
+        debugger;
+        let templateSelectValueForComparison = FormattingService.formatTemplateForSave(
+            {...templateSelectValue},
+            templateName.value
+        );
+        const formattedTemplate = FormattingService.formatTemplateForSave(
+            templateState.template,
+            templateName.value
+        );
+        return JSON.stringify(formattedTemplate, null, 1) ===
+            JSON.stringify(templateSelectValueForComparison, null, 1);
+    }
+
     async function saveTemplate() {
-        const params = {
-            ...templateState.template,
-            type: 'stock',
-            name: templateName.value
+        const response = await XHRService.saveTemplate(templateState, templateName);
+
+        if (!response.success) {
+            return;
+        }
+        console.log('templates: ', templates);
+        
+        debugger;
+//        const newTemplate = templateState.applyIdToTemplate(response.template.id);
+
+        const newTemplate = response.template;
+
+        const newSelectOption = {
+            ...newTemplate,
+            value: newTemplate.name
         };
+        const newTemplates = formatTemplates([...templates, newSelectOption]);
+        setTemplates(newTemplates);
 
-        if (!params.name) {
-            n.error('Please choose a name for your template.');
-            return;
-        }
 
-        let response = await $.ajax({
-            url: '/settings/listing/save',
-            type: 'POST',
-            dataType: 'json',
-            data: params
-        });
+        setTemplateSelectValue(newSelectOption);
 
-        if (response.success) {
-            //todo - change this to be useful
-            setTemplateSelectValue({
-                id: response.success.id,
-                etag: response.success.etag
-            });
-            n.success(response.success.message);
-            return;
-        }
-        if (!response.error || !response.error.message) {
-            return;
-        }
-        n.error(response.error.message);
+//        templateState.setTemplate(
+//            ...templateState.template,
+//
+//        );
+
+        //todo - maybe need to set the template from the response
+        
+        
     }
 
     function changeField(rowIndex, desiredValue, propertyName) {
@@ -168,16 +191,27 @@ const App = props => {
     }
 
     async function deleteTemplateHandler() {
+
+
+        //todo - test and implement this
+
         if (!templateSelectValue) {
             return;
         }
-        let response = await $.ajax({
-            url: '/dataExchange/stock/templates/remove',
-            type: 'POST',
-            dataType: 'json',
-            data: {id: templateSelectValue.id}
-        });
+        let response = null;
+        try {
+            response = await $.ajax({
+                url: '/dataExchange/stock/templates/remove',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: templateSelectValue.id}
+            });
 
+        } catch(error) {
+            console.log('error',error);
+
+
+        }
         if (response.success) {
             n.success(response.success.message);
             deleteTemplateInState(templateSelectValue);
@@ -194,7 +228,6 @@ const App = props => {
 };
 
 export default App;
-
 
 function formatCgFieldOptions(cgFieldOptions){
     let options = [];
@@ -216,7 +249,7 @@ function addBlankRowToColumnMap(templateColumnMap) {
 
 function formatTemplates(templates, cgFieldOptionsLength) {
     return templates.map((template) => {
-        if (template.columnMap.length === cgFieldOptionsLength) {
+        if (template.columnMap.length === cgFieldOptionsLength || blankRowExistsAlreadyInTemplate(template)) {
             return template;
         }
         let newColumnMap = addBlankRowToColumnMap([...template.columnMap]);
@@ -225,6 +258,19 @@ function formatTemplates(templates, cgFieldOptionsLength) {
             columnMap: newColumnMap
         };
     })
+}
+
+function blankRowExistsAlreadyInTemplate(template) {
+    let columns = template.columnMap;
+    if (!columns.length) {
+        return false;
+    }
+    let lastColumn = columns[columns.length - 1];
+    return isBlankColumn(lastColumn)
+}
+
+function isBlankColumn(column) {
+    return !column.fileField && !column.cgField;
 }
 
 function deepCopyObject(object) {
