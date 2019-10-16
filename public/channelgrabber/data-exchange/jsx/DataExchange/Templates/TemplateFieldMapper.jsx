@@ -44,24 +44,27 @@ const TemplateFieldMapper = props => {
         <div>
             <InitialFormSection>
                 <div className={'u-defloat'}>
-                    <TemplateSelect options={templates}
-                                    selectedOption={templateSelectValue}
-                                    onOptionChange={(chosenTemplate) => {
-                                        setTemplateSelectValue(chosenTemplate);
-                                        setTemplateInitialised(true);
-                                        templateName.setValue(chosenTemplate.name);
-                                        let templateToSet = deepCopyObject(chosenTemplate);
-                                        templateState.setTemplate(templateToSet);
-                                    }}
-                                    deleteTemplate={deleteTemplateHandler}
+                    <TemplateSelect
+                        options={templates}
+                        selectedOption={templateSelectValue}
+                        onOptionChange={(chosenTemplate) => {
+                            setTemplateSelectValue(chosenTemplate);
+                            setTemplateInitialised(true);
+                            templateName.setValue(chosenTemplate.name);
+                            let templateToSet = deepCopyObject(chosenTemplate);
+                            templateState.setTemplate(templateToSet);
+                        }}
+                        deleteTemplate={deleteTemplateHandler}
                     />
 
-                    <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
-                        setTemplateInitialised(true);
-                        templateName.setValue(newTemplateName.value);
-                        let templateToSet = deepCopyObject(FormattingService.getDefaultTemplate(props.templateType));
-                        templateState.setTemplate(templateToSet)
-                    }}
+                    <AddTemplate
+                        newTemplateName={newTemplateName}
+                        onAddClick={() => {
+                            setTemplateInitialised(true);
+                            templateName.setValue(newTemplateName.value);
+                            let templateToSet = deepCopyObject(FormattingService.getDefaultTemplate(props.templateType));
+                            templateState.setTemplate(templateToSet)
+                        }}
                     />
 
                     {templateInitialised &&
@@ -81,7 +84,7 @@ const TemplateFieldMapper = props => {
                     availableCgFieldOptions={availableCgFieldOptions}
                     allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
-                        let template = templateState.deleteFieldRow(rowIndex, availableCgFieldOptions.length);
+                        const template = templateState.deleteFieldRow(rowIndex, availableCgFieldOptions.length);
                         updateCgOptionsFromSelections(template, initialCgOptions);
                     }}
                     changeFileField = {(rowIndex, desiredValue) => {
@@ -115,7 +118,7 @@ const TemplateFieldMapper = props => {
             return false;
         }
 
-        let templateSelectValueForComparison = FormattingService.formatTemplateForSave(
+        const templateSelectValueForComparison = FormattingService.formatTemplateForSave(
             {...templateSelectValue},
             templateName.value
         );
@@ -158,8 +161,8 @@ const TemplateFieldMapper = props => {
     }
 
     function changeField(rowIndex, desiredValue, propertyName) {
-        let column = templateState.template.columnMap[rowIndex];
-        let isPreviouslyBlankRow = !column.cgField && !column.fileField;
+        const column = templateState.template.columnMap[rowIndex];
+        const isPreviouslyBlankRow = !column.cgField && !column.fileField;
 
         if (propertyName === 'cgField') {
             templateState.changeCgField(rowIndex, desiredValue);
@@ -178,9 +181,7 @@ const TemplateFieldMapper = props => {
 export default TemplateFieldMapper;
 
 function deepCopyObject(object) {
-    let newObject = JSON.stringify(object, null, 1);
-    newObject = JSON.parse(newObject);
-    return newObject;
+    return JSON.parse(JSON.stringify(object, null, 1));
 }
 
 function shouldAddNewRow(rowIndex, template, isBlankRow) {

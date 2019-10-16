@@ -79,7 +79,7 @@ function blankRowExistsAlreadyInTemplate(template) {
         return false;
     }
     let lastColumn = columns[columns.length - 1];
-    return isBlankColumn(lastColumn)
+    return isBlankColumn(lastColumn);
 }
 
 function isBlankColumn(column) {
