@@ -9,6 +9,7 @@ const App = (mountingNode, props) => {
             {...props}
             buildEmptySchedule={() => Service.buildEmptySchedule()}
             columns={Service.getColumns()}
+            formatPostDataForSave={Service.formatPostDataForSave}
         />,
         mountingNode
     );

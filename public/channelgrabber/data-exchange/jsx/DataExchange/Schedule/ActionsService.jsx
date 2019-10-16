@@ -9,7 +9,7 @@ const ActionsService = {
             url: window.location.href + '/save',
             type: 'POST',
             dataType: 'json',
-            data: postData,
+            data: schedule,
             success: (response) => response,
             error: (error) => error
         });

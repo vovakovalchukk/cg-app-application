@@ -304,6 +304,7 @@ class Service
         $data['organisationUnitId'] = $rootOuId;
         $data['type'] = $type;
         $data['operation'] = $operation;
+        $data['toDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
         if (!isset($data['id'])) {
             return $this->saveNew($data);
         }

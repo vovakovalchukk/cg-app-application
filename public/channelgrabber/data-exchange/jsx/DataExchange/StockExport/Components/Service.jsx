@@ -32,6 +32,12 @@ const Service = {
             Columns.actions
         ];
     },
+    formatPostDataForSave: (schedule) => {
+        return {
+            ...schedule,
+            toDataExchangeAccountId: `${schedule.toDataExchangeAccountType}-${schedule.toDataExchangeAccountId}`
+        };
+    },
 };
 
 export default Service;

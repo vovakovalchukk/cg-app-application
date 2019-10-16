@@ -212,7 +212,7 @@ const Table = (props) => {
         n.notice((schedule.id ? 'Updating' : 'Saving') + ` your <strong>${schedule.name}</strong> schedule...`, 2000);
 
         try {
-            const response = await ActionsService.saveSchedule(schedule);
+            const response = await ActionsService.saveSchedule(props.formatPostDataForSave(schedule));
             if (!response.success) {
                 throw new Error({message: response.message || null});
             }

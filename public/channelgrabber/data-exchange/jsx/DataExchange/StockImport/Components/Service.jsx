@@ -32,6 +32,19 @@ const Service = {
             Columns.actions,
         ];
     },
+    formatPostDataForSave: (schedule) => {
+        const postData = {...schedule};
+
+        delete postData.fromDataExchangeAccountType;
+        delete postData.toDataExchangeAccountId;
+        delete postData.toDataExchangeAccountType;
+
+        if (!postData.id) {
+            delete postData.id
+        }
+
+        return postData;
+    },
 };
 
 export default Service;
