@@ -11,6 +11,7 @@ import WhenColumn from "./Components/When";
 import ActionsService from "./ActionsService";
 import * as Columns from "./Columns";
 import ImportAction from "DataExchange/Schedule/Components/ImportAction";
+import SavedFilters from "DataExchange/Schedule/Components/SavedFilters";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -60,7 +61,7 @@ const Table = (props) => {
             <TemplateColumn
                 schedule={schedule}
                 index={index}
-                stockTemplateOptions={props.stockTemplateOptions}
+                stockTemplateOptions={props.templateOptions}
                 onChange={(templateId) => {handleInputValueChanged(index, 'templateId', templateId)}}
             />
         </SelectDropDownCell>
@@ -154,6 +155,16 @@ const Table = (props) => {
         </SelectDropDownCell>;
     };
 
+    const renderSavedFiltersColumn = (schedule, index) => {
+          return <SelectDropDownCell>
+              <SavedFilters
+                  schedule={schedule}
+                  filterOptions={props.savedFilterOptions}
+                  onChange={(filter) => {handleInputValueChanged(index, 'savedFilterName', filter)}}
+              />
+          </SelectDropDownCell>;
+    };
+
     const COLUMN_MAP = {
         [Columns.KEY_ENABLED]: renderActiveCheckbox,
         [Columns.KEY_RULE_NAME]: renderRuleNameCell,
@@ -165,7 +176,8 @@ const Table = (props) => {
         [Columns.KEY_WHEN]: renderWhenColumn,
         [Columns.KEY_ACTIONS]: renderActions,
         [Columns.KEY_RECEIVE_FROM]: renderReceiveFromColumn,
-        [Columns.KEY_IMPORT_ACTION]: renderImportActionColumn
+        [Columns.KEY_IMPORT_ACTION]: renderImportActionColumn,
+        [Columns.KEY_SAVED_FILTERS]: renderSavedFiltersColumn
     };
 
     const renderTableHeader = () => {

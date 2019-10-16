@@ -18,9 +18,10 @@
                 document.getElementById('app-mount-node'),
                 {
                     schedules: <?= json_encode($orderExportSchedules); ?>,
-                    stockTemplateOptions: <?= json_encode($orderTemplateOptions); ?>,
+                    templateOptions: <?= json_encode($orderTemplateOptions); ?>,
                     fromAccountOptions: <?= json_encode($fromAccountOptions); ?>,
-                    toAccountOptions: <?= json_encode($toAccountOptions); ?>
+                    toAccountOptions: <?= json_encode($toAccountOptions); ?>,
+                    savedFilterOptions: <?= json_encode($savedFilterOptions); ?>,
                 }
             );
         });

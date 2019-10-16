@@ -9,6 +9,7 @@ const KEY_WHEN = 'when';
 const KEY_ACTIONS = 'actions';
 const KEY_RECEIVE_FROM = 'receive_from';
 const KEY_IMPORT_ACTION = 'import_action';
+const KEY_SAVED_FILTERS = 'saved_filters';
 
 const Columns = {
     enabled: {
@@ -62,6 +63,11 @@ const Columns = {
         header: 'Import Action',
         width: '190px',
         key: KEY_IMPORT_ACTION
+    },
+    savedFilters: {
+        header: 'Saved Filter',
+        width: '150px',
+        key: KEY_SAVED_FILTERS
     }
 };
 
@@ -77,5 +83,6 @@ export {
     KEY_RULE_NAME,
     KEY_ENABLED,
     KEY_RECEIVE_FROM,
-    KEY_IMPORT_ACTION
+    KEY_IMPORT_ACTION,
+    KEY_SAVED_FILTERS
 };

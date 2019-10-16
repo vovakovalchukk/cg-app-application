@@ -28,6 +28,7 @@ const Service = {
             Columns.fileName,
             Columns.frequency,
             Columns.when,
+            Columns.savedFilters,
             Columns.actions
         ];
     },
