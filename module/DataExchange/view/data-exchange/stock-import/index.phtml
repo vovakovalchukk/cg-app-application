@@ -1,4 +1,29 @@
-<?php
-// To be done in MIG-37
-?>
-<h1>Stock Import</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="ftp-accounts-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('Scheduled Imports'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'StockImport': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/StockImport',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+            }
+        });
+        require(["StockImport/App"], function(App) {
+            App(
+                document.getElementById('app-mount-node'),
+                {
+                    schedules: <?= json_encode($stockImportSchedules); ?>,
+                    stockTemplateOptions: <?= json_encode($stockTemplateOptions); ?>,
+                    fromAccountOptions: <?= json_encode($fromAccountOptions); ?>,
+                    actionOptions: <?= json_encode($actionOptions); ?>
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

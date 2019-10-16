@@ -1,14 +1,14 @@
 import React, {useReducer} from 'react';
 import styled from "styled-components";
 import CheckboxContainer from "Common/Components/Checkbox--stateless";
-import scheduleReducer from "../ScheduleReducer";
-import ActionsColumn from "./Column/Actions";
-import TemplateColumn from "./Column/Template";
-import SendToAccountColumn from "./Column/SendToAccount";
-import SendFromAccountColumn from "./Column/SendFromAccount";
-import FrequencyColumn from "./Column/Frequency";
-import WhenColumn from "./Column/When";
-import ActionsService from "../ActionsService";
+import scheduleReducer from "./ScheduleReducer";
+import ActionsColumn from "./Components/Actions";
+import TemplateColumn from "./Components/Template";
+import SendToAccountColumn from "./Components/SendToAccount";
+import SendFromAccountColumn from "./Components/SendFromAccount";
+import FrequencyColumn from "./Components/Frequency";
+import WhenColumn from "./Components/When";
+import ActionsService from "./ActionsService";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -25,21 +25,14 @@ const Input = styled.input`
 `;
 
 const Table = (props) => {
-    const initialSchedules = [...props.stockExportSchedules, buildEmptySchedule(props)];
+    const initialSchedules = [...props.schedules, props.buildEmptySchedule(props)];
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
     const renderTableHeader = () => {
-        return <tr>
-            <TableHeader width={'80px'}>Enabled</TableHeader>
-            <TableHeader>Rule name</TableHeader>
-            <TableHeader>Template</TableHeader>
-            <TableHeader width={'250px'}>Send to</TableHeader>
-            <TableHeader width={'250px'}>Send from</TableHeader>
-            <TableHeader>File name</TableHeader>
-            <TableHeader>Frequency</TableHeader>
-            <TableHeader width={'230px'}>When</TableHeader>
-            <TableHeader width={'80px'}>Actions</TableHeader>
-        </tr>;
+        const headers = props.columns.map((column) => {
+            return <TableHeader width={column.width || null}>{column.header}</TableHeader>
+        });
+        return <tr>{headers}</tr>;
     };
 
     const renderRows = () => {
@@ -129,7 +122,7 @@ const Table = (props) => {
             dispatch({
                 type: 'addNewSchedule',
                 payload: {
-                    schedule: buildEmptySchedule(props)
+                    schedule: props.buildEmptySchedule()
                 }
             });
         }
@@ -163,7 +156,7 @@ const Table = (props) => {
         try {
             const response = await ActionsService.saveSchedule(schedule);
             if (!response.success) {
-                throw new Error({message: response.message});
+                throw new Error({message: response.message || null});
             }
 
             n.success((schedule.id ? 'Update' : 'Save') + ' successful.');
@@ -210,29 +203,11 @@ const Table = (props) => {
 };
 
 Table.defaultProps = {
-    stockExportSchedules: [],
+    schedules: [],
     stockTemplateOptions: [],
     fromAccountOptions: [],
-    toAccountOptions: []
+    toAccountOptions: [],
+    buildEmptySchedule: () => {}
 };
 
 export default Table;
-
-const buildEmptySchedule = (props) => {
-    return {
-        active: false,
-        date: null,
-        day: null,
-        filename: '{{type}}-{{date}}-{{time}}.csv',
-        frequency: 'hourly',
-        fromDataExchangeAccountId: null,
-        fromDataExchangeAccountType: null,
-        hour: null,
-        id: null,
-        name: '',
-        operation: 'export',
-        templateId: null,
-        toDataExchangeAccountId: null,
-        toDataExchangeAccountType: null
-    }
-};
