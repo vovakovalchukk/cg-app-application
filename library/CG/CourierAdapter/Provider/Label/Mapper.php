@@ -15,15 +15,11 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
-class Mapper implements LoggerAwareInterface
+class Mapper
 {
-    use LogTrait;
-
     /** @var CAAccountMapper */
     protected $caAccountMapper;
     /** @var CAAddressMapper */
@@ -173,10 +169,6 @@ class Mapper implements LoggerAwareInterface
         $parcelItemQty,
         $parcelData
     ) {
-
-        $this->logDebugDump($itemData, 'itemData', [], 'MYTEST');
-        $this->logDebugDump($parcelData, 'parcelData', [], 'MYTEST');
-
         $itemUnitWeight = $itemData['weight'] / $item->getItemQuantity();
         return new CAPackageContent(
             $item->getItemName(),
