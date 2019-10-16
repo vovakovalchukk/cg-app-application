@@ -96,7 +96,7 @@ const HourSelect = (props) => {
     };
 
     const getSelectedOption = () => {
-        if (!props.schedule.hour) {
+        if (props.schedule.hour === null) {
             return null;
         }
 

@@ -23,6 +23,7 @@ class StockImportController extends AbstractScheduleController
 
     protected function saveForType(array $data): Schedule
     {
+        $data['toDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
         return $this->service->saveStockImportForActiveUser($data);
     }
 }

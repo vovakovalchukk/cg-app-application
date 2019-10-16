@@ -9,10 +9,13 @@ const Service = {
             filename: '{{type}}-{{date}}-{{time}}.csv',
             frequency: 'hourly',
             fromDataExchangeAccountId: null,
+            fromDataExchangeAccountType: null,
             hour: null,
             id: null,
             name: '',
             templateId: null,
+            toDataExchangeAccountId: null,
+            toDataExchangeAccountType: null
         }
     },
     getColumns: () => {
@@ -20,26 +23,19 @@ const Service = {
             Columns.enabled,
             Columns.ruleName,
             Columns.template,
-            Columns.importAction,
-            Columns.receiveFrom,
+            Columns.sendTo,
+            Columns.sendFrom,
             Columns.fileName,
             Columns.frequency,
             Columns.when,
-            Columns.actions,
+            Columns.actions
         ];
     },
     formatPostDataForSave: (schedule) => {
-        const postData = {...schedule};
-
-        delete postData.fromDataExchangeAccountType;
-        delete postData.toDataExchangeAccountId;
-        delete postData.toDataExchangeAccountType;
-
-        if (!postData.id) {
-            delete postData.id
-        }
-
-        return postData;
+        return {
+            ...schedule,
+            toDataExchangeAccountId: `${schedule.toDataExchangeAccountType}-${schedule.toDataExchangeAccountId}`
+        };
     },
 };
 
