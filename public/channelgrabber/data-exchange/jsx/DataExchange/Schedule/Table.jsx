@@ -10,7 +10,6 @@ import FrequencyColumn from "./Components/Frequency";
 import WhenColumn from "./Components/When";
 import ActionsService from "./ActionsService";
 import * as Columns from "./Columns";
-import {KEY_ENABLED} from "./Columns";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -97,6 +96,16 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
+    const renderReceiveFromColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <SendFromAccountColumn
+                schedule={schedule}
+                fromAccountOptions={props.fromAccountOptions}
+                onChange={(accountId) => handleInputValueChanged(index, 'fromDataExchangeAccountId', accountId)}
+            />
+        </SelectDropDownCell>;
+    };
+
     const renderFileNameColumn = (schedule, index) => {
         return <td>{renderInputColumnForType(schedule, index, 'filename')}</td>;
     };
@@ -143,7 +152,8 @@ const Table = (props) => {
         [Columns.KEY_FILE_NAME]: renderFileNameColumn,
         [Columns.KEY_FREQUENCY]: renderFrequencyColumn,
         [Columns.KEY_WHEN]: renderWhenColumn,
-        [Columns.KEY_ACTIONS]: renderActions
+        [Columns.KEY_ACTIONS]: renderActions,
+        [Columns.KEY_RECEIVE_FROM]: renderReceiveFromColumn
     };
 
     const renderTableHeader = () => {

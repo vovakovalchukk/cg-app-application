@@ -4,10 +4,10 @@ import SelectComponent from "Common/Components/Select";
 const SendFromAccount = (props) => {
 
     const formatOptions = () => {
-        return Object.keys(props.fromAccountOptions).map((templateId) => {
+        return Object.keys(props.fromAccountOptions).map((accountId) => {
             return {
-                value: templateId,
-                name: props.fromAccountOptions[templateId]
+                value: accountId,
+                name: props.fromAccountOptions[accountId]
             }
         });
     };

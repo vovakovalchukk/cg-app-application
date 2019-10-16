@@ -7,6 +7,7 @@ const KEY_FILE_NAME = 'file_name';
 const KEY_FREQUENCY = 'frequency';
 const KEY_WHEN = 'when';
 const KEY_ACTIONS = 'actions';
+const KEY_RECEIVE_FROM = 'receive_from';
 
 const Columns = {
     enabled: {
@@ -50,6 +51,11 @@ const Columns = {
         width: '80px',
         key: KEY_ACTIONS
     },
+    receiveFrom: {
+        header: 'Receive From',
+        width: '250px',
+        key: KEY_RECEIVE_FROM
+    }
 };
 
 export default Columns;
@@ -62,5 +68,6 @@ export {
     KEY_SEND_TO,
     KEY_TEMPLATE,
     KEY_RULE_NAME,
-    KEY_ENABLED
+    KEY_ENABLED,
+    KEY_RECEIVE_FROM
 };

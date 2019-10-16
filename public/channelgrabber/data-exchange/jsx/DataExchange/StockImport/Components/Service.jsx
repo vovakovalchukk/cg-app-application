@@ -24,10 +24,11 @@ const Service = {
             Columns.enabled,
             Columns.ruleName,
             Columns.template,
+            Columns.receiveFrom,
             Columns.fileName,
             Columns.frequency,
             Columns.when,
-            Columns.actions
+            Columns.actions,
         ];
     },
 };
