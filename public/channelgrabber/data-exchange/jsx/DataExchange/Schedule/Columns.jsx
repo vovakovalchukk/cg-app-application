@@ -41,6 +41,7 @@ const Columns = {
     frequency: {
         header: 'Frequency',
         key: KEY_FREQUENCY,
+        width: '150px'
     },
     when: {
         header: 'When',
@@ -59,7 +60,7 @@ const Columns = {
     },
     importAction: {
         header: 'Import Action',
-        width: '150px',
+        width: '190px',
         key: KEY_IMPORT_ACTION
     }
 };
