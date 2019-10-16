@@ -109,6 +109,9 @@ const Table = (props) => {
     const renderWhenColumn = (schedule, index) => {
         return <WhenColumn
             schedule={schedule}
+            onDayOfMonthChange={(date) => {handleInputValueChanged(index, 'date', date)}}
+            onDayOfWeekChange={(day) => {handleInputValueChanged(index, 'day', day)}}
+            onHourChange={(hour) => {handleInputValueChanged(index, 'hour', hour)}}
         />;
     };
 
