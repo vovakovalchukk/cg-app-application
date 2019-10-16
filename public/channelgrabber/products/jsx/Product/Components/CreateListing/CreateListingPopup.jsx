@@ -12,6 +12,7 @@ import ProductIdentifiers from './Components/CreateListing/ProductIdentifiers';
 import Dimensions from './Components/CreateListing/Dimensions';
 import ProductPrice from './Components/CreateListing/ProductPrice';
 import SubmissionTable from './Components/CreateListing/SubmissionTable';
+import FieldCharacterCount from './Components/FieldCharacterCount';
 import Validators from './Validators';
 import ProductSearch from './ProductSearch/Component';
 import SectionedContainer from 'Common/Components/SectionedContainer';
@@ -67,8 +68,18 @@ class CreateListingPopup extends React.Component {
 
     renderForm = () => {
         return <form>
-            <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
-            <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+            <FieldCharacterCount
+                renderField={() => (
+                    <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+                )}
+                value={this.props.titleValue}
+            />
+            <FieldCharacterCount
+                renderField={() => (
+                    <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+                )}
+                value={this.props.descriptionValue}
+            />
             <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
             <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
             <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
@@ -466,7 +477,9 @@ const mapStateToProps = function(state) {
         resetSection: resetSection,
         categoryTemplates: state.categoryTemplates,
         productSearch: state.productSearch,
-        variationImages: FormSelector(state, 'images')
+        variationImages: FormSelector(state, 'images'),
+        descriptionValue: FormSelector(state, 'description'),
+        titleValue: FormSelector(state, 'title')
     };
 };
 
