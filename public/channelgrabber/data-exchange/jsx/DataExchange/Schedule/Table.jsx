@@ -10,6 +10,7 @@ import FrequencyColumn from "./Components/Frequency";
 import WhenColumn from "./Components/When";
 import ActionsService from "./ActionsService";
 import * as Columns from "./Columns";
+import ImportAction from "DataExchange/Schedule/Components/ImportAction";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -143,6 +144,16 @@ const Table = (props) => {
         </td>
     };
 
+    const renderImportActionColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <ImportAction
+                schedule={schedule}
+                actionOptions={props.actionOptions}
+                onChange={(action) => {handleInputValueChanged(index, 'action', action)}}
+            />
+        </SelectDropDownCell>;
+    };
+
     const COLUMN_MAP = {
         [Columns.KEY_ENABLED]: renderActiveCheckbox,
         [Columns.KEY_RULE_NAME]: renderRuleNameCell,
@@ -153,7 +164,8 @@ const Table = (props) => {
         [Columns.KEY_FREQUENCY]: renderFrequencyColumn,
         [Columns.KEY_WHEN]: renderWhenColumn,
         [Columns.KEY_ACTIONS]: renderActions,
-        [Columns.KEY_RECEIVE_FROM]: renderReceiveFromColumn
+        [Columns.KEY_RECEIVE_FROM]: renderReceiveFromColumn,
+        [Columns.KEY_IMPORT_ACTION]: renderImportActionColumn
     };
 
     const renderTableHeader = () => {

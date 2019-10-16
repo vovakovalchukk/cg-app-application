@@ -1,25 +1,25 @@
 import React from 'react';
 import SelectComponent from "Common/Components/Select";
 
-const Template = (props) => {
+const ImportAction = (props) => {
 
     const formatOptions = () => {
-        return Object.keys(props.stockTemplateOptions).map((templateId) => {
+        return Object.keys(props.actionOptions).map((action) => {
             return {
-                value: templateId,
-                name: props.stockTemplateOptions[templateId]
+                value: action,
+                name: props.actionOptions[action]
             }
         });
     };
 
     const findSelectedOption = () => {
-        const templateId = Object.keys(props.stockTemplateOptions).find((templateId) => {
-            return templateId == props.schedule.templateId;
+        const action = Object.keys(props.actionOptions).find((action) => {
+            return action == props.schedule.action;
         });
 
         return {
-            value: templateId,
-            name: props.stockTemplateOptions[templateId]
+            value: action,
+            name: props.actionOptions[action]
         }
     };
 
@@ -38,10 +38,10 @@ const Template = (props) => {
     </span>;
 };
 
-Template.defaultProps = {
+ImportAction.defaultProps = {
     schedule: {},
-    stockTemplateOptions: {},
+    actionOptions: {},
     onChange: () => {}
 };
 
-export default Template;
+export default ImportAction;

@@ -24,6 +24,7 @@ const Service = {
             Columns.enabled,
             Columns.ruleName,
             Columns.template,
+            Columns.importAction,
             Columns.receiveFrom,
             Columns.fileName,
             Columns.frequency,

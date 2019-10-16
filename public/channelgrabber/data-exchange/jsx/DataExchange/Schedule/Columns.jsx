@@ -8,6 +8,7 @@ const KEY_FREQUENCY = 'frequency';
 const KEY_WHEN = 'when';
 const KEY_ACTIONS = 'actions';
 const KEY_RECEIVE_FROM = 'receive_from';
+const KEY_IMPORT_ACTION = 'import_action';
 
 const Columns = {
     enabled: {
@@ -55,6 +56,11 @@ const Columns = {
         header: 'Receive From',
         width: '250px',
         key: KEY_RECEIVE_FROM
+    },
+    importAction: {
+        header: 'Import Action',
+        width: '150px',
+        key: KEY_IMPORT_ACTION
     }
 };
 
@@ -69,5 +75,6 @@ export {
     KEY_TEMPLATE,
     KEY_RULE_NAME,
     KEY_ENABLED,
-    KEY_RECEIVE_FROM
+    KEY_RECEIVE_FROM,
+    KEY_IMPORT_ACTION
 };
