@@ -1,5 +1,6 @@
 import React, {useReducer} from 'react';
 import styled from "styled-components";
+import CheckboxContainer from "Common/Components/Checkbox--stateless";
 import scheduleReducer from "../ScheduleReducer";
 import ActionsColumn from "./Column/Actions";
 import TemplateColumn from "./Column/Template";
@@ -43,17 +44,24 @@ const Table = (props) => {
     const renderRows = () => {
         return schedules.map((schedule, index) => {
             return <tr>
-                <td>{schedule.active ? 'Active' : 'Not active'}</td>
+                <td>{renderActiveCheckbox(schedule, index)}</td>
                 <td>{renderInputColumnForType(schedule, index, 'name')}</td>
                 <SelectDropDownCell>{renderTemplateColumn(schedule, index)}</SelectDropDownCell>
                 <SelectDropDownCell>{renderSendToAccountColumn(schedule, index)}</SelectDropDownCell>
                 <SelectDropDownCell>{schedule.toDataExchangeAccountType === 'email' ? renderSendFromAccountColumn(schedule, index) : null}</SelectDropDownCell>
                 <td>{renderInputColumnForType(schedule, index, 'filename')}</td>
                 <SelectDropDownCell>{renderFrequencyColumn(schedule, index)}</SelectDropDownCell>
-                <SelectDropDownCell>{schedule.frequency !== 'hourly' ? renderWhenColumn(schedule, index) : null}</SelectDropDownCell>
+                <SelectDropDownCell>{renderWhenColumn(schedule, index)}</SelectDropDownCell>
                 <td>{renderActions(index, schedule)}</td>
             </tr>;
         });
+    };
+
+    const renderActiveCheckbox = (schedule, index) => {
+        return <CheckboxContainer
+            isSelected={schedule.active}
+            onSelect={() => {handleInputValueChanged(index, 'active', !schedule.active)}}
+        />
     };
 
     const renderInputColumnForType = (schedule, index, property, type = 'text') => {

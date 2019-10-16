@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import SelectComponent from "Common/Components/Select";
-import {FREQUENCY_MONTHLY, FREQUENCY_WEEKLY} from "./Frequency";
+import {FREQUENCY_HOURLY, FREQUENCY_MONTHLY, FREQUENCY_WEEKLY} from "./Frequency";
 
 const SelectContainer = styled.div`
     display: inline-flex;
@@ -120,6 +120,10 @@ const When = (props) => {
     const renderDayOfMonthSelect = () => <DayOfMonthSelect schedule={props.schedule} onChange={props.onDayOfMonthChange}/>;
     const renderDayOfWeekSelect = () => <DayOfWeekSelect schedule={props.schedule} onChange={props.onDayOfWeekChange}/>;
     const renderHourSelect = () => <HourSelect schedule={props.schedule} onChange={props.onHourChange}/>;
+
+    if (props.schedule.frequency === FREQUENCY_HOURLY) {
+        return <span>Every hour</span>;
+    }
 
     return <span>
         {props.schedule.frequency ===  FREQUENCY_MONTHLY ? renderDayOfMonthSelect() : null}
