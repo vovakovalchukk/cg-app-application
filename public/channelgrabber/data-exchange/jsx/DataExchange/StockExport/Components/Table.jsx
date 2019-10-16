@@ -158,21 +158,26 @@ const Table = (props) => {
     };
 
     async function handleScheduleSave(index, schedule) {
-        n.notice((schedule.id ? 'Saving' : 'Updating') + ` your ${schedule.name} schedule...`, 2000);
-        const response = await ActionsService.saveSchedule(schedule);
-        if (!response.success) {
-            n.error('Couldn\'t ' + (schedule.id ? 'save' : 'update') + ` your ${schedule.name} schedule, please try again or contact support if the problem persists`);
-            return;
-        }
+        n.notice((schedule.id ? 'Updating' : 'Saving') + ` your <strong>${schedule.name}</strong> schedule...`, 2000);
 
-        n.success((schedule.id ? 'Update' : 'Save') + ' successful.');
-        dispatch({
-            type: 'scheduleSavedSuccessfully',
-            payload: {
-                index,
-                response
+        try {
+            const response = await ActionsService.saveSchedule(schedule);
+            if (!response.success) {
+                throw new Error({message: response.message});
             }
-        });
+
+            n.success((schedule.id ? 'Update' : 'Save') + ' successful.');
+            dispatch({
+                type: 'scheduleSavedSuccessfully',
+                payload: {
+                    index,
+                    response
+                }
+            });
+        } catch (error) {
+            const message = error.message || 'Couldn\'t ' + (schedule.id ? 'update' : 'save') + ` your <strong>${schedule.name}</strong> schedule, please try again or contact support if the problem persists.`;
+            n.error(message);
+        }
     }
 
     async function handleScheduleDelete(index, schedule) {

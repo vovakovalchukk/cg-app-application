@@ -23,8 +23,7 @@ const ActionsService = {
             success: (response) => response,
             error: (error) => error
         });
-    }
-
+    },
 };
 
 export default ActionsService;
