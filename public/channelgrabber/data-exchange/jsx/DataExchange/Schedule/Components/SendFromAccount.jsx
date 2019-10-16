@@ -29,6 +29,7 @@ const SendFromAccount = (props) => {
 
     return <span>
         <SelectComponent
+            className={'u-width-100pc'}
             options={formatOptions()}
             selectedOption={findSelectedOption()}
             onOptionChange={onOptionChange}

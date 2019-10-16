@@ -9,6 +9,8 @@ import SendFromAccountColumn from "./Components/SendFromAccount";
 import FrequencyColumn from "./Components/Frequency";
 import WhenColumn from "./Components/When";
 import ActionsService from "./ActionsService";
+import * as Columns from "./Columns";
+import {KEY_ENABLED} from "./Columns";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -28,6 +30,122 @@ const Table = (props) => {
     const initialSchedules = [...props.schedules, props.buildEmptySchedule(props)];
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
+    const renderActiveCheckbox = (schedule, index) => {
+        return <td>
+            <CheckboxContainer
+                className={'u-flex-center'}
+                isSelected={schedule.active}
+                onSelect={() => {handleInputValueChanged(index, 'active', !schedule.active)}}
+            />
+        </td>;
+    };
+
+    const renderRuleNameCell = (schedule, index) => {
+        return <td>
+            {renderInputColumnForType(schedule, index, 'name')}
+        </td>
+    };
+
+    const renderInputColumnForType = (schedule, index, property, type = 'text') => {
+        return <Input
+            property={property}
+            type={type}
+            value={schedule[property] || ''}
+            onChange={(event) => {handleInputValueChanged(index, property, event.target.value)}}
+        />
+    };
+
+    const renderTemplateColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <TemplateColumn
+                schedule={schedule}
+                index={index}
+                stockTemplateOptions={props.stockTemplateOptions}
+                onChange={(templateId) => {handleInputValueChanged(index, 'templateId', templateId)}}
+            />
+        </SelectDropDownCell>
+    };
+
+    const renderSendToAccountColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <SendToAccountColumn
+                schedule={schedule}
+                toAccountOptions={props.toAccountOptions}
+                onChange={(sendToAccount) => {
+                    const [accountType, accountId] = sendToAccount.split('-');
+                    handleInputValueChanged(index, 'toDataExchangeAccountId', accountId);
+                    handleInputValueChanged(index, 'toDataExchangeAccountType', accountType);
+                }}
+            />
+        </SelectDropDownCell>
+    };
+
+    const renderSendFromAccountColumn = (schedule, index) => {
+        if (schedule.toDataExchangeAccountType !== 'email') {
+            return <td/>
+        }
+
+        return <SelectDropDownCell>
+            <SendFromAccountColumn
+                schedule={schedule}
+                fromAccountOptions={props.fromAccountOptions}
+                onChange={(sendFromAccountId) => {
+                    handleInputValueChanged(index, 'fromDataExchangeAccountType', 'email');
+                    handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId);
+                }}
+            />
+        </SelectDropDownCell>
+    };
+
+    const renderFileNameColumn = (schedule, index) => {
+        return <td>{renderInputColumnForType(schedule, index, 'filename')}</td>;
+    };
+
+    const renderFrequencyColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <FrequencyColumn
+              schedule={schedule}
+                onChange={(frequency) => {
+                    handleInputValueChanged(index, 'frequency', frequency);
+                }}
+            />
+        </SelectDropDownCell>
+    };
+
+    const renderWhenColumn = (schedule, index) => {
+        return <SelectDropDownCell>
+            <WhenColumn
+                schedule={schedule}
+                onDayOfMonthChange={(date) => {handleInputValueChanged(index, 'date', date)}}
+                onDayOfWeekChange={(day) => {handleInputValueChanged(index, 'day', day)}}
+                onHourChange={(hour) => {handleInputValueChanged(index, 'hour', hour)}}
+            />
+        </SelectDropDownCell>
+    };
+
+    const renderActions = (schedule, index) => {
+        return <td>
+            <ActionsColumn
+                removeIconVisible={!isLastEntry(index)}
+                saveIconDisabled={false}
+                onSave={() => handleScheduleSave(index, schedule)}
+                onDelete={() => handleScheduleDelete(index, schedule)}
+            />
+        </td>
+    };
+
+    const COLUMN_MAP = {
+        [Columns.KEY_ENABLED]: renderActiveCheckbox,
+        [Columns.KEY_RULE_NAME]: renderRuleNameCell,
+        [Columns.KEY_TEMPLATE]: renderTemplateColumn,
+        [Columns.KEY_SEND_TO]: renderSendToAccountColumn,
+        [Columns.KEY_SEND_FROM]: renderSendFromAccountColumn,
+        [Columns.KEY_FILE_NAME]: renderFileNameColumn,
+        [Columns.KEY_FREQUENCY]: renderFrequencyColumn,
+        [Columns.KEY_WHEN]: renderWhenColumn,
+        [Columns.KEY_ACTIONS]: renderActions
+    };
+
     const renderTableHeader = () => {
         const headers = props.columns.map((column) => {
             return <TableHeader width={column.width || null}>{column.header}</TableHeader>
@@ -37,84 +155,11 @@ const Table = (props) => {
 
     const renderRows = () => {
         return schedules.map((schedule, index) => {
-            return <tr>
-                <td>{renderActiveCheckbox(schedule, index)}</td>
-                <td>{renderInputColumnForType(schedule, index, 'name')}</td>
-                <SelectDropDownCell>{renderTemplateColumn(schedule, index)}</SelectDropDownCell>
-                <SelectDropDownCell>{renderSendToAccountColumn(schedule, index)}</SelectDropDownCell>
-                <SelectDropDownCell>{schedule.toDataExchangeAccountType === 'email' ? renderSendFromAccountColumn(schedule, index) : null}</SelectDropDownCell>
-                <td>{renderInputColumnForType(schedule, index, 'filename')}</td>
-                <SelectDropDownCell>{renderFrequencyColumn(schedule, index)}</SelectDropDownCell>
-                <SelectDropDownCell>{renderWhenColumn(schedule, index)}</SelectDropDownCell>
-                <td>{renderActions(index, schedule)}</td>
-            </tr>;
+            const cells = props.columns.map((column) => {
+                return COLUMN_MAP[column.key](schedule, index);
+            });
+            return <tr>{cells}</tr>
         });
-    };
-
-    const renderActiveCheckbox = (schedule, index) => {
-        return <CheckboxContainer
-            isSelected={schedule.active}
-            onSelect={() => {handleInputValueChanged(index, 'active', !schedule.active)}}
-        />
-    };
-
-    const renderInputColumnForType = (schedule, index, property, type = 'text') => {
-        return <Input
-            property={property}
-            type={type}
-            value={schedule[property] || ''}
-            onChange={(event) => {handleInputValueChanged(index, property, event.target.value)}}
-        />;
-    };
-
-    const renderTemplateColumn = (schedule, index) => {
-        return <TemplateColumn
-            schedule={schedule}
-            index={index}
-            stockTemplateOptions={props.stockTemplateOptions}
-            onChange={(templateId) => {handleInputValueChanged(index, 'templateId', templateId)}}
-        />;
-    };
-
-    const renderSendToAccountColumn = (schedule, index) => {
-        return <SendToAccountColumn
-            schedule={schedule}
-            toAccountOptions={props.toAccountOptions}
-            onChange={(sendToAccount) => {
-                const [accountType, accountId] = sendToAccount.split('-');
-                handleInputValueChanged(index, 'toDataExchangeAccountId', accountId);
-                handleInputValueChanged(index, 'toDataExchangeAccountType', accountType);
-            }}
-        />;
-    };
-
-    const renderSendFromAccountColumn = (schedule, index) => {
-        return <SendFromAccountColumn
-            schedule={schedule}
-            fromAccountOptions={props.fromAccountOptions}
-            onChange={(sendFromAccountId) => {
-                handleInputValueChanged(index, 'fromDataExchangeAccountType', 'email');
-                handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId);
-            }}
-        />;
-    };
-
-    const renderFrequencyColumn = (schedule, index) => {
-        return <FrequencyColumn
-            schedule={schedule}
-            onChange={(frequency) => {
-                handleInputValueChanged(index, 'frequency', frequency);
-            }}
-        />;
-    };
-
-    const renderWhenColumn = (schedule, index) => {
-        return <WhenColumn
-            schedule={schedule}
-            onDayOfMonthChange={(date) => {handleInputValueChanged(index, 'date', date)}}
-            onDayOfWeekChange={(day) => {handleInputValueChanged(index, 'day', day)}}
-            onHourChange={(hour) => {handleInputValueChanged(index, 'hour', hour)}}
-        />;
     };
 
     const handleInputValueChanged = (index, property, newValue) => {
@@ -139,15 +184,6 @@ const Table = (props) => {
 
     const isLastEntry = (index) => {
         return schedules.length - 1 === index;
-    };
-
-    const renderActions = (index, schedule) => {
-        return <ActionsColumn
-            removeIconVisible={!isLastEntry(index)}
-            saveIconDisabled={false}
-            onSave={() => handleScheduleSave(index, schedule)}
-            onDelete={() => handleScheduleDelete(index, schedule)}
-        />
     };
 
     async function handleScheduleSave(index, schedule) {

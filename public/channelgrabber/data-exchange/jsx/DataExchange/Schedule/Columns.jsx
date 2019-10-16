@@ -11,36 +11,56 @@ const KEY_ACTIONS = 'actions';
 const Columns = {
     enabled: {
         header: 'Enabled',
-        width: '80px'
+        width: '80px',
+        key: KEY_ENABLED,
     },
     ruleName: {
         header: 'Rule name',
+        key: KEY_RULE_NAME,
     },
     template: {
         header: 'Template',
+        key: KEY_TEMPLATE
     },
     sendTo: {
         header: 'Send to',
-        width: '250px'
+        width: '250px',
+        key: KEY_SEND_TO,
     },
     sendFrom: {
         header: 'Send from',
-        width: '250px'
+        width: '250px',
+        key: KEY_SEND_FROM,
     },
     fileName: {
         header: 'File name',
+        key: KEY_FILE_NAME,
     },
     frequency: {
         header: 'Frequency',
+        key: KEY_FREQUENCY,
     },
     when: {
         header: 'When',
-        width: '230px'
+        width: '230px',
+        key: KEY_WHEN,
     },
     actions: {
         header: 'Actions',
-        width: '80px'
+        width: '80px',
+        key: KEY_ACTIONS
     },
 };
 
 export default Columns;
+export {
+    KEY_ACTIONS,
+    KEY_WHEN,
+    KEY_FREQUENCY,
+    KEY_FILE_NAME,
+    KEY_SEND_FROM,
+    KEY_SEND_TO,
+    KEY_TEMPLATE,
+    KEY_RULE_NAME,
+    KEY_ENABLED
+};
