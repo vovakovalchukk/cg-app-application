@@ -8,6 +8,7 @@ import SendToAccountColumn from "./Column/SendToAccount";
 import SendFromAccountColumn from "./Column/SendFromAccount";
 import FrequencyColumn from "./Column/Frequency";
 import WhenColumn from "./Column/When";
+import ActionsService from "../ActionsService";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -158,12 +159,13 @@ const Table = (props) => {
 
     async function handleScheduleSave(index, schedule) {
         n.notice((schedule.id ? 'Saving' : 'Updating') + ` your ${schedule.name} schedule...`, 2000);
-        const response = await saveSchedule(schedule);
+        const response = await ActionsService.saveSchedule(schedule);
         if (!response.success) {
             n.error('Couldn\'t ' + (schedule.id ? 'save' : 'update') + ` your ${schedule.name} schedule, please try again or contact support if the problem persists`);
             return;
         }
 
+        n.success((schedule.id ? 'Update' : 'Save') + ' successful.');
         dispatch({
             type: 'scheduleSavedSuccessfully',
             payload: {
@@ -177,7 +179,7 @@ const Table = (props) => {
         if (schedule.id) {
             n.notice(`Deleting your schedule ${schedule.name}...`, 2000);
 
-            const response = await deleteSchedule(schedule.id);
+            const response = await ActionsService.deleteSchedule(schedule.id);
             if (!response.success) {
                 n.error('The schedule couldn\'t be deleted. Please try again or contact support if the problem persists');
                 return;
@@ -229,25 +231,3 @@ const buildEmptySchedule = (props) => {
         toDataExchangeAccountType: null
     }
 };
-
-async function saveSchedule(schedule) {
-    return $.ajax({
-        url: window.location.href + '/save',
-        type: 'POST',
-        dataType: 'json',
-        data: schedule,
-        success: (response) => response,
-        error: (error) => error
-    });
-}
-
-async function deleteSchedule(id) {
-    return $.ajax({
-        url: window.location.href + '/remove',
-        type: 'POST',
-        dataType: 'json',
-        data: {id},
-        success: (response) => response,
-        error: (error) => error
-    });
-}
