@@ -1807,9 +1807,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.38":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-532-expand-the-channel-shipping-method-field-in-shipping-aliases":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#4015490bed2c8f12c2e1d551ec3362e2f92b6dd4"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e3530853fe4bf6108b2831b53699340ea71b3ea6"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
