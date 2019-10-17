@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1023,8 +1023,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.1-536bf9.zip",
-                "reference": "93037e951aee8342895c8744344f196f2a2db271",
-                "shasum": null
+                "reference": "93037e951aee8342895c8744344f196f2a2db271"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.0",
@@ -3670,16 +3669,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.12",
+            "version": "1.6.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "98509572d1bf80f6a1556448e0bca1e5a3fc9774"
+                "reference": "c51c7f23157c1e9d09eb327cef3a35c725b1054b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.12-de1249.zip",
-                "reference": "98509572d1bf80f6a1556448e0bca1e5a3fc9774"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.14-acef4d.zip",
+                "reference": "c51c7f23157c1e9d09eb327cef3a35c725b1054b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3725,7 +3724,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-01T08:33:26+00:00"
+            "time": "2019-10-17T08:53:57+00:00"
         },
         {
             "name": "channelgrabber/transaction",
