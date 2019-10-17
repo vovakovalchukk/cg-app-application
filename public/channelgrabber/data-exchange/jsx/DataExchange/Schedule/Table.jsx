@@ -226,8 +226,8 @@ const Table = (props) => {
         const scheduleCopy = {...schedule};
         delete scheduleCopy.initialValues;
         return !(Object.keys(scheduleCopy).reduce((isEqual, key) => {
-            return isEqual && scheduleCopy[key] == schedule.initialValues[key];
-        }));
+            return isEqual && (scheduleCopy[key] === schedule.initialValues[key]);
+        }, true));
     };
 
     async function handleScheduleSave(index, schedule) {
