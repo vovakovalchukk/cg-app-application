@@ -22,7 +22,6 @@ const Validators = {
             return false;
         }
 
-        console.log(schedule);
         switch (schedule.frequency) {
             case 'hourly':
                 return schedule.hour !== null && schedule.hour !== undefined && Number.isInteger(schedule.hour);
