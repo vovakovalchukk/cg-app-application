@@ -2,7 +2,7 @@ const scheduleReducer = (state, action) => {
     switch (action.type) {
         case 'addNewSchedule': {
             const newState = [...state];
-            newState.push(action.payload.schedule);
+            newState.push({...action.payload.schedule, initialValues: {...action.payload.schedule}});
             return newState;
         }
         case 'updateInputValue': {
@@ -20,11 +20,12 @@ const scheduleReducer = (state, action) => {
         }
         case 'scheduleSavedSuccessfully': {
             const newState = [...state];
-            newState[action.payload.index] = {
+            const updatedSchedule = {
                 ...newState[action.payload.index],
                 etag: action.payload.response.etag,
                 id: action.payload.response.id
             };
+            newState[action.payload.index] = {...updatedSchedule, initialValues: {...updatedSchedule}};
             return newState;
         }
         default: {

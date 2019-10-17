@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useState, useReducer} from 'react';
 import styled from "styled-components";
 import CheckboxContainer from "Common/Components/Checkbox--stateless";
 import scheduleReducer from "./ScheduleReducer";
@@ -28,7 +28,9 @@ const Input = styled.input`
 `;
 
 const Table = (props) => {
-    const initialSchedules = [...props.schedules, props.buildEmptySchedule(props)];
+    const initialSchedules = [...props.schedules, props.buildEmptySchedule(props)].map((schedule) => {
+        return {...schedule, initialValues: {...schedule}};
+    });
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
     const renderActiveCheckbox = (schedule, index) => {
@@ -138,7 +140,7 @@ const Table = (props) => {
         return <td>
             <ActionsColumn
                 removeIconVisible={!isLastEntry(index)}
-                saveIconDisabled={!props.isScheduleValid(schedule)}
+                saveIconDisabled={!hasScheduleChanged(schedule) || !props.isScheduleValid(schedule)}
                 onSave={() => handleScheduleSave(index, schedule)}
                 onDelete={() => handleScheduleDelete(index, schedule)}
             />
@@ -220,6 +222,14 @@ const Table = (props) => {
         return schedules.length - 1 === index;
     };
 
+    const hasScheduleChanged = (schedule) => {
+        const scheduleCopy = {...schedule};
+        delete scheduleCopy.initialValues;
+        return !(Object.keys(scheduleCopy).reduce((isEqual, key) => {
+            return isEqual && scheduleCopy[key] == schedule.initialValues[key];
+        }));
+    };
+
     async function handleScheduleSave(index, schedule) {
         n.notice((schedule.id ? 'Updating' : 'Saving') + ` your <strong>${schedule.name}</strong> schedule...`, 2000);
 
@@ -277,7 +287,8 @@ Table.defaultProps = {
     stockTemplateOptions: [],
     fromAccountOptions: [],
     toAccountOptions: [],
-    buildEmptySchedule: () => {}
+    buildEmptySchedule: () => {},
+    savedFilterOptions: []
 };
 
 export default Table;
