@@ -7,9 +7,9 @@ const Helper = {
         }, true));
     },
     validateSchedule: (schedule, validators) => {
-        return validators.map((validatorCallback) => {
-            return validatorCallback(schedule);
-        });
+        return validators.reduce((isValid, validatorCallback) => {
+            return isValid && validatorCallback(schedule);
+        }, true);
     }
 };
 

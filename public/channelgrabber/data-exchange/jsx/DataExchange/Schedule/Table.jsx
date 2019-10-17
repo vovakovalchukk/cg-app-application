@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import styled from "styled-components";
 import CheckboxContainer from "Common/Components/Checkbox--stateless";
 import ActionsColumn from "./Components/Actions";
@@ -78,7 +78,7 @@ const Table = (props) => {
                 onChange={(sendToAccount) => {
                     const [accountType, accountId] = sendToAccount.split('-');
                     handleInputValueChanged(index, 'toDataExchangeAccountId', accountId);
-                    handleInputValueChanged(index, 'toDataExchangeAccountType', accountType);
+                    handleInputValueChanged(index, 'toDataExchangeAccountType', accountType, false);
                 }}
             />
         </SelectDropDownCell>

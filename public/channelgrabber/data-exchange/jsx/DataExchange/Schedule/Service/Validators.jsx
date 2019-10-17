@@ -1,34 +1,43 @@
 const Validators = {
     name: (schedule) => schedule.name.toString().trim().length > 2,
     template: (schedule) => !!schedule.templateId,
-    fromAccount: (schedule) => {
-        if (!schedule.fromDataExchangeAccountType) {
+    toAccount: (schedule) => {
+        if (!schedule.toDataExchangeAccountType) {
             return false;
         }
 
-        if (!schedule.fromDataExchangeAccountId) {
+        if (!schedule.toDataExchangeAccountId) {
             return false;
         }
 
-        if (schedule.fromDataExchangeAccountType == 'email' && !schedule.toDataExchangeAccountId) {
+        if (schedule.toDataExchangeAccountType == 'email' && !schedule.fromDataExchangeAccountId) {
             return false;
         }
 
         return true;
     },
+    fromAccountIdOnly: (schedule) => !!schedule.fromDataExchangeAccountId,
     filename: (schedule) => schedule.filename.toString().trim().length > 2,
     frequency: (schedule) => {
         if (!schedule.frequency) {
             return false;
         }
 
+        const isHourValid = (schedule) => {
+            return schedule.hour !== null && schedule.hour !== undefined && Number.isInteger(schedule.hour);
+        };
+
         switch (schedule.frequency) {
             case 'hourly':
-                return schedule.hour !== null && schedule.hour !== undefined && Number.isInteger(schedule.hour);
+                return true;
+            case 'daily':
+                return isHourValid(schedule);
             case 'weekly':
-                return schedule.day !== null && schedule.day !== undefined && schedule.day > 0;
+                return schedule.day !== null && schedule.day !== undefined && schedule.day > 0
+                    && isHourValid(schedule);
             case 'monthly':
-                return schedule.date !== null && schedule.date !== undefined && schedule.date > 0;
+                return schedule.date !== null && schedule.date !== undefined && schedule.date > 0
+                    && isHourValid(schedule);
             default:
                 return false;
         }

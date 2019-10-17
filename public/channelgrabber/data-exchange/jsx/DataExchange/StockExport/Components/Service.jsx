@@ -43,7 +43,7 @@ const Service = {
         return [
             Validators.name,
             Validators.template,
-            Validators.fromAccount,
+            Validators.toAccount,
             Validators.filename,
             Validators.frequency
         ];
