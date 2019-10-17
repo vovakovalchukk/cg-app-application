@@ -5,8 +5,8 @@ import styled from "styled-components";
 import Actions from "../Actions/Actions";
 import TypeColumn from "./Column/Type";
 import FtpTestColumn from "./Column/FtpTest";
-import ActionsColumn from "../../Components/Actions";
-import InputColumn from "../../Components/Input";
+import ActionsColumn from "./Column/Actions";
+import InputColumn from "./Column/Input";
 
 const Container = styled.div`
     margin-top: 45px;
