@@ -146,6 +146,7 @@ class NameCell extends React.Component {
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     value={nameValue}
+                    title={nameValue}
                     onChange={this.changeName}
                     data-inputinfo={JSON.stringify(this.getInputInfo(rowData[rowIndex]),null,1)}
                 />
