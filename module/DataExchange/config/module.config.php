@@ -6,6 +6,7 @@ use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\StockExportController;
+use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Controller\StockImportManualController;
 use DataExchange\Controller\TemplateController;
@@ -304,6 +305,17 @@ return [
                                     'route' => '/remove',
                                     'defaults' => [
                                         'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            StockExportManualController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => StockExportManualController::class,
+                                        'action' => 'download'
                                     ]
                                 ],
                                 'may_terminate' => true,
