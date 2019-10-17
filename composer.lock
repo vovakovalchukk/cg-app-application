@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bc0cd56d25633b4b4a42c8a8d77a01f",
+    "content-hash": "097ee1a9454f00fe385cb36eeca198cf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1127,12 +1127,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "105a9d835059cea507fb8b76cf65136521a2cec9"
+                "reference": "9fbe928582e80ecce2c8a7f840d025d831280921"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-f74a62.zip",
-                "reference": "105a9d835059cea507fb8b76cf65136521a2cec9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-a9b05a.zip",
+                "reference": "9fbe928582e80ecce2c8a7f840d025d831280921"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1164,7 +1164,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-15T15:33:06+00:00"
+            "time": "2019-10-17T10:43:46+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -1206,12 +1206,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "24389fb0c9466f8731ea2996e5b8d7b21540b75e"
+                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-40-data-exchange-manual-exchanges-backend-31431a.zip",
-                "reference": "24389fb0c9466f8731ea2996e5b8d7b21540b75e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-40-data-exchange-manual-exchanges-backend-f9abdb.zip",
+                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1231,7 +1231,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-15T13:03:16+00:00"
+            "time": "2019-10-17T10:39:24+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -11840,8 +11840,8 @@
             "package": "channelgrabber/file-storage"
         },
         {
-            "alias": "1.47.5",
-            "alias_normalized": "1.47.5.0",
+            "alias": "1.47.6",
+            "alias_normalized": "1.47.6.0",
             "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
             "package": "channelgrabber/order"
         },

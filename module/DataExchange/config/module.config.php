@@ -269,6 +269,7 @@ return [
                                 'options' => [
                                     'route' => '/upload',
                                     'defaults' => [
+                                        'controller' => StockImportManualController::class,
                                         'action' => 'upload'
                                     ]
                                 ],
