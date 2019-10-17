@@ -3,6 +3,7 @@ namespace DataExchange\Manual;
 
 use CG\DataExchange\Manual;
 use CG\DataExchange\Manual\Mapper as ManualMapper;
+use CG\DataExchange\Manual\Gearman\Workload\RunManualExchange as RunManualExchangeWorkload;
 use CG\DataExchange\Runner\Context;
 use CG\DataExchange\RunnerInterface;
 use CG\DataExchange\Runner\StockExport\Builder as StockExportBuilder;
@@ -42,18 +43,21 @@ class StockExporter
 
     public function sendViaEmail(int $templateId): void
     {
-        //todo
+        $manual = $this->createManualExchange($templateId, ['toDataExchangeAccountType' => 'user']);
+        $workload = new RunManualExchangeWorkload(json_encode($manual));
+        $this->gearmanClient->doBackground(RunManualExchangeWorkload::buildFunctionNameForManual($manual), serialize($workload));
     }
 
-    protected function createManualExchange(int $templateId): Manual
+    protected function createManualExchange(int $templateId, array $additional = []): Manual
     {
-        return $this->manualMapper->fromArray([
+        $array = [
             'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             'userId' => $this->activeUserContainer->getActiveUser()->getId(),
             'operation' => Manual::OPERATION_EXPORT,
             'type' => Manual::TYPE_STOCK,
             'templateId' => $templateId,
             'filename' => 'stockExport.csv',
-        ]);
+        ];
+        return $this->manualMapper->fromArray(array_merge($array, $additional));
     }
 }
