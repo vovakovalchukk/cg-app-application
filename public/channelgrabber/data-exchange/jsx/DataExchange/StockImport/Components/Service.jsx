@@ -1,4 +1,5 @@
 import Columns from "DataExchange/Schedule/Columns";
+import Validators from "DataExchange/Schedule/Service/Validators";
 
 const Service = {
     buildEmptySchedule: () => {
@@ -41,32 +42,15 @@ const Service = {
 
         return postData;
     },
-    isScheduleValid: (schedule) => {
-        if (schedule.name.toString().trim().length < 2) {
-            return false;
-        }
-
-        if (!schedule.templateId) {
-            return false;
-        }
-
-        if (!schedule.action) {
-            return false;
-        }
-
-        if (!schedule.fromDataExchangeAccountId) {
-            return false;
-        }
-
-        if (schedule.filename.toString().trim().length < 2) {
-            return false;
-        }
-
-        if (!schedule.frequency) {
-            return false;
-        }
-
-        return true;
+    validators: () => {
+        return [
+            Validators.name,
+            Validators.template,
+            Validators.fromAccount,
+            Validators.filename,
+            Validators.frequency,
+            Validators.action
+        ];
     }
 };
 

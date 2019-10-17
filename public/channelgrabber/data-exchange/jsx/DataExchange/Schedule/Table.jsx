@@ -1,17 +1,18 @@
 import React, {useState, useReducer} from 'react';
 import styled from "styled-components";
 import CheckboxContainer from "Common/Components/Checkbox--stateless";
-import scheduleReducer from "./ScheduleReducer";
 import ActionsColumn from "./Components/Actions";
 import TemplateColumn from "./Components/Template";
 import SendToAccountColumn from "./Components/SendToAccount";
 import SendFromAccountColumn from "./Components/SendFromAccount";
 import FrequencyColumn from "./Components/Frequency";
 import WhenColumn from "./Components/When";
-import ActionsService from "./ActionsService";
+import ImportAction from "./Components/ImportAction";
+import SavedFilters from "./Components/SavedFilters";
 import * as Columns from "./Columns";
-import ImportAction from "DataExchange/Schedule/Components/ImportAction";
-import SavedFilters from "DataExchange/Schedule/Components/SavedFilters";
+import ActionsService from "./Service/ActionsService";
+import scheduleReducer from "./Service/ScheduleReducer";
+import Helper from "./Service/Helper";
 
 const Container = styled.div`
     margin-top: 45px;
@@ -140,7 +141,7 @@ const Table = (props) => {
         return <td>
             <ActionsColumn
                 removeIconVisible={!isLastEntry(index)}
-                saveIconDisabled={!hasScheduleChanged(schedule) || !props.isScheduleValid(schedule)}
+                saveIconDisabled={!Helper.hasScheduleChanged(schedule) || !Helper.validateSchedule(schedule, props.validators)}
                 onSave={() => handleScheduleSave(index, schedule)}
                 onDelete={() => handleScheduleDelete(index, schedule)}
             />
@@ -222,14 +223,6 @@ const Table = (props) => {
         return schedules.length - 1 === index;
     };
 
-    const hasScheduleChanged = (schedule) => {
-        const scheduleCopy = {...schedule};
-        delete scheduleCopy.initialValues;
-        return !(Object.keys(scheduleCopy).reduce((isEqual, key) => {
-            return isEqual && (scheduleCopy[key] === schedule.initialValues[key]);
-        }, true));
-    };
-
     async function handleScheduleSave(index, schedule) {
         n.notice((schedule.id ? 'Updating' : 'Saving') + ` your <strong>${schedule.name}</strong> schedule...`, 2000);
 
@@ -288,7 +281,8 @@ Table.defaultProps = {
     fromAccountOptions: [],
     toAccountOptions: [],
     buildEmptySchedule: () => {},
-    savedFilterOptions: []
+    savedFilterOptions: [],
+    validators: []
 };
 
 export default Table;
