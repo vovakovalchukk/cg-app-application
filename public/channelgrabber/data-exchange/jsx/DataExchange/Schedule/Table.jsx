@@ -6,7 +6,7 @@ import TemplateColumn from "./Components/Template";
 import SendToAccountColumn from "./Components/SendToAccount";
 import SendFromAccountColumn from "./Components/SendFromAccount";
 import FrequencyColumn from "./Components/Frequency";
-import WhenColumn from "./Components/When";
+import TimePicker from "./Components/When";
 import ImportAction from "./Components/ImportAction";
 import SavedFilters from "./Components/SavedFilters";
 import * as Columns from "./Columns";
@@ -128,7 +128,7 @@ const Table = (props) => {
 
     const renderWhenColumn = (schedule, index) => {
         return <SelectDropDownCell>
-            <WhenColumn
+            <TimePicker
                 schedule={schedule}
                 onDayOfMonthChange={(date) => {handleInputValueChanged(index, 'date', date)}}
                 onDayOfWeekChange={(day) => {handleInputValueChanged(index, 'day', day)}}

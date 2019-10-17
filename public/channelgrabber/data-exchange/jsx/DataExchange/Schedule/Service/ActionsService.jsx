@@ -1,5 +1,5 @@
 const ActionsService = {
-    saveSchedule: async (schedule) => {
+    saveSchedule: (schedule) => {
         const postData = {
             ...schedule,
             toDataExchangeAccountId: `${schedule.toDataExchangeAccountType}-${schedule.toDataExchangeAccountId}`
@@ -14,7 +14,7 @@ const ActionsService = {
             error: (error) => error
         });
     },
-    deleteSchedule: async (id) => {
+    deleteSchedule: (id) => {
         return $.ajax({
             url: window.location.href + '/remove',
             type: 'POST',

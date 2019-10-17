@@ -116,7 +116,7 @@ const HourSelect = (props) => {
     </SelectContainer>
 };
 
-const When = (props) => {
+const TimePicker = (props) => {
     const renderDayOfMonthSelect = () => <DayOfMonthSelect schedule={props.schedule} onChange={props.onDayOfMonthChange}/>;
     const renderDayOfWeekSelect = () => <DayOfWeekSelect schedule={props.schedule} onChange={props.onDayOfWeekChange}/>;
     const renderHourSelect = () => <HourSelect schedule={props.schedule} onChange={props.onHourChange}/>;
@@ -132,9 +132,9 @@ const When = (props) => {
     </span>;
 };
 
-When.defaultProps = {
+TimePicker.defaultProps = {
     schedule: {},
     onChange: () => {}
 };
 
-export default When;
+export default TimePicker;

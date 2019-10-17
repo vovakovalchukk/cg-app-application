@@ -7,7 +7,7 @@ const App = (mountingNode, props) => {
     return ReactDOM.render(
         <Table
             {...props}
-            buildEmptySchedule={() => Service.buildEmptySchedule()}
+            buildEmptySchedule={Service.buildEmptySchedule}
             columns={Service.getColumns()}
             formatPostDataForSave={Service.formatPostDataForSave}
             validators={Service.validators()}
