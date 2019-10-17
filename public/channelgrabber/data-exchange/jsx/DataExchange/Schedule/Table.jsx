@@ -92,7 +92,7 @@ const Table = (props) => {
                 fromAccountOptions={props.fromAccountOptions}
                 onChange={(sendFromAccountId) => {
                     handleInputValueChanged(index, 'fromDataExchangeAccountType', 'email');
-                    handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId);
+                    handleInputValueChanged(index, 'fromDataExchangeAccountId', sendFromAccountId, false);
                 }}
             />
         </SelectDropDownCell>
@@ -196,8 +196,8 @@ const Table = (props) => {
         });
     };
 
-    const handleInputValueChanged = (index, property, newValue) => {
-        if (isLastEntry(index)) {
+    const handleInputValueChanged = (index, property, newValue, createNewRowAllowed = true) => {
+        if (createNewRowAllowed && isLastEntry(index)) {
             dispatch({
                 type: 'addNewSchedule',
                 payload: {
