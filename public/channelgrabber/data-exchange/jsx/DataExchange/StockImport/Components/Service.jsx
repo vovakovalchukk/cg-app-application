@@ -4,12 +4,12 @@ const Service = {
     buildEmptySchedule: () => {
         return {
             active: false,
-            date: null,
-            day: null,
+            date: 1,
+            day: 1,
             filename: '{{type}}-{{date}}-{{time}}.csv',
             frequency: 'hourly',
             fromDataExchangeAccountId: null,
-            hour: null,
+            hour: 0,
             id: null,
             name: '',
             templateId: null,
@@ -41,6 +41,33 @@ const Service = {
 
         return postData;
     },
+    isScheduleValid: (schedule) => {
+        if (schedule.name.toString().trim().length < 2) {
+            return false;
+        }
+
+        if (!schedule.templateId) {
+            return false;
+        }
+
+        if (!schedule.action) {
+            return false;
+        }
+
+        if (!schedule.fromDataExchangeAccountId) {
+            return false;
+        }
+
+        if (schedule.filename.toString().trim().length < 2) {
+            return false;
+        }
+
+        if (!schedule.frequency) {
+            return false;
+        }
+
+        return true;
+    }
 };
 
 export default Service;

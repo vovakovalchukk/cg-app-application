@@ -138,7 +138,7 @@ const Table = (props) => {
         return <td>
             <ActionsColumn
                 removeIconVisible={!isLastEntry(index)}
-                saveIconDisabled={false}
+                saveIconDisabled={!props.isScheduleValid(schedule)}
                 onSave={() => handleScheduleSave(index, schedule)}
                 onDelete={() => handleScheduleDelete(index, schedule)}
             />

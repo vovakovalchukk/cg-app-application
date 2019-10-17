@@ -10,6 +10,7 @@ const App = (mountingNode, props) => {
             buildEmptySchedule={() => Service.buildEmptySchedule()}
             columns={Service.getColumns()}
             formatPostDataForSave={Service.formatPostDataForSave}
+            isScheduleValid={Service.isScheduleValid}
         />,
         mountingNode
     );
