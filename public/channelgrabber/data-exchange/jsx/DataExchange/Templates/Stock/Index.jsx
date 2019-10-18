@@ -12,7 +12,7 @@ const StockTemplates = function(
             templates={templates}
             cgFieldOptions={cgFieldOptions}
             templateType={'stock'}
-            xhrRoute={'orders'}
+            xhrRoute={'stock'}
         />,
         mountingNode
     );
