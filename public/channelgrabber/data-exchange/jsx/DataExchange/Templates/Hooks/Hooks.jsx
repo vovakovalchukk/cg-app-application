@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const stockTemplatesHooks = {
+const TemplatesHooks = {
     useTemplateState: function(initialTemplate) {
         const [template, setTemplate] = useState(initialTemplate);
 
@@ -51,7 +51,7 @@ const stockTemplatesHooks = {
                 columnMap
             };
             setTemplate(newTemplate);
-            return ncolumnMapewTemplate;
+            return newTemplate;
         }
 
         function changeCgField(fieldIndex, desiredValue) {
@@ -141,4 +141,4 @@ const stockTemplatesHooks = {
     }
 };
 
-export default stockTemplatesHooks;
+export default TemplatesHooks;

@@ -11,7 +11,8 @@ const OrdersTemplates = function(
         <TemplateFieldMapper
             templates={templates}
             cgFieldOptions={cgFieldOptions}
-            templateType={'orders'}
+            templateType={'order'}
+            xhrRoute={'orders'}
         />,
         mountingNode
     );

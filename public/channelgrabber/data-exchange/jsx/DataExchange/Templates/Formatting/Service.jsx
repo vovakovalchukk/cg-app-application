@@ -1,13 +1,13 @@
 const FormattingService = {
     formatTemplateForSave: function(template, templateName) {
-        let {columnMap} = template;
+        let {columnMap, type} = template;
 
         const formattedColumnMap = removeInvalidRows(columnMap);
 
         const formattedTemplate = {
             columnMap: formattedColumnMap,
             name: templateName,
-            type: 'stock'
+            type
         };
 
         if (template.id) {

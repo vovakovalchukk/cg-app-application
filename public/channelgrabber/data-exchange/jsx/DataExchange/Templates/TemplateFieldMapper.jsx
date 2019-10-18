@@ -20,7 +20,7 @@ const InitialFormSection = styled.section`
 
 let initialCgOptions = null;
 
-const TemplateFieldMapper = props => {
+const TemplateFieldMapper = (props) => {
     const formattedTemplates = FormattingService.formatTemplates(props.templates);
     let {templates, setTemplates} = useTemplatesState(formattedTemplates);
 
@@ -53,6 +53,8 @@ const TemplateFieldMapper = props => {
                             templateName.setValue(chosenTemplate.name);
                             let templateToSet = deepCopyObject(chosenTemplate);
                             templateState.setTemplate(templateToSet);
+                            updateCgOptionsFromSelections(templateState.template, initialCgOptions)
+
                         }}
                         deleteTemplate={deleteTemplateHandler}
                     />
@@ -131,7 +133,7 @@ const TemplateFieldMapper = props => {
     }
 
     async function saveTemplate() {
-        const response = await XHRService.saveTemplate(templateState, templateName, props.templateType);
+        const response = await XHRService.saveTemplate(templateState, templateName, props.xhrRoute);
         if (!response.success) {
             return;
         }
@@ -139,7 +141,7 @@ const TemplateFieldMapper = props => {
     }
 
     async function deleteTemplateHandler() {
-        const response = await XHRService.deleteTemplate(templateSelectValue, props.templateType);
+        const response = await XHRService.deleteTemplate(templateSelectValue, props.xhrRoute);
         if (!response.success) {
             return;
         }
