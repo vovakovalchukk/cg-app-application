@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "097ee1a9454f00fe385cb36eeca198cf",
+    "content-hash": "7e2f3febc7b43adae9c8f05f783a0277",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1127,12 +1127,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "76bbf6a909d7f6354dad2fe1ea6114d3049fb073"
+                "reference": "4e924eed333024d57faff5db3437b3e77769ab2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-689a86.zip",
-                "reference": "76bbf6a909d7f6354dad2fe1ea6114d3049fb073"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-8302b0.zip",
+                "reference": "4e924eed333024d57faff5db3437b3e77769ab2e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1165,7 +1165,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-18T09:48:33+00:00"
+            "time": "2019-10-18T13:27:22+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
