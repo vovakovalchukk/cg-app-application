@@ -6,7 +6,7 @@ const FormattingService = {
 
         const formattedTemplate = {
             columnMap: formattedColumnMap,
-            name: templateName,
+            name: templateName || template.name,
             type
         };
 

@@ -121,8 +121,7 @@ const TemplateFieldMapper = (props) => {
         }
 
         const templateSelectValueForComparison = FormattingService.formatTemplateForSave(
-            {...templateSelectValue},
-            templateName.value
+            {...templateSelectValue}
         );
         const formattedTemplate = FormattingService.formatTemplateForSave(
             templateState.template,
