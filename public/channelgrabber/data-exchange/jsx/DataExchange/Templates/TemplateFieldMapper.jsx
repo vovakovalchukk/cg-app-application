@@ -53,8 +53,7 @@ const TemplateFieldMapper = (props) => {
                             templateName.setValue(chosenTemplate.name);
                             let templateToSet = deepCopyObject(chosenTemplate);
                             templateState.setTemplate(templateToSet);
-                            updateCgOptionsFromSelections(templateState.template, initialCgOptions)
-
+                            updateCgOptionsFromSelections(templateToSet);
                         }}
                         deleteTemplate={deleteTemplateHandler}
                     />
@@ -87,15 +86,15 @@ const TemplateFieldMapper = (props) => {
                     allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
                         const template = templateState.deleteFieldRow(rowIndex, availableCgFieldOptions.length);
-                        updateCgOptionsFromSelections(template, initialCgOptions);
+                        updateCgOptionsFromSelections(template);
                     }}
                     changeFileField = {(rowIndex, desiredValue) => {
                         changeField(rowIndex, desiredValue, 'fileField');
-                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
+                        updateCgOptionsFromSelections(templateState.template)
                     }}
                     changeCgField = {(rowIndex, desiredValue) => {
                         changeField(rowIndex, desiredValue, 'cgField');
-                        updateCgOptionsFromSelections(templateState.template, initialCgOptions)
+                        updateCgOptionsFromSelections(templateState.template)
                     }}
                     containerWidth={containerWidth}
                 />}

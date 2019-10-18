@@ -120,7 +120,7 @@ const TemplatesHooks = {
             return option.available || typeof option.available === 'undefined'
         });
 
-        function updateCgOptionsFromSelections(template, initialCgOptions) {
+        function updateCgOptionsFromSelections(template) {
             let selectedCgFields = [];
             template.columnMap.forEach((column) => {
                 selectedCgFields.push(column.cgField);
