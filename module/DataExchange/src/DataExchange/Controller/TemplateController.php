@@ -90,10 +90,11 @@ class TemplateController extends AbstractActionController implements LoggerAware
     {
         $templateArray = $this->params()->fromPost('template', []);
         $templateId = isset($templateArray['id']) ? intval($templateArray['id']) : 0;
+        $type = $this->fetchTypeFromRoute();
+        $templateArray['type'] = $type;
 
         $success = false;
         try {
-            $type = $this->fetchTypeFromRoute();
             $template = $this->templateService->saveForActiveUser($type, $templateArray, $templateId > 0 ? $templateId : null);
             $success = true;
             $response = [
