@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7e5fe54665fa967047c1150d524950a",
+    "content-hash": "eddfc202d5e512108353c5afd38e68d5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -3533,16 +3533,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.17.1",
+            "version": "1.17.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489"
+                "reference": "b3948a482e7a951b4215d4507ffc43ead1efdf8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.1-e1e109.zip",
-                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.5-c32256.zip",
+                "reference": "b3948a482e7a951b4215d4507ffc43ead1efdf8c"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3588,7 +3588,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-04-30T12:16:50+00:00"
+            "time": "2019-08-15T15:02:12+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3626,6 +3626,39 @@
                 }
             },
             "time": "2017-10-10T13:08:18+00:00"
+        },
+        {
+            "name": "channelgrabber/stripe",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-stripe.git",
+                "reference": "414ef6c8f52320eb57a41cc96a920c0a5ce86fbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stripe/channelgrabber-stripe-1.0.2-46f484.zip",
+                "reference": "414ef6c8f52320eb57a41cc96a920c0a5ce86fbc"
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Stripe\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Stripe\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-10-18T08:32:59+00:00"
         },
         {
             "name": "channelgrabber/tax",
@@ -4324,16 +4357,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.9",
+            "version": "1.2.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
+                "reference": "ba83b7355d77a4520a7c8241bb0b11483ad6f6a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.9-32881f.zip",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.10-2e85ae.zip",
+                "reference": "ba83b7355d77a4520a7c8241bb0b11483ad6f6a5"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -4341,6 +4374,7 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.13.0",
                 "channelgrabber/stdlib": "^2.15.0",
+                "channelgrabber/stripe": "^1.0.2",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.25",
                 "channelgrabber/zf2-installer": "^1.0.6",
@@ -4370,7 +4404,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-05-17T08:48:18+00:00"
+            "time": "2019-10-18T08:38:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
