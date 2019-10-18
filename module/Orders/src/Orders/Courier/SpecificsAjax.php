@@ -45,7 +45,7 @@ class SpecificsAjax
 
     const DEFAULT_PARCELS = 1;
     const MIN_PARCELS = 1;
-    const MAX_PARCELS = 10;
+    const MAX_PARCELS = 9999;
 
     /** @var OrderService */
     protected $orderService;
