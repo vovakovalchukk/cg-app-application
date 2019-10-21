@@ -39,10 +39,9 @@ const TemplatesHooks = {
             setTemplate(newTemplate);
         }
 
-        function deleteFieldRow(rowIndex, availableOptionsLength) {
+        function deleteFieldRow(rowIndex) {
             const columnMap = getColumnMap();
-            const shouldAddBlankRow = availableOptionsLength === 0;
-            if (shouldAddBlankRow) {
+            if (columnMap.length === 1) {
                 columnMap.push(getBlankRow());
             }
             columnMap.splice(rowIndex, 1);
@@ -116,10 +115,6 @@ const TemplatesHooks = {
     useCgOptionsState: function(cgOptions) {
         const [cgFieldOptions, setCgFieldOptions] = useState(cgOptions);
 
-        const availableCgFieldOptions = cgFieldOptions.filter((option) => {
-            return option.available || typeof option.available === 'undefined'
-        });
-
         function updateCgOptionsFromSelections(template) {
             let selectedCgFields = [];
             template.columnMap.forEach((column) => {
@@ -134,7 +129,6 @@ const TemplatesHooks = {
 
         return {
             cgFieldOptions,
-            availableCgFieldOptions,
             setCgFieldOptions,
             updateCgOptionsFromSelections
         }

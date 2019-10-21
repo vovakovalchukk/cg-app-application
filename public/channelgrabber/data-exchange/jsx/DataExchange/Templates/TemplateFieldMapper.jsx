@@ -34,7 +34,7 @@ const TemplateFieldMapper = (props) => {
 
     const formattedCgFieldOptions = FormattingService.formatCgFieldOptions(props.cgFieldOptions);
 
-    const {cgFieldOptions, availableCgFieldOptions, setCgFieldOptions, updateCgOptionsFromSelections} = useCgOptionsState(formattedCgFieldOptions);
+    const {cgFieldOptions, setCgFieldOptions, updateCgOptionsFromSelections} = useCgOptionsState(formattedCgFieldOptions);
 
     if (!initialCgOptions) {
         initialCgOptions = cgFieldOptions;
@@ -82,10 +82,9 @@ const TemplateFieldMapper = (props) => {
                 <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
-                    availableCgFieldOptions={availableCgFieldOptions}
                     allCgFieldOptions={cgFieldOptions}
                     removeFieldRow = {(rowIndex) => {
-                        const template = templateState.deleteFieldRow(rowIndex, availableCgFieldOptions.length);
+                        const template = templateState.deleteFieldRow(rowIndex);
                         updateCgOptionsFromSelections(template);
                     }}
                     changeFileField = {(rowIndex, desiredValue) => {

@@ -46,31 +46,41 @@ const RowSelect = styled(Select)`
 
 const FieldRows = (props) => {
     return props.rows.map((row, index) => {
-        let rowParams = {};
-        rowParams['columnName'] = `Column ${index + 1}`;
-        rowParams['inputId'] = `column-${index + 1}-input`;
-        rowParams['onInputChange'] = (e) => {
-            let desiredValue = e.target.value;
-            props.changeFileField(index, desiredValue)
+        const buildOptionsForRow = () => {
+            return props.allOptions.map((option) => {
+                const disabled = !!(props.rows.find((rowData, rowIndex) => {
+                    if (rowIndex === index) {
+                        return false;
+                    }
+                    return rowData.cgField == option.value;
+                }));
+
+                return {
+                    name: option.name,
+                    value: option.value,
+                    disabled: disabled
+                }
+            });
         };
-        rowParams['onSelectChange'] = (option) => {
-            props.changeCgField(index, option.value);
+
+        const rowParams = {
+            columnName: `Column ${index + 1}`,
+            inputId: `column-${index + 1}-input`,
+            onInputChange: (e) => {props.changeFileField(index, e.target.value)},
+            onSelectChange: (option) => {props.changeCgField(index, option.value)},
+            deleteTemplate: () => {props.removeFieldRow(index)},
+            options: buildOptionsForRow(),
+            selectedField: props.allOptions.find((option) => {return option.value === row.cgField}),
+            fileField: row.fileField
         };
-        rowParams['deleteTemplate'] = () => {
-            props.removeFieldRow(index);
-        };
-        rowParams['selectedField'] = props.allOptions.find((option) => {
-            return option.value === row.cgField
-        });
-        rowParams['fileField'] = row.fileField;
-        rowParams['shouldRenderDelete'] = props.rows.length -1 !== index ||
-            (rowParams.fileField || rowParams.selectedField);
+        rowParams.shouldRenderDelete = props.rows.length -1 !== index || (rowParams.fileField || rowParams.selectedField);
+
         return props.renderRow({index, ...rowParams});
     });
 };
 
 const FieldMapper = (props) => {
-    let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, availableCgFieldOptions, allCgFieldOptions} = props;
+    let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, allCgFieldOptions} = props;
 
     return (<MapperContainer className={'u-margin-top-xxlarge'} containerWidth={props.containerWidth}>
             <HeaderRow containerWidth={props.containerWidth}>
@@ -85,8 +95,8 @@ const FieldMapper = (props) => {
                 removeFieldRow={removeFieldRow}
                 allOptions={allCgFieldOptions}
                 addFieldRow={addFieldRow}
-                renderRow={(rowParams) => (
-                    <React.Fragment>
+                renderRow={(rowParams) => {
+                    return <React.Fragment>
                         <RowLabel htmlFor={rowParams.inputId}>{rowParams.columnName}</RowLabel>
                         <RowInput
                             id={rowParams.inputId}
@@ -100,20 +110,20 @@ const FieldMapper = (props) => {
                         </RowArrow>
 
                         <RowSelect
-                            options={availableCgFieldOptions}
-                            filterable={availableCgFieldOptions.length > 10}
+                            options={rowParams.options}
+                            selectedOption={rowParams.selectedField}
+                            filterable={rowParams.options > 10}
                             autoSelectFirst={false}
                             className={'u-width-100pc'}
-                            selectedOption={rowParams.selectedField}
                             onOptionChange={rowParams.onSelectChange}
                             classNames={'u-inline-block'}
                         />
 
                         {rowParams.shouldRenderDelete &&
-                            <RemoveIcon onClick={rowParams.deleteTemplate}/>}
+                        <RemoveIcon onClick={rowParams.deleteTemplate}/>}
 
                     </React.Fragment>
-                )}
+                }}
             />
         </MapperContainer>
     );
