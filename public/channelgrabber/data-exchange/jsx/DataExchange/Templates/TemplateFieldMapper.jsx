@@ -156,7 +156,8 @@ const TemplateFieldMapper = (props) => {
         };
         const newTemplates = FormattingService.formatTemplates([...templates, newSelectOption]);
         setTemplates(newTemplates);
-        setTemplateSelectValue(newSelectOption);
+        setTemplateSelectValue({});
+        setTemplateInitialised(false);
     }
 
     function changeField(rowIndex, desiredValue, propertyName) {
