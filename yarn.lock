@@ -1809,7 +1809,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#MIG-35-app-frontend-for-template-pages":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#b83922f83886a6541ede1bfde5817661ed9941c2"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#c0c923661766bbbc75619c99604932f9d098f4df"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
