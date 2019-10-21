@@ -112,7 +112,7 @@ const FieldMapper = (props) => {
                         <RowSelect
                             options={rowParams.options}
                             selectedOption={rowParams.selectedField}
-                            filterable={rowParams.options > 10}
+                            filterable={rowParams.options.length > 10}
                             autoSelectFirst={false}
                             className={'u-width-100pc'}
                             onOptionChange={rowParams.onSelectChange}
