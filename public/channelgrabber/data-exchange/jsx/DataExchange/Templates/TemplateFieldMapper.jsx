@@ -50,8 +50,9 @@ const TemplateFieldMapper = (props) => {
                         onOptionChange={(chosenTemplate) => {
                             setTemplateSelectValue(chosenTemplate);
                             setTemplateInitialised(true);
-                            templateName.setValue(chosenTemplate.name);
-                            let templateToSet = deepCopyObject(chosenTemplate);
+                            let templateToSet = templates.find((template) => template.id === chosenTemplate.id);
+                            templateName.setValue(templateToSet.name);
+                            templateToSet = deepCopyObject(templateToSet);
                             templateState.setTemplate(templateToSet);
                             updateCgOptionsFromSelections(templateToSet);
                         }}
@@ -150,12 +151,26 @@ const TemplateFieldMapper = (props) => {
 
     function applySelectOptionChangesAfterSave(response) {
         const newTemplate = response.template;
+
+        const templateIndex = templates.findIndex((template) => (
+            template.id === newTemplate.id
+        ));
+
         const newSelectOption = {
             ...newTemplate,
             value: newTemplate.name
         };
-        const newTemplates = FormattingService.formatTemplates([...templates, newSelectOption]);
+
+        let newTemplates;
+        if (templateIndex < 0) {
+            newTemplates = FormattingService.formatTemplates([...templates, newSelectOption]);
+        } else {
+            newTemplates = [...templates];
+            newTemplates.splice(templateIndex, 1, newSelectOption);
+            newTemplates = FormattingService.formatTemplates(newTemplates);
+        }
         setTemplates(newTemplates);
+        templateState.setTemplate({...FormattingService.getDefaultTemplate(props.templateType)});
         setTemplateSelectValue({});
         setTemplateInitialised(false);
     }
