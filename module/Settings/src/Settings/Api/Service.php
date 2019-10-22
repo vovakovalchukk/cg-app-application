@@ -35,6 +35,7 @@ class Service implements LoggerAwareInterface
         OrganisationUnit::LOCALE_US => 'Growth Accelerator (USA)',
     ];
     const MSG_UPGRADE = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>API access is limited to our \'%s\' package or higher. Click below to upgrade now.</p><p>Not sure? Contact our eCommerce specialists on %s to discuss or <a href="%s" target="_blank">Click Here</a> to book a demo.</p>';
+    const MSG_UPGRADE_WITHOUT_LINK = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>Contact our eCommerce specialists on %s to discuss your requirements.</p>';
     const MANAGE_PACKAGE_URI = '/billing/package';
 
     /** @var ActiveUserContainer */
@@ -90,6 +91,7 @@ class Service implements LoggerAwareInterface
         /** @var OrganisationUnit $rootOu */
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
         if ($rootOu->getBillingType() !== OrganisationUnit::BILLING_TYPE_CG) {
+            $response->setMessage(sprintf(static::MSG_UPGRADE_WITHOUT_LINK, PhoneNumber::getForLocale($rootOu->getLocale())));
             return $response;
         }
         if (!$this->isOusCurrentPackageAllowedAccess($rootOu)) {
