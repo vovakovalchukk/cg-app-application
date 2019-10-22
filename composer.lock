@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eddfc202d5e512108353c5afd38e68d5",
+    "content-hash": "4c708341e87aa5d0f8fc05b4f473c4f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -3533,16 +3533,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.17.5",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "b3948a482e7a951b4215d4507ffc43ead1efdf8c"
+                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.5-c32256.zip",
-                "reference": "b3948a482e7a951b4215d4507ffc43ead1efdf8c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.1-e1e109.zip",
+                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3588,7 +3588,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-08-15T15:02:12+00:00"
+            "time": "2019-04-30T12:16:50+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3701,16 +3701,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.14",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c51c7f23157c1e9d09eb327cef3a35c725b1054b"
+                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.14-acef4d.zip",
-                "reference": "c51c7f23157c1e9d09eb327cef3a35c725b1054b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.15-eeb740.zip",
+                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3756,7 +3756,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-17T08:53:57+00:00"
+            "time": "2019-10-21T12:55:28+00:00"
         },
         {
             "name": "channelgrabber/transaction",
