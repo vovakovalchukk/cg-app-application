@@ -170,6 +170,7 @@ const TemplateFieldMapper = (props) => {
             newTemplates = FormattingService.formatTemplates(newTemplates);
         }
         setTemplates(newTemplates);
+        newTemplateName.setValue('');
         templateState.setTemplate({...FormattingService.getDefaultTemplate(props.templateType)});
         setTemplateSelectValue({});
         setTemplateInitialised(false);
