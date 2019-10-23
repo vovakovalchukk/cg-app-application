@@ -1807,9 +1807,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#MIG-35-app-frontend-for-template-pages":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.39":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#c0c923661766bbbc75619c99604932f9d098f4df"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#27bcd13780be60989c64c6c3f7c376c3726ae65b"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
