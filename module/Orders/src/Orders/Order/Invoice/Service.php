@@ -292,10 +292,7 @@ class Service extends ClientService implements StatsAwareInterface
         } catch (\InvalidArgumentException $exception) {
             // No account address generator for this channel - skip it
         }
-
-        $orderRootOuId = $order->getRootOrganisationUnitId();
-        $invoiceSettings = $this->invoiceSettingsService->fetch($orderRootOuId);
-
+        $invoiceSettings = $this->templateCache->getInvoiceSettings($order);
         if ($invoiceSettings->isAutoEmailAllowed()) {
             return true;
         }

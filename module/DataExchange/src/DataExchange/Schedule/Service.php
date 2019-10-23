@@ -278,6 +278,7 @@ class Service
     public function saveOrderExportForActiveUser(array $data): Schedule
     {
         $data = $this->prepareExportDataForSaving($data);
+        $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_EMAIL;
         if (isset($data['savedFilterName'])) {
             $data['options'] = ['savedFilterName' => $data['savedFilterName']];
             unset($data['savedFilterName']);

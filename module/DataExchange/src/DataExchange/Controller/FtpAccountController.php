@@ -86,7 +86,12 @@ class FtpAccountController extends AbstractActionController
     public function testAction()
     {
         $id = $this->params()->fromPost('id');
-        $success = $this->service->testConnection($id);
+        try {
+            $success = $this->service->testConnection($id);
+        } catch (\Throwable $e) {
+            $success = false;
+        }
+
         return $this->jsonModelFactory->newInstance([
             'success' => $success,
             'id' => $id,

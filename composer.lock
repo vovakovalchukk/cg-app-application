@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff63812f720674a474aeaf2c525f2945",
+    "content-hash": "011b4f66c4647bd9e4e2ce33b1f6a99e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1028,16 +1028,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa"
+                "reference": "93037e951aee8342895c8744344f196f2a2db271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.0-91e6a1.zip",
-                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.1-536bf9.zip",
+                "reference": "93037e951aee8342895c8744344f196f2a2db271",
                 "shasum": null
             },
             "require": {
@@ -1072,7 +1072,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-08-16T14:58:56+00:00"
+            "time": "2019-10-10T09:34:03+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2366,12 +2366,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "76f3490947a40e9c8d2ba16d7bf3bb7d172c7bf1"
+                "reference": "7cf18f3329d0a13b4384ffb7099d08e8c19f00ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-710faa.zip",
-                "reference": "76f3490947a40e9c8d2ba16d7bf3bb7d172c7bf1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-80ef7e.zip",
+                "reference": "7cf18f3329d0a13b4384ffb7099d08e8c19f00ee",
                 "shasum": null
             },
             "require": {
@@ -2448,7 +2448,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-10T08:01:25+00:00"
+            "time": "2019-10-23T10:15:01+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3707,6 +3707,40 @@
             "time": "2017-10-10T13:08:18+00:00"
         },
         {
+            "name": "channelgrabber/stripe",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-stripe.git",
+                "reference": "414ef6c8f52320eb57a41cc96a920c0a5ce86fbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stripe/channelgrabber-stripe-1.0.2-46f484.zip",
+                "reference": "414ef6c8f52320eb57a41cc96a920c0a5ce86fbc",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Stripe\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Stripe\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-10-18T08:32:59+00:00"
+        },
+        {
             "name": "channelgrabber/tax",
             "version": "1.0.2",
             "source": {
@@ -3752,12 +3786,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "91c7b0cc66f1031becef73423c62896a53b857d6"
+                "reference": "b79f71a754adbd07516921e1caab5e101089e362"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-c80077.zip",
-                "reference": "91c7b0cc66f1031becef73423c62896a53b857d6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-4ad371.zip",
+                "reference": "b79f71a754adbd07516921e1caab5e101089e362",
                 "shasum": null
             },
             "require": {
@@ -3806,7 +3840,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-04T07:36:48+00:00"
+            "time": "2019-10-23T10:17:37+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4423,16 +4457,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.9",
+            "version": "1.2.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
+                "reference": "ba83b7355d77a4520a7c8241bb0b11483ad6f6a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.9-32881f.zip",
-                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.10-2e85ae.zip",
+                "reference": "ba83b7355d77a4520a7c8241bb0b11483ad6f6a5",
                 "shasum": null
             },
             "require": {
@@ -4441,6 +4475,7 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.13.0",
                 "channelgrabber/stdlib": "^2.15.0",
+                "channelgrabber/stripe": "^1.0.2",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.25",
                 "channelgrabber/zf2-installer": "^1.0.6",
@@ -4470,7 +4505,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-05-17T08:48:18+00:00"
+            "time": "2019-10-18T08:38:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",

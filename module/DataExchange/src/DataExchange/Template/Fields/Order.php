@@ -14,7 +14,6 @@ class Order implements FieldsInterface
         'Printed Date' => 'printedDate',
         'Dispatch Date' => 'dispatchDate',
         'Invoice Date' => 'invoiceDate',
-        'Channel' => 'channel',
         'Status' => 'status',
         'Shipping Price' => 'shippingPrice',
         'Shipping Method' => 'shippingMethod',
