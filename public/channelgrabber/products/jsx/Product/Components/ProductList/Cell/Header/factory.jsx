@@ -1,14 +1,12 @@
 import React from 'react';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/Header/BulkSelect';
 import ProductExpandCell from 'Product/Components/ProductList/Cell/Header/ProductExpand';
-import FixedDataTable from 'fixed-data-table-2';
+import FixedDataTable, {Cell} from 'fixed-data-table-2';
 import columnKeys from "../../Column/columnKeys";
 import styled from "styled-components";
 import styleVars from "../../styleVars";
 
 "use strict";
-
-const Cell = FixedDataTable.Cell;
 
 let HeaderCellContainer = styled(Cell)`
     .public_fixedDataTableCell_cellContent{

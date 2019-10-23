@@ -32,6 +32,14 @@ var scrollReducer = reducerCreator(initialState, {
             currentColumnScrollIndex: null
         });
         return newState;
+    },
+    "HORIZONTAL_SCROLLBAR_INDEX_UPDATE": function(state, action) {
+        let {index} = action.payload;
+        let newState = {
+            ...state,
+            currentColumnScrollIndex: index
+        };
+        return newState;
     }
 });
 

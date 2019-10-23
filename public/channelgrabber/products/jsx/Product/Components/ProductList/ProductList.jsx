@@ -1,5 +1,5 @@
 import React from 'react';
-import FixedDataTable from 'fixed-data-table-2';
+import FixedDataTable, {Table} from 'fixed-data-table-2';
 import SearchBox from 'Product/Components/Search';
 import ProductLinkEditor from 'Product/Components/ProductLinkEditor';
 import ProductFooter from 'Product/Components/ProductList/Components/Footer/Container';
@@ -16,8 +16,6 @@ import utility from 'Product/Components/ProductList/utility';
 import StatelessSelect from 'Common/Components/Select--stateless';
 
 "use strict";
-
-const {Table} = FixedDataTable;
 
 class ProductList extends React.Component {
     static defaultProps = {
@@ -128,15 +126,15 @@ class ProductList extends React.Component {
         return column.tab === this.props.tabs.currentTab
     };
     renderColumns = () => {
-        let columnSettings = this.props.columns.columnSettings;
-        let distanceFromLeftSideOfTableToStartOfCell = 0;
-        let createdColumns = columnSettings.map((column) => {
-            column.distanceFromLeftSideOfTableToStartOfCell = distanceFromLeftSideOfTableToStartOfCell;
+        const {columnSettings} = this.props.columns;
+        let horizontalDistanceOfColumn = 0;
+        const createdColumns = columnSettings.map((column) => {
+            column.distanceFromLeftSideOfTableToStartOfCell = horizontalDistanceOfColumn - this.props.scroll.currentColumnScrollIndex;
             if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                 return;
             }
             let CreatedColumn = columnCreator(column, this.props);
-            distanceFromLeftSideOfTableToStartOfCell += column.width;
+            horizontalDistanceOfColumn += column.width;
             return CreatedColumn
         });
         return createdColumns;
@@ -172,6 +170,17 @@ class ProductList extends React.Component {
         }, 120);
         return true;
     };
+    onHorizontalScroll = (index) => {
+        if (!this.props.scroll.userScrolling) {
+            this.props.actions.setUserScrolling();
+        }
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(() => {
+            this.props.actions.unsetUserScrolling();
+            this.props.actions.updateHorizontalScrollIndex(index)
+        }, 120);
+        return true;
+    };
     renderProducts = () => {
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
@@ -183,6 +192,7 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
+
         return (
             <Table
                 rowHeight={styleVars.heights.rowHeight}
@@ -201,6 +211,7 @@ class ProductList extends React.Component {
                 scrollToRow={this.props.scroll.currentRowScrollIndex}
                 rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
                 onVerticalScroll={this.onVerticalScroll}
+                onHorizontalScroll={this.onHorizontalScroll}
             >
                 {this.renderColumns()}
             </Table>

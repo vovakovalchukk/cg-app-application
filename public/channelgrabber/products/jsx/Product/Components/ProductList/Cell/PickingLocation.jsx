@@ -17,7 +17,7 @@ class PickingLocationCell extends React.Component {
     };
 
     render() {
-        const {rowIndex, pickLocations} = this.props;
+        const {rowIndex, pickLocations, scroll} = this.props;
         const row = this.props.rowData;
 
         if (!stateUtility.isSimpleProduct(row) && !stateUtility.isVariation(row)) {
