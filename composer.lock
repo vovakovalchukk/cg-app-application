@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "024dfd3d4201dd4d3b72fb036e30b89e",
+    "content-hash": "0e6c652092bb159e89205b1ee5bf7282",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1137,6 +1137,40 @@
                 }
             },
             "time": "2018-05-16T13:09:15+00:00"
+        },
+        {
+            "name": "channelgrabber/data-exchange-history",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
+                "reference": "1d2e2520ee150d6a196560b02817089a86baa3ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.1-84580e.zip",
+                "reference": "1d2e2520ee150d6a196560b02817089a86baa3ea",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\DataExchangeHistory\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\DataExchangeHistory\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-10-24T08:43:47+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",

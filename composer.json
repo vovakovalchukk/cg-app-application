@@ -35,6 +35,7 @@
         "channelgrabber/courier": "~1.2.1",
         "channelgrabber/courieradapter": "~1.6.0",
         "channelgrabber/currency": "~1.0.2",
+        "channelgrabber/data-exchange-history": "~1.0.1",
         "channelgrabber/data-exchange-schedule": "~1.0.2",
         "channelgrabber/data-exchange-template": "~1.0.1",
         "channelgrabber/di": "~2.3.1",

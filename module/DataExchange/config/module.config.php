@@ -1,15 +1,16 @@
 <?php
 
 use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
-use DataExchange\Controller\IndexController;
 use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
+use DataExchange\Controller\HistoryController;
+use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Controller\TemplateController;
-use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use DataExchange\Module;
+use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
@@ -90,6 +91,18 @@ return [
                         'title' => 'Email',
                         'route' => Module::ROUTE . '/' . EmailAccountController::ROUTE
                     ],
+                ]
+            ],
+            'History' => [
+                'label' => 'History',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'History' => [
+                        'label' => 'History',
+                        'title' => 'History',
+                        'route' => Module::ROUTE . '/' . HistoryController::ROUTE
+                    ]
                 ]
             ],
         ]
@@ -325,6 +338,49 @@ return [
                                     'route' => '/remove',
                                     'defaults' => [
                                         'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    HistoryController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/history',
+                            'defaults' => [
+                                'controller' => HistoryController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            HistoryController::ROUTE_FETCH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'action' => 'fetch'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_FILES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/files',
+                                    'defaults' => [
+                                        'action' => 'files'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_STOP => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/stop',
+                                    'defaults' => [
+                                        'action' => 'stop'
                                     ]
                                 ],
                                 'may_terminate' => true,

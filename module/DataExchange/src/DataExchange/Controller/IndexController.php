@@ -17,7 +17,6 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        // MIG-42 should redirect to the history page here
-        return $this->redirect()->toRoute(Module::ROUTE . '/' . FtpAccountController::ROUTE);
+        return $this->redirect()->toRoute(Module::ROUTE . '/' . HistoryController::ROUTE);
     }
 }
