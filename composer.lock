@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "aad84046bd7cd8c21e57b1fa03a39980",
@@ -1150,7 +1150,6 @@
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-39-data-exchange-process-scheduled-exchanges-695d0b.zip",
                 "reference": "699f9a02589f9483fe4c5ab749de0b3e73cb1953",
-                "shasum": null
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
