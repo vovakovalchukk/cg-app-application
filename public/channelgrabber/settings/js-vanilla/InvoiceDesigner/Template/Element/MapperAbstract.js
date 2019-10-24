@@ -16,7 +16,7 @@ define([
         {
             return optionalAttribs;
         };
-
+//
         var cgMustache = new CGMustache();
         this.getCGMustache = function()
         {
@@ -40,6 +40,11 @@ define([
     MapperAbstract.ELEMENT_DOM_WRAPPER_CLASS = elementService.getElementDomWrapperClass();
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
     MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
+
+    MapperAbstract.getDomId = function(element)
+    {
+        return MapperAbstract.ELEMENT_DOM_ID_PREFIX + element.getId();
+    };
 
     MapperAbstract.getDomIdPrefix = function()
     {
