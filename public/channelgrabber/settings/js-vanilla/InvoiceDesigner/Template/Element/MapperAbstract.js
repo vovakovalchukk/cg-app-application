@@ -16,7 +16,7 @@ define([
         {
             return optionalAttribs;
         };
-//
+
         var cgMustache = new CGMustache();
         this.getCGMustache = function()
         {
