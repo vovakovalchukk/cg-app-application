@@ -3,15 +3,12 @@ namespace Orders\Order\Csv;
 
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Order\Client\Csv\Generator as CsvGenerator;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
-use Generator;
-use League\Csv\Writer as CsvWriter;
-use Orders\Order\Csv\Mapper\Orders as OrdersMapper;
-use Orders\Order\Csv\Mapper\OrdersItems as OrdersItemsMapper;
+use CG\User\OrganisationUnit\Service as UserOuService;
 
 class Service implements LoggerAwareInterface
 {
@@ -22,178 +19,78 @@ class Service implements LoggerAwareInterface
     const MIME_TYPE = 'text/csv';
     const FILENAME = 'orders.csv';
 
-    /** @var OrdersMapper $ordersMapper */
-    protected $ordersMapper;
-    /** @var OrdersItemsMapper $ordersItemsMapper */
-    protected $ordersItemsMapper;
-    /** @var ProgressStorage $progressStorage */
-    protected $progressStorage;
-    /** @var ActiveUserContainer $activeUserContainer */
-    protected $activeUserContainer;
-    /** @var IntercomEventService $intercomEventService */
+    /** @var CsvGenerator */
+    protected $csvGenerator;
+    /** @var UserOuService */
+    protected $userOuService;
+    /** @var IntercomEventService */
     protected $intercomEventService;
 
     public function __construct(
-        OrdersMapper $ordersMapper,
-        OrdersItemsMapper $ordersItemsMapper,
-        ProgressStorage $progressStorage,
-        ActiveUserContainer $activeUserContainer,
+        CsvGenerator $csvGenerator,
+        UserOuService $userOuService,
         IntercomEventService $intercomEventService
     ) {
-        $this
-            ->setOrdersMapper($ordersMapper)
-            ->setOrdersItemsMapper($ordersItemsMapper)
-            ->setProgressStorage($progressStorage)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setIntercomEventService($intercomEventService);
-    }
-
-    public function generateCsvForOrders(OrderCollection $orders, $progressKey = null)
-    {
-        $mapper = $this->ordersMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->fromOrderCollection($orders), $progressKey);
-        $this->notifyOfGeneration();
-        return $csv;
-    }
-
-    public function generateCsvFromFilterForOrders(OrderFilter $filter, $progressKey = null)
-    {
-        $mapper = $this->ordersMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->fromOrderFilter($filter), $progressKey);
-        $this->notifyOfGeneration();
-        return $csv;
-    }
-
-    public function generateCsvForOrdersAndItems(OrderCollection $orders, $progressKey = null)
-    {
-        $mapper = $this->ordersItemsMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->fromOrderCollection($orders), $progressKey);
-        $this->notifyOfGeneration();
-        return $csv;
-    }
-
-    public function generateCsvFromFilterForOrdersAndItems(OrderFilter $filter, $progressKey = null)
-    {
-        $mapper = $this->ordersItemsMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->fromOrderFilter($filter), $progressKey);
-        $this->notifyOfGeneration();
-        return $csv;
-    }
-
-    public function generateCsvForAllOrders(array $OuIds, $progressKey = null)
-    {
-        return $this->generateCsvForAll($this->ordersMapper, $OuIds, $progressKey);
-    }
-
-    public function generateCsvForAllOrdersAndItems(array $OuIds, $progressKey = null)
-    {
-        return $this->generateCsvForAll($this->ordersItemsMapper, $OuIds, $progressKey);
-    }
-
-    public function generateCsvForAll($mapper, array $OuIds, $progressKey = null)
-    {
-        $csv = $this->generateCsv(
-            $mapper->getHeaders(),
-            $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(
-                $this->getFilter($OuIds)
-            ),
-            $progressKey
-        );
-        $this->notifyOfGeneration();
-        return $csv;
-    }
-
-    protected function getFilter(array $OuIds)
-    {
-        return (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
-    }
-
-    protected function generateCsv($headers, Generator $rowsGenerator, $progressKey = null)
-    {
-        $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
-        $csvWriter->insertOne($headers);
-        $count = 0;
-        foreach($rowsGenerator as $rows) {
-            $csvWriter->insertAll($rows);
-            $count += count($rows);
-            if ($progressKey) {
-                $this->progressStorage->setProgress($progressKey, $count);
-            }
-        }
-        $this->endProgress($progressKey);
-        return $csvWriter;
-    }
-
-    public function checkToCsvGenerationProgress($progressKey)
-    {
-        $count = $this->progressStorage->getProgress($progressKey);
-        if ($count === null) {
-            return null;
-        }
-        return (int)$count;
-    }
-
-    public function startProgress($progressKey)
-    {
-        $this->progressStorage->setProgress($progressKey, 0);
-    }
-
-    protected function endProgress($progressKey)
-    {
-        if (!$progressKey) {
-            return;
-        }
-        $this->progressStorage->removeProgress($progressKey);
-    }
-
-    protected function notifyOfGeneration()
-    {
-        $event = new IntercomEvent(static::EVENT_CSV_GENERATED, $this->activeUserContainer->getActiveUser()->getId());
-        $this->intercomEventService->save($event);
-    }
-
-    /**
-     * @return self
-     */
-    public function setOrdersItemsMapper(OrdersItemsMapper $ordersItemsMapper)
-    {
-        $this->ordersItemsMapper = $ordersItemsMapper;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setOrdersMapper(OrdersMapper $ordersMapper)
-    {
-        $this->ordersMapper = $ordersMapper;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setProgressStorage(ProgressStorage $progressStorage)
-    {
-        $this->progressStorage = $progressStorage;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
+        $this->csvGenerator = $csvGenerator;
+        $this->userOuService = $userOuService;
         $this->intercomEventService = $intercomEventService;
-        return $this;
     }
 
-    /**
-     * @return self
-     */
-    public function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
+    public function generateCsvForOrders(OrderCollection $orders, ?string $progressKey = null): string
     {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
+        $csv = $this->csvGenerator->generateCsvForOrders($orders, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function generateCsvFromFilterForOrders(OrderFilter $filter, ?string $progressKey = null): string
+    {
+        $csv = $this->csvGenerator->generateCsvFromFilterForOrders($filter, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function generateCsvForOrdersAndItems(OrderCollection $orders, ?string $progressKey = null): string
+    {
+        $csv = $this->csvGenerator->generateCsvForOrdersAndItems($orders, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function generateCsvFromFilterForOrdersAndItems(OrderFilter $filter, ?string $progressKey = null): string
+    {
+        $csv = $this->csvGenerator->generateCsvFromFilterForOrdersAndItems($filter, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function generateCsvForAllOrders(array $ouIds, ?string $progressKey = null): string
+    {
+        $csv = $this->csvGenerator->generateCsvForAllOrders($ouIds, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function generateCsvForAllOrdersAndItems(array $ouIds, ?string $progressKey = null): string
+    {
+        $csv = $this->csvGenerator->generateCsvForAllOrdersAndItems($ouIds, $this->userOuService->getRootOuByActiveUser(), $progressKey);
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    public function checkToCsvGenerationProgress(string $progressKey): ?int
+    {
+        return $this->csvGenerator->checkToCsvGenerationProgress($progressKey);
+    }
+
+    public function startProgress(string $progressKey): void
+    {
+        $this->csvGenerator->startProgress($progressKey);
+    }
+
+    protected function notifyOfGeneration(): void
+    {
+        $event = new IntercomEvent(static::EVENT_CSV_GENERATED, $this->userOuService->getActiveUser()->getId());
+        $this->intercomEventService->save($event);
     }
 }
