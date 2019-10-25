@@ -208,6 +208,7 @@ define([
         if (!Array.isArray(tableCells) || !tableCells.length) {
             return OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
         }
+        return tableCells;
     }
 
     function applyDefaultsToTableTotals(tableTotals) {
