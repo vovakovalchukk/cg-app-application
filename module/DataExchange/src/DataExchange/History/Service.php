@@ -85,11 +85,15 @@ class Service implements LoggerAwareInterface
         /** @var History $history */
         foreach ($histories as $history) {
             $historyData = $history->toArray();
-            $historiesArray = array_merge($historyData, [
-                'type' => $this->formatHistoryType($history),
-                'user' => $this->formatUser($history),
-                'endDate' => $this->formatEndDate($history)
-            ]);
+            $historiesArray = array_merge(
+                $historyData,
+                [
+                    'type' => $this->formatHistoryType($history),
+                    'user' => $this->formatUser($history),
+                    'endDate' => $this->formatEndDate($history)
+                ],
+                $this->buildFilesArray($history)
+            );
         }
 
         return $historiesArray;
@@ -127,5 +131,15 @@ class Service implements LoggerAwareInterface
         }
 
         return static::END_DATE_IN_PROGRESS;
+    }
+
+    protected function buildFilesArray(History $history): array
+    {
+        return [
+            'unprocessedLink' => null,
+            'successfulLink' => null,
+            'failedLink' => null,
+            'fileLink' => null
+        ];
     }
 }
