@@ -75,6 +75,8 @@ class AccountSelectionPopup extends React.Component {
                     <p>Speak to our ecommerce specialists on {this.props.salesPhoneNumber} opt 1, to add this module to your subscription. </p>
                 </span>
             }
+            buttonText={'Close'}
+            buttonOnClick={this.props.onCreateListingClose}
         />
     };
 
