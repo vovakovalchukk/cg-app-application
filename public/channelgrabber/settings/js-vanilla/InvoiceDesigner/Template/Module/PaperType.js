@@ -38,7 +38,6 @@ define([
     };
 
     PaperType.DEFAULT_PAPER_TYPE_ID = 1;
-    PaperType.DEFAULT_MEASUREMENT_UNIT = 'mm';
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
@@ -57,10 +56,8 @@ define([
             this.getAvailablePaperTypes(),
             currentPaperType
         );
-        let currentMeasurementUnit = isValidMeasurementUnit(paperPage.getMeasurementUnit()) && PaperType.DEFAULT_MEASUREMENT_UNIT;
-        paperPage.setMeasurementUnit(currentMeasurementUnit, true);
-        this.populateMeasurementUnitSelect(currentMeasurementUnit);
 
+        this.populateMeasurementUnitSelect(paperPage.getMeasurementUnit());
         this.paperTypeSelectionMade(currentPaperType, true);
     };
 
@@ -146,9 +143,5 @@ define([
 
         heightInput.value = height;
         widthInput.value = width;
-    }
-
-    function isValidMeasurementUnit(measurementUnit) {
-        return measurementUnit === 'mm' || measurementUnit === 'in';
     }
 });

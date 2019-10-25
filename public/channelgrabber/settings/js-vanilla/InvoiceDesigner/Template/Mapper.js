@@ -32,6 +32,8 @@ define([
     Mapper.PATH_TO_MULTI_PAGE_ENTITY = 'InvoiceDesigner/Template/MultiPage/Entity';
     Mapper.PATH_TO_STORAGE_TABLE = 'InvoiceDesigner/Template/Storage/Table';
 
+    Mapper.DEFAULT_MEASUREMENT_UNIT = 'mm';
+
     Mapper.prototype.createNewTemplate = function() {
         const TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
         const template = new TemplateClass();
@@ -115,8 +117,19 @@ define([
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {
+        if (!isValidMeasurementUnit(json.measurementUnit)) {
+            if (json.measurementUnit === 'pt') {
+                json.width = Number(json.width).ptToMm();
+                json.height = Number(json.height).ptToMm();
+            }
+            json.measurementUnit = Mapper.DEFAULT_MEASUREMENT_UNIT;
+            paperPage.hydrate(json, populating);
+            return;
+        }
+
         json.width = Number(json.width);
         json.height = Number(json.height);
+
         paperPage.hydrate(json, populating);
     };
 
@@ -230,5 +243,9 @@ define([
                 displayText
             };
         });
+    }
+
+    function isValidMeasurementUnit(measurementUnit) {
+        return measurementUnit === 'mm' || measurementUnit === 'in';
     }
 });
