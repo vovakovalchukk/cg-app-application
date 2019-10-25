@@ -40,10 +40,9 @@ return [
                         [
                             'channelName' => 'parcelforce-ca',
                             'displayName' => 'Parcelforce',
-                            'courierFactory' => function()
+                            'courierFactory' => function(Di $di)
                             {
-                                $courier = new ParcelforceCourier();
-                                return $courier;
+                                return $di->get(ParcelforceCourier::class);
                             }
                         ],
                         [

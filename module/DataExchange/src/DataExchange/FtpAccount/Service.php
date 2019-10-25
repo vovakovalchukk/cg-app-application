@@ -63,6 +63,9 @@ class Service
     {
         /** @var FtpAccount $ftpAccount */
         foreach ($ftpAccounts as $ftpAccount) {
+            if ($ftpAccount->getPassword() === null) {
+                continue;
+            }
             $ftpAccount->setPassword($this->passwordCryptor->decrypt($ftpAccount->getPassword()));
         }
         return $ftpAccounts;
