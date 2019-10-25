@@ -121,7 +121,7 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
-        json.margin.top = json.margin.height ? json.margin.height : 0;
+        json.margin.top = json.margin.top ? json.margin.top : 0;
         json.margin.bottom = json.margin.bottom ? json.margin.bottom : 0;
         json.margin.left = json.margin.left ? json.margin.left : 0;
         json.margin.right = json.margin.right ? json.margin.right : 0;
