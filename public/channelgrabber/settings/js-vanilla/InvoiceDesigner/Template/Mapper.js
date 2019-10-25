@@ -115,9 +115,8 @@ define([
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {
-        json.width = Number(json.width).ptToMm();
-        json.height = Number(json.height).ptToMm();
-
+        json.width = Number(json.width);
+        json.height = Number(json.height);
         paperPage.hydrate(json, populating);
     };
 
