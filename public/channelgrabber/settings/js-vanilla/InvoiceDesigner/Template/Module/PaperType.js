@@ -107,18 +107,28 @@ define([
         const template = this.getTemplate();
         const paperPage = template.getPaperPage();
 
-        let height = selectedPaperType.getHeight();
-        let width = selectedPaperType.getWidth();
-        let paperTypeId = selectedPaperType.getId()
-
-        setPaperDimensionFields({height, width});
+        let height = null;
+        let width = null;
+        let paperTypeId = null;
 
         if (initialise) {
+            height = paperPage.getHeight() || selectedPaperType.getHeight();
+            width = paperPage.getWidth() || selectedPaperType.getWidth();
+            paperTypeId = selectedPaperType.getId()
+
             paperPage.setHeight(template, height, true);
             paperPage.setWidth(template, width, true);
             paperPage.setPaperType(paperTypeId, true);
+
+            setPaperDimensionFields({height, width});
             return;
         }
+
+        height = selectedPaperType.getHeight();
+        width = selectedPaperType.getWidth();
+        paperTypeId = selectedPaperType.getId();
+
+        setPaperDimensionFields({height, width});
 
         paperPage.setMeasurementUnit('mm');
         this.populateMeasurementUnitSelect('mm');
