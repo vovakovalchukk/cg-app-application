@@ -23,7 +23,7 @@ define([
             height: undefined,
             width: undefined,
             paperType: undefined,
-            measurementUnit: undefined
+            measurementUnit: 'mm'
         };
 
         this.getEntityName = function() {
