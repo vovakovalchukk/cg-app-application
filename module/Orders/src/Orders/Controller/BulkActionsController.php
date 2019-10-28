@@ -947,10 +947,41 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 ->setLimit('all')
                 ->setPage(1)
                 ->setId($ids);
-            return $this->templateService->fetchCollectionByFilter($filter);
+
+            $templateCollection = $this->templateService->fetchCollectionByFilter($filter);
+            $this->attachDefaultTemplates($templateCollection, $ids);
+            return $templateCollection;
         } catch (NotFound $e) {
             return new TemplateCollection(Template::class, 'empty');
         }
+    }
+
+    protected function attachDefaultTemplates(TemplateCollection $collection, array $ids): void
+    {
+        $defaultTemplateIds = $this->fetchDefaultTemplateIds($collection, $ids);
+        if (count($defaultTemplateIds) === 0) {
+            return;
+        }
+
+        $collection->attachAll($this->fetchDefaultTemplatesByIds($defaultTemplateIds));
+    }
+
+    protected function fetchDefaultTemplateIds(TemplateCollection $collection, array $ids): array
+    {
+        return array_values(array_diff($ids, $collection->getIds()));
+    }
+
+    protected function fetchDefaultTemplatesByIds(array $ids): TemplateCollection
+    {
+        $collection = new TemplateCollection(Template::class, 'deefaultTemplatesByIds');
+        foreach ($ids as $id) {
+            try {
+                $collection->attach($this->templateService->fetch($id));
+            } catch (NotFound $e) {
+                continue;
+            }
+        }
+        return $collection;
     }
 
     protected function isDefaultInvoiceRequested(array $templateIds): bool
