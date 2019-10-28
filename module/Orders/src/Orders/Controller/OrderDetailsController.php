@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -12,8 +13,8 @@ use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_Usage\Service as UsageService;
 use Messages\Module as Messages;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\OrderNotes as OrderNotesHelper;
@@ -25,12 +26,9 @@ use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrderDetailsController extends AbstractActionController
 {
-    /** @var UsageService $usageService */
-    protected $usageService;
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -47,6 +45,8 @@ class OrderDetailsController extends AbstractActionController
     protected $orderNotesHelper;
 
     protected $orderTrackingMapper;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     protected $activeUserContainer;
 
@@ -55,7 +55,6 @@ class OrderDetailsController extends AbstractActionController
     ];
 
     public function __construct(
-        UsageService $usageService,
         CourierHelper $courierHelper,
         OrderService $orderService,
         ViewModelFactory $viewModelFactory,
@@ -64,9 +63,9 @@ class OrderDetailsController extends AbstractActionController
         TimelineService $timelineService,
         OrderNotesHelper $orderNotesHelper,
         OrderTrackingMapper $orderTrackingMapper,
+        AccessUsageExceededService $accessUsageExceededService,
         ActiveUserInterface $activeUserContainer
     ) {
-        $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
         $this->orderService = $orderService;
         $this->viewModelFactory = $viewModelFactory;
@@ -75,12 +74,13 @@ class OrderDetailsController extends AbstractActionController
         $this->timelineService = $timelineService;
         $this->orderNotesHelper = $orderNotesHelper;
         $this->orderTrackingMapper = $orderTrackingMapper;
+        $this->accessUsageExceededService = $accessUsageExceededService;
         $this->activeUserContainer = $activeUserContainer;
     }
 
     public function orderAction()
     {
-        $this->usageService->checkUsage();
+        $this->accessUsageExceededService->checkUsage();
 
         /** @var Order $order */
         $order = $this->orderService->getOrder($this->params('order'));

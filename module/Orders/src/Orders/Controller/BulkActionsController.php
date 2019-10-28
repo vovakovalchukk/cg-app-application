@@ -12,6 +12,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Template\Entity as Template;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
@@ -67,6 +68,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $invoiceSettingsService;
     /** @var InvoiceEmailAddress $invoiceEmailAddress */
     protected $invoiceEmailAddress;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -86,7 +89,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         TimelineService $timelineService,
         BulkActionsService $bulkActionService,
         InvoiceSettingsService $invoiceSettingsService,
-        InvoiceEmailAddress $invoiceEmailAddress
+        InvoiceEmailAddress $invoiceEmailAddress,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -101,6 +105,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->invoiceEmailAddress = $invoiceEmailAddress;
         $this->bulkActionService = $bulkActionService;
+        $this->accessUsageExceededService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -867,9 +872,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function checkUsage()
     {
-        if ($this->getUsageService()->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->accessUsageExceededService->checkUsage();
     }
 
     public function saveFilterAction()
