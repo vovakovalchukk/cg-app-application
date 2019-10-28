@@ -973,7 +973,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function fetchDefaultTemplatesByIds(array $ids): TemplateCollection
     {
-        $collection = new TemplateCollection(Template::class, 'deefaultTemplatesByIds');
+        $collection = new TemplateCollection(Template::class, 'defaultTemplatesByIds');
         foreach ($ids as $id) {
             try {
                 $collection->attach($this->templateService->fetch($id));
