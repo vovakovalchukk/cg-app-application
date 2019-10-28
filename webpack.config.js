@@ -20,6 +20,8 @@ module.exports = {
         "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
+        "data-exchange/js/DataExchange/Templates/Stock/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/Stock/Index.jsx",
+        "data-exchange/js/DataExchange/Templates/Orders/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/Orders/Index.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
         "data-exchange/js/DataExchange/StockExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/App.jsx",
@@ -84,6 +86,7 @@ module.exports = {
         alias: {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
+            DataExchange: path.resolve(__dirname, 'public', 'channelgrabber', 'data-exchange', 'jsx', 'DataExchange'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             Courier: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'Courier'),
