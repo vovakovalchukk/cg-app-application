@@ -161,7 +161,7 @@ define([
             organisationUnitId: template.getOrganisationUnitId(),
             paperPage,
             printPage: template.getPrintPage().toJson(),
-            multiPerPage: template.getMultiPage().toJson(),
+            multiPerPage: template.getMultiPage().toJson(template),
             elements: [],
             editable: template.isEditable()
         };

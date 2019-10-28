@@ -213,13 +213,21 @@ define([
         return gridTrackValue;
     };
 
-    Entity.prototype.toJson = function() {
+    Entity.prototype.toJson = function(template) {
         let data = Object.assign({}, this.getData());
+
         delete data.rows;
         delete data.columns;
-        if (!data.width || !data.height) {
-            return {};
-        }
+
+        let width = data.width || this.getDimensionValueToBeRelativeTo(template, 'width');
+        let height = data.height || this.getDimensionValueToBeRelativeTo(template, 'height');
+
+        data = {
+            ...data,
+            width,
+            height
+        };
+
         let json = JSON.parse(JSON.stringify(data));
         return json;
     };
