@@ -1,9 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
 import dateUtility from 'Common/Utils/date';
 import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
 import progressService from 'CommonSrc/js-vanilla/Common/progressService';
+
+const organiseOptionsByFavourite = function(options) {
+    return options.sort((a, b) => {
+        return b.favourite - a.favourite;
+    });
+};
+
+const appendDefaultInvoiceOption = function(options) {
+    options.splice(0, 0, {
+        id: 'defaultInvoice',
+        name: 'Default Invoice'
+    });
+    return options;
+};
+
+const handleSuccess = (successEvent) =>{
+    n.success('Templates generated successfully.');
+    document.body.dispatchEvent(successEvent);
+};
+
+const baseTemplateGenerationText = 'Generating templates...';
 
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
     let options = [];
@@ -13,16 +34,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         options = appendDefaultInvoiceOption(options)
     }
 
-    const baseMessage = 'Generating templates...';
-
-    return (<ButtonMultiSelect
-        options={options}
-        buttonTitle={'Download'}
-        spriteClass={'sprite-download-pdf-22'}
-        onButtonClick={requestTemplateExport}
-    />);
-
-    async function requestTemplateExport(templateIds, orders) {
+    const requestTemplateExport = async function(templateIds, orders) {
         orders = orders || BulkActionService.getSelectedOrders();
         const maxProgress = templateIds.length * orders.length;
 
@@ -34,11 +46,14 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             return;
         }
 
+        const externalSuccessEventName = 'successEvent';
+        const successEvent = new Event(externalSuccessEventName);
+
         const handleError = () => {
             n.error('Templates could not be generated successfully.')
         };
         try {
-            n.notice(baseMessage);
+            n.notice(baseTemplateGenerationText);
 
             const {guid} = await progressService.callCheck(
                 '/orders/pdf-export/check',
@@ -50,11 +65,10 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 guid,
                 url: "/orders/pdf-export/progress",
                 maxProgress,
-                successCallback: () => {
-                    n.success('Templates generated successfully.');
-                },
+                externalSuccessEventName,
+                successCallback: handleSuccess,
                 progressCallback: progressCount => {
-                    n.notice(`${baseMessage} ${progressCount} out of ${maxProgress} complete.`, false, false, false);
+                    n.notice(`${baseTemplateGenerationText} ${progressCount} out of ${maxProgress} complete.`, false, false, false);
                 }
             });
 
@@ -70,25 +84,19 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 if (response.status !== 200) {
                     return handleError();
                 }
+                handleSuccess(successEvent);
             });
         } catch (err) {
             handleError();
         }
-    }
+    };
 
-    function organiseOptionsByFavourite(options) {
-        return options.sort((a, b) => {
-            return b.favourite - a.favourite;
-        });
-    }
-
-    function appendDefaultInvoiceOption(options) {
-        options.splice(0, 0, {
-            id: 'defaultInvoice',
-            name: 'Default Invoice'
-        });
-        return options;
-    }
+    return (<ButtonMultiSelect
+        options={options}
+        buttonTitle={'Download'}
+        spriteClass={'sprite-download-pdf-22'}
+        onButtonClick={requestTemplateExport}
+    />);
 };
 
 export default TemplateExportBulkAction;
