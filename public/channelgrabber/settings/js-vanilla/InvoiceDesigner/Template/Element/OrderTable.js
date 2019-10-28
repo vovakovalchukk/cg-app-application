@@ -13,7 +13,7 @@ define([
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
-        const tableTotals = TableStorage.getDefaultTableTotals();
+        const totals = TableStorage.getDefaultTableTotals();
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
         const additionalData = {
@@ -23,7 +23,7 @@ define([
             tableColumns,
             tableSortBy,
             tableCells,
-            tableTotals
+            totals
         };
 
         ElementAbstract.call(this, additionalData);
@@ -70,11 +70,11 @@ define([
         };
 
         this.getTableTotals = function() {
-            return this.get('tableTotals');
+            return this.get('totals');
         };
 
         this.setTableTotals = function(tableTotals) {
-            this.set('tableTotals', tableTotals);
+            this.set('totals', tableTotals);
         };
 
         this.getTableCells = function() {
@@ -102,7 +102,7 @@ define([
             json = this.formatCoreJsonPropertiesForBackend(json);
             json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
-            json.tableTotals = formatTableTotalsForBackend(json.tableTotals);
+            json.totals = formatTableTotalsForBackend(json.totals);
             return json;
         }
     };

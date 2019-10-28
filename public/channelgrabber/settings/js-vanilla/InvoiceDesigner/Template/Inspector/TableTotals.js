@@ -17,7 +17,7 @@ define([
         InspectorAbstract.call(this);
 
         this.setId('tableTotals');
-        this.setInspectedAttributes(['tableTotals']);
+        this.setInspectedAttributes(['totals']);
     };
 
     TableTotals.TABLE_TOTALS_INSPECTOR_ID = 'tableTotals-inspector';

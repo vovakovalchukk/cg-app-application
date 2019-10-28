@@ -68,7 +68,7 @@ define([
             if (elementData.type === 'OrderTable') {
                 elementData.tableColumns = applyDefaultsToOrderTableColumns(elementData.tableColumns);
                 elementData.tableCells = applyDefaultsToOrderTableCells(elementData);
-                elementData.tableTotals = applyDefaultsToTableTotals(elementData.tableTotals);
+                elementData.totals = applyDefaultsToTableTotals(elementData.totals);
             }
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
