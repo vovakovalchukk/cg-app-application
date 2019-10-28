@@ -958,7 +958,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function attachDefaultTemplates(TemplateCollection $collection, array $ids): void
     {
-        $defaultTemplateIds = $this->fetchDefaultTemplateIds($collection, $ids);
+        $defaultTemplateIds = $this->getDefaultTemplateIds($collection, $ids);
         if (count($defaultTemplateIds) === 0) {
             return;
         }
@@ -966,7 +966,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $collection->attachAll($this->fetchDefaultTemplatesByIds($defaultTemplateIds));
     }
 
-    protected function fetchDefaultTemplateIds(TemplateCollection $collection, array $ids): array
+    protected function getDefaultTemplateIds(TemplateCollection $collection, array $ids): array
     {
         return array_values(array_diff($ids, $collection->getIds()));
     }
