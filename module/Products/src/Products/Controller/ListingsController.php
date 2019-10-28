@@ -1,19 +1,18 @@
 <?php
 namespace Products\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Products\Listing\Service as ListingService;
-use Products\Listing\BulkActions\Service as BulkActionsService;
-use Products\Module;
+use CG_Access\Service as AccessService;
 use CG_UI\View\BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Filters\Service as UIFiltersService;
-use CG_Usage\Service as UsageService;
-use Products\Controller\ListingsJsonController;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Products\Listing\BulkActions\Service as BulkActionsService;
 use Products\Listing\Filter\Service as FilterService;
+use Products\Listing\Service as ListingService;
+use Products\Module;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class ListingsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -29,8 +28,8 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected $listingList;
     protected $filterService;
     protected $uiFiltersService;
-    /** @var UsageService */
-    protected $usageService;
+    /** @var AccessService */
+    protected $accessService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -39,15 +38,15 @@ class ListingsController extends AbstractActionController implements LoggerAware
         DataTable $listingList,
         FilterService $filterService,
         UIFiltersService $uiFiltersService,
-        UsageService $usageService
+        AccessService $accessService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setListingService($listingService)
             ->setBulkActionsService($bulkActionsService)
             ->setListingList($listingList)
             ->setFilterService($filterService)
-            ->setUIFiltersService($uiFiltersService)
-            ->setUsageService($usageService);
+            ->setUIFiltersService($uiFiltersService);
+        $this->accessService = $accessService;
     }
 
     public function indexAction()
@@ -72,12 +71,11 @@ class ListingsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActionsForUsage(BulkActions $bulkActions)
     {
-        if(!$this->usageService->hasUsageBeenExceeded()) {
+        if ($this->accessService->isReadOnly()) {
             return $this;
         }
-
         $actions = $bulkActions->getActions();
-        foreach($actions as $action) {
+        foreach ($actions as $action) {
             $action->setEnabled(false);
         }
         return $this;
@@ -89,7 +87,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
             'buttons' => true,
             'value' => 'Download listings',
             'id' => 'refresh-button',
-            'disabled' => $this->usageService->hasUsageBeenExceeded(),
+            'disabled' => $this->accessService->isReadOnly(),
             'icon' => 'sprite-refresh-14-black'
         ]);
         $refresh->setTemplate('elements/buttons.mustache');
@@ -184,11 +182,5 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected function getUIFiltersService()
     {
         return $this->uiFiltersService;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 }

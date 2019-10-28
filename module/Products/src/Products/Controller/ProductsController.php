@@ -17,10 +17,10 @@ use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG_Access\Service as AccessService;
 use CG_UI\View\BulkActions as BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_Usage\Service as UsageService;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 use Products\Product\Category\Service as CategoryService;
@@ -60,8 +60,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $accountStockSettingsTable;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
-    /** @var UsageService */
-    protected $usageService;
     /** @var FeatureFlagsService */
     protected $featureFlagService;
     /** @var StockSettingsService */
@@ -78,6 +76,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $pickListService;
     /** @var ListingChannelService */
     protected $listingChannelService;
+    /** @var AccessService */
+    protected $accessService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -86,7 +86,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         Translator $translator,
         DataTable $accountStockSettingsTable,
         ActiveUserInterface $activeUserContainer,
-        UsageService $usageService,
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
         TaxRateService $taxRateService,
@@ -95,7 +94,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ProductListingService $productListingService,
         PickListService $pickListService,
         ListingTemplateService $listingTemplateService,
-        ListingChannelService $listingChannelService
+        ListingChannelService $listingChannelService,
+        AccessService $accessService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -103,7 +103,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->translator = $translator;
         $this->accountStockSettingsTable = $accountStockSettingsTable;
         $this->activeUserContainer = $activeUserContainer;
-        $this->usageService = $usageService;
         $this->featureFlagService = $featureFlagService;
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
@@ -113,6 +112,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->pickListService = $pickListService;
         $this->listingTemplateService = $listingTemplateService;
         $this->listingChannelService = $listingChannelService;
+        $this->accessService = $accessService;
     }
 
     public function indexAction()
@@ -243,10 +243,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActionsForUsage(BulkActions $bulkActions)
     {
-        if(!$this->usageService->hasUsageBeenExceeded()) {
+        if ($this->accessService->isReadOnly()) {
             return $this;
         }
-
         $actions = $bulkActions->getActions();
         foreach($actions as $action) {
             $action->setEnabled(false);
