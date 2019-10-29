@@ -2319,12 +2319,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e384d441c56bcf95ed8f39a4b50349f54c059bcc"
+                "reference": "186eb8a6b61b9be87175b8f6d5d032a954f781f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-ce1946.zip",
-                "reference": "e384d441c56bcf95ed8f39a4b50349f54c059bcc"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-c0e2d9.zip",
+                "reference": "186eb8a6b61b9be87175b8f6d5d032a954f781f6"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2401,7 +2401,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-24T13:23:03+00:00"
+            "time": "2019-10-29T16:36:05+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3707,12 +3707,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "71836065db906b2be0607aa010ab71d150370215"
+                "reference": "e38f58f18ee4e456d22b4172d6df181f56d51449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-fe99d6.zip",
-                "reference": "71836065db906b2be0607aa010ab71d150370215"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-a204b4.zip",
+                "reference": "e38f58f18ee4e456d22b4172d6df181f56d51449"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3760,7 +3760,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-24T11:02:55+00:00"
+            "time": "2019-10-29T16:29:31+00:00"
         },
         {
             "name": "channelgrabber/transaction",
