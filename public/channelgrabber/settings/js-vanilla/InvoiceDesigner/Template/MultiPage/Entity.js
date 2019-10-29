@@ -219,8 +219,12 @@ define([
         delete data.rows;
         delete data.columns;
 
-        let width = data.width || this.getDimensionValueToBeRelativeTo(template, 'width');
-        let height = data.height || this.getDimensionValueToBeRelativeTo(template, 'height');
+        let width = null;
+        let height = null;
+        if (data.width || data.height) {
+            width = data.width || this.getDimensionValueToBeRelativeTo(template, 'width');
+            height = data.height || this.getDimensionValueToBeRelativeTo(template, 'height');
+        }
 
         data = {
             ...data,

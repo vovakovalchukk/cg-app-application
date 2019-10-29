@@ -72,13 +72,20 @@ define([
         const inputs = this.getDomListener().getInputs();
 
         const dimensionProperty = multiPage.getRelevantDimensionFromGridTrack(gridTrack);
-        const maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
+
+        let maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
+
+        // we want to set this as null for values under 1 to prevent unnecessary conversions.
+        let dimensionValue = null;
+        if (value > 1) {
+            dimensionValue = maxDimensionValue;
+        }
 
         domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
 
         multiPage.setMultiple({
             [gridTrack]: value,
-            [dimensionProperty]: maxDimensionValue
+            [dimensionProperty]: dimensionValue
         });
     };
 
