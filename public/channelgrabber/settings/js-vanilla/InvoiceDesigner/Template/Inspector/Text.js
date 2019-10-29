@@ -97,7 +97,8 @@ define([
             .replace(/<n>|<\/>/gi, '');
         return {
             'id': Text.TEXT_INSPECTOR_TEXT_ID,
-            'content': text
+            'content': text,
+            'align': element.getAlign() ? element.getAlign().ucfirst() : null
         };
     };
 

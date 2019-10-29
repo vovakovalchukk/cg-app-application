@@ -25,6 +25,7 @@ define([
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function() {
                 self.styleText(textarea, inspector, element)
+                    .handleAlignment(textarea, inspector, element)
                     .initDataFieldsChangeListener(inspector, element);
             }, timeout);
         });
@@ -60,6 +61,18 @@ define([
             .replace(/<em>/gi, '%%i%%')
             .replace(/<\/em>|<\/strong>/gi, '%%n%%')
             .replace(/%%n%%%%n%%/gi, '%%n%%');
+        inspector.setText(element, text);
+        return this;
+    };
+
+    Text.prototype.handleAlignment = function(textarea, inspector, element)
+    {
+        let match = $(textarea).val().match(/<div style="text-align: ?([a-z]+);?">/i);
+        if (!match) {
+            return this;
+        }
+        element.setAlign(match[1]);
+        let text = $(textarea).val().replace(/<div style="text-align: ?[a-z]+;?">([\S\s]*?)<\/div>/i, '$1');
         inspector.setText(element, text);
         return this;
     };
