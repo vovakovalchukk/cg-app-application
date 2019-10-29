@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "274251fda4a56410541b94a1f02eab4f",
+    "content-hash": "fa19d45875ad907cb7dfab4e27538b60",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4321,16 +4321,16 @@
         },
         {
             "name": "channelgrabber/zf2-access",
-            "version": "1.0.0",
+            "version": "dev-TAC-506-replace-usage-checks-with-access-module",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/access-module.git",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+                "reference": "02078f569865d80d42fa2660dd646381bbacadc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.0-6ec7a2.zip",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-dev-TAC-506-replace-usage-checks-with-access-module-4d37f2.zip",
+                "reference": "02078f569865d80d42fa2660dd646381bbacadc5",
                 "shasum": null
             },
             "require": {
@@ -4368,7 +4368,7 @@
                     "CG_Access\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-05T12:53:36+00:00"
+            "time": "2019-10-29T11:35:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -11884,10 +11884,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-TAC-506-replace-usage-checks-with-access-module",
+            "package": "channelgrabber/zf2-access"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-access": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
