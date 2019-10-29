@@ -9,6 +9,7 @@ use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Controller\TemplateController;
+use DataExchange\History\Service as HistoryService;
 use DataExchange\Module;
 use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
@@ -366,9 +367,13 @@ return [
                                 'may_terminate' => true,
                             ],
                             HistoryController::ROUTE_FILES => [
-                                'type' => Literal::class,
+                                'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/files',
+                                    'route' => '/files/:historyId/:fileType',
+                                    'constraints' => [
+                                        'historyId' => '[0-9]+',
+                                        'fileType' => implode('|', HistoryService::getAllowedFileTypes())
+                                    ],
                                     'defaults' => [
                                         'action' => 'files'
                                     ]

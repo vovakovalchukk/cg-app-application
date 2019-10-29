@@ -1,6 +1,7 @@
 <?php
-namespace DataExchange\History\Service;
+namespace DataExchange\History;
 
+use CG\DataExchange\FileContents\StorageInterface as FileStorage;
 use CG\DataExchangeHistory\Collection as Histories;
 use CG\DataExchangeHistory\Entity as History;
 use CG\DataExchangeHistory\Filter as HistoryFilter;
@@ -34,15 +35,28 @@ class Service implements LoggerAwareInterface
     protected $activeUserContainer;
     /** @var UserService */
     protected $userService;
+    /** @var FileStorage */
+    protected $fileStorage;
 
     public function __construct(
         HistoryService $historyService,
         ActiveUserInterface $activeUserContainer,
-        UserService $userService
+        UserService $userService,
+        FileStorage $fileStorage
     ) {
         $this->historyService = $historyService;
         $this->activeUserContainer = $activeUserContainer;
         $this->userService = $userService;
+        $this->fileStorage = $fileStorage;
+    }
+
+    public static function getAllowedFileTypes(): array
+    {
+        return [
+            FileStorage::TYPE_FILE,
+            FileStorage::TYPE_REPORT_FAILED,
+            FileStorage::TYPE_REPORT_SUCCEEDED
+        ];
     }
 
     public function fetchForActiveUser(int $limit = self::DEFAULT_LIMIT, int $page = self::DEFAULT_PAGE): array
@@ -55,6 +69,16 @@ class Service implements LoggerAwareInterface
             return $this->formatHistoriesAsArray($histories);
         } catch (NotFound $e) {
             return [];
+        }
+    }
+
+    public function fetchFile(int $historyId, string $fileType)
+    {
+        try {
+            $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            return $this->fileStorage->fetch($rootOuId, $historyId, $fileType);
+        } catch (NotFound $e) {
+            return null;
         }
     }
 
@@ -137,9 +161,18 @@ class Service implements LoggerAwareInterface
     {
         return [
             'unprocessedLink' => null,
-            'successfulLink' => null,
-            'failedLink' => null,
-            'fileLink' => null
+            'successfulLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
+            'failedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_FAILED),
+            'fileLink' => $this->getFileLinkForType($history, FileStorage::TYPE_FILE)
         ];
+    }
+
+    protected function getFileLinkForType(History $history, string $type): ?string
+    {
+        if (!$this->fileStorage->exists($history->getOrganisationUnitId(), $history->getId(), $type)) {
+            return null;
+        }
+
+        return '/dataExchange/history/files/' . $history->getId() . '/' . $type;
     }
 }

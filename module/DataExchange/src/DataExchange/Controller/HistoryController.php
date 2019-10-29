@@ -4,9 +4,10 @@ namespace DataExchange\Controller;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use DataExchange\History\Service\Service as HistoryService;
+use DataExchange\History\Service as HistoryService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class HistoryController extends AbstractActionController implements LoggerAwareInterface
@@ -24,6 +25,8 @@ class HistoryController extends AbstractActionController implements LoggerAwareI
     public const ROUTE_FETCH = 'HistoryFetch';
     public const ROUTE_FILES = 'HistoryFiles';
     public const ROUTE_STOP = 'HistoryStop';
+
+    private const MIME_TYPE = 'text/csv';
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -62,7 +65,23 @@ class HistoryController extends AbstractActionController implements LoggerAwareI
 
     public function filesAction()
     {
+        $historyId = $this->params()->fromRoute('historyId');
+        $fileType = $this->params()->fromRoute('fileType');
 
+        try {
+            [$fileName, $fileContents] = $this->historyService->fetchFile($historyId, $fileType);
+            return new FileResponse(static::MIME_TYPE, $fileName, $fileContents);
+        } catch (NotFound $e) {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'message' => 'The requested file couldn\'t be found.'
+            ]);
+        } catch (\Throwable $e) {
+            $this->logError($e);
+            return $this->jsonModelFactory->newInstance([
+                'success' => false
+            ]);
+        }
     }
 
     public function stopAction()
