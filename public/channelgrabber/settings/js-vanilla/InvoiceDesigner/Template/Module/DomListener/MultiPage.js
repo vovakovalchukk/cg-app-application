@@ -42,11 +42,17 @@ define([
         });
 
         inputs.width.addEventListener('change', event => {
+            if (event.target.value < 1) {
+                event.target.value = null;
+            }
             const value = event.target.value;
             this.getModule().setDimension('width', value);
         });
 
         inputs.height.addEventListener('change', event => {
+            if (event.target.value < 1) {
+                event.target.value = null;
+            }
             const value = event.target.value;
             this.getModule().setDimension('height', value);
         });
