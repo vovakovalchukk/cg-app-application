@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "274251fda4a56410541b94a1f02eab4f",
+    "content-hash": "e20021125667650de85875e4d2140fe0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1933,7 +1933,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "e5653634902499a8ed01879508ab2fddab629fef"
+                "reference": "b6ac53dfec0e930a8d3385c707afa4c08c1a31cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-CGIV-11019-manually-emailing-invoices-is-broken-6a7dc3.zip",
+                "reference": "b6ac53dfec0e930a8d3385c707afa4c08c1a31cd"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1958,11 +1963,6 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-LIS-238-allow-amazon-create-variation-listings": "1.16.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -1973,7 +1973,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-09-02T11:53:52+00:00"
+            "time": "2019-10-29T12:34:03+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -10478,7 +10478,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11760,8 +11761,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.5",
-            "alias_normalized": "1.19.5.0",
+            "alias": "1.19.6",
+            "alias_normalized": "1.19.6.0",
             "version": "dev-CGIV-11019-manually-emailing-invoices-is-broken",
             "package": "channelgrabber/listing"
         }
@@ -11771,8 +11772,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
