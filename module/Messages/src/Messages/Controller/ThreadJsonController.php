@@ -65,7 +65,7 @@ class ThreadJsonController extends AbstractActionController
             throw new \InvalidArgumentException(__METHOD__ . ' requires an id in the POST data');
         }
 
-        $threadData = $this->service->fetchThreadDataForId($id);
+        $threadData = $this->threadService->fetchThreadDataForId($id);
 
         return $view->setVariable('thread', $threadData);
     }
@@ -95,7 +95,7 @@ class ThreadJsonController extends AbstractActionController
 
         $threadId = $this->params('threadId');
         if ($threadId) {
-            $counts['orders'] = $this->service->getOrderCountForId($threadId);
+            $counts['orders'] = $this->threadService->getOrderCountForId($threadId);
         }
 
         return $this->jsonModelFactory->newInstance(['counts' => $counts]);
