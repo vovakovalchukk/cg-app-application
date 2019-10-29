@@ -1,10 +1,11 @@
 <?php
 namespace Messages\Controller;
 
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
-use Messages\Thread\Service;
+use Messages\Thread\Service as ThreadService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -21,19 +22,22 @@ class ThreadJsonController extends AbstractActionController
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
-    /** @var Service $service */
-    protected $service;
+    /** @var ThreadService $threadService */
+    protected $threadService;
     /** @var UsageService */
     protected $usageService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        Service $service,
-        UsageService $usageService
+        ThreadService $threadService,
+        UsageService $usageService,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service)
-            ->setUsageService($usageService);
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->threadService = $threadService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     public function ajaxAction()
@@ -68,8 +72,7 @@ class ThreadJsonController extends AbstractActionController
 
     public function saveAction()
     {
-        $this->checkUsage();
-
+        $this->accessUsageExceededService->checkUsage();
         /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $id = $this->params()->fromPost('id');
@@ -96,30 +99,5 @@ class ThreadJsonController extends AbstractActionController
         }
 
         return $this->jsonModelFactory->newInstance(['counts' => $counts]);
-    }
-
-    protected function checkUsage()
-    {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 }
