@@ -1018,12 +1018,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "315ee98992f7496fdab50b8a36b60b58df8e0479"
+                "reference": "7225189b2d72da5a0cd2cda0a7d2a4ea26c08aa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10862-convert-manifest-to-iso-8859-555a1d.zip",
-                "reference": "315ee98992f7496fdab50b8a36b60b58df8e0479"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10862-convert-manifest-to-iso-8859-772529.zip",
+                "reference": "7225189b2d72da5a0cd2cda0a7d2a4ea26c08aa2"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1057,7 +1057,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-28T15:56:47+00:00"
+            "time": "2019-10-29T10:15:25+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
