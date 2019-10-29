@@ -32,37 +32,43 @@ define([], function() {
         {
             "id": "lineTotalIncVAT",
             default: true,
-            displayText: "Total",
+            "displayText": "Total",
             "optionText": "Line Total inc VAT",
             "cellPlaceholder": "£12"
         },
         {
             "id": "descriptionInternal",
+            "displayText": "Description Internal",
             "optionText": "Description-Internal",
             "cellPlaceholder": "10 Duracell Batteries"
         },
         {
             "id": "unitPriceExVAT",
+            "displayText": "Unit Price ex VAT",
             "optionText": "Unit Price ex VAT",
             "cellPlaceholder": "£5"
         },
         {
             "id": "lineTotalExVAT",
+            "displayText": "Line Total ex VAT",
             "optionText": "Line Total ex VAT",
             "cellPlaceholder": "£10"
         },
         {
             "id": "vatRateApplied",
+            "displayText": "VAT Rate Applied",
             "optionText": "VAT Rate Applied",
             "cellPlaceholder": "20%"
         },
         {
             "id": "discount",
+            "displayText": "Discount",
             "optionText": "Discount",
             "cellPlaceholder": "£0"
         },
         {
             "id": "pickingLocation",
+            "displayText": "Picking Location",
             "optionText": "Picking Location",
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
         }
