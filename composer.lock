@@ -1028,20 +1028,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "93037e951aee8342895c8744344f196f2a2db271"
+                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.1-536bf9.zip",
-                "reference": "93037e951aee8342895c8744344f196f2a2db271",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.2-ef0f62.zip",
+                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.6.0",
+                "channelgrabber/courieradapter": "^1.6.1",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -1072,20 +1072,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-10T09:34:03+00:00"
+            "time": "2019-10-24T15:15:08+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "deee4b66643a9450837889c433223c9eabba2a52"
+                "reference": "554a44a01e01bb4438f980409ed9348863b94ac8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.6.0-5c816f.zip",
-                "reference": "deee4b66643a9450837889c433223c9eabba2a52",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.6.1-88e69b.zip",
+                "reference": "554a44a01e01bb4438f980409ed9348863b94ac8",
                 "shasum": null
             },
             "require": {
@@ -1110,7 +1110,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-07-24T09:56:55+00:00"
+            "time": "2019-10-24T15:08:11+00:00"
         },
         {
             "name": "channelgrabber/currency",
