@@ -95,6 +95,7 @@ class Create extends PostAbstract
         $collectionAddress = $this->shipment->getCollectionAddress();
         $shipper = $xml->addChild('shipper');
         $shipper->addChild('shipperCompanyName', $this->sanitiseString($collectionAddress->getCompanyName()));
+        $shipper->addChild('shipperContactName', $this->sanitiseString($collectionAddress->getFirstName() . ' ' . $collectionAddress->getLastName(), 40));
         $shipper->addChild('shipperAddressLine1', $this->sanitiseString($collectionAddress->getLine1()));
         $shipper->addChild(
         'shipperCity',
@@ -120,6 +121,7 @@ class Create extends PostAbstract
 
         $deliveryAddress = $this->reformatDestinationAddressLines($deliveryAddress);
 
+        $destination->addChild('destinationContactName', $this->sanitiseString($deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName()), 40);
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
         $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
