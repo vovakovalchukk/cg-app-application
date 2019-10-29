@@ -121,7 +121,7 @@ class Create extends PostAbstract
 
         $deliveryAddress = $this->reformatDestinationAddressLines($deliveryAddress);
 
-        $destination->addChild('destinationContactName', $this->sanitiseString($deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName()), 40);
+        $destination->addChild('destinationContactName', $this->sanitiseString($deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName(), 40));
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
         $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
