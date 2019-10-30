@@ -1,15 +1,20 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/PubSubAbstract',
-    'Common/IdGenerator'
+    'Common/IdGenerator',
+    'InvoiceDesigner/utility'
 ], function(
     EntityHydrateAbstract,
+    EntityAbstract,
     PubSubAbstract,
-    idGenerator
+    idGenerator,
+    utility
 ) {
     var Entity = function()
     {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
 
         var contents;
@@ -18,8 +23,11 @@ define([
             height: undefined,
             width: undefined,
             paperType: undefined,
-            backgroundImage: undefined,
-            inverse: undefined
+            measurementUnit: 'mm'
+        };
+
+        this.getEntityName = function() {
+            return 'PaperPage';
         };
 
         this.getId = function()
@@ -36,25 +44,19 @@ define([
             return this;
         };
 
-        this.getInverse = function()
-        {
-            return this.get('inverse');
-        };
-
-        this.setInverse = function(inverse)
-        {
-            this.set('inverse', inverse);
-            return this;
-        };
-
         this.getHeight = function()
         {
             return this.get('height');
         };
 
-        this.setHeight = function(newHeight)
+        this.setHeight = function(template, newHeight, populating)
         {
-            this.set('height', parseFloat(newHeight));
+            this.set("height", parseFloat(newHeight), populating, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: "height",
+                populating: false
+            }]);
             return this;
         };
 
@@ -63,9 +65,14 @@ define([
             return this.get('width');
         };
 
-        this.setWidth = function(newWidth)
+        this.setWidth = function(template, newWidth, populating)
         {
-            this.set('width', parseFloat(newWidth));
+            this.set('width', parseFloat(newWidth), populating, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: "width",
+                populating: false
+            }]);
             return this;
         };
 
@@ -80,30 +87,15 @@ define([
             return this;
         };
 
-        this.getBackgroundImage = function()
+        this.getMeasurementUnit = function()
         {
-            return this.get('backgroundImage');
+            return this.get('measurementUnit');
         };
 
-        this.setBackgroundImage = function(newBackgroundImage)
+        this.setMeasurementUnit = function(value, populating)
         {
-            this.set('backgroundImage', newBackgroundImage);
+            this.set('measurementUnit', value, populating);
             return this;
-        };
-
-        this.get = function(field)
-        {
-            return data[field];
-        };
-
-        this.set = function(field, value, populating)
-        {
-            data[field] = value;
-
-            if (populating) {
-                return;
-            }
-            this.publish();
         };
 
         this.getData = function()
@@ -131,17 +123,17 @@ define([
         };
     };
 
-    var combinedPrototype = EntityHydrateAbstract.prototype;
-    for (var key in PubSubAbstract.prototype) {
-        combinedPrototype[key] = PubSubAbstract.prototype[key];
-    }
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
-        json.height = Number(json.height).mmToPt();
-        json.width = Number(json.width).mmToPt(); 
+        json.height = Number(json.height);
+        json.width = Number(json.width);
         return json;
     };
 
