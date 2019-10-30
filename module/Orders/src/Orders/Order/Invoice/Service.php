@@ -240,7 +240,7 @@ class Service extends ClientService implements StatsAwareInterface
         return $result;
     }
 
-    protected function generateDocumentForOrder(Order $order, Template $template = null): void
+    protected function generateDocumentForOrder(Order $order, Template $template): void
     {
         parent::generateDocumentForOrder($order, $template);
         $this->incrementGenerationProgress();
