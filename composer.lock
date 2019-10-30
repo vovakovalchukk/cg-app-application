@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53bc41c94588d73cfe5f80fe9fa9a502",
+    "content-hash": "2ea550b5c9bcbdd290a80cfbba252d00",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2315,16 +2315,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-539-refactor-invoice-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "186eb8a6b61b9be87175b8f6d5d032a954f781f6"
+                "reference": "8facd90d20134440aa420fcb9e490e667a3307b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-c0e2d9.zip",
-                "reference": "186eb8a6b61b9be87175b8f6d5d032a954f781f6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-3bb224.zip",
+                "reference": "8facd90d20134440aa420fcb9e490e667a3307b0"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2361,7 +2361,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "dev-TAC-447-invoice-designer-improvements as 1.7.0",
+                "channelgrabber/template": "dev-TAC-539-refactor-invoice-generation as 1.7.0",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2383,7 +2383,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.x-dev"
                 }
             },
             "autoload": {
@@ -2401,7 +2401,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-29T16:36:05+00:00"
+            "time": "2019-10-30T09:45:52+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3703,16 +3703,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-539-refactor-invoice-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "e38f58f18ee4e456d22b4172d6df181f56d51449"
+                "reference": "f3256f65809027b0a62826ced26bacbd462b1602"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-a204b4.zip",
-                "reference": "e38f58f18ee4e456d22b4172d6df181f56d51449"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-63022a.zip",
+                "reference": "f3256f65809027b0a62826ced26bacbd462b1602"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3723,7 +3723,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-TAC-447-invoice-designer-improvements as 1.47.7",
+                "channelgrabber/order": "dev-TAC-539-refactor-invoice-generation as 1.47.7",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3746,7 +3746,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-TAC-447-invoice-designer-improvements": "1.7.0-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.x-dev"
                 }
             },
             "autoload": {
@@ -3760,7 +3760,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-29T16:29:31+00:00"
+            "time": "2019-10-30T09:45:16+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11768,9 +11768,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.47.5",
-            "alias_normalized": "1.47.5.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "alias": "dev-TAC-447-invoice-designer-improvements",
+            "alias_normalized": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-539-refactor-invoice-generation",
             "package": "channelgrabber/order"
         },
         {
@@ -11780,9 +11780,9 @@
             "package": "channelgrabber/picklist"
         },
         {
-            "alias": "1.7.0",
-            "alias_normalized": "1.7.0.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "alias": "dev-TAC-447-invoice-designer-improvements",
+            "alias_normalized": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-539-refactor-invoice-generation",
             "package": "channelgrabber/template"
         },
         {

@@ -310,22 +310,17 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $this->key = $key;
         $this->resetGenerationProgress();
-        $isInvoiced = false;
-        $pdfs = [];
+        $pdf = $this->generateDocumentsForOrders($orders, $templates);
         /** @var Template $template */
         foreach ($templates as $template) {
             if ($template->getType() != TemplateType::INVOICE) {
-                $pdfs[] = $this->generateDocumentForOrders($orders, $template);
                 continue;
             }
             // Invoices require special treatment
-            $pdfs[] = $this->generateInvoicesForOrders($orders, $template);
-            if (!$isInvoiced) {
-                $this->markOrdersAsPrintedFromOrderCollection($orders);
-                $isInvoiced = true;
-            }
+            $this->markOrdersAsPrintedFromOrderCollection($orders);
+            $this->notifyOfInvoiceGeneration();
+            break;
         }
-
-        return mergePdfData($pdfs);
+        return $pdf;
     }
 }
