@@ -27,23 +27,22 @@ class OrderExportManualController extends AbstractActionController
     {
         $templateId = $this->params()->fromPost('templateId');
         $savedFilterName = $this->params()->fromPost('savedFilterName');
-        $orderBy = $this->params()->fromPost('orderBy');
         $sendViaEmail = filter_var($this->params()->fromPost('sendViaEmail'), FILTER_VALIDATE_BOOLEAN);
         if ($sendViaEmail) {
-            return $this->sendViaEmail($templateId, $savedFilterName, $orderBy);
+            return $this->sendViaEmail($templateId, $savedFilterName);
         }
-        return $this->downloadToBrowser($templateId, $savedFilterName, $orderBy);
+        return $this->downloadToBrowser($templateId, $savedFilterName);
     }
 
-    protected function sendViaEmail(int $templateId, string $savedFilterName, ?string $orderBy = null): JsonModel
+    protected function sendViaEmail(int $templateId, string $savedFilterName): JsonModel
     {
-        $this->orderExporter->sendViaEmail($templateId, $savedFilterName, $orderBy);
+        $this->orderExporter->sendViaEmail($templateId, $savedFilterName);
         return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 
-    protected function downloadToBrowser(int $templateId, string $savedFilterName, ?string $orderBy = null): FileResponse
+    protected function downloadToBrowser(int $templateId, string $savedFilterName): FileResponse
     {
-        $fileContents = $this->orderExporter->download($templateId, $savedFilterName, $orderBy);
+        $fileContents = $this->orderExporter->download($templateId, $savedFilterName);
         $date = new CGDateTime();
         $filename = 'stock-' . $date->stdDateFormat() . '-' . $date->stdTimeFormat() . '.csv';
         return new FileResponse('text/csv', $filename, $fileContents);

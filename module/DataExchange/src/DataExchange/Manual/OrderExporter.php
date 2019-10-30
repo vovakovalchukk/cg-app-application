@@ -33,22 +33,22 @@ class OrderExporter
         $this->orderExporter = ($orderExportBuilder)();
     }
 
-    public function download(int $templateId, string $savedFilterName, ?string $orderBy = null): string
+    public function download(int $templateId, string $savedFilterName): string
     {
-        $manual = $this->createManualExchange($templateId, $savedFilterName, $orderBy);
+        $manual = $this->createManualExchange($templateId, $savedFilterName);
         $context = new Context();
         $context = ($this->orderExporter)($manual, $context);
         return $context->getFileContents();
     }
 
-    public function sendViaEmail(int $templateId, string $savedFilterName, ?string $orderBy = null): void
+    public function sendViaEmail(int $templateId, string $savedFilterName): void
     {
-        $manual = $this->createManualExchange($templateId, $savedFilterName, $orderBy, ['toDataExchangeAccountType' => 'user']);
+        $manual = $this->createManualExchange($templateId, $savedFilterName, ['toDataExchangeAccountType' => 'user']);
         $workload = new RunManualExchangeWorkload(json_encode($manual));
         $this->gearmanClient->doBackground(RunManualExchangeWorkload::buildFunctionNameForManual($manual), serialize($workload));
     }
 
-    protected function createManualExchange(int $templateId, string $savedFilterName, ?string $orderBy = null, array $additional = []): Manual
+    protected function createManualExchange(int $templateId, string $savedFilterName, array $additional = []): Manual
     {
         $userId = $this->activeUserContainer->getActiveUser()->getId();
         $array = [
@@ -58,7 +58,7 @@ class OrderExporter
             'type' => Manual::TYPE_ORDER,
             'templateId' => $templateId,
             'filename' => 'orderExport.csv',
-            'options' => ['savedFilterName' => $savedFilterName, 'savedFilterUserId' => $userId, 'orderBy' => $orderBy],
+            'options' => ['savedFilterName' => $savedFilterName, 'savedFilterUserId' => $userId],
         ];
         return $this->manualMapper->fromArray(array_merge($array, $additional));
     }
