@@ -48,7 +48,7 @@ abstract class AbstractScheduleController extends AbstractActionController
             $response = [
                 'success' => true,
                 'id' => $data['id'],
-                'etag' => $data['etag'],
+                'etag' => $data['etag'] ?? null,
             ];
         }
         return $this->jsonModelFactory->newInstance($response);
