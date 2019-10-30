@@ -25,7 +25,7 @@ module.exports = {
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
         "data-exchange/js/DataExchange/StockExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/App.jsx",
-        "data-exchange/js/DataExchange/StockImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/App.jsx",
+        "data-exchange/js/DataExchange/StockImport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/Index.jsx",
         "data-exchange/js/DataExchange/OrderExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderExport/App.jsx",
     },
     module: {
