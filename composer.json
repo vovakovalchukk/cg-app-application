@@ -85,7 +85,7 @@
         "channelgrabber/stock": "~1.17.1",
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "~1.7.0",
+        "channelgrabber/template": "~1.8.0",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.4",
         "channelgrabber/user": "~1.26.6",
