@@ -2319,12 +2319,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "81f4332bccce6f12be68cd4e1150d3316ece4f37"
+                "reference": "fe143bb54ff0660fc8d928bc7d8e598082e4111c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-962425.zip",
-                "reference": "81f4332bccce6f12be68cd4e1150d3316ece4f37"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-88f32f.zip",
+                "reference": "fe143bb54ff0660fc8d928bc7d8e598082e4111c"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2383,7 +2383,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-TAC-539-refactor-invoice-generation": "1.47.8-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.47.x-dev"
                 }
             },
             "autoload": {
@@ -2401,7 +2401,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-31T09:19:05+00:00"
+            "time": "2019-10-31T10:46:57+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3707,12 +3707,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "45fb6b2b02be58e43eab9093bda0af48e0415dd1"
+                "reference": "65fe8891f31372d65f31fc7472b8e7bc9408060f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-34ed7a.zip",
-                "reference": "45fb6b2b02be58e43eab9093bda0af48e0415dd1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-86d7ed.zip",
+                "reference": "65fe8891f31372d65f31fc7472b8e7bc9408060f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3723,7 +3723,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-TAC-539-refactor-invoice-generation as 1.47.8",
+                "channelgrabber/order": "^1.47.7",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3760,7 +3760,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-31T09:17:30+00:00"
+            "time": "2019-10-31T10:44:18+00:00"
         },
         {
             "name": "channelgrabber/transaction",
