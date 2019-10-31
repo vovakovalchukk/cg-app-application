@@ -10,24 +10,28 @@ var initialState = {
 
 var scrollReducer = reducerCreator(initialState, {
     "SET_USER_SCROLLING": function(state) {
-        return Object.assign({}, state, {
+        return {
+            ...state,
             userScrolling: true
-        });
+        }
     },
     "UNSET_USER_SCROLLING": function(state) {
-        return Object.assign({}, state, {
+        return {
+            ...state,
             userScrolling: false
-        });
+        }
     },
     "VERTICAL_SCROLLBAR_SET_TO_0": function(state) {
-        return Object.assign({}, state, {
+        return {
+            ...state,
             currentRowScrollIndex: 0
-        });
+        }
     },
     "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
-        return Object.assign({}, state, {
+        return {
+            ...state,
             currentColumnScrollIndex: null
-        });
+        }
     },
     "HORIZONTAL_SCROLLBAR_INDEX_UPDATE": function(state, action) {
         let {index} = action.payload;
