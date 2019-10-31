@@ -8,7 +8,12 @@ define([
     'InvoiceDesigner/Template/Inspector/Border',
     'InvoiceDesigner/Template/Inspector/OrderTableOptions',
     'InvoiceDesigner/Template/Inspector/Barcode',
-    'InvoiceDesigner/Template/Inspector/LinkedProducts'
+    'InvoiceDesigner/Template/Inspector/LinkedProducts',
+    'InvoiceDesigner/Template/Inspector/TableColumns',
+    'InvoiceDesigner/Template/Inspector/TableTotals',
+    'InvoiceDesigner/Template/Inspector/AllPagesDisplay',
+    'InvoiceDesigner/Template/Inspector/TableSortBy',
+    'InvoiceDesigner/Template/Inspector/TableCells'
 ], function(
     Collection,
     // Inspector variables here
@@ -19,7 +24,12 @@ define([
     border,
     orderTableOptions,
     barcode,
-    linkedProducts
+    linkedProducts,
+    tableColumns,
+    tableTotals,
+    allPagesDisplay,
+    tableSortBy,
+    tableCells
 ) {
     var Service = function()
     {
@@ -49,7 +59,7 @@ define([
     Service.prototype.init = function(template)
     {
         this.setTemplate(template);
-        
+
         var inspectorsToAdd = [
             // Inspector variables here
             text,
@@ -58,7 +68,12 @@ define([
             border,
             orderTableOptions,
             barcode,
-            linkedProducts
+            linkedProducts,
+            tableColumns,
+            tableSortBy,
+            tableTotals,
+            allPagesDisplay,
+            tableCells
         ];
 
         for (var key in inspectorsToAdd) {
@@ -86,14 +101,25 @@ define([
         }
     };
 
-    Service.prototype.showForElement = function(element)
+    Service.prototype.showForElement = function(element, event)
     {
         this.hideAll();
-        var inspectors = this.getForElement(element);
+        const inspectors = this.getForElement(element);
+
+        if (isTableCellClick(event, element)) {
+            inspectors.getItems().tableCells.showForElement(element, event);
+            return;
+        }
+
         heading.showForElement(element, this.getTemplate(), this);
+        
+        if (element.getType() !== 'OrderTable') {
+            allPagesDisplay.showForElement(element, this.getTemplate(), this);
+        }
+
         inspectors.each(function(inspector)
         {
-            inspector.showForElement(element);
+            inspector.showForElement(element, event);
         });
     };
 
@@ -123,5 +149,30 @@ define([
         return inspectorsForElement;
     };
 
+    Service.prototype.removeCellSelections = function() {
+        const allElements = this.getTemplate().getElements().getItems();
+
+        for (let id in allElements) {
+            let element = allElements[id];
+            let type = element.getType();
+
+            if (type !== 'OrderTable') {
+                continue;
+            }
+
+            element.setActiveCellNodeId('');
+            return;
+        }
+    };
+
     return new Service();
+
+    function isTableCellClick(event, element) {
+        if (!event) {
+            return;
+        }
+        const tag = event.target.tagName.toLowerCase();
+        const isCellTag =  tag === 'th' || tag === 'td';
+        return event.target.id.includes(element.getId()) && isCellTag;
+    }
 });

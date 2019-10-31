@@ -60,7 +60,6 @@ define(['react', 'EmailDesigner/Components/ControlBar', 'EmailDesigner/Component
             });
         },
         render: function () {
-            console.log(this.state.selectedElement);
             return React.createElement(
                 'div',
                 { className: 'email-designer-root' },

@@ -1,14 +1,16 @@
 <div id="paperTypeModule" class="template-module">
     <div class="heading-small">Paper Type</div>
     <div class="paper-type-select">
-        {{> select}}
+        {{> paperTypeSelect}}
     </div>
-    <div class="paper-type-checkbox">
-        <div class="std-checkbox">
-            <input id="inverseLabelPosition" type="checkbox" value="inverseLabelPosition" name="check" {{#selected}} checked="checked"{{/selected}}/>
-            <label for="inverseLabelPosition">
-                <span class="checkbox_label">Inverse Label Position</span>
-            </label>
+
+    <div class="paper-type-dimensions-container">
+        <input id="paperWidth" type="number" min="0" class="paper-type-dimensions-input inputbox" oninput="validity.valid||(value='');"/>
+        x
+        <input id="paperHeight" type="number" min="0" class="paper-type-dimensions-input inputbox" oninput="validity.valid||(value='');"/>
+
+        <div class="measurement-unit-select u-position-relative">
+            {{> measurementUnitSelect}}
         </div>
     </div>
 </div>

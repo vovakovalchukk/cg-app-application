@@ -42,15 +42,13 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element), "select");
-            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element), "select");
-            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData(element), "colourPicker");
-            var align = cgmustache.renderTemplate(templates, self.getFontAlignViewData(element), "align");
+            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element.getFontSize()), "select");
+            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element.getFontFamily()), "select");
+            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData( element.getFontColour()), "colourPicker");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
                 'fontSize': fontSize,
                 'fontFamily': fontFamily,
-                'fontColour': fontColour,
-                'align': align
+                'fontColour': fontColour
             });
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -62,21 +60,21 @@ define([
         });
     };
 
-    Font.prototype.getFontSizeViewData = function(element)
+    Font.prototype.getFontSizeViewData = function(fontSizeSelected, id)
     {
         var fontSizeOptions = [];
         for (var fontSizeSize = Font.MINIMUM_FONT_SIZE; fontSizeSize <= Font.MAXIMUM_FONT_SIZE; fontSizeSize++) {
-            var selected = (element.getFontSize() == fontSizeSize);
+            var selected = (fontSizeSelected == fontSizeSize);
             fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
         }
         return {
-            'id': Font.FONT_INSPECTOR_FONT_SIZE_ID,
+            'id': id || Font.FONT_INSPECTOR_FONT_SIZE_ID,
             'name': Font.FONT_INSPECTOR_FONT_SIZE_ID,
             'options': fontSizeOptions
         };
     };
 
-    Font.prototype.getFontFamilyViewData = function(element)
+    Font.prototype.getFontFamilyViewData = function(fontFamilySelected, id)
     {
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
@@ -84,31 +82,32 @@ define([
             {'title': 'Times New Roman', 'value': 'TimesRoman'}
         ];
         for (var key in fontFamilyOptions) {
-            if (fontFamilyOptions[key]['value'] == element.getFontFamily()) {
+            if (fontFamilyOptions[key]['value'] == fontFamilySelected) {
                 fontFamilyOptions[key]['selected'] = true;
             }
         }
         return {
-            'id': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
+            'id': id || Font.FONT_INSPECTOR_FONT_FAMILY_ID,
             'name': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
             'options': fontFamilyOptions
         };
     };
 
-    Font.prototype.getFontColourViewData = function(element)
+    Font.prototype.getFontColourViewData = function(fontColorSelected, id)
     {
         return {
-            'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID,
-            'initialColour': element.getFontColour()
+            'id': id || Font.FONT_INSPECTOR_FONT_COLOUR_ID,
+            'initialColour': fontColorSelected
         };
     };
 
-    Font.prototype.getFontAlignViewData = function(element)
+    Font.prototype.getFontAlignViewData = function(alignSelected, id)
     {
         var alignViewData = {
-            'id': Font.FONT_INSPECTOR_ALIGN_ID
+            'id': id || Font.FONT_INSPECTOR_ALIGN_ID,
+            'containerClass': 'u-display-flex'
         };
-        alignViewData[element.getAlign()] = true;
+        alignViewData[alignSelected] = true;
         return alignViewData;
     };
 
