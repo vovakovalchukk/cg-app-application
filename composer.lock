@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e440a187eadd6097f337cbf91e0ff980",
+    "content-hash": "793dc98631c66e7908f62c59b9f5bb1b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4319,16 +4319,16 @@
         },
         {
             "name": "channelgrabber/zf2-access",
-            "version": "dev-CGIV-11018-dont-cache-account-lockouts",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/access-module.git",
-                "reference": "01c9ef8531efe68807835fea382b77907f7f9482"
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-dev-CGIV-11018-dont-cache-account-lockouts-47b327.zip",
-                "reference": "01c9ef8531efe68807835fea382b77907f7f9482",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.1-005a59.zip",
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435",
                 "shasum": null
             },
             "require": {
@@ -4366,7 +4366,7 @@
                     "CG_Access\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-29T14:17:48+00:00"
+            "time": "2019-10-31T15:18:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -11882,18 +11882,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-11018-dont-cache-account-lockouts",
-            "package": "channelgrabber/zf2-access"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-access": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
