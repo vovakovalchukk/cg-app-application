@@ -4,13 +4,10 @@ import Service from "./Components/Service";
 //import fileDownloadService from "Common/"
 import fileDownload from 'Common/Utils/xhr/fileDownload';
 import Select from 'Common/Components/Select';
-
-
 console.log('fileDownload: ', fileDownload);
 
 const App = (props) => {
     const {templateOptions, actionOptions} = props;
-
     const templateState = useSelectState({});
     const actionState = useSelectState({});
 
@@ -41,33 +38,45 @@ const App = (props) => {
     });
 
     return (<div>
-        <div>yo yo YO</div>
-
         <form action="" method="post">
-            <input
-                type="file"
-                id="docpicker"
-                accept=".text,.csv, .txt"
-                onChange={e => {
-                    console.log('on inpuit chage', e)
-                }}
-            />
+            <fieldset>
+                <div>
+                    <input
+                        type="file"
+                        id="docpicker"
+                        accept=".text,.csv, .txt"
+                        onChange={e => {
+                            console.log('on inpuit chage', e)
+                        }}
+                    />
+                </div>
 
-            <Select
-                options={formattedTemplateOptions}
-                filterable={options.length > 20}
-                {...templateState}
-            />
 
-            <Select
-                options={formattedActionOptions}
-                onChange={(e) => {
-                    console.log('in select onchange');
-                }}
-                {...actionState}
-            />
+                <div className="u-flex-v-center">
+                    <label for="template" className="u-flex-1">Template</label>
+                    <Select
+                        id={"template"}
+                        options={formattedTemplateOptions}
+                        filterable={formattedTemplateOptions.length > 20}
+                        {...templateState}
+                    />
+                </div>
 
-            <input type="submit" value="Save"/>
+                <div className="u-flex-v-center">
+                    <label for="action" className="u-flex-1">Import Action</label>
+                    <Select
+                        id={"action"}
+                        options={formattedActionOptions}
+                        filterable={formattedActionOptions.length > 20}
+                        onChange={(e) => {
+                            console.log('in select onchange');
+                        }}
+                        {...actionState}
+                    />
+                </div>
+
+                <input className={"button"} type="submit" value="Save"/>
+            </fieldset>
         </form>
 
         <Table
