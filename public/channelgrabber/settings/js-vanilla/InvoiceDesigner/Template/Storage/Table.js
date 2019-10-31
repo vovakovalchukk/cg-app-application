@@ -76,10 +76,10 @@ define([], function() {
     const allTableTotals = [
         {
             id: 'postageAndPackagingCost',
-            displayText: 'Postage & Packing',
+            displayText: 'Shipping Total',
             position: 0,
             placeholder: '£4.00',
-            optionText: "Postage & Packaging Cost",
+            optionText: "Shipping Total",
             default: true
         },
         {
