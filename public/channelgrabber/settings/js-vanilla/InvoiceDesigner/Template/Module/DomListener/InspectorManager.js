@@ -25,9 +25,9 @@ define([
     {
         var self = this;
 
-        $(document).off(domManipulator.getElementSelectedEvent()).on(domManipulator.getElementSelectedEvent(), function(event, element)
+        $(document).off(domManipulator.getElementSelectedEvent()).on(domManipulator.getElementSelectedEvent(), function(event, element, event)
         {
-            self.getModule().elementSelected(element);
+            self.getModule().elementSelected(element, event);
         });
     };
 

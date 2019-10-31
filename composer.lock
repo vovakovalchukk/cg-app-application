@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "274251fda4a56410541b94a1f02eab4f",
+    "content-hash": "e440a187eadd6097f337cbf91e0ff980",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1967,16 +1967,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.19.4",
+            "version": "1.19.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab"
+                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.4-e08244.zip",
-                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.6-919d4c.zip",
+                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410",
                 "shasum": null
             },
             "require": {
@@ -2002,11 +2002,6 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-LIS-238-allow-amazon-create-variation-listings": "1.16.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -2017,7 +2012,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-09-02T11:53:52+00:00"
+            "time": "2019-10-31T11:29:17+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2362,16 +2357,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.6",
+            "version": "1.47.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "876f48d31a4d1ef937f602f86bcbec09260c33f1"
+                "reference": "5b95d48bc47a22cc1d8e2cc31e6cbb274a12f057"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.6-ce5e72.zip",
-                "reference": "876f48d31a4d1ef937f602f86bcbec09260c33f1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.7-705dbb.zip",
+                "reference": "5b95d48bc47a22cc1d8e2cc31e6cbb274a12f057",
                 "shasum": null
             },
             "require": {
@@ -2409,7 +2404,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.27",
+                "channelgrabber/template": "^1.7.0",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2420,6 +2415,7 @@
                 "league/csv": "~8.2.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -2448,7 +2444,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-24T08:45:32+00:00"
+            "time": "2019-10-30T12:00:43+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2706,23 +2702,23 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061"
+                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.1-e98dbd.zip",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.0-079bf1.zip",
+                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.6.9",
+                "channelgrabber/template": "^1.7.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2746,7 +2742,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-03T11:12:34+00:00"
+            "time": "2019-10-30T12:25:07+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -3782,39 +3778,41 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.15",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496"
+                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.15-eeb740.zip",
-                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.0-46fc5d.zip",
+                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": ">=1.6.0,<2.0.0",
+                "channelgrabber/channel": "^1.6.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.46.9",
+                "channelgrabber/order": "^1.47.7",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
-                "channelgrabber/user": "^1.26.0",
+                "channelgrabber/user": "^1.26.8",
                 "ext-gd": "*",
                 "ext-imagick": "*",
                 "guzzle/guzzle": "~3.7",
+                "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "picqer/php-barcode-generator": "~0.2.1",
-                "zendframework/zend-di": ">=2.2.5,<3.0",
-                "zendframework/zend-i18n": ">=2.2.5,<3.0",
-                "zendframework/zend-view": ">=2.2.6,<3.0",
+                "zendframework/zend-di": "^2.2.5",
+                "zendframework/zend-i18n": "^2.2.5",
+                "zendframework/zend-view": "^2.2.6",
                 "zendframework/zendpdf": "2.0.2.2"
             },
             "require-dev": {
@@ -3824,7 +3822,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-447-invoice-designer-improvements": "1.7.0-dev"
                 }
             },
             "autoload": {
@@ -3838,7 +3836,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-21T12:55:28+00:00"
+            "time": "2019-10-30T14:30:38+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5366,16 +5364,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.24",
+            "version": "1.26.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cc9efa946386cb3be4749a46f210a38339e45e67"
+                "reference": "67787c667ff40c0d6b867c2fc01570e804899776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.24-dddb73.zip",
-                "reference": "cc9efa946386cb3be4749a46f210a38339e45e67",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.25-4e293d.zip",
+                "reference": "67787c667ff40c0d6b867c2fc01570e804899776",
                 "shasum": null
             },
             "require": {
@@ -5427,7 +5425,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-10-01T08:29:00+00:00"
+            "time": "2019-10-30T11:40:50+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
