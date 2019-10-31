@@ -9,27 +9,40 @@ define(['InvoiceDesigner/Template/PaperType/StorageAbstract', 'jquery'], functio
 
     Ajax.prototype.fetchAll = function()
     {
-        var data = [
+        let data = [
             {
                 id: 1,
-                name: "No Label (Blank)",
+                name: "A4",
                 height: "297",
                 width: "210",
-                backgroundImage: "",
-                backgroundImageInverse: ""
             },
             {
                 id: 2,
-                name: "Forms Plus FPS-3",
-                height: "297",
+                name: "A5",
+                height: "148",
                 width: "210",
-                backgroundImage: "/channelgrabber/settings/img/InvoiceDesigner/Template/PaperType/style-c-label.png",
-                backgroundImageInverse: "/channelgrabber/settings/img/InvoiceDesigner/Template/PaperType/style-c-label-inverse.png"
+            },
+            {
+                id: 3,
+                name: "Letter",
+                height: "279",
+                width: "216",
+            },
+            {
+                id: 4,
+                name: "Legal",
+                height: "356",
+                width: "216",
+            },
+            {
+                id:5,
+                name: "6 x 4 Courier Label",
+                height: "100",
+                width: "150",
             }
         ];
 
         return this.getMapper().fromArray(data);
     };
-
     return new Ajax();
 });

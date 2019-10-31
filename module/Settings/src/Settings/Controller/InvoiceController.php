@@ -17,6 +17,7 @@ use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Template\Type as TemplateType;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -39,8 +40,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     use LogTrait;
 
     const ROUTE = 'Invoice';
-    const ROUTE_SETTINGS = 'Invoice Settings';
-    const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_SETTINGS = 'Template Settings';
+    const ROUTE_DESIGNER = 'Template Designer';
     const ROUTE_DESIGNER_ID = 'Invoice Designer View';
     const ROUTE_TEMPLATES = 'Invoice Templates';
     const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';
@@ -51,8 +52,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_SAVE = 'Save';
     const ROUTE_SAVE_MAPPING = 'Save Mapping';
     const ROUTE_VERIFY = 'Verify';
+    const ROUTE_ADD_FAVOURITE = 'Add Favourite';
+    const ROUTE_REMOVE_FAVOURITE = 'Remove Favourite';
+    const ROUTE_DELETE_TEMPLATE = 'Delete Template';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
+    const MEASUREMENT_UNIT_DROPDOWN_ID = "measurement-unit-dropdown";
+    const TEMPLATE_TYPE_DROPDOWN_ID = "template-type-dropdown";
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
@@ -130,11 +136,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function indexAction()
     {
         $invoiceSettings = $this->invoiceSettings->getSettings();
-        $existingInvoices = $this->invoiceSettings->getExistingInvoicesForView();
+        $existingTemplates = $this->invoiceSettings->getExistingTemplatesForView();
 
         return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
-            ->setVariable('invoiceData', json_encode($existingInvoices))
+            ->setVariable('existingTemplates', $existingTemplates)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
@@ -262,9 +268,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
-        $view->setVariable('showToPdfButton', $showToPdfButton);
+        $view->setVariable('measurementUnitDropdownId', static::MEASUREMENT_UNIT_DROPDOWN_ID);
+        $view->setVariable('templateTypeDropdownId', static::TEMPLATE_TYPE_DROPDOWN_ID);
 
+        $view->setVariable('showToPdfButton', $showToPdfButton);
+        $view->setVariable('typeOptions', TemplateType::getTypeOptions());
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
+
+        $templateTypeDropdown = $this->getTemplateTypeDropdown();
+        $view->addChild($templateTypeDropdown, 'templateTypeDropdown');
 
         $view->setVariable('dataFieldOptions', $this->orderTagManager->getAvailableTags());
 
@@ -292,6 +304,56 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
         }
         return false;
+    }
+
+    public function deleteTemplateAction()
+    {
+        $templateId = $this->params()->fromPost('templateId');
+        $template = $this->templateService->fetch($templateId);
+        $this->templateService->remove($template);
+        $response = $this->getJsonModelFactory()->newInstance([
+            'success' => true,
+            'message' => 'Template deleted successfully.'
+        ]);
+        return $response;
+    }
+
+    public function addFavouriteAction()
+    {
+        return $this->toggleFavourite(true);
+    }
+
+    public function removeFavouriteAction()
+    {
+        return $this->toggleFavourite(false);
+    }
+
+    protected function toggleFavourite(bool $favourite): ViewModel
+    {
+        $text = $favourite ? 'added' : 'removed';
+        $response = ['success' => false, 'message' => ''];
+        try {
+            $template = $this->templateService->fetch($this->params()->fromPost('templateId'));
+            $template->setFavourite($favourite);
+            $this->templateService->save($template);
+            $response = [
+                'success' => true,
+                'message' => 'Template successfully ' . $text . ' as a favourite.'
+            ];
+        } catch (NotModified $e) {
+            // No-op
+            $response = [
+                'success' => true,
+                'message' => 'Template already ' . $text . ' as a favourite.'
+            ];
+        } catch (\Exception $e) {
+            $this->logErrorException($e, 'Error: template not ' . $text . ' as favourite', [], static::ROUTE_ADD_FAVOURITE);
+            $response = [
+                'success' => true,
+                'message' => 'There was a problem, template has not been ' . $text . ' as a favourite.'
+            ];
+        }
+        return $this->getJsonModelFactory()->newInstance($response);
     }
 
     public function getUserAmazonAccountSite(){
@@ -577,18 +639,30 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getPaperTypeModule()
     {
-        $dropDownConfig = [
+        $paperTypeModule = $this->viewModelFactory->newInstance();
+
+        $paperTypeDropDownConfig = [
             "isOptional" => false,
             "id" => static::PAPER_TYPE_DROPDOWN_ID,
             "name" => static::PAPER_TYPE_DROPDOWN_ID,
-            "class" => "",
+            "ulClass" => static::PAPER_TYPE_DROPDOWN_ID,
             "options" => []
         ];
+        $paperTypeSelect = $this->viewModelFactory->newInstance($paperTypeDropDownConfig);
+        $paperTypeSelect->setTemplate('elements/custom-select.mustache');
 
-        $paperTypeModule = $this->viewModelFactory->newInstance();
-        $select = $this->viewModelFactory->newInstance($dropDownConfig);
-        $select->setTemplate('elements/custom-select.mustache');
-        $paperTypeModule->addChild($select, 'select');
+        $measurementUnitDropDownConfig = [
+            "isOptional" => false,
+            "id" => static::MEASUREMENT_UNIT_DROPDOWN_ID,
+            "name" => static::MEASUREMENT_UNIT_DROPDOWN_ID,
+            "sizeClass" => 'small',
+            "options" => []
+        ];
+        $measurementUnitSelect = $this->viewModelFactory->newInstance($measurementUnitDropDownConfig);
+        $measurementUnitSelect->setTemplate('elements/custom-select.mustache');
+
+        $paperTypeModule->addChild($paperTypeSelect, 'paperTypeSelect');
+        $paperTypeModule->addChild($measurementUnitSelect, 'measurementUnitSelect');
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
 
         return $paperTypeModule;
@@ -608,5 +682,18 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getTranslator()
     {
         return $this->translator;
+    }
+
+    protected function getTemplateTypeDropdown(): ViewModel
+    {
+        $templateTypeDropdownConfig = [
+            "isOptional" => false,
+            "id" => static::TEMPLATE_TYPE_DROPDOWN_ID,
+            "name" => static::TEMPLATE_TYPE_DROPDOWN_ID,
+            "sizeClass" => 'u-width-100pc',
+        ];
+        $templateTypeDropdown = $this->viewModelFactory->newInstance($templateTypeDropdownConfig);
+        $templateTypeDropdown->setTemplate('elements/custom-select.mustache');
+        return $templateTypeDropdown;
     }
 }

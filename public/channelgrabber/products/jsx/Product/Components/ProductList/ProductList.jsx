@@ -13,8 +13,6 @@ import BlockerModal from 'Common/Components/BlockerModal';
 import styleVars from 'Product/Components/ProductList/styleVars';
 import utility from 'Product/Components/ProductList/utility';
 
-import StatelessSelect from 'Common/Components/Select--stateless';
-
 "use strict";
 
 const {Table} = FixedDataTable;
