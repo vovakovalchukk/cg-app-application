@@ -41,6 +41,10 @@ import reducerCreator from 'Common/Reducers/creator';
                     }
 
                     var currentSelectedCategory = currentCategories[selectedCategoryId];
+                    if (currentSelectedCategory === undefined) {
+                        return;
+                    }
+
                     if (!categoryHasChildren(currentSelectedCategory)) {
                         currentSelectedCategory.categoryChildren = formatNewCategoriesArray(categories);
                     }
