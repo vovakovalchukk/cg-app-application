@@ -134,13 +134,15 @@ define([
         if (!tableColumns) {
             return [];
         }
-        const formatted = tableColumns.map(({id, position, displayText}) => {
-            return {
+        const formatted = tableColumns.map(({id, position, displayText, width, widthMeasurementUnit}) => (
+            {
                 id,
                 position,
-                displayText
-            };
-        });
+                displayText,
+                width,
+                widthMeasurementUnit
+            }
+        ));
 
         const allPositionsUndefined = areAllPositionsUndefined(formatted);
         if (!allPositionsUndefined) {
