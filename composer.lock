@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa01db6a016bc358613013ecb506cb9a",
+    "content-hash": "03396680633cae211d7cd0b09820def3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4225,16 +4225,16 @@
         },
         {
             "name": "channelgrabber/zf2-access",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/access-module.git",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.0-6ec7a2.zip",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.1-005a59.zip",
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -4271,7 +4271,7 @@
                     "CG_Access\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-05T12:53:36+00:00"
+            "time": "2019-10-31T15:18:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
