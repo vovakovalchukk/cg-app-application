@@ -4,8 +4,12 @@ define([
     'InvoiceDesigner/Template/Mapper',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/Helpers/Element',
     // Template Module requires here
     'InvoiceDesigner/Template/Module/PaperType',
+    'InvoiceDesigner/Template/Module/TemplateType',
+    'InvoiceDesigner/Template/Module/PrintPage',
+    'InvoiceDesigner/Template/Module/MultiPage',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/ElementManager',
@@ -13,13 +17,13 @@ define([
     'InvoiceDesigner/Template/Module/Name',
     'InvoiceDesigner/Template/Module/ImageUpload',
     'InvoiceDesigner/Template/Module/ElementResizeMove',
-    'InvoiceDesigner/Template/Module/ToPdf'
 ], function(
     require,
     templateAjaxStorage,
     templateMapper,
     templateDomManipulator,
-    ElementMapperAbstract
+    ElementMapperAbstract,
+    ElementHelper
 ) {
     var Service = function()
     {
@@ -30,14 +34,16 @@ define([
         var modules = [
             // Template Modules require() paths here
             'InvoiceDesigner/Template/Module/PaperType',
+            'InvoiceDesigner/Template/Module/TemplateType',
+            'InvoiceDesigner/Template/Module/PrintPage',
+            'InvoiceDesigner/Template/Module/MultiPage',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/ElementManager',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
             'InvoiceDesigner/Template/Module/Name',
             'InvoiceDesigner/Template/Module/ImageUpload',
-            'InvoiceDesigner/Template/Module/ElementResizeMove',
-            'InvoiceDesigner/Template/Module/ToPdf'
+            'InvoiceDesigner/Template/Module/ElementResizeMove'
         ];
 
         this.getStorage = function()
@@ -82,7 +88,6 @@ define([
     Service.FETCHED_STATE = 'fetchAndLoadModules';
     Service.DUPLICATED_STATE = 'fetchAndDuplicate';
     Service.CREATED_STATE = 'createForOu';
-    Service.INVERSE_CHECKBOX_ID = '#inverseLabelPosition';
 
     Service.prototype.fetch = function(id)
     {
@@ -90,6 +95,7 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\\Template\\Service::fetch must be passed a template ID';
         }
         var template = this.getStorage().fetch(id);
+
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
         this.getDomManipulator().hideSaveDiscardBar(template)
@@ -136,7 +142,6 @@ define([
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template)
             .triggerTemplateSelectedEvent(template);
-        this.getDomManipulator().resetCheckbox(Service.INVERSE_CHECKBOX_ID);
 
         return template;
     };
@@ -185,8 +190,20 @@ define([
 
     Service.prototype.render = function(template)
     {
-        var html = this.getMapper().toHtml(template);
-        this.getDomManipulator().insertTemplateHtml(html);
+        const paperPage = template.getPaperPage();
+        const printPage = template.getPrintPage();
+        const multiPage = template.getMultiPage();
+
+        const templatePageElementId = ElementHelper.getElementDomId(paperPage);
+
+        let html = this.getMapper().toHtml(template);
+        let domManipulator = this.getDomManipulator();
+        domManipulator.insertTemplateHtml(html);
+        const templatePageElement = document.getElementById(templatePageElementId);
+
+        printPage.render(template, templatePageElement);
+        multiPage.render(template, templatePageElement);
+
         return this;
     };
 

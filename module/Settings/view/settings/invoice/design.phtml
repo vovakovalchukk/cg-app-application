@@ -1,80 +1,148 @@
-<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css', ['screen', 'print']); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css',
+    ['screen', 'print']); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . '/cg-built/vendor/cg-common/dist/css/default.css',
+    ['screen', 'print']) ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
-var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
 
 $(document).ready(function() {
     require.config({
         paths: {
             'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
-            'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
+            'InvoiceDesigner': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner'; ?>"
         }
     });
     require([
         'InvoiceDesigner/Application',
-        'InvoiceDesigner/Template/Inspector/Text'
+        'InvoiceDesigner/Template/Inspector/Text',
+        'InvoiceDesigner/Constants'
     ], function(
         designerApp,
-        textInspector
+        textInspector,
+        Constants
     ) {
-        textInspector.setDataFieldOptions(<?=json_encode($dataFieldOptions);?>);
+        textInspector.setDataFieldOptions(<?= json_encode($dataFieldOptions); ?>);
 
-        designerApp.init(<?=$rootOuId;?>, '<?=$templateId;?>');
+        Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
+        Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_DROPDOWN_ID = "<?= $templateTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_OPTIONS = <?= json_encode($typeOptions); ?>;
+
+        designerApp.init(
+            <?= $rootOuId; ?>,
+            '<?= $templateId; ?>'
+        );
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
-    <div class="scrollable-sidebar">
-        <div class="template-module invoice-action-buttons">
-            <a href="/settings/invoice" class="button">Back to Invoices</a>
-        </div>
-        <?php if($this->showToPdfButton) : ?>
-        <div id="template-topdf-container" class="template-module template-topdf-container">
-            <div class="pdf-btn">
-                <form method="post" action="/orders/invoice/preview" class="button toPdfButton">
-                    To PDF
-                    <input name="template" type="hidden" />
-                </form>
-            </div>
-        </div>
-        <?php endif; ?>
-        <div id="template-name-container" class="template-module template-name-container">
-            <div class="heading-small"><?= $this->translate('Template Name'); ?></div>
-            <div class="template-inputbox-holder">
-                <?= $templateName; ?>
-            </div>
-        </div>
-        <?= $paperTypeModule ?>
 
-        <div class="addInvoiceElement template-module">
-            <span class="heading-small">Add Element</span>
-        </div>
-    </div>
-</div>
-<div id="invoice-template" class="invoice-template">
-    <div class="save-template">
-        <div class="save-template-inner fixedElement">
-            <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
-            <div class="save-template-buttons">
-                <?= $templateDiscardButton ?>
-                <?= $templateSaveButton ?>
+<div class="invoice-designer-container">
+    <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
+        <div class="scrollable-sidebar">
+            <div class="template-module invoice-action-buttons">
+                <a href="/settings/invoice" class="button">Back to Templates</a>
+            </div>
+
+            <div id="template-name-container" class="template-module template-name-container">
+                <div class="heading-small"><?= $this->translate('Template Name'); ?></div>
+                <div class="template-inputbox-holder">
+                    <?= $templateName; ?>
+                </div>
+            </div>
+
+            <div id="templateTypeModule" class="template-module">
+                <div class="heading-small"><?= $this->translate('Template Type'); ?></div>
+                <div>
+                    <?= $templateTypeDropdown ?>
+                </div>
+            </div>
+
+            <?= $paperTypeModule ?>
+
+            <div id="printPageModule" class="template-module">
+                <div class="heading-small">Page Print Margins</div>
+                <div>
+                    <div class="invoice-designer-2x2-grid-container">
+                        <span class="invoice-designer-grid-cell">
+                            <label for="printPageTopMargin">Top: </label>
+                            <input id="printPageTopMargin" class="inputbox invoice-designer-grid-input" type="number" min="0"
+                                   oninput="validity.valid||(value='');"/>
+                        </span>
+                        <span class="invoice-designer-grid-cell">
+                             <label for="printPageBottomMargin">Bottom: </label>
+                            <input id="printPageBottomMargin" class="inputbox invoice-designer-grid-input" type="number" min="0"
+                                   oninput="validity.valid||(value='');"/>
+                        </span>
+                        <span class="invoice-designer-grid-cell">
+                            <label for="printPageLeftMargin">Left: </label>
+                            <input id="printPageLeftMargin" class="inputbox invoice-designer-grid-input" type="number" min="0"
+                                   oninput="validity.valid||(value='');"/>
+                        </span>
+                        <span class="invoice-designer-grid-cell">
+                            <label for="printPageRightMargin">Right:</label>
+                            <input id="printPageRightMargin" class="inputbox invoice-designer-grid-input" type="number" min="0"
+                                   oninput="validity.valid||(value='');"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="multiPageModule" class="template-module">
+                <div id="multiPageModule" class="invoice-designer-multi-page-module-container">
+                    <div class="heading-small invoice-designer-multi-page-header">Label Paper</div>
+                    <span class="invoice-designer-grid-cell">
+                        <label for="multiPageColumns">Cols: </label>
+                        <input id="multiPageColumns" class="inputbox invoice-designer-grid-input invoice-designer-multi-page-cols-input" type="number" min="0"/>
+                    </span>
+                    <span class="invoice-designer-grid-cell">
+                        <label for="multiPageRows">Rows: </label>
+                        <input id="multiPageRows" class="inputbox invoice-designer-grid-input invoice-designer-multi-page-rows-input" type="number" min="0"/>
+                    </span>
+                    <span class="invoice-designer-grid-cell">
+                        <label for="multiPageWidth">Width: </label>
+                        <input id="multiPageWidth" class="inputbox invoice-designer-grid-input invoice-designer-multi-page-width-input" type="number" min="0"/>
+                    </span>
+                    <div class="heading-small invoice-designer-multi-page-header2 u-margin-top-small">Label Dimensions</div>
+                    <span class="invoice-designer-grid-cell">
+                        <label for="multiPageHeight">Height: </label>
+                        <input id="multiPageHeight" class="inputbox invoice-designer-grid-input invoice-designer-multi-page-height-input" type="number" min="0"/>
+                    </span>
+                </div>
+            </div>
+
+            <div class="addInvoiceElement template-module">
+                <span class="heading-small">Add Element</span>
             </div>
         </div>
     </div>
-    <div id="invoice-template-container" class="invoice-template-container">
+    <div id="invoice-template" class="invoice-template">
+        <div class="save-template">
+            <div class="save-template-inner fixedElement">
+                <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
+                <div class="save-template-buttons">
+                    <?= $templateDiscardButton ?>
+                    <?= $templateSaveButton ?>
+                </div>
+            </div>
+        </div>
+        <div id="invoice-template-container" class="invoice-template-container"></div>
     </div>
-
-</div>
-<div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
-    <div class="scrollable-sidebar">
-        <!--Element Inspectors-->
-        <div id="heading-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="text-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="font-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="border-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="positioning-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="orderTableOptions-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="barcode-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="linkedProducts-inspector" class="floatLeftClear inspector-module"></div>
+    <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
+        <div class="scrollable-sidebar">
+            <!--Element Inspectors-->
+            <div id="heading-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="tableCells-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="all-pages-display-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="text-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="font-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="border-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="positioning-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="orderTableOptions-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="barcode-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="linkedProducts-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="tableColumns-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="tableTotals-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="tableSortBy-inspector" class="floatLeftClear inspector-module"></div>
+        </div>
     </div>
 </div>

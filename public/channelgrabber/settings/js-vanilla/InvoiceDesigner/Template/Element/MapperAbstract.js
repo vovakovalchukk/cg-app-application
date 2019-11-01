@@ -1,11 +1,13 @@
 define([
     'cg-mustache',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/Template/Element/Service'
+    'InvoiceDesigner/Template/Element/Service',
+    'InvoiceDesigner/Template/Element/Helpers/Element'
 ], function(
     CGMustache,
     domManipulator,
-    elementService
+    elementService,
+    ElementHelper
 ) {
     var MapperAbstract = function()
     {
@@ -41,12 +43,17 @@ define([
 
     MapperAbstract.getDomId = function(element)
     {
-        return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
+        return MapperAbstract.ELEMENT_DOM_ID_PREFIX + element.getId();
+    };
+
+    MapperAbstract.getDomIdPrefix = function()
+    {
+        return MapperAbstract.ELEMENT_DOM_ID_PREFIX;
     };
 
     MapperAbstract.getDomWrapperId = function(element)
     {
-        return MapperAbstract.getDomId(element)+'-wrapper';
+        return ElementHelper.getElementDomId(element)+'-wrapper';
     };
 
     MapperAbstract.getElementIdFromDomId = function(domId)
@@ -66,7 +73,8 @@ define([
 
     MapperAbstract.prototype.toHtml = function(element)
     {
-        var domId = MapperAbstract.getDomId(element);
+        var domId = ElementHelper.getElementDomId(element);
+
         var wrapperCssStyle = this.getDomWrapperStyles(element).join('; ');
         var wrapperCssClasses = this.getDomWrapperClasses(element).join(' ');
         var cssClasses = this.getDomClasses(element).join(' ');
@@ -149,8 +157,9 @@ define([
             width: element.getWidth().mmToPx(),
             height: element.getHeight().mmToPx()
         };
+
         size = this.getService().addDomWrapperGapToDimensions(size);
-        size = this.getService().addDomWrapperGapToDimensions(size);
+
         var domStyles = [
             'width: ' + size.width.pxToMm() + 'mm',
             'height: ' + size.height.pxToMm() + 'mm'
@@ -162,6 +171,11 @@ define([
         for (var key in extraDomStyles) {
             domStyles.push(extraDomStyles[key]);
         }
+
+        if (element.getErrorBorder()) {
+            domStyles.push('border: 2px #ec4832 dashed');
+        }
+
         return domStyles;
     };
 

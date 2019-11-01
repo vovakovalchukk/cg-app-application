@@ -1,16 +1,26 @@
-<div class="inspector-holder">
+{{#ignoreHolder}}
+{{/ignoreHolder}}
+{{^ignoreHolder}}
+<div class="{{holderClass}}{{^ignoreHolder}} inspector-holder {{/ignoreHolder}}">
     <div class="inspector-group-holder">
+{{/ignoreHolder}}
+
         <div>
             <span class="inspector-field-holder">
                 <span class="inspector-field-fontfamily">{{> fontFamily}}</span>
             </span>
             <span class="inspector-field-holder">
                 <span class="inspector-field-fontsize">{{> fontSize}}</span>
-                <span clas="inspector-font-align">{{> align}}</span>
+                <span class="inspector-font-align">{{> align}}</span>
             </span>
             <span class="inspector-field-holder">
                 <span>{{> fontColour}}</span>
             </span>
         </div>
+
+{{#ignoreHolder}}
+{{/ignoreHolder}}
+{{^ignoreHolder}}
     </div>
 </div>
+{{/ignoreHolder}}

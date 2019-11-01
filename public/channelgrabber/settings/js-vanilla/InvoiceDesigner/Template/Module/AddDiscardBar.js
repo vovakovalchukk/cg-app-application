@@ -27,9 +27,13 @@ define([
 
     AddDiscardBar.prototype.discard = function()
     {
-        var state = this.getTemplate().getState();
-        this.getTemplateService()[state](this.getTemplate().getStateId());
-        this.getDomManipulator().hideSaveDiscardBar();
+        const template = this.getTemplate();
+        const state = template.getState();
+        const stateId = template.getStateId();
+        const domManipulator = this.getDomManipulator();
+
+        this.getTemplateService()[state](stateId);
+        domManipulator.hideSaveDiscardBar();
     };
 
     AddDiscardBar.prototype.save = function()
