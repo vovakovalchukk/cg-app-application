@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03396680633cae211d7cd0b09820def3",
+    "content-hash": "465e83d322b6d728f519d1f21d5f472c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3698,16 +3698,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11024-template-generation-bug-with-multiperpage-and-order-table",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c7c3d93ab7a3635152150a8546fe5b8ea44fdc2b"
+                "reference": "fc6757b7318e5ef32bf15b0f87d4261a9a943b33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11024-template-generation-bug-with-multiperpage-and-order-table-017f53.zip",
-                "reference": "c7c3d93ab7a3635152150a8546fe5b8ea44fdc2b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.1-456da3.zip",
+                "reference": "fc6757b7318e5ef32bf15b0f87d4261a9a943b33"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3755,7 +3755,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-31T14:44:47+00:00"
+            "time": "2019-11-01T16:08:45+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11761,18 +11761,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.1",
-            "alias_normalized": "1.8.1.0",
-            "version": "dev-CGIV-11024-template-generation-bug-with-multiperpage-and-order-table",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
