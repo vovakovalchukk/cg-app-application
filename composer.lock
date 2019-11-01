@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "793dc98631c66e7908f62c59b9f5bb1b",
+    "content-hash": "047e5f621bd115f6a04058c0eb199770",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3778,17 +3778,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.0",
+            "version": "dev-CGIV-11027-fix-issue-where-column-widths-and-background-colours-are-not-saved",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.0-46fc5d.zip",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01",
-                "shasum": null
+                "reference": "faca020b0cbd6d191caef1dfcd25549c9e6306af"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11882,13 +11876,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.8.1",
+            "alias_normalized": "1.8.1.0",
+            "version": "dev-CGIV-11027-fix-issue-where-column-widths-and-background-colours-are-not-saved",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
