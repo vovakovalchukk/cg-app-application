@@ -6,6 +6,7 @@ use CG\DataExchangeHistory\Collection as Histories;
 use CG\DataExchangeHistory\Entity as History;
 use CG\DataExchangeHistory\Filter as HistoryFilter;
 use CG\DataExchangeHistory\Service as HistoryService;
+use CG\DataExchangeSchedule\Gearman\StopProcessingScheduleService;
 use CG\Stdlib\DateTime as CgDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -37,17 +38,21 @@ class Service implements LoggerAwareInterface
     protected $userService;
     /** @var FileStorage */
     protected $fileStorage;
+    /** @var StopProcessingScheduleService */
+    protected $stopProcessingScheduleService;
 
     public function __construct(
         HistoryService $historyService,
         ActiveUserInterface $activeUserContainer,
         UserService $userService,
-        FileStorage $fileStorage
+        FileStorage $fileStorage,
+        StopProcessingScheduleService $stopProcessingScheduleService
     ) {
         $this->historyService = $historyService;
         $this->activeUserContainer = $activeUserContainer;
         $this->userService = $userService;
         $this->fileStorage = $fileStorage;
+        $this->stopProcessingScheduleService = $stopProcessingScheduleService;
     }
 
     public static function getAllowedFileTypes(): array
@@ -72,14 +77,20 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    public function fetchFile(int $historyId, string $fileType)
+    public function fetchFile(int $historyId, string $fileType): array
     {
-        try {
-            $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-            return $this->fileStorage->fetch($rootOuId, $historyId, $fileType);
-        } catch (NotFound $e) {
-            return null;
-        }
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $fileContents = $this->fileStorage->fetch($rootOuId, $historyId, $fileType);
+        $fileName = $this->buildFileName($fileType, $historyId);
+        return [$fileName, $fileContents];
+    }
+
+    public function stopSchedule(int $historyId): array
+    {
+        /** @var History $history */
+        $history = $this->historyService->fetch($historyId);
+        $this->stopProcessingScheduleService->stopProcessingSchedule($history->getJobId());
+        return $this->formatHistoryAsArray($history);
     }
 
     protected function buildFilter(int $limit, int $page, int $ouId): HistoryFilter
@@ -108,19 +119,23 @@ class Service implements LoggerAwareInterface
         $historiesArray = [];
         /** @var History $history */
         foreach ($histories as $history) {
-            $historyData = $history->toArray();
-            $historiesArray = array_merge(
-                $historyData,
-                [
-                    'type' => $this->formatHistoryType($history),
-                    'user' => $this->formatUser($history),
-                    'endDate' => $this->formatEndDate($history)
-                ],
-                $this->buildFilesArray($history)
-            );
+            $historiesArray[] = $this->formatHistoryAsArray($history);
         }
 
         return $historiesArray;
+    }
+
+    protected function formatHistoryAsArray(History $history): array
+    {
+        return array_merge(
+            $history->toArray(),
+            [
+                'type' => $this->formatHistoryType($history),
+                'user' => $this->formatUser($history),
+                'endDate' => $this->formatEndDate($history)
+            ],
+            $this->buildFilesArray($history)
+        );
     }
 
     protected function formatHistoryType(History $history): string
@@ -174,5 +189,10 @@ class Service implements LoggerAwareInterface
         }
 
         return '/dataExchange/history/files/' . $history->getId() . '/' . $type;
+    }
+
+    protected function buildFileName(string $type, int $historyId): string
+    {
+        return $type . '_' . $historyId;
     }
 }

@@ -35,7 +35,7 @@
         "channelgrabber/courier": "~1.2.2",
         "channelgrabber/courieradapter": "~1.6.1",
         "channelgrabber/currency": "~1.0.2",
-        "channelgrabber/data-exchange": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.0",
+        "channelgrabber/data-exchange": "dev-MIG-42-history-backend as 1.0.1",
         "channelgrabber/data-exchange-history": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.1",
         "channelgrabber/data-exchange-schedule": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.2",
         "channelgrabber/data-exchange-template": "~1.0.1",

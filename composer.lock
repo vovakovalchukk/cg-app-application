@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "793dc98631c66e7908f62c59b9f5bb1b",
+    "content-hash": "cd606ee47e5f2e929d0671526fa9f7cc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1140,7 +1140,7 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "dev-MIG-42-history-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
@@ -1148,7 +1148,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-3571c2.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-42-history-backend-3571c2.zip",
                 "reference": "7a2d7bcf22f99cf585add907bcd11e82405a1469",
                 "shasum": null
             },
@@ -11966,9 +11966,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-MIG-42-history-backend",
             "package": "channelgrabber/data-exchange"
         },
         {
