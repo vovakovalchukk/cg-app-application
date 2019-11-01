@@ -50,5 +50,32 @@ define([], function() {
         });
     };
 
+    OrderTableHelper.prototype.getSumOfAllColumnWidths = function(tableColumns) {
+
+        //todo - this might need to be moved somewhere
+
+        const safeMinWidthForColumn = 10;
+        let numberOfColumnsWithWidths = 0;
+        let sumOfColumnWidths = 0;
+
+        let columnWidths = tableColumns.map((column) => {
+            return column.width || 0;
+        });
+
+        columnWidths.forEach((columnWidth) => {
+            if (!columnWidth) {
+                return;
+            }
+            numberOfColumnsWithWidths ++;
+            sumOfColumnWidths += columnWidth;
+        });
+
+        const numberOfUndefinedWidthColumns = tableColumns.length - numberOfColumnsWithWidths;
+
+        sumOfColumnWidths = sumOfColumnWidths + (numberOfUndefinedWidthColumns * safeMinWidthForColumn);
+
+        return sumOfColumnWidths;
+    };
+
     return new OrderTableHelper;
 });

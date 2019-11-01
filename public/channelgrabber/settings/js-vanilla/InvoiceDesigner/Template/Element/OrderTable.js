@@ -31,7 +31,13 @@ define([
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
-            .setMinWidth(elementWidth)
+
+            //todo - potentially change this to be calculated from the tableColumns etc.
+            // todo - trigger the minWidth to be changed based on tableColumn changes -
+            // this will mean that when the user changes a column - add all specified columnwidths, round           up to nearest number then set this as min-width
+//            .setMinWidth(elementWidth)
+
+
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
 

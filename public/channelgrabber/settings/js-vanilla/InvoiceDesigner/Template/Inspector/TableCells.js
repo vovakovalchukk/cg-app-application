@@ -308,11 +308,15 @@ define([
     TableCells.prototype.setColumnWidth = function(element, value) {
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
-
         const columnIndexForCurrentCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
-
         tableColumns[columnIndexForCurrentCell].width = parseInt(value);
         element.setTableColumns(tableColumns);
+
+        const sumOfColumnWidths = orderTableHelper.getSumOfAllColumnWidths(tableColumns)
+        const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
+        console.log('setting minWidt to : ', minWidthToSet );
+        console.log('in mm ', sumOfColumnWidths);
+        element.setMinWidth(minWidthToSet);
     };
 
     TableCells.prototype.setWidthMeasurementUnit = function(element, value) {

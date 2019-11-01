@@ -217,9 +217,7 @@ $indicator-border-color: #1477aa;
     table{
         border: none;
         background: $color-white;
-        float: none;
         margin: 0;
-
         tr, td {
             box-sizing: border-box;
             border: none;
@@ -241,7 +239,6 @@ $indicator-border-color: #1477aa;
 }
 
 .template-element-ordertable-totals{
-    float: right;
     margin-top:5px;
     table{
         td{

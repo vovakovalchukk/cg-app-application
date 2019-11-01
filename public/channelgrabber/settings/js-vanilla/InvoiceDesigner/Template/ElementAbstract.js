@@ -103,6 +103,7 @@ define([
         {
             var min = Number(minWidth).pxToMm();
             var max = Number(maxWidth).pxToMm();
+//            console.log('in set width....', newWidth);
             if (minWidth != null && min > newWidth) {
                 newWidth = min;
             }
@@ -252,6 +253,7 @@ define([
         
         this.setMinWidth = function(newMinWidth)
         {
+            console.log('in setMinWidth', newMinWidth);
             minWidth = newMinWidth;
             return this;
         };
