@@ -312,11 +312,15 @@ define([
         tableColumns[columnIndexForCurrentCell].width = parseInt(value);
         element.setTableColumns(tableColumns);
 
-        const sumOfColumnWidths = orderTableHelper.getSumOfAllColumnWidths(tableColumns)
+        const sumOfColumnWidths = orderTableHelper.getSumOfAllColumnWidths(tableColumns);
+
         const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
-        console.log('setting minWidt to : ', minWidthToSet );
-        console.log('in mm ', sumOfColumnWidths);
+        const pxWidth = Number(element.getWidth()).mmToPx();
+
         element.setMinWidth(minWidthToSet);
+        if (pxWidth < minWidthToSet) {
+            element.setWidth(sumOfColumnWidths);
+        }
     };
 
     TableCells.prototype.setWidthMeasurementUnit = function(element, value) {

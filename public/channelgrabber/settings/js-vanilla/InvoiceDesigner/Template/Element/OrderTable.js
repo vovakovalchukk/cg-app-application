@@ -16,6 +16,9 @@ define([
         const totals = TableStorage.getDefaultTableTotals();
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
 
+        const sumOfColumnWidths = OrderTableHelper.getSumOfAllColumnWidths(tableColumns);
+        const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
+
         const additionalData = {
             errorBorder: false,
             showVat: false,
@@ -31,14 +34,7 @@ define([
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
-
-            //todo - potentially change this to be calculated from the tableColumns etc.
-            // todo - trigger the minWidth to be changed based on tableColumn changes -
-            // this will mean that when the user changes a column - add all specified columnwidths, round           up to nearest number then set this as min-width
-//            .setMinWidth(elementWidth)
-
-
-            .setMaxWidth(elementWidth)
+            .setMinWidth(minWidthToSet)
             .setMinHeight(minHeight);
 
         this.getLinkedProductsDisplay = function() {
@@ -110,7 +106,12 @@ define([
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
             json.totals = formatTableTotalsForBackend(json.totals);
             return json;
-        }
+        };
+
+        this.hydrate = function(data, populating) {
+            this.setMinWidth(data.minWidth, populating);
+            OrderTable.prototype.hydrate.call(this, data, populating);
+        };
     };
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);

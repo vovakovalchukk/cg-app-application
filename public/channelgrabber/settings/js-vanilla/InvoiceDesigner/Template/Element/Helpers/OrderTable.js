@@ -51,9 +51,6 @@ define([], function() {
     };
 
     OrderTableHelper.prototype.getSumOfAllColumnWidths = function(tableColumns) {
-
-        //todo - this might need to be moved somewhere
-
         const safeMinWidthForColumn = 10;
         let numberOfColumnsWithWidths = 0;
         let sumOfColumnWidths = 0;
