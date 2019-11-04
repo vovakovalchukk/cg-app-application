@@ -294,7 +294,7 @@ define([
         const valueToSet = typeof currentValue === 'boolean' ? !currentValue : true;
         const activeClass = `${TEXT_FORMATTING_CLASS}-label-active`;
 
-        this.setTableCellProperty(element, property, valueToSet)
+        this.setTableCellProperty(element, property, valueToSet);
 
         const inputLabel = input.labels[0];
 
@@ -317,7 +317,8 @@ define([
         const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
         const pxWidth = Number(element.getWidth()).mmToPx();
 
-        element.setMinWidth(minWidthToSet);
+        element.setMinWidth(minWidthToSet, true);
+
         if (pxWidth < minWidthToSet) {
             element.setWidth(sumOfColumnWidths);
         }

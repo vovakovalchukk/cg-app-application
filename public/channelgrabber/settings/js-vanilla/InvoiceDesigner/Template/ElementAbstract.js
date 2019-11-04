@@ -250,9 +250,12 @@ define([
             return maxHeight;
         };
         
-        this.setMinWidth = function(newMinWidth)
+        this.setMinWidth = function(newMinWidth, publish)
         {
             minWidth = newMinWidth;
+            if (publish) {
+                this.publish(null);
+            }
             return this;
         };
         
