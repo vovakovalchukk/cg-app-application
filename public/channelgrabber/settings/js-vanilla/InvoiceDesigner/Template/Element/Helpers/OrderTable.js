@@ -68,7 +68,6 @@ define([], function() {
         });
 
         const numberOfUndefinedWidthColumns = tableColumns.length - numberOfColumnsWithWidths;
-
         sumOfColumnWidths = sumOfColumnWidths + (numberOfUndefinedWidthColumns * safeMinWidthForColumn);
 
         return sumOfColumnWidths;
