@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bfad7d98dffca99506c2257a0487c0c",
+    "content-hash": "1dccac0a8c1a0c20780c91d1280ceb83",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2390,16 +2390,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-539-refactor-invoice-generation",
+            "version": "1.47.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3b7cecc21ce4301b572ff789ffe77c309bafd53c"
+                "reference": "c1115c56d917a86f24d85ee8ed3e921ef73fb0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-30ce15.zip",
-                "reference": "3b7cecc21ce4301b572ff789ffe77c309bafd53c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.9-10cbea.zip",
+                "reference": "c1115c56d917a86f24d85ee8ed3e921ef73fb0e6"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2436,7 +2436,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "dev-TAC-539-refactor-invoice-generation as 1.7.1",
+                "channelgrabber/template": "^1.8.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2476,7 +2476,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-04T13:55:14+00:00"
+            "time": "2019-11-04T15:54:36+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3778,16 +3778,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-539-refactor-invoice-generation",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a4f1d2b86cf04a78301f014b376eb1b4456e7c92"
+                "reference": "d5c14c098983d9edc2c92d49359ba7c9e2eeebc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-9acecc.zip",
-                "reference": "a4f1d2b86cf04a78301f014b376eb1b4456e7c92"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.2-173a88.zip",
+                "reference": "d5c14c098983d9edc2c92d49359ba7c9e2eeebc0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3835,7 +3835,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-04T13:59:36+00:00"
+            "time": "2019-11-04T15:47:47+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11841,25 +11841,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.9",
-            "alias_normalized": "1.47.9.0",
-            "version": "dev-TAC-539-refactor-invoice-generation",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.8.2",
-            "alias_normalized": "1.8.2.0",
-            "version": "dev-TAC-539-refactor-invoice-generation",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
