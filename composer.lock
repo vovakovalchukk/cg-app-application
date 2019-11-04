@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fd6f69427b9f1b8a97a977616e44021",
+    "content-hash": "68b91f4b8690791cc07a429b5d85ba79",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1014,16 +1014,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-10862-convert-manifest-to-iso-8859",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "db503e67d176826e531ccef16fc5e9b3e5f1e4da"
+                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10862-convert-manifest-to-iso-8859-863d07.zip",
-                "reference": "db503e67d176826e531ccef16fc5e9b3e5f1e4da"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.3-cc93e7.zip",
+                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1057,7 +1057,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-29T10:41:36+00:00"
+            "time": "2019-11-04T15:00:49+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10561,8 +10561,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11842,18 +11841,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
-            "version": "dev-CGIV-10862-convert-manifest-to-iso-8859",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
