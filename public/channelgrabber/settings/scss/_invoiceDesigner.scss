@@ -214,7 +214,8 @@ $indicator-border-color: #1477aa;
 
 .template-element-ordertable{
     border: dashed 2px $color-mgrey;
-    table{
+    background: $color-white;
+    table {
         border: none;
         margin: 0;
         tr, td {
