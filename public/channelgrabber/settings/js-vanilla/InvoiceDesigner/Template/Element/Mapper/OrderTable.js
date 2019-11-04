@@ -25,12 +25,11 @@ define([
         const tableTotals = element.getTableTotals().sort((a, b) => {
             return a.position - b.position;
         });
-        const tableInlineStyles = this.getTableStyles(element).slice();
-        const renderColumns = this.renderColumns.bind(this, tableColumns, element);
 
+        const renderColumns = this.renderColumns.bind(this, tableColumns, element);
         const renderTotalRow = this.renderTotalRow.bind(this, tableTotals, element);
 
-        const html = `<table class="template-element-ordertable-main" style="${tableInlineStyles}">
+        const html = `<table class="template-element-ordertable-main">
             <tr>
                 ${renderColumns('th', (column, inlineStyles, cellId) => {
                     const headerText = column.displayText ? column.displayText : column.optionText;
@@ -43,17 +42,13 @@ define([
                 ))}
             </tr>
         </table>
-        <div class="template-element-ordertable-totals">
-            <table>
-                <tbody>
-                    ${renderTotalRow(total => (
-                        `<tr>
-                            <th>${total.displayText}</th>
-                            <td>${total.placeholder}</td>
-                        </tr>`
-                    ))}
-                </tbody>
-            </table>
+        <div class="template-element-ordertable-totals u-width-100pc">
+            ${renderTotalRow(total => (
+                `<div class="template-element-totals-row">
+                    <span>${total.displayText}</span>
+                    <span>${total.placeholder}</span>
+                </div>`
+            ))}
         </div>`;
 
         return html;

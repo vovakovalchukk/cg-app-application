@@ -216,7 +216,6 @@ $indicator-border-color: #1477aa;
     border: dashed 2px $color-mgrey;
     table{
         border: none;
-        background: $color-white;
         margin: 0;
         tr, td {
             box-sizing: border-box;
@@ -240,16 +239,13 @@ $indicator-border-color: #1477aa;
 
 .template-element-ordertable-totals{
     margin-top:5px;
-    table{
-        td{
-            min-width: 90px;
-            height:auto;
-        }
+    position: absolute;
+    bottom: 1rem;
+}
 
-        th{
-            @extend td;
-        }
-    }
+.template-element-totals-row {
+    display: grid;
+    grid-template-columns: 150px 150px;
 }
 
 .template-element-text, .template-element-selleraddress, .template-element-deliveryaddress{
