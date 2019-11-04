@@ -3778,16 +3778,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01"
+                "reference": "fc6757b7318e5ef32bf15b0f87d4261a9a943b33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.0-46fc5d.zip",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.1-456da3.zip",
+                "reference": "fc6757b7318e5ef32bf15b0f87d4261a9a943b33"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3835,7 +3835,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-30T14:30:38+00:00"
+            "time": "2019-11-01T16:08:45+00:00"
         },
         {
             "name": "channelgrabber/transaction",
