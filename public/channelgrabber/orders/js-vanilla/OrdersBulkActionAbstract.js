@@ -1,5 +1,10 @@
-define(['BulkActionAbstract'], function(BulkActionAbstract)
-{
+define([
+    'BulkActionAbstract',
+    'Orders/BulkActionService'
+], function(
+    BulkActionAbstract,
+    bulkActionService
+) {
     function OrdersBulkActionAbstract()
     {
         BulkActionAbstract.call(this);
@@ -97,7 +102,7 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
         }
         var orders = this.getElement().data('orders');
         if (!orders) {
-            orders = this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
+            orders = bulkActionService.getSelectedOrders();
         }
         return orders;
     };

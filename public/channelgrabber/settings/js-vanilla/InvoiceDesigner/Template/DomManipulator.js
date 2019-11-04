@@ -11,6 +11,7 @@ define([
     };
 
     DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '.save-template';
+    DomManipulator.EVENT_TEMPLATE_INITIALISED = 'invoice-template-initialised';
     DomManipulator.EVENT_TEMPLATE_SELECTED = 'invoice-template-selected';
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
@@ -39,22 +40,28 @@ define([
         return this;
     };
 
+    DomManipulator.prototype.triggerTemplateInitialised = function(template){
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_INITIALISED, [template]);
+    };
+
     DomManipulator.prototype.triggerTemplateSelectedEvent = function (template)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_SELECTED, [template]);
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates, bypassSaveDiscardBar)
     {
-        this.showSaveDiscardBar();
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
+        if (!bypassSaveDiscardBar) {
+            this.showSaveDiscardBar();
+        }
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template, performedUpdates]);
         return this;
     };
 
-    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
+    DomManipulator.prototype.triggerElementSelectedEvent = function(element, event)
     {
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element, event]);
         return this;
     };
 
@@ -83,31 +90,52 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.populateCustomSelect = function(selector, data, selectedValue)
-    {
-        var container = $(selector).parent().parent();
+    DomManipulator.prototype.setValueToInput = function(selector, value) {
+        selector.value = value;
+    };
 
-        var view = {
-            isOptional: $(selector).hasClass("filter-optional"),
-            id: $(selector).attr('id'),
-            name: $(selector + " input:first").attr('name'),
-            class: $(selector + " input:first").attr('class'),
-            options: []
+    DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
+        const idWithHash = `#${selectId}`;
+        const settings = {
+            isOptional: $(idWithHash).hasClass("filter-optional"),
+            name: $(idWithHash + " input:first").attr('name'),
+            class: $(idWithHash + " input:first").attr('class')
+        };
+        const formattedOptions = data.map(option => (
+            {
+                title: option.getName(),
+                value: option.getId()
+            }
+        ));
+        this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
+    };
+
+    DomManipulator.prototype.populateCustomSelect = function(selectId, options, selectedValue, settings) {
+        if (!Array.isArray(options)) {
+            return;
+        }
+        let container = document.getElementById(selectId).parentNode;
+
+        let view = {
+            id: selectId,
+            options: applySelectedToOptions(),
+            ulClass: 'u-max-height-initial',
+            ...settings
         };
 
-        var isFirstElement = true;
-        data.forEach(function(element) {
-            view['options'].push({
-                title: element.getName(),
-                value: element.getId(),
-                selected: ((!selectedValue && isFirstElement) || element.getId() === selectedValue)
-            });
-            isFirstElement = false;
-        });
+        CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, renderNewSelect);
 
-        CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, function(template, cgmustache) {
-            container.empty().html(cgmustache.renderTemplate(template, view));
-        });
+        function applySelectedToOptions() {
+            return options.map(({title, value}, index) => ({
+                title,
+                value,
+                selected: ((!selectedValue && index === 0) || value === selectedValue)
+            }));
+        }
+
+        function renderNewSelect(template, cgmustache) {
+            container.innerHTML = cgmustache.renderTemplate(template, view);
+        }
     };
 
     DomManipulator.prototype.enable = function(selector)
@@ -215,6 +243,11 @@ define([
     DomManipulator.prototype.getTemplateSelectedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_SELECTED;
+    };
+
+    DomManipulator.prototype.getTemplateInitialisedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_INITIALISED;
     };
 
     DomManipulator.prototype.getTemplateChangedEvent = function()

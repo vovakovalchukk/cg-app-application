@@ -6,6 +6,7 @@ define([
     var Text = function()
     {
         TextAbstract.call(this);
+        this.set('displayOnAllPages', false);
         this.set('type', 'Text', true);
     };
 

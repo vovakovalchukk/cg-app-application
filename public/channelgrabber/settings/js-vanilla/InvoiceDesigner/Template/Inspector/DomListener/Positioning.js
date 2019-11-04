@@ -1,11 +1,13 @@
 define([
     'jquery',
     'InvoiceDesigner/Template/DomManipulator',
-    'element/ElementCollection'
+    'element/ElementCollection',
+    'InvoiceDesigner/Template/Element/Helpers/Element',
 ], function(
     $,
     domManipulator,
-    elementCollection
+    elementCollection,
+    ElementHelper
 ) {
 
     var Positioning = function()
@@ -77,7 +79,6 @@ define([
 
     Positioning.prototype.set = function(selector, inspector, element)
     {
-        var self = this;
         var value = this.getDomManipulator().getValue(selector);
 
         if (value.slice(-1) == '.') {
@@ -90,11 +91,20 @@ define([
             value = 0;
         }
 
+        const values = {
+            left: this.getDomManipulator().getValue('#' + inspector.getPositioningInspectorLeftId()),
+            top: this.getDomManipulator().getValue('#' + inspector.getPositioningInspectorTopId()),
+            width: this.getDomManipulator().getValue('#' + inspector.getPositioningInspectorWidthId()),
+            height: this.getDomManipulator().getValue('#' + inspector.getPositioningInspectorHeightId())
+        };
+        
         this.getDomManipulator().setValue(selector, value.roundToNearest(0.5));
-        element.setX(self.getDomManipulator().getValue('#' + inspector.getPositioningInspectorLeftId()))
-                .setY(self.getDomManipulator().getValue('#' + inspector.getPositioningInspectorTopId()))
-                .setWidth(self.getDomManipulator().getValue('#' + inspector.getPositioningInspectorWidthId()))
-                .setHeight(self.getDomManipulator().getValue('#' + inspector.getPositioningInspectorHeightId()));
+        element.setX(values.left)
+                .setY(values.top)
+                .setWidth(values.width)
+                .setHeight(values.height);
+
+        element.applyErrorBorderIfNeeded();
     };
 
     return new Positioning();
