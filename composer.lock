@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c28e0cabebef613a0aeeaf4eccf9df8",
+    "content-hash": "920cca35beaadb836f551b42cf4f3ed5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1123,21 +1123,21 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "79d0a4967704f7f1a94412038554842c9c9d170f"
+                "reference": "cb0b1f5c63ff6c38907e0c3de15712381d42fec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-2f4e2a.zip",
-                "reference": "79d0a4967704f7f1a94412038554842c9c9d170f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.0.0-67e765.zip",
+                "reference": "cb0b1f5c63ff6c38907e0c3de15712381d42fec9"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/data-exchange-history": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.1",
-                "channelgrabber/data-exchange-schedule": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.2",
+                "channelgrabber/data-exchange-history": "^1.0.2",
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
                 "channelgrabber/data-exchange-template": "^1.0.1",
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.3",
@@ -1165,23 +1165,23 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-04T09:11:14+00:00"
+            "time": "2019-11-04T11:30:32+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "2b44866f5591c7b3edf777e942a6ec1d3cf60738"
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-dev-MIG-40-data-exchange-manual-exchanges-backend-4a4c44.zip",
-                "reference": "2b44866f5591c7b3edf777e942a6ec1d3cf60738"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.2-79b9dd.zip",
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08"
             },
             "require": {
-                "channelgrabber/data-exchange-schedule": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.2",
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
                 "channelgrabber/stdlib": "^2.16.10",
                 "php": ">=7.1"
             },
@@ -1199,20 +1199,20 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-17T11:23:52+00:00"
+            "time": "2019-11-04T11:21:45+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b"
+                "reference": "ebc9726ab868bddb2b0a5d1b0cef4e90d352deb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-40-data-exchange-manual-exchanges-backend-f9abdb.zip",
-                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-1.0.3-4711c0.zip",
+                "reference": "ebc9726ab868bddb2b0a5d1b0cef4e90d352deb7"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1232,7 +1232,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-17T10:39:24+00:00"
+            "time": "2019-11-04T11:14:54+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -2390,16 +2390,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.47.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8701924e9146b4bbd10d589ea31b8aa2fcccfdf1"
+                "reference": "0c435654a5b97ee5d0244801f7bef5d891cac088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-40-data-exchange-manual-exchanges-backend-60014a.zip",
-                "reference": "8701924e9146b4bbd10d589ea31b8aa2fcccfdf1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.8-f543fd.zip",
+                "reference": "0c435654a5b97ee5d0244801f7bef5d891cac088"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2476,7 +2476,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-01T16:44:19+00:00"
+            "time": "2019-11-04T11:14:33+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11841,39 +11841,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange"
-        },
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange-history"
-        },
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange-schedule"
-        },
-        {
-            "alias": "1.47.8",
-            "alias_normalized": "1.47.8.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange": 20,
-        "channelgrabber/data-exchange-history": 20,
-        "channelgrabber/data-exchange-schedule": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
