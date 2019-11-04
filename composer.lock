@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20b733f973a1c23024f535dca54fa9e9",
+    "content-hash": "2bfad7d98dffca99506c2257a0487c0c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2394,12 +2394,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "fe143bb54ff0660fc8d928bc7d8e598082e4111c"
+                "reference": "3b7cecc21ce4301b572ff789ffe77c309bafd53c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-88f32f.zip",
-                "reference": "fe143bb54ff0660fc8d928bc7d8e598082e4111c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-539-refactor-invoice-generation-30ce15.zip",
+                "reference": "3b7cecc21ce4301b572ff789ffe77c309bafd53c"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2476,7 +2476,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-31T10:46:57+00:00"
+            "time": "2019-11-04T13:55:14+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3782,12 +3782,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "65fe8891f31372d65f31fc7472b8e7bc9408060f"
+                "reference": "a4f1d2b86cf04a78301f014b376eb1b4456e7c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-86d7ed.zip",
-                "reference": "65fe8891f31372d65f31fc7472b8e7bc9408060f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-539-refactor-invoice-generation-9acecc.zip",
+                "reference": "a4f1d2b86cf04a78301f014b376eb1b4456e7c92"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3835,7 +3835,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-31T10:44:18+00:00"
+            "time": "2019-11-04T13:59:36+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11843,14 +11843,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.47.8",
-            "alias_normalized": "1.47.8.0",
+            "alias": "1.47.9",
+            "alias_normalized": "1.47.9.0",
             "version": "dev-TAC-539-refactor-invoice-generation",
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.8.1",
-            "alias_normalized": "1.8.1.0",
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
             "version": "dev-TAC-539-refactor-invoice-generation",
             "package": "channelgrabber/template"
         }
