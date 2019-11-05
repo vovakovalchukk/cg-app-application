@@ -2,6 +2,9 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
     var Filters = function(filters, filterList)
     {
+
+
+
         this.savedFilters = {};
 
         filters = $(filters);
@@ -14,7 +17,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             return filterList;
         };
 
-        optionalFilters = {};
+        var optionalFilters = {};
         $('.custom-select[data-element-name=more] li').each(function() {
             config = $(this).data('value');
             if (config) {
