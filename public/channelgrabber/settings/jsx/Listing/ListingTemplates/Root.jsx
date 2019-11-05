@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
-import AddTemplate from 'ListingTemplates/Components/AddTemplate';
+import AddTemplate from 'Common/Components/Templates/AddTemplate';
+import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
-import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 
 const InitialFormSection = styled.section`
-  max-width: 700px
+  max-width: 600px
 `;
 
 let previewWindow = null;

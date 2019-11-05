@@ -29,7 +29,7 @@ define([
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
         $(templateSelectorId).on('change', function (event, selectBox, id) {
-            self.getModule().selectionMade(id);
+            self.getModule().paperTypeSelectionMade(id);
         });
         $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
             if ($(this).hasClass('disabled'))  {
