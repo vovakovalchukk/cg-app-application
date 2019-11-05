@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
-import FixedDataTable from 'fixed-data-table-2';
+import FixedDataTable, {Column} from 'fixed-data-table-2';
 import headerCellFactory from 'Product/Components/ProductList/Cell/Header/factory';
 
 "use strict";
-
-const {Column} = FixedDataTable;
 
 const columnSpecificPropsMap = {
     stockMode: ['rows', 'stock', 'userSettings', 'scroll', 'select'],
