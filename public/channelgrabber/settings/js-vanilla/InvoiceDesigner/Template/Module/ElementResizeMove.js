@@ -47,6 +47,8 @@ define([
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
         var element = this.getElementByDomId(elementDomId);
+
+        element.applyErrorBorderIfNeeded();
         element.setX(position.left.pxToMm());
         element.setY(position.top.pxToMm());
     };
@@ -56,6 +58,27 @@ define([
         var elementId = ElementMapperAbstract.getElementIdFromDomId(elementDomId);
         var element = this.getTemplate().getElements().getById(elementId);
         return element;
+    };
+
+
+
+    ElementResizeMove.prototype.isElementInPrintableArea = function(elementId)
+    {
+        const workableAreaIndicator = document.getElementById('workableAreaIndicator');
+        const areaRect = workableAreaIndicator.getBoundingClientRect();
+
+        let node = document.getElementById(elementId);
+        let elementRect = node.getBoundingClientRect();
+
+        let isWithinLeftBoundary = elementRect.left >= areaRect.left;
+        let isWithinRightBoundary = elementRect.right <= areaRect.right;
+        let isWithinTopBoundary = elementRect.top >= areaRect.top;
+        let isWithinBottomBoundary = elementRect.bottom <= areaRect.bottom;
+
+        return (isWithinLeftBoundary &&
+            isWithinRightBoundary &&
+            isWithinTopBoundary &&
+            isWithinBottomBoundary);
     };
 
     return new ElementResizeMove();
