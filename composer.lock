@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fe470a8d48c414fc7c6f4eb448d2d79",
+    "content-hash": "025070c47db177fee4dfe4655b2db8d4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1028,16 +1028,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db"
+                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.2-ef0f62.zip",
-                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.3-cc93e7.zip",
+                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be",
                 "shasum": null
             },
             "require": {
@@ -1072,7 +1072,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-24T15:15:08+00:00"
+            "time": "2019-11-04T15:00:49+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1140,22 +1140,22 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "7a2d7bcf22f99cf585add907bcd11e82405a1469"
+                "reference": "cb0b1f5c63ff6c38907e0c3de15712381d42fec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-40-data-exchange-manual-exchanges-backend-3571c2.zip",
-                "reference": "7a2d7bcf22f99cf585add907bcd11e82405a1469",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.0.0-67e765.zip",
+                "reference": "cb0b1f5c63ff6c38907e0c3de15712381d42fec9",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/data-exchange-history": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.1",
-                "channelgrabber/data-exchange-schedule": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.2",
+                "channelgrabber/data-exchange-history": "^1.0.2",
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
                 "channelgrabber/data-exchange-template": "^1.0.1",
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.3",
@@ -1183,24 +1183,24 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-24T14:31:50+00:00"
+            "time": "2019-11-04T11:30:32+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "2b44866f5591c7b3edf777e942a6ec1d3cf60738"
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-dev-MIG-40-data-exchange-manual-exchanges-backend-4a4c44.zip",
-                "reference": "2b44866f5591c7b3edf777e942a6ec1d3cf60738",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.2-79b9dd.zip",
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/data-exchange-schedule": "dev-MIG-40-data-exchange-manual-exchanges-backend as 1.0.2",
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
                 "channelgrabber/stdlib": "^2.16.10",
                 "php": ">=7.1"
             },
@@ -1218,20 +1218,20 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-17T11:23:52+00:00"
+            "time": "2019-11-04T11:21:45+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b"
+                "reference": "ebc9726ab868bddb2b0a5d1b0cef4e90d352deb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-40-data-exchange-manual-exchanges-backend-f9abdb.zip",
-                "reference": "b096dcf0b8f589ff8fadd8e6bf2d95636c70785b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-1.0.3-4711c0.zip",
+                "reference": "ebc9726ab868bddb2b0a5d1b0cef4e90d352deb7",
                 "shasum": null
             },
             "require": {
@@ -1252,7 +1252,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-17T10:39:24+00:00"
+            "time": "2019-11-04T11:14:54+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -1732,16 +1732,16 @@
         },
         {
             "name": "channelgrabber/file-storage",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "4b4db6e05d28f021b4888ef35c4afe78bcb0c649"
+                "reference": "bace6fd039d427e03f38a6d40cbc0a7a5de40cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-dev-MIG-39-data-exchange-process-scheduled-exchanges-1c807e.zip",
-                "reference": "4b4db6e05d28f021b4888ef35c4afe78bcb0c649",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-1.1.3-0b34f0.zip",
+                "reference": "bace6fd039d427e03f38a6d40cbc0a7a5de40cf3",
                 "shasum": null
             },
             "require": {
@@ -1764,7 +1764,7 @@
                 }
             ],
             "description": "Handles the interaction with file storages",
-            "time": "2019-10-24T08:44:35+00:00"
+            "time": "2019-10-24T08:44:40+00:00"
         },
         {
             "name": "channelgrabber/ftp-account",
@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.19.4",
+            "version": "1.19.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab"
+                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.4-e08244.zip",
-                "reference": "223e919b2076dd5875190b9f7bd20df48ea765ab",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.6-919d4c.zip",
+                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410",
                 "shasum": null
             },
             "require": {
@@ -2084,11 +2084,6 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-LIS-238-allow-amazon-create-variation-listings": "1.16.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -2099,7 +2094,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-09-02T11:53:52+00:00"
+            "time": "2019-10-31T11:29:17+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2444,16 +2439,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.6",
+            "version": "1.47.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "876f48d31a4d1ef937f602f86bcbec09260c33f1"
+                "reference": "c1115c56d917a86f24d85ee8ed3e921ef73fb0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.6-ce5e72.zip",
-                "reference": "876f48d31a4d1ef937f602f86bcbec09260c33f1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.9-10cbea.zip",
+                "reference": "c1115c56d917a86f24d85ee8ed3e921ef73fb0e6",
                 "shasum": null
             },
             "require": {
@@ -2491,7 +2486,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.27",
+                "channelgrabber/template": "^1.8.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2502,6 +2497,7 @@
                 "league/csv": "~8.2.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -2512,7 +2508,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.47.x-dev"
                 }
             },
             "autoload": {
@@ -2530,7 +2526,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-24T08:45:32+00:00"
+            "time": "2019-11-04T15:54:36+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2788,23 +2784,23 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061"
+                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.1-e98dbd.zip",
-                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.0-079bf1.zip",
+                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.6.9",
+                "channelgrabber/template": "^1.7.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2828,7 +2824,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-03T11:12:34+00:00"
+            "time": "2019-10-30T12:25:07+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2914,16 +2910,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
+            "version": "1.18.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "3aacb090d8c2b406346f6938bf18cb9ba36d39b1"
+                "reference": "1e95ac8a1d48c88a1606606bcf2c2007ead500fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-39-data-exchange-process-scheduled-exchanges-3d0729.zip",
-                "reference": "3aacb090d8c2b406346f6938bf18cb9ba36d39b1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.2-a84ceb.zip",
+                "reference": "1e95ac8a1d48c88a1606606bcf2c2007ead500fa",
                 "shasum": null
             },
             "require": {
@@ -2978,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-24T08:45:48+00:00"
+            "time": "2019-10-24T08:45:57+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3692,16 +3688,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
+            "version": "1.17.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "6f2bd5d4b051f13d1a7f95ad4bae03280dbfbb19"
+                "reference": "bec8639d21fd3025c0c786b92ae15331fdec4ac0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-MIG-39-data-exchange-process-scheduled-exchanges-8111ba.zip",
-                "reference": "6f2bd5d4b051f13d1a7f95ad4bae03280dbfbb19",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.6-2400e2.zip",
+                "reference": "bec8639d21fd3025c0c786b92ae15331fdec4ac0",
                 "shasum": null
             },
             "require": {
@@ -3748,7 +3744,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-10-24T08:44:52+00:00"
+            "time": "2019-10-24T08:44:58+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3864,39 +3860,41 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.15",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496"
+                "reference": "d5c14c098983d9edc2c92d49359ba7c9e2eeebc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.15-eeb740.zip",
-                "reference": "aa2e8eea63b145e203a9050ddcbf7ff6ae65f496",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.2-173a88.zip",
+                "reference": "d5c14c098983d9edc2c92d49359ba7c9e2eeebc0",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": ">=1.6.0,<2.0.0",
+                "channelgrabber/channel": "^1.6.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.46.9",
+                "channelgrabber/order": "^1.47.7",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
-                "channelgrabber/user": "^1.26.0",
+                "channelgrabber/user": "^1.26.8",
                 "ext-gd": "*",
                 "ext-imagick": "*",
                 "guzzle/guzzle": "~3.7",
+                "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "picqer/php-barcode-generator": "~0.2.1",
-                "zendframework/zend-di": ">=2.2.5,<3.0",
-                "zendframework/zend-i18n": ">=2.2.5,<3.0",
-                "zendframework/zend-view": ">=2.2.6,<3.0",
+                "zendframework/zend-di": "^2.2.5",
+                "zendframework/zend-i18n": "^2.2.5",
+                "zendframework/zend-view": "^2.2.6",
                 "zendframework/zendpdf": "2.0.2.2"
             },
             "require-dev": {
@@ -3906,7 +3904,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.7.1-dev"
                 }
             },
             "autoload": {
@@ -3920,7 +3918,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-21T12:55:28+00:00"
+            "time": "2019-11-04T15:47:47+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4403,16 +4401,16 @@
         },
         {
             "name": "channelgrabber/zf2-access",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/access-module.git",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203"
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.0-6ec7a2.zip",
-                "reference": "0270ad9d10e7150e4c54b27177b9c70c31b22203",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.1-005a59.zip",
+                "reference": "7d59ded5d870452d049b47bad6c4662a12a1f435",
                 "shasum": null
             },
             "require": {
@@ -4450,7 +4448,7 @@
                     "CG_Access\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-05T12:53:36+00:00"
+            "time": "2019-10-31T15:18:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -5448,16 +5446,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.25",
+            "version": "dev-MIG-41-frontend-for-manual-imports-exports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "67787c667ff40c0d6b867c2fc01570e804899776"
+                "reference": "8136e877d2617fa35bbe6499d817bca45cea2733"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.25-4e293d.zip",
-                "reference": "67787c667ff40c0d6b867c2fc01570e804899776",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-41-frontend-for-manual-imports-exports-9b8f05.zip",
+                "reference": "8136e877d2617fa35bbe6499d817bca45cea2733",
                 "shasum": null
             },
             "require": {
@@ -5509,7 +5507,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-10-30T11:40:50+00:00"
+            "time": "2019-11-05T08:11:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11968,51 +11966,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange"
-        },
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange-history"
-        },
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-MIG-40-data-exchange-manual-exchanges-backend",
-            "package": "channelgrabber/data-exchange-schedule"
-        },
-        {
-            "alias": "1.1.3",
-            "alias_normalized": "1.1.3.0",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
-            "package": "channelgrabber/file-storage"
-        },
-        {
-            "alias": "1.18.2",
-            "alias_normalized": "1.18.2.0",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
-            "version": "dev-MIG-39-data-exchange-process-scheduled-exchanges",
-            "package": "channelgrabber/stock"
+            "alias": "1.26.25",
+            "alias_normalized": "1.26.25.0",
+            "version": "dev-MIG-41-frontend-for-manual-imports-exports",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange": 20,
-        "channelgrabber/data-exchange-history": 20,
-        "channelgrabber/data-exchange-schedule": 20,
-        "channelgrabber/file-storage": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/stock": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

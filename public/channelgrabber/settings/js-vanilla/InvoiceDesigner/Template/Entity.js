@@ -2,7 +2,6 @@ define([
     'InvoiceDesigner/Template/Element/Collection',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/Template/Entity'
 ], function(
     Collection,
     domManipulator,
@@ -12,11 +11,13 @@ define([
     {
         EntityHydrateAbstract.call(this);
 
-        var elements = new Collection();
-        var manipulator = domManipulator;
-        var state;
-        var stateId;
-        var paperPage;
+        let elements = new Collection();
+        let manipulator = domManipulator;
+        let state;
+        let stateId;
+        let paperPage;
+        let printPage;
+        let multiPage;
 
         // Member vars to watch for changes
         var data = {
@@ -27,6 +28,10 @@ define([
             typeId: undefined,
             organisationUnitId: undefined,
             editable: true
+        };
+
+        this.getEntityName = function() {
+            return 'Template';
         };
 
         this.getElements = function()
@@ -48,6 +53,30 @@ define([
         {
             paperPage = newPaperPage;
             paperPage.subscribe(this);
+            return this;
+        };
+
+        this.getPrintPage = function()
+        {
+            return printPage;
+        };
+
+        this.setPrintPage = function(newPrintPage)
+        {
+            printPage = newPrintPage;
+            printPage.subscribe(this);
+            return this;
+        };
+
+        this.getMultiPage = function()
+        {
+            return multiPage;
+        };
+
+        this.setMultiPage = function(newMultiPage)
+        {
+            multiPage = newMultiPage;
+            multiPage.subscribe(this);
             return this;
         };
 
@@ -171,9 +200,9 @@ define([
             return manipulator;
         };
 
-        this.notifyOfChange = function()
+        this.notifyOfChange = function(topicUpdates, bypassSaveDiscardBar)
         {
-            this.getDomManipulator().triggerTemplateChangeEvent(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this, topicUpdates, bypassSaveDiscardBar);
         };
     };
 
@@ -202,14 +231,15 @@ define([
     {
         this.getElements().detach(element);
         element.unsubscribe(this);
+
         this.getDomManipulator().triggerElementDeletedEvent(element);
         this.notifyOfChange();
         return this;
     };
 
-    Entity.prototype.publisherUpdate = function(element)
+    Entity.prototype.publisherUpdate = function(element, topicUpdates, bypassSaveDiscardBar)
     {
-        this.notifyOfChange();
+        this.notifyOfChange(topicUpdates, bypassSaveDiscardBar);
     };
 
     return Entity;
