@@ -2,9 +2,6 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
     var Filters = function(filters, filterList)
     {
-
-
-
         this.savedFilters = {};
 
         filters = $(filters);

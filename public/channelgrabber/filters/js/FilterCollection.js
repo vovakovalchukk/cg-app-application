@@ -35,7 +35,5 @@ define([], function() {
         this.setStorage(filters);
     };
 
-    console.log('hello');
-    console.trace();
     return new FilterCollection();
 });
