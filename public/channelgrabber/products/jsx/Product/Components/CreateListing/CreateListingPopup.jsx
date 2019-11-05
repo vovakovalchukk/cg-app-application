@@ -12,7 +12,7 @@ import ProductIdentifiers from './Components/CreateListing/ProductIdentifiers';
 import Dimensions from './Components/CreateListing/Dimensions';
 import ProductPrice from './Components/CreateListing/ProductPrice';
 import SubmissionTable from './Components/CreateListing/SubmissionTable';
-import CharacterCounter from './CharacterCounter';
+import CharacterCounter from './Components/CharacterCounter';
 import Validators from './Validators';
 import ProductSearch from './ProductSearch/Component';
 import SectionedContainer from 'Common/Components/SectionedContainer';
