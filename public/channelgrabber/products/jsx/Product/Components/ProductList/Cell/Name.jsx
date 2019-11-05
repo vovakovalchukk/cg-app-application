@@ -13,6 +13,7 @@ const TextAreaContainer = styled.div`
   align-items: center;
   padding-left: ${layoutSettings.columnPadding};
   padding-right: ${layoutSettings.columnPadding};
+  box-sizing: border-box;
 `;
 const TextArea = styled.textarea`
     background:none;
