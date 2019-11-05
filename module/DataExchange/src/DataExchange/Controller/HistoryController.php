@@ -88,15 +88,14 @@ class HistoryController extends AbstractActionController implements LoggerAwareI
     {
         $historyId = (int) $this->params()->fromPost('historyId', 0);
         try {
-            $this->historyService->stopSchedule($historyId);
-            return $this->jsonModelFactory->newInstance([
-                'success' => true
-            ]);
+            $success = $this->historyService->stopSchedule($historyId);
         } catch (\Throwable $e) {
             $this->logError($e);
-            return $this->jsonModelFactory->newInstance([
-                'success' => false
-            ]);
+            $success = false;
         }
+
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success
+        ]);
     }
 }

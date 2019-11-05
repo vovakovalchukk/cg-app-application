@@ -7,6 +7,8 @@ use CG\DataExchangeHistory\Entity as History;
 use CG\DataExchangeHistory\Filter as HistoryFilter;
 use CG\DataExchangeHistory\Service as HistoryService;
 use CG\DataExchangeSchedule\Gearman\StopProcessingScheduleService;
+use CG\ETag\Exception\Conflict;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\DateTime as CgDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -26,6 +28,8 @@ class Service implements LoggerAwareInterface
     private const DEFAULT_SORT_BY_DIRECTION = 'DESC';
     private const END_DATE_ENDED_BY_USER = 'Ended by User';
     private const END_DATE_IN_PROGRESS = 'In Progress';
+
+    private const MAX_SAVE_RETRIES = 3;
 
     private const LOG_CODE = 'DataExchangeHistoryService';
     private const LOG_MESSAGE_USER_NOT_FOUND =  'User with ID %s not found, even thought it\'s set on the History entity';
@@ -86,11 +90,12 @@ class Service implements LoggerAwareInterface
         return [$fileName, $fileContents];
     }
 
-    public function stopSchedule(int $historyId): void
+    public function stopSchedule(int $historyId): bool
     {
         /** @var History $history */
         $history = $this->historyService->fetch($historyId);
         $this->stopProcessingScheduleService->stopProcessingSchedule($history->getJobId());
+        return $this->removeJobIdFromHistory($history);
     }
 
     protected function buildFilter(int $limit, int $page, int $ouId): HistoryFilter
@@ -194,5 +199,22 @@ class Service implements LoggerAwareInterface
     protected function buildFileName(string $type, int $historyId): string
     {
         return $type . '_' . $historyId;
+    }
+
+    protected function removeJobIdFromHistory(History $history): bool
+    {
+        for ($retry = 0; $retry < static::MAX_SAVE_RETRIES; $retry++) {
+            try {
+                $history->setJobId(null);
+                $this->historyService->save($history);
+                return true;
+            } catch (NotModified $e) {
+                return true;
+            } catch (Conflict $exception) {
+                $history = $this->historyService->fetch($history->getId());
+            }
+        }
+
+        return false;
     }
 }
