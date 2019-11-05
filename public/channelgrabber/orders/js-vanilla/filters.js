@@ -17,7 +17,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             return filterList;
         };
 
-        var optionalFilters = {};
+        optionalFilters = {};
         $('.custom-select[data-element-name=more] li').each(function() {
             config = $(this).data('value');
             if (config) {
