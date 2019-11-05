@@ -1,108 +1,122 @@
 import React, {useState} from 'react';
-import Table from "../Schedule/Table";
-import Service from "./Components/Service";
-//import fileDownloadService from "Common/"
-import fileDownload from 'Common/Utils/xhr/fileDownload';
 import Select from 'Common/Components/Select';
-console.log('fileDownload: ', fileDownload);
 
 const App = (props) => {
     const {templateOptions, actionOptions} = props;
     const templateState = useSelectState({});
     const actionState = useSelectState({});
 
-    const upload = () => {
-        console.log(' in upload');
-        const data = {
-            templateId: templateState.selected.value,
-            action: actionState.selected.value,
-        };
+    const formattedTemplateOptions = formatOptionsFromMap(templateOptions);
+    const formattedActionOptions = formatOptionsFromMap(actionOptions);
 
-        fileDownload.downloadBlob()
+    const onSubmit = (e) => {
+        console.log('in on submit');
+        const url = "/dataExchange/stock/import/upload";
+        const request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.onload = function() { // request successful
+            console.log('got responseText', request);
+            console.log(request.responseText);
+        };
+        request.onreadystatechange = function() {//Call a function when the state changes.
+            console.log('request.readyState: ', request.readyState);
+        };
+        request.onerror = function() {
+            // request failed
+            console.log('failed requwst');
+        };
+        const formData = new FormData(e.target);
+        formData.append('templateId', templateState.selectedOption.value);
+        formData.append('action', actionState.selectedOption.value);
+
+        //todo - remove this debug
+        for(var pair of formData.entries()) {
+            console.log('----------pair-----------');
+            console.log('key: ', pair[0]);
+            console.log('value: ', pair[1]);
+        }
+
+        request.send(formData);
+        event.preventDefault();
     };
-
-    const formattedTemplateOptions = Object.keys(templateOptions).map((key) => {
-        let templateValue = templateOptions[key];
-        return {
-            title: templateValue,
-            name: templateValue
-        };
-    });
-
-    const formattedActionOptions = Object.keys(actionOptions).map((value) => {
-        let optionName = actionOptions[value];
-        return {
-            name: optionName,
-            value
-        };
-    });
-
-    return (<div>
-        <form action="" method="post">
-            <fieldset>
-                <div>
-                    <input
-                        type="file"
-                        id="docpicker"
-                        accept=".text,.csv, .txt"
-                        onChange={e => {
-                            console.log('on inpuit chage', e)
-                        }}
-                    />
-                </div>
-
-
+    
+    const onFileUpload =   e => {
+        const files = Array.from(e.target.files)
+        console.log('files: ', files);
+        
+        
+    };
+    
+    return (
+        <div style={{width:'500px'}}>
+            <form id={"stock-import-form"} onSubmit={onSubmit}>
+                <input type="text" name="dummy" />
+                <input
+                    type="file"
+                    name="uploadFile"
+                    id="uploadFile"
+                    accept=".text,.csv, .txt"
+                    onChange={onFileUpload}
+                />
                 <div className="u-flex-v-center">
-                    <label for="template" className="u-flex-1">Template</label>
+                    <label htmlFor="template" className="u-flex-1">Template</label>
+                    {/*<Select*/}
+                        {/*id={"template"}*/}
+                        {/*options={formattedTemplateOptions}*/}
+                        {/*filterable={formattedTemplateOptions.length > 20}*/}
+                        {/*{...templateState}*/}
+                    {/*/>*/}
                     <Select
                         id={"template"}
+                        name={"template"}
                         options={formattedTemplateOptions}
-                        filterable={formattedTemplateOptions.length > 20}
-                        {...templateState}
+                        filterable={true}
+                        autoSelectFirst={false}
+                        selectedOption={templateState.selectedOption}
+                        onOptionChange={templateState.onOptionChange}
+                        classNames={'u-inline-block'}
                     />
                 </div>
-
                 <div className="u-flex-v-center">
-                    <label for="action" className="u-flex-1">Import Action</label>
+                    <label htmlFor="action" className="u-flex-1">Import Action</label>
                     <Select
                         id={"action"}
+                        name={"action"}
                         options={formattedActionOptions}
-                        filterable={formattedActionOptions.length > 20}
-                        onChange={(e) => {
-                            console.log('in select onchange');
-                        }}
-                        {...actionState}
+                        filterable={true}
+                        autoSelectFirst={false}
+                        selectedOption={actionState.selectedOption}
+                        onOptionChange={actionState.onOptionChange}
+                        classNames={'u-inline-block'}
                     />
                 </div>
-
-                <input className={"button"} type="submit" value="Save"/>
-            </fieldset>
-        </form>
-
-        <Table
-            {...props}
-            buildEmptySchedule={Service.buildEmptySchedule}
-            columns={Service.getColumns()}
-            formatPostDataForSave={Service.formatPostDataForSave}
-            validators={Service.validators()}
-        />
-    </div>)
+                <button type="submit" >Search</button>
+            </form>
+        </div>
+    );
 };
 
 function useSelectState(initialValue){
-    const [selected, setSelected] = useState(initialValue);
-
-    const onChange = (e) => {
-        const newValue = e.target.value;
-        setSelected(newValue);
+    const [selectedOption, setSelectedOption] = useState(initialValue);
+    const onOptionChange = (newValue) => {
+        console.log('newValue to set: ', newValue);
+        setSelectedOption(newValue);
     };
-
     return {
-        onChange,
-        selected
+        onOptionChange,
+        selectedOption
     }
 }
 
+function formatOptionsFromMap(map) {
+    return Object.keys(map).map((key) => {
+        return {
+            title: map[key],
+            name: map[key],
+            value: key
+        };
+    });
+}
 
 export default App;
 
