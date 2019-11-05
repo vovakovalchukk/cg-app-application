@@ -4,9 +4,9 @@ import {connect} from 'react-redux';
 import styled from "styled-components";
 import Actions from "../Actions/Actions";
 import TypeColumn from "./Column/Type";
-import InputColumn from "./Column/Input";
 import FtpTestColumn from "./Column/FtpTest";
 import ActionsColumn from "./Column/Actions";
+import InputColumn from "./Column/Input";
 
 const Container = styled.div`
     margin-top: 45px;
