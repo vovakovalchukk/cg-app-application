@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "797eeeaa50013baa1a3315a67f3b0da3",
+    "content-hash": "6e99cacfd5f38e6f71bcc07e5dc64807",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3778,16 +3778,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11027-fix-issue-where-column-widths-and-background-colours-are-not-saved",
+            "version": "1.8.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8153cf822907617f12b1035bf1c15b8d6de9290f"
+                "reference": "cd849e345d3e65ad35f71a6459440e3ba5bb2d57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11027-fix-issue-where-column-widths-and-background-colours-are-not-saved-3fc33d.zip",
-                "reference": "8153cf822907617f12b1035bf1c15b8d6de9290f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.3-0ff425.zip",
+                "reference": "cd849e345d3e65ad35f71a6459440e3ba5bb2d57"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3835,7 +3835,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-04T16:21:30+00:00"
+            "time": "2019-11-05T09:38:15+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11841,18 +11841,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.3",
-            "alias_normalized": "1.8.3.0",
-            "version": "dev-CGIV-11027-fix-issue-where-column-widths-and-background-colours-are-not-saved",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
