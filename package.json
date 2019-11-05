@@ -28,6 +28,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "@svgr/webpack": "^4.3.0",
     "babel-plugin-styled-components": "^1.5.1",
     "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-532-expand-the-channel-shipping-method-field-in-shipping-aliases",
     "chart.js": "^2.7.0",

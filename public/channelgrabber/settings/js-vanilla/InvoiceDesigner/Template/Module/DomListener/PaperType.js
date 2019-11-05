@@ -1,36 +1,45 @@
 define([
     'module',
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'element/customSelect'
+    'element/customSelect',
+    'InvoiceDesigner/Constants'
 ], function(
     requireModule,
     DomListenerAbstract,
-    CustomSelect
+    CustomSelect,
+    Constants
 ) {
-
-    var PaperType = function()
+    let PaperType = function()
     {
         DomListenerAbstract.call(this);
     };
 
     PaperType.CONTAINER_ID = 'paperTypeModule';
-    PaperType.CHECKBOX_ID = 'inverseLabelPosition';
+    PaperType.HEIGHT_ID = 'paperHeight';
+    PaperType.WIDTH_ID = 'paperWidth';
 
     PaperType.prototype = Object.create(DomListenerAbstract.prototype);
 
     PaperType.prototype.init = function(module)
     {
-        var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) {
-            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().selectionMade(id, isInverse);
+
+        $(document).on('change', `#${Constants.PAPER_TYPE_DROPDOWN_ID}`, (event, selectBox, id) => {
+            this.getModule().paperTypeSelectionMade(id);
         });
 
-        $("#" + PaperType.CHECKBOX_ID).click(function() {
-            var selectedId = $("#" + PaperType.CONTAINER_ID + " input[type=hidden]").val();
-            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().selectionMade(selectedId, isInverse);
+        $(document).on('change', `#${Constants.MEASUREMENT_UNIT_DROPDOWN_ID}`, (event, selectBox, id) => {
+            this.getModule().changeMeasurementUnit(id);
+        });
+
+        $(document).on('change', `#${PaperType.HEIGHT_ID}`, (event) => {
+            let desiredValue = event.target.value;
+            this.getModule().changePaperDimension("height", desiredValue);
+        });
+
+        $(document).on('change', `#${PaperType.WIDTH_ID}`, (event) => {
+            let desiredValue = event.target.value;
+            this.getModule().changePaperDimension("width", desiredValue);
         });
     };
 

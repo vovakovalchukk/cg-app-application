@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/Template/Service',
-    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityHydrateAbstract'
 ], function(
     templateService,
     EntityHydrateAbstract
@@ -15,13 +15,15 @@ define([
             name: undefined,
             height: undefined,
             width: undefined,
-            backgroundImage: undefined,
-            backgroundImageInverse: undefined
         };
 
         this.getService = function()
         {
             return service;
+        };
+
+        this.getEntityName = function() {
+            return 'PaperType';
         };
 
         this.getId = function()
@@ -66,28 +68,6 @@ define([
         this.getWidth = function()
         {
             return this.get('width');
-        }
-
-        this.getBackgroundImage = function()
-        {
-            return this.get('backgroundImage');
-        };
-
-        this.setBackgroundImage = function(newBackgroundImage)
-        {
-            this.set('backgroundImage', newBackgroundImage);
-            return this;
-        };
-
-        this.getBackgroundImageInverse = function()
-        {
-            return this.get('backgroundImageInverse');
-        }
-
-        this.setBackgroundImageInverse = function(newBackgroundImageInverse)
-        {
-            this.set('backgroundImageInverse', newBackgroundImageInverse);
-            return this;
         }
 
         this.get = function(field)
