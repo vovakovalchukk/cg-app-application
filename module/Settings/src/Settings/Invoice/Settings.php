@@ -11,8 +11,6 @@ use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
 use CG\Template\Filter as TemplateFilter;
@@ -24,10 +22,8 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
 
-class Settings implements LoggerAwareInterface
+class Settings
 {
-    use LogTrait;
-
     const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
     const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
     const SITE_DEFAULT = 'UK';
@@ -378,8 +374,6 @@ class Settings implements LoggerAwareInterface
 
     public function fetchTemplates(array $types = null): TemplateCollection
     {
-        $this->logDebug(__METHOD__, [], 'MYTEST');
-
         try {
             $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
             $filter = (new TemplateFilter())
@@ -397,10 +391,6 @@ class Settings implements LoggerAwareInterface
             }
 
             $defaults = $this->templateService->getDefaultTemplates($organisationUnitId);
-
-            $this->logDebugDump($defaults, 'DEFAULT TEMPLATES', [], 'MYTEST');
-
-
             $templates->addAll($defaults);
             return $templates;
         } catch (NotFound $e) {
@@ -414,8 +404,6 @@ class Settings implements LoggerAwareInterface
         $systemTemplates[] = $this->getBlankTemplate();
 
         $templates = $this->fetchTemplates();
-
-        $this->logDebugDump($templates, 'TEMPLATES', [], 'MYTEST');
 
         foreach ($templates as $template) {
             $templateViewDataElement = $this->getTemplateViewData($template);
