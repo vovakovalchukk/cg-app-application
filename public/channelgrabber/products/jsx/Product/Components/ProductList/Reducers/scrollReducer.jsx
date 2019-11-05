@@ -2,7 +2,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
-var initialState = {
+const initialState = {
     userScrolling : false,
     currentRowScrollIndex: null,
     currentColumnScrollIndex: null
@@ -10,28 +10,35 @@ var initialState = {
 
 var scrollReducer = reducerCreator(initialState, {
     "SET_USER_SCROLLING": function(state) {
-        let newState = Object.assign({}, state, {
+        return {
+            ...state,
             userScrolling: true
-        });
-        return newState;
+        }
     },
     "UNSET_USER_SCROLLING": function(state) {
-        let newState = Object.assign({}, state, {
+        return {
+            ...state,
             userScrolling: false
-        });
-        return newState;
+        }
     },
     "VERTICAL_SCROLLBAR_SET_TO_0": function(state) {
-        let newState = Object.assign({}, state, {
+        return {
+            ...state,
             currentRowScrollIndex: 0
-        });
-        return newState;
+        }
     },
     "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
-        let newState = Object.assign({}, state, {
+        return {
+            ...state,
             currentColumnScrollIndex: null
-        });
-        return newState;
+        }
+    },
+    "HORIZONTAL_SCROLLBAR_INDEX_UPDATE": function(state, action) {
+        let {index} = action.payload;
+        return {
+            ...state,
+            currentColumnScrollIndex: index
+        };
     }
 });
 
