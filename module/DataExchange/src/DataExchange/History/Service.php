@@ -85,12 +85,11 @@ class Service implements LoggerAwareInterface
         return [$fileName, $fileContents];
     }
 
-    public function stopSchedule(int $historyId): array
+    public function stopSchedule(int $historyId): void
     {
         /** @var History $history */
         $history = $this->historyService->fetch($historyId);
         $this->stopProcessingScheduleService->stopProcessingSchedule($history->getJobId());
-        return $this->formatHistoryAsArray($history);
     }
 
     protected function buildFilter(int $limit, int $page, int $ouId): HistoryFilter
