@@ -60,7 +60,8 @@ class Service implements LoggerAwareInterface
         return [
             FileStorage::TYPE_FILE,
             FileStorage::TYPE_REPORT_FAILED,
-            FileStorage::TYPE_REPORT_SUCCEEDED
+            FileStorage::TYPE_REPORT_SUCCEEDED,
+            FileStorage::TYPE_REPORT_UNPROCESSED
         ];
     }
 
@@ -174,7 +175,7 @@ class Service implements LoggerAwareInterface
     protected function buildFilesArray(History $history): array
     {
         return [
-            'unprocessedLink' => null,
+            'unprocessedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
             'successfulLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
             'failedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_FAILED),
             'fileLink' => $this->getFileLinkForType($history, FileStorage::TYPE_FILE)
