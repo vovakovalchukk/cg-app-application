@@ -12,6 +12,7 @@
             margin-right: 5%;
             margin-bottom: 20px;
             .invoice-template-thumb {
+                position: relative;
                 border: 1px solid $color-lgrey;
                 width: 167px;
                 height: 236px;
@@ -28,15 +29,53 @@
                 max-height: 40px;
                 overflow-y: auto;
             }
-            .invoice-template-actions {
-                margin-top: 7px;
-                padding-left: 7px;
-                .invoice-template-action-link {
-                    text-decoration: underline;
-                    margin-bottom: 5px;
-                    cursor: pointer;
-                }
-            }
         }
     }
+}
+
+.template-action-icon-extend{
+    height: 23px;
+    width: 23px;
+    fill: darkgrey;
+    cursor:pointer;
+    &:hover{
+        fill: #66737b;
+    }
+}
+
+.template-overview-actions-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 5px;
+}
+
+.template-overview-favourite-icon {
+    @extend .template-action-icon-extend;
+
+    &.-active-favourite{
+        fill: #ffb820;
+    }
+}
+
+.template-overview-edit-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-duplicate-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-create-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-delete-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-buy-icon {
+    @extend .template-action-icon-extend;
 }

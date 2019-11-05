@@ -60,8 +60,20 @@ define([
             .replace(/<em>/gi, '%%i%%')
             .replace(/<\/em>|<\/strong>/gi, '%%n%%')
             .replace(/%%n%%%%n%%/gi, '%%n%%');
+        text = this.handleAlignment(text, element);
         inspector.setText(element, text);
         return this;
+    };
+
+    Text.prototype.handleAlignment = function(text, element)
+    {
+        let match = text.match(/<div style="text-align: ?([a-z]+);?">/i);
+        if (!match) {
+            return text;
+        }
+        element.setAlign(match[1]);
+        text = text.replace(/<div style="text-align: ?[a-z]+;?">([\S\s]*?)<\/div>/i, '$1');
+        return text;
     };
 
     return new Text();
