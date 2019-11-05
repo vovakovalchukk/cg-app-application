@@ -2,7 +2,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
-var initialState = {
+const initialState = {
     userScrolling : false,
     currentRowScrollIndex: null,
     currentColumnScrollIndex: null
