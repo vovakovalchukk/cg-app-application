@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e99cacfd5f38e6f71bcc07e5dc64807",
+    "content-hash": "162811276f4c93ceb5d4840fa44c3f5f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -3778,16 +3778,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.3",
+            "version": "dev-TAC-522-OrderLabelPreRender2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cd849e345d3e65ad35f71a6459440e3ba5bb2d57"
+                "reference": "1688b8dd2649e9ae61c56a488bb18e41e59c8c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.3-0ff425.zip",
-                "reference": "cd849e345d3e65ad35f71a6459440e3ba5bb2d57"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-522-OrderLabelPreRender2-fda97e.zip",
+                "reference": "1688b8dd2649e9ae61c56a488bb18e41e59c8c2b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3827,7 +3827,10 @@
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
-                }
+                },
+                "files": [
+                    "src/Renderer/Pdf/Utilities.php"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
@@ -3835,7 +3838,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-05T09:38:15+00:00"
+            "time": "2019-11-05T12:22:23+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11841,10 +11844,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.8.4",
+            "alias_normalized": "1.8.4.0",
+            "version": "dev-TAC-522-OrderLabelPreRender2",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
