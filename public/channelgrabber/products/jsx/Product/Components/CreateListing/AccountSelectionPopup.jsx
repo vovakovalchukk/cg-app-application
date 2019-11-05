@@ -71,25 +71,12 @@ class AccountSelectionPopup extends React.Component {
             contentJsx={
                 <span>
                     <p>Create multiple listings in one go from one simple interface. </p>
-                    <p>Generate more sales with more listings. </p>
+                    <p>Start producing beautiful, optimised listings today and generate more sales. </p>
+                    <p>Speak to our ecommerce specialists on {this.props.salesPhoneNumber} opt 1, to add this module to your subscription. </p>
                 </span>
             }
-            buttonText={'Add Listings To My Subscription'}
-            buttonOnClick={() => {
-                window.location = 'https://' + this.props.managePackageUrl;
-            }}
-            footerJsx={
-                <span>
-                    Not sure? Contact our ecommerce specialists on {this.props.salesPhoneNumber} to discuss or&nbsp;
-                    <a href={this.props.demoLink}
-                       alt="calendar-diary"
-                       target="_blank"
-                    >
-                        Click Here
-                    </a>
-                    &nbsp;to book a demo.
-                </span>
-            }
+            buttonText={'Close'}
+            buttonOnClick={this.props.onCreateListingClose}
         />
     };
 
