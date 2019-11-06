@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import Select from 'Common/Components/Select';
 
+const importUrl = "/dataExchange/stock/import/upload";
+
 const App = (props) => {
     const {templateOptions, actionOptions} = props;
     const templateState = useSelectState({});
@@ -8,64 +10,57 @@ const App = (props) => {
 
     const formattedTemplateOptions = formatOptionsFromMap(templateOptions);
     const formattedActionOptions = formatOptionsFromMap(actionOptions);
+    const [csv, setCsv] = useState();
 
-    const onSubmit = (e) => {
-        console.log('in on submit');
-        const url = "/dataExchange/stock/import/upload";
+    const onSubmit = () => {
         const request = new XMLHttpRequest();
-        request.open('POST', url, true);
-        request.onload = function() { // request successful
-            console.log('got responseText', request);
-            console.log(request.responseText);
-        };
-        request.onreadystatechange = function() {//Call a function when the state changes.
-            console.log('request.readyState: ', request.readyState);
+        request.open('POST', importUrl, true);
+
+        request.onload = function() {
+            if (request.status.toString()[0] !== "2") {
+                showErrorNoticeForSubmit();
+                return;
+            }
+            n.success('You have successfully imported your stock.')
         };
         request.onerror = function() {
-            // request failed
-            console.log('failed requwst');
+            showErrorNoticeForSubmit();
         };
-        const formData = new FormData(e.target);
-        formData.append('templateId', templateState.selectedOption.value);
-        formData.append('action', actionState.selectedOption.value);
 
-        //todo - remove this debug
-        for(var pair of formData.entries()) {
-            console.log('----------pair-----------');
-            console.log('key: ', pair[0]);
-            console.log('value: ', pair[1]);
-        }
+        const formData = {
+            templateId: templateState.selectedOption.value,
+            action: actionState.selectedOption.value,
+            uploadFile: csv
+        };
 
         request.send(formData);
         event.preventDefault();
     };
     
-    const onFileUpload =   e => {
-        const files = Array.from(e.target.files)
-        console.log('files: ', files);
-        
-        
+    const onFileUpload = (e) => {
+        const files = Array.from(e.target.files);
+        const reader = new FileReader();
+
+        reader.readAsBinaryString(files[0]);
+        reader.addEventListener('load', function (e) {
+            setCsv(e.target.result);
+        });
     };
     
     return (
-        <div style={{width:'500px'}}>
+        <div class="u-margin-top-xxlarge" style={{width:'500px'}}>
             <form id={"stock-import-form"} onSubmit={onSubmit}>
-                <input type="text" name="dummy" />
-                <input
-                    type="file"
-                    name="uploadFile"
-                    id="uploadFile"
-                    accept=".text,.csv, .txt"
-                    onChange={onFileUpload}
-                />
+                <div className="u-flex-v-center">
+                    <input
+                        type="file"
+                        name="uploadFile"
+                        id="uploadFile"
+                        accept=".text,.csv, .txt"
+                        onChange={onFileUpload}
+                    />
+                </div>
                 <div className="u-flex-v-center">
                     <label htmlFor="template" className="u-flex-1">Template</label>
-                    {/*<Select*/}
-                        {/*id={"template"}*/}
-                        {/*options={formattedTemplateOptions}*/}
-                        {/*filterable={formattedTemplateOptions.length > 20}*/}
-                        {/*{...templateState}*/}
-                    {/*/>*/}
                     <Select
                         id={"template"}
                         name={"template"}
@@ -116,6 +111,10 @@ function formatOptionsFromMap(map) {
             value: key
         };
     });
+}
+
+function showErrorNoticeForSubmit() {
+    n.error('There was an error processing your request. Please contact support for further information.');
 }
 
 export default App;
