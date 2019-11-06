@@ -36,7 +36,7 @@ function TemplateEditor(props) {
                 Add tag
             </button>
         </div>
-        <div className={"u-margin-top-small"}>
+        <fieldset className={"u-margin-top-small"}>
             <TextArea
                 value={props.templateHTML.value}
                 onChange={props.templateHTML.onChange}
@@ -44,7 +44,7 @@ function TemplateEditor(props) {
                     setTextEditorPosition(e.target.selectionStart);
                 }}
             />
-        </div>
+        </fieldset>
     </div>);
 }
 
