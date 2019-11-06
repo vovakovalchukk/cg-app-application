@@ -2,17 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
-import filterCollection from 'Filters/js/FilterCollection';
 import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
 
 const ordersIndex = (function ordersIndex() {
     return {
         init: ({
-               pdfExportOptions,
-               filterNames
+               pdfExportOptions
            }) => {
             var orderPage = new showHideFilters();
-            filterCollection.setFilters(filterNames);
             createToolTip();
             renderGiftMessageTemplate();
             setupDataTableListeners();

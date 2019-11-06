@@ -30,7 +30,7 @@ class TextCell extends React.Component {
         );
 
         return (
-            <TextContainer className={this.getClasses()} data-copy={cellData}>
+            <TextContainer className={this.getClasses()} data-copy={cellData} title={cellData}>
                 {cellData}
             </TextContainer>
         );
