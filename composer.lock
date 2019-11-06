@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fd7772d13c4b5e044948ae792475c00",
+    "content-hash": "2cb5074c9d22108c8a79d495d0d2551b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1014,16 +1014,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.3",
+            "version": "dev-CGIV-11036-fix-dpd-local-manifest",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.3-cc93e7.zip",
-                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
+                "reference": "6cac29481d80cbf03e707790de319784a2ef2267"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -11841,13 +11836,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
+            "version": "dev-CGIV-11036-fix-dpd-local-manifest",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
