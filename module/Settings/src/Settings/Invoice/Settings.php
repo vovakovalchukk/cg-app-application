@@ -384,18 +384,15 @@ class Settings
                 $filter->setType($types);
             }
 
-            try {
-                $templates = $this->templateService->fetchCollectionByFilter($filter);
-            } catch (NotFound $exception) {
-                $templates = new TemplateCollection(Template::class, __METHOD__);
-            }
+            $templates = $this->templateService->fetchCollectionByFilter($filter);
 
-            $defaults = $this->templateService->getDefaultTemplates($organisationUnitId);
-            $templates->addAll($defaults);
-            return $templates;
         } catch (NotFound $e) {
-            return new TemplateCollection(Template::class, 'empty');
+            $templates = new TemplateCollection(Template::class, 'empty');
         }
+
+        $defaults = $this->templateService->getDefaultTemplates($organisationUnitId);
+        $templates->addAll($defaults);
+        return $templates;
     }
 
     public function getExistingTemplatesForView()
