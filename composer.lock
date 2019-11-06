@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a152cb09a859bee09096dd9da82cd9e6",
+    "content-hash": "9f3fe6e4b3ed20bd13d4eec9423c0fc3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1401,7 +1401,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "4f9bdbe116f48252142291aa771b7953611b67b6"
+                "reference": "96f16099bf3db6f3cfcb3d8ba75494599e80c423"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-1fdef1.zip",
+                "reference": "96f16099bf3db6f3cfcb3d8ba75494599e80c423"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1409,6 +1414,7 @@
                 "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/feature-flags": "^2.1.2",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
@@ -1447,7 +1453,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-06T13:24:15+00:00"
+            "time": "2019-11-06T15:02:42+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -4501,6 +4507,11 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
+                "reference": "ff333382b9fb9199474a3694732b9667e6866937"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-dev-TAC-543-ekm-rest-api-account-connection-06a8bd.zip",
                 "reference": "ff333382b9fb9199474a3694732b9667e6866937"
             },
             "require": {
@@ -11839,8 +11850,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.13.0",
-            "alias_normalized": "1.13.0.0",
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
             "version": "dev-TAC-543-ekm-rest-api-account-connection",
             "package": "channelgrabber/ekm"
         },
