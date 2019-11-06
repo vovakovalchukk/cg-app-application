@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.1.0",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.2.3",
+        "channelgrabber/courier": "~1.2.4",
         "channelgrabber/courieradapter": "~1.6.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.0.0",

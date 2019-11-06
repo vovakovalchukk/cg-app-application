@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fd7772d13c4b5e044948ae792475c00",
+    "content-hash": "8cd8d3cfe303fc11ea83d4ec53542677",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1014,16 +1014,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
+                "reference": "c74ed1ebc1ad793327fe65991f9b67f84d0785c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.3-cc93e7.zip",
-                "reference": "93cc7f95c199ee6a9b6e52e70acdbf83ef3ca4be"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.4-b41921.zip",
+                "reference": "c74ed1ebc1ad793327fe65991f9b67f84d0785c9"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1057,7 +1057,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-11-04T15:00:49+00:00"
+            "time": "2019-11-05T16:00:12+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
