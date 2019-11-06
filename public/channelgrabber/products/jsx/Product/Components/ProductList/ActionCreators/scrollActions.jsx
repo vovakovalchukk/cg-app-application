@@ -9,6 +9,14 @@ let scrollActions = (function() {
             return {
                 type: "UNSET_USER_SCROLLING"
             }
+        },
+        updateHorizontalScrollIndex: (index) => {
+            return {
+                type: "HORIZONTAL_SCROLLBAR_INDEX_UPDATE",
+                payload: {
+                    index
+                }
+            }
         }
     };
 }());

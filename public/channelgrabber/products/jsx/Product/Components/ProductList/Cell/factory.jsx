@@ -13,7 +13,7 @@ import LinkCell from 'Product/Components/ProductList/Cell/Link';
 import AvailableCell from 'Product/Components/ProductList/Cell/Available';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
-import FixedDataTable from 'fixed-data-table-2';
+import FixedDataTable, {Cell} from 'fixed-data-table-2';
 import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
 import LowStock from 'Product/Components/ProductList/Cell/LowStock';
 import PickingLocationCell from 'Product/Components/ProductList/Cell/PickingLocation';
@@ -25,8 +25,6 @@ import BarcodeCell from 'Product/Components/ProductList/Cell/Barcode';
 import BarcodeNotApplicableCell from 'Product/Components/ProductList/Cell/BarcodeNotApplicableCell';
 
 "use strict";
-
-const Cell = FixedDataTable.Cell;
 
 let cells = {
     productExpand: ProductExpandCell,

@@ -51,9 +51,24 @@ define([
                 'id' : "deleteButton-" + aliasNo
             }, "deleteButton");
 
-            var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
-                    'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
-            var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
+            var multiSelect = cgmustache.renderTemplate(
+                templates,
+                {
+                    'options': methodCollection.getItems(),
+                    'name': 'aliasMultiSelect-' + aliasNo,
+                    'dropdownClass': 'u-max-width-inherit'
+                },
+                "multiSelect"
+            );
+
+            var multiSelectExpanded = cgmustache.renderTemplate(
+                templates,
+                {},
+                "multiSelectExpanded",
+                {
+                    'multiSelect' : multiSelect
+                }
+            );
 
             var aliasTemplateParameters = {
                 'multiSelectExpanded' : multiSelectExpanded,
