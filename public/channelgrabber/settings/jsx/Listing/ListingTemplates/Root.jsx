@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-
 import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
 import AddTemplate from 'Common/Components/Templates/AddTemplate';
 import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
-
-const InitialFormSection = styled.section`
-  max-width: 600px
-`;
 
 let previewWindow = null;
 
@@ -26,7 +20,7 @@ const RootComponent = props => {
 
     return (
         <div className={"u-margin-top-xxlarge"}>
-            <InitialFormSection>
+            <div className="u-form-width-medium">
                 <TemplateSelect options={templates} selectedOption={templateSelectValue}
                                 onOptionChange={(option) => {
                                     setTemplateSelectValue(option);
@@ -53,7 +47,7 @@ const RootComponent = props => {
                     />
                 </FieldWithLabel>
                 }
-            </InitialFormSection>
+            </div>
 
 
             {templateInitialised &&
