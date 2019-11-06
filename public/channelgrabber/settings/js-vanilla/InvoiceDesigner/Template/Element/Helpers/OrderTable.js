@@ -54,17 +54,13 @@ define([], function() {
         const safeMinWidthForColumn = 10;
         let numberOfColumnsWithWidths = 0;
         let sumOfColumnWidths = 0;
-
-        let columnWidths = tableColumns.map((column) => {
-            return column.width || 0;
-        });
-
-        columnWidths.forEach((columnWidth) => {
-            if (!columnWidth) {
+        
+        tableColumns.forEach((column) => {
+            if (!column.width) {
                 return;
             }
             numberOfColumnsWithWidths ++;
-            sumOfColumnWidths += columnWidth;
+            sumOfColumnWidths += column.width;
         });
 
         const numberOfUndefinedWidthColumns = tableColumns.length - numberOfColumnsWithWidths;
