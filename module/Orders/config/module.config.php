@@ -167,6 +167,37 @@ return [
                         ],
                         'may_terminate' => true
                     ],
+                    'pdf-export' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pdf-export',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'pdfExport'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'pdf-export-check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkPdfExportAllowed'
+                                    ]
+                                ],
+                            ],
+                            'pdf-export-progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkPdfExportGenerationProgress'
+                                    ]
+                                ],
+                            ],
+                        ]
+                    ],
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(

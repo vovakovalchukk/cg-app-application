@@ -18,13 +18,14 @@ define([
 
     AddDiscardBar.prototype.init = function(module)
     {
-        var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $(AddDiscardBar.SAVE_TEMPLATE_SELECTOR).off('click').click(function() {
-            self.getModule().save();
+        $(AddDiscardBar.SAVE_TEMPLATE_SELECTOR).off('click').click(() => {
+            const module = this.getModule()
+            module.save();
         });
-        $(AddDiscardBar.DISCARD_TEMPLATE_SELECTOR).off('click').click(function() {
-            self.getModule().discard();
+        $(AddDiscardBar.DISCARD_TEMPLATE_SELECTOR).off('click').click(() => {
+            const module = this.getModule();
+            module.discard();
         });
     };
 

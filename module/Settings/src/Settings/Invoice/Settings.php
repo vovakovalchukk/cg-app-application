@@ -11,9 +11,12 @@ use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
+use CG\Template\Filter as TemplateFilter;
 use CG\Template\Service as TemplateService;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
+use CG\Template\Type as TemplateType;
 use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
@@ -361,37 +364,54 @@ class Settings
         return $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
     }
 
-    public function getInvoices()
+    /**
+     * @deprecated use fetchTemplates()
+     */
+    public function getInvoices(): array
     {
-        $organisationUnits = [
-            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
-        ];
-
-        try {
-            return iterator_to_array($this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
-                $organisationUnits
-            ));
-        } catch (NotFound $e) {
-            return [];
-        }
+        return iterator_to_array($this->fetchTemplates([TemplateType::INVOICE]));
     }
 
-    public function getExistingInvoicesForView()
+    public function fetchTemplates(array $types = null): TemplateCollection
     {
-        $userInvoices = [];
-        $systemInvoices[] = $this->getBlankTemplate();
+        try {
+            $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            $filter = (new TemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId([$organisationUnitId]);
+            if (!empty($types)) {
+                $filter->setType($types);
+            }
 
-        $templates = $this->getInvoices();
+            $templates = $this->templateService->fetchCollectionByFilter($filter);
+
+        } catch (NotFound $e) {
+            $templates = new TemplateCollection(Template::class, 'empty');
+        }
+
+        $defaults = $this->templateService->getDefaultTemplates($organisationUnitId);
+        $templates->addAll($defaults);
+        return $templates;
+    }
+
+    public function getExistingTemplatesForView()
+    {
+        $userTemplates = [];
+        $systemTemplates[] = $this->getBlankTemplate();
+
+        $templates = $this->fetchTemplates();
+
         foreach ($templates as $template) {
             $templateViewDataElement = $this->getTemplateViewData($template);
 
             if ($template instanceof SystemTemplate) {
-                $systemInvoices[] = $templateViewDataElement;
+                $systemTemplates[] = $templateViewDataElement;
             } else {
-                $userInvoices[] = $templateViewDataElement;
+                $userTemplates[] = $templateViewDataElement;
             }
         }
-        return ['system' => $systemInvoices, 'user' => $userInvoices];
+        return ['system' => $systemTemplates, 'user' => $userTemplates];
     }
 
     protected function getBlankTemplate()
@@ -399,7 +419,7 @@ class Settings
         return [
             'name' => 'Blank',
             'key' => 'blank',
-            'invoiceId' => '',
+            'templateId' => '',
             'imageUrl' => Module::PUBLIC_FOLDER . static::TEMPLATE_THUMBNAIL_PATH . 'blank.png',
             'links' => [
                 [
@@ -413,14 +433,27 @@ class Settings
         ];
     }
 
-    protected function getTemplateViewData($template)
+    protected function getTemplateViewData(Template $template): array
     {
-        $templateViewDataElement['name'] = $template->getName();
+        $templateViewDataElement = $template->toArray();
         $templateViewDataElement['key'] = $template->getId();
-        $templateViewDataElement['invoiceId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
         return $templateViewDataElement;
+    }
+
+    public function getTemplateOptions(): array
+    {
+        $options = [];
+        $templates = $this->fetchTemplates();
+        foreach ($templates as $template) {
+            $options[] = [
+                'id' => $template->getId(),
+                'name' => $template->getName(),
+                'favourite' => $template->isFavourite(),
+            ];
+        }
+        return $options;
     }
 
     /**

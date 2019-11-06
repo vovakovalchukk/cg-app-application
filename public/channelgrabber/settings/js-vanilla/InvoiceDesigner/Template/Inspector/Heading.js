@@ -35,7 +35,11 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var button = cgmustache.renderTemplate(templates, {'buttons' : true, 'value' : 'Delete', 'id' : Heading.HEADING_INSPECTOR_DELETE_ID}, "button");
-            var heading = cgmustache.renderTemplate(templates, {'type' : element.getType()}, "heading", {'button': button});
+
+            const elementType = element.getType();
+            const headingLabel = elementType === 'OrderTable' ? 'Table' : elementType;
+
+            var heading = cgmustache.renderTemplate(templates, {'type' : headingLabel}, "heading", {'button': button});
             self.getDomManipulator().render(Heading.HEADING_INSPECTOR_SELECTOR, heading);
             headingDomListener.init(self, template, element, service);
         });
@@ -49,6 +53,10 @@ define([
     Heading.prototype.getHeadingInspectorDeleteId = function()
     {
         return Heading.HEADING_INSPECTOR_DELETE_ID;
+    };
+
+    Heading.prototype.getHeadingInspectorSelector = function() {
+        return Heading.HEADING_INSPECTOR_SELECTOR;
     };
 
     return new Heading();

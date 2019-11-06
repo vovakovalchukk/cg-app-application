@@ -30,7 +30,7 @@ define([
             },{ value: 'Text',
                 icon: 'sprite-text-element-1520-black',
                 element: 'Text'
-            },{ value: 'Order Table',
+            },{ value: 'Table',
                 icon: 'sprite-order-table-1520-black',
                 element: 'OrderTable'
             },{ value: 'Box',
@@ -74,11 +74,11 @@ define([
         this.getDomManipulator().show(this.getDomListener().getContainerSelector());
     };
 
-    ElementManager.prototype.addElementToCurrentTemplate = function(elementName)
+    ElementManager.prototype.addElementToCurrentTemplate = function(elementName, event)
     {
         var element = this.getTemplateService().getMapper().createNewElement(elementName);
         this.getTemplate().addElement(element);
-        this.getDomManipulator().triggerElementSelectedEvent(element);
+        this.getDomManipulator().triggerElementSelectedEvent(element, event);
     };
 
     return new ElementManager();

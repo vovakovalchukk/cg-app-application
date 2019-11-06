@@ -1,11 +1,17 @@
 define([
     'InvoiceDesigner/Template/Module/DomListenerAbstract',
     'jquery',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Template/Element/Service',
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Module/DomListener/ElementManager'
 ], function(
     DomListenerAbstract,
     $,
-    domManipulator
+    domManipulator,
+    elementService,
+    ElementMapperAbstract,
+    ElementManager
 ) {
     var Renderer = function()
     {
@@ -19,7 +25,21 @@ define([
         DomListenerAbstract.prototype.init.call(this, module);
         this.initElementSelectedListener()
             .initElementDeselectedListener()
-            .initTemplateChangeListener();
+            .initTemplateChangeListener()
+            .initClickOutsideNonElementRelevantUIListener();
+    };
+
+    Renderer.prototype.initClickOutsideNonElementRelevantUIListener = function() {
+        document.addEventListener('click', event => {
+            if (isAnElementClick(event)) {
+                return;
+            }
+            if (isAnInspectorClick(event) || isAnElementManagerClick(event)) {
+                event.stopPropagation();
+                return;
+            }
+            domManipulator.triggerElementDeletedEvent();
+        });
     };
 
     Renderer.prototype.initElementSelectedListener = function()
@@ -34,20 +54,22 @@ define([
 
     Renderer.prototype.initElementDeselectedListener = function()
     {
-        var self = this;
-        $(document).on(domManipulator.getElementDeselectedEvent(), function(event, element)
+        $(document).on(domManipulator.getElementDeselectedEvent(), (event, element) =>
         {
-            self.getModule().elementDeselected(element);
+            this.getModule().elementDeselected(element);
+            domManipulator.markAsInactive('.' + ElementMapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
         });
+
         return this;
     };
 
     Renderer.prototype.initTemplateChangeListener = function()
     {
         var self = this;
-        $(document).off(domManipulator.getTemplateChangedEvent()).on(domManipulator.getTemplateChangedEvent(), function(event, template)
+
+        $(document).on(domManipulator.getTemplateChangedEvent(), function(event, template, performedUpdates)
         {
-            self.getModule().templateChanged(template);
+            self.getModule().templateChanged(template, performedUpdates);
         });
         return this;
     };
@@ -55,11 +77,27 @@ define([
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).off('mousedown focus').on('mousedown focus', function()
+        $('#'+domId).off('mousedown focus').on('mousedown focus', function(event)
         {
-            domManipulator.triggerElementSelectedEvent(element);
+            domManipulator.triggerElementSelectedEvent(element, event);
         });
     };
 
     return new Renderer();
+
+    function isAnElementClick(event) {
+        const elementClasses = '.' + elementService.getElementDomWrapperClass();
+        return !!event.target.closest(elementClasses);
+    }
+    function isAnInspectorClick(event) {
+        const inspectorAreaId = 'element-inspector-bar';
+        let inspectorAreaNode = event.path.find(node => {
+            return node.id === inspectorAreaId;
+        });
+        return !!inspectorAreaNode;
+    }
+    function isAnElementManagerClick(event) {
+        const elementManager = ElementManager.getSelector();
+        return !!event.target.closest(elementManager);
+    }
 });

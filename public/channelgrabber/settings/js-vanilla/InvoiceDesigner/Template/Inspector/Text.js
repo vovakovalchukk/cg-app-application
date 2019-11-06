@@ -57,10 +57,15 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
-            var dataFields = cgmustache.renderTemplate(templates, self.getDataFieldsData(), "dataFields");
-            var removeBlankLines = cgmustache.renderTemplate(templates, self.getRemoveBlankLinesData(element), "removeBlankLines");
-            var text = cgmustache.renderTemplate(templates, {}, "text", {textarea: textarea, dataFields: dataFields, removeBlankLines: removeBlankLines});
+            const textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
+            const dataFields = cgmustache.renderTemplate(templates, self.getDataFieldsData(), "dataFields");
+            const removeBlankLines = cgmustache.renderTemplate(templates, self.getRemoveBlankLinesData(element), "removeBlankLines");
+
+            var text = cgmustache.renderTemplate(templates, {}, "text", {
+                textarea,
+                dataFields,
+                removeBlankLines,
+            });
 
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -92,7 +97,8 @@ define([
             .replace(/<n>|<\/>/gi, '');
         return {
             'id': Text.TEXT_INSPECTOR_TEXT_ID,
-            'content': text
+            'content': text,
+            'align': element.getAlign() ? element.getAlign().ucfirst() : null
         };
     };
 
