@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f3fe6e4b3ed20bd13d4eec9423c0fc3",
+    "content-hash": "4dea654c74e204bbd4b9484ef588386c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1407,12 +1407,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "a8fec38fbeeba79ad3027cc1f66ec208a7bf7edf"
+                "reference": "12e3c44c8c6c7661726722ee4c5e34bff276ba9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-c8de6c.zip",
-                "reference": "a8fec38fbeeba79ad3027cc1f66ec208a7bf7edf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-ee1906.zip",
+                "reference": "12e3c44c8c6c7661726722ee4c5e34bff276ba9f"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1459,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-07T11:12:29+00:00"
+            "time": "2019-11-07T13:25:30+00:00"
         },
         {
             "name": "channelgrabber/email",
