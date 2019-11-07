@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Select from 'Common/Components/Select';
+import ajax from 'Common/Utils/xhr/ajax';
 
 const importUrl = "/dataExchange/stock/import/upload";
 
@@ -12,31 +13,21 @@ const App = (props) => {
     const formattedActionOptions = formatOptionsFromMap(actionOptions);
     const [csv, setCsv] = useState();
 
-    const onSubmit = () => {
-        const request = new XMLHttpRequest();
-        request.open('POST', importUrl, true);
-
-        request.onload = function() {
-            if (request.status.toString()[0] !== "2") {
-                showErrorNoticeForSubmit();
-                return;
-            }
-            n.success('You have successfully imported your stock.')
-        };
-        request.onerror = function() {
-            showErrorNoticeForSubmit();
-        };
-
-        const formData = {
-            templateId: templateState.selectedOption.value,
-            action: actionState.selectedOption.value,
-            uploadFile: csv
-        };
-
-        request.send(formData);
+    const onSubmit = (event) => {
+        ajax.request({
+           method: 'POST',
+           url:  importUrl,
+           data:  {
+                templateId: templateState.selectedOption.value,
+                action: actionState.selectedOption.value,
+                uploadFile: csv
+           },
+           onSuccess: showSuccessNoticeForSubmit,
+           onError: showErrorNoticeForSubmit
+        });
         event.preventDefault();
     };
-    
+
     const onFileUpload = (e) => {
         const files = Array.from(e.target.files);
         const reader = new FileReader();
@@ -46,11 +37,11 @@ const App = (props) => {
             setCsv(e.target.result);
         });
     };
-    
+
     return (
-        <div class="u-margin-top-xxlarge" style={{width:'500px'}}>
+        <div className="u-margin-top-xxlarge u-form-width-medium">
             <form id={"stock-import-form"} onSubmit={onSubmit}>
-                <div className="u-flex-v-center">
+                <div className="u-flex-v-center u-margin-top-small">
                     <input
                         type="file"
                         name="uploadFile"
@@ -59,33 +50,37 @@ const App = (props) => {
                         onChange={onFileUpload}
                     />
                 </div>
-                <div className="u-flex-v-center">
+                <div className="u-flex-v-center u-margin-top-small">
                     <label htmlFor="template" className="u-flex-1">Template</label>
-                    <Select
-                        id={"template"}
-                        name={"template"}
-                        options={formattedTemplateOptions}
-                        filterable={true}
-                        autoSelectFirst={false}
-                        selectedOption={templateState.selectedOption}
-                        onOptionChange={templateState.onOptionChange}
-                        classNames={'u-inline-block'}
-                    />
+                    <div className="u-flex-4">
+                        <Select
+                            id={"template"}
+                            name={"template"}
+                            options={formattedTemplateOptions}
+                            filterable={true}
+                            autoSelectFirst={false}
+                            selectedOption={templateState.selectedOption}
+                            onOptionChange={templateState.onOptionChange}
+                            classNames={'u-inline-block'}
+                        />
+                    </div>
                 </div>
-                <div className="u-flex-v-center">
+                <div className="u-flex-v-center u-margin-top-small">
                     <label htmlFor="action" className="u-flex-1">Import Action</label>
-                    <Select
-                        id={"action"}
-                        name={"action"}
-                        options={formattedActionOptions}
-                        filterable={true}
-                        autoSelectFirst={false}
-                        selectedOption={actionState.selectedOption}
-                        onOptionChange={actionState.onOptionChange}
-                        classNames={'u-inline-block'}
-                    />
+                    <div className="u-flex-4">
+                        <Select
+                            id={"action"}
+                            name={"action"}
+                            options={formattedActionOptions}
+                            filterable={true}
+                            autoSelectFirst={false}
+                            selectedOption={actionState.selectedOption}
+                            onOptionChange={actionState.onOptionChange}
+                            classNames={'u-inline-block'}
+                        />
+                    </div>
                 </div>
-                <button type="submit" >Search</button>
+                <button type="submit" className={'u-margin-top-med button'}>Search</button>
             </form>
         </div>
     );
@@ -94,7 +89,6 @@ const App = (props) => {
 function useSelectState(initialValue){
     const [selectedOption, setSelectedOption] = useState(initialValue);
     const onOptionChange = (newValue) => {
-        console.log('newValue to set: ', newValue);
         setSelectedOption(newValue);
     };
     return {
@@ -111,6 +105,10 @@ function formatOptionsFromMap(map) {
             value: key
         };
     });
+}
+
+function showSuccessNoticeForSubmit() {
+    n.success('You have successfully imported your stock.');
 }
 
 function showErrorNoticeForSubmit() {
