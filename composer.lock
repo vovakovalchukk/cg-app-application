@@ -754,14 +754,15 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b3e308e3df686b499f0619e89420ec1c010b59fb"
+                "reference": "0145beccfef828f1386a1c84015b560735eab87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-543-ekm-rest-api-account-connection-4dc8bd.zip",
-                "reference": "b3e308e3df686b499f0619e89420ec1c010b59fb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-543-ekm-rest-api-account-connection-81bcc4.zip",
+                "reference": "0145beccfef828f1386a1c84015b560735eab87c"
             },
             "require": {
+                "channelgrabber/access": "^1.0.0",
                 "channelgrabber/billing": "^1.19.7",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
@@ -813,6 +814,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-500-skip-account-disabled-emails-for-inactive-ous": "1.43.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -827,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-06T14:04:49+00:00"
+            "time": "2019-11-07T10:51:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1401,12 +1407,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "96f16099bf3db6f3cfcb3d8ba75494599e80c423"
+                "reference": "a8fec38fbeeba79ad3027cc1f66ec208a7bf7edf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-1fdef1.zip",
-                "reference": "96f16099bf3db6f3cfcb3d8ba75494599e80c423"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-c8de6c.zip",
+                "reference": "a8fec38fbeeba79ad3027cc1f66ec208a7bf7edf"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1453,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-06T15:02:42+00:00"
+            "time": "2019-11-07T11:12:29+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -4507,12 +4513,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
-                "reference": "ff333382b9fb9199474a3694732b9667e6866937"
+                "reference": "781b7c656a0bdff1d7faad5853a0638f04afd7de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-dev-TAC-543-ekm-rest-api-account-connection-06a8bd.zip",
-                "reference": "ff333382b9fb9199474a3694732b9667e6866937"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-dev-TAC-543-ekm-rest-api-account-connection-444182.zip",
+                "reference": "781b7c656a0bdff1d7faad5853a0638f04afd7de"
             },
             "require": {
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
@@ -4527,15 +4533,15 @@
                 "zf2-module": "CG_Ekm"
             },
             "autoload": {
-                "psr-0": {
-                    "CG_Ekm": "src/"
+                "psr-4": {
+                    "CG_Ekm\\": "src/"
                 },
                 "classmap": [
                     "./Module.php"
                 ]
             },
             "description": "Ekm module",
-            "time": "2019-11-06T11:40:17+00:00"
+            "time": "2019-11-07T10:24:16+00:00"
         },
         {
             "name": "channelgrabber/zf2-email-template",

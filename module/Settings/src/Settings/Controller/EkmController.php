@@ -48,14 +48,17 @@ class EkmController extends ChannelControllerAbstract implements LoggerAwareInte
     public function connectRestAccountAction(): void
     {
         $params = $this->params()->fromQuery();
+        $accountId = RestAccountConnector::getAccountIdFromState($params['state'] ?? '');
         if (isset($params['error']) && $params['error'] != '') {
             $this->logConnectRestAccountError($params['error']);
-            $this->redirectToSalesAccountsPage();
-            return;
+            if (!$accountId) {
+                $this->redirectToSalesAccountsPage();
+                return;
+            }
+            // If we have an accountId then continue, the creation service will mark it as disabled
         }
         $currentUri = $this->getRequest()->getUri()->setQuery([]);
         $params['redirectUri'] = (string)$currentUri;
-        $accountId = RestAccountConnector::getAccountIdFromState($params['state'] ?? '');
         $account = $this->getAccountCreationService()->connectAccount(
             $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
             $accountId,
