@@ -29,6 +29,8 @@ class Service implements LoggerAwareInterface
     private const END_DATE_ENDED_BY_USER = 'Ended by User';
     private const END_DATE_IN_PROGRESS = 'In Progress';
 
+    private const DEFAULT_FILE_EXTENSION = 'csv';
+
     private const MAX_SAVE_RETRIES = 3;
 
     private const LOG_CODE = 'DataExchangeHistoryService';
@@ -198,7 +200,7 @@ class Service implements LoggerAwareInterface
 
     protected function buildFileName(string $type, int $historyId): string
     {
-        return $type . '_' . $historyId;
+        return $type . '_' . $historyId . '.' . static::DEFAULT_FILE_EXTENSION;
     }
 
     protected function removeJobIdFromHistory(History $history): bool
