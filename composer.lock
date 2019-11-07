@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4dea654c74e204bbd4b9484ef588386c",
+    "content-hash": "73d23ff95e1ab97235cd08e302d1446e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1403,16 +1403,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-TAC-543-ekm-rest-api-account-connection",
+            "version": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "12e3c44c8c6c7661726722ee4c5e34bff276ba9f"
+                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-543-ekm-rest-api-account-connection-ee1906.zip",
-                "reference": "12e3c44c8c6c7661726722ee4c5e34bff276ba9f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting-dd6f61.zip",
+                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1459,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-07T13:25:30+00:00"
+            "time": "2019-11-07T15:53:10+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -11856,9 +11856,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-543-ekm-rest-api-account-connection",
+            "alias": "1.14.0",
+            "alias_normalized": "1.14.0.0",
+            "version": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting",
             "package": "channelgrabber/ekm"
         },
         {

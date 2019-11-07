@@ -41,7 +41,7 @@
         "channelgrabber/data-exchange-template": "~1.0.1",
         "channelgrabber/di": "~2.3.1",
         "channelgrabber/ebay": "~1.20.6",
-        "channelgrabber/ekm": "dev-TAC-543-ekm-rest-api-account-connection as 1.13.1",
+        "channelgrabber/ekm": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting as 1.14.0",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/email-account": "~1.0.1",
         "channelgrabber/email-verification": "~1.0.0",
