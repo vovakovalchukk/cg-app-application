@@ -1,4 +1,6 @@
 <div id="api-access-upgrade-required-notice" class="half">
     <?=$this->message;?>
+    <?php if (isset($this->url)): ?>
     <a href="<?=$this->url;?>" class="button">Upgrade my Subscription</a>
+    <?php endif; ?>
 </div>
