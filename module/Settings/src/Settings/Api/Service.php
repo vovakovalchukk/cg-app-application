@@ -19,6 +19,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Sites;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG_Access\Service as AccessService;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 
 class Service implements LoggerAwareInterface
@@ -34,6 +35,7 @@ class Service implements LoggerAwareInterface
         OrganisationUnit::LOCALE_US => 'Growth Accelerator (USA)',
     ];
     const MSG_UPGRADE = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>API access is limited to our \'%s\' package or higher. Click below to upgrade now.</p><p>Not sure? Contact our eCommerce specialists on %s to discuss or <a href="%s" target="_blank">Click Here</a> to book a demo.</p>';
+    const MSG_UPGRADE_WITHOUT_LINK = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>Contact our eCommerce specialists on %s to discuss your requirements.</p>';
     const MANAGE_PACKAGE_URI = '/billing/package';
 
     /** @var ActiveUserContainer */
@@ -50,6 +52,8 @@ class Service implements LoggerAwareInterface
     protected $packageService;
     /** @var Sites */
     protected $sites;
+    /** @var AccessService */
+    protected $accessService;
 
     /** @var PackageCollection|null */
     protected $pricingSchemePackages;
@@ -61,7 +65,8 @@ class Service implements LoggerAwareInterface
         SubscriptionService $subscriptionService,
         PackageManagementService $packageManagementService,
         PackageService $packageService,
-        Sites $sites
+        Sites $sites,
+        AccessService $accessService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->apiCredentialsService = $apiCredentialsService;
@@ -70,32 +75,32 @@ class Service implements LoggerAwareInterface
         $this->packageManagementService = $packageManagementService;
         $this->packageService = $packageService;
         $this->sites = $sites;
+        $this->accessService = $accessService;
     }
 
     public function isAccessAllowedForActiveUser(): AccessResponse
     {
         $response = new AccessResponse(false);
-        // Always show the credentials to admins
-        if ($this->activeUserContainer->isAdmin()) {
-            $response->setAllowed(true);
+        $access = $this->accessService->hasApiCredentialsAccess();
+        $response->setAllowed($access);
+        if ($access) {
             return $response;
         }
+
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         /** @var OrganisationUnit $rootOu */
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
-
-        if (!isset(static::MIN_PACKAGE_BAND[$rootOu->getLocale()])) {
-            $response->setAllowed(true);
+        if ($rootOu->getBillingType() !== OrganisationUnit::BILLING_TYPE_CG) {
+            $response->setMessage(sprintf(static::MSG_UPGRADE_WITHOUT_LINK, PhoneNumber::getForLocale($rootOu->getLocale())));
             return $response;
         }
         if (!$this->isOusCurrentPackageAllowedAccess($rootOu)) {
             $this->logNotice(static::LOG_ACCESS_DENIED, ['ou' => $rootOuId], [static::LOG_CODE, 'AccessDenied']);
-            $response->setMessage($this->buildUpgradeRequiredMessage($rootOu))
+            $response
+                ->setMessage($this->buildUpgradeRequiredMessage($rootOu))
                 ->setUrl($this->getManagePackageUrl());
             return $response;
         }
-
-        $response->setAllowed(true);
         return $response;
     }
 

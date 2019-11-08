@@ -6,8 +6,11 @@ use DataExchange\Controller\FtpAccountController;
 use DataExchange\Controller\HistoryController;
 use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
+use DataExchange\Controller\OrderExportManualController;
 use DataExchange\Controller\StockExportController;
+use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
+use DataExchange\Controller\StockImportManualController;
 use DataExchange\Controller\TemplateController;
 use DataExchange\History\Service as HistoryService;
 use DataExchange\Module;
@@ -277,6 +280,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            StockImportManualController::ROUTE_UPLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/upload',
+                                    'defaults' => [
+                                        'controller' => StockImportManualController::class,
+                                        'action' => 'upload'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     StockExportController::ROUTE => [
@@ -310,6 +324,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            StockExportManualController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => StockExportManualController::class,
+                                        'action' => 'download'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     OrderExportController::ROUTE => [
@@ -339,6 +364,17 @@ return [
                                     'route' => '/remove',
                                     'defaults' => [
                                         'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderExportManualController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => OrderExportManualController::class,
+                                        'action' => 'download'
                                     ]
                                 ],
                                 'may_terminate' => true,

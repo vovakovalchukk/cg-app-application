@@ -6,9 +6,11 @@ require.config({
     }
 });
 require([
-    "Orders/index"
+    "Orders/index",
+    "Filters/FilterCollection"
 ], function(
     ordersIndex,
+    filterCollection
 ) {
     const pdfExportOptions = <?= json_encode($pdfExportOptions) ?>;
     var filterNames = {
@@ -18,9 +20,11 @@ require([
             }
         ?>
     };
+
+    filterCollection.setFilters(filterNames);
+
     ordersIndex.init({
-        pdfExportOptions,
-        filterNames
+        pdfExportOptions
     })
 });
 <?php $this->inlineScript()->captureEnd(); ?>

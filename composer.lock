@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ca97815bb1a8d1dbd5e6277b6f856c9",
+    "content-hash": "22e34a3f31ac8b450b119b4ff484ce84",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1028,16 +1028,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.2",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db"
+                "reference": "92f4f9491f2c982b62056c0c97a95d573bb2352a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.2-ef0f62.zip",
-                "reference": "2560feb9b6f657706bc6df425fe9b01b131be0db",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.5-635f51.zip",
+                "reference": "92f4f9491f2c982b62056c0c97a95d573bb2352a",
                 "shasum": null
             },
             "require": {
@@ -1072,7 +1072,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-10-24T15:15:08+00:00"
+            "time": "2019-11-08T09:59:17+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1155,7 +1155,7 @@
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/data-exchange-history": "^1.0.2",
-                "channelgrabber/data-exchange-schedule": "dev-MIG-42-history-backend as 1.0.3",
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
                 "channelgrabber/data-exchange-template": "^1.0.1",
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.3",
@@ -1225,6 +1225,41 @@
             "version": "dev-MIG-42-history-backend",
             "source": {
                 "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.2-79b9dd.zip",
+                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/data-exchange-schedule": "^1.0.3",
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\DataExchangeHistory\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\DataExchangeHistory\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-11-04T11:21:45+00:00"
+        },
+        {
+            "name": "channelgrabber/data-exchange-schedule",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
                 "reference": "2326274727fedf9812cad4b53334bbbb14602ddd"
             },
@@ -1252,7 +1287,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T09:03:40+00:00"
+            "time": "2019-11-04T11:14:54+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -2439,16 +2474,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.7",
+            "version": "1.47.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5b95d48bc47a22cc1d8e2cc31e6cbb274a12f057"
+                "reference": "546aae3910d7a09b1318ebc5564618700e5a2f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.7-705dbb.zip",
-                "reference": "5b95d48bc47a22cc1d8e2cc31e6cbb274a12f057",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.10-aa3bac.zip",
+                "reference": "546aae3910d7a09b1318ebc5564618700e5a2f11",
                 "shasum": null
             },
             "require": {
@@ -2486,7 +2521,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.7.0",
+                "channelgrabber/template": "^1.8.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2508,7 +2543,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.47.x-dev"
                 }
             },
             "autoload": {
@@ -2526,7 +2561,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-10-30T12:00:43+00:00"
+            "time": "2019-11-07T15:01:34+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3860,16 +3895,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.0",
+            "version": "1.8.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01"
+                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.0-46fc5d.zip",
-                "reference": "cf36dd18b7f88706a9f6dd718f4d3e2ddb96cb01",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.4.1-bd8ab7.zip",
+                "reference": "3cb159b6038889cba171232ccf57c40f91abb205",
                 "shasum": null
             },
             "require": {
@@ -3904,13 +3939,16 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-TAC-447-invoice-designer-improvements": "1.7.0-dev"
+                    "dev-TAC-539-refactor-invoice-generation": "1.7.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
-                }
+                },
+                "files": [
+                    "src/Renderer/Pdf/Utilities.php"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
@@ -3918,7 +3956,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-30T14:30:38+00:00"
+            "time": "2019-11-07T15:45:36+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5446,16 +5484,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.25",
+            "version": "1.26.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "67787c667ff40c0d6b867c2fc01570e804899776"
+                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.25-4e293d.zip",
-                "reference": "67787c667ff40c0d6b867c2fc01570e804899776",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.28-2be908.zip",
+                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4",
                 "shasum": null
             },
             "require": {
@@ -5507,7 +5545,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-10-30T11:40:50+00:00"
+            "time": "2019-11-06T11:36:05+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
