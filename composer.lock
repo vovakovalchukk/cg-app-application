@@ -1144,12 +1144,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "23735145b81125e9c631d99e0aaa3ee5cc15dbf4"
+                "reference": "3051e63af821c86675d24a40754d7ccd244d97a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-42-history-backend-7995a9.zip",
-                "reference": "23735145b81125e9c631d99e0aaa3ee5cc15dbf4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-42-history-backend-4a6053.zip",
+                "reference": "3051e63af821c86675d24a40754d7ccd244d97a3",
                 "shasum": null
             },
             "require": {
@@ -1183,7 +1183,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T09:02:51+00:00"
+            "time": "2019-11-08T16:43:08+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
