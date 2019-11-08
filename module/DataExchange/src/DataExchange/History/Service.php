@@ -102,6 +102,7 @@ class Service implements LoggerAwareInterface
 
     protected function buildFilter(int $limit, int $page, int $ouId): HistoryFilter
     {
+        $limit = max($limit, static::DEFAULT_LIMIT);
         return new HistoryFilter(
             $limit,
             $page,
@@ -182,7 +183,7 @@ class Service implements LoggerAwareInterface
     protected function buildFilesArray(History $history): array
     {
         return [
-            'unprocessedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
+            'unprocessedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_UNPROCESSED),
             'successfulLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
             'failedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_FAILED),
             'fileLink' => $this->getFileLinkForType($history, FileStorage::TYPE_FILE)
