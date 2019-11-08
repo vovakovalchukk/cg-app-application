@@ -34,7 +34,7 @@ class Service implements LoggerAwareInterface
     private const MAX_SAVE_RETRIES = 3;
 
     private const LOG_CODE = 'DataExchangeHistoryService';
-    private const LOG_MESSAGE_USER_NOT_FOUND =  'User with ID %s not found, even thought it\'s set on the History entity';
+    private const LOG_MESSAGE_USER_NOT_FOUND =  'User with ID %s not found, even though it\'s set on the History entity';
 
     /** @var HistoryService */
     protected $historyService;
@@ -103,37 +103,46 @@ class Service implements LoggerAwareInterface
     protected function buildFilter(int $limit, int $page, int $ouId): HistoryFilter
     {
         $limit = max($limit, static::DEFAULT_LIMIT);
-        return new HistoryFilter(
-            $limit,
-            $page,
-            [],
-            [$ouId],
-            [],
-            [],
-            [],
-            [],
-            null,
-            null,
-            null,
-            null,
-            [],
-            static::DEFAULT_SORT_BY_FIELD,
-            static::DEFAULT_SORT_BY_DIRECTION
-        );
+        return HistoryFilter::fromArray([
+            'limit' => $limit,
+            'page' => $page,
+            'organisationUnitId' => [$ouId],
+            'sortByField' => static::DEFAULT_SORT_BY_FIELD,
+            'sortByDir' => static::DEFAULT_SORT_BY_DIRECTION,
+        ]);
     }
 
     protected function formatHistoriesAsArray(Histories $histories): array
     {
+        $fileExistsArray = $this->buildFileExistsArray($histories);
+
         $historiesArray = [];
         /** @var History $history */
         foreach ($histories as $history) {
-            $historiesArray[] = $this->formatHistoryAsArray($history);
+            $historiesArray[] = $this->formatHistoryAsArray($history, $fileExistsArray);
         }
 
         return $historiesArray;
     }
 
-    protected function formatHistoryAsArray(History $history): array
+    protected function buildFileExistsArray(Histories $histories): array
+    {
+        $types = [
+            FileStorage::TYPE_REPORT_UNPROCESSED,
+            FileStorage::TYPE_REPORT_SUCCEEDED,
+            FileStorage::TYPE_REPORT_FAILED,
+            FileStorage::TYPE_FILE
+        ];
+        $historyIds = $histories->getIds();
+
+        return $this->fileStorage->existsMultiple(
+            $histories->getFirst()->getOrganisationUnitId(),
+            $historyIds,
+            $types
+        );
+    }
+
+    protected function formatHistoryAsArray(History $history, array $fileExistsArray): array
     {
         return array_merge(
             $history->toArray(),
@@ -142,7 +151,7 @@ class Service implements LoggerAwareInterface
                 'user' => $this->formatUser($history),
                 'endDate' => $this->formatEndDate($history)
             ],
-            $this->buildFilesArray($history)
+            $this->buildFilesArray($history, $fileExistsArray)
         );
     }
 
@@ -180,19 +189,20 @@ class Service implements LoggerAwareInterface
         return static::END_DATE_IN_PROGRESS;
     }
 
-    protected function buildFilesArray(History $history): array
+    protected function buildFilesArray(History $history, array $fileExistsArray): array
     {
         return [
-            'unprocessedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_UNPROCESSED),
-            'successfulLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_SUCCEEDED),
-            'failedLink' => $this->getFileLinkForType($history, FileStorage::TYPE_REPORT_FAILED),
-            'fileLink' => $this->getFileLinkForType($history, FileStorage::TYPE_FILE)
+            'unprocessedLink' => $this->getFileLinkForType($history, $fileExistsArray, FileStorage::TYPE_REPORT_UNPROCESSED),
+            'successfulLink' => $this->getFileLinkForType($history, $fileExistsArray, FileStorage::TYPE_REPORT_SUCCEEDED),
+            'failedLink' => $this->getFileLinkForType($history, $fileExistsArray, FileStorage::TYPE_REPORT_FAILED),
+            'fileLink' => $this->getFileLinkForType($history, $fileExistsArray, FileStorage::TYPE_FILE)
         ];
     }
 
-    protected function getFileLinkForType(History $history, string $type): ?string
+    protected function getFileLinkForType(History $history, array $fileExistsArray, string $type): ?string
     {
-        if (!$this->fileStorage->exists($history->getOrganisationUnitId(), $history->getId(), $type)) {
+        $fileExists = (bool) ($fileExistsArray[$this->fileStorage->getKey($history->getOrganisationUnitId(), $history->getId(), $type)] ?? false);
+        if (!$fileExists) {
             return null;
         }
 
