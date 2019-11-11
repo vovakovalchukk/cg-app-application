@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0850095aa1c38dd6799d8496925c5082",
+    "content-hash": "79a1a7fae88ce4ab349b808215ded79b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -758,9 +758,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-543-ekm-rest-api-account-connection-81bcc4.zip",
-                "reference": "0145beccfef828f1386a1c84015b560735eab87c",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.7-9d4e2f.zip",
+                "reference": "6875881d913b066f18e7dbe6375e94b8c793a1f3"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -1413,8 +1412,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting-dd6f61.zip",
-                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d",
-                "shasum": null
+                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -4076,8 +4074,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/webdriver/channelgrabber-webdriver-1.2.3-197c8a.zip",
-                "reference": "f056d5b5f02a119e156dbe93e5fd54d57d104278",
-                "shasum": null
+                "reference": "f056d5b5f02a119e156dbe93e5fd54d57d104278"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.15.2",
@@ -4523,9 +4520,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-dev-TAC-543-ekm-rest-api-account-connection-444182.zip",
-                "reference": "781b7c656a0bdff1d7faad5853a0638f04afd7de",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-1.0.3-a01963.zip",
+                "reference": "eb9fdf1cd568b4acdb1964835277d01a7b0749f6"
             },
             "require": {
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
@@ -9674,8 +9670,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/php-phantomjs/channelgrabber-php-phantomjs-3.1.8-3446b6.zip",
-                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc",
-                "shasum": null
+                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc"
             },
             "require": {
                 "jakoch/phantomjs-installer": "1.9.7",
@@ -11858,27 +11853,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.43.6",
-            "alias_normalized": "1.43.6.0",
-            "version": "dev-TAC-543-ekm-rest-api-account-connection",
-            "package": "channelgrabber/channel"
-        },
-        {
             "alias": "1.14.0",
             "alias_normalized": "1.14.0.0",
             "version": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting",
             "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-TAC-543-ekm-rest-api-account-connection",
-            "package": "channelgrabber/zf2-ekm"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ekm": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
