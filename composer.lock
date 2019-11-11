@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79a1a7fae88ce4ab349b808215ded79b",
+    "content-hash": "601c2820d66ab4036a5a35063e9ff846",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1403,16 +1403,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d"
+                "reference": "b5b5ec3d6873abf5afedef4ef16c51d784910401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting-dd6f61.zip",
-                "reference": "e11d5b3727e1a3dcad8eeb0651af62641bda668d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.14.1-101e8a.zip",
+                "reference": "b5b5ec3d6873abf5afedef4ef16c51d784910401"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1459,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-07T15:53:10+00:00"
+            "time": "2019-11-11T11:36:27+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -11851,18 +11851,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.0",
-            "alias_normalized": "1.14.0.0",
-            "version": "dev-TAC-552-ekm-rest-api-plan-restrictions-and-rate-limiting",
-            "package": "channelgrabber/ekm"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ekm": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
