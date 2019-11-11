@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09a6236ba405cda85fdf4d78f27d5860",
+    "content-hash": "dff72b694212cf9a8b0712732911c06b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1403,16 +1403,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.14.0",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "cec96b842da142230395edeac372fab29a1c47e3"
+                "reference": "b5b5ec3d6873abf5afedef4ef16c51d784910401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.14.0-5eece3.zip",
-                "reference": "cec96b842da142230395edeac372fab29a1c47e3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.14.1-101e8a.zip",
+                "reference": "b5b5ec3d6873abf5afedef4ef16c51d784910401"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1459,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-11T09:32:37+00:00"
+            "time": "2019-11-11T11:36:27+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -10449,8 +10449,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
