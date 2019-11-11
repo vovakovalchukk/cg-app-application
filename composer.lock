@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dff72b694212cf9a8b0712732911c06b",
+    "content-hash": "8ec5ce0f60a0c86266b0543ead85c666",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11043-missing-method-in-liked-order",
+            "version": "1.47.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7bd7a607629f9563ec5a41a09899c0761d76c461"
+                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11043-missing-method-in-liked-order-54b7fb.zip",
-                "reference": "7bd7a607629f9563ec5a41a09899c0761d76c461"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.12-9d2f9b.zip",
+                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2484,7 +2484,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-11T10:25:29+00:00"
+            "time": "2019-11-11T14:24:29+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11857,18 +11857,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.12",
-            "alias_normalized": "1.47.12.0",
-            "version": "dev-CGIV-11043-missing-method-in-liked-order",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
