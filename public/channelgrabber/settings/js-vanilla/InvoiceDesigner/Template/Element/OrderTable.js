@@ -102,7 +102,7 @@ define([
         this.toJson = function() {
             let json = JSON.parse(JSON.stringify(this.getData()));
             json = this.formatCoreJsonPropertiesForBackend(json);
-            json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
+            json.tableColumns = formatTableColumnsForBackend(json);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
             json.totals = formatTableTotalsForBackend(json.totals);
             return json;
@@ -131,27 +131,37 @@ define([
         });
     }
 
-    function formatTableColumnsForBackend(tableColumns) {
+    function formatTableColumnsForBackend({tableColumns, width}) {
         if (!tableColumns) {
             return [];
         }
-        const formatted = tableColumns.map(({id, position, displayText, width, widthMeasurementUnit}) => (
-            {
+
+        const columnIdsThatNeedWidths = tableColumns.filter((column) => (
+            !column.width || !column.widthMeasurementUnit
+        )).map((column) => column.id);
+        const widthToSet = Number(width / columnIdsThatNeedWidths.length).pxToMm();
+    
+        const formatted = tableColumns.map(({id, position, displayText, width, widthMeasurementUnit}) => {
+            let desiredWidth = width;
+            let desiredWidthMeasurementUnit = widthMeasurementUnit;
+            if (columnIdsThatNeedWidths.includes(id)){
+                desiredWidth = widthToSet;
+                desiredWidthMeasurementUnit = 'mm'
+            }
+            return {
                 id,
                 position,
                 displayText,
-                width,
-                widthMeasurementUnit
+                width: desiredWidth,
+                widthMeasurementUnit: desiredWidthMeasurementUnit
             }
-        ));
+        });
 
-        const allPositionsUndefined = areAllPositionsUndefined(formatted);
-        if (!allPositionsUndefined) {
+        if (!areAllPositionsUndefined(formatted)) {
             return formatted;
         }
 
-        const formattedWithDefaultPositions = provideDefaultPositions(formatted.slice());
-        return formattedWithDefaultPositions;
+        return applyDefaultPositions(formatted.slice());
     }
 
     function formatTableSortByForBackend(tableSortBy) {
@@ -179,7 +189,7 @@ define([
         return allPositionsUndefined;
     }
 
-    function provideDefaultPositions(columns) {
+    function applyDefaultPositions(columns) {
         for (let index = 0; index < columns.length; index++) {
             columns[index].position = index;
         }
