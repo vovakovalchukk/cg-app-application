@@ -1,3 +1,7 @@
+const minColumnWidths = {
+    'mm': 30
+};
+
 define([], function() {
     const OrderTableHelper = function() {
         return this;
@@ -51,23 +55,27 @@ define([], function() {
     };
 
     OrderTableHelper.prototype.getSumOfAllColumnWidths = function(tableColumns) {
-        const safeMinWidthForColumn = 10;
-        let numberOfColumnsWithWidths = 0;
         let sumOfColumnWidths = 0;
         
         tableColumns.forEach((column) => {
             if (!column.width) {
                 return;
             }
-            numberOfColumnsWithWidths ++;
-            sumOfColumnWidths += column.width;
+            sumOfColumnWidths += getColumnWidthInMm(column);
         });
-
-        const numberOfUndefinedWidthColumns = tableColumns.length - numberOfColumnsWithWidths;
-        sumOfColumnWidths = sumOfColumnWidths + (numberOfUndefinedWidthColumns * safeMinWidthForColumn);
 
         return sumOfColumnWidths;
     };
 
     return new OrderTableHelper;
 });
+
+function getColumnWidthInMm(column) {
+    if (!column.width) {
+        return minColumnWidths['mm'];
+    }
+    if (column.widthMeasurementUnit === 'in') {
+        return column.width * 25.4;
+    }
+    return column.width;
+}
