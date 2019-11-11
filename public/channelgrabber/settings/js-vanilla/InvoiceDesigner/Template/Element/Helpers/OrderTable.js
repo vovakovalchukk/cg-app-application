@@ -1,5 +1,5 @@
 const minColumnWidths = {
-    'mm': 30
+    'mm': 10
 };
 
 define([], function() {
