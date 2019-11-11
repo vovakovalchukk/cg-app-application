@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ebd3b52f280071e8710f8b69fd01425",
+    "content-hash": "cd178a9a71f844a1d19c7d0cf76b99b5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1209,16 +1209,16 @@
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "dev-MIG-50-data-exchange-order-tracking-backend",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "608393ad13085179983b38723baa94f57d811c8a"
+                "reference": "52ac4f574b676fa26358f05b7714220a417f3956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-50-data-exchange-order-tracking-backend-b70e69.zip",
-                "reference": "608393ad13085179983b38723baa94f57d811c8a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-1.0.4-381e59.zip",
+                "reference": "52ac4f574b676fa26358f05b7714220a417f3956"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1238,20 +1238,20 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T15:37:20+00:00"
+            "time": "2019-11-11T15:41:19+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
-            "version": "dev-MIG-50-data-exchange-order-tracking-backend",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
-                "reference": "8ddab1ad373d7ecded48995b8c40a13fcd79b1a0"
+                "reference": "7bbc7583d05326c1cede24c9c3f294c15e8f1a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-50-data-exchange-order-tracking-backend-1d2c73.zip",
-                "reference": "8ddab1ad373d7ecded48995b8c40a13fcd79b1a0"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.2-528ad0.zip",
+                "reference": "7bbc7583d05326c1cede24c9c3f294c15e8f1a8f"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1271,7 +1271,7 @@
                     "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T15:35:07+00:00"
+            "time": "2019-11-11T15:41:34+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -11857,25 +11857,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-MIG-50-data-exchange-order-tracking-backend",
-            "package": "channelgrabber/data-exchange-schedule"
-        },
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-MIG-50-data-exchange-order-tracking-backend",
-            "package": "channelgrabber/data-exchange-template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange-schedule": 20,
-        "channelgrabber/data-exchange-template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
