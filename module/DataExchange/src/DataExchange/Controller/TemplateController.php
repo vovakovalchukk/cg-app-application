@@ -26,12 +26,14 @@ class TemplateController extends AbstractActionController implements LoggerAware
 
     const ROUTE_ALLOWED_TYPES_MAP = [
         Template::TYPE_STOCK => Template::TYPE_STOCK,
-        'orders' => Template::TYPE_ORDER
+        'orders' => Template::TYPE_ORDER,
+        'orderTracking' => Template::TYPE_ORDER_TRACKING,
     ];
 
     const TEMPLATE_TYPE_TO_ROUTE_TYPE_MAP = [
         Template::TYPE_STOCK => Template::TYPE_STOCK,
-        Template::TYPE_ORDER => 'orders'
+        Template::TYPE_ORDER => 'orders',
+        Template::TYPE_ORDER_TRACKING => 'orderTracking',
     ];
 
     /** @var ViewModelFactory */
