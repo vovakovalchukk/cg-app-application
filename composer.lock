@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d106b153bf77a2f8361b912acb3ed46",
+    "content-hash": "0e43b891b3e75f2697dd443d2e0fea93",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -3727,16 +3727,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-558-LimitToCellBoundary",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b85d5b4919496e5401198d77fb28445bad54559a"
+                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-558-LimitToCellBoundary-fdbe50.zip",
-                "reference": "b85d5b4919496e5401198d77fb28445bad54559a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.5-51b694.zip",
+                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3787,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-13T11:45:26+00:00"
+            "time": "2019-11-13T13:51:01+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11858,18 +11858,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.5",
-            "alias_normalized": "1.8.5.0",
-            "version": "dev-TAC-558-LimitToCellBoundary",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
