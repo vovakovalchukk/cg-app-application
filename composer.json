@@ -146,7 +146,8 @@
             "@composer -o dump-autoload",
             "@php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "yarn install",
-            "grunt install"
+            "grunt install",
+            "[ -z $PHPENV ] && npm prune --production"
         ]
     }
 }
