@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e9b48f18deff83663b6f5c8e6493fa9",
+    "content-hash": "7d106b153bf77a2f8361b912acb3ed46",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3727,16 +3727,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.4.1",
+            "version": "dev-TAC-558-LimitToCellBoundary",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
+                "reference": "b85d5b4919496e5401198d77fb28445bad54559a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.4.1-bd8ab7.zip",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-558-LimitToCellBoundary-fdbe50.zip",
+                "reference": "b85d5b4919496e5401198d77fb28445bad54559a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3787,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-07T15:45:36+00:00"
+            "time": "2019-11-13T11:45:26+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11858,10 +11858,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.8.5",
+            "alias_normalized": "1.8.5.0",
+            "version": "dev-TAC-558-LimitToCellBoundary",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
