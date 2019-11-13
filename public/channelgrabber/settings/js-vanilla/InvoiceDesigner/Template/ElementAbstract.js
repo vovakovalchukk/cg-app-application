@@ -345,6 +345,10 @@ define([
         return allAttribs;
     };
 
+    ElementAbstract.prototype.applyMissingDataForSave = function() {
+        return this;
+    };
+
     ElementAbstract.prototype.formatCoreJsonPropertiesForBackend = function(json)
     {
         json.x = Number(json.x).mmToPt();

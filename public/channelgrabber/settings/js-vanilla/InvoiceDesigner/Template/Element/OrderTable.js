@@ -57,7 +57,9 @@ define([
 
         this.getTableColumns = function() {
             return this.get('tableColumns');
-        };
+        };    OrderTable.prototype.createElement = function() {
+        return new TableElement();
+    };
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
@@ -99,10 +101,36 @@ define([
             return this.set('activeCellNodeId', nodeId, populating, true);
         };
 
+        this.formatTableColumnsForBackend = function({tableColumns, width}) {
+            if (!tableColumns) {
+                return [];
+            }
+
+            const formatted = [...tableColumns].map(({id, position, displayText, width, widthMeasurementUnit}) => {
+                return {
+                    id,
+                    position,
+                    displayText,
+                    width,
+                    widthMeasurementUnit
+                }
+            });
+
+            return formatted;
+        };
+
+        this.applyMissingDataForSave = function() {
+            let tableColumns = [...this.getTableColumns()];
+            let columns = applyMissingTableColumnWidths(tableColumns, this.getWidth());
+            columns = applyDefaultTableColumnPositions(columns);
+            this.setTableColumns(columns);
+        };
+
         this.toJson = function() {
             let json = JSON.parse(JSON.stringify(this.getData()));
+
+            json.tableColumns = this.formatTableColumnsForBackend(json);
             json = this.formatCoreJsonPropertiesForBackend(json);
-            json.tableColumns = formatTableColumnsForBackend(json);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
             json.totals = formatTableTotalsForBackend(json.totals);
             return json;
@@ -112,6 +140,8 @@ define([
             this.setMinWidth(data.minWidth, populating);
             OrderTable.prototype.hydrate.call(this, data, populating);
         };
+    };    OrderTable.prototype.createElement = function() {
+        return new TableElement();
     };
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
@@ -131,39 +161,6 @@ define([
         });
     }
 
-    function formatTableColumnsForBackend({tableColumns, width}) {
-        if (!tableColumns) {
-            return [];
-        }
-
-        const columnIdsThatNeedWidths = tableColumns.filter((column) => (
-            !column.width || !column.widthMeasurementUnit
-        )).map((column) => column.id);
-        const widthToSet = Number(width / columnIdsThatNeedWidths.length).pxToMm();
-    
-        const formatted = tableColumns.map(({id, position, displayText, width, widthMeasurementUnit}) => {
-            let desiredWidth = width;
-            let desiredWidthMeasurementUnit = widthMeasurementUnit;
-            if (columnIdsThatNeedWidths.includes(id)){
-                desiredWidth = widthToSet;
-                desiredWidthMeasurementUnit = 'mm'
-            }
-            return {
-                id,
-                position,
-                displayText,
-                width: desiredWidth,
-                widthMeasurementUnit: desiredWidthMeasurementUnit
-            }
-        });
-
-        if (!areAllPositionsUndefined(formatted)) {
-            return formatted;
-        }
-
-        return applyDefaultPositions(formatted.slice());
-    }
-
     function formatTableSortByForBackend(tableSortBy) {
         if (!tableSortBy) {
             return [];
@@ -178,18 +175,20 @@ define([
         });
     }
 
-    function areAllPositionsUndefined(columns) {
-        let allPositionsUndefined = true;
-        for (let column of columns) {
-            if (typeof column.position !== 'undefined') {
-                allPositionsUndefined = false;
-                break;
+    function applyMissingTableColumnWidths(tableColumns, elementWidth) {
+        let widthToSet = elementWidth / OrderTableHelper.getColumnIdsThatNeedWidths(tableColumns).length;
+        for (let column of tableColumns) {
+            if (column.width && column.widthMeasurementUnit) {
+                continue;
             }
+
+            column.width = widthToSet;
+            column.setWidthMeasurementUnit = 'mm'
         }
-        return allPositionsUndefined;
+        return tableColumns;
     }
 
-    function applyDefaultPositions(columns) {
+    function applyDefaultTableColumnPositions(columns) {
         for (let index = 0; index < columns.length; index++) {
             columns[index].position = index;
         }

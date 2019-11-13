@@ -67,6 +67,12 @@ define([], function() {
         return sumOfColumnWidths;
     };
 
+    OrderTableHelper.prototype.getColumnIdsThatNeedWidths = function(tableColumns) {
+        return tableColumns.filter((column) => (
+            !column.width || !column.widthMeasurementUnit
+        )).map((column) => column.id);
+    };
+
     return new OrderTableHelper;
 });
 
