@@ -9,6 +9,10 @@ define((function() {
                     }
                 }
                 return combinedPrototype;
+            },
+            // apply caution when using this as all non JSON properties will be lost after conversion
+            deepClone: function(object) {
+                return JSON.parse(JSON.stringify(object));
             }
         };
     };

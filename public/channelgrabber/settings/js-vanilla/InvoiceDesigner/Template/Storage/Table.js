@@ -1,4 +1,8 @@
-define([], function() {
+define([
+    'InvoiceDesigner/utility'
+], function(
+    utility
+) {
     const allColumns = [
         {
             "id": "quantityOrdered",
@@ -117,7 +121,7 @@ define([], function() {
                     return column.id === "descriptionInternal"
                 });
                 defaultSortBy[0].position = 0;
-                return defaultSortBy;
+                return utility.deepClone(defaultSortBy);
             },
             getDefaultTableTotals,
             getDefaultColumns
@@ -132,16 +136,16 @@ define([], function() {
         }
 
         function getDefaultTableTotals() {
-            return getTableTotals().filter(total => {
+            return utility.deepClone(getTableTotals().filter(total => {
                 return total.default;
-            });
+            }));
         }
 
         function getDefaultColumns() {
-            return getColumns().filter(column => {
+            return utility.deepClone(getColumns().filter(column => {
                 column.widthMeasurementUnit = 'mm';
                 return column.default;
-            });
+            }));
         }
     }());
 

@@ -1,11 +1,13 @@
 define([
     'InvoiceDesigner/Template/ElementAbstract',
     'InvoiceDesigner/Template/Storage/Table',
-    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/utility'
 ], function(
     ElementAbstract,
     TableStorage,
-    OrderTableHelper
+    OrderTableHelper,
+    utility
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
