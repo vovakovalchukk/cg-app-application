@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e43b891b3e75f2697dd443d2e0fea93",
+    "content-hash": "7d9c24804bc808b732848467c55dbd87",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1671,16 +1671,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.1.2",
+            "version": "dev-TAC-523-ServiceAbstraction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868"
+                "reference": "b9edb81b6b47a918dc28ddb74954c0c35cc8b56c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-2.1.2-1f2c8a.zip",
-                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-dev-TAC-523-ServiceAbstraction-cadf95.zip",
+                "reference": "b9edb81b6b47a918dc28ddb74954c0c35cc8b56c"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.2",
@@ -1703,7 +1703,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2018-11-08T16:11:36+00:00"
+            "time": "2019-11-14T09:00:14+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -1938,16 +1938,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.9",
+            "version": "dev-TAC-523-ServiceAbstraction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb"
+                "reference": "dbf890a624a05a1020e672f0a036e3b4185d0f9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.9-812ec5.zip",
-                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-dev-TAC-523-ServiceAbstraction-34e2d1.zip",
+                "reference": "dbf890a624a05a1020e672f0a036e3b4185d0f9e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1969,7 +1969,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2018-07-26T08:12:59+00:00"
+            "time": "2019-11-14T12:02:11+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.12",
+            "version": "dev-TAC-523-ServiceAbstraction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
+                "reference": "638bdbbde1e0c7823d1434f6b356e6d32516b05a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.12-9d2f9b.zip",
-                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-523-ServiceAbstraction-448fbc.zip",
+                "reference": "638bdbbde1e0c7823d1434f6b356e6d32516b05a"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2423,10 +2423,10 @@
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/exchangerate": "^1.2.0",
-                "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/feature-flags": "dev-TAC-523-ServiceAbstraction as 2.1.3",
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.2",
+                "channelgrabber/image": "dev-TAC-523-ServiceAbstraction as 1.2.11",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
@@ -2444,7 +2444,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.8.2",
+                "channelgrabber/template": "dev-TAC-523-ServiceAbstraction as 1.9.0",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2466,7 +2466,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-PTNR-44-hotfix": "1.47.x-dev"
+                    "dev-TAC-523-ServiceAbstraction": "1.47.x-dev"
                 }
             },
             "autoload": {
@@ -2484,7 +2484,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-11T14:24:29+00:00"
+            "time": "2019-11-15T08:49:54+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3727,16 +3727,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.5",
+            "version": "dev-TAC-523-ServiceAbstraction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
+                "reference": "5b040d63ca99d119a9eeea30e6010024fdeac05e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.5-51b694.zip",
-                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-523-ServiceAbstraction-8e5e32.zip",
+                "reference": "5b040d63ca99d119a9eeea30e6010024fdeac05e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3747,7 +3747,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.47.7",
+                "channelgrabber/order": "dev-TAC-523-ServiceAbstraction as 1.47.13",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3787,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-13T13:51:01+00:00"
+            "time": "2019-11-15T08:48:14+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11858,10 +11858,39 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "2.1.3",
+            "alias_normalized": "2.1.3.0",
+            "version": "dev-TAC-523-ServiceAbstraction",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
+            "alias": "1.2.11",
+            "alias_normalized": "1.2.11.0",
+            "version": "dev-TAC-523-ServiceAbstraction",
+            "package": "channelgrabber/image"
+        },
+        {
+            "alias": "1.47.13",
+            "alias_normalized": "1.47.13.0",
+            "version": "dev-TAC-523-ServiceAbstraction",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.9.0",
+            "alias_normalized": "1.9.0.0",
+            "version": "dev-TAC-523-ServiceAbstraction",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
+        "channelgrabber/image": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
