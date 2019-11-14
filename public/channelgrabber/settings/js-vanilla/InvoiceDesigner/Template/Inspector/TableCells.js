@@ -285,8 +285,7 @@ define([
 
     TableCells.prototype.getCurrentCell = function(element) {
         const tableCells = element.getTableCells();
-        const cellToAffect = tableCells[this.cellDataIndex];
-        return cellToAffect;
+        return tableCells[this.cellDataIndex];
     };
 
     TableCells.prototype.toggleProperty = function(element, property, input) {
@@ -356,9 +355,7 @@ define([
     return new TableCells();
 
     function isCellClick(event) {
-        const clickedElement = event.target;
-        const tag = clickedElement.tagName.toLowerCase();
-        return tag === 'th' || tag === 'td';
+        return event.target.id.includes(orderTableHelper.getTableCellIdPrefix())
     }
 
     function applyInitialSelection(data, valueForCell) {

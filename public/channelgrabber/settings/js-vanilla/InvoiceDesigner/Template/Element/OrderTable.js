@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/Template/ElementAbstract',
     'InvoiceDesigner/Template/Storage/Table',
     'InvoiceDesigner/Template/Element/Helpers/OrderTable',
-    'InvoiceDesigner/utility'
+    'InvoiceDesigner/utility',
+    'Common/Common/Utils/generic'
 ], function(
     ElementAbstract,
     TableStorage,
     OrderTableHelper,
-    utility
+    invoiceDesignerUtility,
+    utils
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
@@ -178,15 +180,29 @@ define([
     }
 
     function applyMissingTableColumnWidths(tableColumns, elementWidth) {
-        let widthToSet = elementWidth / OrderTableHelper.getColumnIdsThatNeedWidths(tableColumns).length;
-        for (let column of tableColumns) {
-            if (column.width && column.widthMeasurementUnit) {
-                continue;
-            }
+        const hasWidthMeasurementUnit = column => column.widthMeasurementUnit;
+        const hasWidth = column => !isNaN(column.width);
 
-            column.width = widthToSet;
-            column.setWidthMeasurementUnit = 'mm'
-        }
+        const validWidthFilters = utils.composeFilters(
+            hasWidthMeasurementUnit,
+            hasWidth
+        );
+
+        const validWidthColumns = tableColumns.filter(validWidthFilters);
+
+        // todo - need to put the conversion in here from inches
+        const sumOfExistingWidths = validWidthColumns.reduce((totalWidth, currentColumn) => totalWidth + currentColumn.width, 0);
+        const widthToSetOnInvalidColumns = (elementWidth - sumOfExistingWidths) / (tableColumns.length - validWidthColumns.length);
+
+        tableColumns.forEach(column => {
+            if (validWidthColumns.includes(column)) {
+                console.log('bailing out... should see this once if one column width set');
+                return;
+            }
+            column.width = widthToSetOnInvalidColumns;
+            column.widthMeasurementUnit = 'mm'
+        });
+
         return tableColumns;
     }
 

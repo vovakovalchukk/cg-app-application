@@ -218,11 +218,13 @@ $indicator-border-color: #1477aa;
     table {
         border: none;
         margin: 0;
+        table-layout: initial;
         tr, td {
             box-sizing: border-box;
             border: none;
             background: inherit;
             cursor: default;
+            padding: 0;
         }
 
         td{

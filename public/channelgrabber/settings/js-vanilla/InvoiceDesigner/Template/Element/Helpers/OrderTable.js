@@ -1,6 +1,7 @@
 const minColumnWidths = {
     'mm': 10
 };
+const tableCellIdPrefix = 'table-element-cell_';
 
 define([], function() {
     const OrderTableHelper = function() {
@@ -44,8 +45,12 @@ define([], function() {
         });
     };
 
+    OrderTableHelper.prototype.getTableCellIdPrefix = function() {
+        return tableCellIdPrefix;
+    }
+
     OrderTableHelper.prototype.generateCellDomId = function(columnId, tag, elementId) {
-        return `${columnId}-${tag}-${elementId}`;
+        return `${this.getTableCellIdPrefix()}${columnId}-${tag}-${elementId}`;
     };
 
     OrderTableHelper.prototype.getColumnIndexForCell = function(tableColumns, cell) {
