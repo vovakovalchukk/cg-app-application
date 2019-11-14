@@ -218,7 +218,8 @@ $indicator-border-color: #1477aa;
     table {
         border: none;
         margin: 0;
-        table-layout: initial;
+        display: grid;
+        box-sizing: border-box;
         tr, td {
             box-sizing: border-box;
             border: none;
@@ -227,17 +228,34 @@ $indicator-border-color: #1477aa;
             padding: 0;
         }
 
+        tr {
+            border-width: inherit;
+            border-bottom-style: solid;
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        tbody, thead, tr, td, th {
+            display: contents;
+        }
+
         td{
             color: $color-black;
             text-align: left;
-            height:7.5mm;
         }
 
         th{
             @extend td;
-            font-weight: bold
+            font-weight: bold;
+            width: initial;
+            border-width: inherit;
         }
     }
+}
+
+.template-element-cell-contents {
+    padding: 0.5rem;
 }
 
 .template-element-ordertable-totals{

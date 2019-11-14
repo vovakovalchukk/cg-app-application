@@ -38,7 +38,7 @@ define([], function() {
     };
 
     OrderTableHelper.prototype.getCellDataIndexFromDomId = function(id, tableCells) {
-        let [columnId, tagFromId, elementId] = id.split('-');
+        let [columnId, tagFromId] = id.slice(this.getTableCellIdPrefix().length).split('-');
 
         return tableCells.findIndex(({column, cellTag}) => {
             return tagFromId === cellTag && column === columnId;

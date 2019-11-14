@@ -26,22 +26,24 @@ define([
             return a.position - b.position;
         });
 
+        const tableStyles = this.getTableStyles(element, tableColumns);
+
         const renderColumns = this.renderColumns.bind(this, tableColumns, element);
         const renderTotalRow = this.renderTotalRow.bind(this, tableTotals, element);
 
-        const html = `<table class="template-element-ordertable-main">
+        const html = `<table class="template-element-ordertable-main" style="${tableStyles}">
             <tr>
                 ${renderColumns('th', (column, inlineStyles, cellId) => {
                     const headerText = column.displayText ? column.displayText : column.optionText;
                     return `<th>
-                        <div id="${cellId}" style="${inlineStyles}" class="u-height-100pc u-border-box">${headerText}</div>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-contents">${headerText}</div>
                     </th>`
                 })}
             </tr>
             <tr>
                  ${renderColumns('td', (column, inlineStyles, cellId) => (
                     `<td>
-                        <div id="${cellId}" style="${inlineStyles}" class="u-height-100pc u-border-box">${column.cellPlaceholder}</div>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-contents">${column.cellPlaceholder}</div>
                     </td>`
                 ))}
             </tr>
@@ -69,22 +71,21 @@ define([
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, element, tag, render) {
-        return tableColumns.map((column, index) => {
-            let inlineStyles = this.getCellInlineStyles(column, element, tag, index, tableColumns.length);
+        return tableColumns.map((column) => {
+            let inlineStyles = this.getCellInlineStyles(column, element, tag);
             let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
             return render(column, inlineStyles, cellId);
         }).join('');
     };
 
-    OrderTable.prototype.getCellInlineStyles = function(column, element, tag, columnIndex, totalColumns) {
-        const inlineStyles = this.getTableStyles(element).slice();
+    OrderTable.prototype.getCellInlineStyles = function(column, element, tag) {
+        const inlineStyles = [];
 
-        // todo - move the border styling to <tr>'s
-        if (columnIndex === 0) {
-            inlineStyles.push('border-left-style: solid')
-        }
-        if (columnIndex === totalColumns - 1) {
-            inlineStyles.push('border-right-style: solid')
+        if (tag === 'th') {
+            inlineStyles.push('border-bottom-style: solid');
+            let tableStyles = this.getTableStyles(element, element.getTableColumns()).split('; ');
+            let borderWidthStyle = tableStyles.find(style => style.includes('border-width'));
+            inlineStyles.push(borderWidthStyle);
         }
 
         const activeNodeId = element.getActiveCellNodeId();
@@ -115,7 +116,7 @@ define([
         return inlineStyles.join('; ');
     };
 
-    OrderTable.prototype.getTableStyles = function(element) {
+    OrderTable.prototype.getTableStyles = function(element, tableColumns) {
         let tableStyles = [];
         const tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
 
@@ -123,14 +124,11 @@ define([
             element,
             tableAttributes,
             tableStyles
-        ).flat().filter(style => {
-            return !style.includes('border-style');
-        });
+        ).flat();
 
-        if (element.getBorderWidth()) {
-            tableStyles.push('border-top-style: solid');
-            tableStyles.push('border-bottom-style: solid');
-        }
+        tableStyles.push(`grid-template-columns: repeat(${tableColumns.length}, 1fr)`);
+        tableStyles = tableStyles.join('; ');
+
         return tableStyles;
     };
 
