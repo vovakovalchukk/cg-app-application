@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77ef633b50c69da56dec63a1e5eb7804",
+    "content-hash": "0be024e8f8ee600f91fe2c659a685f98",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -754,12 +754,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cde531a8587f0c5f8aba6e2b1d51deb95478489b"
+                "reference": "96104fa5204b6d864431ac40a2116a3fa91f0dac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-10978-bulk-listing-import-issue-6f6473.zip",
-                "reference": "cde531a8587f0c5f8aba6e2b1d51deb95478489b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-10978-bulk-listing-import-issue-162803.zip",
+                "reference": "96104fa5204b6d864431ac40a2116a3fa91f0dac"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -774,7 +774,7 @@
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.19.2",
+                "channelgrabber/listing": "dev-CGIV-10978-bulk-listing-import-issue as 1.19.7",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -816,7 +816,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-TAC-500-skip-account-disabled-emails-for-inactive-ous": "1.43.x-dev"
+                    "dev-CGIV-10978-bulk-listing-import-issue": "1.43.x-dev"
                 }
             },
             "autoload": {
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-13T16:51:56+00:00"
+            "time": "2019-11-14T14:18:21+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2016,16 +2016,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.19.6",
+            "version": "dev-CGIV-10978-bulk-listing-import-issue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410"
+                "reference": "35be55621e098d2b1c8b1d6a3d71f013fb936ef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.6-919d4c.zip",
-                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-CGIV-10978-bulk-listing-import-issue-a339bc.zip",
+                "reference": "35be55621e098d2b1c8b1d6a3d71f013fb936ef4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2060,7 +2060,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-10-31T11:29:17+00:00"
+            "time": "2019-11-14T12:34:41+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -11865,12 +11865,19 @@
             "alias_normalized": "1.43.8.0",
             "version": "dev-CGIV-10978-bulk-listing-import-issue",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.19.7",
+            "alias_normalized": "1.19.7.0",
+            "version": "dev-CGIV-10978-bulk-listing-import-issue",
+            "package": "channelgrabber/listing"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
