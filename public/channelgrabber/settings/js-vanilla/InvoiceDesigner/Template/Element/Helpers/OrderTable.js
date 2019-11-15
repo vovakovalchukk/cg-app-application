@@ -1,5 +1,5 @@
 const minColumnWidths = {
-    'mm': 10
+    'mm': 15
 };
 const tableCellIdPrefix = 'table-element-cell_';
 
@@ -63,12 +63,9 @@ define([], function() {
         let sumOfColumnWidths = 0;
         
         tableColumns.forEach((column) => {
-            if (!column.width) {
-                return;
-            }
             sumOfColumnWidths += getColumnWidthInMm(column);
         });
-
+        
         return sumOfColumnWidths;
     };
 
@@ -82,7 +79,7 @@ define([], function() {
 });
 
 function getColumnWidthInMm(column) {
-    if (!column.width) {
+    if (!column.width || !column.widthMeasurementUnit) {
         return minColumnWidths['mm'];
     }
     if (column.widthMeasurementUnit === 'in') {

@@ -196,7 +196,6 @@ define([
 
         tableColumns.forEach(column => {
             if (validWidthColumns.includes(column)) {
-                console.log('bailing out... should see this once if one column width set');
                 return;
             }
             column.width = widthToSetOnInvalidColumns;
