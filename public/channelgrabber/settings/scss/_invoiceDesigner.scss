@@ -238,6 +238,7 @@ $indicator-border-color: #1477aa;
 
         tbody, thead, tr, td, th {
             display: contents;
+            border-color: inherit;
         }
 
         td{
@@ -254,9 +255,24 @@ $indicator-border-color: #1477aa;
     }
 }
 
-.template-element-cell-contents {
-    padding: 0.5rem;
+.template-element-cell-container {
+    border-color: inherit;
+    cursor: pointer;
 }
+
+.template-element-cell-select-container {
+    border-style: solid;
+    border-color: transparent;
+    pointer-events: none;
+    padding: 0.5rem;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    &.-active {
+        border-color: rgba(95, 175, 218, 1);
+    }
+}
+
 
 .template-element-ordertable-totals{
     margin-top:5px;

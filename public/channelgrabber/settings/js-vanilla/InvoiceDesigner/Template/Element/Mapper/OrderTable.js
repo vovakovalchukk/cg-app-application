@@ -33,17 +33,25 @@ define([
 
         const html = `<table class="template-element-ordertable-main" style="${tableStyles}">
             <tr>
-                ${renderColumns('th', (column, inlineStyles, cellId) => {
+                ${renderColumns('th', (column, inlineStyles, cellId, isActive) => {
                     const headerText = column.displayText ? column.displayText : column.optionText;
                     return `<th>
-                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-contents">${headerText}</div>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-container">
+                            <div class="template-element-cell-select-container ${isActive ? '-active' : ''}">
+                                ${headerText}
+                            </div>
+                        </div>
                     </th>`
                 })}
             </tr>
             <tr>
-                 ${renderColumns('td', (column, inlineStyles, cellId) => (
+                 ${renderColumns('td', (column, inlineStyles, cellId, isActive) => (
                     `<td>
-                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-contents">${column.cellPlaceholder}</div>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-container">
+                            <div class="template-element-cell-select-container ${isActive ? '-active' : ''}">
+                                ${column.cellPlaceholder}
+                            </div>
+                         </div>
                     </td>`
                 ))}
             </tr>
@@ -74,7 +82,8 @@ define([
         return tableColumns.map((column) => {
             let inlineStyles = this.getCellInlineStyles(column, element, tag);
             let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
-            return render(column, inlineStyles, cellId);
+            let isActive = isCellTheActiveClickedCell(element, column, tag);
+            return render(column, inlineStyles, cellId, isCellTheActiveClickedCell(element, column, tag, isActive));
         }).join('');
     };
 
@@ -88,15 +97,7 @@ define([
             inlineStyles.push(borderWidthStyle);
         }
 
-        const activeNodeId = element.getActiveCellNodeId();
-        const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
-        const currentCell =  element.getTableCells().find(cell => {
-            return cell.column === column.id && cell.cellTag === tag;
-        });
-
-        if (activeNodeId === cellNodeIdForCell) {
-            applyCellSelectedStyle(inlineStyles);
-        }
+        const currentCell =  getCellData(element, column, tag);
 
         if (!currentCell) {
             return inlineStyles.join('; ');
@@ -109,9 +110,8 @@ define([
         applyFontColourInlineStyle(inlineStyles, currentCell);
         applyBackgroundColourInlineStyle(inlineStyles, currentCell);
 
-        const tableColumns = element.getTableColumns();
-        const columnIndexForCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
-        applyColumnWidth(inlineStyles, tableColumns[columnIndexForCell]);
+        const columnIndexForCell = orderTableHelper.getColumnIndexForCell(element.getTableColumns(), currentCell);
+        applyColumnWidth(inlineStyles, element.getTableColumns()[columnIndexForCell]);
 
         return inlineStyles.join('; ');
     };
@@ -135,13 +135,8 @@ define([
     return new OrderTable();
 
     function applyCellSelectedStyle(inlineStyles) {
-        for (let index = 0; index < inlineStyles.length; index++) {
-            if (!inlineStyles[index].includes('border-color')) {
-                continue;
-            }
-            inlineStyles[index] = 'border-color: #5fafda';
-            break;
-        }
+        inlineStyles.push('border-color: #5fafda');
+        inlineStyles.push('border-style: solid');
     }
 
     function applyColumnWidth(inlineStyles, column) {
@@ -188,5 +183,16 @@ define([
             return '';
         }
         return `text-align: ${currentCell.align}`;
+    }
+
+    function getCellData(element, column, tag) {
+        return element.getTableCells().find(cell => {
+            return cell.column === column.id && cell.cellTag === tag;
+        });
+    }
+
+    function isCellTheActiveClickedCell(element, column, tag) {
+        return element.getActiveCellNodeId() ===
+            orderTableHelper.generateCellDomId(column.id, tag, element.getId());
     }
 });
