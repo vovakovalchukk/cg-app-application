@@ -2671,7 +2671,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-542-make-the-table-element-resizeable":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#ec6255aa3c3b97728fa5a12acec78ee4e78265da"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#c184a89c6ebb941c54f741495fddddaac4ee5d1c"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"

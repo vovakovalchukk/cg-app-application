@@ -1,7 +1,7 @@
 define([
-    'InvoiceDesigner/utility'
+    'Common/Common/Utils/generic'
 ], function(
-    utility
+    genericUtility
 ) {
     const allColumns = [
         {
@@ -121,7 +121,7 @@ define([
                     return column.id === "descriptionInternal"
                 });
                 defaultSortBy[0].position = 0;
-                return utility.deepClone(defaultSortBy);
+                return genericUtility.deepClone(defaultSortBy);
             },
             getDefaultTableTotals,
             getDefaultColumns
@@ -136,13 +136,13 @@ define([
         }
 
         function getDefaultTableTotals() {
-            return utility.deepClone(getTableTotals().filter(total => {
+            return genericUtility.deepClone(getTableTotals().filter(total => {
                 return total.default;
             }));
         }
 
         function getDefaultColumns() {
-            return utility.deepClone(getColumns().filter(column => {
+            return genericUtility.deepClone(getColumns().filter(column => {
                 column.widthMeasurementUnit = 'mm';
                 return column.default;
             }));
