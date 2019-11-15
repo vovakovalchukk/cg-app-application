@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd178a9a71f844a1d19c7d0cf76b99b5",
+    "content-hash": "0e43b891b3e75f2697dd443d2e0fea93",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3727,16 +3727,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.4.1",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
+                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.4.1-bd8ab7.zip",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.5-51b694.zip",
+                "reference": "1f9be5594db60f081933cfb198e57927ee0966e4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3787,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-07T15:45:36+00:00"
+            "time": "2019-11-13T13:51:01+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5278,16 +5278,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.28",
+            "version": "1.26.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4"
+                "reference": "fbc110ffa40e04882b5dd98ecc81670fc4440ccf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.28-2be908.zip",
-                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.29-1760a2.zip",
+                "reference": "fbc110ffa40e04882b5dd98ecc81670fc4440ccf"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5309,6 +5309,7 @@
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "jakeasmith/http_build_url": "~1.0",
                 "php": ">=7.1",
+                "predis/predis": "~0.8.8",
                 "whichbrowser/parser": "~2.0.35",
                 "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
@@ -5338,7 +5339,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-11-06T11:36:05+00:00"
+            "time": "2019-11-13T08:23:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
