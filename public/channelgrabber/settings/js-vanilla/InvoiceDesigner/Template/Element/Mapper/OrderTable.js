@@ -192,7 +192,6 @@ define([
     }
 
     function isCellTheActiveClickedCell(element, column, tag) {
-        return element.getActiveCellNodeId() ===
-            orderTableHelper.generateCellDomId(column.id, tag, element.getId());
+        return element.getActiveCellNodeId() === orderTableHelper.generateCellDomId(column.id, tag, element.getId());
     }
 });

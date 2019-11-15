@@ -269,7 +269,7 @@ $indicator-border-color: #1477aa;
     width: 100%;
     box-sizing: border-box;
     &.-active {
-        border-color: rgba(95, 175, 218, 1);
+        border-color: $color-lblue;
     }
 }
 
