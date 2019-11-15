@@ -9,7 +9,7 @@ define([
     TableStorage,
     OrderTableHelper,
     invoiceDesignerUtility,
-    utils
+    genericUtils
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
@@ -61,9 +61,7 @@ define([
 
         this.getTableColumns = function() {
             return this.get('tableColumns');
-        };    OrderTable.prototype.createElement = function() {
-        return new TableElement();
-    };
+        };
 
         this.setTableColumns = function(tableColumns) {
             return this.set('tableColumns', tableColumns);
@@ -183,15 +181,18 @@ define([
         const hasWidthMeasurementUnit = column => column.widthMeasurementUnit;
         const hasWidth = column => !isNaN(column.width);
 
-        const validWidthFilters = utils.composeFilters(
+        const validWidthFilters = genericUtils.composeFilters(
             hasWidthMeasurementUnit,
             hasWidth
         );
 
         const validWidthColumns = tableColumns.filter(validWidthFilters);
 
-        // todo - need to put the conversion in here from inches
-        const sumOfExistingWidths = validWidthColumns.reduce((totalWidth, currentColumn) => totalWidth + currentColumn.width, 0);
+        const sumOfExistingWidths = validWidthColumns.reduce((totalWidth, currentColumn) => {
+            let currentWidth = currentColumn.widthMeasurementUnit === 'in' ?
+                genericUtils.inToMm(currentColumn.width) : currentColumn.width;
+            return totalWidth + currentWidth;
+        }, 0);
         const widthToSetOnInvalidColumns = (elementWidth - sumOfExistingWidths) / (tableColumns.length - validWidthColumns.length);
 
         tableColumns.forEach(column => {

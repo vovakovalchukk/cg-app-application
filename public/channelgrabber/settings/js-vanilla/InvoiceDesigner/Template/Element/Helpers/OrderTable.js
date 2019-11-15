@@ -1,9 +1,13 @@
-const minColumnWidths = {
-    'mm': 15
-};
-const tableCellIdPrefix = 'table-element-cell_';
+define([
+    'Common/Common/Utils/generic'
+], function(
+    genericUtils
+) {
+    const minColumnWidths = {
+        'mm': 15
+    };
+    const tableCellIdPrefix = 'table-element-cell_';
 
-define([], function() {
     const OrderTableHelper = function() {
         return this;
     };
@@ -69,21 +73,16 @@ define([], function() {
         return sumOfColumnWidths;
     };
 
-    OrderTableHelper.prototype.getColumnIdsThatNeedWidths = function(tableColumns) {
-        return tableColumns.filter((column) => (
-            !column.width || !column.widthMeasurementUnit
-        )).map((column) => column.id);
-    };
-
     return new OrderTableHelper;
-});
 
-function getColumnWidthInMm(column) {
-    if (!column.width || !column.widthMeasurementUnit) {
-        return minColumnWidths['mm'];
+    function getColumnWidthInMm(column) {
+        if (!column.width || !column.widthMeasurementUnit) {
+            return minColumnWidths['mm'];
+        }
+        if (column.widthMeasurementUnit === 'in') {
+            return genericUtils.inToMm(column.width);
+        }
+        return column.width;
     }
-    if (column.widthMeasurementUnit === 'in') {
-        return column.width * 25.4;
-    }
-    return column.width;
-}
+
+});
