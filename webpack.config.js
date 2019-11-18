@@ -16,9 +16,9 @@ module.exports = {
         "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
         "settings/js/PickListSettings/PickListSettings": "./public/channelgrabber/settings/jsx/PickListSettings/PickListSettings.jsx",
         
-	"settings/js/Listing/ListingTemplates": "./public/channelgrabber/settings/jsx/Listing/ListingTemplates/ListingTemplates.jsx",
+	    "settings/js/Listing/ListingTemplates": "./public/channelgrabber/settings/jsx/Listing/ListingTemplates/ListingTemplates.jsx",
         
-	"setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
+	    "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
 
@@ -31,10 +31,12 @@ module.exports = {
         "data-exchange/js/DataExchange/Templates/OrderTracking/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/OrderTracking/Index.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
-        "data-exchange/js/DataExchange/StockExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/App.jsx",
-        "data-exchange/js/DataExchange/StockImport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/Index.jsx",
         "data-exchange/js/DataExchange/OrderExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderExport/App.jsx",
         "data-exchange/js/DataExchange/OrderTrackingImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderTrackingImport/App.jsx",
+
+        "data-exchange/js/DataExchange/StockExport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/Index.jsx",
+
+        "data-exchange/js/DataExchange/StockImport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/Index.jsx"
     },
     module: {
         rules: [
@@ -113,7 +115,6 @@ module.exports = {
             Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
             CommonSrc: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'src'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
-            DataExchange: path.resolve(__dirname, 'public', 'channelgrabber', 'data-exchange', 'jsx', 'DataExchange'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'umd', 'react.production.min.js'),
             'zf2-v4-ui': path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui'),

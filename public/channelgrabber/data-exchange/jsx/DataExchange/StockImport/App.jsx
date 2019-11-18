@@ -4,7 +4,7 @@ import ajax from 'Common/Utils/xhr/ajax';
 
 const importUrl = "/dataExchange/stock/import/upload";
 
-const App = (props) => {
+const StockImportApp = (props) => {
     const {templateOptions, actionOptions} = props;
     const templateState = useSelectState({});
     const actionState = useSelectState({});
@@ -115,6 +115,6 @@ function showErrorNoticeForSubmit() {
     n.error('There was an error processing your request. Please contact support for further information.');
 }
 
-export default App;
+export default StockImportApp;
 
 
