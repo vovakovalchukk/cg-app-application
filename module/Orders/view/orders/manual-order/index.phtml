@@ -7,9 +7,20 @@ require.config({
     }
 });
 require(
-    ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image', 'Common/Utils/Ou'],
-    function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils, OuUtils) {
-
+    [
+        'ManualOrder/ManualOrder',
+        'Common/Utils/Carrier',
+        'Common/Utils/Currency',
+        'Common/Utils/Image',
+        'Common/Utils/Ou'
+    ],
+    function(
+        ManualOrderRoot,
+        CarrierUtils,
+        CurrencyUtils,
+        ImageUtils,
+        OuUtils
+    ) {
     var domElements = {
         productInfo: document.getElementById('product-information'),
         orderNotes: document.getElementById('order-notes'),
