@@ -3731,7 +3731,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ab24aec34da5ae65b6d1b0630be03a22e652a1a4"
+                "reference": "4871f84cb161b7ed7005f6fbc1f2feedf24a8878"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11040-linked-products-not-displayed-on-invoice-e59292.zip",
+                "reference": "4871f84cb161b7ed7005f6fbc1f2feedf24a8878"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3782,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-13T13:51:01+00:00"
+            "time": "2019-11-18T17:04:04+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10445,7 +10450,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11866,8 +11872,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
