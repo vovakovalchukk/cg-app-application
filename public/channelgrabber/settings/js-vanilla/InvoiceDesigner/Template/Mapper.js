@@ -69,6 +69,9 @@ define([
                 elementData.tableColumns = applyDefaultsToOrderTableColumns(elementData.tableColumns);
                 elementData.tableCells = applyDefaultsToOrderTableCells(elementData);
                 elementData.totals = applyDefaultsToTableTotals(elementData.totals);
+
+                const sumOfColumnWidths = OrderTableHelper.getSumOfAllColumnWidths(elementData.tableColumns);
+                elementData.minWidth = Number(sumOfColumnWidths).mmToPx();
             }
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
