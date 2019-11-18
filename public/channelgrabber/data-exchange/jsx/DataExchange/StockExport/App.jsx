@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Table from "../Schedule/Table";
 import Service from "./Components/Service";
-import Select from "DataExchange/StockImport/App";
+import Select from "Common/Components/Select";
 import ajax from 'Common/Utils/xhr/ajax';
 
 const StockExportApp = (props) => {
@@ -25,42 +25,76 @@ const StockExportApp = (props) => {
 //        event.preventDefault();
     };
 
-
     return (
         <div>
-            <form id={"stock-import-form"} onSubmit={onSubmit}>
-                <div className="u-flex-v-center u-margin-top-small">
-                    <label htmlFor="template" className="u-flex-1">Template</label>
-                    <div className="u-flex-4">
-                        <Select
-                            id={"template"}
-                            name={"template"}
-                            options={formattedTemplateOptions}
-                            filterable={true}
-                            autoSelectFirst={false}
-                            selectedOption={templateState.selectedOption}
-                            onOptionChange={templateState.onOptionChange}
-                            classNames={'u-inline-block'}
-                        />
+            <div className="u-margin-top-xxlarge u-form-width-medium">
+                <form id={"stock-import-form"} onSubmit={onSubmit}>
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <label htmlFor="template" className="u-flex-1">Template</label>
+                        <div className="u-flex-4">
+                            <Select
+                                id={"template"}
+                                name={"template"}
+                                options={formattedTemplateOptions}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={templateState.selectedOption}
+                                onOptionChange={templateState.onOptionChange}
+                                classNames={'u-inline-block u-width-120px'}
+                            />
+                        </div>
                     </div>
-                </div>
-                <button type="submit" className={'u-margin-top-med button'}>Search</button>
-            </form>
-
-            <Table
-                {...props}
-                buildEmptySchedule={Service.buildEmptySchedule}
-                columns={Service.getColumns()}
-                formatPostDataForSave={Service.formatPostDataForSave}
-                validators={Service.validators()}
-            />
+                    <button type="submit" className={'u-margin-top-med button'}>Search</button>
+                </form>
+            </div>
+            <div className={'u-margin-top-medium u-inline-block'}>
+                <Table
+                    {...props}
+                    buildEmptySchedule={Service.buildEmptySchedule}
+                    columns={Service.getColumns()}
+                    formatPostDataForSave={Service.formatPostDataForSave}
+                    validators={Service.validators()}
+                />
+            </div>
         </div>
     );
+
+//    return (
+//        <div>
+//            <div> at the start </div>
+//            <form id={"stock-import-form"} onSubmit={onSubmit}>
+//                <div className="u-flex-v-center u-margin-top-small">
+//                    <label htmlFor="template" className="u-flex-1">Template</label>
+//                    <div className="u-flex-4">
+//                        <Select
+//                            id={"template"}
+//                            name={"template"}
+//                            options={formattedTemplateOptions}
+//                            filterable={true}
+//                            autoSelectFirst={false}
+//                            selectedOption={templateState.selectedOption}
+//                            onOptionChange={templateState.onOptionChange}
+//                            classNames={'u-inline-block'}
+//                        />
+//                    </div>
+//                </div>
+//                <button type="submit" className={'u-margin-top-med button'}>Search</button>
+//            </form>
+//
+//            <Table
+//                {...props}
+//                buildEmptySchedule={Service.buildEmptySchedule}
+//                columns={Service.getColumns()}
+//                formatPostDataForSave={Service.formatPostDataForSave}
+//                validators={Service.validators()}
+//            />
+//        </div>
+//    );
 };
 
 export default StockExportApp;
 
-function useSelectState(initialValue){
+function useSelectState(initialValue) {
     const [selectedOption, setSelectedOption] = useState(initialValue);
     const onOptionChange = (newValue) => {
         setSelectedOption(newValue);
@@ -72,8 +106,6 @@ function useSelectState(initialValue){
 }
 
 function formatOptionsFromMap(map) {
-    console.log('map in formatOptionsFromMap: ', map);
-
     return Object.keys(map).map((key) => {
         return {
             title: map[key],
