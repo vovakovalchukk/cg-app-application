@@ -2020,12 +2020,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "35be55621e098d2b1c8b1d6a3d71f013fb936ef4"
+                "reference": "904d01deb7fa6dabb96b99215559c86046fa3f94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-CGIV-10978-bulk-listing-import-issue-a339bc.zip",
-                "reference": "35be55621e098d2b1c8b1d6a3d71f013fb936ef4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-CGIV-10978-bulk-listing-import-issue-552003.zip",
+                "reference": "904d01deb7fa6dabb96b99215559c86046fa3f94"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2060,7 +2060,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-11-14T12:34:41+00:00"
+            "time": "2019-11-15T15:17:25+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -10450,8 +10450,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
