@@ -76,7 +76,7 @@ define([], function() {
             "id": "image",
             "displayText": "Image",
             "optionText": "Image",
-            "cellPlaceholder": `<img class="u-width-100pc u-height-100pc" src="https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png" />`
+            "cellPlaceholder": `<i> image </i>`
         }
     ];
     const allTableTotals = [
