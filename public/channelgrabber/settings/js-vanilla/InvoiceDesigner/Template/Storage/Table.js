@@ -73,7 +73,7 @@ define([], function() {
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
         },
         {
-            "id": "orderImage",
+            "id": "image",
             "displayText": "Image",
             "optionText": "Image",
             "cellPlaceholder": `<img class="u-width-100pc u-height-100pc" src="https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png" />`
