@@ -51,7 +51,7 @@ const StockImportApp = (props) => {
                     />
                 </div>
                 <div className="u-flex-v-center u-margin-top-small">
-                    <label htmlFor="template" className="u-flex-1">Template</label>
+                    <label htmlFor="template" className="u-flex-1">Template:</label>
                     <div className="u-flex-4">
                         <Select
                             id={"template"}
@@ -66,7 +66,7 @@ const StockImportApp = (props) => {
                     </div>
                 </div>
                 <div className="u-flex-v-center u-margin-top-small">
-                    <label htmlFor="action" className="u-flex-1">Import Action</label>
+                    <label htmlFor="action" className="u-flex-1">Import Action:</label>
                     <div className="u-flex-4">
                         <Select
                             id={"action"}
