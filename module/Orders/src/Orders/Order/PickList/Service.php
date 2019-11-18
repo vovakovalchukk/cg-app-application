@@ -32,6 +32,7 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     const EVENT_PICKING_LIST_PRINTED = 'Picking List Printed';
+    protected const LOG_CODE = 'PickListService';
 
     /** @var ProductService $productService */
     protected $productService;
@@ -232,9 +233,14 @@ class Service implements LoggerAwareInterface
 
         $imageMap = new ImageMap();
         $this->imageService->populateImageMapBySku($imageMap, $map);
-        $this->imageClient->fetchImages($imageMap);
 
-        return $imageMap;
+        try {
+            $this->imageClient->fetchImages($imageMap);
+            return $imageMap;
+        } catch (NotFound $exception) {
+            $this->logDebugException($exception, '', [], static::LOG_CODE);
+            return null;
+        }
     }
 
     protected function updatePickListGenerationProgress($key, $count)

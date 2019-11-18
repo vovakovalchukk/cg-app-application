@@ -28,11 +28,13 @@ module.exports = {
         "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
         "data-exchange/js/DataExchange/Templates/Stock/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/Stock/Index.jsx",
         "data-exchange/js/DataExchange/Templates/Orders/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/Orders/Index.jsx",
+        "data-exchange/js/DataExchange/Templates/OrderTracking/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/OrderTracking/Index.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
         "data-exchange/js/DataExchange/StockExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/App.jsx",
         "data-exchange/js/DataExchange/StockImport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/Index.jsx",
         "data-exchange/js/DataExchange/OrderExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderExport/App.jsx",
+        "data-exchange/js/DataExchange/OrderTrackingImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderTrackingImport/App.jsx",
     },
     module: {
         rules: [
