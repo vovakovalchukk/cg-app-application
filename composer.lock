@@ -3733,6 +3733,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "487a78e632d5697e5c3a7f18ab8fe3c498ed038a"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11040-linked-products-not-displayed-on-invoice-e3b253.zip",
+                "reference": "487a78e632d5697e5c3a7f18ab8fe3c498ed038a"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.6.0",
@@ -3782,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-18T17:04:04+00:00"
+            "time": "2019-11-19T08:57:09+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11867,8 +11872,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
