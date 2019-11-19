@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Table from "../Schedule/Table";
 import Service from "./Components/Service";
-import FormLayout from 'Common/Components/Layout/Form';
 import Select from "Common/Components/Select";
 import Checkbox from "Common/Components/Checkbox--stateless"
 import {encodeData} from "Common/Utils/xhr/urlEncoder"
@@ -35,42 +34,6 @@ const StockExportApp = (props) => {
 
     return (
         <div>
-            <FormLayout
-                className={'u-margin-top-xxlarge'}
-                form={{
-                    id: 'stock-import-form',
-                    onSubmit,
-                    action: exportUrl
-                }}
-                elements={[
-                    {
-                        label: 'Template: ',
-                        renderInput: () => {
-                            return <Select
-                                id={"template"}
-                                name={"template"}
-                                options={formattedTemplateOptions}
-                                filterable={true}
-                                autoSelectFirst={false}
-                                selectedOption={templateState.selectedOption}
-                                onOptionChange={templateState.onOptionChange}
-                                classNames={'u-inline-block u-width-120px'}
-                            />
-                        }
-                    },
-                    {
-                        label: 'Send via email: ',
-                        renderInput: () => {
-                            return <Checkbox
-                                id={"sendViaEmail"}
-                                name={"sendViaEmail"}
-                                onSelect={sendViaEmailState.onSelect}
-                                isSelected={sendViaEmailState.value}
-                            />
-                        }
-                    }
-                ]}
-            />
             <div className="u-margin-top-xxlarge u-form-width-medium">
                 <form id={"stock-import-form"} onSubmit={onSubmit} action={exportUrl}>
                     <div className="u-flex-v-center u-margin-top-small">
@@ -89,7 +52,7 @@ const StockExportApp = (props) => {
                         </div>
                     </div>
                     <div className="u-flex-v-center u-margin-top-small">
-                        <label htmlFor="sendViaEmal" className="u-flex-1">Send via email:</label>
+                        <label htmlFor="sendViaEmail" className="u-flex-1">Send via email:</label>
                         <div className="u-flex-4">
                             <Checkbox
                                 id={"sendViaEmail"}

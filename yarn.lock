@@ -2335,9 +2335,9 @@ caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001004:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001010.tgz#397a14034d384260453cc81994f494626d34b938"
   integrity sha512-RA5GH9YjFNea4ZQszdWgh2SC+dpLiRAg4VDQS2b5JRI45OxmbGrYocYHTa9x0bKMQUE7uvHkNPNffUr+pCxSGw==
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.43":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#MIG-41-frontend-for-manual-imports-exports":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#fd8d4a4927718d29db87f4dabfc5e43633b2b0bb"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#85fa9f090a9ecfacdc675247de5a135fc43e9495"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
