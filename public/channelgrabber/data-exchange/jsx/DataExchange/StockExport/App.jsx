@@ -88,7 +88,7 @@ const StockExportApp = (props) => {
         });
 
         if(fileDownloadResponse.status !== 200) {
-            n.error('There was a problem exporting your stock. Please contact support for assistance.')
+            n.error('There was a problem exporting your stock. Please contact support for assistance.');
             return;
         }
 
