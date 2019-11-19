@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Table from "../Schedule/Table";
 import Service from "./Components/Service";
+import FormLayout from 'Common/Components/Layout/Form';
 import Select from "Common/Components/Select";
 import Checkbox from "Common/Components/Checkbox--stateless"
 import {encodeData} from "Common/Utils/xhr/urlEncoder"
@@ -34,6 +35,42 @@ const StockExportApp = (props) => {
 
     return (
         <div>
+            <FormLayout
+                className={'u-margin-top-xxlarge'}
+                form={{
+                    id: 'stock-import-form',
+                    onSubmit,
+                    action: exportUrl
+                }}
+                elements={[
+                    {
+                        label: 'Template: ',
+                        renderInput: () => {
+                            return <Select
+                                id={"template"}
+                                name={"template"}
+                                options={formattedTemplateOptions}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={templateState.selectedOption}
+                                onOptionChange={templateState.onOptionChange}
+                                classNames={'u-inline-block u-width-120px'}
+                            />
+                        }
+                    },
+                    {
+                        label: 'Send via email: ',
+                        renderInput: () => {
+                            return <Checkbox
+                                id={"sendViaEmail"}
+                                name={"sendViaEmail"}
+                                onSelect={sendViaEmailState.onSelect}
+                                isSelected={sendViaEmailState.value}
+                            />
+                        }
+                    }
+                ]}
+            />
             <div className="u-margin-top-xxlarge u-form-width-medium">
                 <form id={"stock-import-form"} onSubmit={onSubmit} action={exportUrl}>
                     <div className="u-flex-v-center u-margin-top-small">
@@ -84,10 +121,10 @@ const StockExportApp = (props) => {
         let fileDownloadResponse = await fileDownload.downloadBlob({
             url: exportUrl,
             data,
-            desiredFilename:`stock-${date.toISOString().slice(0,10)}_${date.getTime()}.csv';`
+            desiredFilename: `stock-${date.toISOString().slice(0, 10)}_${date.getTime()}.csv';`
         });
 
-        if(fileDownloadResponse.status !== 200) {
+        if (fileDownloadResponse.status !== 200) {
             n.error('There was a problem exporting your stock. Please contact support for assistance.');
             return;
         }
@@ -99,12 +136,12 @@ const StockExportApp = (props) => {
         n.notice('We are processing your request...');
         ajax.request({
             method: 'POST',
-            url:  exportUrl,
+            url: exportUrl,
             data,
-            onSuccess: ()=>{
+            onSuccess: () => {
                 n.success("Please check your email for your stock export.")
             },
-            onError: ()=>{
+            onError: () => {
                 n.error('There was a problem exporting your stock. Please contact support for assistance.')
             }
         });
