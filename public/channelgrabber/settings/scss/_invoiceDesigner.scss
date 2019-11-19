@@ -214,45 +214,74 @@ $indicator-border-color: #1477aa;
 
 .template-element-ordertable{
     border: dashed 2px $color-mgrey;
-    table{
+    background: $color-white;
+    table {
         border: none;
-        background: $color-white;
-        float: none;
         margin: 0;
-
+        display: grid;
+        box-sizing: border-box;
         tr, td {
             box-sizing: border-box;
             border: none;
             background: inherit;
             cursor: default;
+            padding: 0;
+        }
+
+        tr {
+            border-width: inherit;
+            border-bottom-style: solid;
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        tbody, thead, tr, td, th {
+            display: contents;
+            border-color: inherit;
         }
 
         td{
             color: $color-black;
             text-align: left;
-            height:7.5mm;
         }
 
         th{
             @extend td;
-            font-weight: bold
+            font-weight: bold;
+            width: initial;
+            border-width: inherit;
         }
     }
 }
 
-.template-element-ordertable-totals{
-    float: right;
-    margin-top:5px;
-    table{
-        td{
-            min-width: 90px;
-            height:auto;
-        }
+.template-element-cell-container {
+    border-color: inherit;
+    cursor: pointer;
+}
 
-        th{
-            @extend td;
-        }
+.template-element-cell-select-container {
+    border-style: solid;
+    border-color: transparent;
+    pointer-events: none;
+    padding: 0.5rem;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    &.-active {
+        border-color: $color-lblue;
     }
+}
+
+.template-element-ordertable-totals{
+    margin-top:5px;
+    position: absolute;
+    bottom: 1rem;
+}
+
+.template-element-totals-row {
+    display: grid;
+    grid-template-columns: 150px 150px;
 }
 
 .template-element-text, .template-element-selleraddress, .template-element-deliveryaddress{

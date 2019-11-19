@@ -25,35 +25,44 @@ define([
         const tableTotals = element.getTableTotals().sort((a, b) => {
             return a.position - b.position;
         });
-        const tableInlineStyles = this.getTableStyles(element).slice();
-        const renderColumns = this.renderColumns.bind(this, tableColumns, element);
 
+        const tableStyles = this.getTableStyles(element, tableColumns);
+
+        const renderColumns = this.renderColumns.bind(this, tableColumns, element);
         const renderTotalRow = this.renderTotalRow.bind(this, tableTotals, element);
 
-        const html = `<table class="template-element-ordertable-main" style="${tableInlineStyles}">
+        const html = `<table class="template-element-ordertable-main" style="${tableStyles}">
             <tr>
-                ${renderColumns('th', (column, inlineStyles, cellId) => {
+                ${renderColumns('th', (column, inlineStyles, cellId, isActive) => {
                     const headerText = column.displayText ? column.displayText : column.optionText;
-                    return `<th id="${cellId}" style="${inlineStyles}">${headerText}</th>`
+                    return `<th>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-container">
+                            <div class="template-element-cell-select-container ${isActive ? '-active' : ''}">
+                                ${headerText}
+                            </div>
+                        </div>
+                    </th>`
                 })}
             </tr>
             <tr>
-                 ${renderColumns('td', (column, inlineStyles, cellId) => (
-                    `<td id="${cellId}" style="${inlineStyles}">${column.cellPlaceholder}</td>`
+                 ${renderColumns('td', (column, inlineStyles, cellId, isActive) => (
+                    `<td>
+                        <div id="${cellId}" style="${inlineStyles}" class="u-flex-v-center u-height-100pc u-border-box template-element-cell-container">
+                            <div class="template-element-cell-select-container ${isActive ? '-active' : ''}">
+                                ${column.cellPlaceholder}
+                            </div>
+                         </div>
+                    </td>`
                 ))}
             </tr>
         </table>
-        <div class="template-element-ordertable-totals">
-            <table>
-                <tbody>
-                    ${renderTotalRow(total => (
-                        `<tr>
-                            <th>${total.displayText}</th>
-                            <td>${total.placeholder}</td>
-                        </tr>`
-                    ))}
-                </tbody>
-            </table>
+        <div class="template-element-ordertable-totals u-width-100pc">
+            ${renderTotalRow(total => (
+                `<div class="template-element-totals-row">
+                    <span>${total.displayText}</span>
+                    <span>${total.placeholder}</span>
+                </div>`
+            ))}
         </div>`;
 
         return html;
@@ -70,24 +79,25 @@ define([
     };
 
     OrderTable.prototype.renderColumns = function(tableColumns, element, tag, render) {
-        return tableColumns.map(column => {
+        return tableColumns.map((column) => {
             let inlineStyles = this.getCellInlineStyles(column, element, tag);
             let cellId = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
-            return render(column, inlineStyles, cellId);
+            let isActive = isCellTheActiveClickedCell(element, column, tag);
+            return render(column, inlineStyles, cellId, isCellTheActiveClickedCell(element, column, tag, isActive));
         }).join('');
     };
 
     OrderTable.prototype.getCellInlineStyles = function(column, element, tag) {
-        const inlineStyles = this.getTableStyles(element).slice();
-        const activeNodeId = element.getActiveCellNodeId();
-        const cellNodeIdForCell = orderTableHelper.generateCellDomId(column.id, tag, element.getId());
-        const currentCell =  element.getTableCells().find(cell => {
-            return cell.column === column.id && cell.cellTag === tag;
-        });
+        const inlineStyles = [];
 
-        if (activeNodeId === cellNodeIdForCell) {
-            applyCellSelectedStyle(inlineStyles);
+        if (tag === 'th') {
+            inlineStyles.push('border-bottom-style: solid');
+            let tableStyles = this.getTableStyles(element, element.getTableColumns()).split('; ');
+            let borderWidthStyle = tableStyles.find(style => style.includes('border-width'));
+            inlineStyles.push(borderWidthStyle);
         }
+
+        const currentCell =  getCellData(element, column, tag);
 
         if (!currentCell) {
             return inlineStyles.join('; ');
@@ -100,35 +110,33 @@ define([
         applyFontColourInlineStyle(inlineStyles, currentCell);
         applyBackgroundColourInlineStyle(inlineStyles, currentCell);
 
-        if (tag === 'th') {
-            const tableColumns = element.getTableColumns();
-            const columnIndexForCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
-            applyColumnWidth(inlineStyles, tableColumns[columnIndexForCell]);
-        }
+        const columnIndexForCell = orderTableHelper.getColumnIndexForCell(element.getTableColumns(), currentCell);
+        applyColumnWidth(inlineStyles, element.getTableColumns()[columnIndexForCell]);
 
         return inlineStyles.join('; ');
     };
 
-    OrderTable.prototype.getTableStyles = function(element) {
+    OrderTable.prototype.getTableStyles = function(element, tableColumns) {
         let tableStyles = [];
         const tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
-        tableStyles = this.addOptionalDomStyles(element, tableAttributes, tableStyles);
-        if (element.getBorderWidth()) {
-            tableStyles.push('border-style: solid');
-        }
+
+        tableStyles = this.addOptionalDomStyles(
+            element,
+            tableAttributes,
+            tableStyles
+        ).flat();
+
+        tableStyles.push(`grid-template-columns: repeat(${tableColumns.length}, 1fr)`);
+        tableStyles = tableStyles.join('; ');
+
         return tableStyles;
     };
 
     return new OrderTable();
 
     function applyCellSelectedStyle(inlineStyles) {
-        for (let index = 0; index < inlineStyles.length; index++) {
-            if (!inlineStyles[index].includes('border-color')) {
-                continue;
-            }
-            inlineStyles[index] = 'border-color: #5fafda';
-            break;
-        }
+        inlineStyles.push('border-color: #5fafda');
+        inlineStyles.push('border-style: solid');
     }
 
     function applyColumnWidth(inlineStyles, column) {
@@ -175,5 +183,15 @@ define([
             return '';
         }
         return `text-align: ${currentCell.align}`;
+    }
+
+    function getCellData(element, column, tag) {
+        return element.getTableCells().find(cell => {
+            return cell.column === column.id && cell.cellTag === tag;
+        });
+    }
+
+    function isCellTheActiveClickedCell(element, column, tag) {
+        return element.getActiveCellNodeId() === orderTableHelper.generateCellDomId(column.id, tag, element.getId());
     }
 });

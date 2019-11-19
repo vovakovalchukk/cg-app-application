@@ -1,4 +1,13 @@
-define([], function() {
+define([
+    'Common/Common/Utils/generic'
+], function(
+    genericUtils
+) {
+    const minColumnWidths = {
+        'mm': 15
+    };
+    const tableCellIdPrefix = 'table-element-cell_';
+
     const OrderTableHelper = function() {
         return this;
     };
@@ -33,15 +42,19 @@ define([], function() {
     };
 
     OrderTableHelper.prototype.getCellDataIndexFromDomId = function(id, tableCells) {
-        let [columnId, tagFromId, elementId] = id.split('-');
+        let [columnId, tagFromId] = id.slice(this.getTableCellIdPrefix().length).split('-');
 
         return tableCells.findIndex(({column, cellTag}) => {
             return tagFromId === cellTag && column === columnId;
         });
     };
 
+    OrderTableHelper.prototype.getTableCellIdPrefix = function() {
+        return tableCellIdPrefix;
+    }
+
     OrderTableHelper.prototype.generateCellDomId = function(columnId, tag, elementId) {
-        return `${columnId}-${tag}-${elementId}`;
+        return `${this.getTableCellIdPrefix()}${columnId}-${tag}-${elementId}`;
     };
 
     OrderTableHelper.prototype.getColumnIndexForCell = function(tableColumns, cell) {
@@ -50,5 +63,26 @@ define([], function() {
         });
     };
 
+    OrderTableHelper.prototype.getSumOfAllColumnWidths = function(tableColumns) {
+        let sumOfColumnWidths = 0;
+        
+        tableColumns.forEach((column) => {
+            sumOfColumnWidths += getColumnWidthInMm(column);
+        });
+        
+        return sumOfColumnWidths;
+    };
+
     return new OrderTableHelper;
+
+    function getColumnWidthInMm(column) {
+        if (!column.width || !column.widthMeasurementUnit) {
+            return minColumnWidths['mm'];
+        }
+        if (column.widthMeasurementUnit === 'in') {
+            return genericUtils.inToMm(column.width);
+        }
+        return column.width;
+    }
+
 });
