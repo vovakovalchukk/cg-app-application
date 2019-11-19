@@ -17,32 +17,19 @@ const StockExportApp = (props) => {
 
     const formattedTemplateOptions = formatOptionsFromMap(templateOptions);
 
-    const onSubmit = (event) => {
-        console.log('event: ', event);
+    const onSubmit = async (event) => {
+        event.preventDefault();
         const data = {
-            templateId: "1"
+            templateId: "1",
             sendViaEmail: sendViaEmailState.value
         };
 
         if (!data.sendViaEmail) {
-            fileDownload.downloadBlob({
-                url: exportUrl,
-                data,
-                desiredFilename:`stock-${new Date().toISOString().slice(0,10)}.csv';`
-            });
+            await exportToBrowser(data);
             return;
         }
 
-        ajax.request({
-            method: 'POST',
-            url:  exportUrl,
-            data:  {
-                templateId: templateState.selectedOption.value,
-            },
-            onSuccess: (data)=>{console.log('in success',data)},
-            onError: ()=>{console.log('in error')}
-        });
-        event.preventDefault();
+        exportViaEmail(data)
     };
 
     return (
@@ -91,6 +78,38 @@ const StockExportApp = (props) => {
             </div>
         </div>
     );
+
+    async function exportToBrowser(data) {
+        n.notice('We are exporting your stock...');
+        const date = new Date();
+        let fileDownloadResponse = await fileDownload.downloadBlob({
+            url: exportUrl,
+            data,
+            desiredFilename:`stock-${date.toISOString().slice(0,10)}_${date.getTime()}.csv';`
+        });
+
+        if(fileDownloadResponse.status !== 200) {
+            n.error('There was a problem exporting your stock. Please contact support for assistance.')
+            return;
+        }
+
+        n.success('Successfully exported your stock.');
+    }
+
+    function exportViaEmail(data) {
+        n.notice('We are processing your request...');
+        ajax.request({
+            method: 'POST',
+            url:  exportUrl,
+            data,
+            onSuccess: ()=>{
+                n.success('We have successfully sent your stock via email.')
+            },
+            onError: ()=>{
+                n.error('There was a problem exporting your stock. Please contact support for assistance.')
+            }
+        });
+    }
 };
 
 export default StockExportApp;
