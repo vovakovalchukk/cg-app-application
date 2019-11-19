@@ -20,7 +20,7 @@ const StockExportApp = (props) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            templateId: "1",
+            templateId: templateState.selectedOption.value,
             sendViaEmail: sendViaEmailState.value
         };
 
@@ -36,33 +36,32 @@ const StockExportApp = (props) => {
         <div>
             <div className="u-margin-top-xxlarge u-form-width-medium">
                 <form id={"stock-import-form"} onSubmit={onSubmit} action={exportUrl}>
-                    {/*<div className="u-flex-v-center u-margin-top-small">*/}
-                        {/*<label htmlFor="template" className="u-flex-1">Template:</label>*/}
-                        {/*<div className="u-flex-4">*/}
-                            {/*<Select*/}
-                                {/*id={"template"}*/}
-                                {/*name={"template"}*/}
-                                {/*options={formattedTemplateOptions}*/}
-                                {/*filterable={true}*/}
-                                {/*autoSelectFirst={false}*/}
-                                {/*selectedOption={templateState.selectedOption}*/}
-                                {/*onOptionChange={templateState.onOptionChange}*/}
-                                {/*classNames={'u-inline-block u-width-120px'}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                        {/*<input type="text" name="templateId" placeholder="Email" value={"1"} />*/}
-                    {/*<div className="u-flex-v-center u-margin-top-small">*/}
-                        {/*<label htmlFor="sendViaEmal" className="u-flex-1">Send via email:</label>*/}
-                        {/*<div className="u-flex-4">*/}
-                            {/*<Checkbox*/}
-                                {/*id={"sendViaEmail"}*/}
-                                {/*name={"sendViaEmail"}*/}
-                                {/*onSelect={sendViaEmailState.onSelect}*/}
-                                {/*isSelected={sendViaEmailState.value}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <label htmlFor="template" className="u-flex-1">Template:</label>
+                        <div className="u-flex-4">
+                            <Select
+                                id={"template"}
+                                name={"template"}
+                                options={formattedTemplateOptions}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={templateState.selectedOption}
+                                onOptionChange={templateState.onOptionChange}
+                                classNames={'u-inline-block u-width-120px'}
+                            />
+                        </div>
+                    </div>
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <label htmlFor="sendViaEmal" className="u-flex-1">Send via email:</label>
+                        <div className="u-flex-4">
+                            <Checkbox
+                                id={"sendViaEmail"}
+                                name={"sendViaEmail"}
+                                onSelect={sendViaEmailState.onSelect}
+                                isSelected={sendViaEmailState.value}
+                            />
+                        </div>
+                    </div>
 
                     <button type="submit" className={'u-margin-top-med button'}>Download</button>
                 </form>
@@ -103,7 +102,7 @@ const StockExportApp = (props) => {
             url:  exportUrl,
             data,
             onSuccess: ()=>{
-                n.success('We have successfully sent your stock via email.')
+                n.success("Please check your email for your stock export.")
             },
             onError: ()=>{
                 n.error('There was a problem exporting your stock. Please contact support for assistance.')
