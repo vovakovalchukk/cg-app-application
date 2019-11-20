@@ -40,7 +40,7 @@
         "channelgrabber/data-exchange-schedule": "~1.0.4",
         "channelgrabber/data-exchange-template": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
-        "channelgrabber/ebay": "dev-CGIV-11044-missing-invoice-mapping as 1.20.7",
+        "channelgrabber/ebay": "dev-CGIV-11044-missing-invoice-mapping as 1.20.13",
         "channelgrabber/ekm": "~1.14.1",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/email-account": "~1.0.1",
