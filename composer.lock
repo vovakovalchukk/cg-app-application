@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db7f483e4e429b96a6058519bc7b5ac8",
+    "content-hash": "559cf249f78a1e4b93484587cdb87c0a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -754,7 +754,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1cbd240ef435d2a7dd2cf0205cc5d8f1656770e2"
+                "reference": "044048a8bbbe522539c29271697c791766b8ae06"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -828,7 +828,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-19T15:00:44+00:00"
+            "time": "2019-11-20T11:15:21+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1339,10 +1339,15 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "1dc2f332d41fda9eebddc034405d31920c82b15a"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11044-missing-invoice-mapping-5f69fa.zip",
+                "reference": "1dc2f332d41fda9eebddc034405d31920c82b15a"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "^1.43.5",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1389,7 +1394,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-09-02T12:04:33+00:00"
+            "time": "2019-11-20T11:14:07+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2388,16 +2393,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.12",
+            "version": "dev-CGIV-11044-missing-invoice-mapping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.12-9d2f9b.zip",
-                "reference": "9905227e18c3c8eaf2173734bc6480825e1ad7ca"
+                "reference": "4791af95590cabc25a16085a0977c04b2319ec5b"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2474,7 +2474,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-11T14:24:29+00:00"
+            "time": "2019-11-20T10:04:46+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -10440,7 +10440,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11860,6 +11861,12 @@
             "alias_normalized": "1.20.7.0",
             "version": "dev-CGIV-11044-missing-invoice-mapping",
             "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.47.13",
+            "alias_normalized": "1.47.13.0",
+            "version": "dev-CGIV-11044-missing-invoice-mapping",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -11867,6 +11874,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
         "realityking/hash_equals": 20
