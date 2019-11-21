@@ -1407,12 +1407,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "1eebb17898cf3ee3ccc52fd0363dad4f71713e77"
+                "reference": "be45cac0408127682cc5952a410aba5a775b1fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-547-ekm-rest-api-listings-ceaae2.zip",
-                "reference": "1eebb17898cf3ee3ccc52fd0363dad4f71713e77"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-547-ekm-rest-api-listings-3cd5bf.zip",
+                "reference": "be45cac0408127682cc5952a410aba5a775b1fef"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1459,7 +1459,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-20T14:24:04+00:00"
+            "time": "2019-11-21T10:12:24+00:00"
         },
         {
             "name": "channelgrabber/email",
