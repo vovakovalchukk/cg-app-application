@@ -1,20 +1,27 @@
 define([
     'InvoiceDesigner/Template/ElementAbstract',
     'InvoiceDesigner/Template/Storage/Table',
-    'InvoiceDesigner/Template/Element/Helpers/OrderTable'
+    'InvoiceDesigner/Template/Element/Helpers/OrderTable',
+    'InvoiceDesigner/utility',
+    'Common/Common/Utils/generic'
 ], function(
     ElementAbstract,
     TableStorage,
-    OrderTableHelper
+    OrderTableHelper,
+    invoiceDesignerUtility,
+    genericUtils
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
-        const minHeight = 120; // px
+        const minHeight = 205; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
         const totals = TableStorage.getDefaultTableTotals();
         const tableCells = OrderTableHelper.formatDefaultTableCellsFromColumns(tableColumns);
+
+        const sumOfColumnWidths = OrderTableHelper.getSumOfAllColumnWidths(tableColumns);
+        const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
 
         const additionalData = {
             errorBorder: false,
@@ -31,8 +38,7 @@ define([
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
-            .setMinWidth(elementWidth)
-            .setMaxWidth(elementWidth)
+            .setMinWidth(minWidthToSet)
             .setMinHeight(minHeight);
 
         this.getLinkedProductsDisplay = function() {
@@ -97,14 +103,47 @@ define([
             return this.set('activeCellNodeId', nodeId, populating, true);
         };
 
+        this.formatTableColumnsForBackend = function({tableColumns, width}) {
+            if (!tableColumns) {
+                return [];
+            }
+
+            const formatted = [...tableColumns].map(({id, position, displayText, width, widthMeasurementUnit}) => {
+                return {
+                    id,
+                    position,
+                    displayText,
+                    width,
+                    widthMeasurementUnit
+                }
+            });
+
+            return formatted;
+        };
+
+        this.applyMissingDataForSave = function() {
+            let tableColumns = [...this.getTableColumns()];
+            let columns = applyMissingTableColumnWidths(tableColumns, this.getWidth());
+            columns = applyDefaultTableColumnPositions(columns);
+            this.setTableColumns(columns);
+        };
+
         this.toJson = function() {
             let json = JSON.parse(JSON.stringify(this.getData()));
+
+            json.tableColumns = this.formatTableColumnsForBackend(json);
             json = this.formatCoreJsonPropertiesForBackend(json);
-            json.tableColumns = formatTableColumnsForBackend(json.tableColumns);
             json.tableSortBy = formatTableSortByForBackend(json.tableSortBy);
             json.totals = formatTableTotalsForBackend(json.totals);
             return json;
-        }
+        };
+
+        this.hydrate = function(data, populating) {
+            this.setMinWidth(data.minWidth, populating);
+            OrderTable.prototype.hydrate.call(this, data, populating);
+        };
+    };    OrderTable.prototype.createElement = function() {
+        return new TableElement();
     };
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
@@ -124,29 +163,6 @@ define([
         });
     }
 
-    function formatTableColumnsForBackend(tableColumns) {
-        if (!tableColumns) {
-            return [];
-        }
-        const formatted = tableColumns.map(({id, position, displayText, width, widthMeasurementUnit}) => (
-            {
-                id,
-                position,
-                displayText,
-                width,
-                widthMeasurementUnit
-            }
-        ));
-
-        const allPositionsUndefined = areAllPositionsUndefined(formatted);
-        if (!allPositionsUndefined) {
-            return formatted;
-        }
-
-        const formattedWithDefaultPositions = provideDefaultPositions(formatted.slice());
-        return formattedWithDefaultPositions;
-    }
-
     function formatTableSortByForBackend(tableSortBy) {
         if (!tableSortBy) {
             return [];
@@ -161,18 +177,36 @@ define([
         });
     }
 
-    function areAllPositionsUndefined(columns) {
-        let allPositionsUndefined = true;
-        for (let column of columns) {
-            if (typeof column.position !== 'undefined') {
-                allPositionsUndefined = false;
-                break;
+    function applyMissingTableColumnWidths(tableColumns, elementWidth) {
+        const hasWidthMeasurementUnit = column => column.widthMeasurementUnit;
+        const hasWidth = column => !isNaN(column.width);
+
+        const validWidthFilters = genericUtils.composeFilters(
+            hasWidthMeasurementUnit,
+            hasWidth
+        );
+
+        const validWidthColumns = tableColumns.filter(validWidthFilters);
+
+        const sumOfExistingWidths = validWidthColumns.reduce((totalWidth, currentColumn) => {
+            let currentWidth = currentColumn.widthMeasurementUnit === 'in' ?
+                genericUtils.inToMm(currentColumn.width) : currentColumn.width;
+            return totalWidth + currentWidth;
+        }, 0);
+        const widthToSetOnInvalidColumns = (elementWidth - sumOfExistingWidths) / (tableColumns.length - validWidthColumns.length);
+
+        tableColumns.forEach(column => {
+            if (validWidthColumns.includes(column)) {
+                return;
             }
-        }
-        return allPositionsUndefined;
+            column.width = widthToSetOnInvalidColumns;
+            column.widthMeasurementUnit = 'mm'
+        });
+
+        return tableColumns;
     }
 
-    function provideDefaultPositions(columns) {
+    function applyDefaultTableColumnPositions(columns) {
         for (let index = 0; index < columns.length; index++) {
             columns[index].position = index;
         }

@@ -1,4 +1,8 @@
-define([], function() {
+define([
+    'Common/Common/Utils/generic'
+], function(
+    genericUtility
+) {
     const allColumns = [
         {
             "id": "quantityOrdered",
@@ -71,6 +75,12 @@ define([], function() {
             "displayText": "Picking Location",
             "optionText": "Picking Location",
             "cellPlaceholder": "Warehouse 1, Aisle 1, Shelf 1"
+        },
+        {
+            "id": "image",
+            "displayText": "Image",
+            "optionText": "Image",
+            "cellPlaceholder": `<i> image </i>`
         }
     ];
     const allTableTotals = [
@@ -117,7 +127,7 @@ define([], function() {
                     return column.id === "descriptionInternal"
                 });
                 defaultSortBy[0].position = 0;
-                return defaultSortBy;
+                return genericUtility.deepClone(defaultSortBy);
             },
             getDefaultTableTotals,
             getDefaultColumns
@@ -132,16 +142,16 @@ define([], function() {
         }
 
         function getDefaultTableTotals() {
-            return getTableTotals().filter(total => {
+            return genericUtility.deepClone(getTableTotals().filter(total => {
                 return total.default;
-            });
+            }));
         }
 
         function getDefaultColumns() {
-            return getColumns().filter(column => {
+            return genericUtility.deepClone(getColumns().filter(column => {
                 column.widthMeasurementUnit = 'mm';
                 return column.default;
-            });
+            }));
         }
     }());
 
