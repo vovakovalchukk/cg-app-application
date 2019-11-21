@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d9c24804bc808b732848467c55dbd87",
+    "content-hash": "7eedf8ac18c71a834b4383a86daf421d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -750,16 +750,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.8",
+            "version": "1.43.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "acba2d3c7fcb5507d45ea642b7ef0e33d8a84cb1"
+                "reference": "e644f190ab3b5d4f475361efc8c48040fc688f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.8-ac98fd.zip",
-                "reference": "acba2d3c7fcb5507d45ea642b7ef0e33d8a84cb1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.9-751cd9.zip",
+                "reference": "e644f190ab3b5d4f475361efc8c48040fc688f2b"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-19T15:00:44+00:00"
+            "time": "2019-11-20T16:12:18+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3731,12 +3731,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "4ef2c4f03f6f1264b602fc71beae496fb6a44225"
+                "reference": "dde4f402511e002230051adeb38350d7d3293c48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-523-ServiceAbstraction-27c3fd.zip",
-                "reference": "4ef2c4f03f6f1264b602fc71beae496fb6a44225"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-523-ServiceAbstraction-7905b9.zip",
+                "reference": "dde4f402511e002230051adeb38350d7d3293c48"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3787,7 +3787,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-15T15:53:08+00:00"
+            "time": "2019-11-21T12:22:06+00:00"
         },
         {
             "name": "channelgrabber/transaction",
