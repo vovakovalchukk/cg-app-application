@@ -754,12 +754,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "734de8a2fb1650ca16dc9ea3136728288e8fe089"
+                "reference": "a8885f9ef78f5b89642a7511f1a2d26a5cd91c13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11044-missing-invoice-mapping-9307cf.zip",
-                "reference": "734de8a2fb1650ca16dc9ea3136728288e8fe089"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11044-missing-invoice-mapping-7cb124.zip",
+                "reference": "a8885f9ef78f5b89642a7511f1a2d26a5cd91c13"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-21T08:47:47+00:00"
+            "time": "2019-11-21T14:45:39+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2402,12 +2402,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f177bbe2a677a03e0916449f241a77cb93193530"
+                "reference": "45c516bd1ce45b5f6128c8718f82453a33d8ffdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11044-missing-invoice-mapping-9db732.zip",
-                "reference": "f177bbe2a677a03e0916449f241a77cb93193530"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11044-missing-invoice-mapping-a411c3.zip",
+                "reference": "45c516bd1ce45b5f6128c8718f82453a33d8ffdf"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2484,7 +2484,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-21T10:34:58+00:00"
+            "time": "2019-11-21T14:53:43+00:00"
         },
         {
             "name": "channelgrabber/partner",
