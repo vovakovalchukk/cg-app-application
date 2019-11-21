@@ -108,7 +108,9 @@ define([
         if (! this.validateTemplate(template)) {
             return false;
         }
-        
+
+        template = applyMissingDataToElementsForSave(template);
+
         try {
             this.getStorage().save(template);
             template.setState(Service.FETCHED_STATE)
@@ -208,4 +210,14 @@ define([
     };
 
     return new Service();
+
+    function applyMissingDataToElementsForSave(template) {
+        const elements = template.getElements();
+
+        elements.each(element => {
+            element.applyMissingDataForSave();
+        });
+
+        return template;
+    }
 });
