@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "422a5fc71540ddb7153523245b4e616e",
+    "content-hash": "c89b405c154a743a2ad25eeca5e88083",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1020,16 +1020,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.5",
+            "version": "dev-CGIV-11042-overseas-characters-breaking-label",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "92f4f9491f2c982b62056c0c97a95d573bb2352a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.5-635f51.zip",
-                "reference": "92f4f9491f2c982b62056c0c97a95d573bb2352a"
+                "reference": "366dc2e4f88fe8dc49819a788641606999a16d44"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -11858,13 +11853,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.6",
+            "alias_normalized": "1.2.6.0",
+            "version": "dev-CGIV-11042-overseas-characters-breaking-label",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
