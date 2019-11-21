@@ -103,22 +103,5 @@ return [
             ],
         ],
         'options' => [],
-    ],
-
-    'adhoc:test' => [
-        'description' => 'Creates a new RoyalMail Click & Drop account for any ou that has previously used the hard code version',
-        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            /** @var \CG\Ebay\Marketplace\Mapper $factory */
-            $factory = $di->newInstance(CG\Ebay\Marketplace\Mapper::class);
-
-            $res = $factory->getMarketplaceCode('Poland');
-
-            print_r($res);
-            $output->writeln('');
-
-        },
-        'arguments' => [
-        ],
-        'options' => [],
     ]
 ];
