@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac3b98719e2002f8b702705a03d53404",
+    "content-hash": "4eab9eb76bc4ebfbda8887fdcbf6e56d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1231,41 +1231,6 @@
             "version": "dev-MIG-42-history-backend",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.2-79b9dd.zip",
-                "reference": "a337f6323709fad355340fd5b77491e24dc2bf08",
-                "shasum": null
-            },
-            "require": {
-                "channelgrabber/data-exchange-schedule": "^1.0.3",
-                "channelgrabber/stdlib": "^2.16.10",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CG\\DataExchangeHistory\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "CG\\DataExchangeHistory\\Test\\": "tests/src/"
-                }
-            },
-            "time": "2019-11-04T11:21:45+00:00"
-        },
-        {
-            "name": "channelgrabber/data-exchange-schedule",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
                 "reference": "2326274727fedf9812cad4b53334bbbb14602ddd"
             },
@@ -1293,7 +1258,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-11T15:41:19+00:00"
+            "time": "2019-11-08T09:03:40+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
