@@ -17,7 +17,7 @@ export const exportViaEmail = function(data, exportUrl, entity) {
 };
 
 export const exportToBrowser = async function(data, exportUrl, entity) {
-    n.notice('We are exporting your stock...');
+    n.notice(`We are exporting your ${entity}...`);
     const date = new Date();
     let fileDownloadResponse = await fileDownload.downloadBlob({
         url: exportUrl,
