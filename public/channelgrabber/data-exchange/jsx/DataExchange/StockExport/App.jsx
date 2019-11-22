@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import Table from "../Schedule/Table";
 import Service from "./Components/Service";
-import Select from "Common/Components/Select";
-import Checkbox from "Common/Components/Checkbox--stateless"
-import {encodeData} from "Common/Utils/xhr/urlEncoder"
-import fileDownload from "Common/Utils/xhr/fileDownload"
-import ajax from 'Common/Utils/xhr/ajax';
+import Select from "CommonSrc/jsx/Common/Components/Select";
+import Checkbox from "CommonSrc/jsx/Common/Components/Checkbox--stateless"
+import {formatOptionsFromMap} from 'CommonSrc/js-vanilla/Common/Utils/form';
+import {useSelectState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/select';
+import {useCheckboxState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/checkbox';
+import {exportViaEmail, exportToBrowser} from 'DataExchange/Utils/export';
 
 const exportUrl = '/dataExchange/stock/export/download';
 
 const StockExportApp = (props) => {
-    const {templateOptions, actionOptions} = props;
+    const {templateOptions} = props;
 
     const templateState = useSelectState({});
     const sendViaEmailState = useCheckboxState(false);
@@ -25,11 +26,11 @@ const StockExportApp = (props) => {
         };
 
         if (!data.sendViaEmail) {
-            await exportToBrowser(data);
+            await exportToBrowser(data, exportUrl, 'stock');
             return;
         }
 
-        exportViaEmail(data)
+        exportViaEmail(data, exportUrl, 'stock')
     };
 
     return (
@@ -77,71 +78,6 @@ const StockExportApp = (props) => {
             </div>
         </div>
     );
-
-    async function exportToBrowser(data) {
-        n.notice('We are exporting your stock...');
-        const date = new Date();
-        let fileDownloadResponse = await fileDownload.downloadBlob({
-            url: exportUrl,
-            data,
-            desiredFilename: `stock-${date.toISOString().slice(0, 10)}_${date.getTime()}.csv';`
-        });
-
-        if (fileDownloadResponse.status !== 200) {
-            n.error('There was a problem exporting your stock. Please contact support for assistance.');
-            return;
-        }
-
-        n.success('Successfully exported your stock.');
-    }
-
-    function exportViaEmail(data) {
-        n.notice('We are processing your request...');
-        ajax.request({
-            method: 'POST',
-            url: exportUrl,
-            data,
-            onSuccess: () => {
-                n.success("Please check your email for your stock export.")
-            },
-            onError: () => {
-                n.error('There was a problem exporting your stock. Please contact support for assistance.')
-            }
-        });
-    }
 };
 
 export default StockExportApp;
-
-function useSelectState(initialValue) {
-    const [selectedOption, setSelectedOption] = useState(initialValue);
-    const onOptionChange = (newValue) => {
-        setSelectedOption(newValue);
-    };
-    return {
-        onOptionChange,
-        selectedOption
-    }
-}
-
-function useCheckboxState(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    const onSelect = () => {
-        setValue(!value);
-    };
-    return {
-        onSelect,
-        value,
-        setValue
-    };
-}
-
-function formatOptionsFromMap(map) {
-    return Object.keys(map).map((key) => {
-        return {
-            title: map[key],
-            name: map[key],
-            value: key
-        };
-    });
-}
