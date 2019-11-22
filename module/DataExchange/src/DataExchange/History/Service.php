@@ -71,16 +71,15 @@ class Service implements LoggerAwareInterface
         ];
     }
 
-    public function fetchForActiveUser(int $limit = self::DEFAULT_LIMIT, int $page = self::DEFAULT_PAGE): array
+    public function fetchForActiveUser(int $limit = self::DEFAULT_LIMIT, int $page = self::DEFAULT_PAGE): Histories
     {
         try {
             $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
             $filter = $this->buildFilter($limit, $page, $rootOuId);
             /** @var Histories $histories */
-            $histories = $this->historyService->fetchCollectionByFilter($filter);
-            return $this->formatHistoriesAsArray($histories);
+            return $this->historyService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
-            return [];
+            return new Histories(History::class, __METHOD__, $filter->toArray());
         }
     }
 
@@ -112,7 +111,7 @@ class Service implements LoggerAwareInterface
         ]);
     }
 
-    protected function formatHistoriesAsArray(Histories $histories): array
+    public function formatHistoriesAsArray(Histories $histories): array
     {
         $fileExistsArray = $this->buildFileExistsArray($histories);
 

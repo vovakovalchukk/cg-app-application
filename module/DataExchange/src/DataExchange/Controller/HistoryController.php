@@ -52,7 +52,8 @@ class HistoryController extends AbstractActionController implements LoggerAwareI
         $page = $this->params()->fromPost('page', HistoryService::DEFAULT_PAGE);
 
         try {
-            $histories = $this->historyService->fetchForActiveUser($limit, $page);
+            $historyCollection = $this->historyService->fetchForActiveUser($limit, $page);
+            $histories = $this->historyService->formatHistoriesAsArray($historyCollection);
         } catch (\Throwable $e) {
             $this->logError($e);
             $histories = [];
