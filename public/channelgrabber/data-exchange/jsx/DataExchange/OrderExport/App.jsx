@@ -40,7 +40,7 @@ const OrderExportApp = (props) => {
     return (
         <div>
             <div className="u-margin-top-xxlarge u-form-width-medium">
-                <form id={"orders-export-form"} onSubmit={onSubmit} action={exportUrl}>
+                <form id={"orders-export-form"} onSubmit={onSubmit}>
                     <div className="u-flex-v-center u-margin-top-small">
                         <label htmlFor="template" className="u-flex-1">Template:</label>
                         <div className="u-flex-4">
@@ -60,8 +60,8 @@ const OrderExportApp = (props) => {
                         <label htmlFor="template" className="u-flex-1">Saved Filter:</label>
                         <div className="u-flex-4">
                             <Select
-                                id={"template"}
-                                name={"template"}
+                                id={"savedFilter"}
+                                name={"saved filter"}
                                 options={formattedFilters}
                                 filterable={true}
                                 autoSelectFirst={false}
