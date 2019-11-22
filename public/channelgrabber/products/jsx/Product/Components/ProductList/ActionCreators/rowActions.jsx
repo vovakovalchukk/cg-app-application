@@ -4,7 +4,7 @@ let rowActions = (function() {
     return {
         runIntialUpdateForRowsIfApplicable: () => {
             return function updateRowsThunk(dispatch, getState) {
-                if(getState().rows.initialModifyHasOccurred){
+                if (getState().rows.initialModifyHasOccurred || !document.querySelector('.public_fixedDataTable_header')) {
                     return;
                 }
                 dispatch(rowActions.updateRowsForPortals());
