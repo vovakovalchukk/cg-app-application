@@ -285,8 +285,7 @@ define([
 
     TableCells.prototype.getCurrentCell = function(element) {
         const tableCells = element.getTableCells();
-        const cellToAffect = tableCells[this.cellDataIndex];
-        return cellToAffect;
+        return tableCells[this.cellDataIndex];
     };
 
     TableCells.prototype.toggleProperty = function(element, property, input) {
@@ -294,7 +293,7 @@ define([
         const valueToSet = typeof currentValue === 'boolean' ? !currentValue : true;
         const activeClass = `${TEXT_FORMATTING_CLASS}-label-active`;
 
-        this.setTableCellProperty(element, property, valueToSet)
+        this.setTableCellProperty(element, property, valueToSet);
 
         const inputLabel = input.labels[0];
 
@@ -308,11 +307,20 @@ define([
     TableCells.prototype.setColumnWidth = function(element, value) {
         const currentCell = this.getCurrentCell(element);
         const tableColumns = element.getTableColumns().slice();
-
         const columnIndexForCurrentCell = orderTableHelper.getColumnIndexForCell(tableColumns, currentCell);
-
         tableColumns[columnIndexForCurrentCell].width = parseInt(value);
         element.setTableColumns(tableColumns);
+
+        const sumOfColumnWidths = orderTableHelper.getSumOfAllColumnWidths(tableColumns);
+
+        const minWidthToSet = Number(sumOfColumnWidths).mmToPx();
+        const pxWidth = Number(element.getWidth()).mmToPx();
+
+        element.setMinWidth(minWidthToSet, true);
+
+        if (pxWidth < minWidthToSet) {
+            element.setWidth(sumOfColumnWidths);
+        }
     };
 
     TableCells.prototype.setWidthMeasurementUnit = function(element, value) {
@@ -347,9 +355,7 @@ define([
     return new TableCells();
 
     function isCellClick(event) {
-        const clickedElement = event.target;
-        const tag = clickedElement.tagName.toLowerCase();
-        return tag === 'th' || tag === 'td';
+        return event.target.id.includes(orderTableHelper.getTableCellIdPrefix())
     }
 
     function applyInitialSelection(data, valueForCell) {

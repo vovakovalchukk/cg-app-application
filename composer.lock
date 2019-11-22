@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22e34a3f31ac8b450b119b4ff484ce84",
+    "content-hash": "ac3b98719e2002f8b702705a03d53404",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -758,19 +758,20 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.5",
+            "version": "1.43.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7faac7a31e2cc02397e5e37b18c0b20d02e02ff0"
+                "reference": "e644f190ab3b5d4f475361efc8c48040fc688f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.5-49a50e.zip",
-                "reference": "7faac7a31e2cc02397e5e37b18c0b20d02e02ff0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.9-751cd9.zip",
+                "reference": "e644f190ab3b5d4f475361efc8c48040fc688f2b",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/access": "^1.0.0",
                 "channelgrabber/billing": "^1.19.7",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
@@ -782,7 +783,7 @@
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.19.2",
+                "channelgrabber/listing": "^1.20.0",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -822,6 +823,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-10978-bulk-listing-import-issue": "1.43.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -836,7 +842,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-09-10T13:54:48+00:00"
+            "time": "2019-11-20T16:12:18+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1257,7 +1263,7 @@
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
@@ -1287,20 +1293,20 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-04T11:14:54+00:00"
+            "time": "2019-11-11T15:41:19+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
-                "reference": "a02debbeffd1794dada84b507222a247b72fcd6c"
+                "reference": "7bbc7583d05326c1cede24c9c3f294c15e8f1a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.1-fb6f86.zip",
-                "reference": "a02debbeffd1794dada84b507222a247b72fcd6c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.2-528ad0.zip",
+                "reference": "7bbc7583d05326c1cede24c9c3f294c15e8f1a8f",
                 "shasum": null
             },
             "require": {
@@ -1321,7 +1327,7 @@
                     "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-10-24T08:44:26+00:00"
+            "time": "2019-11-11T15:41:34+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1456,37 +1462,38 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.10.14",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "2e5695e11baf7011446edb8e58e8bceafc115dad"
+                "reference": "6a5652b56b5c256e243692b34214f333b6fb7ab6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.10.14-a14f83.zip",
-                "reference": "2e5695e11baf7011446edb8e58e8bceafc115dad",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.14.2-790d27.zip",
+                "reference": "6a5652b56b5c256e243692b34214f333b6fb7ab6",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.39.1",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/feature-flags": "^2.1.2",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.28.25",
-                "channelgrabber/php-phantomjs": "^3.1.8",
+                "channelgrabber/order": "^1.43.16",
+                "channelgrabber/predis": "^1.1.0",
                 "channelgrabber/product": "^1.11.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
                 "channelgrabber/stdlib": "^2.15.2",
                 "channelgrabber/tax": "^1.0.0",
-                "channelgrabber/webdriver": "^1.1.0",
+                "channelgrabber/webdriver": "^1.2.3",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
                 "composer/composer": "@dev",
                 "ext-gearman": ">=1.1.0",
@@ -1512,7 +1519,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-09-11T11:02:59+00:00"
+            "time": "2019-11-19T14:50:58+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -1730,16 +1737,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868"
+                "reference": "767c44b4281d481f2930e4efc6603fa6846db435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-2.1.2-1f2c8a.zip",
-                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-2.1.3-b0be40.zip",
+                "reference": "767c44b4281d481f2930e4efc6603fa6846db435",
                 "shasum": null
             },
             "require": {
@@ -1763,7 +1770,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2018-11-08T16:11:36+00:00"
+            "time": "2019-11-22T09:31:34+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -2004,16 +2011,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.9",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb"
+                "reference": "1bfe9e1294173e768917f879910184b5361e6a82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.9-812ec5.zip",
-                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.11-19d85d.zip",
+                "reference": "1bfe9e1294173e768917f879910184b5361e6a82",
                 "shasum": null
             },
             "require": {
@@ -2036,7 +2043,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2018-07-26T08:12:59+00:00"
+            "time": "2019-11-22T09:31:50+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -2084,16 +2091,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.19.6",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410"
+                "reference": "f302b87c31787a70002cd833d02aa181e281d3b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.6-919d4c.zip",
-                "reference": "0a9c7a1d8b7e998d1cf593eb37e63efb7cb09410",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.20.0-1161aa.zip",
+                "reference": "f302b87c31787a70002cd833d02aa181e281d3b5",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2136,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-10-31T11:29:17+00:00"
+            "time": "2019-11-19T14:56:15+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2390,16 +2397,16 @@
         },
         {
             "name": "channelgrabber/notification",
-            "version": "1.5.0",
+            "version": "1.5.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-notification.git",
-                "reference": "bed37e713905a5c380bbf9158bea082c1d247a09"
+                "reference": "b2212b6ed7de3925ee17ae2d555cc189ce0a1741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/notification/channelgrabber-notification-1.5.0-04d181.zip",
-                "reference": "bed37e713905a5c380bbf9158bea082c1d247a09",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/notification/channelgrabber-notification-1.5.1.1-e8d2a8.zip",
+                "reference": "b2212b6ed7de3925ee17ae2d555cc189ce0a1741",
                 "shasum": null
             },
             "require": {
@@ -2408,6 +2415,7 @@
                 "channelgrabber/channel": "^1.41.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.4.1",
+                "channelgrabber/predis": "^1.1.7",
                 "channelgrabber/queue": "^1.0.0",
                 "channelgrabber/settings": "^1.3.7",
                 "channelgrabber/stdlib": "^2.12.7",
@@ -2440,7 +2448,7 @@
                     "CG\\Notification\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-10-07T14:50:19+00:00"
+            "time": "2019-11-08T13:31:32+00:00"
         },
         {
             "name": "channelgrabber/opsgenie",
@@ -2474,16 +2482,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.10",
+            "version": "1.47.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "546aae3910d7a09b1318ebc5564618700e5a2f11"
+                "reference": "331837f177a95b63ff441ba116da7328d4630b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.10-aa3bac.zip",
-                "reference": "546aae3910d7a09b1318ebc5564618700e5a2f11",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.13-4a7c3b.zip",
+                "reference": "331837f177a95b63ff441ba116da7328d4630b27",
                 "shasum": null
             },
             "require": {
@@ -2500,15 +2508,15 @@
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/exchangerate": "^1.2.0",
-                "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/feature-flags": "^2.1.3",
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.2",
+                "channelgrabber/image": "^1.2.11",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/notification": "^1.5.0",
+                "channelgrabber/notification": "^1.5.1",
                 "channelgrabber/opsgenie": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
@@ -2521,7 +2529,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.8.2",
+                "channelgrabber/template": "^1.9.0",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2541,11 +2549,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-539-refactor-invoice-generation": "1.47.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2561,7 +2564,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-07T15:01:34+00:00"
+            "time": "2019-11-22T09:44:29+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2753,71 +2756,6 @@
             "time": "2019-07-11T07:59:51+00:00"
         },
         {
-            "name": "channelgrabber/php-phantomjs",
-            "version": "3.1.8",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/php-phantomjs.git",
-                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/php-phantomjs/channelgrabber-php-phantomjs-3.1.8-3446b6.zip",
-                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc",
-                "shasum": null
-            },
-            "require": {
-                "jakoch/phantomjs-installer": "1.9.7",
-                "php": ">=5.3.0",
-                "symfony/config": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/filesystem": "~2.3",
-                "symfony/process": "~2.3",
-                "symfony/yaml": "~2.3",
-                "twig/twig": "~1.16"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "bin": [
-                "bin/phantomloader"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JonnyW\\PhantomJs\\": "src"
-                },
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "scripts": {
-                "post-install-cmd": [
-                    "PhantomInstaller\\Installer::installPhantomJS"
-                ],
-                "post-update-cmd": [
-                    "PhantomInstaller\\Installer::installPhantomJS"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonny Wenmoth",
-                    "email": "contact@jonnyw.me",
-                    "homepage": "http://jonnyw.me/"
-                }
-            ],
-            "description": "A PHP wrapper for loading pages through PhantomJS",
-            "keywords": [
-                "Headless Browser",
-                "PhantomJS",
-                "Testing"
-            ],
-            "time": "2017-07-03T13:27:56+00:00"
-        },
-        {
             "name": "channelgrabber/picklist",
             "version": "1.3.0",
             "source": {
@@ -2863,16 +2801,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.1.5",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "7d9387654e8acdd0f829cb8e1a8068a174c9fd9f"
+                "reference": "30e8cc287169d366179948e06eea23003840d1ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.5-067960.zip",
-                "reference": "7d9387654e8acdd0f829cb8e1a8068a174c9fd9f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.7-751dc0.zip",
+                "reference": "30e8cc287169d366179948e06eea23003840d1ab",
                 "shasum": null
             },
             "require": {
@@ -2882,12 +2820,17 @@
                 "php": ">=7.1"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2019-05-03T11:11:10+00:00"
+            "time": "2019-11-08T12:38:18+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -3895,16 +3838,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.8.4.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205"
+                "reference": "df622f24e827dc117880df75ca218a2a93278f6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.8.4.1-bd8ab7.zip",
-                "reference": "3cb159b6038889cba171232ccf57c40f91abb205",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.0-fb1ba0.zip",
+                "reference": "df622f24e827dc117880df75ca218a2a93278f6a",
                 "shasum": null
             },
             "require": {
@@ -3912,11 +3855,11 @@
                 "channelgrabber/channel": "^1.6.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/feature-flags": "^2.0.1",
-                "channelgrabber/image": "^1.2.3",
+                "channelgrabber/feature-flags": "^2.1.3",
+                "channelgrabber/image": "^1.2.11",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.47.7",
+                "channelgrabber/order": "^1.47.13",
                 "channelgrabber/product": "^1.18.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3937,11 +3880,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-539-refactor-invoice-generation": "1.7.1-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
@@ -3956,7 +3894,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-07T15:45:36+00:00"
+            "time": "2019-11-22T09:44:02+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4248,16 +4186,16 @@
         },
         {
             "name": "channelgrabber/webdriver",
-            "version": "1.1.0",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-webdriver.git",
-                "reference": "2653c126515464c4135bb274caed1feffb225562"
+                "reference": "f056d5b5f02a119e156dbe93e5fd54d57d104278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/webdriver/channelgrabber-webdriver-1.1.0-fba832.zip",
-                "reference": "2653c126515464c4135bb274caed1feffb225562",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/webdriver/channelgrabber-webdriver-1.2.3-197c8a.zip",
+                "reference": "f056d5b5f02a119e156dbe93e5fd54d57d104278",
                 "shasum": null
             },
             "require": {
@@ -4278,7 +4216,7 @@
                     "email": "oliver@channelgrabber.com"
                 }
             ],
-            "time": "2018-07-23T09:19:36+00:00"
+            "time": "2019-06-18T15:21:50+00:00"
         },
         {
             "name": "channelgrabber/webhook-framework",
@@ -4706,16 +4644,16 @@
         },
         {
             "name": "channelgrabber/zf2-ekm",
-            "version": "1.0.2.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
-                "reference": "7fe05dca23bb918d15cc5dc35793c7241aaa8692"
+                "reference": "eb9fdf1cd568b4acdb1964835277d01a7b0749f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-1.0.2.2-9ab9ba.zip",
-                "reference": "7fe05dca23bb918d15cc5dc35793c7241aaa8692",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ekm/channelgrabber-zf2-ekm-1.0.3-a01963.zip",
+                "reference": "eb9fdf1cd568b4acdb1964835277d01a7b0749f6",
                 "shasum": null
             },
             "require": {
@@ -4731,15 +4669,15 @@
                 "zf2-module": "CG_Ekm"
             },
             "autoload": {
-                "psr-0": {
-                    "CG_Ekm": "src/"
+                "psr-4": {
+                    "CG_Ekm\\": "src/"
                 },
                 "classmap": [
                     "./Module.php"
                 ]
             },
             "description": "Ekm module",
-            "time": "2015-07-09T14:27:04+00:00"
+            "time": "2019-11-11T09:33:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-email-template",
@@ -5484,16 +5422,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.28",
+            "version": "1.26.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4"
+                "reference": "de7fc7503c459109f3ba60e9b901f30100dd27ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.28-2be908.zip",
-                "reference": "c166e7e58bd0365316635df3b730ee972b6b39f4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.30-1336e3.zip",
+                "reference": "de7fc7503c459109f3ba60e9b901f30100dd27ed",
                 "shasum": null
             },
             "require": {
@@ -5516,6 +5454,7 @@
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "jakeasmith/http_build_url": "~1.0",
                 "php": ">=7.1",
+                "predis/predis": "~0.8.8",
                 "whichbrowser/parser": "~2.0.35",
                 "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
@@ -5545,7 +5484,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-11-06T11:36:05+00:00"
+            "time": "2019-11-20T15:04:58+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6618,47 +6557,6 @@
             ],
             "description": "Provides functionality for http_build_url() to environments without pecl_http.",
             "time": "2017-05-01T15:36:40+00:00"
-        },
-        {
-            "name": "jakoch/phantomjs-installer",
-            "version": "1.9.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jakoch/phantomjs-installer.git",
-                "reference": "2431d7001a911c672b2ef04f447222a967134313"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
-                "reference": "2431d7001a911c672b2ef04f447222a967134313",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*"
-            },
-            "type": "custom-installer",
-            "autoload": {
-                "psr-0": {
-                    "PhantomInstaller\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens-André Koch",
-                    "email": "jakoch@web.de"
-                }
-            ],
-            "description": "A Composer package which installs the PhantomJS binary (Linux, Windows, Mac) into `/bin` of your project.",
-            "keywords": [
-                "binaries",
-                "headless",
-                "phantomjs"
-            ],
-            "time": "2014-07-29T09:42:52+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -9010,69 +8908,6 @@
             "time": "2016-07-30T07:22:48+00:00"
         },
         {
-            "name": "symfony/dependency-injection",
-            "version": "v2.8.30",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "bc845111480786a9a68b39578ecdf27d9a6a44ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/bc845111480786a9a68b39578ecdf27d9a6a44ec",
-                "reference": "bc845111480786a9a68b39578ecdf27d9a6a44ec",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "conflict": {
-                "symfony/expression-language": "<2.6"
-            },
-            "require-dev": {
-                "symfony/config": "~2.2|~3.0.0",
-                "symfony/expression-language": "~2.6|~3.0.0",
-                "symfony/yaml": "~2.3.42|~2.7.14|~2.8.7|~3.0.7"
-            },
-            "suggest": {
-                "symfony/config": "",
-                "symfony/expression-language": "For using expressions in service container configuration",
-                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
-                "symfony/yaml": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\DependencyInjection\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony DependencyInjection Component",
-            "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:08:47+00:00"
-        },
-        {
             "name": "symfony/dom-crawler",
             "version": "v2.8.30",
             "source": {
@@ -9498,71 +9333,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2017-11-05T15:25:56+00:00"
-        },
-        {
-            "name": "twig/twig",
-            "version": "v1.35.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
-                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "psr/container": "^1.0",
-                "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.3@dev"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.35-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Twig_": "lib/"
-                },
-                "psr-4": {
-                    "Twig\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
-                },
-                {
-                    "name": "Twig Team",
-                    "homepage": "http://twig.sensiolabs.org/contributors",
-                    "role": "Contributors"
-                }
-            ],
-            "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "http://twig.sensiolabs.org",
-            "keywords": [
-                "templating"
-            ],
-            "time": "2017-09-27T18:06:46+00:00"
         },
         {
             "name": "whichbrowser/parser",
@@ -10044,6 +9814,71 @@
             "time": "2013-06-02T19:09:45+00:00"
         },
         {
+            "name": "channelgrabber/php-phantomjs",
+            "version": "3.1.8",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/php-phantomjs.git",
+                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/php-phantomjs/channelgrabber-php-phantomjs-3.1.8-3446b6.zip",
+                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc",
+                "shasum": null
+            },
+            "require": {
+                "jakoch/phantomjs-installer": "1.9.7",
+                "php": ">=5.3.0",
+                "symfony/config": "~2.3",
+                "symfony/dependency-injection": "~2.3",
+                "symfony/filesystem": "~2.3",
+                "symfony/process": "~2.3",
+                "symfony/yaml": "~2.3",
+                "twig/twig": "~1.16"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "bin": [
+                "bin/phantomloader"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JonnyW\\PhantomJs\\": "src"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "PhantomInstaller\\Installer::installPhantomJS"
+                ],
+                "post-update-cmd": [
+                    "PhantomInstaller\\Installer::installPhantomJS"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonny Wenmoth",
+                    "email": "contact@jonnyw.me",
+                    "homepage": "http://jonnyw.me/"
+                }
+            ],
+            "description": "A PHP wrapper for loading pages through PhantomJS",
+            "keywords": [
+                "Headless Browser",
+                "PhantomJS",
+                "Testing"
+            ],
+            "time": "2017-07-03T13:27:56+00:00"
+        },
+        {
             "name": "defuse/php-encryption",
             "version": "v2.2.1",
             "source": {
@@ -10263,6 +10098,47 @@
                 "intercom.io"
             ],
             "time": "2015-04-03T12:10:19+00:00"
+        },
+        {
+            "name": "jakoch/phantomjs-installer",
+            "version": "1.9.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakoch/phantomjs-installer.git",
+                "reference": "2431d7001a911c672b2ef04f447222a967134313"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "reference": "2431d7001a911c672b2ef04f447222a967134313",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*"
+            },
+            "type": "custom-installer",
+            "autoload": {
+                "psr-0": {
+                    "PhantomInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens-André Koch",
+                    "email": "jakoch@web.de"
+                }
+            ],
+            "description": "A Composer package which installs the PhantomJS binary (Linux, Windows, Mac) into `/bin` of your project.",
+            "keywords": [
+                "binaries",
+                "headless",
+                "phantomjs"
+            ],
+            "time": "2014-07-29T09:42:52+00:00"
         },
         {
             "name": "league/event",
@@ -11816,6 +11692,69 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "symfony/dependency-injection",
+            "version": "v2.8.30",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dependency-injection.git",
+                "reference": "bc845111480786a9a68b39578ecdf27d9a6a44ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/bc845111480786a9a68b39578ecdf27d9a6a44ec",
+                "reference": "bc845111480786a9a68b39578ecdf27d9a6a44ec",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "conflict": {
+                "symfony/expression-language": "<2.6"
+            },
+            "require-dev": {
+                "symfony/config": "~2.2|~3.0.0",
+                "symfony/expression-language": "~2.6|~3.0.0",
+                "symfony/yaml": "~2.3.42|~2.7.14|~2.8.7|~3.0.7"
+            },
+            "suggest": {
+                "symfony/config": "",
+                "symfony/expression-language": "For using expressions in service container configuration",
+                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DependencyInjection\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DependencyInjection Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-07T14:08:47+00:00"
+        },
+        {
             "name": "symfony/http-foundation",
             "version": "v3.3.12",
             "source": {
@@ -11907,6 +11846,71 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.35.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~3.3@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.35-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2017-09-27T18:06:46+00:00"
         },
         {
             "name": "webmozart/assert",

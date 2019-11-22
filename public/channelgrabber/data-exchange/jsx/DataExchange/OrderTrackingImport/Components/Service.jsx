@@ -7,7 +7,7 @@ const Service = {
             active: false,
             date: 1,
             day: 1,
-            filename: 'stock.csv',
+            filename: 'orderTracking.csv',
             frequency: 'hourly',
             fromDataExchangeAccountId: null,
             hour: 0,
@@ -21,7 +21,6 @@ const Service = {
             Columns.enabled,
             Columns.ruleName,
             Columns.template,
-            Columns.importAction,
             Columns.receiveFrom,
             Columns.fileName,
             Columns.frequency,
@@ -32,7 +31,6 @@ const Service = {
     formatPostDataForSave: (schedule) => {
         const postData = {...schedule};
 
-        delete postData.fromDataExchangeAccountType;
         delete postData.toDataExchangeAccountId;
         delete postData.toDataExchangeAccountType;
 
@@ -48,8 +46,7 @@ const Service = {
             Validators.template,
             Validators.fromAccountIdOnly,
             Validators.filename,
-            Validators.frequency,
-            Validators.action
+            Validators.frequency
         ];
     }
 };

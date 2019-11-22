@@ -7,6 +7,7 @@ use DataExchange\Controller\HistoryController;
 use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\OrderExportManualController;
+use DataExchange\Controller\OrderTrackingImportController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
@@ -76,6 +77,26 @@ return [
                         'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
                         'params' => [
                             'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER)
+                        ]
+                    ]
+                ]
+            ],
+            'Order Tracking' => [
+                'label' => 'Order Tracking',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Export' => [
+                        'label' => 'Import',
+                        'title' => 'Import',
+                        'route' => Module::ROUTE . '/' . OrderTrackingImportController::ROUTE
+                    ],
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER_TRACKING)
                         ]
                     ]
                 ]
@@ -422,6 +443,39 @@ return [
                                     'route' => '/stop',
                                     'defaults' => [
                                         'action' => 'stop'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    OrderTrackingImportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/orderTracking/import',
+                            'defaults' => [
+                                'controller' => OrderTrackingImportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            OrderTrackingImportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderTrackingImportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
                                     ]
                                 ],
                                 'may_terminate' => true,

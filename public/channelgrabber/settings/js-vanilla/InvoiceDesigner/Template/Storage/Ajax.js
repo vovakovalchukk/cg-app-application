@@ -42,8 +42,8 @@ define([
             const errorMap = {
                 "413": "Template is too large to save, try resizing or removing large elements like images"
             };
-
             n.notice('Preparing template');
+
             const templateJSON = this.getMapper().toJson(template);
             const templateString = JSON.stringify(templateJSON);
 
@@ -95,6 +95,7 @@ define([
             }
             return invalidIds;
         }
+
         function applyBordersToInvalidElements(template, elementIds) {
             const templateElements = template.getElements().getItems();
             elementIds.forEach((id, index) => {

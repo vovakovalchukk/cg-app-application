@@ -250,9 +250,12 @@ define([
             return maxHeight;
         };
         
-        this.setMinWidth = function(newMinWidth)
+        this.setMinWidth = function(newMinWidth, publish)
         {
             minWidth = newMinWidth;
+            if (publish) {
+                this.publish(null);
+            }
             return this;
         };
         
@@ -340,6 +343,10 @@ define([
             allAttribs.push(extraAttribs[key]);
         }
         return allAttribs;
+    };
+
+    ElementAbstract.prototype.applyMissingDataForSave = function() {
+        return this;
     };
 
     ElementAbstract.prototype.formatCoreJsonPropertiesForBackend = function(json)
