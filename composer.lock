@@ -1938,16 +1938,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.11",
+            "version": "1.2.11.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "1bfe9e1294173e768917f879910184b5361e6a82"
+                "reference": "540593350568546784b02d64c78d8d40cafdfce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.11-19d85d.zip",
-                "reference": "1bfe9e1294173e768917f879910184b5361e6a82"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.11.1-8e98d9.zip",
+                "reference": "540593350568546784b02d64c78d8d40cafdfce2"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1969,7 +1969,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2019-11-22T09:31:50+00:00"
+            "time": "2019-11-25T10:08:55+00:00"
         },
         {
             "name": "channelgrabber/intercom",
