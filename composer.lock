@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16a132480cdfde212feef204d87ca5b5",
+    "content-hash": "6e9f73b04695e25a5be40c22262bf06c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1129,24 +1129,24 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-MIG-42-history-backend",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "3051e63af821c86675d24a40754d7ccd244d97a3"
+                "reference": "b5c76e2e94f9a2b9dc91995e29d7317c42c3142e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-42-history-backend-4a6053.zip",
-                "reference": "3051e63af821c86675d24a40754d7ccd244d97a3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.1.0-339d40.zip",
+                "reference": "b5c76e2e94f9a2b9dc91995e29d7317c42c3142e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/data-exchange-history": "^1.0.2",
-                "channelgrabber/data-exchange-schedule": "dev-MIG-42-history-backend as 1.0.3",
+                "channelgrabber/data-exchange-schedule": "^1.0.5",
                 "channelgrabber/data-exchange-template": "^1.0.1",
                 "channelgrabber/email-account": "^1.0.1",
-                "channelgrabber/file-storage": "^1.1.3",
+                "channelgrabber/file-storage": "^1.1.4",
                 "channelgrabber/ftp-account": "^1.0.1",
                 "channelgrabber/order": "^1.47.6",
                 "channelgrabber/product": "^1.18.2",
@@ -1171,20 +1171,20 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T16:43:08+00:00"
+            "time": "2019-11-25T15:33:46+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
-            "version": "dev-MIG-42-history-backend",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "5130208611bdab9341a1f9a0f1a15feb5e6dc607"
+                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-dev-MIG-42-history-backend-d210e8.zip",
-                "reference": "5130208611bdab9341a1f9a0f1a15feb5e6dc607"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.3-dfcb61.zip",
+                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504"
             },
             "require": {
                 "channelgrabber/data-exchange-schedule": "^1.0.3",
@@ -1205,20 +1205,20 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-08T14:08:23+00:00"
+            "time": "2019-11-25T15:35:44+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
-            "version": "dev-MIG-42-history-backend",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-schedule.git",
-                "reference": "e0137096939cd31e28665d9ece21bfc8bce6acf4"
+                "reference": "82472ea24072918135e652774b38707d8efed6a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-dev-MIG-42-history-backend-baaafd.zip",
-                "reference": "e0137096939cd31e28665d9ece21bfc8bce6acf4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-schedule/channelgrabber-data-exchange-schedule-1.0.5-3c8175.zip",
+                "reference": "82472ea24072918135e652774b38707d8efed6a2"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1238,7 +1238,7 @@
                     "CG\\DataExchangeSchedule\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-25T12:25:58+00:00"
+            "time": "2019-11-25T15:19:07+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-template",
@@ -1707,16 +1707,16 @@
         },
         {
             "name": "channelgrabber/file-storage",
-            "version": "dev-MIG-42-history-backend",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "27d3e8c05d9bef6f0d1c8c630b85bb151e9fe143"
+                "reference": "c40584d29cf29283feb8ee7c124f21a6f9005979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-dev-MIG-42-history-backend-a5beb1.zip",
-                "reference": "27d3e8c05d9bef6f0d1c8c630b85bb151e9fe143"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-1.1.4-5af885.zip",
+                "reference": "c40584d29cf29283feb8ee7c124f21a6f9005979"
             },
             "require": {
                 "guzzlehttp/promises": "~1.0",
@@ -1738,7 +1738,7 @@
                 }
             ],
             "description": "Handles the interaction with file storages",
-            "time": "2019-11-08T16:38:00+00:00"
+            "time": "2019-11-25T15:27:15+00:00"
         },
         {
             "name": "channelgrabber/ftp-account",
@@ -11848,39 +11848,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-MIG-42-history-backend",
-            "package": "channelgrabber/data-exchange"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-MIG-42-history-backend",
-            "package": "channelgrabber/data-exchange-history"
-        },
-        {
-            "alias": "1.0.5",
-            "alias_normalized": "1.0.5.0",
-            "version": "dev-MIG-42-history-backend",
-            "package": "channelgrabber/data-exchange-schedule"
-        },
-        {
-            "alias": "1.1.4",
-            "alias_normalized": "1.1.4.0",
-            "version": "dev-MIG-42-history-backend",
-            "package": "channelgrabber/file-storage"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange": 20,
-        "channelgrabber/data-exchange-history": 20,
-        "channelgrabber/data-exchange-schedule": 20,
-        "channelgrabber/file-storage": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
