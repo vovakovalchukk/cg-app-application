@@ -34,7 +34,11 @@ const Table = (props) => {
     });
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
-    const renderActiveCheckbox = (schedule, index) => {
+    console.log('intable');
+    
+    
+    
+    const renderActiveCheckbox = ({schedule, index}) => {
         return <td>
             <CheckboxContainer
                 className={'u-flex-center'}
@@ -44,7 +48,7 @@ const Table = (props) => {
         </td>;
     };
 
-    const renderRuleNameCell = (schedule, index) => {
+    const renderRuleNameCell = ({schedule, index}) => {
         return <td>
             {renderInputColumnForType(schedule, index, 'name')}
         </td>
@@ -59,7 +63,7 @@ const Table = (props) => {
         />
     };
 
-    const renderTemplateColumn = (schedule, index) => {
+    const renderTemplateColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <TemplateColumn
                 schedule={schedule}
@@ -70,7 +74,7 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
-    const renderSendToAccountColumn = (schedule, index) => {
+    const renderSendToAccountColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <SendToAccountColumn
                 schedule={schedule}
@@ -84,7 +88,7 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
-    const renderSendFromAccountColumn = (schedule, index) => {
+    const renderSendFromAccountColumn = ({schedule, index}) => {
         if (schedule.toDataExchangeAccountType !== 'email') {
             return <td/>
         }
@@ -101,7 +105,7 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
-    const renderReceiveFromColumn = (schedule, index) => {
+    const renderReceiveFromColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <SendFromAccountColumn
                 schedule={schedule}
@@ -111,11 +115,11 @@ const Table = (props) => {
         </SelectDropDownCell>;
     };
 
-    const renderFileNameColumn = (schedule, index) => {
+    const renderFileNameColumn = ({schedule, index}) => {
         return <td>{renderInputColumnForType(schedule, index, 'filename')}</td>;
     };
 
-    const renderFrequencyColumn = (schedule, index) => {
+    const renderFrequencyColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <FrequencyColumn
               schedule={schedule}
@@ -126,7 +130,7 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
-    const renderWhenColumn = (schedule, index) => {
+    const renderWhenColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <TimePicker
                 schedule={schedule}
@@ -137,7 +141,7 @@ const Table = (props) => {
         </SelectDropDownCell>
     };
 
-    const renderActions = (schedule, index) => {
+    const renderActions = ({schedule, index}) => {
         return <td>
             <ActionsColumn
                 removeIconVisible={!isLastEntry(index)}
@@ -148,7 +152,7 @@ const Table = (props) => {
         </td>
     };
 
-    const renderImportActionColumn = (schedule, index) => {
+    const renderImportActionColumn = ({schedule, index}) => {
         return <SelectDropDownCell>
             <ImportAction
                 schedule={schedule}
@@ -158,7 +162,7 @@ const Table = (props) => {
         </SelectDropDownCell>;
     };
 
-    const renderSavedFiltersColumn = (schedule, index) => {
+    const renderSavedFiltersColumn = ({schedule, index}) => {
           return <SelectDropDownCell>
               <SavedFilters
                   schedule={schedule}
@@ -168,7 +172,7 @@ const Table = (props) => {
           </SelectDropDownCell>;
     };
 
-    const COLUMN_MAP = {
+    const COLUMN_CELL_MAP = {
         [Columns.KEY_ENABLED]: renderActiveCheckbox,
         [Columns.KEY_RULE_NAME]: renderRuleNameCell,
         [Columns.KEY_TEMPLATE]: renderTemplateColumn,
@@ -190,15 +194,23 @@ const Table = (props) => {
         return <tr>{headers}</tr>;
     };
 
-    const renderRows = () => {
+//    const renderRows = () => {
+//        return schedules.map((schedule, index) => {
+//            const cells = props.columns.map((column) => {
+//                return COLUMN_MAP[column.key](schedule, index);
+//            });
+//            return <tr>{cells}</tr>
+//        });
+//    };
+
+    const renderRows = (renderRow) => {
         return schedules.map((schedule, index) => {
             const cells = props.columns.map((column) => {
-                return COLUMN_MAP[column.key](schedule, index);
+                return COLUMN_CELL_MAP[column.key];
             });
-            return <tr>{cells}</tr>
+            return renderRow(cells, schedule, index);
         });
     };
-
     const handleInputValueChanged = (index, property, newValue, createNewRowAllowed = true) => {
         if (createNewRowAllowed && isLastEntry(index)) {
             dispatch({
@@ -265,11 +277,24 @@ const Table = (props) => {
         });
     }
 
+    const renderCells = (cells, renderCell) => {
+        console.log('in renderCells with cells', cells);
+        return cells.map((Cell) => {
+            return renderCell(Cell);
+        });
+    };
+
     return <Container>
         <form name={'stockExportSchedule'}>
             <table>
                 <thead>{renderTableHeader()}</thead>
-                <tbody>{renderRows(schedules, dispatch)}</tbody>
+                <tbody>{renderRows((cells, schedule, rowIndex) => (
+                    <tr>
+                        {renderCells(cells, (Cell) => {
+                            return <Cell schedule={schedule} index={rowIndex} />;
+                        })}
+                    </tr>
+                ))}</tbody>
             </table>
         </form>
     </Container>;
