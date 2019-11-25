@@ -168,8 +168,6 @@ const Table = (props) => {
     });
     const [schedules, dispatch] = useReducer(scheduleReducer, initialSchedules);
 
-    console.log('intable');
-
     const renderRows = (renderRow) => {
         return schedules.map((schedule, index) => {
             const cells = props.columns.map((column) => {
@@ -278,13 +276,13 @@ const Table = (props) => {
                 </thead>
                 <tbody>{renderRows((cells, schedule, rowIndex) => (
                     <tr>
-                        {renderCells(cells, (Cell, cellProps) => {
+                        {renderCells(cells, (Cell, additionalCellProps) => {
                             return  (<CellContainer>
                                 <Cell
                                     schedule={schedule}
                                     index={rowIndex}
                                     onInputChange={handleInputValueChanged}
-                                    {...cellProps}
+                                    {...additionalCellProps}
                                 />
                             </CellContainer>)
                         })}
