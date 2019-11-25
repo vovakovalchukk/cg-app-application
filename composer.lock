@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed25f8c094ad4412f5521bf2aec888f5",
+    "content-hash": "396c370c1d755686455e18f11e412638",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -750,16 +750,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
+            "version": "1.43.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a8885f9ef78f5b89642a7511f1a2d26a5cd91c13"
+                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11044-missing-invoice-mapping-7cb124.zip",
-                "reference": "a8885f9ef78f5b89642a7511f1a2d26a5cd91c13"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.10-fea6f8.zip",
+                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-21T14:45:39+00:00"
+            "time": "2019-11-25T11:58:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1338,16 +1338,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
+            "version": "1.20.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "da923361f1667ebecfea2045c786bbed642f8cd4"
+                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11044-missing-invoice-mapping-758ffb.zip",
-                "reference": "da923361f1667ebecfea2045c786bbed642f8cd4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.14-d61547.zip",
+                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1399,7 +1399,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-11-25T09:33:25+00:00"
+            "time": "2019-11-25T12:01:16+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2398,22 +2398,22 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
+            "version": "1.47.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2c8165f5c95ea14bef3b700df6e091b92c413d30"
+                "reference": "25f05c16f55ae7ba7a3c38977fa2c26f579e2db2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11044-missing-invoice-mapping-7e16a2.zip",
-                "reference": "2c8165f5c95ea14bef3b700df6e091b92c413d30"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.14-fa0435.zip",
+                "reference": "25f05c16f55ae7ba7a3c38977fa2c26f579e2db2"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-CGIV-11044-missing-invoice-mapping as 1.43.10",
+                "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -2464,11 +2464,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-11044-missing-invoice-mapping": "1.47.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2484,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-25T09:32:43+00:00"
+            "time": "2019-11-25T12:06:03+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11853,32 +11848,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.10",
-            "alias_normalized": "1.43.10.0",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.20.13",
-            "alias_normalized": "1.20.13.0",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.47.13",
-            "alias_normalized": "1.47.13.0",
-            "version": "dev-CGIV-11044-missing-invoice-mapping",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
