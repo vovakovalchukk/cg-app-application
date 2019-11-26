@@ -16,9 +16,9 @@ module.exports = {
         "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
         "settings/js/PickListSettings/PickListSettings": "./public/channelgrabber/settings/jsx/PickListSettings/PickListSettings.jsx",
         
-	"settings/js/Listing/ListingTemplates": "./public/channelgrabber/settings/jsx/Listing/ListingTemplates/ListingTemplates.jsx",
-        
-	"setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
+        "settings/js/Listing/ListingTemplates": "./public/channelgrabber/settings/jsx/Listing/ListingTemplates/ListingTemplates.jsx",
+
+        "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
 
@@ -35,6 +35,7 @@ module.exports = {
         "data-exchange/js/DataExchange/StockImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockImport/App.jsx",
         "data-exchange/js/DataExchange/OrderExport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderExport/App.jsx",
         "data-exchange/js/DataExchange/OrderTrackingImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderTrackingImport/App.jsx",
+        "data-exchange/js/DataExchange/History/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/History/Index.jsx",
     },
     module: {
         rules: [
