@@ -62,7 +62,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "~1.47.14",
+        "channelgrabber/order": "dev-CGIV-11051-add-fulfilment-address-to-orders-csv as 1.47.15",
         "channelgrabber/partner": "1.0.4",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
