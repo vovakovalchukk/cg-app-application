@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "905d3c69941a876da96865b67fccbc9f",
+    "content-hash": "20d6e6eaa316358597d1a038d18d0ec1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix",
+            "version": "1.47.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e321bffb6a30c5e38e78ce8126b3891f8c2d4109"
+                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix-b83cc1.zip",
-                "reference": "e321bffb6a30c5e38e78ce8126b3891f8c2d4109"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.16-581d3e.zip",
+                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-27T08:52:03+00:00"
+            "time": "2019-11-27T14:38:01+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11848,18 +11848,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.16",
-            "alias_normalized": "1.47.16.0",
-            "version": "dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
