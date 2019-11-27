@@ -3,6 +3,18 @@ import historyFetch from './Service/historyFetch'
 import Paginator from "Common/Components/Pagination/Paginator";
 import createCell from 'DataExchange/History/Cell/factory';
 import allColumns from 'DataExchange/History/Column/allColumns';
+import styled from 'styled-components';
+
+const Table = styled.table`
+      width: calc(100% + 40px);
+      margin-left: calc(-20px);
+      margin-right: calc(-20px);
+`;
+
+const TH = styled.th`
+    position: sticky;
+    top: 50px;
+`;
 
 const HistoryApp = (props) => {
     const [data, setData] = useState(null);
@@ -765,15 +777,15 @@ const HistoryApp = (props) => {
     }
 
     return (<div>
-        <table className={"u-margin-top-small"}>
+        <Table className={"u-margin-top-small"}>
             <thead>
                 <tr>
                     {renderCells(data[0], (Cell, column) => (
-                        <th key={`header-${column.key}`} style={{position:'sticky', top:'50px'}}>
+                        <TH key={`header-${column.key}`}>
                             <div>
                                 {column.label}
                             </div>
-                        </th>
+                        </TH>
                     ))}
                 </tr>
             </thead>
@@ -788,7 +800,7 @@ const HistoryApp = (props) => {
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </Table>
         <div className={"u-inline-block u-margin-top-large"}>
             <Paginator
                 incrementPage={incrementPage}
