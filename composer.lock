@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3a605f8225417b672ce13ae8be4e944",
+    "content-hash": "905d3c69941a876da96865b67fccbc9f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2402,12 +2402,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "67f9a2e4e4c1bb17422da1abdc5127837dcc1e0a"
+                "reference": "e321bffb6a30c5e38e78ce8126b3891f8c2d4109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix-b2ecc0.zip",
-                "reference": "67f9a2e4e4c1bb17422da1abdc5127837dcc1e0a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix-b83cc1.zip",
+                "reference": "e321bffb6a30c5e38e78ce8126b3891f8c2d4109"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-26T14:53:33+00:00"
+            "time": "2019-11-27T08:52:03+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11850,8 +11850,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.47.15",
-            "alias_normalized": "1.47.15.0",
+            "alias": "1.47.16",
+            "alias_normalized": "1.47.16.0",
             "version": "dev-CGIV-11088-data-exchange-order-export-bespoke-column-names-fix",
             "package": "channelgrabber/order"
         }
