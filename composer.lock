@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e9f73b04695e25a5be40c22262bf06c",
+    "content-hash": "20d6e6eaa316358597d1a038d18d0ec1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -750,16 +750,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.10",
+            "version": "1.43.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332"
+                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.10-fea6f8.zip",
-                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.11-d2b39d.zip",
+                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-25T11:58:28+00:00"
+            "time": "2019-11-25T14:49:49+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.14",
+            "version": "1.47.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "25f05c16f55ae7ba7a3c38977fa2c26f579e2db2"
+                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.14-fa0435.zip",
-                "reference": "25f05c16f55ae7ba7a3c38977fa2c26f579e2db2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.16-581d3e.zip",
+                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-25T12:06:03+00:00"
+            "time": "2019-11-27T14:38:01+00:00"
         },
         {
             "name": "channelgrabber/partner",
