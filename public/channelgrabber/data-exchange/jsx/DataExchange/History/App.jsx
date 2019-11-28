@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import historyFetch from './Service/historyFetch'
+import historyFetch from './Service/historyFetch';
 import Paginator from "Common/Components/Pagination/Paginator";
-import createCell from 'DataExchange/History/Cell/factory';
 import allColumns from 'DataExchange/History/Column/allColumns';
 import styled from 'styled-components';
 
@@ -17,12 +16,11 @@ const TH = styled.th`
 `;
 
 const HistoryApp = (props) => {
-    const [data, setData] = useState(null);
+    const {data, setData, setRowValue} = useDataState(null);
     const [pagination, setPagination] = useState(1);
 
     useEffect(() => {
 //        historyFetch(pagination, setData);
-
 //         todo - remove this hack
         setData([
             {
@@ -34,7 +32,7 @@ const HistoryApp = (props) => {
                 "startDate": "2019-11-22 14:48:52",
                 "fileName": "stockExport.csv",
                 "userId": 2,
-                "endDate": "2019-11-22 14:48:59",
+                "endDate": "In Progress",
                 "totalRows": 285,
                 "successfulRows": 285,
                 "failedRows": 0,
@@ -768,7 +766,7 @@ const HistoryApp = (props) => {
         ])
     }, []);
 
-    console.log('------RENDER',data);
+//    console.log('------RENDER',data);
     let maxPages = 100;
 
     // todo - do this better with a spinner or something
@@ -794,7 +792,11 @@ const HistoryApp = (props) => {
                     <tr key={rowData.id}>
                         {renderCells(rowData, (Cell, column) => (
                             <td key={`${rowData.id}-${column.key}`}>
-                                <Cell rowData={rowData} column={column}/>
+                                <Cell
+                                    rowData={rowData}
+                                    column={column}
+                                    setRowValue={setRowValue}
+                                />
                             </td>
                         ))}
                     </tr>
@@ -809,7 +811,7 @@ const HistoryApp = (props) => {
                 maxPages={maxPages}
                 displayOfTotalPages={false}
             />
-        </  div>
+        </div>
     </div>);
 
     function renderCells(rowData, renderCell) {
@@ -840,9 +842,24 @@ const HistoryApp = (props) => {
         setPagination(newPage);
         historyFetch(newPage, setData);
     }
+
+    function useDataState(initialValue) {
+        let [data, setData] = useState(initialValue);
+
+        function setRowValue(rowId, key, value) {
+            let newData = [...data];
+            let rowIndex = newData.findIndex(data => (data.id === rowId));
+            newData[rowIndex][key] = value;
+            setData(newData);
+        }
+
+        return {
+            data,
+            setData,
+            setRowValue
+        }
+    }
 };
-
-
 
 export default HistoryApp;
 

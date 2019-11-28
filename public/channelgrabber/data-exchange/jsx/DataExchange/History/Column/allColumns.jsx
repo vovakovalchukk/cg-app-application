@@ -1,89 +1,65 @@
-import React from 'react';
-
-const DirectKeyValue = (props) => {
-    let {rowData, column} = props;
-
-    let value = typeof column.getValue === 'function' ?
-        column.getValue(rowData) : rowData[column.key];
-
-//    console.log('value: ', value);
-//    if (column.key === 'unprocessed') {
-//        debugger;
-//    }
-
-    if (value === null || typeof value === "undefined") {
-        return null;
-    }
-
-//    console.log(': ', );
-    let link = typeof column.getLink === 'function' ?
-        column.getLink(rowData) : '';
-
-    return (<div>
-        {value}
-        {link && <a className="u-margin-left-small" href={link}>
-            link
-        </a>}
-    </div>);
-};
+import LinkCell from 'DataExchange/History/Cell/LinkCell';
+import StopCell from 'DataExchange/History/Cell/StopCell';
 
 export default [
     {
         key: 'fileName',
-        name: 'File Name',
-        cell: DirectKeyValue
+        label: 'File Name',
+        cell: LinkCell
     },
     {
         key: 'type',
-        label: 'Type',
-        cell: DirectKeyValue
+        label: 'iType',
+        cell: LinkCell
     },
     {
         key: 'user',
         label: 'User',
-        cell: DirectKeyValue
+        cell: LinkCell
     },
     {
-        key: 'start',
-        label: 'Start'
+        key: 'startDate',
+        label: 'Start',
+        cell: LinkCell
     },
     {
         key: 'totalRows',
         label: 'Total Rows',
-        cell: DirectKeyValue
+        cell: LinkCell
     },
     {
         key: 'unprocessed',
         label: 'Unprocessed',
-        cell: DirectKeyValue,
+        cell: LinkCell,
         getLink: (data) => (data.unprocessedLink),
         getValue: (data) => (data.totalRows - data.successfulRows - data.failedRows)
     },
     {
         key: 'file',
         label: 'file',
-        cell: DirectKeyValue,
-        getLink: (data) => (data.file)
+        cell: LinkCell,
+        getLink: (data) => (data.fileLink)
     },
     {
         key: 'endDate',
         label: 'Finish',
-        cell: DirectKeyValue
+        cell: LinkCell
     },
     {
-        key: 'successful',
+        key: 'successfulRows',
         label: 'Successful',
-        cell: DirectKeyValue,
+        cell: LinkCell,
         getLink: (data) => (data.failedLink)
     },
     {
-        key: 'failed',
+        key: 'failedRows',
         label: 'Failed',
-        cell: DirectKeyValue,
+        cell: LinkCell,
         getLink: (data) => (data.failedLink)
     },
     {
         key: 'end',
-        label: 'End'
+        label: 'End',
+        cell: StopCell
     }
 ];
