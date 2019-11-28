@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20d6e6eaa316358597d1a038d18d0ec1",
+    "content-hash": "af7888d0cdc8361c179f14c9843ae8c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -3722,16 +3722,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.0",
+            "version": "dev-CGIV-11067-automatically-set-table-totals-for-the-table-element-in-the-template-designer",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "df622f24e827dc117880df75ca218a2a93278f6a"
+                "reference": "481e792e3b3d6183715dcd6189bff5ae1cf27e3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.0-fb1ba0.zip",
-                "reference": "df622f24e827dc117880df75ca218a2a93278f6a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11067-automatically-set-table-totals-for-the-table-element-in-the-template-designer-d6bde9.zip",
+                "reference": "481e792e3b3d6183715dcd6189bff5ae1cf27e3b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3777,7 +3777,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-22T09:44:02+00:00"
+            "time": "2019-11-28T10:25:54+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11848,10 +11848,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.1",
+            "alias_normalized": "1.9.1.0",
+            "version": "dev-CGIV-11067-automatically-set-table-totals-for-the-table-element-in-the-template-designer",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
