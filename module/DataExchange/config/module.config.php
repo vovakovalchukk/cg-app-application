@@ -1,9 +1,10 @@
 <?php
 
 use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
-use DataExchange\Controller\IndexController;
 use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
+use DataExchange\Controller\HistoryController;
+use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\OrderExportManualController;
 use DataExchange\Controller\OrderTrackingImportController;
@@ -12,8 +13,9 @@ use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
 use DataExchange\Controller\StockImportManualController;
 use DataExchange\Controller\TemplateController;
-use DataExchange\Navigation\Factory as DataExchangeNavigation;
+use DataExchange\History\Service as HistoryService;
 use DataExchange\Module;
+use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
@@ -114,6 +116,18 @@ return [
                         'title' => 'Email',
                         'route' => Module::ROUTE . '/' . EmailAccountController::ROUTE
                     ],
+                ]
+            ],
+            'History' => [
+                'label' => 'History',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'History' => [
+                        'label' => 'History',
+                        'title' => 'History',
+                        'route' => Module::ROUTE . '/' . HistoryController::ROUTE
+                    ]
                 ]
             ],
         ]
@@ -382,6 +396,53 @@ return [
                                     'defaults' => [
                                         'controller' => OrderExportManualController::class,
                                         'action' => 'download'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    HistoryController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/history',
+                            'defaults' => [
+                                'controller' => HistoryController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            HistoryController::ROUTE_FETCH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'action' => 'fetch'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_FILES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/files/:historyId/:fileType',
+                                    'constraints' => [
+                                        'historyId' => '[0-9]+',
+                                        'fileType' => implode('|', HistoryService::getAllowedFileTypes())
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'files'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_STOP => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/stop',
+                                    'defaults' => [
+                                        'action' => 'stop'
                                     ]
                                 ],
                                 'may_terminate' => true,
