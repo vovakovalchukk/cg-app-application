@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import historyFetch from './Service/historyFetch';
 import Paginator from "Common/Components/Pagination/Paginator";
 import allColumns from 'DataExchange/History/Column/allColumns';
@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import Skeleton from 'react-skeleton-loader';
 
 const Table = styled.table`
-      width: calc(100% + 40px);
-      margin-left: calc(-20px);
-      margin-right: calc(-20px);
+    width: calc(100% + 40px);
+    margin-left: calc(-20px);
+    margin-right: calc(-20px);
 `;
 
 const TH = styled.th`
@@ -25,7 +25,7 @@ const HistoryApp = (props) => {
     }, []);
 
     let maxPages = 100;
-
+    
     return (<div>
         <Table className={"u-margin-top-small"}>
             <thead>
