@@ -47,6 +47,7 @@ class Service
     const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
     const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
     const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
+    const FILTER_ORDER_SUPPLIER = 'orderSupplier';
 
     protected static function getOrderFilters()
     {
@@ -520,6 +521,19 @@ class Service
                         ],
                     ]
                 ],
+            ],
+            self::FILTER_ORDER_SUPPLIER => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'supplier',
+                    'title' => 'Supplier',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => CurrencyService::class,
             ],
         ];
     }

@@ -86,6 +86,7 @@
         "channelgrabber/stdlib": "~2.16.9",
         "channelgrabber/stock": "~1.17.6",
         "channelgrabber/stripe": "~1.0.2",
+        "channelgrabber/supplier": "dev-TAC-562-suppliers-endpoint as 1.0.0",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.9.0",
         "channelgrabber/usage": "~1.0.7",
