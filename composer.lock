@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1faff6aed2c9eea2ec93b4de9d33f70f",
+    "content-hash": "9873950b5177305b0b47c09ddaa2a87e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -758,17 +758,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.10",
+            "version": "1.43.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332"
+                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.10-fea6f8.zip",
-                "reference": "1d8f1b2f556e98b375db400ac059d08c6b66a332",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.11-d2b39d.zip",
+                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -842,7 +841,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-25T11:58:28+00:00"
+            "time": "2019-11-25T14:49:49+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2529,7 +2528,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-27T14:09:53+00:00"
+            "time": "2019-11-29T10:26:39+00:00"
         },
         {
             "name": "channelgrabber/partner",
