@@ -1,6 +1,6 @@
 <?php
 use CG\Order\Client\Pdf\OrderTable\PopulateForOrdersInterface;
-use CG\Order\Client\Pdf\OrderTable\Storage\Runtime as OrderTableRelatedDataRuntimeStorage;
+use CG\Order\Client\Pdf\OrderTable\Storage\RuntimeBulk as OrderTableRelatedDataRuntimeBulkStorage;
 use CG\Order\Client\Pdf\OrderTable\StorageInterface as OrderTableRelatedDataStorage;
 use CG\Order\Shared\Collection as Orders;
 
@@ -19,7 +19,7 @@ return [
         ],
         'instance' => [
             'preferences' => [
-                OrderTableRelatedDataStorage::class => OrderTableRelatedDataRuntimeStorage::class,
+                OrderTableRelatedDataStorage::class => OrderTableRelatedDataRuntimeBulkStorage::class,
             ],
         ],
     ],
