@@ -13,6 +13,7 @@ use Orders\Order\Filter\Marketplace;
 use Orders\Order\Filter\Shipping;
 use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
 use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\TableService\OrdersTableSuppliers;
 
 class Service
 {
@@ -533,7 +534,7 @@ class Service
                     'concatenate' => true,
                     'options' => []
                 ],
-                'optionsProvider' => CurrencyService::class,
+                'optionsProvider' => OrdersTableSuppliers::class,
             ],
         ];
     }

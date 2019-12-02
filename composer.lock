@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad604b309aa2830e72ed8e2fcf4cf609",
+    "content-hash": "6c492058c91488967b0b6635a742575f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2447,16 +2447,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-564-supplier-on-order-items",
+            "version": "dev-TAC-556-supplier-orders-filter",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a1c5bf1d758021eb005e18533451ab3110c96fb9"
+                "reference": "5205b71da2bb53dedea46f2117ee7920671796ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-564-supplier-on-order-items-42121e.zip",
-                "reference": "a1c5bf1d758021eb005e18533451ab3110c96fb9",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-556-supplier-orders-filter-e59483.zip",
+                "reference": "5205b71da2bb53dedea46f2117ee7920671796ed",
                 "shasum": null
             },
             "require": {
@@ -2529,7 +2529,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-27T14:09:53+00:00"
+            "time": "2019-12-02T13:57:58+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12009,7 +12009,7 @@
         {
             "alias": "1.47.19",
             "alias_normalized": "1.47.19.0",
-            "version": "dev-TAC-564-supplier-on-order-items",
+            "version": "dev-TAC-556-supplier-orders-filter",
             "package": "channelgrabber/order"
         },
         {
