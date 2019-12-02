@@ -527,7 +527,7 @@ class Service
                 'filterType' => 'customSelectGroup',
                 'visible' => false,
                 'variables' => [
-                    'name' => 'supplier',
+                    'name' => 'supplierId',
                     'title' => 'Supplier',
                     'searchField' => true,
                     'isOptional' => true,

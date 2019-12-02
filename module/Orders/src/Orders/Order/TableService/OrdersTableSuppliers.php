@@ -53,7 +53,7 @@ class OrdersTableSuppliers implements SelectOptionsInterface
         $suppliersArray = [];
         /** @var Supplier $supplier */
         foreach ($suppliers as $supplier) {
-            $suppliersArray[$supplier->getName()] = $supplier->getName();
+            $suppliersArray[$supplier->getId()] = $supplier->getName();
         }
 
         return $suppliersArray;
