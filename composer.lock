@@ -374,16 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.29.7",
+            "version": "1.32.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "e9863666d2c07c04b0617000e41d2fdf682dc4b1"
+                "reference": "297d26a91c85dac40eea01b50649534236c6b272"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.7-2fcaf8.zip",
-                "reference": "e9863666d2c07c04b0617000e41d2fdf682dc4b1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.32.0-2befe9.zip",
+                "reference": "297d26a91c85dac40eea01b50649534236c6b272"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-09-20T07:52:01+00:00"
+            "time": "2019-12-02T08:52:22+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.16",
+            "version": "1.47.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
+                "reference": "897a288081b5bfb5726d8856f3ddb1d2ce2fd9af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.16-581d3e.zip",
-                "reference": "1a5fbfbc810fdb93c3433d1e58d8296ac087f0bf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.18-88d6c0.zip",
+                "reference": "897a288081b5bfb5726d8856f3ddb1d2ce2fd9af"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-11-27T14:38:01+00:00"
+            "time": "2019-11-29T10:26:39+00:00"
         },
         {
             "name": "channelgrabber/partner",
