@@ -80,7 +80,7 @@ const StockImportApp = (props) => {
                         />
                     </div>
                 </div>
-                <button type="submit" className={'u-margin-top-med button'}>Search</button>
+                <button type="submit" className={'u-margin-top-med button'}>Upload</button>
             </form>
         </div>
     );
