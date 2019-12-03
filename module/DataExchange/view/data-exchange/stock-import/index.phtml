@@ -15,7 +15,13 @@
         });
         require(["StockImport/App"], function(App) {
             App(
-                document.getElementById('app-mount-node')
+                document.getElementById('app-mount-node'),
+                {
+                    schedules: <?= json_encode($stockImportSchedules); ?>,
+                    templateOptions: <?= json_encode($stockTemplateOptions); ?>,
+                    fromAccountOptions: <?= json_encode($fromAccountOptions); ?>,
+                    actionOptions: <?= json_encode($actionOptions); ?>
+                }
             );
         });
     <?php $this->inlineScript()->captureEnd(); ?>
