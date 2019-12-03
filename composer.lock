@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "559925bdf59ccbcad2e5577eee7e2554",
+    "content-hash": "91bf0a3dc013740dec70dcb3cff07b0a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-556-supplier-orders-filter",
+            "version": "1.47.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "034ba601beed46e27a684506b17fd27e0c437911"
+                "reference": "eaeb4c4a191c5f054e3ca2e0646065dc148dd457"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-556-supplier-orders-filter-b89a94.zip",
-                "reference": "034ba601beed46e27a684506b17fd27e0c437911"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.21-6934ec.zip",
+                "reference": "eaeb4c4a191c5f054e3ca2e0646065dc148dd457"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-12-03T08:49:00+00:00"
+            "time": "2019-12-03T16:07:23+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2796,16 +2796,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.18.2",
+            "version": "1.18.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "1e95ac8a1d48c88a1606606bcf2c2007ead500fa"
+                "reference": "35c07582e20cae60bf312bbfe23cb990032a4064"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.2-a84ceb.zip",
-                "reference": "1e95ac8a1d48c88a1606606bcf2c2007ead500fa"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.5-5cb79a.zip",
+                "reference": "35c07582e20cae60bf312bbfe23cb990032a4064"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2846,7 +2846,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-CGIV-11079-drop-invalid-barcodes-on-import": "1.18.x-dev"
                 }
             },
             "autoload": {
@@ -2859,7 +2859,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-24T08:45:57+00:00"
+            "time": "2019-12-03T16:13:16+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3683,16 +3683,16 @@
         },
         {
             "name": "channelgrabber/supplier",
-            "version": "dev-TAC-556-supplier-orders-filter",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-supplier.git",
-                "reference": "16cd93d0e5c50fe3c840345cf5dbe6227cf816ab"
+                "reference": "9737847e1e0e9cabdd699ea12d618c60eb903a66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/supplier/channelgrabber-supplier-dev-TAC-556-supplier-orders-filter-3ed127.zip",
-                "reference": "16cd93d0e5c50fe3c840345cf5dbe6227cf816ab"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/supplier/channelgrabber-supplier-1.0.1-fe165d.zip",
+                "reference": "9737847e1e0e9cabdd699ea12d618c60eb903a66"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -3712,7 +3712,7 @@
                     "CG\\Supplier\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-03T09:38:22+00:00"
+            "time": "2019-12-03T16:13:16+00:00"
         },
         {
             "name": "channelgrabber/tax",
@@ -11881,25 +11881,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.19",
-            "alias_normalized": "1.47.19.0",
-            "version": "dev-TAC-556-supplier-orders-filter",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-TAC-556-supplier-orders-filter",
-            "package": "channelgrabber/supplier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/supplier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
