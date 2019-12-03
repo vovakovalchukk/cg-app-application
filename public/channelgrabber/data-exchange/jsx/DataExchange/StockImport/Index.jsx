@@ -12,5 +12,3 @@ const Index = (mountingNode, props) => {
 };
 
 export default Index;
-
-

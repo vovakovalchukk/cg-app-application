@@ -116,5 +116,3 @@ function showErrorNoticeForSubmit() {
 }
 
 export default StockImportApp;
-
-
