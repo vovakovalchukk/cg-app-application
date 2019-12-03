@@ -15,13 +15,7 @@
     });
     require(["History/Index"], function(Index) {
         Index(
-            document.getElementById('app-mount-node'),
-            {
-<!--                schedules: --><?//= json_encode($stockExportSchedules); ?><!--,-->
-<!--                templateOptions: --><?//= json_encode($stockTemplateOptions); ?><!--,-->
-<!--                fromAccountOptions: --><?//= json_encode($fromAccountOptions); ?><!--,-->
-<!--                toAccountOptions: --><?//= json_encode($toAccountOptions); ?>
-            }
+            document.getElementById('app-mount-node')
         );
     });
     <?php $this->inlineScript()->captureEnd(); ?>
