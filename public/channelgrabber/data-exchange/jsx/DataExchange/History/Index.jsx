@@ -8,5 +8,3 @@ export default (mountNode) => {
         mountNode
     )
 }
-
-const something = 'something';
