@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Table from "../Schedule/Table";
 import Service from "./Components/Service";
-import Select from "CommonSrc/jsx/Common/Components/Select";
-import Checkbox from "CommonSrc/jsx/Common/Components/Checkbox--stateless"
+import Select from "Common/Components/Select";
+import Checkbox from "Common/Components/Checkbox--stateless"
 import {formatOptionsFromMap} from 'CommonSrc/js-vanilla/Common/Utils/form';
 import {useSelectState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/select';
 import {useCheckboxState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/checkbox';
