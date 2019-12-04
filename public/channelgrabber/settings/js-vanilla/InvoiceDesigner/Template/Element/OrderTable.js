@@ -13,7 +13,7 @@ define([
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
-        const minHeight = 205; // px
+        const minHeight = 140; // px
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
