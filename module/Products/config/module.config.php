@@ -159,6 +159,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_SUPPLIER => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/supplier',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductSupplier'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_CSV_EXPORT => [
                         'type' => Literal::class,
                         'options' => [
