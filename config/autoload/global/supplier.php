@@ -1,16 +1,16 @@
 <?php
 
-use CG\Supplier\Storage\Api as SupplierStorageApi;
+use CG\Supplier\Storage\Api as SupplierApiStorage;
 use CG\Supplier\StorageInterface as SupplierStorage;
 
 return [
     'di' => [
         'instance' => [
             'preferences' => [
-                SupplierStorage::class => SupplierStorageApi::class,
+                SupplierStorage::class => SupplierApiStorage::class,
             ],
-            SupplierStorageApi::class => [
-                'parameters' => [
+            SupplierApiStorage::class => [
+                'parameter' => [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
