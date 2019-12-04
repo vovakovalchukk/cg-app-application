@@ -4,19 +4,25 @@ define(
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
-            var popup;
+            const searchInputId = 'saved-filters-search';
 
-            var init = function() {
+            let popup = null;
+            let searchElement = null;
+
+            const init = function() {
                 var self = this;
-                var filterList = self.getFilterList();
 
-                filterList.on("click.storedFilters", "li .close", function(event) {
+                if (Array.isArray(this.getListItemNames())) {
+                    self.setupSearch();
+                }
+
+                self.getFilterList().on("click.storedFilters", "li .close", function(event) {
                     self.deleteFilter.call(self, $(this).closest("li"));
                     event.stopImmediatePropagation();
                 });
 
                 popup = new Popup(
-                    filterList.data("popup")
+                    self.getFilterList().data("popup")
                 );
                 setupPopup.call(this); // call
             };
@@ -27,6 +33,11 @@ define(
 
             this.getPopup = function() {
                 return popup;
+            };
+
+            this.setupSearch = () => {
+                searchElement = document.getElementById(searchInputId);
+                searchElement.addEventListener('change', this.applyDisplayPropToListItemsFromSearch);
             };
 
             var setupPopup = function() {

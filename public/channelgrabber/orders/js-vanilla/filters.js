@@ -1,4 +1,5 @@
 define(['element/moreButton', 'element/ElementCollection'], function(MoreButton, elementCollection) {
+    const maxItemsToDisplayInSidebar = 5;
 
     var Filters = function(filters, filterList)
     {
@@ -12,6 +13,42 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
         filterList = $(filterList);
         this.getFilterList = function() {
             return filterList;
+        };
+
+        this.getFilterListItems = function() {
+            return [...this.getFilterList()[0].children].filter((childNode) => {
+                return !!childNode.attributes['data-name'];
+            });
+        };
+
+        this.getListItemNames = function() {
+            return this.getFilterListItems().map((childNode) => {
+                return this.getNameValueFromNode(childNode)
+            });
+        };
+
+        this.getNameValueFromNode = function(node) {
+            return node.attributes['data-name'].value;
+        };
+
+        this.applyDisplayPropToListItemsFromSearch = (event) => {
+            let nodes = this.getFilterListItems();
+            let displayedItems = 0;
+            for (let node of nodes) {
+                if (displayedItems >= this.getMaxItemsToDisplayInSidebar()) {
+                    break;
+                }
+                if (this.getNameValueFromNode(node).indexOf(event.target.value) > -1) {
+                    displayedItems ++;
+                    node.style.display = 'block';
+                    continue;
+                }
+                node.style.display = 'none';
+            }
+        };
+
+        this.getMaxItemsToDisplayInSidebar = function() {
+            return maxItemsToDisplayInSidebar;
         };
 
         optionalFilters = {};
