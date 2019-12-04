@@ -38,7 +38,7 @@
         "channelgrabber/data-exchange": "~1.1.0",
         "channelgrabber/data-exchange-history": "~1.0.3",
         "channelgrabber/data-exchange-schedule": "~1.0.5",
-        "channelgrabber/data-exchange-template": "~1.0.2",
+        "channelgrabber/data-exchange-template": "dev-MIG-53-non-mapped-file-fields-maintain-order as 1.0.3",
         "channelgrabber/di": "~2.3.1",
         "channelgrabber/ebay": "~1.20.14",
         "channelgrabber/ekm": "~1.14.1",
