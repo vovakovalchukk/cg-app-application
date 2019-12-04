@@ -2,7 +2,7 @@ const FormattingService = {
     formatTemplateForSave: function(template, templateName) {
         let {columnMap, type} = template;
 
-        const formattedColumnMap = removeInvalidRows(columnMap);
+        const formattedColumnMap = formatColumnMap(columnMap);
 
         const formattedTemplate = {
             columnMap: formattedColumnMap,
@@ -37,7 +37,7 @@ const FormattingService = {
                 ...template,
                 columnMap: newColumnMap
             };
-        })
+        });
     },
     formatCgFieldOptions: function(cgFieldOptions) {
         let options = [];
@@ -53,7 +53,9 @@ const FormattingService = {
     getDefaultColumn: function() {
         return {
             cgField: '',
-            fileField: ''
+            fileField: '',
+            userValue: null,
+            order: null
         };
     },
     getDefaultTemplate: function(templateType) {
@@ -86,9 +88,13 @@ function isBlankColumn(column) {
     return !column.fileField && !column.cgField;
 }
 
-function removeInvalidRows(columnMap) {
-    let newColumnMap = columnMap.filter((column) => {
-        return column.cgField && column.fileField;
+function formatColumnMap(columnMap) {
+    const validColumnMap = columnMap.filter((column) => {
+        return !!(column.fileField);
     });
-    return newColumnMap;
+
+    return validColumnMap.map((column, index) => {
+        column.order = index;
+        return column;
+    });
 }
