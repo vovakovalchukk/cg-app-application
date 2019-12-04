@@ -11,7 +11,7 @@ const Table = styled.table`
     margin-right: calc(-20px);
 `;
 
-const TH = styled.th`
+const Th = styled.th`
     position: sticky;
     top: 50px;
 `;
@@ -24,18 +24,18 @@ const HistoryApp = (props) => {
         historyFetch(pagination, setData);
     }, []);
 
-    let maxPages = 100;
+    const maxPages = 100;
     
     return (<div>
         <Table className={"u-margin-top-small"}>
             <thead>
                 <tr>
                     {renderCells(data ? data[0] : {} , (Cell, column) => (
-                        <TH key={`header-${column.key}`}>
+                        <Th key={`header-${column.key}`}>
                             <div>
                                 {column.label}
                             </div>
-                        </TH>
+                        </Th>
                     ))}
                 </tr>
             </thead>
@@ -79,9 +79,7 @@ const HistoryApp = (props) => {
                 return renderCell(Skeleton, column);
             }
 
-            const Cell = column.cell ? column.cell : () => {
-                return <div></div>
-            };
+            const Cell = column.cell ? column.cell : <div/>;
 
             return renderCell(Cell, column);
         })
