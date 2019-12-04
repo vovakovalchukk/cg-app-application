@@ -13,7 +13,8 @@ define([
 ) {
     const OrderTable = function() {
         const elementWidth = 700; // px
-        const minHeight = 140; // px
+        const minHeight = 80; // px
+        const defaultHeight = 205;
 
         const tableColumns = TableStorage.getDefaultColumns();
         const tableSortBy = TableStorage.getDefaultSortBy();
@@ -37,7 +38,7 @@ define([
 
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
-            .setHeight(minHeight.pxToMm())
+            .setHeight(defaultHeight.pxToMm())
             .setMinWidth(minWidthToSet)
             .setMinHeight(minHeight);
 
