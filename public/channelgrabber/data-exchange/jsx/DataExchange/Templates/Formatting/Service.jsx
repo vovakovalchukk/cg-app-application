@@ -2,7 +2,7 @@ const FormattingService = {
     formatTemplateForSave: function(template, templateName) {
         let {columnMap, type} = template;
 
-        const formattedColumnMap = formatColumnMap(columnMap);
+        const formattedColumnMap = formatColumnMap(columnMap, type);
 
         const formattedTemplate = {
             columnMap: formattedColumnMap,
@@ -88,9 +88,12 @@ function isBlankColumn(column) {
     return !column.fileField && !column.cgField;
 }
 
-function formatColumnMap(columnMap) {
+function formatColumnMap(columnMap, type) {
     const validColumnMap = columnMap.filter((column) => {
-        return !!(column.fileField);
+        if (type == 'order') {
+            return !!(column.fileField);
+        }
+        return !!(column.fileField) && !!(column.cgField);
     });
 
     return validColumnMap.map((column, index) => {
