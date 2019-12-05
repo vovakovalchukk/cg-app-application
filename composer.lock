@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -378,7 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7d79a55fa87ebbe867cd9b82337b7b426bf0101b"
+                "reference": "4184f76098a6b146be60531a22a2a15b1d7f1ff5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11123-amazon-us-sfp-services-incorrect-6e467f.zip",
+                "reference": "4184f76098a6b146be60531a22a2a15b1d7f1ff5"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -433,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-12-02T08:52:22+00:00"
+            "time": "2019-12-05T16:37:19+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -11885,12 +11890,6 @@
         {
             "alias": "1.32.1",
             "alias_normalized": "1.32.1.0",
-            "version": "dev-HEAD",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.32.1",
-            "alias_normalized": "1.32.1.0",
             "version": "dev-CGIV-11123-amazon-us-sfp-services-incorrect",
             "package": "channelgrabber/amazon"
         }
@@ -11900,8 +11899,8 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
