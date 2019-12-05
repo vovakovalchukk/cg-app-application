@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const StyledDownloadIcon = styled(DownloadIcon)`
   font-size: 2em;
 `;
-console.log('FlexContainer: ', FlexContainer);
 
 const FlexChild = styled.span`
   margin: 5px;
