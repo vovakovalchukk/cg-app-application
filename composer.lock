@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "41982dde4e2df26dae4a43dbeed8bab7",
+    "content-hash": "a9f1fc8da78a3228c6b51eb86ce98014",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -758,16 +758,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.11",
+            "version": "1.43.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26"
+                "reference": "38bb7338d4d61b4bea93d66f9e1697536884dcb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.11-d2b39d.zip",
-                "reference": "c754dbd58a79ee0792de44ff97b67929a825fd26",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.12-af434e.zip",
+                "reference": "38bb7338d4d61b4bea93d66f9e1697536884dcb7",
                 "shasum": null
             },
             "require": {
@@ -842,7 +842,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-11-25T14:49:49+00:00"
+            "time": "2019-12-05T09:19:01+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1427,16 +1427,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.14.2",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "6a5652b56b5c256e243692b34214f333b6fb7ab6"
+                "reference": "1844597de7544c192c9feecb5652bb9a04ba270b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.14.2-790d27.zip",
-                "reference": "6a5652b56b5c256e243692b34214f333b6fb7ab6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.16.0-08a935.zip",
+                "reference": "1844597de7544c192c9feecb5652bb9a04ba270b",
                 "shasum": null
             },
             "require": {
@@ -1484,7 +1484,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-11-19T14:50:58+00:00"
+            "time": "2019-12-05T09:24:38+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -3837,16 +3837,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "df622f24e827dc117880df75ca218a2a93278f6a"
+                "reference": "045cc920b2931ac1006403f15885a2aef9b12ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.0-fb1ba0.zip",
-                "reference": "df622f24e827dc117880df75ca218a2a93278f6a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.1-af1fa3.zip",
+                "reference": "045cc920b2931ac1006403f15885a2aef9b12ec7",
                 "shasum": null
             },
             "require": {
@@ -3879,6 +3879,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.9.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
@@ -3893,7 +3898,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-11-22T09:44:02+00:00"
+            "time": "2019-12-02T09:33:02+00:00"
         },
         {
             "name": "channelgrabber/transaction",
