@@ -14,7 +14,6 @@ export default (pagination, setData) => {
     });
     
     function onError() {
-        console.log('inonerror');
         n.notice('There was a problem retrieving your history data. Please contact support for further information.')
     }   
     
