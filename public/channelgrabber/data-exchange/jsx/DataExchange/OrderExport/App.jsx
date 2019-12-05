@@ -3,7 +3,7 @@ import Table from "../Schedule/Table";
 import Service from "./Components/Service";
 import Select from "Common/Components/Select";
 import Checkbox from "Common/Components/Checkbox--stateless"
-import {formatOptionsFromMap} from 'CommonSrc/js-vanilla/Common/Utils/form';
+import {formatOptionsFromMap} from 'CommonSrc/js-vanilla/Common/Utils/Form/select';
 import {useSelectState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/select';
 import {useCheckboxState} from 'CommonSrc/js-vanilla/Common/Hooks/Form/checkbox';
 import {exportViaEmail, exportToBrowser} from 'DataExchange/Utils/export';
