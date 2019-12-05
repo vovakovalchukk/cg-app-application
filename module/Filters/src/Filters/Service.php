@@ -13,6 +13,7 @@ use Orders\Order\Filter\Marketplace;
 use Orders\Order\Filter\Shipping;
 use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
 use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\TableService\OrdersTableSuppliers;
 
 class Service
 {
@@ -47,6 +48,7 @@ class Service
     const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
     const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
     const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
+    const FILTER_ORDER_SUPPLIER = 'orderSupplier';
 
     protected static function getOrderFilters()
     {
@@ -520,6 +522,19 @@ class Service
                         ],
                     ]
                 ],
+            ],
+            self::FILTER_ORDER_SUPPLIER => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'supplierId',
+                    'title' => 'Supplier',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => OrdersTableSuppliers::class,
             ],
         ];
     }
