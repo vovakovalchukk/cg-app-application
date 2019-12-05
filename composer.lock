@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aed4bd5187ac9d2b26ae38b3a017a193",
+    "content-hash": "db4a3256a6a920170b018dcf60651bab",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2398,16 +2398,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11101-BlankPageIssue",
+            "version": "1.47.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "478452a91bbbdffeab35fb1b23a4cd787da4a70b"
+                "reference": "02886848f454650b80c98a96508aea6efd537a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11101-BlankPageIssue-c15152.zip",
-                "reference": "478452a91bbbdffeab35fb1b23a4cd787da4a70b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.22-1db7bd.zip",
+                "reference": "02886848f454650b80c98a96508aea6efd537a92"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2444,7 +2444,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "dev-CGIV-11101-BlankPageIssue as 1.9.2",
+                "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2479,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-12-04T15:49:06+00:00"
+            "time": "2019-12-05T11:34:59+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3755,16 +3755,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11101-BlankPageIssue",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c9db00a9e4e837f2fbd3047affbf9fe344c3ef1e"
+                "reference": "20cba380fc6b318afd59e8b4268957c8f1bc2eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11101-BlankPageIssue-ddaf6f.zip",
-                "reference": "c9db00a9e4e837f2fbd3047affbf9fe344c3ef1e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.2-ff9d29.zip",
+                "reference": "20cba380fc6b318afd59e8b4268957c8f1bc2eeb"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3815,7 +3815,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-04T15:44:52+00:00"
+            "time": "2019-12-05T11:26:38+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11886,25 +11886,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.22",
-            "alias_normalized": "1.47.22.0",
-            "version": "dev-CGIV-11101-BlankPageIssue",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.9.2",
-            "alias_normalized": "1.9.2.0",
-            "version": "dev-CGIV-11101-BlankPageIssue",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
