@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db4a3256a6a920170b018dcf60651bab",
+    "content-hash": "9e6c6eb441594b8d7964b591c07148b0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,16 +374,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.32.0",
+            "version": "dev-CGIV-11123-amazon-us-sfp-services-incorrect",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "297d26a91c85dac40eea01b50649534236c6b272"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.32.0-2befe9.zip",
-                "reference": "297d26a91c85dac40eea01b50649534236c6b272"
+                "reference": "7d79a55fa87ebbe867cd9b82337b7b426bf0101b"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -11886,13 +11881,27 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.32.1",
+            "alias_normalized": "1.32.1.0",
+            "version": "dev-HEAD",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.32.1",
+            "alias_normalized": "1.32.1.0",
+            "version": "dev-CGIV-11123-amazon-us-sfp-services-incorrect",
+            "package": "channelgrabber/amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
