@@ -1,7 +1,7 @@
 import ajax from 'CommonSrc/js-vanilla/Common/Utils/xhr/ajax';
 
 const stopRequest = (historyId, callback) => {
-    let response = ajax.request({
+    ajax.request({
         method: 'POST',
         url: '/dataExchange/history/stop',
         data: {
@@ -16,7 +16,7 @@ const stopRequest = (historyId, callback) => {
     }
 
     function onSuccess(response) {
-        let json = JSON.parse(response);
+        const json = JSON.parse(response);
         if (!json.success) {
             onError();
             return;
