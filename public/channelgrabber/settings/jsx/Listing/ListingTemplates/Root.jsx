@@ -20,7 +20,7 @@ const RootComponent = props => {
 
     return (
         <div className={"u-margin-top-xxlarge"}>
-            <div className="u-form-width-medium">
+            <div className="u-form-max-width-medium">
                 <TemplateSelect options={templates} selectedOption={templateSelectValue}
                                 onOptionChange={(option) => {
                                     setTemplateSelectValue(option);

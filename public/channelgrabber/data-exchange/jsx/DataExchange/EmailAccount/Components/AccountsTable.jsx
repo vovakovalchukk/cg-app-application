@@ -210,7 +210,7 @@ class AccountsTable extends React.Component {
     };
 
     render() {
-        return <div className={"u-form-width-medium"}>
+        return <div className={"u-form-max-width-medium"}>
             <form name={this.props.type + "EmailAccounts"}>
                 <table className={'u-margin-bottom-med'}>
                     <thead>

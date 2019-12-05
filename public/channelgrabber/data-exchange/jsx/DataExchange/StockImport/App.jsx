@@ -39,7 +39,7 @@ const StockImportApp = (props) => {
     };
 
     return (
-        <div className="u-margin-top-xxlarge u-form-width-medium">
+        <div className="u-margin-top-xxlarge u-form-max-width-medium">
             <form id={"stock-import-form"} onSubmit={onSubmit}>
                 <div className="u-flex-v-center u-margin-top-small">
                     <input

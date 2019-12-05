@@ -35,7 +35,7 @@ const StockExportApp = (props) => {
 
     return (
         <div>
-            <div className="u-margin-top-xxlarge u-form-width-medium">
+            <div className="u-margin-top-xxlarge u-form-max-width-medium">
                 <form id={"stock-import-form"} onSubmit={onSubmit}>
                     <div className="u-flex-v-center u-margin-top-small">
                         <label htmlFor="template" className="u-flex-1">Template:</label>
