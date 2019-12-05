@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4184f76098a6b146be60531a22a2a15b1d7f1ff5"
+                "reference": "d59d4209000d7d98abef59bef93633525cfaf98d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11123-amazon-us-sfp-services-incorrect-6e467f.zip",
-                "reference": "4184f76098a6b146be60531a22a2a15b1d7f1ff5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11123-amazon-us-sfp-services-incorrect-d1f018.zip",
+                "reference": "d59d4209000d7d98abef59bef93633525cfaf98d"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-12-05T16:37:19+00:00"
+            "time": "2019-12-05T16:45:40+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
