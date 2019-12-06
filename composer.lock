@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9f1fc8da78a3228c6b51eb86ce98014",
+    "content-hash": "957be29f36d5c5f7888c1ce05b3cdcd8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2447,16 +2447,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.47.21",
+            "version": "1.47.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "eaeb4c4a191c5f054e3ca2e0646065dc148dd457"
+                "reference": "02886848f454650b80c98a96508aea6efd537a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.21-6934ec.zip",
-                "reference": "eaeb4c4a191c5f054e3ca2e0646065dc148dd457",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.22-1db7bd.zip",
+                "reference": "02886848f454650b80c98a96508aea6efd537a92",
                 "shasum": null
             },
             "require": {
@@ -2494,7 +2494,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.9.0",
+                "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2529,20 +2529,20 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-12-03T16:07:23+00:00"
+            "time": "2019-12-05T11:34:59+00:00"
         },
         {
             "name": "channelgrabber/partner",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "d89239eea5e28e992d2e92e839d1334722b92958"
+                "reference": "203ce4d06f7cae65ead47e32072224141c12d0a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-1.0.4-829c99.zip",
-                "reference": "d89239eea5e28e992d2e92e839d1334722b92958",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-1.0.5-108c0b.zip",
+                "reference": "203ce4d06f7cae65ead47e32072224141c12d0a3",
                 "shasum": null
             },
             "require": {
@@ -2567,7 +2567,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-17T09:30:26+00:00"
+            "time": "2019-12-05T16:00:12+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3837,16 +3837,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "045cc920b2931ac1006403f15885a2aef9b12ec7"
+                "reference": "20cba380fc6b318afd59e8b4268957c8f1bc2eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.1-af1fa3.zip",
-                "reference": "045cc920b2931ac1006403f15885a2aef9b12ec7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.2-ff9d29.zip",
+                "reference": "20cba380fc6b318afd59e8b4268957c8f1bc2eeb",
                 "shasum": null
             },
             "require": {
@@ -3898,7 +3898,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-02T09:33:02+00:00"
+            "time": "2019-12-05T11:26:38+00:00"
         },
         {
             "name": "channelgrabber/transaction",
