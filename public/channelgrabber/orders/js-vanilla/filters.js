@@ -31,15 +31,9 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             return node.attributes['data-name'].value;
         };
 
-        this.applyDisplayPropToListItemsFromSearch = (event) => {
-            let nodes = this.getFilterListItems();
-            let displayedItems = 0;
-            for (let node of nodes) {
-                if (displayedItems >= this.getMaxItemsToDisplayInSidebar()) {
-                    break;
-                }
-                if (this.getNameValueFromNode(node).indexOf(event.target.value) > -1) {
-                    displayedItems ++;
+        this.applyFilterItemDisplayBasedOnSearchTerm = function(searchTerm) {
+            for (let node of this.getFilterListItems()) {
+                if (this.getNameValueFromNode(node).indexOf(searchTerm) > -1) {
                     node.style.display = 'block';
                     continue;
                 }
@@ -47,9 +41,29 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             }
         };
 
-        this.setupSearch = (searchInputId) => {
+        this.applyFilterItemDisplayBasedOnLimit = function(limit) {
+            let displayedItems = 0;
+            for (let node of this.getFilterListItems()) {
+                if (displayedItems >= limit) {
+                    node.style.display = 'none';
+                    continue;
+                }
+
+                if (node.style.display !== 'none') {
+                    displayedItems++;
+                }
+            }
+        };
+
+        this.applyDisplayPropToListItemsFromSearch = (event) => {
+            this.applyFilterItemDisplayBasedOnSearchTerm(event.target.value);
+            this.applyFilterItemDisplayBasedOnLimit(this.getMaxItemsToDisplayInSidebar());
+        };
+
+        this.setupSearch = function(searchInputId) {
             const searchElement = document.getElementById(searchInputId);
-            searchElement.addEventListener('keydown', this.applyDisplayPropToListItemsFromSearch);
+            this.applyFilterItemDisplayBasedOnLimit(this.getMaxItemsToDisplayInSidebar());
+            searchElement.addEventListener('keyup', this.applyDisplayPropToListItemsFromSearch);
         };
 
         this.getMaxItemsToDisplayInSidebar = function() {

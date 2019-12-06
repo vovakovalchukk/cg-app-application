@@ -24,6 +24,7 @@ function(StoredFilters) {
             </div>
             <ul
                 id="savedFilters"
+                style="display:none;"
                 data-save="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_SAVE) ?>"
                 data-remove="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_REMOVE) ?>"
                 data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/elements/savedFilter.mustache"

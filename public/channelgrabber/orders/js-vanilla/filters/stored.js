@@ -11,6 +11,7 @@ define(
 
                 if (Array.isArray(this.getListItemNames())) {
                     self.setupSearch('saved-filters-search');
+                    document.getElementById('savedFilters').style.display = 'block';
                 }
 
                 self.getFilterList().on("click.storedFilters", "li .close", function(event) {

@@ -10,6 +10,7 @@ define(
 
                 if (Array.isArray(this.getListItemNames())) {
                     self.setupSearch('batches-search');
+                    document.getElementById('batch').style.display = 'block';
                 }
 
                 filtersList.on("click.batch", 'li .close', function(event) {
