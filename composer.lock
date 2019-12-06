@@ -3759,12 +3759,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9baacc85ffad4510180eff6775ffbda05de3b054"
+                "reference": "e1aee2bce28776d69ad9fbc58dca9891b093e964"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11067-automatically-set-table-totals-for-the-table-element-in-the-template-designer-1659bc.zip",
-                "reference": "9baacc85ffad4510180eff6775ffbda05de3b054"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11067-automatically-set-table-totals-for-the-table-element-in-the-template-designer-e2a3c4.zip",
+                "reference": "e1aee2bce28776d69ad9fbc58dca9891b093e964"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3815,7 +3815,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-05T18:11:41+00:00"
+            "time": "2019-12-06T11:29:12+00:00"
         },
         {
             "name": "channelgrabber/transaction",
