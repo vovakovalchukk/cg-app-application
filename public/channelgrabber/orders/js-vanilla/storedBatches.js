@@ -8,6 +8,10 @@ define(
                 var self = this;
                 var filtersList = self.getFilterList();
 
+                if (Array.isArray(this.getListItemNames())) {
+                    self.setupSearch('batches-search');
+                }
+
                 filtersList.on("click.batch", 'li .close', function(event) {
                     self.deleteBatch.call(self, $(this).closest("li"));
                     event.stopImmediatePropagation();

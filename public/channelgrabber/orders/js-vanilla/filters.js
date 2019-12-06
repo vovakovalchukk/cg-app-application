@@ -47,6 +47,11 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             }
         };
 
+        this.setupSearch = (searchInputId) => {
+            const searchElement = document.getElementById(searchInputId);
+            searchElement.addEventListener('keydown', this.applyDisplayPropToListItemsFromSearch);
+        };
+
         this.getMaxItemsToDisplayInSidebar = function() {
             return maxItemsToDisplayInSidebar;
         };

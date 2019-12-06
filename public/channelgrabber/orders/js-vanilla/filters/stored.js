@@ -4,16 +4,13 @@ define(
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
-            const searchInputId = 'saved-filters-search';
-
             let popup = null;
-            let searchElement = null;
 
             const init = function() {
                 var self = this;
 
                 if (Array.isArray(this.getListItemNames())) {
-                    self.setupSearch();
+                    self.setupSearch('saved-filters-search');
                 }
 
                 self.getFilterList().on("click.storedFilters", "li .close", function(event) {
@@ -33,11 +30,6 @@ define(
 
             this.getPopup = function() {
                 return popup;
-            };
-
-            this.setupSearch = () => {
-                searchElement = document.getElementById(searchInputId);
-                searchElement.addEventListener('change', this.applyDisplayPropToListItemsFromSearch);
             };
 
             var setupPopup = function() {
