@@ -81,6 +81,12 @@ define([
             "displayText": "Image",
             "optionText": "Image",
             "cellPlaceholder": `<i> image </i>`
+        },
+        {
+            "id": "itemVariationAttributes",
+            "displayText": "Variation Attributes",
+            "optionText": "Variation Attributes",
+            "cellPlaceholder": `Size: Small`
         }
     ];
     const allTableTotals = [
