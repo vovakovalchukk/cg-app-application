@@ -22,7 +22,7 @@ export const exportToBrowser = async function(data, exportUrl, entity) {
     let fileDownloadResponse = await fileDownload.downloadBlob({
         url: exportUrl,
         data,
-        desiredFilename: `${entity}-${date.toISOString().slice(0, 10)}_${date.getTime()}.csv';`
+        desiredFilename: `${entity}-${date.toISOString().slice(0, 10)}_${date.getTime()}.csv`
     });
 
     if (fileDownloadResponse.status !== 200) {
