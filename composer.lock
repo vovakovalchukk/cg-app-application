@@ -2402,18 +2402,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c21855cc9204f82bc9fce37cc22f8ad2f66abff0"
+                "reference": "751a61ec2890f6e76f340b56998dd87f288516f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10839-amazon-sfp-signed-for-dfb9df.zip",
-                "reference": "c21855cc9204f82bc9fce37cc22f8ad2f66abff0"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10839-amazon-sfp-signed-for-e26882.zip",
+                "reference": "751a61ec2890f6e76f340b56998dd87f288516f7"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.41.0",
+                "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -2423,15 +2423,15 @@
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/exchangerate": "^1.2.0",
-                "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/feature-flags": "^2.1.3",
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.2",
+                "channelgrabber/image": "^1.2.11",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/notification": "^1.5.0",
+                "channelgrabber/notification": "^1.5.1",
                 "channelgrabber/opsgenie": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
@@ -2444,7 +2444,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.27",
+                "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2452,8 +2452,10 @@
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
+                "league/csv": "~8.2.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -2462,11 +2464,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2482,7 +2479,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-12-10T10:54:06+00:00"
+            "time": "2019-12-10T11:06:11+00:00"
         },
         {
             "name": "channelgrabber/partner",
