@@ -4,8 +4,7 @@ const App = (props) => {
     console.log(props);
 
     useEffect(() => {
-        console.log('component mounted');
-        
+        props.actions.fetchFilters();
     }, []);
 
     return (

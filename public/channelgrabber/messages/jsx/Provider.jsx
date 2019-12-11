@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import combinedReducer from "MessageCentre/Reducers/Combined";
 import MessageCentreRoot from "MessageCentre/Root";
 
+console.log(combinedReducer);
+
 let enhancer = applyMiddleware(thunk);
 
 if (typeof window === 'object' &&

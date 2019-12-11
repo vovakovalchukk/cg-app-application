@@ -1,3 +1,7 @@
+import filterActions from './filterActions';
+
 export default () => {
-    return {};
-}
+    return {
+        ...filterActions
+    };
+};
