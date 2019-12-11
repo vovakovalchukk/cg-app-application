@@ -38,7 +38,7 @@ const OrderExportApp = (props) => {
     };
 
     return (
-        <React.fragment>
+        <div>
             <div className="u-margin-top-xxlarge u-form-max-width-medium">
                 <form id={"orders-export-form"} onSubmit={onSubmit}>
                     <div className="u-flex-v-center u-margin-top-small">
@@ -95,7 +95,7 @@ const OrderExportApp = (props) => {
                     validators={Service.validators()}
                 />
             </div>
-        </React.fragment>
+        </div>
     );
 };
 
