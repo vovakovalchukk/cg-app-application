@@ -2,12 +2,27 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
-const initialState = {
-    byId: {
-        //organisationUnitId: {
-        //    count: 3
-        // }
+/**
+"byId": {
+    "organisationUnitId": {
+      "count": <int>
+    },
+    "unassigned": {
+      "count": <string>
+    },
+    "resolved": {
+      "count": <string>
+    },
+    "assigned": {
+      "count": <string>
+    },
+    "myMessages": {
+      "count": <int>
     }
+}
+*/
+const initialState = {
+    byId: {}
 };
 
 const filtersReducer = reducerCreator(initialState, {
