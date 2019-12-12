@@ -1,9 +1,22 @@
 import React, { useEffect } from 'react';
+// import MessageList from ....
+// import MessageDetail from ....
+
+const VIEW_COMPONENT_MAP = {
+    'messageList' : MessageList,
+    'messageDetail': MessageDetail
+};
+
+function getView (key) {
+    return VIEW_COMPONENT_MAP[key]
+}
 
 const App = (props) => {
     useEffect(() => {
         props.actions.fetchFilters();
     }, []);
+
+    const View = getView(props.view);
 
     return (
         <div className="u-width-100pc u-display-flex">
@@ -18,7 +31,9 @@ const App = (props) => {
                 </ol>
             </div>
             <div id="Main" className="u-flex-5">
-                <h1>main</h1>
+                <View
+                    {...props}
+                />
             </div>
         </div>
     );
