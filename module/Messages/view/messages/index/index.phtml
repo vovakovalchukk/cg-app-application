@@ -22,9 +22,9 @@ $(document).ready(function() {
             rootOuId: <?=$rootOuId;?>,
             assignableUsers: assignableUsers,
             singleUserMode: singleUserMode,
-            $threadId: <?=($threadId ? $this->jsString($threadId) : 'null');?>,
-            $filter: <?=($filter ? $this->jsString($filter) : 'null');?>,
-            $filterValue: <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
+            threadId: <?=($threadId ? $this->jsString($threadId) : 'null');?>,
+            filter: <?=($filter ? $this->jsString($filter) : 'null');?>,
+            filterValue: <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
         });
     });
 });

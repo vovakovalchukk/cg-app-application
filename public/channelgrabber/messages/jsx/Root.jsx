@@ -3,9 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import App from 'MessageCentre/App';
 import Combined from 'MessageCentre/Actions/Combined';
-import combineActions from "../../products/jsx/Product/Components/ProductList/ActionCreators/combineActions";
 
-"use strict";
+'use strict';
 
 const mapStateToProps = function(state) {
     return {

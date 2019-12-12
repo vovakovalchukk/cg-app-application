@@ -4,7 +4,7 @@ const filterActions = {
             let response = await fetchHeadline();
 
             dispatch({
-                type: "FILTERS_FETCH_SUCCESS",
+                type: 'FILTERS_FETCH_SUCCESS',
                 payload: response.headline,
             })
         };
@@ -13,7 +13,7 @@ const filterActions = {
 
 export default filterActions;
 
-function fetchHeadline(){
+function fetchHeadline() {
 
     return $.ajax({
         url: '/messages/ajax/headline',
