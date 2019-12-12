@@ -1,4 +1,4 @@
-import filtersReducer from "MessageCentre/Reducers/filtersReducer";
+import filtersReducer from 'MessageCentre/Reducers/filtersReducer';
 import {combineReducers} from 'redux';
 
 const appReducer = combineReducers({

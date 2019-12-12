@@ -1,6 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
 
-"use strict";
+'use strict';
 
 /**
 "byId": {
@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const filtersReducer = reducerCreator(initialState, {
-    "FILTERS_FETCH_SUCCESS": (state, action) => {
+    'FILTERS_FETCH_SUCCESS': (state, action) => {
         let filters = {...state};
         Object.keys(action.payload).forEach(filterId => {
             let filterCount = action.payload[filterId];
