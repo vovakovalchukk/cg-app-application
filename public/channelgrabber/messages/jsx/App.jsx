@@ -12,7 +12,6 @@ function getView (key) {
 }
 
 const App = (props) => {
-    console.log(props);
     useEffect(() => {
         props.actions.fetchFilters();
         props.actions.fetchMessages();
