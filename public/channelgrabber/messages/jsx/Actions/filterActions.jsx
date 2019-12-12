@@ -13,7 +13,7 @@ const filterActions = {
 
 export default filterActions;
 
-function fetchHeadline(){
+function fetchHeadline() {
 
     return $.ajax({
         url: '/messages/ajax/headline',
