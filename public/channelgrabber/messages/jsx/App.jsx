@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-// import MessageList from ....
-// import MessageDetail from ....
+import MessageList from 'MessageCentre/Views/MessageList';
+import MessageDetail from 'MessageCentre/Views/MessageDetail';
 
 const VIEW_COMPONENT_MAP = {
     'messageList' : MessageList,
@@ -12,11 +12,15 @@ function getView (key) {
 }
 
 const App = (props) => {
+    console.log(props);
     useEffect(() => {
         props.actions.fetchFilters();
+        props.actions.fetchMessages();
     }, []);
 
-    const View = getView(props.view);
+    const View = getView('messageList');
+
+    const activeFilter = props.filters.active;
 
     return (
         <div className="u-width-100pc u-display-flex">

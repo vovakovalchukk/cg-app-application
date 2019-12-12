@@ -9,7 +9,8 @@ import Combined from 'MessageCentre/Actions/Combined';
 const mapStateToProps = function(state) {
     return {
         filters: state.filters,
-
+        threads: state.threads,
+        messages: state.messages,
     };
 };
 

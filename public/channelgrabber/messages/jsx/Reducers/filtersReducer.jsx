@@ -19,10 +19,13 @@ import reducerCreator from 'Common/Reducers/creator';
     "myMessages": {
       "count": <int>
     }
-}
+},
+active: 'Unassigned'
 */
 const initialState = {
-    byId: {}
+    byId: {},
+    active: 'Unassigned',
+    default: 'Unassigned'
 };
 
 const filtersReducer = reducerCreator(initialState, {
