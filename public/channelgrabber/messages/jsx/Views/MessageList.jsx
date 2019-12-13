@@ -15,23 +15,22 @@ const Th = styled.th`
 `;
 
 const MessageList = (props) => {
-    console.log(props);
     return (
         <div>
             <Table
-            data={props.formattedThreads}
-            maxItems={100}
-            pagination={1}
-            onPageChange={(newPage)=>{
-                console.log('onPageChange')
-            }}
-            setRowValue={[]}
-            columns={allColumns}
-            maxPages={1}
-            styledComponents={{
-                Table: StyledTable,
-                Th
-            }}
+                data={props.formattedThreads}
+                maxItems={100}
+                pagination={1}
+                onPageChange={(newPage)=>{
+//                    console.log('onPageChange')
+                }}
+                setRowValue={[]}
+                columns={allColumns}
+                maxPages={1}
+                styledComponents={{
+                    Table: StyledTable,
+                    Th
+                }}
             />
         </div>
     );

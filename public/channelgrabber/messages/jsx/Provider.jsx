@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import combinedReducer from 'MessageCentre/Reducers/Combined';
 import MessageCentreRoot from 'MessageCentre/Root';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 let enhancer = applyMiddleware(thunk);
 
@@ -27,9 +28,13 @@ const MessageCentreProvider = (props) => {
         <Provider
             store={store}
         >
-            <MessageCentreRoot
-                {...props}
-            />
+            <Router>
+                <Route path="/messages/" render={() => (
+                    <MessageCentreRoot
+                        {...props}
+                    />
+                )}/>
+            </Router>
         </Provider>
     );
 };

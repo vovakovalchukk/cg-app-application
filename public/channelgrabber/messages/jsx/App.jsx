@@ -1,15 +1,47 @@
 import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
+import NavItem from 'MessageCentre/Components/NavItem';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
 
-const VIEW_COMPONENT_MAP = {
-    'messageList' : MessageList,
-    'messageDetail': MessageDetail
-};
 
-function getView (key) {
-    return VIEW_COMPONENT_MAP[key]
-}
+const navItems = [
+    {
+        id: 'unassigned',
+        displayText: 'Unassinged',
+        to: `/list/:filterId`
+    },
+    {
+        id: 'assigned',
+        displayText: 'Assigned',
+        to: `/list/:filterId`
+    },
+    {
+        id: 'my-messages',
+        displayText: 'My Messages',
+        to: `/list`
+    },
+    {
+        id: 'resolved',
+        displayText: 'Resolved',
+        alwaysDisplay: true,
+        to: `/list`
+    },
+    {
+        id: 'open-count',
+        displayText: 'OpenCount',
+        alwaysDisplay: true,
+        to: `/list`
+    }
+];
 
 const App = (props) => {
     useEffect(() => {
@@ -17,7 +49,7 @@ const App = (props) => {
         props.actions.fetchMessages();
     }, []);
 
-    const View = getView('messageList');
+    let match = useRouteMatch();
 
     const activeFilter = props.filters.active;
 
@@ -28,21 +60,37 @@ const App = (props) => {
             <div id="Sidebar" className="u-flex-1">
                 <h1 className="u-width-100pc">sidebar</h1>
                 <ol className="u-padding-none">
-                    { isSingleUser() && <li>Unassigned <span>{getFilterCount('unassigned')}</span></li> }
-                    { isSingleUser() && <li>Assigned <span>{getFilterCount('assigned')}</span></li> }
-                    { isSingleUser() && <li>My Messages <span>{getFilterCount('myMessages')}</span></li> }
-                    <li>Resolved <span>{getFilterCount('resolved')}</span></li>
-                    <li>Open Count {getOpenCount()}</li>
+                    {renderNavItems((itemProps) => (
+                        <NavItem key={itemProps.id} {...itemProps} to={`${match.path}list/${itemProps.id}`} />
+                    ))}
                 </ol>
             </div>
             <div id="Main" className="u-flex-5">
-                <View
-                    {...props}
-                    {...formattedThreads}
-                />
+                <Switch>
+                    <Route path={"/test"} render={(props)=>{return <div>teststsetset</div>}} />
+                    <Route path={`${match.path}list/:filterId`} render={() => {
+                        return <MessageList {...props} {...formattedThreads} />
+                    }}/>
+                    <Route path={`${match.path}message/:messageId`} render={(props) => (
+                        <MessageDetail />
+                    )}/>
+                    <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+                </Switch>
             </div>
         </div>
     );
+
+    function renderNavItems(renderItem) {
+        return navItems.map((item) => {
+            let navItemProps = {
+                id: item.id,
+                displayText: item.displayText,
+                filterCount: item.id ==='openCount' ? getOpenCount() : getFilterCount(item.id),
+                shouldDisplay: item.alwaysDisplay || isSingleUser()
+            };
+            return renderItem(navItemProps);
+        })
+    }
 
     function formatThreads (threads, messages) {
         threads = Object.values(threads);
