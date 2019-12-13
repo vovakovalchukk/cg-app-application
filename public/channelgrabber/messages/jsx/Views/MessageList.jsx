@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {usestate} from 'react';
 import Table from 'Common/Components/Table';
 import styled from 'styled-components';
 
@@ -13,59 +13,56 @@ const Th = styled.th`
     top: 50px;
 `;
 
-const LinkCell = (props) => {
-    return (<h1>foobar</h1>);
+const ValueCell = (props) => {
+    let {rowData, column} = props;
+    const value = rowData[column.key] || null;
+    return (<p>{value}</p>);
 };
 
 const columns = [
     {
-        key: 'channelLogo',
+        key: 'channel',
         label: 'Channel Logo',
-        cell: LinkCell
+        cell: ValueCell
     },
     {
         key: 'status',
         label: 'Status',
-        cell: LinkCell
+        cell: ValueCell
     },
     {
         key: 'subject',
         label: 'Subject',
-        cell: LinkCell
+        cell: ValueCell
     },
     {
-        key: 'customerName',
+        key: 'accountName',
         label: 'Customer Name',
-        cell: LinkCell
+        cell: ValueCell
     },
     {
         key: 'lastMessage',
         label: 'Last Message',
-        cell: LinkCell
+        cell: ValueCell
     },
     {
-        key: 'dateUpdated',
+        key: 'updatedFuzzy',
         label: 'Date Updated',
-        cell: LinkCell
+        cell: ValueCell
     }
 ];
 
-const pagination = [];
-
-const setRowValue = [];
-
 const MessageList = (props) => {
-    const data = []; // props.threads.byId; ?
-
+    console.log(props);
     return (
         <div>
             <Table
-            data={data}
-            pagination={pagination}
+            data={props.formattedThreads}
+            pagination={1}
             onPageChange={(newPage)=>{
                 console.log('onPageChange')
             }}
-            setRowValue={setRowValue}
+            setRowValue={[]}
             columns={columns}
             maxPages={1}
             styledComponents={{
@@ -75,6 +72,21 @@ const MessageList = (props) => {
             />
         </div>
     );
+
+    function useDataState(initialValue) {
+        let [data, setData] = useState(initialValue);
+        function setRowValue(rowId, key, value) {
+            let newData = [...data];
+            let rowIndex = newData.findIndex(data => (data.id === rowId));
+                newData[rowIndex][key] = value;
+                setData(newData);
+            }
+            return {
+                data,
+                setData,
+                setRowValue
+            }
+        }
 };
 
 export default MessageList;

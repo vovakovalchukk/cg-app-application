@@ -21,6 +21,8 @@ const App = (props) => {
 
     const activeFilter = props.filters.active;
 
+    const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
+
     return (
         <div className="u-width-100pc u-display-flex">
             <div id="Sidebar" className="u-flex-1">
@@ -36,10 +38,35 @@ const App = (props) => {
             <div id="Main" className="u-flex-5">
                 <View
                     {...props}
+                    {...formattedThreads}
                 />
             </div>
         </div>
     );
+
+    function formatThreads (threads, messages) {
+        threads = Object.values(threads);
+        messages = Object.values(messages);
+        threads.forEach(thread => {
+            let threadMessages = messages.filter(function(message){
+                return thread.messages.includes(message.id);
+            });
+            threadMessages.sort(function(a,b){
+                let date_a = new Date(a.created);
+                let date_b = new Date(b.created);
+                if(date_a > date_b) return 1;
+                if(date_a < date_b) return -1;
+                return 0;
+            });
+            let contentToTruncate = threadMessages[0].body;
+            let div = document.createElement('div');
+            div.innerHTML = threadMessages[0].body;
+            thread.lastMessage = div.textContent;
+        });
+        return {
+            formattedThreads: threads
+        };
+    }
 
     function isSingleUser () {
         return Object.keys(props.assignableUsers).length > 1;
