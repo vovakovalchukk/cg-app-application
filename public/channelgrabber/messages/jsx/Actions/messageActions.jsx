@@ -1,8 +1,11 @@
 const messageActions = {
     fetchMessages: () => {
+        const addFakeDate = true;
         return async function (dispatch, getState) {
             let response = await fetchThreads();
-
+            if (addFakeDate) {
+                response.threads = fakeSomeExtraDataForPagination(response.threads);
+            }
             dispatch({
                 type: 'THREADS_FETCH_SUCCESS',
                 payload: response.threads,
@@ -31,4 +34,17 @@ function fetchThreads() {
             sortDescending: true, // TODO - date column sort order
         }
     });
+}
+
+function fakeSomeExtraDataForPagination(threads){
+    let hackLength = 100;
+    let extraThreads = JSON.parse(JSON.stringify(threads));
+    extraThreads.forEach(thread => {
+        thread.id = thread.id + "-Z";
+    });
+    let combinedThreads = [...threads, ...extraThreads];
+    if (combinedThreads.length > hackLength) {
+        combinedThreads.length = hackLength;
+    }
+    return combinedThreads;
 }

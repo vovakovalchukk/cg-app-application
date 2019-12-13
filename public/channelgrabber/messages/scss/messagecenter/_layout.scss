@@ -14,3 +14,9 @@
 #app-mount-node {
   padding: 0;
 }
+
+/* delete these rules, theyre just hacks for now */
+table tbody p {
+  max-height: 100px;
+  overflow: hidden;
+}

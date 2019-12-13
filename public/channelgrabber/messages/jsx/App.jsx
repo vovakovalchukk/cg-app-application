@@ -58,10 +58,10 @@ const App = (props) => {
                 if(date_a < date_b) return -1;
                 return 0;
             });
-            let contentToTruncate = threadMessages[0].body;
             let div = document.createElement('div');
             div.innerHTML = threadMessages[0].body;
             thread.lastMessage = div.textContent;
+            div.remove();
         });
         return {
             formattedThreads: threads
