@@ -1,6 +1,6 @@
 const messageActions = {
     fetchMessages: () => {
-        const addFakeDate = true;
+        const addFakeDate = false;
         return async function (dispatch, getState) {
             let response = await fetchThreads();
             if (addFakeDate) {
@@ -31,7 +31,7 @@ function fetchThreads() {
             My Messages: filter[assignee]: active-user
             */
             page: 1, // TODO - pagination
-            sortDescending: true, // TODO - date column sort order
+            sortDescending: false, // TODO - date column sort order
         }
     });
 }
