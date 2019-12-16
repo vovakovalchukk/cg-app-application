@@ -1,11 +1,16 @@
 const messageActions = {
-    fetchMessages: () => {
+    fetchMessages: (params) => {
+        // console.log('fetch messages');
+
         const addFakeDate = false;
         return async function (dispatch, getState) {
-            let response = await fetchThreads();
+            let response = await fetchThreads(params);
+            // this is as expected
+            // console.log(JSON.stringify(response.threads, null, 1));
             if (addFakeDate) {
                 response.threads = fakeSomeExtraDataForPagination(response.threads);
             }
+            // console.log('fetchMessages response', response);
             dispatch({
                 type: 'THREADS_FETCH_SUCCESS',
                 payload: response.threads,
@@ -16,7 +21,7 @@ const messageActions = {
 
 export default messageActions;
 
-function fetchThreads() {
+function fetchThreads(params) {
 
     return $.ajax({
         url: '/messages/ajax',
@@ -31,7 +36,8 @@ function fetchThreads() {
             My Messages: filter[assignee]: active-user
             */
             page: 1, // TODO - pagination
-            sortDescending: false, // TODO - date column sort order
+            sortDescending: true, // TODO - date column sort order
+            ...params
         }
     });
 }

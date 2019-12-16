@@ -31,7 +31,6 @@ export default [
         key: 'updatedFuzzy',
         label: 'Date Updated',
         cell: ValueCell,
-        headerOnClick: 'foobar',
-        header: HeaderCell
+        headerCell: HeaderCell
     }
 ];

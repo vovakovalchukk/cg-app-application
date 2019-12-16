@@ -11,6 +11,7 @@ const mapStateToProps = function(state) {
         filters: state.filters,
         threads: state.threads,
         messages: state.messages,
+        column: state.column,
     };
 };
 

@@ -15,10 +15,11 @@ const Th = styled.th`
 `;
 
 const MessageList = (props) => {
-    console.log(props);
+    console.log('messageLsit re-render', props.formattedThreads);
     return (
         <div>
             <Table
+            actions={props.actions}
             data={props.formattedThreads}
             maxItems={100}
             pagination={1}

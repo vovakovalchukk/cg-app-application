@@ -17,6 +17,9 @@ const App = (props) => {
         props.actions.fetchMessages();
     }, []);
 
+    // console.log('App re-render', JSON.stringify(props.threads.byId, null, 1));
+
+
     const View = getView('messageList');
 
     const activeFilter = props.filters.active;
@@ -46,6 +49,7 @@ const App = (props) => {
 
     function formatThreads (threads, messages) {
         threads = Object.values(threads);
+        console.log('threads', threads)
         messages = Object.values(messages);
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
