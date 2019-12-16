@@ -1,4 +1,5 @@
 import ValueCell from 'MessageCentre/Cell/ValueCell';
+import HeaderCell from 'MessageCentre/Cell/HeaderCell';
 
 export default [
     {
@@ -29,6 +30,8 @@ export default [
     {
         key: 'updatedFuzzy',
         label: 'Date Updated',
-        cell: ValueCell
+        cell: ValueCell,
+        headerOnClick: 'foobar',
+        header: HeaderCell
     }
 ];
