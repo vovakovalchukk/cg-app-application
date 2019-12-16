@@ -94,8 +94,9 @@ use CG\Listing\Unimported\Storage\Api as UnimportedListingApi;
 use CG\Ekm\Product\TaxRate\Mapper as EkmTaxRateMapper;
 use CG\Ekm\Product\TaxRate\Storage\Cache as EkmTaxRateCache;
 use CG\Ekm\Product\TaxRate\Storage\Db as EkmTaxRateDb;
+use CG\Ekm\Product\TaxRate\StorageInterface as EkmTaxRateStorage;
 use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
-use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
+use CG\Ekm\Product\TaxRate\Importer\Soap as EkmSoapTaxRateImporter;
 
 // Stock Import
 use CG\Stock\Import\File\StorageInterface as StockImportInterface;
@@ -240,6 +241,7 @@ $config = array(
                 LocationStorage::class => LocationApiStorage::class,
                 PackageRulesStorage::class => PackageRulesApiStorage::class,
                 Smtp::class => 'orderhub-smtp',
+                EkmTaxRateStorage::class => EkmTaxRateRepository::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -444,7 +446,7 @@ $config = array(
                     'repository' => EkmTaxRateDb::class,
                 ]
             ],
-            EkmTaxRateService::class => [
+            EkmSoapTaxRateImporter::class => [
                 'parameters' => [
                     'cryptor' => 'ekm_cryptor',
                     'repository' => EkmTaxRateRepository::class
