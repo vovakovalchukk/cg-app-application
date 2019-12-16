@@ -116,6 +116,15 @@ define([
         return inlineStyles.join('; ');
     };
 
+    OrderTable.prototype.getGridTemplateColumnsValue = function(tableColumns) {
+          return tableColumns.map((column) => {
+              if (!column.width || !column.widthMeasurementUnit) {
+                  return '1fr';
+              }
+              return `${column.width}${column.widthMeasurementUnit}`;
+          }).join(' ');
+    };
+
     OrderTable.prototype.getTableStyles = function(element, tableColumns) {
         let tableStyles = [];
         const tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
@@ -126,7 +135,8 @@ define([
             tableStyles
         ).flat();
 
-        tableStyles.push(`grid-template-columns: repeat(${tableColumns.length}, 1fr)`);
+        tableStyles.push(`grid-template-columns: ${this.getGridTemplateColumnsValue(tableColumns)}`);
+
         tableStyles = tableStyles.join('; ');
 
         return tableStyles;
