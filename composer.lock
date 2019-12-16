@@ -1266,12 +1266,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
-                "reference": "dff9d7fa45af67be116296db50c8f6e0bbab5e63"
+                "reference": "8ba3aa97e3adf723a5c8536a77a17dab9fecf240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-53-non-mapped-file-fields-maintain-order-c20e45.zip",
-                "reference": "dff9d7fa45af67be116296db50c8f6e0bbab5e63",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-53-non-mapped-file-fields-maintain-order-a00eed.zip",
+                "reference": "8ba3aa97e3adf723a5c8536a77a17dab9fecf240",
                 "shasum": null
             },
             "require": {
@@ -1292,7 +1292,7 @@
                     "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-04T11:15:06+00:00"
+            "time": "2019-12-13T11:25:22+00:00"
         },
         {
             "name": "channelgrabber/db",
