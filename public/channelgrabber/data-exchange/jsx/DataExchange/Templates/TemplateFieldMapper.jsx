@@ -49,7 +49,6 @@ const TemplateFieldMapper = (props) => {
                         selectedOption={templateSelectValue}
                         onOptionChange={(chosenTemplate) => {
                             setTemplateSelectValue(chosenTemplate);
-                            setTemplateInitialised(true);
                             let templateToSet = templates.find((template) => template.id === chosenTemplate.id);
                             templateName.setValue(templateToSet.name);
                             templateToSet = deepCopyObject(templateToSet);
@@ -79,7 +78,7 @@ const TemplateFieldMapper = (props) => {
                     }
                 </div>
 
-                {templateInitialised &&
+                {(templateInitialised || templateState.template.id) &&
                 <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}

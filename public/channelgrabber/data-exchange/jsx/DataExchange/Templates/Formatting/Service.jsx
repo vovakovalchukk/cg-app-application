@@ -29,9 +29,10 @@ const FormattingService = {
             if (template.columnMap.length === cgFieldOptionsLength || blankRowExistsAlreadyInTemplate(template)) {
                 return template;
             }
-            let newColumnMap = addBlankRowToColumnMap(
-                [...template.columnMap],
-                FormattingService.getDefaultColumn()
+            const columnMap = [...template.columnMap];
+            const newColumnMap = addBlankRowToColumnMap(
+                columnMap,
+                FormattingService.getDefaultColumn(columnMap.length)
             );
             return {
                 ...template,
@@ -50,12 +51,12 @@ const FormattingService = {
         }
         return options;
     },
-    getDefaultColumn: function() {
+    getDefaultColumn: function(order) {
         return {
             cgField: '',
             fileField: '',
             userValue: null,
-            order: null
+            order: order
         };
     },
     getDefaultTemplate: function(templateType) {
@@ -63,7 +64,7 @@ const FormattingService = {
             id: null,
             name: '',
             type: templateType,
-            columnMap: [FormattingService.getDefaultColumn()]
+            columnMap: [FormattingService.getDefaultColumn(0)]
         }
     }
 };
