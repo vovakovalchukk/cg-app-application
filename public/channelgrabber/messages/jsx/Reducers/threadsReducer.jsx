@@ -9,16 +9,27 @@ const initialState = {
 const threadsReducer = reducerCreator(initialState, {
     'THREADS_FETCH_SUCCESS': (state, action) => {
         let threads = {...state};
-        action.payload.forEach(thread => {
-            thread.messages = thread.messages.map(message => {
+        //this is fine
+        // console.log('payload', JSON.stringify(action.payload, null, 1))
+        threads.byId = {};
+
+        action.payload.forEach((thread) => {
+            let newThread = {...thread};
+            newThread.messages = newThread.messages.map(message => {
                 return message.id;
             });
-            threads.byId[thread.id] = thread;
+            threads.byId[newThread.id] = newThread;
         });
         threads.allIds = action.payload.map(thread => {
             return thread.id;
         });
-        return {...state, ...threads};
+
+        // console.log('THREADS_FETCH_SUCCESS', JSON.stringify(threads, null, 1));
+
+
+        let newState = {...state, ...threads};
+        console.log('newstate tfs', newState)
+        return newState ;
     }
 });
 

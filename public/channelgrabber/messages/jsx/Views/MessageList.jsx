@@ -2,12 +2,7 @@ import React from 'react';
 import Table from 'Common/Components/Table';
 import styled from 'styled-components';
 import allColumns from 'MessageCentre/Columns/allColumns';
-
-const StyledTable = styled.table`
-    width: calc(100% + 40px);
-    margin-left: calc(-20px);
-    margin-right: calc(-20px);
-`;
+import Search from 'Common/Components/Search';
 
 const Th = styled.th`
     position: sticky;
@@ -17,20 +12,25 @@ const Th = styled.th`
 const MessageList = (props) => {
     return (
         <div>
+            <Search
+                value={props.searchValue}
+                onSearch={(searchValue => {})}
+            />
+
             <Table
-                data={props.formattedThreads}
-                maxItems={100}
-                pagination={1}
-                onPageChange={(newPage)=>{
-//                    console.log('onPageChange')
-                }}
-                setRowValue={[]}
-                columns={allColumns}
-                maxPages={1}
-                styledComponents={{
-                    Table: StyledTable,
-                    Th
-                }}
+            actions={props.actions}
+            data={props.formattedThreads}
+            maxItems={100}
+            pagination={1}
+            onPageChange={(newPage)=>{
+               // console.log('onPageChange')
+            }}
+            setRowValue={[]}
+            columns={allColumns}
+            maxPages={1}
+            styledComponents={{
+                Th
+            }}
             />
         </div>
     );

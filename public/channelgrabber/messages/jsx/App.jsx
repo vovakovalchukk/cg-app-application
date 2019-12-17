@@ -51,6 +51,9 @@ const App = (props) => {
 
     let match = useRouteMatch();
 
+
+    const View = getView('messageList');
+
     const activeFilter = props.filters.active;
 
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
@@ -93,6 +96,7 @@ const App = (props) => {
 
     function formatThreads (threads, messages) {
         threads = Object.values(threads);
+        console.log('threads', threads)
         messages = Object.values(messages);
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
