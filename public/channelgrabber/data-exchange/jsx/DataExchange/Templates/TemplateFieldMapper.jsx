@@ -52,6 +52,7 @@ const TemplateFieldMapper = (props) => {
                             let templateToSet = templates.find((template) => template.id === chosenTemplate.id);
                             templateName.setValue(templateToSet.name);
                             templateToSet = deepCopyObject(templateToSet);
+                            templateToSet.columnMap = sortColumnMap(templateToSet.columnMap);
                             templateState.setTemplate(templateToSet);
                             updateCgOptionsFromSelections(templateToSet);
                         }}
@@ -203,4 +204,12 @@ function shouldAddNewRow(rowIndex, template, isBlankRow) {
     let isNotLastRow = rowIndex === template.columnMap.length - 1;
     let isNotAtMaxRows = template.columnMap.length !== initialCgOptions.length;
     return isNotLastRow && isBlankRow && isNotAtMaxRows;
+}
+
+function sortColumnMap(columnMap) {
+    const sortedColumnMap = [...columnMap];
+    sortedColumnMap.sort((columnMapOne, columnMapTwo) => {
+        return columnMapOne.order > columnMapTwo.order ? 1 : -1;
+    });
+    return sortedColumnMap;
 }

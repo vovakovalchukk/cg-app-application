@@ -81,10 +81,6 @@ const FieldRows = (props) => {
 
 const FieldMapper = (props) => {
     let {template, changeCgField, changeFileField, removeFieldRow, addFieldRow, allCgFieldOptions} = props;
-    const columnMap = [...template.columnMap];
-    columnMap.sort((columnMapOne, columnMapTwo) => {
-        return columnMapOne.order > columnMapTwo.order ? 1 : -1;
-    });
 
     return (<MapperContainer className={'u-margin-top-xxlarge'} containerWidth={props.containerWidth}>
             <HeaderRow containerWidth={props.containerWidth}>
@@ -93,7 +89,7 @@ const FieldMapper = (props) => {
             </HeaderRow>
 
             <FieldRows
-                rows={columnMap}
+                rows={[...template.columnMap]}
                 changeCgField={changeCgField}
                 changeFileField={changeFileField}
                 removeFieldRow={removeFieldRow}
