@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "520e4b8e8236b7c8a878582b12dc7160",
+    "content-hash": "a7edc598aed8628f500c7a2ef58c2907",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1398,16 +1398,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-TAC-561-ThrottleHandling",
+            "version": "1.17.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d866ecf8b57d9cc9d5b73b27e4673ec7cb92fe74"
+                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-TAC-561-ThrottleHandling-e5b891.zip",
-                "reference": "d866ecf8b57d9cc9d5b73b27e4673ec7cb92fe74"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.3-9acd71.zip",
+                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1422,7 +1422,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.43.16",
-                "channelgrabber/predis": "dev-TAC-561-ThrottleHandling as 1.1.8",
+                "channelgrabber/predis": "^1.1.8",
                 "channelgrabber/product": "^1.11.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
@@ -1454,7 +1454,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-12-16T09:55:38+00:00"
+            "time": "2019-12-17T09:23:40+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -2706,16 +2706,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "dev-TAC-561-ThrottleHandling",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "ff694a9bf52c94971af6a0540cff5fd0ba36d566"
+                "reference": "7193837808676e78fb1de2247cd2e601416cfb4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-dev-TAC-561-ThrottleHandling-c29559.zip",
-                "reference": "ff694a9bf52c94971af6a0540cff5fd0ba36d566"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.8-7faacc.zip",
+                "reference": "7193837808676e78fb1de2247cd2e601416cfb4a"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -2734,7 +2734,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2019-12-16T09:54:43+00:00"
+            "time": "2019-12-17T09:18:39+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -11881,25 +11881,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.3",
-            "alias_normalized": "1.17.3.0",
-            "version": "dev-TAC-561-ThrottleHandling",
-            "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.1.8",
-            "alias_normalized": "1.1.8.0",
-            "version": "dev-TAC-561-ThrottleHandling",
-            "package": "channelgrabber/predis"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ekm": 20,
-        "channelgrabber/predis": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
