@@ -10,6 +10,11 @@ const Th = styled.th`
     width: ${props => props.width || 'auto'};
 `;
 
+const Tr = styled.tr`
+    overflow: hidden;
+    white-space: nowrap;
+`;
+
 const MessageList = (props) => {
     return (
         <div>
@@ -31,7 +36,8 @@ const MessageList = (props) => {
             columns={allColumns}
             maxPages={1}
             styledComponents={{
-                Th
+                Th,
+                Tr
             }}
             />
         </div>
