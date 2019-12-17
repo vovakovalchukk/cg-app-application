@@ -17,12 +17,10 @@ const messageActions = {
 export default messageActions;
 
 function fetchThreads(params) {
-
     return $.ajax({
         url: '/messages/ajax',
         type: 'POST',
         data: {
-            filter: [], // TODO - see below
             /*
             Open: send both filter[status][]: new and filter[status][]: awaiting reply
             Resolved: filter[status]: resolved
@@ -30,6 +28,7 @@ function fetchThreads(params) {
             Assigned: filter[assignee]: assigned
             My Messages: filter[assignee]: active-user
             */
+            filter: {},
             page: 1, // TODO - pagination
             sortDescending: true, // TODO - date column sort order
             ...params

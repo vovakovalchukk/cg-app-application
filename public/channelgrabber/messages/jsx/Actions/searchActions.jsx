@@ -1,3 +1,5 @@
+import messageActions from "MessageCentre/Actions/messageActions";
+
 const searchActions = {
     searchInputType: (params) => {
         const searchTerm = params.target.value;
@@ -8,11 +10,18 @@ const searchActions = {
             })
         };
     },
-    searchSubmit: (params) => {
-        console.log('searchSubmit');
-        // todo...
-        // need to call "fetchThreads" again, but with param
-        // filter[searchTerm]: what the user typed
+    searchSubmit: () => {
+        return async function (dispatch, getState) {
+            const state = getState();
+
+            const filter = {
+                searchTerm: state.threads.searchBy
+            };
+
+            dispatch(messageActions.fetchMessages({
+                filter
+            }));
+        };
     }
 };
 
