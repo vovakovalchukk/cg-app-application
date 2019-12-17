@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7edc598aed8628f500c7a2ef58c2907",
+    "content-hash": "d1a7a6cfc5006d23a5b71f10af24d379",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1297,6 +1297,39 @@
                 }
             },
             "time": "2016-02-17T13:41:01+00:00"
+        },
+        {
+            "name": "channelgrabber/developer",
+            "version": "dev-PTNR-52-partner-and-app-auth-to-use-developer-api",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-developer.git",
+                "reference": "557e4fbf2b3de76e806bd9ae585faa96080c0f28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/developer/channelgrabber-developer-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-721f45.zip",
+                "reference": "557e4fbf2b3de76e806bd9ae585faa96080c0f28"
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.10",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Developer\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Developer\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-12-17T11:28:16+00:00"
         },
         {
             "name": "channelgrabber/di",
@@ -2478,20 +2511,21 @@
         },
         {
             "name": "channelgrabber/partner",
-            "version": "1.0.5",
+            "version": "dev-PTNR-52-partner-and-app-auth-to-use-developer-api",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "203ce4d06f7cae65ead47e32072224141c12d0a3"
+                "reference": "aa7c2f02584eb73d4c993e3c26f62a9db8e14d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-1.0.5-108c0b.zip",
-                "reference": "203ce4d06f7cae65ead47e32072224141c12d0a3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-2e3617.zip",
+                "reference": "aa7c2f02584eb73d4c993e3c26f62a9db8e14d71"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.4",
                 "channelgrabber/cg-predis": "^0.8.8",
+                "channelgrabber/developer": "dev-PTNR-52-partner-and-app-auth-to-use-developer-api as 1.0.0",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/predis": "^1.1.3",
                 "channelgrabber/stdlib": "^2.16.0",
@@ -2511,7 +2545,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-05T16:00:12+00:00"
+            "time": "2019-12-17T16:40:36+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -11881,10 +11915,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-PTNR-52-partner-and-app-auth-to-use-developer-api",
+            "package": "channelgrabber/developer"
+        },
+        {
+            "alias": "1.1.0",
+            "alias_normalized": "1.1.0.0",
+            "version": "dev-PTNR-52-partner-and-app-auth-to-use-developer-api",
+            "package": "channelgrabber/partner"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/developer": 20,
+        "channelgrabber/partner": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
