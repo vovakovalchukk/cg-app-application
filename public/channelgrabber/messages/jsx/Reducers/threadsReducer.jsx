@@ -25,10 +25,8 @@ const threadsReducer = reducerCreator(initialState, {
         });
 
         // console.log('THREADS_FETCH_SUCCESS', JSON.stringify(threads, null, 1));
-
-
+        
         let newState = {...state, ...threads};
-        console.log('newstate tfs', newState)
         return newState ;
     }
 });

@@ -49,7 +49,6 @@ const App = (props) => {
 
     function formatThreads (threads, messages) {
         threads = Object.values(threads);
-        console.log('threads', threads)
         messages = Object.values(messages);
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
