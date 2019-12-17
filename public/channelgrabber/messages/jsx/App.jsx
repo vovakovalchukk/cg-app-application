@@ -67,11 +67,10 @@ const App = (props) => {
             </div>
             <div id="Main" className="u-flex-5">
                 <Switch>
-                    <Route path={"/test"} render={(props)=>{return <div>teststsetset</div>}} />
                     <Route path={`${match.path}list/:filterId`} render={() => {
                         return <MessageList {...props} {...formattedThreads} />
                     }}/>
-                    <Route path={`${match.path}message/:messageId`} render={(props) => (
+                    <Route path={`${match.path}message/:messageId`} render={() => (
                         <MessageDetail />
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
