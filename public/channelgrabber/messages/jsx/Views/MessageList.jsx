@@ -7,7 +7,7 @@ import Search from 'Common/Components/Search';
 const Th = styled.th`
     position: sticky;
     top: 50px;
-    width: ${props => props.width || "auto"};
+    width: ${props => props.width || 'auto'};
 `;
 
 const MessageList = (props) => {

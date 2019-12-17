@@ -1,4 +1,4 @@
-import messageActions from "MessageCentre/Actions/messageActions";
+import messageActions from 'MessageCentre/Actions/messageActions';
 
 const searchActions = {
     searchInputType: (params) => {

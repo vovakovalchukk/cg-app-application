@@ -40,7 +40,7 @@ function fakeSomeExtraDataForPagination(threads){
     let hackLength = 100;
     let extraThreads = JSON.parse(JSON.stringify(threads));
     extraThreads.forEach(thread => {
-        thread.id = thread.id + "-Z";
+        thread.id = `${thread.id}-Z`;
     });
     let combinedThreads = [...threads, ...extraThreads];
     if (combinedThreads.length > hackLength) {

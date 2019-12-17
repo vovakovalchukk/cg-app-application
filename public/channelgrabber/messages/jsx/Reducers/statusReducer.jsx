@@ -28,17 +28,17 @@ const initialState = {
     default: 'Unassigned'
 };
 
-const filtersReducer = reducerCreator(initialState, {
-    'FILTERS_FETCH_SUCCESS': (state, action) => {
-        let filters = {...state};
-        Object.keys(action.payload).forEach(filterId => {
-            let filterCount = action.payload[filterId];
-            filters.byId[filterId] = {
-                count: filterCount,
+const statusReducer = reducerCreator(initialState, {
+    'STATUS_FETCH_SUCCESS': (state, action) => {
+        let status = {...state};
+        Object.keys(action.payload).forEach(statusId => {
+            let statusCount = action.payload[statusId];
+            status.byId[statusId] = {
+                count: statusCount,
             };
         });
-        return {...state, filters};
+        return {...state, status};
     }
 });
 
-export default filtersReducer;
+export default statusReducer;
