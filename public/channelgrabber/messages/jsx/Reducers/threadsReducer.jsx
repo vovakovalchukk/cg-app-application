@@ -4,13 +4,13 @@ import reducerCreator from 'Common/Reducers/creator';
 
 const initialState = {
     byId: {},
+    searchBy: '',
 };
 
 const threadsReducer = reducerCreator(initialState, {
     'THREADS_FETCH_SUCCESS': (state, action) => {
         let threads = {...state};
-        //this is fine
-        // console.log('payload', JSON.stringify(action.payload, null, 1))
+
         threads.byId = {};
 
         action.payload.forEach((thread) => {
@@ -20,13 +20,22 @@ const threadsReducer = reducerCreator(initialState, {
             });
             threads.byId[newThread.id] = newThread;
         });
+
         threads.allIds = action.payload.map(thread => {
             return thread.id;
         });
 
-        // console.log('THREADS_FETCH_SUCCESS', JSON.stringify(threads, null, 1));
-        
         let newState = {...state, ...threads};
+
+        return newState ;
+    },
+    'SEARCH_INPUT_CHANGED': (state, action) => {
+        let threads = {...state};
+
+        threads.searchBy = action.payload;
+
+        let newState = {...state, ...threads};
+
         return newState ;
     }
 });

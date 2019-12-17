@@ -11,14 +11,13 @@ const Th = styled.th`
 `;
 
 const MessageList = (props) => {
-    //console.log('messageLsit re-render', props.formattedThreads);
     return (
         <div>
             <Search
-                value={props.searchValue}
-                onSearch={(searchValue => {})}
+                value={props.threads.searchBy}
+                onChange={props.actions.searchInputType}
+                onSearch={props.actions.searchSubmit}
             />
-
 
             <Table
             actions={props.actions}
