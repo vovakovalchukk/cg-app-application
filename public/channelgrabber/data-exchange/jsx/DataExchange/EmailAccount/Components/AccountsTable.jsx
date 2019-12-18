@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import EmailValidator from "email-validator";
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import PopupComponent from 'Common/Components/Popup';
@@ -7,10 +6,6 @@ import EmailAddressInputComponent from "Common/Components/EmailAddressInput";
 
 const TYPE_FROM = 'from';
 const TYPE_TO = 'to';
-
-const AccountsTableContainer = styled.div`
-    width: 600px;
-`;
 
 class AccountsTable extends React.Component {
     static defaultProps = {
@@ -215,7 +210,7 @@ class AccountsTable extends React.Component {
     };
 
     render() {
-        return <AccountsTableContainer>
+        return <div className={"u-form-max-width-medium"}>
             <form name={this.props.type + "EmailAccounts"}>
                 <table className={'u-margin-bottom-med'}>
                     <thead>
@@ -227,7 +222,7 @@ class AccountsTable extends React.Component {
                 </table>
             </form>
             {this.renderConfirmationPopup()}
-        </AccountsTableContainer>;
+        </div>;
     }
 }
 
