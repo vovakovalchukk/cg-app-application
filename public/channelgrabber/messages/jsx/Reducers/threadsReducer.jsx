@@ -9,8 +9,7 @@ const initialState = {
 const threadsReducer = reducerCreator(initialState, {
     'THREADS_FETCH_SUCCESS': (state, action) => {
         let threads = {...state};
-        //this is fine
-        // console.log('payload', JSON.stringify(action.payload, null, 1))
+
         threads.byId = {};
 
         action.payload.forEach((thread) => {
@@ -27,9 +26,7 @@ const threadsReducer = reducerCreator(initialState, {
         // console.log('THREADS_FETCH_SUCCESS', JSON.stringify(threads, null, 1));
 
 
-        let newState = {...state, ...threads};
-        console.log('newstate tfs', newState)
-        return newState ;
+        return {...state, ...threads};
     }
 });
 

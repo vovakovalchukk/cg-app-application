@@ -1,61 +1,25 @@
 import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
-import NavItem from 'MessageCentre/Components/NavItem';
+import navItems from 'MessageCentre/Nav/items';
+
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link,
     Redirect,
-    useRouteMatch,
-    useParams
+    useRouteMatch
 } from "react-router-dom";
-
-
-const navItems = [
-    {
-        id: 'unassigned',
-        displayText: 'Unassinged',
-        to: `/list/:filterId`
-    },
-    {
-        id: 'assigned',
-        displayText: 'Assigned',
-        to: `/list/:filterId`
-    },
-    {
-        id: 'my-messages',
-        displayText: 'My Messages',
-        to: `/list`
-    },
-    {
-        id: 'resolved',
-        displayText: 'Resolved',
-        alwaysDisplay: true,
-        to: `/list`
-    },
-    {
-        id: 'open-count',
-        displayText: 'OpenCount',
-        alwaysDisplay: true,
-        to: `/list`
-    }
-];
 
 const App = (props) => {
     useEffect(() => {
         props.actions.fetchFilters();
-        props.actions.fetchMessages();
     }, []);
 
-    let match = useRouteMatch();
+    console.log('in app.jsx', props);
 
 
-    const View = getView('messageList');
-
-    const activeFilter = props.filters.active;
-
+    const match = useRouteMatch();
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
     return (
@@ -63,17 +27,17 @@ const App = (props) => {
             <div id="Sidebar" className="u-flex-1">
                 <h1 className="u-width-100pc">sidebar</h1>
                 <ol className="u-padding-none">
-                    {renderNavItems((itemProps) => (
-                        <NavItem key={itemProps.id} {...itemProps} to={`${match.path}list/${itemProps.id}`} />
+                    {renderNavItems((itemProps, NavComponent) => (
+                        <NavComponent key={itemProps.id} {...itemProps} to={`${match.path}list/${itemProps.id}`} />
                     ))}
                 </ol>
             </div>
             <div id="Main" className="u-flex-5">
                 <Switch>
-                    <Route path={`${match.path}list/:filterId`} render={() => {
-                        return <MessageList {...props} {...formattedThreads} />
+                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => {
+                        return <MessageList {...props} match={match} {...formattedThreads} />
                     }}/>
-                    <Route path={`${match.path}message/:messageId`} render={() => (
+                    <Route path={`${match.path}thread/:threadId`} render={() => (
                         <MessageDetail />
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
@@ -83,20 +47,22 @@ const App = (props) => {
     );
 
     function renderNavItems(renderItem) {
-        return navItems.map((item) => {
+        const filteredItems = navItems.filter((item) => {
+            return typeof item.shouldDisplay !== 'function' || item.shouldDisplay({ous: Object.values(props.assignableUsers)});
+        });
+
+        return filteredItems.map((item) => {
             let navItemProps = {
                 id: item.id,
                 displayText: item.displayText,
-                filterCount: item.id ==='openCount' ? getOpenCount() : getFilterCount(item.id),
-                shouldDisplay: item.alwaysDisplay || isSingleUser()
+                filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count
             };
-            return renderItem(navItemProps);
+            return renderItem(navItemProps, item.component);
         })
     }
 
-    function formatThreads (threads, messages) {
+    function formatThreads(threads, messages) {
         threads = Object.values(threads);
-        console.log('threads', threads)
         messages = Object.values(messages);
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
@@ -117,23 +83,6 @@ const App = (props) => {
         return {
             formattedThreads: threads
         };
-    }
-
-    function isSingleUser () {
-        return Object.keys(props.assignableUsers).length > 1;
-    };
-
-    function getFilterCount(id){
-        if (!props.filters.byId[id]) {
-            return null;
-        }
-        return props.filters.byId[id].count.toString();
-    };
-
-    function getOpenCount () {
-        return (Number(getFilterCount('myMessages')) +
-            Number(getFilterCount('unassigned')) +
-            Number(getFilterCount('assigned'))).toString();
     }
 };
 

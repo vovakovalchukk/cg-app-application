@@ -10,7 +10,6 @@ const initialState = {
 const columnReducer = reducerCreator(initialState, {
     'SORT_BY_REQUEST': (state, action) => {
         let {key} = action.payload;
-        console.log('reducer sort by');
         return {...state, sortBy: key};
     }
 });

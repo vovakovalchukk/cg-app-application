@@ -1,18 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 
-const NavItem = (props) => {
+const FilterItem = (props) => {
     let {
         id,
         displayText,
         filterCount,
-        shouldDisplay,
         to
     } = props;
-
-    if (!shouldDisplay) {
-        return null;
-    }
 
     return (
         <li>
@@ -27,8 +22,5 @@ const NavItem = (props) => {
         </li>
     )
 };
-NavItem.defaultProps = {
-    shouldDisplay: true
-};
 
-export default NavItem;
+export default FilterItem;

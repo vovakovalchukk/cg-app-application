@@ -4,7 +4,7 @@ const messageActions = {
 
         const addFakeDate = false;
         return async function (dispatch, getState) {
-            let response = await fetchThreads(params);
+            let response = await fetchThreads(params, getState());
             // this is as expected
             // console.log(JSON.stringify(response.threads, null, 1));
             if (addFakeDate) {
@@ -21,13 +21,22 @@ const messageActions = {
 
 export default messageActions;
 
-function fetchThreads(params) {
+function fetchThreads(params, state) {
+    const {filter} = params;
+
+    const newFilter = {
+        ...state.filter,
+        ...filter
+    };
+
+    const newParams = {...params};
+    delete newParams.filter;
 
     return $.ajax({
         url: '/messages/ajax',
         type: 'POST',
         data: {
-            filter: [], // TODO - see below
+            filter: newFilter, // TODO - see below
             /*
             Open: send both filter[status][]: new and filter[status][]: awaiting reply
             Resolved: filter[status]: resolved
@@ -37,7 +46,7 @@ function fetchThreads(params) {
             */
             page: 1, // TODO - pagination
             sortDescending: true, // TODO - date column sort order
-            ...params
+            ...newParams
         }
     });
 }
