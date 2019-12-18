@@ -13,14 +13,14 @@
                 'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
             }
         });
-        require(["StockImport/App"], function(App) {
-            App(
+        require(["StockImport/Index"], function(Index) {
+            Index(
                 document.getElementById('app-mount-node'),
                 {
                     schedules: <?= json_encode($stockImportSchedules); ?>,
                     templateOptions: <?= json_encode($stockTemplateOptions); ?>,
                     fromAccountOptions: <?= json_encode($fromAccountOptions); ?>,
-                    actionOptions: <?= json_encode($actionOptions); ?>
+                    actionOptions: <?= json_encode($actionOptions); ?>,
                 }
             );
         });

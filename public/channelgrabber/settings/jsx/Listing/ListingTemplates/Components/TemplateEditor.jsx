@@ -15,7 +15,7 @@ function TemplateEditor(props) {
     const [tagSelectValue, setTagSelectValue] = useState(formattedTemplateTags[0]);
     
     return (<div className={"u-margin-top-med"}>
-        <h3>Template Designer</h3>
+        <h3>Template Editor</h3>
 
         <div className={"u-margin-top-small u-flex-v-center"}>
             <Select
@@ -25,8 +25,7 @@ function TemplateEditor(props) {
                 selectedOption={tagSelectValue}
                 onOptionChange={(option) => {
                     setTagSelectValue(option);
-                }
-                }
+                }}
                 options={formattedTemplateTags}
             />
             <button onClick={() => {
@@ -43,8 +42,7 @@ function TemplateEditor(props) {
                 onChange={props.templateHTML.onChange}
                 onBlur={(e) => {
                     setTextEditorPosition(e.target.selectionStart);
-                }
-                }
+                }}
             />
         </fieldset>
     </div>);
