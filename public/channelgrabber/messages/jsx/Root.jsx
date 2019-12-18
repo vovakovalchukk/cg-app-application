@@ -8,7 +8,7 @@ import Combined from 'MessageCentre/Actions/Combined';
 
 const mapStateToProps = function(state) {
     return {
-        status: state.status,
+        filters: state.filters,
         threads: state.threads,
         messages: state.messages,
         column: state.column,

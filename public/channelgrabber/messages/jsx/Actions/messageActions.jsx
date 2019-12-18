@@ -2,7 +2,8 @@ const messageActions = {
     fetchMessages: (params) => {
         const addFakeDate = false;
         return async function (dispatch, getState) {
-            let response = await fetchThreads(params);
+            let response = await fetchThreads(params, getState());
+            // this is as expected
             if (addFakeDate) {
                 response.threads = fakeSomeExtraDataForPagination(response.threads);
             }
@@ -16,22 +17,25 @@ const messageActions = {
 
 export default messageActions;
 
-function fetchThreads(params) {
+function fetchThreads(params, state) {
+    const {filter} = params;
+
+    const newFilter = {
+        ...state.filter,
+        ...filter
+    };
+
+    const newParams = {...params};
+    delete newParams.filter;
+
     return $.ajax({
         url: '/messages/ajax',
         type: 'POST',
         data: {
-            /*
-            Open: send both filter[status][]: new and filter[status][]: awaiting reply
-            Resolved: filter[status]: resolved
-            Unassigned: filter[assignee]: unassigned
-            Assigned: filter[assignee]: assigned
-            My Messages: filter[assignee]: active-user
-            */
-            filter: {},
+            filter: newFilter, // TODO - see below
             page: 1, // TODO - pagination
             sortDescending: true, // TODO - date column sort order
-            ...params
+            ...newParams
         }
     });
 }

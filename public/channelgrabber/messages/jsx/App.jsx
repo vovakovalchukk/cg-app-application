@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
+import navItems from 'MessageCentre/Nav/items';
 
-const VIEW_COMPONENT_MAP = {
-    'messageList' : MessageList,
-    'messageDetail': MessageDetail
-};
-
-function getView (key) {
-    return VIEW_COMPONENT_MAP[key]
-}
+import {
+    Switch,
+    Route,
+    Link,
+    Redirect,
+    useRouteMatch
+} from "react-router-dom";
 
 const App = (props) => {
     useEffect(() => {
-        props.actions.fetchStatus();
-        props.actions.fetchMessages();
+        props.actions.fetchFilters();
     }, []);
 
-    const View = getView('messageList');
-
+    const match = useRouteMatch();
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
     return (
@@ -26,23 +24,42 @@ const App = (props) => {
             <div id="Sidebar" className="u-flex-1">
                 <h1 className="u-width-100pc">sidebar</h1>
                 <ol className="u-padding-none">
-                    { isSingleUser() && <li>Unassigned <span>{getStatusCount('unassigned')}</span></li> }
-                    { isSingleUser() && <li>Assigned <span>{getStatusCount('assigned')}</span></li> }
-                    { isSingleUser() && <li>My Messages <span>{getStatusCount('myMessages')}</span></li> }
-                    <li>Resolved <span>{getStatusCount('resolved')}</span></li>
-                    <li>Open Count {getOpenCount()}</li>
+                    {renderNavItems((itemProps, NavComponent) => (
+                       <NavComponent key={itemProps.id} {...itemProps} to={`/messages${itemProps.to}`}/>
+                    ))}
                 </ol>
             </div>
             <div id="Main" className="u-flex-5">
-                <View
-                    {...props}
-                    {...formattedThreads}
-                />
+                <Switch>
+                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
+                        <MessageList {...props} match={match} {...formattedThreads} />
+                    )}/>
+                    <Route path={`${match.path}thread/:threadId`} render={() => (
+                        <MessageDetail />
+                    )}/>
+                    <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+                </Switch>
             </div>
         </div>
     );
 
-    function formatThreads (threads, messages) {
+    function renderNavItems(renderItem) {
+        const filteredItems = navItems.filter((item) => {
+            return typeof item.shouldDisplay !== 'function' || item.shouldDisplay({ous: Object.values(props.assignableUsers)});
+        });
+
+        return filteredItems.map((item) => {
+            let navItemProps = {
+                id: item.id,
+                displayText: item.displayText,
+                filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count,
+                to: item.to
+            };
+            return renderItem(navItemProps, item.component);
+        })
+    }
+
+    function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
         threads.forEach(thread => {
@@ -64,23 +81,6 @@ const App = (props) => {
         return {
             formattedThreads: threads
         };
-    }
-
-    function isSingleUser () {
-        return Object.keys(props.assignableUsers).length > 1;
-    };
-
-    function getStatusCount(id){
-        if (!props.status.byId[id]) {
-            return null;
-        }
-        return props.status.byId[id].count.toString();
-    };
-
-    function getOpenCount () {
-        return (Number(getStatusCount('myMessages')) +
-            Number(getStatusCount('unassigned')) +
-            Number(getStatusCount('assigned'))).toString();
     }
 };
 

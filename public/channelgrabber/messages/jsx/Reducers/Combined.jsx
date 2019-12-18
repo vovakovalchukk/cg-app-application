@@ -1,4 +1,4 @@
-import statusReducer from 'MessageCentre/Reducers/statusReducer';
+import filtersReducer from 'MessageCentre/Reducers/filtersReducer';
 import messagesReducer from 'MessageCentre/Reducers/messagesReducer';
 import threadsReducer from 'MessageCentre/Reducers/threadsReducer';
 import columnReducer from 'MessageCentre/Reducers/columnReducer';
@@ -6,7 +6,7 @@ import columnReducer from 'MessageCentre/Reducers/columnReducer';
 import {combineReducers} from 'redux';
 
 const appReducer = combineReducers({
-    status: statusReducer,
+    filters: filtersReducer,
     messages: messagesReducer,
     threads: threadsReducer,
     column: columnReducer,
