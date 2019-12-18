@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1a7a6cfc5006d23a5b71f10af24d379",
+    "content-hash": "898f554f77457508f42f10ddcc12a21e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1304,12 +1304,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-developer.git",
-                "reference": "557e4fbf2b3de76e806bd9ae585faa96080c0f28"
+                "reference": "9de43da24a64abe99302851473f70d1be63804ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/developer/channelgrabber-developer-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-721f45.zip",
-                "reference": "557e4fbf2b3de76e806bd9ae585faa96080c0f28"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/developer/channelgrabber-developer-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-40cf3d.zip",
+                "reference": "9de43da24a64abe99302851473f70d1be63804ab"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1329,7 +1329,7 @@
                     "CG\\Developer\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-17T11:28:16+00:00"
+            "time": "2019-12-18T11:18:59+00:00"
         },
         {
             "name": "channelgrabber/di",
@@ -2515,12 +2515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "aa7c2f02584eb73d4c993e3c26f62a9db8e14d71"
+                "reference": "d17367fd28661dd177c419d1c665b41f7f0e5c47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-2e3617.zip",
-                "reference": "aa7c2f02584eb73d4c993e3c26f62a9db8e14d71"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-PTNR-52-partner-and-app-auth-to-use-developer-api-b23d91.zip",
+                "reference": "d17367fd28661dd177c419d1c665b41f7f0e5c47"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.4",
@@ -2545,7 +2545,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-17T16:40:36+00:00"
+            "time": "2019-12-18T11:23:21+00:00"
         },
         {
             "name": "channelgrabber/payment",
