@@ -40,6 +40,8 @@ const TemplateFieldMapper = (props) => {
         initialCgOptions = cgFieldOptions;
     }
 
+    const isTemplateInitialised = templateInitialised || templateState.template.id;
+
     return (
         <div>
             <InitialFormSection>
@@ -79,7 +81,7 @@ const TemplateFieldMapper = (props) => {
                     }
                 </div>
 
-                {(templateInitialised || templateState.template.id) &&
+                {isTemplateInitialised &&
                 <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
@@ -99,7 +101,7 @@ const TemplateFieldMapper = (props) => {
                     containerWidth={containerWidth}
                 />}
 
-                {templateInitialised &&
+                {isTemplateInitialised &&
                 <div>
                     <button
                         className={"u-margin-top-med button"}
