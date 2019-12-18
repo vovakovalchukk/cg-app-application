@@ -16,9 +16,6 @@ const App = (props) => {
         props.actions.fetchFilters();
     }, []);
 
-    console.log('in app.jsx', props);
-
-
     const match = useRouteMatch();
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
@@ -28,15 +25,15 @@ const App = (props) => {
                 <h1 className="u-width-100pc">sidebar</h1>
                 <ol className="u-padding-none">
                     {renderNavItems((itemProps, NavComponent) => (
-                        <NavComponent key={itemProps.id} {...itemProps} to={`${match.path}list/${itemProps.id}`} />
+                       <NavComponent key={itemProps.id} {...itemProps} to={`/messages${itemProps.to}`}/>
                     ))}
                 </ol>
             </div>
             <div id="Main" className="u-flex-5">
                 <Switch>
-                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => {
-                        return <MessageList {...props} match={match} {...formattedThreads} />
-                    }}/>
+                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
+                        <MessageList {...props} match={match} {...formattedThreads} />
+                    )}/>
                     <Route path={`${match.path}thread/:threadId`} render={() => (
                         <MessageDetail />
                     )}/>
@@ -55,7 +52,8 @@ const App = (props) => {
             let navItemProps = {
                 id: item.id,
                 displayText: item.displayText,
-                filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count
+                filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count,
+                to: item.to
             };
             return renderItem(navItemProps, item.component);
         })
