@@ -5,7 +5,7 @@ import reducerCreator from 'Common/Reducers/creator';
 const ajaxFilter = {
    "organisationUnitId": {},
    'unassigned': {ajaxProp: 'assignee'},
-   'assigned': {ajaxProp: 'assigned'},
+   'assigned': {ajaxProp: 'assignee'},
    'myMessages': {ajaxProp: 'assignee', ajaxValue: 'active-user'},
    'resolved': {ajaxProp: 'status'},
    'open': {ajaxProp: 'open', ajaxValue: ["new", "awaiting reply"]}
@@ -39,7 +39,6 @@ const initialState = {
     }
 };
 
-<<<<<<< HEAD:public/channelgrabber/messages/jsx/Reducers/filtersReducer.jsx
 const filtersReducer = reducerCreator(initialState, {
     'FILTERS_FETCH_SUCCESS': (state, action) => {
         let filters = {...state};
@@ -76,19 +75,3 @@ function createFilterObject({filterId, filterCount}) {
         ajaxFilterValue: ajaxFilter[filterId].ajaxValue || filterId
     };
 }
-=======
-const statusReducer = reducerCreator(initialState, {
-    'STATUS_FETCH_SUCCESS': (state, action) => {
-        let status = {...state};
-        Object.keys(action.payload).forEach(statusId => {
-            let statusCount = action.payload[statusId];
-            status.byId[statusId] = {
-                count: statusCount,
-            };
-        });
-        return {...state, status};
-    }
-});
-
-export default statusReducer;
->>>>>>> @{-1}:public/channelgrabber/messages/jsx/Reducers/statusReducer.jsx

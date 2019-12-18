@@ -1,20 +1,19 @@
-const statusActions = {
-    fetchStatus: () => {
+const filterActions = {
+    fetchFilters: () => {
         return async function (dispatch, getState) {
             let response = await fetchHeadline();
 
             dispatch({
-                type: 'STATUS_FETCH_SUCCESS',
+                type: 'FILTERS_FETCH_SUCCESS',
                 payload: response.headline,
             })
         };
     },
 };
 
-export default statusActions;
+export default filterActions;
 
 function fetchHeadline() {
-
     return $.ajax({
         url: '/messages/ajax/headline',
     });

@@ -1,11 +1,11 @@
-import statusActions from 'MessageCentre/Actions/statusActions';
+import filterActions from 'MessageCentre/Actions/filterActions';
 import messageActions from 'MessageCentre/Actions/messageActions';
 import columnActions from 'MessageCentre/Actions/columnActions';
 import searchActions from 'MessageCentre/Actions/searchActions';
 
 export default () => {
     return {
-        ...statusActions,
+        ...filterActions,
         ...messageActions,
         ...columnActions,
         ...searchActions

@@ -34,13 +34,7 @@ const threadsReducer = reducerCreator(initialState, {
 
         threads.searchBy = action.payload;
 
-<<<<<<< HEAD
         return {...state, ...threads};
-=======
-        let newState = {...state, ...threads};
-
-        return newState ;
->>>>>>> @{-1}
     }
 });
 
