@@ -1,17 +1,17 @@
-const filterActions = {
-    fetchFilters: () => {
+const statusActions = {
+    fetchStatus: () => {
         return async function (dispatch, getState) {
             let response = await fetchHeadline();
 
             dispatch({
-                type: 'FILTERS_FETCH_SUCCESS',
+                type: 'STATUS_FETCH_SUCCESS',
                 payload: response.headline,
             })
         };
     },
 };
 
-export default filterActions;
+export default statusActions;
 
 function fetchHeadline() {
 

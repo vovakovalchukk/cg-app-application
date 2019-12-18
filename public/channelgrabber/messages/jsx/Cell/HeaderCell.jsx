@@ -1,11 +1,10 @@
 import React from 'react';
 
 const HeaderCell = (props) => {
-    // console.log(props);
-
     let {column} = props;
+
     return (<div onClick={sortBy}>
-        {column.label}foobar
+        {column.label}
     </div>);
 
     function sortBy() {

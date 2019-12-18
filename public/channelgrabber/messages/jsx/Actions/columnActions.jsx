@@ -8,7 +8,6 @@ const columnActions = {
     sortBy: (key) => {
         return async function (dispatch, getState) {
             const state = getState();
-            //console.log(state.column.sortBy);
 
             if (state.column.sortBy === key) {
                 dispatch(messageActions.fetchMessages({sortDescending: true}));
