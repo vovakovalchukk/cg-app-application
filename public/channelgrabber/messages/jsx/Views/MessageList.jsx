@@ -38,7 +38,7 @@ const MessageList = (props) => {
         props.actions.fetchMessages({
             filter: filterObjectForAjax
         });
-    }, [props.filters]);
+    }, [props.filters, props.match.params.activeFilter]);
 
     return (
         <div>
