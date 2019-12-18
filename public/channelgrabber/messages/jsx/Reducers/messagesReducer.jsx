@@ -9,14 +9,18 @@ const initialState = {
 const messagesReducer = reducerCreator(initialState, {
     'THREADS_FETCH_SUCCESS': (state, action) => {
         let messages = {...state};
+
+        messages.byId = {};
+
+        messages.allIds = [];
+
         action.payload.forEach(thread => {
             thread.messages.forEach(message => {
                 messages.byId[message.id] = message;
+                messages.allIds.push(message.id);
             });
         });
-        messages.allIds = action.payload.map(message => {
-            return message.id;
-        });
+        
         return {...state, ...messages};
     }
 });
