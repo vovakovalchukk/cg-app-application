@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc7050666405cf196e38d158755f1b5b",
+    "content-hash": "291288d7a695262e294e3177b9c7190f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1124,26 +1124,26 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "e1113f216266d475498b976da2e51b205559339e"
+                "reference": "f558227e2a54f455c1b8f5be44f2146edd71c0e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-53-non-mapped-file-fields-maintain-order-13502a.zip",
-                "reference": "e1113f216266d475498b976da2e51b205559339e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.0-522c56.zip",
+                "reference": "f558227e2a54f455c1b8f5be44f2146edd71c0e1"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/data-exchange-history": "^1.0.2",
                 "channelgrabber/data-exchange-schedule": "^1.0.5",
-                "channelgrabber/data-exchange-template": "dev-MIG-53-non-mapped-file-fields-maintain-order as 1.0.3",
+                "channelgrabber/data-exchange-template": "~1.0.3",
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.4",
                 "channelgrabber/ftp-account": "^1.0.1",
-                "channelgrabber/order": "dev-MIG-53-non-mapped-file-fields-maintain-order as 1.47.22",
+                "channelgrabber/order": "~1.47.24",
                 "channelgrabber/product": "^1.18.2",
                 "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/stock": "^1.17.6",
@@ -1166,7 +1166,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-13T11:37:37+00:00"
+            "time": "2019-12-18T15:22:43+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -1237,16 +1237,16 @@
         },
         {
             "name": "channelgrabber/data-exchange-template",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-template.git",
-                "reference": "8ba3aa97e3adf723a5c8536a77a17dab9fecf240"
+                "reference": "9e46104b91e2f7863ffcd92acd0437c0dd6ee324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-dev-MIG-53-non-mapped-file-fields-maintain-order-a00eed.zip",
-                "reference": "8ba3aa97e3adf723a5c8536a77a17dab9fecf240"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-template/channelgrabber-data-exchange-template-1.0.3-81d052.zip",
+                "reference": "9e46104b91e2f7863ffcd92acd0437c0dd6ee324"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.10",
@@ -1266,7 +1266,7 @@
                     "CG\\DataExchangeTemplate\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-13T11:25:22+00:00"
+            "time": "2019-12-18T15:14:15+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -2393,16 +2393,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
+            "version": "1.47.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "70c6c58f849e891ffe81faa185f14da45789f767"
+                "reference": "8fda68b57e0bfa23c2ac30e310741a1bedf2d128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-53-non-mapped-file-fields-maintain-order-ac5cf4.zip",
-                "reference": "70c6c58f849e891ffe81faa185f14da45789f767"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.47.24-79488f.zip",
+                "reference": "8fda68b57e0bfa23c2ac30e310741a1bedf2d128"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2474,7 +2474,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-12-16T16:02:18+00:00"
+            "time": "2019-12-18T15:13:47+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11881,32 +11881,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
-            "package": "channelgrabber/data-exchange"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
-            "package": "channelgrabber/data-exchange-template"
-        },
-        {
-            "alias": "1.47.22",
-            "alias_normalized": "1.47.22.0",
-            "version": "dev-MIG-53-non-mapped-file-fields-maintain-order",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange": 20,
-        "channelgrabber/data-exchange-template": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
