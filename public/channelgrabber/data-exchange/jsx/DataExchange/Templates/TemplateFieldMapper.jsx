@@ -40,6 +40,8 @@ const TemplateFieldMapper = (props) => {
         initialCgOptions = cgFieldOptions;
     }
 
+    const isTemplateInitialised = templateInitialised || templateState.template.id;
+
     return (
         <div>
             <InitialFormSection>
@@ -49,10 +51,10 @@ const TemplateFieldMapper = (props) => {
                         selectedOption={templateSelectValue}
                         onOptionChange={(chosenTemplate) => {
                             setTemplateSelectValue(chosenTemplate);
-                            setTemplateInitialised(true);
                             let templateToSet = templates.find((template) => template.id === chosenTemplate.id);
                             templateName.setValue(templateToSet.name);
                             templateToSet = deepCopyObject(templateToSet);
+                            templateToSet.columnMap = sortColumnMap(templateToSet.columnMap);
                             templateState.setTemplate(templateToSet);
                             updateCgOptionsFromSelections(templateToSet);
                         }}
@@ -79,7 +81,7 @@ const TemplateFieldMapper = (props) => {
                     }
                 </div>
 
-                {templateInitialised &&
+                {isTemplateInitialised &&
                 <FieldMapper
                     template = {templateState.template}
                     addFieldRow = {templateState.addFieldRow}
@@ -99,7 +101,7 @@ const TemplateFieldMapper = (props) => {
                     containerWidth={containerWidth}
                 />}
 
-                {templateInitialised &&
+                {isTemplateInitialised &&
                 <div>
                     <button
                         className={"u-margin-top-med button"}
@@ -204,4 +206,12 @@ function shouldAddNewRow(rowIndex, template, isBlankRow) {
     let isNotLastRow = rowIndex === template.columnMap.length - 1;
     let isNotAtMaxRows = template.columnMap.length !== initialCgOptions.length;
     return isNotLastRow && isBlankRow && isNotAtMaxRows;
+}
+
+function sortColumnMap(columnMap) {
+    const sortedColumnMap = [...columnMap];
+    sortedColumnMap.sort((columnMapOne, columnMapTwo) => {
+        return columnMapOne.order > columnMapTwo.order ? 1 : -1;
+    });
+    return sortedColumnMap;
 }

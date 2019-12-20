@@ -21,6 +21,7 @@ class Order implements FieldsInterface
         'Item Name' => 'item.itemName',
         'Unit Price' => 'item.individualItemPrice',
         'Quantity' => 'item.itemQuantity',
+        'Line Total Price' => 'item.lineTotal',
         'SKU' => 'item.itemSku',
         'Line Discount' => 'item.individualItemDiscountPrice',
         'Line VAT' => 'item.itemTaxPercentage',
