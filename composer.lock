@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbacbb61750333cd2d1da4ed8776d958",
+    "content-hash": "4b8423c754537c4e0f9fe89972d79977",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -687,37 +687,39 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.15",
+            "version": "1.16.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb"
+                "reference": "2e376399a68a6c51a7d4770c146086f166c45efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.15-67ece4.zip",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.27-335251.zip",
+                "reference": "2e376399a68a6c51a7d4770c146086f166c45efb"
             },
             "require": {
-                "channelgrabber/billing": "^1.17.5",
+                "channelgrabber/billing": "^1.20.14",
                 "channelgrabber/channel": "^1.32.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/feature-flags": "^2.0.1",
-                "channelgrabber/gearman": "^1.4.3",
+                "channelgrabber/gearman": "^1.4.4",
                 "channelgrabber/http": "^1.3.25",
-                "channelgrabber/listing": "^1.11.11",
+                "channelgrabber/listing": "^1.19.2",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.0",
+                "channelgrabber/opsgenie": "^1.1.0",
                 "channelgrabber/order": "^1.28.14",
                 "channelgrabber/predis": "^1.0.11",
                 "channelgrabber/product": "^1.16.7",
+                "channelgrabber/purge": "^1.0.6",
                 "channelgrabber/settings": "^1.5.3",
-                "channelgrabber/slim": "^1.13.0",
-                "channelgrabber/stdlib": "^2.16.3",
-                "channelgrabber/stock": "^1.10.1",
+                "channelgrabber/slim": "^1.14.4",
+                "channelgrabber/stdlib": "^2.16.6",
+                "channelgrabber/stock": "^1.16.0",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.24",
@@ -728,6 +730,9 @@
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.4",
                 "phpunit/phpunit": "^6.3"
+            },
+            "suggest": {
+                "ext-pcntl": "Allows for handling signals in commands"
             },
             "type": "library",
             "extra": {
@@ -746,7 +751,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-24T10:27:15+00:00"
+            "time": "2019-12-03T15:23:04+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1339,9 +1344,14 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "1d4033cdb26bf8d9ef3657503e74310c7f9b7914"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11140-decomission-create-ebay-catalog-request-95a92d.zip",
+                "reference": "1d4033cdb26bf8d9ef3657503e74310c7f9b7914"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/cglib": "^1.15.1",
+                "channelgrabber/cglib": "~1.16.27",
                 "channelgrabber/channel": "^1.43.9",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
@@ -1352,7 +1362,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.46.9",
-                "channelgrabber/product": "^1.12.2",
+                "channelgrabber/product": "~1.18.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -1389,7 +1399,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-11-25T12:01:16+00:00"
+            "time": "2019-12-23T09:09:48+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10468,7 +10478,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11878,8 +11889,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.15",
-            "alias_normalized": "1.20.15.0",
+            "alias": "1.20.18",
+            "alias_normalized": "1.20.18.0",
             "version": "dev-CGIV-11140-decomission-create-ebay-catalog-request",
             "package": "channelgrabber/ebay"
         }
@@ -11889,8 +11900,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
