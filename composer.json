@@ -40,7 +40,7 @@
         "channelgrabber/data-exchange-schedule": "~1.0.5",
         "channelgrabber/data-exchange-template": "~1.0.3",
         "channelgrabber/di": "~2.3.1",
-        "channelgrabber/ebay": "~1.20.14",
+        "channelgrabber/ebay": "dev-CGIV-11140-decomission-create-ebay-catalog-request as 1.20.18",
         "channelgrabber/ekm": "~1.17.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/email-account": "~1.0.1",

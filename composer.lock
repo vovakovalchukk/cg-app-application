@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "291288d7a695262e294e3177b9c7190f",
+    "content-hash": "bbacbb61750333cd2d1da4ed8776d958",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1333,16 +1333,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.20.14",
+            "version": "dev-CGIV-11140-decomission-create-ebay-catalog-request",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.14-d61547.zip",
-                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
+                "reference": "1d4033cdb26bf8d9ef3657503e74310c7f9b7914"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11881,13 +11876,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.20.15",
+            "alias_normalized": "1.20.15.0",
+            "version": "dev-CGIV-11140-decomission-create-ebay-catalog-request",
+            "package": "channelgrabber/ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
