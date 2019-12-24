@@ -114,7 +114,14 @@ let detailsColumns = [
         headerText: 'Barcode Not Applicable',
         fixed: false,
         align: 'center'
-    }
+    },
+    {
+        key: 'supplier',
+        width: 150,
+        headerText: 'Supplier',
+        fixed: false,
+        align: 'center'
+    },
 ];
 
 let stockColumns = [

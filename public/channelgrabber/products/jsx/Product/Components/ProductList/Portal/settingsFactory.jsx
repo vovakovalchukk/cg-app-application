@@ -21,7 +21,8 @@ const distanceElementMap = {
         return distanceFromLeftSideOfTableToStartOfCell + 15
     },
     [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension)),
-    [elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 35)
+    [elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 35),
+    [elementTypes.SUPPLIER]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 15),
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,
@@ -35,7 +36,7 @@ const translateElementMap = {
 const elementSubmits = [
     elementTypes.INPUT_SAFE_SUBMITS,
     elementTypes.DIMENSIONS_INPUT_SUBMITS
-]
+];
 
 let portalSettingsFactory = (function() {
     return {

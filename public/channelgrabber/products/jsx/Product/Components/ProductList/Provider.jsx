@@ -13,6 +13,7 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 import expandActions from "./ActionCreators/expandActions";
+import supplierActions from "./ActionCreators/supplierActions";
 
 var enhancer = applyMiddleware(thunk);
 
@@ -42,6 +43,7 @@ class ProductListProvider extends React.Component {
     state = {
         initialProductsSaved: {}
     };
+    stockTabEnabled;
 
     async componentDidMount() {
         const {massUnit, lengthUnit, vatRates} = this.props;
@@ -70,6 +72,8 @@ class ProductListProvider extends React.Component {
         store.dispatch(userSettingsActions.storeLowStockThresholdDefaults(
             stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
         ));
+        store.dispatch(supplierActions.storeOptions(this.props.supplierOptions));
+        store.dispatch(supplierActions.extractSuppliers(productsResponse.products, this.props.supplierOptions));
     }
 
     render() {

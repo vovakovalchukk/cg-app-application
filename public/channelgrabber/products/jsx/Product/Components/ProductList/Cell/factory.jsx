@@ -23,6 +23,7 @@ import CostCell from 'Product/Components/ProductList/Cell/Cost';
 import FulfillmentLatencyCell from 'Product/Components/ProductList/Cell/FulfillmentLatency';
 import BarcodeCell from 'Product/Components/ProductList/Cell/Barcode';
 import BarcodeNotApplicableCell from 'Product/Components/ProductList/Cell/BarcodeNotApplicableCell';
+import SupplierCell from 'Product/Components/ProductList/Cell/Supplier';
 
 "use strict";
 
@@ -49,7 +50,8 @@ let cells = {
     cost: CostCell,
     fulfillmentLatency: FulfillmentLatencyCell,
     barcode: BarcodeCell,
-    barcodeNotApplicable: BarcodeNotApplicableCell
+    barcodeNotApplicable: BarcodeNotApplicableCell,
+    supplier: SupplierCell
 };
 
 export default (function() {
