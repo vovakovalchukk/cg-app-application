@@ -55,7 +55,7 @@ class SupplierCell extends React.Component {
         let containerElement = this.props.cellNode;
 
         let portalSettingsParams = {
-            elemType: elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN,
+            elemType: elementTypes.SUPPLIER,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
