@@ -73,7 +73,7 @@ class ProductListProvider extends React.Component {
             stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
         ));
         store.dispatch(supplierActions.storeOptions(this.props.supplierOptions));
-        store.dispatch(supplierActions.extractSuppliers(productsResponse.products, this.props.supplierOptions));
+        store.dispatch(supplierActions.extractSuppliers(productsResponse.products));
     }
 
     render() {

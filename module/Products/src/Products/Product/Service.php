@@ -263,6 +263,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             'isbn' => $detailsEntity->getIsbn(),
             'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
             'cost' => $detailsEntity->getDisplayCost(),
+            'supplierId' => $detailsEntity->getSupplierId()
         ], $channelDetails);
     }
 

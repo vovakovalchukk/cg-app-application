@@ -27,12 +27,12 @@ class SupplierCell extends React.Component {
         this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
     getSelectedOption(product) {
-        if (!product.supplierId) {
+        const supplier = this.props.supplier.byProductId[product.id];
+        if (!supplier) {
             return null;
         }
-
         return this.props.supplier.options.find((option) => {
-            return option.value === product.supplierId;
+            return option.value == supplier.supplierId;
         });
     };
     render() {

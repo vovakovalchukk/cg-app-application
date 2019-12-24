@@ -21,14 +21,15 @@ const supplierReducer = reducerCreator(initialState, {
         });
     },
     "EXTRACT_SUPPLIERS": function (state, action) {
-        const products = action.payload.products;
+        let products = action.payload.products;
         const byProductId = {};
+
         products.forEach((product) => {
-            if (!product.supplierId) {
+            if (!product.details || !product.details.supplierId) {
                 return;
             }
             byProductId[product.id] = {
-                supplierId: product.supplierId
+                supplierId: product.details.supplierId
             };
         });
 
