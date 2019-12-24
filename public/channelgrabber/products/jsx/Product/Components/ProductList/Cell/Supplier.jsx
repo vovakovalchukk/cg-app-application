@@ -32,7 +32,7 @@ class SupplierCell extends React.Component {
             return null;
         }
         return this.props.supplier.options.find((option) => {
-            return option.value == supplier.supplierId;
+            return option.value == supplier;
         });
     };
     render() {

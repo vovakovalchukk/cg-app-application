@@ -28,9 +28,7 @@ const supplierReducer = reducerCreator(initialState, {
             if (!product.details || !product.details.supplierId) {
                 return;
             }
-            byProductId[product.id] = {
-                supplierId: product.details.supplierId
-            };
+            byProductId[product.id] = product.details.supplierId;
         });
 
         return Object.assign({}, state, {

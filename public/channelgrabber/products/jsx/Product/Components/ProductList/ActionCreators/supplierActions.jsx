@@ -25,7 +25,7 @@ const supplierActions = (function() {
         updateSupplier: (productId, supplierId) => {
             return async function(dispatch) {
                 try {
-                    n.notice('Updating supplier...');
+                    n.notice('Updating supplier...', true);
                     let response = await updateSupplier(productId, supplierId);
                     if (response.success === false) {
                         throw new Error('There was an error while updating the supplier. Please try again or contact support of the problem persists');
