@@ -1,12 +1,7 @@
 const messageActions = {
     fetchMessages: (params) => {
-        const addFakeDate = false;
         return async function (dispatch, getState) {
             let response = await fetchThreads(params, getState());
-            // this is as expected
-            if (addFakeDate) {
-                response.threads = fakeSomeExtraDataForPagination(response.threads);
-            }
             dispatch({
                 type: 'THREADS_FETCH_SUCCESS',
                 payload: response.threads,
@@ -38,17 +33,4 @@ function fetchThreads(params, state) {
             ...newParams
         }
     });
-}
-
-function fakeSomeExtraDataForPagination(threads){
-    let hackLength = 100;
-    let extraThreads = JSON.parse(JSON.stringify(threads));
-    extraThreads.forEach(thread => {
-        thread.id = `${thread.id}-Z`;
-    });
-    let combinedThreads = [...threads, ...extraThreads];
-    if (combinedThreads.length > hackLength) {
-        combinedThreads.length = hackLength;
-    }
-    return combinedThreads;
 }

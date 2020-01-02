@@ -1,9 +1,5 @@
 import messageActions from 'MessageCentre/Actions/messageActions';
 
-const sortByMethodMap = {
-    updatedFuzzy: sortByUpdatedFuzzy,
-};
-
 const columnActions = {
     sortBy: (key) => {
         return async function (dispatch, getState) {
@@ -28,7 +24,3 @@ const columnActions = {
 };
 
 export default columnActions;
-
-function sortByUpdatedFuzzy(key) {
-
-}
