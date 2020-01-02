@@ -36,7 +36,7 @@ const App = (props) => {
                         <MessageList {...props} match={match} {...formattedThreads} />
                     )}/>
                     <Route path={`${match.path}thread/:threadId`} render={({match}) => (
-                        <MessageDetail match={match}/>
+                        <MessageDetail {...props} match={match}/>
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
                 </Switch>
