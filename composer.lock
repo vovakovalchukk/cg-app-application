@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02b46eb885cb3b8b506c2375e3ed098c",
+    "content-hash": "eafa36f333c55cef37b66aa4ccd42381",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1338,16 +1338,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-11140-decomission-create-ebay-catalog-request",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "ab12f6fe668a79c81082e8b24d906b46b4c58581"
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11140-decomission-create-ebay-catalog-request-d83dcb.zip",
-                "reference": "ab12f6fe668a79c81082e8b24d906b46b4c58581"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.18-d25a35.zip",
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1399,7 +1399,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-12-23T09:58:32+00:00"
+            "time": "2020-01-02T11:42:41+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10478,8 +10478,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11887,18 +11886,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.18",
-            "alias_normalized": "1.20.18.0",
-            "version": "dev-CGIV-11140-decomission-create-ebay-catalog-request",
-            "package": "channelgrabber/ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
