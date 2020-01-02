@@ -57,20 +57,18 @@ const MessageList = (props) => {
             />
 
             <Table
-            actions={props.actions}
-            data={props.formattedThreads}
-            maxItems={100}
-            pagination={1}
-            onPageChange={(newPage)=>{
-               // console.log('onPageChange')
-            }}
-            setRowValue={[]}
-            columns={allColumns}
-            maxPages={1}
-            styledComponents={{
-                Th,
-                Tr
-            }}
+                actions={props.actions}
+                data={props.formattedThreads}
+                maxItems={100}
+                pagination={1}
+                onPageChange={(newPage)=>{}}
+                setRowValue={[]}
+                columns={allColumns}
+                maxPages={1}
+                styledComponents={{
+                    Th,
+                    Tr
+                }}
             />
         </div>
     );
