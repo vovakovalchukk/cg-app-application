@@ -9,7 +9,7 @@ export default [
     },
     {
         key: 'type',
-        label: 'iType',
+        label: 'Type',
         cell: LinkCell
     },
     {
@@ -36,7 +36,7 @@ export default [
     },
     {
         key: 'file',
-        label: 'file',
+        label: 'File',
         cell: LinkCell,
         getLink: (data) => (data.fileLink)
     },
