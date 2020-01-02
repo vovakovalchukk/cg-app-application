@@ -99,6 +99,7 @@ module.exports = {
         alias: {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
+            DataExchange: path.resolve(__dirname, 'public', 'channelgrabber', 'data-exchange', 'jsx', 'DataExchange'),
             MessageCentre: path.resolve(__dirname, 'public', 'channelgrabber', 'messages', 'jsx'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),

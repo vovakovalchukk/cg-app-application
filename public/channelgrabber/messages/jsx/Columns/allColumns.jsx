@@ -1,6 +1,24 @@
+
+
 import ValueCell from 'MessageCentre/Cell/ValueCell';
 import HeaderCell from 'MessageCentre/Cell/HeaderCell';
 import LogoCell from 'MessageCentre/Cell/LogoCell';
+
+import React from 'react';
+import {Link} from 'react-router-dom';
+
+const GoToMessage = (props) => {
+    return (
+
+            <Link to={`/messages/thread/${props.rowData.id}`}>
+                <div>hi</div>
+
+            </Link>
+
+    )
+
+};
+
 
 export default [
     {
@@ -8,6 +26,12 @@ export default [
         label: 'Channel',
         cell: LogoCell,
         width: '70px'
+    },
+    {
+        key: 'goToMessage',
+        label: 'goToMessage',
+        cell: GoToMessage,
+        width: '50px'
     },
     {
         key: 'status',

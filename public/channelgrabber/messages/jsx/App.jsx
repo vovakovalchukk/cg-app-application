@@ -31,11 +31,12 @@ const App = (props) => {
             </div>
             <div id="Main" className="u-flex-5">
                 <Switch>
+                    // todo - move routes into seperate import
                     <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
                         <MessageList {...props} match={match} {...formattedThreads} />
                     )}/>
-                    <Route path={`${match.path}thread/:threadId`} render={() => (
-                        <MessageDetail />
+                    <Route path={`${match.path}thread/:threadId`} render={({match}) => (
+                        <MessageDetail match={match}/>
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
                 </Switch>
