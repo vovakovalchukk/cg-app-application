@@ -2,7 +2,7 @@ const FormattingService = {
     formatTemplateForSave: function(template, templateName) {
         let {columnMap, type} = template;
 
-        const formattedColumnMap = removeInvalidRows(columnMap);
+        const formattedColumnMap = formatColumnMap(columnMap, type);
 
         const formattedTemplate = {
             columnMap: formattedColumnMap,
@@ -29,15 +29,16 @@ const FormattingService = {
             if (template.columnMap.length === cgFieldOptionsLength || blankRowExistsAlreadyInTemplate(template)) {
                 return template;
             }
-            let newColumnMap = addBlankRowToColumnMap(
-                [...template.columnMap],
-                FormattingService.getDefaultColumn()
+            const columnMap = [...template.columnMap];
+            const newColumnMap = addBlankRowToColumnMap(
+                columnMap,
+                FormattingService.getDefaultColumn(columnMap.length)
             );
             return {
                 ...template,
                 columnMap: newColumnMap
             };
-        })
+        });
     },
     formatCgFieldOptions: function(cgFieldOptions) {
         let options = [];
@@ -50,10 +51,12 @@ const FormattingService = {
         }
         return options;
     },
-    getDefaultColumn: function() {
+    getDefaultColumn: function(order) {
         return {
             cgField: '',
-            fileField: ''
+            fileField: '',
+            userValue: null,
+            order: order
         };
     },
     getDefaultTemplate: function(templateType) {
@@ -61,7 +64,7 @@ const FormattingService = {
             id: null,
             name: '',
             type: templateType,
-            columnMap: [FormattingService.getDefaultColumn()]
+            columnMap: [FormattingService.getDefaultColumn(0)]
         }
     }
 };
@@ -86,9 +89,16 @@ function isBlankColumn(column) {
     return !column.fileField && !column.cgField;
 }
 
-function removeInvalidRows(columnMap) {
-    let newColumnMap = columnMap.filter((column) => {
-        return column.cgField && column.fileField;
+function formatColumnMap(columnMap, type) {
+    const validColumnMap = columnMap.filter((column) => {
+        if (type == 'order') {
+            return !!(column.fileField);
+        }
+        return !!(column.fileField) && !!(column.cgField);
     });
-    return newColumnMap;
+
+    return validColumnMap.map((column, index) => {
+        column.order = index;
+        return column;
+    });
 }
