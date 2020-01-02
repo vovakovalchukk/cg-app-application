@@ -2,14 +2,12 @@ import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import navItems from 'MessageCentre/Nav/items';
-
 import {
     Switch,
     Route,
-    Link,
     Redirect,
     useRouteMatch
-} from "react-router-dom";
+} from 'react-router-dom';
 
 const App = (props) => {
     useEffect(() => {

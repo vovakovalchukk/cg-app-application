@@ -3,12 +3,12 @@ import reducerCreator from 'Common/Reducers/creator';
 'use strict';
 
 const ajaxFilter = {
-   "organisationUnitId": {},
+   'organisationUnitId': {},
    'unassigned': {ajaxProp: 'assignee'},
    'assigned': {ajaxProp: 'assignee'},
    'myMessages': {ajaxProp: 'assignee', ajaxValue: 'active-user'},
    'resolved': {ajaxProp: 'status'},
-   'open': {ajaxProp: 'open', ajaxValue: ["new", "awaiting reply"]}
+   'open': {ajaxProp: 'open', ajaxValue: ['new', 'awaiting reply']}
 };
 
 /**
