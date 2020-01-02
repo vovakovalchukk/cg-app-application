@@ -3,25 +3,13 @@ import Table from 'Common/Components/Table';
 import styled from 'styled-components';
 import allColumns from 'MessageCentre/Columns/allColumns';
 import Search from 'Common/Components/Search';
-import Link from 'react-router-dom';
 
 const TableRow = (props) => {
-    console.log('in tableorw');
     return (
-
-            <tr>
-                    {props.children}
-
-            </tr>
+        <tr>
+            {props.children}
+        </tr>
     );
-    // return (
-    //     <Link to={`/messages/thread/:${props.rowId}`}>
-    //         <tr>
-    //             {props.children}
-    //         </tr>
-    //     </Link>
-    // );
-
 };
 
 const Th = styled.th`
