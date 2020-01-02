@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39fc86933d89bc11ea13789b7b1a306d",
+    "content-hash": "cc42d398dc9d1edeb91c99d87f1e243a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -687,37 +687,39 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.15",
+            "version": "1.16.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb"
+                "reference": "2e376399a68a6c51a7d4770c146086f166c45efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.15-67ece4.zip",
-                "reference": "f768ee2c67fa62ee5d175185e40e8af84f24d3bb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.27-335251.zip",
+                "reference": "2e376399a68a6c51a7d4770c146086f166c45efb"
             },
             "require": {
-                "channelgrabber/billing": "^1.17.5",
+                "channelgrabber/billing": "^1.20.14",
                 "channelgrabber/channel": "^1.32.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/feature-flags": "^2.0.1",
-                "channelgrabber/gearman": "^1.4.3",
+                "channelgrabber/gearman": "^1.4.4",
                 "channelgrabber/http": "^1.3.25",
-                "channelgrabber/listing": "^1.11.11",
+                "channelgrabber/listing": "^1.19.2",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.0",
+                "channelgrabber/opsgenie": "^1.1.0",
                 "channelgrabber/order": "^1.28.14",
                 "channelgrabber/predis": "^1.0.11",
                 "channelgrabber/product": "^1.16.7",
+                "channelgrabber/purge": "^1.0.6",
                 "channelgrabber/settings": "^1.5.3",
-                "channelgrabber/slim": "^1.13.0",
-                "channelgrabber/stdlib": "^2.16.3",
-                "channelgrabber/stock": "^1.10.1",
+                "channelgrabber/slim": "^1.14.4",
+                "channelgrabber/stdlib": "^2.16.6",
+                "channelgrabber/stock": "^1.16.0",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.24",
@@ -728,6 +730,9 @@
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.4",
                 "phpunit/phpunit": "^6.3"
+            },
+            "suggest": {
+                "ext-pcntl": "Allows for handling signals in commands"
             },
             "type": "library",
             "extra": {
@@ -746,7 +751,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-24T10:27:15+00:00"
+            "time": "2019-12-03T15:23:04+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1333,20 +1338,20 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.20.14",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.14-d61547.zip",
-                "reference": "0ece1f18c655a05509a9526bce52b8a7cbab264f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.18-d25a35.zip",
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/cglib": "^1.15.1",
+                "channelgrabber/cglib": "~1.16.27",
                 "channelgrabber/channel": "^1.43.9",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
@@ -1357,7 +1362,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.46.9",
-                "channelgrabber/product": "^1.12.2",
+                "channelgrabber/product": "~1.18.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -1394,7 +1399,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-11-25T12:01:16+00:00"
+            "time": "2020-01-02T11:42:41+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10473,8 +10478,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
