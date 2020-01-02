@@ -89,7 +89,7 @@ const FieldMapper = (props) => {
             </HeaderRow>
 
             <FieldRows
-                rows={template.columnMap}
+                rows={[...template.columnMap]}
                 changeCgField={changeCgField}
                 changeFileField={changeFileField}
                 removeFieldRow={removeFieldRow}
