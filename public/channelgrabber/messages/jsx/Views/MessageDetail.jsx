@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
-import ThreadBody from 'MessageCentre/Components/ThreadBody';
 
 function createMarkup(raw) {
     return {__html: raw};
@@ -19,9 +18,14 @@ const GridDiv = styled.div`
 `;
 
 const MessageLi = styled.li`
-    border: 1px solid #333;
-    padding: 10px;
     overflow: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+`;
+
+const StyledIframe = styled.iframe`
+    border: none;
 `;
 
 const MessageDetail = (props) => {
@@ -54,25 +58,30 @@ const MessageDetail = (props) => {
     return (
         <GridDiv>
             <div>
-                <ThreadHeader {...headerProps}/>
-                <ThreadBody {...thread} />
+                <ThreadHeader {...headerProps} />
                 <ol>
                     {messages.map((message, index) => {
                         const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
-                        return <MessageLi key={message.id}>
-                            <h2>Message {index + 1}</h2>
-                            <FlexDiv className={`u-display-flex`}>
-                                <div>
-                                    <div title={message.personType} className={spriteClass} />
-                                    <p>{message.name}</p>
-                                </div>
-                                <div>
-                                    <p>{message.created}</p>
-                                    <p>todo: print link</p>
-                                </div>
-                            </FlexDiv>
-                            <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(message.body)} />
-                        </MessageLi>
+                        return (
+                            <MessageLi key={message.id}>
+                                <h2>Message {index + 1}</h2>
+                                <FlexDiv className={`u-display-flex`}>
+                                    <div>
+                                        <div title={message.personType} className={spriteClass} />
+                                        <p>{message.name}</p>
+                                    </div>
+                                    <div>
+                                        <p>{message.created}</p>
+                                        <p>todo: print link</p>
+                                    </div>
+                                </FlexDiv>
+                                <StyledIframe
+                                    width={`660`}
+                                    height={`660`}
+                                    srcDoc={message.body}
+                                />
+                            </MessageLi>
+                        )
                     })}
                 </ol>
             </div>
