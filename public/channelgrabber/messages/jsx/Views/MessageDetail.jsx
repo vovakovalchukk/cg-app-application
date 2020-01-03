@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
+import ThreadNavigator from "MessageCentre/Components/ThreadNavigator";
 
 function createMarkup(raw) {
     return {__html: raw};
@@ -17,12 +18,12 @@ const MessageDetail = (props) => {
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = props.threads.byId[threadId];
-    const totalMessageCount = props.threads.allIds.length;
+    const totalThreadCount = props.threads.allIds.length;
     const thisThreadPosition = props.threads.allIds.indexOf(`${threadId}`);
     const prevThreadId = props.threads.allIds[thisThreadPosition - 1];
     const nextThreadId = props.threads.allIds[thisThreadPosition + 1]
     const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
-    const nextThreadPath = thisThreadPosition !== totalMessageCount? `/messages/thread/:${nextThreadId}` : `/messages/`;
+    const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
     const messages = [];
     thread.messages.forEach(messageId => {
         const message = props.messages.byId[messageId];
@@ -34,49 +35,47 @@ const MessageDetail = (props) => {
     return (
         <GridDiv>
 
-            <ButtonLink
-                to={`/messages/`}
-                text={`back button to close thread and go back to messagelist view`}
-            />
+            <div>
 
-            <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
+                <ButtonLink
+                    to={`/messages/`}
+                    text={`< Back`}
+                />
 
-            <ButtonLink
-                to={prevThreadPath}
-                text={`previous button to navigate to previous thread`}
-            />
+                <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
 
-            <p>{thisThreadPosition + 1} / {totalMessageCount}</p>
+                <ThreadNavigator prev={prevThreadPath} next={nextThreadPath} thread={thisThreadPosition + 1} of={totalThreadCount} />
 
-            <ButtonLink
-                to={nextThreadPath}
-                text={`next button to navigate to next thread`}
-            />
+                <h2 className='u-clear-both u-float-none'>Last message content</h2>
 
-            <h2 className='u-clear-both u-float-none'>Last message content</h2>
+                <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(thread.lastMessage)} />
 
-            <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(thread.lastMessage)} />
+                <h2 className='u-clear-both u-float-none'>Messages in thread</h2>
 
-            <h2 className='u-clear-both u-float-none'>Messages in thread</h2>
+                <ol>
+                    {messages.map((message) => {
+                        const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
+                        return <li key={message.id}>
+                            <div title={message.personType} className={spriteClass} />
+                            <p>{message.name}</p>
+                            <p>{message.created}</p>
+                            <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(message.body)} />
+                        </li>
+                    })}
+                </ol>
 
-            <ol>
-                {messages.map((message) => {
-                    const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
-                    return <li key={message.id}>
-                        <div title={message.personType} className={spriteClass} />
-                        <p>{message.name}</p>
-                        <p>{message.created}</p>
-                        <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(message.body)} />
-                    </li>
-                })}
-            </ol>
+            </div>
 
-            <h2 className='u-clear-both u-float-none'>Right hand actions</h2>
+            <div>
 
-            <ButtonLink
-                to={thread.ordersLink}
-                text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
-            />
+                <h2 className='u-clear-both u-float-none'>Right hand actions</h2>
+
+                <ButtonLink
+                    to={thread.ordersLink}
+                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+                />
+
+            </div>
 
         </GridDiv>
     );
