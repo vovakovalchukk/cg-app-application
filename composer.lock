@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc42d398dc9d1edeb91c99d87f1e243a",
+    "content-hash": "f9f972cbb1d443af3252fddce4d260fa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1020,16 +1020,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-10941-parcelforce-decimal-place",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "8546fadc77d41bf05d6f7c1b85ddf304f7dfd97f"
+                "reference": "b42cf95c0814e21b17f081dd86b07fe7ac2725cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10941-parcelforce-decimal-place-a07871.zip",
-                "reference": "8546fadc77d41bf05d6f7c1b85ddf304f7dfd97f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.7-322d4f.zip",
+                "reference": "b42cf95c0814e21b17f081dd86b07fe7ac2725cf"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1063,7 +1063,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-12-23T15:51:35+00:00"
+            "time": "2020-01-03T08:44:22+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11886,18 +11886,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.7",
-            "alias_normalized": "1.2.7.0",
-            "version": "dev-CGIV-10941-parcelforce-decimal-place",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
