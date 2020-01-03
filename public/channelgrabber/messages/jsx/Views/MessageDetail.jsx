@@ -8,10 +8,20 @@ function createMarkup(raw) {
     return {__html: raw};
 }
 
+const FlexDiv = styled.div`
+    justify-content: space-between;
+`;
+
 const GridDiv = styled.div`
     display: grid;
     grid-template-columns: 1fr 300px;
     grid-gap: 20px;
+`;
+
+const MessageLi = styled.li`
+    border: 1px solid #333;
+    padding: 10px;
+    overflow: auto;
 `;
 
 const MessageDetail = (props) => {
@@ -43,40 +53,35 @@ const MessageDetail = (props) => {
 
     return (
         <GridDiv>
-
             <div>
-
                 <ThreadHeader {...headerProps}/>
-
                 <ThreadBody {...thread} />
-
-                <h2 className='u-clear-both u-float-none'>Messages in thread</h2>
-
                 <ol>
-                    {messages.map((message) => {
+                    {messages.map((message, index) => {
                         const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
-                        return <li key={message.id}>
-                            <div title={message.personType} className={spriteClass} />
-                            <p>{message.name}</p>
-                            <p>{message.created}</p>
+                        return <MessageLi key={message.id}>
+                            <h2>Message {index + 1}</h2>
+                            <FlexDiv className={`u-display-flex`}>
+                                <div>
+                                    <div title={message.personType} className={spriteClass} />
+                                    <p>{message.name}</p>
+                                </div>
+                                <div>
+                                    <p>{message.created}</p>
+                                    <p>todo: print link</p>
+                                </div>
+                            </FlexDiv>
                             <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(message.body)} />
-                        </li>
+                        </MessageLi>
                     })}
                 </ol>
-
             </div>
-
             <div>
-
-                <h2 className='u-clear-both u-float-none'>Right hand actions</h2>
-
                 <ButtonLink
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-
             </div>
-
         </GridDiv>
     );
 };
