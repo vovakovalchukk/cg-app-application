@@ -1,17 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-
-const ButtonLink = styled(Link)`
-    border: 1px solid #333;
-    padding: 10px;
-    color: #333;
-    display: inline-block;
-`;
+import ButtonLink from 'MessageCentre/Components/ButtonLink';
 
 function createMarkup(raw) {
     return {__html: raw};
 }
+
+const GridDiv = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 300px;
+`;
 
 const MessageDetail = (props) => {
     const {match} = props;
@@ -19,34 +18,40 @@ const MessageDetail = (props) => {
     const threadId = params.threadId.replace(':','');
     const thread = props.threads.byId[threadId];
     const totalMessageCount = props.threads.allIds.length;
-
     const thisThreadPosition = props.threads.allIds.indexOf(`${threadId}`);
-
     const prevThreadId = props.threads.allIds[thisThreadPosition - 1];
-    const nextThreadId = props.threads.allIds[thisThreadPosition + 1];
-
+    const nextThreadId = props.threads.allIds[thisThreadPosition + 1]
     const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
     const nextThreadPath = thisThreadPosition !== totalMessageCount? `/messages/thread/:${nextThreadId}` : `/messages/`;
-
-    console.log('thread', thread);
+    const messages = [];
+    thread.messages.forEach(messageId => {
+        const message = props.messages.byId[messageId];
+        messages.push(message);
+    });
+    const customerSprite = `sprite-message-customer-21-red`;
+    const staffSprite = `sprite-message-staff-21-blue`;
 
     return (
-        <div>
-            <ButtonLink to={`/messages/`}>
-                back button to close thread and go back to messagelist view
-            </ButtonLink>
+        <GridDiv>
+
+            <ButtonLink
+                to={`/messages/`}
+                text={`back button to close thread and go back to messagelist view`}
+            />
 
             <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
 
-            <ButtonLink to={prevThreadPath}>
-                previous button to navigate to previous thread
-            </ButtonLink>
+            <ButtonLink
+                to={prevThreadPath}
+                text={`previous button to navigate to previous thread`}
+            />
 
             <p>{thisThreadPosition + 1} / {totalMessageCount}</p>
 
-            <ButtonLink to={nextThreadPath}>
-                next button to navigate to next thread
-            </ButtonLink>
+            <ButtonLink
+                to={nextThreadPath}
+                text={`next button to navigate to next thread`}
+            />
 
             <h2 className='u-clear-both u-float-none'>Last message content</h2>
 
@@ -55,18 +60,25 @@ const MessageDetail = (props) => {
             <h2 className='u-clear-both u-float-none'>Messages in thread</h2>
 
             <ol>
-                {thread.messages.map((value, index) => {
-                    return <li key={index}>{value}</li>
+                {messages.map((message) => {
+                    const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
+                    return <li key={message.id}>
+                        <div title={message.personType} className={spriteClass} />
+                        <p>{message.name}</p>
+                        <p>{message.created}</p>
+                        <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(message.body)} />
+                    </li>
                 })}
             </ol>
 
             <h2 className='u-clear-both u-float-none'>Right hand actions</h2>
 
-            <ButtonLink to={thread.ordersLink}>
-                {thread.ordersCount} Orders from {thread.externalUsername}
-            </ButtonLink>
+            <ButtonLink
+                to={thread.ordersLink}
+                text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+            />
 
-        </div>
+        </GridDiv>
     );
 };
 
