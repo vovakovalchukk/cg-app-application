@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
+import ThreadBody from 'MessageCentre/Components/ThreadBody';
 
 function createMarkup(raw) {
     return {__html: raw};
@@ -47,9 +48,7 @@ const MessageDetail = (props) => {
 
                 <ThreadHeader {...headerProps}/>
 
-                <h2 className='u-clear-both u-float-none'>Last message content</h2>
-
-                <div className='u-clear-both' dangerouslySetInnerHTML={createMarkup(thread.lastMessage)} />
+                <ThreadBody {...thread} />
 
                 <h2 className='u-clear-both u-float-none'>Messages in thread</h2>
 
