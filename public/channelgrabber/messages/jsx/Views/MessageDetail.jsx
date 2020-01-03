@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
-import ThreadNavigator from "MessageCentre/Components/ThreadNavigator";
+import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 
 function createMarkup(raw) {
     return {__html: raw};
@@ -11,24 +10,33 @@ function createMarkup(raw) {
 const GridDiv = styled.div`
     display: grid;
     grid-template-columns: 1fr 300px;
+    grid-gap: 20px;
 `;
 
 const MessageDetail = (props) => {
-    const {match} = props;
+    const {match, threads} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
-    const thread = props.threads.byId[threadId];
-    const totalThreadCount = props.threads.allIds.length;
-    const thisThreadPosition = props.threads.allIds.indexOf(`${threadId}`);
-    const prevThreadId = props.threads.allIds[thisThreadPosition - 1];
-    const nextThreadId = props.threads.allIds[thisThreadPosition + 1]
+    const thread = threads.byId[threadId];
+    const totalThreadCount = threads.allIds.length;
+    const thisThreadPosition = threads.allIds.indexOf(`${threadId}`);
+    const prevThreadId = threads.allIds[thisThreadPosition - 1];
+    const nextThreadId = threads.allIds[thisThreadPosition + 1]
     const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
     const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
+
+    const headerProps = {...thread};
+    headerProps.nextThreadPath = nextThreadPath;
+    headerProps.prevThreadPath = prevThreadPath;
+    headerProps.threadPosition = thisThreadPosition + 1;
+    headerProps.totalThreadCount = totalThreadCount;
+
     const messages = [];
     thread.messages.forEach(messageId => {
         const message = props.messages.byId[messageId];
         messages.push(message);
     });
+
     const customerSprite = `sprite-message-customer-21-red`;
     const staffSprite = `sprite-message-staff-21-blue`;
 
@@ -37,14 +45,7 @@ const MessageDetail = (props) => {
 
             <div>
 
-                <ButtonLink
-                    to={`/messages/`}
-                    text={`< Back`}
-                />
-
-                <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
-
-                <ThreadNavigator prev={prevThreadPath} next={nextThreadPath} thread={thisThreadPosition + 1} of={totalThreadCount} />
+                <ThreadHeader {...headerProps}/>
 
                 <h2 className='u-clear-both u-float-none'>Last message content</h2>
 
