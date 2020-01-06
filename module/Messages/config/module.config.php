@@ -8,6 +8,7 @@ use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Messages\Thread\Service;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Regex;
 use Zend\Mvc\Router\Http\Segment;
 
 return [
@@ -101,7 +102,7 @@ return [
                     ],
                     IndexController::ROUTE_THREAD => [
                         'type' => Segment::class,
-                        'priority' => -100,
+                        'priority' => -50,
                         'options' => [
                             'route' => '/:threadId',
                             'defaults' => [
@@ -134,6 +135,21 @@ return [
                                 ],
                             ],
                         ],
+                    ],
+                    'Default Route' => [
+                        'type' => Regex::class,
+                        'priority' => -100,
+                        'options' => [
+                            'regex' => '\/(?<route>[\/A-Za-z0-9]{2,})',
+                            'defaults' => [
+                                'controller' => IndexController::class,
+                                'action' => 'index',
+                                'breadcrumbs' => false,
+                                'sidebar' => false
+                            ],
+                            'spec' => '/%route%'
+                        ],
+                        'may_terminate' => true
                     ],
                 ],
             ]
