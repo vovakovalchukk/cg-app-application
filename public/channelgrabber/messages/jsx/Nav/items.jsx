@@ -1,4 +1,7 @@
 import FilterItem from './FilterItem';
+import Item from './Item';
+
+import React from 'react';
 
 const navItems = [
     {
@@ -38,6 +41,12 @@ const navItems = [
         displayText: 'Open',
         to: '/list/open',
         component: FilterItem
+    },
+    {
+        id: 'templates',
+        displayText: 'Templates',
+        to: '/templates',
+        component: Item
     }
 ];
 

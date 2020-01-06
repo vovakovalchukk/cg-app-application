@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
+import TemplateManager from 'MessageCentre/Views/TemplateManager';
 import navItems from 'MessageCentre/Nav/items';
 import {
     Switch,
@@ -34,6 +35,9 @@ const App = (props) => {
                     )}/>
                     <Route path={`${match.path}thread/:threadId`} render={({match}) => (
                         <MessageDetail {...props} match={match}/>
+                    )}/>
+                    <Route path={`${match.path}templates`} render={({match}) => (
+                        <TemplateManager {...props} match={match}/>
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
                 </Switch>
