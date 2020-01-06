@@ -10,15 +10,15 @@ const FlexDiv = styled.div`
 
 const GridDiv = styled.div`
     display: grid;
-    grid-template-columns: 1fr 300px;
-    grid-gap: 20px;
+    grid-template-columns: 1fr fit-content;
+    grid-gap: 1rem;
 `;
 
 const MessageLi = styled.li`
     overflow: auto;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #333;
-    margin-bottom: 10px;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
 `;
 
 const printMessage = (message) => {
