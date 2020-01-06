@@ -21,6 +21,13 @@ const MessageLi = styled.li`
     margin-bottom: 10px;
 `;
 
+const printMessage = (message) => {
+    const newWindow = window.open();
+    newWindow.document.write(message.body);
+    newWindow.print();
+    newWindow.close();
+};
+
 const MessageDetail = (props) => {
     const {match, threads} = props;
     const {params} = match;
@@ -57,7 +64,6 @@ const MessageDetail = (props) => {
                         const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
                         return (
                             <MessageLi key={message.id}>
-                                <h2>Message {index + 1}</h2>
                                 <FlexDiv className={`u-display-flex`}>
                                     <div>
                                         <div title={message.personType} className={spriteClass} />
@@ -65,7 +71,7 @@ const MessageDetail = (props) => {
                                     </div>
                                     <div>
                                         <p>{message.created}</p>
-                                        <p>todo: print link</p>
+                                        <button type="button" onClick={() => printMessage(message)}>Print Message</button>
                                     </div>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
