@@ -1,1 +1,23 @@
-<h1>History</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="ftp-accounts-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('History'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'History': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/History',
+            'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+        }
+    });
+    require(["History/Index"], function(Index) {
+        Index(
+            document.getElementById('app-mount-node')
+        );
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

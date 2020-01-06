@@ -20,9 +20,7 @@ define([
     require,
     OrderTableHelper
 ) {
-    var Mapper = function() {
-
-    };
+    var Mapper = function() {};
 
     Mapper.PATH_TO_TEMPLATE_ENTITY = 'InvoiceDesigner/Template/Entity';
     Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
@@ -58,7 +56,7 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
         var json = JSON.parse(JSON.stringify(json));
-
+        
         var template = this.createNewTemplate();
         var populating = true;
         template.hydrate(json, populating);
@@ -230,7 +228,11 @@ define([
         const TableStorage = require(Mapper.PATH_TO_STORAGE_TABLE);
         const allTableTotals = TableStorage.getTableTotals();
 
-        if (!Array.isArray(tableTotals) || !tableTotals.length) {
+        if (!Array.isArray(tableTotals)) {
+            return TableStorage.getDefaultTableTotals();
+        }
+
+        if (Array.isArray(tableTotals) && !tableTotals.length) {
             return [];
         }
 
