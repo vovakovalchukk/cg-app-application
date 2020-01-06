@@ -8,14 +8,29 @@ const FlexDiv = styled.div`
     align-items: center;
 `;
 
+const getNavigatorProps = (threadIds, thread) => {
+    const safeThreadId = thread.id.replace(':', '');
+    const totalThreadCount = threadIds.length;
+    const thisThreadPosition = threadIds.indexOf(safeThreadId);
+    const prevThreadId = threadIds[thisThreadPosition - 1];
+    const nextThreadId = threadIds[thisThreadPosition + 1]
+    const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
+    const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
+    return {
+        nextThreadPath: nextThreadPath,
+        prevThreadPath: prevThreadPath,
+        threadPosition: thisThreadPosition + 1,
+        totalThreadCount: totalThreadCount,
+    };
+};
+
 const ThreadHeader = (props) => {
     const {
-        subject,
-        prevThreadPath,
-        nextThreadPath,
-        threadPosition,
-        totalThreadCount
+        thread,
+        threadIds,
     } = props;
+
+    const navigatorProps = getNavigatorProps(threadIds, thread);
 
     return(
         <FlexDiv className={`u-display-flex`}>
@@ -24,13 +39,13 @@ const ThreadHeader = (props) => {
                 text={`< Back`}
             />
 
-            <h1 className='u-clear-both u-float-none'>{subject}</h1>
+            <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
 
             <ThreadNavigator
-                prev={prevThreadPath}
-                next={nextThreadPath}
-                thread={threadPosition}
-                of={totalThreadCount}
+                prev={navigatorProps.prevThreadPath}
+                next={navigatorProps.nextThreadPath}
+                thread={navigatorProps.threadPosition}
+                of={navigatorProps.totalThreadCount}
             />
         </FlexDiv>
     )

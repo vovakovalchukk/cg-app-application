@@ -10,7 +10,7 @@ const FlexDiv = styled.div`
 
 const GridDiv = styled.div`
     display: grid;
-    grid-template-columns: 1fr fit-content;
+    grid-template-columns: 1fr max-content;
     grid-gap: 1rem;
 `;
 
@@ -33,18 +33,6 @@ const MessageDetail = (props) => {
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
-    const totalThreadCount = threads.allIds.length;
-    const thisThreadPosition = threads.allIds.indexOf(`${threadId}`);
-    const prevThreadId = threads.allIds[thisThreadPosition - 1];
-    const nextThreadId = threads.allIds[thisThreadPosition + 1]
-    const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
-    const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
-
-    const headerProps = {...thread};
-    headerProps.nextThreadPath = nextThreadPath;
-    headerProps.prevThreadPath = prevThreadPath;
-    headerProps.threadPosition = thisThreadPosition + 1;
-    headerProps.totalThreadCount = totalThreadCount;
 
     const messages = [];
     thread.messages.forEach(messageId => {
@@ -54,6 +42,11 @@ const MessageDetail = (props) => {
 
     const customerSprite = `sprite-message-customer-21-red`;
     const staffSprite = `sprite-message-staff-21-blue`;
+
+    const headerProps = {
+        thread: thread,
+        threadIds: threads.allIds,
+    }
 
     return (
         <GridDiv>
