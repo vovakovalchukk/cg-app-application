@@ -37,16 +37,18 @@ const formatMessages = (thread, allMessages) => {
     return formattedMessages;
 };
 
+const getPersonSprite = (person) => {
+    const staff = 'sprite-message-staff-21-blue';
+    const customer = 'sprite-message-customer-21-red';
+    return person === 'staff' ? staff : customer;
+};
+
 const MessageDetail = (props) => {
     const {match, threads} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
     const messages = formatMessages(thread, props.messages);
-
-    const customerSprite = `sprite-message-customer-21-red`;
-    const staffSprite = `sprite-message-staff-21-blue`;
-
     const headerProps = {
         thread: thread,
         threadIds: threads.allIds,
@@ -58,7 +60,7 @@ const MessageDetail = (props) => {
                 <ThreadHeader {...headerProps} />
                 <ol>
                     {messages.map((message, index) => {
-                        const spriteClass = message.personType === 'customer' ? customerSprite : staffSprite;
+                        const spriteClass = getPersonSprite(message.personType);
                         return (
                             <MessageLi key={message.id}>
                                 <FlexDiv className={`u-display-flex`}>
