@@ -37,7 +37,7 @@ const MessageList = (props) => {
             props.actions.fetchMessages({
                 filter: filterObjectForAjax
             });
-            return null;
+            return;
         }
 
         // fire the ajax request corresponding to react-router parameter on view load.
