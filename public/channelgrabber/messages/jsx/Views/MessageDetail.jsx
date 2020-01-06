@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
-
-function createMarkup(raw) {
-    return {__html: raw};
-}
+import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -22,10 +19,6 @@ const MessageLi = styled.li`
     padding-bottom: 10px;
     border-bottom: 1px solid #333;
     margin-bottom: 10px;
-`;
-
-const StyledIframe = styled.iframe`
-    border: none;
 `;
 
 const MessageDetail = (props) => {
@@ -75,11 +68,7 @@ const MessageDetail = (props) => {
                                         <p>todo: print link</p>
                                     </div>
                                 </FlexDiv>
-                                <StyledIframe
-                                    width={`660`}
-                                    height={`660`}
-                                    srcDoc={message.body}
-                                />
+                                <ShadowDomDiv body={message.body} />
                             </MessageLi>
                         )
                     })}
