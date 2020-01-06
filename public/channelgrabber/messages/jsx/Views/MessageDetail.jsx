@@ -28,17 +28,21 @@ const printMessage = (message) => {
     newWindow.close();
 };
 
+const formatMessages = (thread, allMessages) => {
+    const formattedMessages = [];
+    thread.messages.forEach(messageId => {
+        const message = allMessages.byId[messageId];
+        formattedMessages.push(message);
+    });
+    return formattedMessages;
+};
+
 const MessageDetail = (props) => {
     const {match, threads} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
-
-    const messages = [];
-    thread.messages.forEach(messageId => {
-        const message = props.messages.byId[messageId];
-        messages.push(message);
-    });
+    const messages = formatMessages(thread, props.messages);
 
     const customerSprite = `sprite-message-customer-21-red`;
     const staffSprite = `sprite-message-staff-21-blue`;
