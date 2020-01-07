@@ -3,7 +3,7 @@ import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
 import Button from 'Common/Components/Button';
 import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import ItemRow from 'Common/Components/ItemRow';
-import PaginatedList from "PurchaseOrders/Components/PaginatedList";
+import PaginatedList from "Common/Components/Pagination/PaginatedList";
     
 
     export default class extends React.Component {
