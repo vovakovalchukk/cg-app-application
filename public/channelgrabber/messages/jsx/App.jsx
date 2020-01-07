@@ -37,7 +37,28 @@ const App = (props) => {
                         <MessageDetail {...props} match={match}/>
                     )}/>
                     <Route path={`${match.path}templates`} render={({match}) => (
-                        <TemplateManager {...props} match={match}/>
+                        <TemplateManager
+                            {...props}
+                            match={match}
+                            // todo - removed hacked props once TAC-580 has been merged in
+                            messageTemplates={[{
+                                    id: 1,
+                                    name: 'Template dummy 1',
+                                    template: `In the template {tag in here}`
+                                }, {
+                                    id: 2,
+                                    name: 'Template dummy 2',
+                                    template: '{something} second dummy'
+                                }
+                            ]}
+                            messageTemplateTags={[{
+                                    name: 'some tag',
+                                    value: `{{product.id}}`
+                                }, {
+                                    name: 'tag 2',
+                                    value: `{{tag2}}`
+                            }]}
+                        />
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
                 </Switch>
