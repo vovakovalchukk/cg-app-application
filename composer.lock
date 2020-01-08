@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df0b35147b2969ea13ac1b28671fdd23",
+    "content-hash": "08740ddffc327bb7cbfdfe77b4aaa37e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,7 +378,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "364ca362bf0679309bfeb9faee2cf9cdd59c1e75"
+                "reference": "88991d0f5f7493476a7dccac091f43a31674e2f3"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -484,7 +484,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "5791d4d1af32b54047a9787c5e7d52e2b3ac8924"
+                "reference": "d36ec02ba212270b42889ea3abe28fef40e85487"
             },
             "require": {
                 "channelgrabber/channel": "^1.38.0",
@@ -1360,7 +1360,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "95c06ab21ebdce0fac42031ea04e434cf5ad58d6"
+                "reference": "cf87dedf501630066bd41da64b0a564276126c37"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1416,16 +1416,11 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.17.3",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.3-9acd71.zip",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
+                "reference": "61045287ed10629555cd83a3e46a5deef33c6b28"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2814,7 +2809,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "5def553b7049e41c3ee3725f2ff099685a648d71"
+                "reference": "32f60afabdf599c5819c399e9900033142c28500"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11923,6 +11918,12 @@
             "package": "channelgrabber/ebay"
         },
         {
+            "alias": "1.17.4",
+            "alias_normalized": "1.17.4.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/ekm"
+        },
+        {
             "alias": "1.18.6",
             "alias_normalized": "1.18.6.0",
             "version": "dev-CGIV-11167-trim-item-skus",
@@ -11942,6 +11943,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
         "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
         "phpish/link_header": 20,
