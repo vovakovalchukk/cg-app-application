@@ -104,14 +104,6 @@ use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\FileStorage\S3\Adapter as S3FileImportAdapter;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
-// Communication
-use CG\Communication\Headline\StorageInterface as HeadlineStorage;
-use CG\Communication\Headline\Storage\Api as HeadlineApi;
-use CG\Communication\Message\StorageInterface as MessageStorage;
-use CG\Communication\Message\Storage\Api as MessageApi;
-use CG\Communication\Thread\StorageInterface as ThreadStorage;
-use CG\Communication\Thread\Storage\Api as ThreadApi;
-
 // Amazon\Thread\Additional
 use CG\Amazon\Thread\Additional\Mapper as AmzThreadAdditionalMapper;
 use CG\Amazon\Thread\Additional\Storage\Cache as AmzThreadAdditionalCache;
@@ -214,9 +206,6 @@ $config = array(
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
-                ThreadStorage::class => ThreadApi::class,
-                MessageStorage::class => MessageApi::class,
-                HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateRedisClient::class,
@@ -461,21 +450,6 @@ $config = array(
             'StockImportS3FileImportAdapter' => [
                 'parameter' => [
                     'location' => function() { return StockImportFileS3::S3_BUCKET; }
-                ]
-            ],
-            ThreadApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
-                ]
-            ],
-            MessageApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
-                ]
-            ],
-            HeadlineApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
                 ]
             ],
             AmzThreadAdditionalDb::class => [
