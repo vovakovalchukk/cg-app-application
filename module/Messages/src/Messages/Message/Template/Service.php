@@ -60,4 +60,10 @@ class Service
         }
         return $entity;
     }
+
+    public function remove(int $id): void
+    {
+        $entity = $this->messageTemplateService->fetch($id);
+        $this->messageTemplateService->remove($entity);
+    }
 }

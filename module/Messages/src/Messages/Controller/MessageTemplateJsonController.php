@@ -12,6 +12,7 @@ class MessageTemplateJsonController extends AbstractActionController
 {
     public const ROUTE_TEMPLATES = 'Templates';
     public const ROUTE_SAVE = 'Save';
+    public const ROUTE_DELETE = 'Delete';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -44,5 +45,19 @@ class MessageTemplateJsonController extends AbstractActionController
             $jsonModel->setVariables(['success' => true, 'id' => $data['id'], 'etag' => $data['etag'] ?? null]);
             return $jsonModel;
         }
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params()->fromPost('id');
+        try {
+            $this->service->remove($id);
+        } catch (NotFound $e) {
+            // No-op
+        }
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'id' => $id,
+        ]);
     }
 }
