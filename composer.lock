@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a48b2a9a4c816915ca7e3f0ec620e789",
+    "content-hash": "4079a0c9c6a1c3c57f4bc28f92a84c09",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3531,16 +3531,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.10",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc"
+                "reference": "fef8446e13cba77e1a48711823fc82752612427b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.10-4a1122.zip",
-                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-dev-CGIV-11167-trim-item-skus-b97317.zip",
+                "reference": "fef8446e13cba77e1a48711823fc82752612427b"
             },
             "require": {
                 "php": ">=7.1",
@@ -3584,7 +3584,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-08-07T10:15:49+00:00"
+            "time": "2020-01-07T16:56:06+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -9510,6 +9510,7 @@
                 "xml",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-xml",
             "time": "2016-02-04T21:02:08+00:00"
         },
         {
@@ -10512,7 +10513,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11920,10 +11922,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "2.16.11",
+            "alias_normalized": "2.16.11.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/stdlib"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stdlib": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

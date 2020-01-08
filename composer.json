@@ -84,7 +84,7 @@
         "channelgrabber/shopify": "~1.3.1",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
-        "channelgrabber/stdlib": "~2.16.9",
+        "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
         "channelgrabber/stock": "~1.17.6",
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/supplier": "~1.0.1",

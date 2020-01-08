@@ -40,6 +40,7 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\SanitizeTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use GearmanClient;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
@@ -51,6 +52,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
+    use SanitizeTrait;
 
     const PDF_LABEL_DIR = '/tmp/dataplug-labels';
     const LABEL_MAX_ATTEMPTS = 10;
@@ -231,6 +233,11 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             if ($value === null) {
                 continue;
             }
+
+            if ($field == 'sku') {
+                $value = $this->sanitizeSku($value);
+            }
+
             $setter = 'set' . ucfirst($field);
             $productDetail->$setter($value);
             $changes = true;
@@ -258,7 +265,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrganisationUnit $rootOu
     ) {
         $data = [
-            'sku' => $item->getItemSku(),
+            'sku' => $this->sanitizeSku($item->getItemSku()),
             'organisationUnitId' => $rootOu->getId(),
         ];
         foreach ($this->productDetailFields as $field => $callback) {
