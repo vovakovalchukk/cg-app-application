@@ -164,7 +164,7 @@ define(
 
         StoredFilters.prototype.saveJson = function(listElement) {
             this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-            this.getFilterList().append(listElement);
+            this.getFilterList().prepend(listElement);
             this.getFilterList().find(".empty-list").addClass("hidden");
             this.getNotifications().success("Filter Saved");
         };
