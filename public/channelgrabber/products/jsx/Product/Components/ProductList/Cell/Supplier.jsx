@@ -44,10 +44,6 @@ class SupplierCell extends React.Component {
             rowData
         } = this.props;
 
-        if (rowData.id === 1) {
-            console.log(this.props);
-        }
-
         if (stateUtility.isVariation(rowData)) {
             return <span/>;
         }
@@ -80,6 +76,11 @@ class SupplierCell extends React.Component {
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130
+                    }}
+                    customOptions={true}
+                    customOptionsPlaceholder={'Add a supplier...'}
+                    onCustomOption={(supplierName) => {
+                        this.props.actions.addNewSupplier(rowData.id, supplierName)
                     }}
                 />
             </div>

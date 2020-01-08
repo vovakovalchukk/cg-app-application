@@ -44,9 +44,21 @@ const supplierReducer = reducerCreator(initialState, {
             byProductId
         });
     },
-    "UPDATE_SUPPLIER_FAILED": function (state, action) {
-        n.error(action.payload.error);
-        return state;
+    "SAVE_SUPPLIER_SUCCESS": function (state, action) {
+        const byProductId = Object.assign({}, state.byProductId, {
+            [action.payload.productId]: action.payload.supplierId
+        });
+
+        const options = state.options.slice();
+        options.unshift({
+            name: action.payload.supplierName,
+            value: action.payload.supplierId
+        });
+
+        return {
+            options,
+            byProductId
+        }
     }
 });
 
