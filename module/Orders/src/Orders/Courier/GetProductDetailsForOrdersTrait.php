@@ -17,7 +17,7 @@ trait GetProductDetailsForOrdersTrait
         foreach ($orders as $order) {
             $ouIds[$order->getOrganisationUnitId()] = true;
             foreach ($order->getItems() as $item) {
-                $productSkus[] = $item->getItemSku();
+                $productSkus[] = $this->sanitizeSku($item->getItemSku());
             }
         }
 
@@ -37,4 +37,5 @@ trait GetProductDetailsForOrdersTrait
      * @return \CG\Product\Detail\Service
      */
     abstract protected function getProductDetailService();
+    abstract protected function sanitizeSku(string $sku): string;
 }

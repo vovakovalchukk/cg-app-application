@@ -8,6 +8,7 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Mapper as ProductDetailMapper;
 use CG\Product\Detail\Service as ProductDetailService;
+use CG\Stdlib\SanitizeTrait;
 use CG\Supplier\Collection as SupplierCollection;
 use CG\Supplier\Entity as Supplier;
 use CG\Supplier\Filter as SupplierFilter;
@@ -17,6 +18,8 @@ use CG\User\ActiveUserInterface;
 
 class Service
 {
+    use SanitizeTrait;
+
     protected const MAX_SAVE_ATTEMPTS = 2;
 
     /** @var ActiveUserInterface */
@@ -107,7 +110,7 @@ class Service
     protected function fetchProductDetailFromOuAndSku(int $organisationUnitId, string $sku): ProductDetail
     {
         try {
-            return $this->productDetailService->fetchDetailByOuAndSku($organisationUnitId, $sku);
+            return $this->productDetailService->fetchDetailByOuAndSku($organisationUnitId, $this->sanitizeSku($sku));
         } catch (NotFound $e) {
             return $this->productDetailMapper->fromArray(['organisationUnitId' => $organisationUnitId, 'sku' => $sku]);
         }

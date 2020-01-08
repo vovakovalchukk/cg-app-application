@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4079a0c9c6a1c3c57f4bc28f92a84c09",
+    "content-hash": "2e0701c2377d30c5e94f951618520d14",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,16 +374,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.32.1",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "a7d4fc2ec1b8233abdb1d3562cd861a1fe1d4721"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.32.1-aa0da1.zip",
-                "reference": "a7d4fc2ec1b8233abdb1d3562cd861a1fe1d4721"
+                "reference": "364ca362bf0679309bfeb9faee2cf9cdd59c1e75"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -2830,16 +2825,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.18.5",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "35c07582e20cae60bf312bbfe23cb990032a4064"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.5-5cb79a.zip",
-                "reference": "35c07582e20cae60bf312bbfe23cb990032a4064"
+                "reference": "5def553b7049e41c3ee3725f2ff099685a648d71"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11924,6 +11914,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.32.2",
+            "alias_normalized": "1.32.2.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.18.6",
+            "alias_normalized": "1.18.6.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "2.16.11",
             "alias_normalized": "2.16.11.0",
             "version": "dev-CGIV-11167-trim-item-skus",
@@ -11932,11 +11934,13 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
