@@ -22,6 +22,12 @@ const MessageLi = styled.li`
     margin-bottom: 1rem;
 `;
 
+const StyledSelect = styled.select`
+    display: flex;
+    max-width: 260px;
+    width: 100%;
+`
+
 const printMessage = (message) => {
     const newWindow = window.open();
     newWindow.document.write(message.body);
@@ -54,6 +60,7 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
+    console.log('thread', thread);
 
     return (
         <GridDiv>
@@ -88,6 +95,12 @@ const MessageDetail = (props) => {
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
+                <h2>thread status = {thread.status}</h2>
+                <StyledSelect value={thread.status} onChange={() => {console.log('TODO: select change event')}}>
+                    <option value={'awaiting reply'}>Awaiting Reply</option>
+                    <option value={'resolved'}>Resolved</option>
+                    <option value={'new'}>New</option>
+                </StyledSelect>
             </div>
         </GridDiv>
     );
