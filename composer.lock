@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e0701c2377d30c5e94f951618520d14",
+    "content-hash": "df0b35147b2969ea13ac1b28671fdd23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -480,16 +480,11 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.1",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.1-da6dfa.zip",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b"
+                "reference": "5791d4d1af32b54047a9787c5e7d52e2b3ac8924"
             },
             "require": {
                 "channelgrabber/channel": "^1.38.0",
@@ -750,16 +745,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.13",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0e796b0dec53b8dace97d48f7ec80c8118ae8963"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.13-81dc34.zip",
-                "reference": "0e796b0dec53b8dace97d48f7ec80c8118ae8963"
+                "reference": "97b1dbebc5215b2753411c717a5912deeb05e320"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -1366,16 +1356,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.20.18",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.18-d25a35.zip",
-                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
+                "reference": "95c06ab21ebdce0fac42031ea04e434cf5ad58d6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11920,6 +11905,24 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.4.2",
+            "alias_normalized": "1.4.2.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.43.13",
+            "alias_normalized": "1.43.13.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.20.19",
+            "alias_normalized": "1.20.19.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.18.6",
             "alias_normalized": "1.18.6.0",
             "version": "dev-CGIV-11167-trim-item-skus",
@@ -11935,7 +11938,10 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
+        "channelgrabber/bigcommerce": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
         "phpish/link_header": 20,
