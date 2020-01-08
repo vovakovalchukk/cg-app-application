@@ -6,15 +6,20 @@ use CG\User\Service as UserService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-    const ROUTE_INDEX_URL = '/messages';
-    const ROUTE_THREAD = 'Thread';
+    public const ROUTE_INDEX_URL = '/messages';
+    public const ROUTE_THREAD = 'Thread';
 
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var UserOrganisationUnitService */
     protected $userOrganisationUnitService;
+    /** @var UserService */
     protected $userService;
+    /** @var Service */
     protected $service;
 
     protected $filterNameMap = [
@@ -27,13 +32,13 @@ class IndexController extends AbstractActionController
         UserService $userService,
         Service $service
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setUserService($userService)
-            ->setService($service);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->userService = $userService;
+        $this->service = $service;
     }
 
-    public function indexAction()
+    public function indexAction(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $threadId = $this->params('threadId');
@@ -58,7 +63,7 @@ class IndexController extends AbstractActionController
         return $view;
     }
 
-    protected function getFilterSearchInputView()
+    protected function getFilterSearchInputView(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/search.mustache');
@@ -67,7 +72,7 @@ class IndexController extends AbstractActionController
         return $view;
     }
 
-    protected function getFilterSearchButtonView()
+    protected function getFilterSearchButtonView(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/buttons.mustache');
@@ -80,29 +85,5 @@ class IndexController extends AbstractActionController
             ]
         ]);
         return $view;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setUserOrganisationUnitService(UserOrganisationUnitService $userOrganisationUnitService)
-    {
-        $this->userOrganisationUnitService = $userOrganisationUnitService;
-        return $this;
-    }
-
-    protected function setUserService(UserService $userService)
-    {
-        $this->userService = $userService;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
     }
 }
