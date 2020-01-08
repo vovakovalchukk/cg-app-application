@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8670e27a2897e83031d1672cfb2a361",
+    "content-hash": "b7b883fdc4eb372e81139d2e4b663229",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3755,20 +3755,21 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.3",
+            "version": "dev-TAC-580-message-templates-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a86a0b36388e09245c0ca473e8ca5cf78956da2b"
+                "reference": "c69ac337204965181cbe561b89d188c2ffa4e8d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.3-33cf31.zip",
-                "reference": "a86a0b36388e09245c0ca473e8ca5cf78956da2b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-580-message-templates-backend-3dbcbb.zip",
+                "reference": "c69ac337204965181cbe561b89d188c2ffa4e8d1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.6.0",
+                "channelgrabber/communication": "^1.1.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.3",
@@ -3815,7 +3816,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-09T13:35:27+00:00"
+            "time": "2020-01-09T12:17:22+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9391,6 +9392,7 @@
                 "framework",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-mvc-skeleton",
             "time": "2015-05-11T16:03:51+00:00"
         },
         {
@@ -11893,12 +11895,19 @@
             "alias_normalized": "1.1.1.0",
             "version": "dev-TAC-580-message-templates-backend",
             "package": "channelgrabber/communication"
+        },
+        {
+            "alias": "1.9.4",
+            "alias_normalized": "1.9.4.0",
+            "version": "dev-TAC-580-message-templates-backend",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

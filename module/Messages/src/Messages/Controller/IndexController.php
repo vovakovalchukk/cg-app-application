@@ -4,6 +4,7 @@ namespace Messages\Controller;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\User\Service as UserService;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Messages\Message\Template\Service as MessageTemplateService;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -21,6 +22,8 @@ class IndexController extends AbstractActionController
     protected $userService;
     /** @var Service */
     protected $service;
+    /** @var MessageTemplateService */
+    protected $messageTemplateService;
 
     protected $filterNameMap = [
         'eu' => 'externalUsername'
@@ -30,12 +33,14 @@ class IndexController extends AbstractActionController
         ViewModelFactory $viewModelFactory,
         UserOrganisationUnitService $userOrganisationUnitService,
         UserService $userService,
-        Service $service
+        Service $service,
+        MessageTemplateService $messageTemplateService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->userService = $userService;
         $this->service = $service;
+        $this->messageTemplateService = $messageTemplateService;
     }
 
     public function indexAction(): ViewModel
@@ -58,6 +63,9 @@ class IndexController extends AbstractActionController
         $view->setVariable('assignableUsersArray', $this->userService->getUserOptionsArray($rootOu));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $view->setVariable('messageTemplates', $this->messageTemplateService->fetchAllForActiveOuAsArray());
+        $view->setVariable('messageTemplateTags', $this->messageTemplateService->getTemplateTagOptions());
+        $view->setVariable('accounts', $this->messageTemplateService->fetchAllSalesAccountsForActiveOuAsOptions());
         $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
         $view->addChild($this->getFilterSearchButtonView(), 'filterSearchButton');
         return $view;
