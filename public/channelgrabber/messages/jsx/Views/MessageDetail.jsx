@@ -60,12 +60,14 @@ const MessageDetail = (props) => {
                 <ThreadHeader {...headerProps} />
                 <ol>
                     {messages.map((message, index) => {
-                        const spriteClass = getPersonSprite(message.personType);
                         return (
                             <MessageLi key={message.id}>
                                 <FlexDiv className={`u-display-flex`}>
                                     <div>
-                                        <div title={message.personType} className={spriteClass} />
+                                        <div
+                                            title={message.personType}
+                                            className={getPersonSprite(message.personType)}
+                                        />
                                         <p>{message.name}</p>
                                     </div>
                                     <div>
