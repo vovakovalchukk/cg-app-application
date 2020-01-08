@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
+import ReplyBox from 'MessageCentre/Components/ReplyBox';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -76,6 +77,7 @@ const MessageDetail = (props) => {
                                     </div>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
+                                <ReplyBox {...props} />
                             </MessageLi>
                         )
                     })}
