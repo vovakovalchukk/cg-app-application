@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styled from 'styled-components';
 
 import Input from 'Common/Components/Input';
 
@@ -12,10 +13,12 @@ import {useTemplatesState} from 'Common/Hooks/Template/items';
 import {useTemplateHtmlState} from 'Common/Hooks/Template/html';
 
 import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
-import BulkActionService from "Orders/js-vanilla/BulkActionService";
-import progressService from "CommonSrc/js-vanilla/Common/progressService";
 
 let previewWindow = null;
+
+const StyledButtonSelect = styled(ButtonMultiSelect)`
+    width: 14rem;
+`;
 
 const TemplateManager = (props) => {
     const {match, accounts, messageTemplates} = props;
@@ -29,12 +32,8 @@ const TemplateManager = (props) => {
     const [templateSelectValue, setTemplateSelectValue] = useState({});
     const templateHTML = useTemplateHtmlState('');
 
-    // todo - set default id to the first account fed into Manager
     const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
 
-    console.log('RE-RENDER previewAccountValue: ', previewAccountValue);
-    
-    
     return (
         <div className={"module clearfix"}>
             <div className="u-form-max-width-medium">
@@ -77,29 +76,21 @@ const TemplateManager = (props) => {
                 }
 
                 {templateInitialised &&
-                    <div>
-                        <ButtonMultiSelect
+                    <div className={"u-margin-top-med"}>
+                        <StyledButtonSelect
                             options={formatAccounts(accounts)}
-                            buttonTitle={`Preview for <b>${fetchByValue(accounts, previewAccountValue).name}</b>`}
-//                            spriteClass={'sprite-download-pdf-22'}
+                            ButtonTitle={() => (
+                                <span>Preview for <b>{fetchAccountTextForPreviewButton()}</b></span>
+                            )}
                             multiSelect={false}
                             onButtonClick={(ids)=>{
-//                                console.log('ids[0].value: ', ids[0].value);
-//                                setPreviewAccountValue(ids[0].value);
+                                openPreview(ids);
                             }}
                             onSelect={(ids) => {
-                                console.log('ids: ', ids);
-                                console.log('about to set previewAccountValue', ids[0]);
-
-
                                 setPreviewAccountValue(ids[0]);
                             }}
-
-//                            const requestTemplateExport = async function(templateIds, orders) {
-
                         />
-                        <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
-                        <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
+                        <button className={"u-margin-left-small button"} onClick={save}>Save</button>
                     </div>
                 }
             </div>
@@ -187,13 +178,20 @@ const TemplateManager = (props) => {
         }
         n.error(response.error.message);
     }
+
+    function fetchAccountTextForPreviewButton() {
+        const stringLengthLimit = 30;
+        let textToRender = fetchByValue(accounts, previewAccountValue).name;
+        if (textToRender.length > stringLengthLimit) {
+            textToRender = textToRender.substring(0, stringLengthLimit) + '...';
+        }
+        return textToRender;
+    }
 };
 
 export default TemplateManager;
 
 function fetchByValue(options, value) {
-    console.log('in fetchBYValue {options,value}: ', {options,value});
-
     return options.find((option) => {
         return option.value === value
     });
