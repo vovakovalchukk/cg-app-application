@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9f972cbb1d443af3252fddce4d260fa",
+    "content-hash": "b8670e27a2897e83031d1672cfb2a361",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -948,16 +948,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.1.0",
+            "version": "dev-TAC-580-message-templates-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
+                "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.0-04b629.zip",
-                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-580-message-templates-backend-829917.zip",
+                "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -987,7 +987,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2019-08-22T12:52:54+00:00"
+            "time": "2020-01-08T10:32:17+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -9476,6 +9476,7 @@
                 "xml",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-xml",
             "time": "2016-02-04T21:02:08+00:00"
         },
         {
@@ -11886,9 +11887,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-TAC-580-message-templates-backend",
+            "package": "channelgrabber/communication"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

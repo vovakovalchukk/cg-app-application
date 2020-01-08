@@ -30,7 +30,7 @@
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
         "channelgrabber/clearbooks": "~1.12.3",
-        "channelgrabber/communication": "~1.1.0",
+        "channelgrabber/communication": "dev-TAC-580-message-templates-backend as 1.1.1",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.2.7",
         "channelgrabber/courieradapter": "~1.6.1",
