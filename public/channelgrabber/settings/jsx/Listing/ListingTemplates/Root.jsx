@@ -4,9 +4,9 @@ import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
 import AddTemplate from 'Common/Components/Templates/AddTemplate';
 import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
-import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
+import TemplateEditor from 'Common/Components/Templates/TemplateEditor';
 
-import useFormInputState from 'Common/Hooks/Form/input';
+import {useFormInputState} from 'Common/Hooks/Form/input';
 import {useTemplatesState} from 'Common/Hooks/Template/items';
 import {useTemplateHtmlState} from 'Common/Hooks/Template/html';
 
@@ -55,14 +55,14 @@ const RootComponent = props => {
 
 
             {templateInitialised &&
-            <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
+                <TemplateEditor templateHTML={templateHTML} templateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
-            <div>
-                <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
-                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
-            </div>
+                <div>
+                    <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
+                    <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
+                </div>
             }
         </div>
     );

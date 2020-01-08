@@ -5,20 +5,23 @@ import Input from 'Common/Components/Input';
 import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import AddTemplate from 'Common/Components/Templates/AddTemplate';
 import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
+import TemplateEditor from 'Common/Components/Templates/TemplateEditor';
 
-import useFormInputState from 'Common/Hooks/Form/input';
+import {useFormInputState} from 'Common/Hooks/Form/input';
 import {useTemplatesState} from 'Common/Hooks/Template/items';
 import {useTemplateHtmlState} from 'Common/Hooks/Template/html';
+
+import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
+import BulkActionService from "Orders/js-vanilla/BulkActionService";
+import progressService from "CommonSrc/js-vanilla/Common/progressService";
 
 let previewWindow = null;
 
 const TemplateManager = (props) => {
-    const {match} = props;
+    const {match, accounts, messageTemplates} = props;
     const {params} = match;
 
-    console.log('props: ', props);
-
-    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(props.messageTemplates);
+    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(messageTemplates);
     const templateName = useFormInputState('');
     const newTemplateName = useFormInputState('');
 
@@ -26,6 +29,12 @@ const TemplateManager = (props) => {
     const [templateSelectValue, setTemplateSelectValue] = useState({});
     const templateHTML = useTemplateHtmlState('');
 
+    // todo - set default id to the first account fed into Manager
+    const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
+
+    console.log('RE-RENDER previewAccountValue: ', previewAccountValue);
+    
+    
     return (
         <div className={"module clearfix"}>
             <div className="u-form-max-width-medium">
@@ -64,7 +73,31 @@ const TemplateManager = (props) => {
                 }
 
                 {templateInitialised &&
+                    <TemplateEditor templateHTML={templateHTML} templateTags={props.messageTemplateTags}/>
+                }
+
+                {templateInitialised &&
                     <div>
+                        <ButtonMultiSelect
+                            options={formatAccounts(accounts)}
+                            buttonTitle={`Preview for <b>${fetchByValue(accounts, previewAccountValue).name}</b>`}
+//                            spriteClass={'sprite-download-pdf-22'}
+                            multiSelect={false}
+                            onButtonClick={(ids)=>{
+//                                console.log('ids[0].value: ', ids[0].value);
+//                                setPreviewAccountValue(ids[0].value);
+                            }}
+                            onSelect={(ids) => {
+                                console.log('ids: ', ids);
+                                console.log('about to set previewAccountValue', ids[0]);
+
+
+                                setPreviewAccountValue(ids[0]);
+                            }}
+
+//                            const requestTemplateExport = async function(templateIds, orders) {
+
+                        />
                         <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
                         <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
                     </div>
@@ -157,3 +190,20 @@ const TemplateManager = (props) => {
 };
 
 export default TemplateManager;
+
+function fetchByValue(options, value) {
+    console.log('in fetchBYValue {options,value}: ', {options,value});
+
+    return options.find((option) => {
+        return option.value === value
+    });
+}
+
+function formatAccounts(options) {
+    return options.map((option) => {
+        return {
+            ...option,
+            id: option.value
+        };
+    });
+}

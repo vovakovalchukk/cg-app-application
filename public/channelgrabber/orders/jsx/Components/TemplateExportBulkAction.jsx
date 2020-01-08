@@ -96,6 +96,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         buttonTitle={'Download'}
         spriteClass={'sprite-download-pdf-22'}
         onButtonClick={requestTemplateExport}
+        multiSelect={true}
     />);
 };
 

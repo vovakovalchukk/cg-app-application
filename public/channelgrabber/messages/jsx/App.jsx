@@ -40,7 +40,7 @@ const App = (props) => {
                         <TemplateManager
                             {...props}
                             match={match}
-                            // todo - removed hacked props once TAC-580 has been merged in
+                            // todo - remove hacked props once TAC-580 has been merged in ({...props} will be sufficient)
                             messageTemplates={[{
                                     id: 1,
                                     name: 'Template dummy 1',
@@ -57,6 +57,13 @@ const App = (props) => {
                                 }, {
                                     name: 'tag 2',
                                     value: `{{tag2}}`
+                            }]}
+                            accounts={[{
+                                name: 'Amazon',
+                                value: 'amazon',
+                            },{
+                                name: 'Ebay',
+                                value: 'ebay'
                             }]}
                         />
                     )}/>
