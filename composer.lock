@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08740ddffc327bb7cbfdfe77b4aaa37e",
+    "content-hash": "009fbc36620988bc48141006f68f5b74",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,11 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.32.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "88991d0f5f7493476a7dccac091f43a31674e2f3"
+                "reference": "12b0b3046366cb575311394528ab239b7f6a6646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.32.3-86f4c6.zip",
+                "reference": "12b0b3046366cb575311394528ab239b7f6a6646"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -433,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-12-09T10:13:10+00:00"
+            "time": "2019-12-17T08:22:23+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -480,14 +485,19 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "d36ec02ba212270b42889ea3abe28fef40e85487"
+                "reference": "a155cf06440399c9d0bdc7270324955b175f5308"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.3-986e6c.zip",
+                "reference": "a155cf06440399c9d0bdc7270324955b175f5308"
             },
             "require": {
-                "channelgrabber/channel": "^1.38.0",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
@@ -515,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2019-02-12T10:06:28+00:00"
+            "time": "2019-07-31T07:25:41+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -749,12 +759,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "97b1dbebc5215b2753411c717a5912deeb05e320"
+                "reference": "2e8deb81d0ffff75a737cb59aedd8590574bfe85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11167-trim-item-skus-08f344.zip",
+                "reference": "2e8deb81d0ffff75a737cb59aedd8590574bfe85"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/billing": "^1.19.7",
-                "channelgrabber/cache": "^2.1.0",
+                "channelgrabber/cache": "^2.6.0",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -776,9 +791,9 @@
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
-                "channelgrabber/slim": "^1.13.2",
+                "channelgrabber/slim": "^1.15.0",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "^2.14.1",
+                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
                 "channelgrabber/stock": "^1.17.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.26.4",
@@ -804,6 +819,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-11167-trim-item-skus": " 1.43.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -818,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-12-12T13:31:54+00:00"
+            "time": "2020-01-09T10:37:20+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1356,11 +1376,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "cf87dedf501630066bd41da64b0a564276126c37"
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.20.18-d25a35.zip",
+                "reference": "2389631a2deb4d272a8bf0760a72a2587656b44c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1416,11 +1441,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.17.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "61045287ed10629555cd83a3e46a5deef33c6b28"
+                "reference": "1381fe2e6045a7b7376a555d2e3ec8d9501f34ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.7-d83f67.zip",
+                "reference": "1381fe2e6045a7b7376a555d2e3ec8d9501f34ba"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1467,7 +1497,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-12-17T09:23:40+00:00"
+            "time": "2020-01-09T14:57:50+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -2809,7 +2839,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "32f60afabdf599c5819c399e9900033142c28500"
+                "reference": "f0cbbb0664b280d6e7317475ad6407f4e3fd79c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11167-trim-item-skus-874659.zip",
+                "reference": "f0cbbb0664b280d6e7317475ad6407f4e3fd79c2"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2826,7 +2861,7 @@
                 "channelgrabber/notification": "^1.3.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.16.10",
+                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -2850,7 +2885,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-11079-drop-invalid-barcodes-on-import": "1.18.x-dev"
+                    "dev-CGIV-11167-trim-item-skus": "1.18.x-dev"
                 }
             },
             "autoload": {
@@ -2863,7 +2898,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-03T16:13:16+00:00"
+            "time": "2020-01-09T15:28:16+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3759,16 +3794,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.3",
+            "version": "dev-CGIV-11167-trim-item-skus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a86a0b36388e09245c0ca473e8ca5cf78956da2b"
+                "reference": "793a0dca3bf731be8e78d32005d8973b770236d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.3-33cf31.zip",
-                "reference": "a86a0b36388e09245c0ca473e8ca5cf78956da2b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11167-trim-item-skus-bf1e46.zip",
+                "reference": "793a0dca3bf731be8e78d32005d8973b770236d2"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3780,9 +3815,9 @@
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.47.13",
-                "channelgrabber/product": "^1.18.1",
+                "channelgrabber/product": "dev-CGIV-11167-trim-item-skus as 1.18.6",
                 "channelgrabber/settings": "^1.6.5",
-                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
                 "channelgrabber/user": "^1.26.8",
                 "ext-gd": "*",
                 "ext-imagick": "*",
@@ -3819,7 +3854,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-12-09T13:35:27+00:00"
+            "time": "2020-01-09T16:31:45+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9395,6 +9430,7 @@
                 "framework",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-mvc-skeleton",
             "time": "2015-05-11T16:03:51+00:00"
         },
         {
@@ -11894,34 +11930,10 @@
     ],
     "aliases": [
         {
-            "alias": "1.32.2",
-            "alias_normalized": "1.32.2.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.43.13",
-            "alias_normalized": "1.43.13.0",
+            "alias": "1.43.14",
+            "alias_normalized": "1.43.14.0",
             "version": "dev-CGIV-11167-trim-item-skus",
             "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.20.19",
-            "alias_normalized": "1.20.19.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.17.4",
-            "alias_normalized": "1.17.4.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/ekm"
         },
         {
             "alias": "1.18.6",
@@ -11934,21 +11946,24 @@
             "alias_normalized": "2.16.11.0",
             "version": "dev-CGIV-11167-trim-item-skus",
             "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.9.4",
+            "alias_normalized": "1.9.4.0",
+            "version": "dev-CGIV-11167-trim-item-skus",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/ekm": 20,
         "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
