@@ -12,11 +12,11 @@ import {useFormInputState} from 'Common/Hooks/Form/input';
 import {useTemplatesState} from 'Common/Hooks/Template/items';
 import {useTemplateHtmlState} from 'Common/Hooks/Template/html';
 
-import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
+import ButtonSelect from 'Common/Components/ButtonSelect';
 
 let previewWindow = null;
 
-const StyledButtonSelect = styled(ButtonMultiSelect)`
+const StyledButtonSelect = styled(ButtonSelect)`
     width: 14rem;
 `;
 
@@ -83,9 +83,7 @@ const TemplateManager = (props) => {
                                 <span>Preview for <b>{fetchAccountTextForPreviewButton()}</b></span>
                             )}
                             multiSelect={false}
-                            onButtonClick={(ids)=>{
-                                openPreview(ids);
-                            }}
+                            onButtonClick={openPreview}
                             onSelect={(ids) => {
                                 setPreviewAccountValue(ids[0]);
                             }}
@@ -104,10 +102,13 @@ const TemplateManager = (props) => {
         let htmlToRender = null;
 
         let response = await $.ajax({
-//            url: '/settings/listing/preview',
-//            type: 'POST',
-//            dataType: 'json',
-//            data: {template: templateHTML.value}
+            url: '/messages/templates/preview',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                template: templateHTML.value,
+                accountId: previewAccountValue
+            }
         });
 
         if (response.success) {

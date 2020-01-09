@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
+import ButtonSelect from 'Common/Components/ButtonSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
 import dateUtility from 'Common/Utils/date';
 import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
@@ -91,7 +91,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         }
     };
 
-    return (<ButtonMultiSelect
+    return (<ButtonSelect
         options={options}
         ButtonTitle={() => (<span>Download</span>)}
         spriteClass={'sprite-download-pdf-22'}
