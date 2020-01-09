@@ -128,17 +128,16 @@ const TemplateManager = (props) => {
     }
 
     async function save() {
-        const params = {
-//            template: templateHTML.value,
-//            id: templateSelectValue && templateSelectValue.id,
-//            etag: templateSelectValue && templateSelectValue.etag,
-//            name: templateName.value
-        };
         let response = await $.ajax({
-//            url: '/settings/listing/save',
-//            type: 'POST',
-//            dataType: 'json',
-//            data: params
+            url: '/messages/templates/save',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                template: templateHTML.value,
+                id: templateSelectValue && templateSelectValue.id,
+                etag: templateSelectValue && templateSelectValue.etag,
+                name: templateName.value,
+            }
         });
 
         if (response.success) {
@@ -147,6 +146,9 @@ const TemplateManager = (props) => {
                 etag: response.success.etag
             });
             n.success(response.success.message);
+
+            // todo - add template to Redux
+
             return;
         }
         if (!response.error || !response.error.message) {
@@ -160,17 +162,21 @@ const TemplateManager = (props) => {
             return;
         }
         let response = await $.ajax({
-//            url: '/settings/listing/delete',
-//            type: 'POST',
-//            dataType: 'json',
-//            data: {id: templateSelectValue.id}
+            url: '/messages/templates/delete',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: templateSelectValue.id
+            }
         });
 
         if (response.success) {
-//            n.success(response.success.message);
-//            deleteTemplateInState(templateSelectValue);
-//            templateName.setValue('');
-//            templateHTML.setValue('');
+            n.success(response.success.message);
+            deleteTemplateInState(templateSelectValue);
+            templateName.setValue('');
+            templateHTML.setValue('');
+
+            //todo - remove from Redux
             return;
         }
 
