@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
+import ButtonSelect from 'Common/Components/ButtonSelect';
 
 const TextArea = styled.textarea`
     width: 100%;
@@ -12,7 +12,16 @@ const TextArea = styled.textarea`
 
 const ReplyBox = (props) => {
     console.log('ReplyBox props', props);
-    let options = [];
+    let options = [
+        {
+            name: 'Send and resolve',
+            value: 'send-and-resolve'
+        },
+        {
+            name: 'Send',
+            value: 'send'
+        }
+    ];
 
     return (
         <div>
@@ -22,12 +31,22 @@ const ReplyBox = (props) => {
                 placeholder={'Compose your reply here'}
             />
             <div className={`u-clear-both u-margin-top-med`}>
-                <ButtonMultiSelect
+
+                <ButtonSelect
                     options={options}
-                    buttonTitle={'Send and resolve'}
+                    ButtonTitle={() => (
+                        <span>Send and resolve</span>
+                    )}
                     spriteClass={'sprite-email-20-dblue'}
-                    onButtonClick={() => {console.log('TODO: ButtonMultiSelect click')}}
+                    multiSelect={false}
+                    onButtonClick={() => {
+                        console.log('ButtonSelect onButtonClick id');
+                    }}
+                    onSelect={(ids) => {
+                        console.log('ButtonSelect onSelect ids', ids);
+                    }}
                 />
+
             </div>
         </div>
     );
