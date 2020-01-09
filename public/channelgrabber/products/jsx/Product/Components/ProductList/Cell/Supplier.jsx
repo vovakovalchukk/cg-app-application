@@ -44,10 +44,6 @@ class SupplierCell extends React.Component {
             rowData
         } = this.props;
 
-        if (stateUtility.isVariation(rowData)) {
-            return <span/>;
-        }
-
         let containerElement = this.props.cellNode;
 
         let portalSettingsParams = {
@@ -67,7 +63,7 @@ class SupplierCell extends React.Component {
                     options={this.props.supplier.options}
                     selectedOption={this.getSelectedOption(rowData)}
                     onOptionChange={(option) => {
-                        this.props.actions.updateSupplier(rowData.id, option.value);
+                        this.props.actions.updateSupplier(rowData, option.value)
                     }}
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
@@ -80,7 +76,7 @@ class SupplierCell extends React.Component {
                     customOptions={true}
                     customOptionsPlaceholder={'Add a supplier...'}
                     onCustomOption={(supplierName) => {
-                        this.props.actions.addNewSupplier(rowData.id, supplierName)
+                        this.props.actions.addNewSupplier(rowData, supplierName)
                     }}
                 />
             </div>

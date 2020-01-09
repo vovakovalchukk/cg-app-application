@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+import stateUtility from "../stateUtility";
 
 "use strict";
 
@@ -22,7 +23,7 @@ const supplierReducer = reducerCreator(initialState, {
     },
     "EXTRACT_SUPPLIERS": function (state, action) {
         let products = action.payload.products;
-        const byProductId = {};
+        const byProductId = Object.assign({}, state.byProductId);
 
         products.forEach((product) => {
             if (!product.details || !product.details.supplierId) {
@@ -36,18 +37,12 @@ const supplierReducer = reducerCreator(initialState, {
         });
     },
     "UPDATE_SUPPLIER_SUCCESS": function (state, action) {
-        const byProductId = Object.assign({}, state.byProductId, {
-            [action.payload.productId]: action.payload.supplierId
-        });
-
         return Object.assign({}, state, {
-            byProductId
+            byProductId: updateSupplierIdForProduct(action.payload.product, state.byProductId, action.payload.supplierId)
         });
     },
     "SAVE_SUPPLIER_SUCCESS": function (state, action) {
-        const byProductId = Object.assign({}, state.byProductId, {
-            [action.payload.productId]: action.payload.supplierId
-        });
+        const byProductId = updateSupplierIdForProduct(action.payload.product, state.byProductId, action.payload.supplierId);
 
         const options = state.options.slice();
         options.unshift({
@@ -63,3 +58,17 @@ const supplierReducer = reducerCreator(initialState, {
 });
 
 export default supplierReducer;
+
+function updateSupplierIdForProduct(product, byProductId, supplierId) {
+    const newByProductId = Object.assign({}, byProductId, {
+        [product.id]: supplierId
+    });
+
+    if (stateUtility.isParentProduct(product)) {
+        product.variationIds.forEach((variationId) => {
+            newByProductId[variationId] = supplierId;
+        });
+    }
+
+    return newByProductId;
+}

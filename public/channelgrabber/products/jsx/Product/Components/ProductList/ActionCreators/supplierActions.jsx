@@ -22,11 +22,11 @@ const supplierActions = (function() {
                 });
             }
         },
-        updateSupplier: (productId, supplierId) => {
+        updateSupplier: (product, supplierId) => {
             return async function(dispatch) {
                 try {
                     n.notice('Updating supplier...', true);
-                    let response = await updateSupplier(productId, supplierId);
+                    let response = await updateSupplier(product.id, supplierId);
                     if (response.success === false) {
                         throw new Error('There was an error while updating the supplier. Please try again or contact support of the problem persists');
                     }
@@ -34,7 +34,7 @@ const supplierActions = (function() {
                     dispatch({
                         type: "UPDATE_SUPPLIER_SUCCESS",
                         payload: {
-                            productId,
+                            product,
                             supplierId
                         }
                     });
@@ -43,20 +43,19 @@ const supplierActions = (function() {
                 }
             }
         },
-        addNewSupplier: (productId, supplierName) => {
+        addNewSupplier: (product, supplierName) => {
             return async function(dispatch) {
                 try {
                     n.notice('Saving the new supplier...', true);
-                    let response = await updateSupplier(productId, null, supplierName);
+                    let response = await updateSupplier(product.id, null, supplierName);
                     if (response.success === false) {
                         throw new Error('There was an error while saving the supplier. Please try again or contact support of the problem persists');
                     }
 
-                    console.log(response);
                     dispatch({
                         type: "SAVE_SUPPLIER_SUCCESS",
                         payload: {
-                            productId,
+                            product,
                             supplierName,
                             supplierId: response.supplierId,
                         }
