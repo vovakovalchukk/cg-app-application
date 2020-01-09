@@ -5,7 +5,6 @@ import reducerCreator from 'Common/Reducers/creator';
 const initialState = {
     byId: {},
     searchBy: '',
-    secondaryReplyActionsVisible: false,
     replyText: '',
 };
 
@@ -35,13 +34,6 @@ const threadsReducer = reducerCreator(initialState, {
         let threads = {...state};
 
         threads.searchBy = action.payload;
-
-        return {...state, ...threads};
-    },
-    'REPLY_ACTIONS_TOGGLE_VISIBILITY': (state, action) => {
-        let threads = {...state};
-
-        threads.secondaryReplyActionsVisible = action.payload;
 
         return {...state, ...threads};
     },
