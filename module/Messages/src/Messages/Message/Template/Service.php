@@ -11,9 +11,14 @@ use CG\Communication\Message\Template\Entity as MessageTemplate;
 use CG\Communication\Message\Template\Filter as MessageTemplateFilter;
 use CG\Communication\Message\Template\Mapper as MessageTemplateMapper;
 use CG\Communication\Message\Template\Service as MessageTemplateService;
+use CG\Communication\Thread\Entity as Thread;
+use CG\Communication\Thread\Mapper as ThreadMapper;
+use CG\Communication\Thread\Status as ThreadStatus;
+use CG\Stdlib\DateTime as CGDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\ReplaceManager\MessageContent as MessageContentTagReplacer;
 use CG\User\ActiveUserInterface;
+use CG\Template\Element\SimpleString as SimpleStringElement;
 
 class Service
 {
@@ -27,19 +32,23 @@ class Service
     protected $accountService;
     /** @var MessageContentTagReplacer */
     protected $messageContentTagReplacer;
+    /** @var ThreadMapper */
+    protected $threadMapper;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         MessageTemplateMapper $messageTemplateMapper,
         MessageTemplateService $messageTemplateService,
         AccountService $accountService,
-        MessageContentTagReplacer $messageContentTagReplacer
+        MessageContentTagReplacer $messageContentTagReplacer,
+        ThreadMapper $threadMapper
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->messageTemplateMapper = $messageTemplateMapper;
         $this->messageTemplateService = $messageTemplateService;
         $this->accountService = $accountService;
         $this->messageContentTagReplacer = $messageContentTagReplacer;
+        $this->threadMapper = $threadMapper;
     }
 
     public function fetchAllForActiveOuAsArray(): array
@@ -145,5 +154,37 @@ class Service
     {
         $entity = $this->messageTemplateService->fetch($id);
         $this->messageTemplateService->remove($entity);
+    }
+
+    public function renderPreview(string $template, ?int $accountId = null): string
+    {
+        if ($accountId) {
+            $account = $this->accountService->fetch($accountId);
+        } else {
+            $account = $this->fetchAllSalesAccountsForActiveOu()->getFirst();
+        }
+        $thread = $this->getExampleThread($account);
+        $element = new SimpleStringElement($template);
+        $element = $this->messageContentTagReplacer->replaceTagsOnElementForThread($element, $thread);
+        return $element->getReplacedText();
+    }
+
+    protected function getExampleThread(Account $account): Thread
+    {
+        $date = new CGDateTime();
+        return $this->threadMapper->fromArray([
+            'id' => 'example',
+            'channel' => $account->getChannel(),
+            'organisationUnitId' => $account->getOrganisationUnitId(),
+            'accountId' => $account->getId(),
+            'status' => ThreadStatus::AWAITING_REPLY,
+            'created' => $date->stdFormat(),
+            'updated' => $date->stdFormat(),
+            'name' => 'John Doe',
+            'externalUsername' => 'john.doe@example.com',
+            'assignedUserId' => null,
+            'subject' => 'Example subject',
+            'externalId' => 'example'
+        ]);
     }
 }

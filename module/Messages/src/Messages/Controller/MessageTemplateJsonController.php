@@ -1,6 +1,7 @@
 <?php
 namespace Messages\Controller;
 
+use CG\CourierAdapter\Exception\NotFound;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -13,6 +14,7 @@ class MessageTemplateJsonController extends AbstractActionController
     public const ROUTE_TEMPLATES = 'Templates';
     public const ROUTE_SAVE = 'Save';
     public const ROUTE_DELETE = 'Delete';
+    public const ROUTE_PREVIEW = 'Preview';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -47,7 +49,7 @@ class MessageTemplateJsonController extends AbstractActionController
         }
     }
 
-    public function deleteAction()
+    public function deleteAction(): JsonModel
     {
         $id = $this->params()->fromPost('id');
         try {
@@ -58,6 +60,16 @@ class MessageTemplateJsonController extends AbstractActionController
         return $this->jsonModelFactory->newInstance([
             'success' => true,
             'id' => $id,
+        ]);
+    }
+
+    public function previewAction(): JsonModel
+    {
+        $template = $this->params()->fromPost('template');
+        $accountId = $this->params()->fromPost('accountId');
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'content' => $this->service->renderPreview($template, $accountId),
         ]);
     }
 }

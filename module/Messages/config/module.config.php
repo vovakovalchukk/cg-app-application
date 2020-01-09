@@ -167,6 +167,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            MessageTemplateJsonController::ROUTE_PREVIEW => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/preview',
+                                    'defaults' => [
+                                        'action' => 'preview',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
                     ],
                     // The Messages tab is now a single-page app managed by React Router which requires this default route
