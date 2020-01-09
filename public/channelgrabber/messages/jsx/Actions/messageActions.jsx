@@ -17,6 +17,15 @@ const messageActions = {
             })
         }
     },
+    addMessage: (params) => {
+        return async function (dispatch, getState) {
+            let response = await addMessage(params, getState());
+            dispatch({
+                type: 'ADD_MESSAGE_SUCCESS',
+                payload: response,
+            })
+        }
+    },
 };
 
 export default messageActions;
@@ -44,6 +53,23 @@ function fetchThreads(params, state) {
             page: 1, // TODO - pagination
             sortDescending: true, // TODO - date column sort order
             ...newParams
+        }
+    });
+}
+
+function addMessage(params, state) {
+    // threadId: the ID of the current Thread
+    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32'; // todo
+
+    // body: the text the user entered
+    const body = 'this is not the actual body text'; // todo
+
+    return $.ajax({
+        url: '/messages/ajax/addMessage',
+        type: 'POST',
+        data: {
+            threadId: threadId,
+            body: body
         }
     });
 }

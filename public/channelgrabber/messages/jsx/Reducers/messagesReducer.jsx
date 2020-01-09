@@ -22,6 +22,11 @@ const messagesReducer = reducerCreator(initialState, {
         });
         
         return {...state, ...messages};
+    },
+    'ADD_MESSAGE_SUCCESS': (state, action) => {
+        console.log('ADD_MESSAGE_SUCCESS state', state);
+        console.log('ADD_MESSAGE_SUCCESS action', action);
+        return null;
     }
 });
 

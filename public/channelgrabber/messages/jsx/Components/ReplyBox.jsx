@@ -39,12 +39,8 @@ const ReplyBox = (props) => {
                     )}
                     spriteClass={'sprite-email-20-dblue'}
                     multiSelect={false}
-                    onButtonClick={() => {
-                        console.log('ButtonSelect onButtonClick id');
-                    }}
-                    onSelect={(ids) => {
-                        console.log('ButtonSelect onSelect ids', ids);
-                    }}
+                    onButtonClick={props.actions.addMessage}
+                    onSelect={props.actions.addMessage}
                 />
 
             </div>
