@@ -91,7 +91,7 @@ const MessageDetail = (props) => {
                 </ol>
             </div>
             <div>
-                <StyledSelect value={thread.status} onChange={props.actions.threadChangeStatus}>
+                <StyledSelect value={thread.status} onChange={props.actions.saveStatus}>
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>
                     <option value={'new'}>New</option>

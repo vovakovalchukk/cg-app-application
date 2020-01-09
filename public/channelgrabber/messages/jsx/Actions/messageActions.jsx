@@ -8,15 +8,6 @@ const messageActions = {
             })
         };
     },
-    threadChangeStatus: (params) => {
-        return async function (dispatch, getState) {
-            let response = await threadChangeStatus(params, getState());
-            dispatch({
-                type: 'THREAD_CHANGE_STATUS_SUCCESS',
-                payload: response.threads,
-            })
-        }
-    },
     addMessage: (params) => {
         return async function (dispatch, getState) {
             let response = await addMessage(params, getState());
@@ -26,13 +17,18 @@ const messageActions = {
             })
         }
     },
+    saveStatus: (params) => {
+        return async function (dispatch, getState) {
+            let response = await saveStatus(params, getState());
+            dispatch({
+                type: 'SAVE_STATUS_SUCCESS',
+                payload: response,
+            })
+        }
+    },
 };
 
 export default messageActions;
-
-function threadChangeStatus(params, state) {
-    // todo - ajax stuff here
-}
 
 function fetchThreads(params, state) {
     const {filter} = params;
@@ -62,7 +58,7 @@ function addMessage(params, state) {
     const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32'; // todo
 
     // body: the text the user entered
-    const body = 'this is not the actual body text'; // todo
+    const body = 'testing add message ajax'; // todo
 
     return $.ajax({
         url: '/messages/ajax/addMessage',
@@ -70,6 +66,23 @@ function addMessage(params, state) {
         data: {
             threadId: threadId,
             body: body
+        }
+    });
+}
+
+function saveStatus(params, state) {
+    // threadId: the ID of the current Thread
+    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32'; // todo
+
+    // status: resolved/awaiting reply/new
+    const status = 'resolved'; // todo
+
+    return $.ajax({
+        url: '/messages/ajax/save',
+        type: 'POST',
+        data: {
+            threadId: threadId,
+            status: status
         }
     });
 }
