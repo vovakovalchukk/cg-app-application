@@ -23,7 +23,7 @@ const StyledButtonSelect = styled(ButtonSelect)`
 const TemplateManager = (props) => {
     const {match, accounts, messageTemplates} = props;
     const {params} = match;
-
+    
     const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(messageTemplates);
     const templateName = useFormInputState('');
     const newTemplateName = useFormInputState('');
@@ -33,7 +33,10 @@ const TemplateManager = (props) => {
     const templateHTML = useTemplateHtmlState('');
 
     const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
-
+    
+    console.log('props: ', props);
+    
+    
     return (
         <div className={"module clearfix"}>
             <div className="u-form-max-width-medium">
