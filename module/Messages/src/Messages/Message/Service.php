@@ -4,10 +4,13 @@ namespace Messages\Message;
 use CG\Communication\Message\Mapper as MessageMapper;
 use CG\Communication\Message\ReplyFactory as MessageReplyFactory;
 use CG\Communication\Message\Service as MessageService;
+use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Template\Element\SimpleString as SimpleStringElement;
+use CG\Template\ReplaceManager\MessageContent as TagReplacer;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG_UI\View\Helper\DateFormat;
 
@@ -31,6 +34,8 @@ class Service
     protected $intercomEventService;
     /** @var DateFormat */
     protected $dateFormatter;
+    /** @var TagReplacer */
+    protected $tagReplacer;
 
     public function __construct(
         MessageService $messageService,
@@ -39,7 +44,8 @@ class Service
         UserOuService $userOuService,
         MessageReplyFactory $messageReplyFactory,
         IntercomEventService $intercomEventService,
-        DateFormat $dateFormatter
+        DateFormat $dateFormatter,
+        TagReplacer $tagReplacer
     ) {
         $this->messageService = $messageService;
         $this->messageMapper = $messageMapper;
@@ -48,16 +54,18 @@ class Service
         $this->messageReplyFactory = $messageReplyFactory;
         $this->intercomEventService = $intercomEventService;
         $this->dateFormatter = $dateFormatter;
+        $this->tagReplacer = $tagReplacer;
     }
 
     public function createMessageForThreadForActiveUser($threadId, $body): array
     {
+        /** @var Thread $thread */
         $thread = $this->threadService->fetch($threadId);
         $user = $this->userOuService->getActiveUser();
         $data = [
             'id' => 'TEMP', // Required by the mapper but will be replaced by the reply factory
             'threadId' => $threadId,
-            'body' => $body,
+            'body' => $this->performTagReplacementsOnMessageBody($body, $thread),
             'created' => (new StdlibDateTime())->stdFormat(),
             'organisationUnitId' => $thread->getOrganisationUnitId(),
             'accountId' => $thread->getAccountId(),
@@ -69,6 +77,13 @@ class Service
 
         $this->notifyOfReply();
         return $this->formatMessageData($message, $thread);
+    }
+
+    protected function performTagReplacementsOnMessageBody(string $body, Thread $thread): string
+    {
+        $element = new SimpleStringElement($body);
+        $element = $this->tagReplacer->replaceTagsOnElementForThread($element, $thread);
+        return $element->getReplacedText();
     }
 
     protected function notifyOfReply(): void
