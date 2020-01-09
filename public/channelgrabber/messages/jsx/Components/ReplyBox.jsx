@@ -32,6 +32,7 @@ const ReplyBox = (props) => {
     return (
         <div>
             <TextArea
+                onChange={props.actions.replyInputType}
                 className={`u-margin-top-med`}
                 placeholder={'Compose your reply here'}
             />

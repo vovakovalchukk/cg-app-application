@@ -95,7 +95,6 @@ const MessageDetail = (props) => {
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-                <h2>thread status = {thread.status}</h2>
                 <StyledSelect value={thread.status} onChange={() => {console.log('TODO: select change event')}}>
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>

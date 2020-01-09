@@ -6,6 +6,7 @@ const initialState = {
     byId: {},
     searchBy: '',
     secondaryReplyActionsVisible: false,
+    replyText: '',
 };
 
 const threadsReducer = reducerCreator(initialState, {
@@ -43,7 +44,14 @@ const threadsReducer = reducerCreator(initialState, {
         threads.secondaryReplyActionsVisible = action.payload;
 
         return {...state, ...threads};
-    }
+    },
+    'REPLY_INPUT_CHANGED': (state, action) => {
+        let threads = {...state};
+
+        threads.replyText = action.payload;
+
+        return {...state, ...threads};
+    },
 });
 
 export default threadsReducer;
