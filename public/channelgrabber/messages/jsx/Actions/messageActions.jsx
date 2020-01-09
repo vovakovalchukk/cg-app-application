@@ -8,9 +8,22 @@ const messageActions = {
             })
         };
     },
+    threadChangeStatus: (params) => {
+        return async function (dispatch, getState) {
+            let response = await threadChangeStatus(params, getState());
+            dispatch({
+                type: 'THREAD_CHANGE_STATUS_SUCCESS',
+                payload: response.threads,
+            })
+        }
+    },
 };
 
 export default messageActions;
+
+function threadChangeStatus(params, state) {
+    // todo - ajax stuff here
+}
 
 function fetchThreads(params, state) {
     const {filter} = params;

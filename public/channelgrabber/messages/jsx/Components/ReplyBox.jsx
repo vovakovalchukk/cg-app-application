@@ -24,8 +24,8 @@ const ReplyBox = (props) => {
             <div className={`u-clear-both u-margin-top-med`}>
                 <ButtonMultiSelect
                     options={options}
-                    buttonTitle={'Download'}
-                    spriteClass={'sprite-download-pdf-22'}
+                    buttonTitle={'Send and resolve'}
+                    spriteClass={'sprite-email-20-dblue'}
                     onButtonClick={() => {console.log('TODO: ButtonMultiSelect click')}}
                 />
             </div>

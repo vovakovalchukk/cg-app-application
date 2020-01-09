@@ -44,6 +44,11 @@ const threadsReducer = reducerCreator(initialState, {
 
         return {...state, ...threads};
     },
+    'THREAD_CHANGE_STATUS_SUCCESS': (state, action) => {
+        let threads = {...state};
+        // threads.replyText = action.payload;
+        return {...state, ...threads};
+    },
 });
 
 export default threadsReducer;

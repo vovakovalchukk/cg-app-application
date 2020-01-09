@@ -91,15 +91,15 @@ const MessageDetail = (props) => {
                 </ol>
             </div>
             <div>
-                <ButtonLink
-                    to={thread.ordersLink}
-                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
-                />
-                <StyledSelect value={thread.status} onChange={() => {console.log('TODO: select change event')}}>
+                <StyledSelect value={thread.status} onChange={props.actions.threadChangeStatus}>
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>
                     <option value={'new'}>New</option>
                 </StyledSelect>
+                <ButtonLink
+                    to={thread.ordersLink}
+                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+                />
             </div>
         </GridDiv>
     );
