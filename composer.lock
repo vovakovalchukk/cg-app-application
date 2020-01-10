@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b805449b5dc16d93dcaa6a15101b2d5a",
+    "content-hash": "463b9f639db4c602273554afa5b2e4eb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2702,22 +2702,22 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.3.0",
+            "version": "dev-TAC-589-replace-percent-tags-with-brace-tags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "reference": "6282f92bf0cd476103c176cfc375389749927f65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.0-079bf1.zip",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-TAC-589-replace-percent-tags-with-brace-tags-5a36a7.zip",
+                "reference": "6282f92bf0cd476103c176cfc375389749927f65"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.7.0",
+                "channelgrabber/template": "dev-TAC-589-replace-percent-tags-with-brace-tags as 1.10.0",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2741,7 +2741,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-30T12:25:07+00:00"
+            "time": "2020-01-10T14:41:53+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -3793,12 +3793,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8834a834662d3ad2e891ee6138c25bd5d614258f"
+                "reference": "f8593c4250dee24e09338eb11c3f227b0b37a585"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-589-replace-percent-tags-with-brace-tags-79b2dd.zip",
-                "reference": "8834a834662d3ad2e891ee6138c25bd5d614258f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-589-replace-percent-tags-with-brace-tags-009562.zip",
+                "reference": "f8593c4250dee24e09338eb11c3f227b0b37a585"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3850,7 +3850,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-10T09:21:29+00:00"
+            "time": "2020-01-10T15:51:39+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11931,6 +11931,12 @@
             "package": "channelgrabber/communication"
         },
         {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-TAC-589-replace-percent-tags-with-brace-tags",
+            "package": "channelgrabber/picklist"
+        },
+        {
             "alias": "1.10.0",
             "alias_normalized": "1.10.0.0",
             "version": "dev-TAC-589-replace-percent-tags-with-brace-tags",
@@ -11941,6 +11947,7 @@
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

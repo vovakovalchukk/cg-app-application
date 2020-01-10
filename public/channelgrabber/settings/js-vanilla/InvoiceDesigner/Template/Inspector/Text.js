@@ -90,7 +90,7 @@ define([
 
     Text.prototype.getTextViewData = function(element)
     {
-        var text = (element.getText().replace(/%%(b|bi|i|n)%%/gi, '</><$1>') + '</>')
+        var text = (element.getText().replace(/{{(b|bi|i|n)}}/gi, '</><$1>') + '</>')
             .replace(/<b>([\s\S]*?)<\/>/gi, '<strong>$1</strong>')
             .replace(/<i>([\s\S]*?)<\/>/gi, '<em>$1</em>')
             .replace(/<bi>([\s\S]*?)<\/>/gi, '<strong><em>$1</em></strong>')

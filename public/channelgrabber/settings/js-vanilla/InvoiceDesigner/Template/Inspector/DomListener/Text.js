@@ -55,11 +55,11 @@ define([
         var text = $(textarea).val().replace(/<br \/>/gi, '\n')
             .replace(/<p>|<\/p>/gi, '')
             .replace(/&nbsp;/gi, ' ')
-            .replace(/<strong><em>|<em><strong>/gi, '%%bi%%')
-            .replace(/<strong>/gi, '%%b%%')
-            .replace(/<em>/gi, '%%i%%')
-            .replace(/<\/em>|<\/strong>/gi, '%%n%%')
-            .replace(/%%n%%%%n%%/gi, '%%n%%');
+            .replace(/<strong><em>|<em><strong>/gi, '{{bi}}')
+            .replace(/<strong>/gi, '{{b}}')
+            .replace(/<em>/gi, '{{i}}')
+            .replace(/<\/em>|<\/strong>/gi, '{{n}}')
+            .replace(/{{n}}{{n}}/gi, '{{n}}');
         text = this.handleAlignment(text, element);
         inspector.setText(element, text);
         return this;
