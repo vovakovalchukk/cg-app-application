@@ -11,10 +11,9 @@ use Zend\View\Model\JsonModel;
 
 class MessageTemplateJsonController extends AbstractActionController
 {
-    public const ROUTE_TEMPLATES = 'Templates';
-    public const ROUTE_SAVE = 'Save';
-    public const ROUTE_DELETE = 'Delete';
-    public const ROUTE_PREVIEW = 'Preview';
+    public const ROUTE_SAVE = 'Templates Save';
+    public const ROUTE_DELETE = 'Templates Delete';
+    public const ROUTE_PREVIEW = 'Templates Preview';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;

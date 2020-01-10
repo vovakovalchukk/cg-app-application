@@ -137,48 +137,41 @@ return [
                             ],
                         ],
                     ],
-                    MessageTemplateJsonController::ROUTE_TEMPLATES => [
+                    // Note: do NOT make /messages/templates a concrete route, it needs to be handled by the default route below
+                    MessageTemplateJsonController::ROUTE_SAVE => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/templates',
+                            'route' => '/templates/save',
                             'defaults' => [
                                 'controller' => MessageTemplateJsonController::class,
+                                'action' => 'save',
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => [
-                            MessageTemplateJsonController::ROUTE_SAVE => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/save',
-                                    'defaults' => [
-                                        'action' => 'save',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                            MessageTemplateJsonController::ROUTE_DELETE => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/delete',
-                                    'defaults' => [
-                                        'action' => 'delete',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                            MessageTemplateJsonController::ROUTE_PREVIEW => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/preview',
-                                    'defaults' => [
-                                        'action' => 'preview',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                        ],
                     ],
+                    MessageTemplateJsonController::ROUTE_DELETE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/delete',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'delete',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    MessageTemplateJsonController::ROUTE_PREVIEW => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/preview',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'preview',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+
                     // The Messages tab is now a single-page app managed by React Router which requires this default route
                     'Default Route' => [
                         'type' => Regex::class,
