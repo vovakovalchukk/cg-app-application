@@ -6,7 +6,6 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\Product\Detail\Mapper as ProductDetailMapper;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Supplier\Collection as SupplierCollection;
 use CG\Supplier\Entity as Supplier;
@@ -29,23 +28,19 @@ class Service
     protected $productService;
     /** @var ProductDetailService */
     protected $productDetailService;
-    /** @var ProductDetailMapper */
-    protected $productDetailMapper;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         SupplierService $supplierService,
         SupplierMapper $supplierMapper,
         ProductService $productService,
-        ProductDetailService $productDetailService,
-        ProductDetailMapper $productDetailMapper
+        ProductDetailService $productDetailService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->supplierService = $supplierService;
         $this->supplierMapper = $supplierMapper;
         $this->productService = $productService;
         $this->productDetailService = $productDetailService;
-        $this->productDetailMapper = $productDetailMapper;
     }
 
     public function getSupplierOptions(): array
@@ -101,16 +96,7 @@ class Service
     protected function fetchProductDetailFromProductId(int $productId): ProductDetail
     {
         $product = $this->productService->fetch($productId);
-        return $this->fetchProductDetailFromOuAndSku($product->getOrganisationUnitId(), $product->getSku());
-    }
-
-    protected function fetchProductDetailFromOuAndSku(int $organisationUnitId, string $sku): ProductDetail
-    {
-        try {
-            return $this->productDetailService->fetchDetailByOuAndSku($organisationUnitId, $sku);
-        } catch (NotFound $e) {
-            return $this->productDetailMapper->fromArray(['organisationUnitId' => $organisationUnitId, 'sku' => $sku]);
-        }
+        return $this->productDetailService->getProductDetailForOuAndSku($product->getOrganisationUnitId(), $product->getSku());
     }
 
     public function createAndSaveProductSupplier(int $productId, string $supplierName): int
