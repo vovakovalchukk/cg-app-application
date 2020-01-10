@@ -5,7 +5,7 @@ const supplierActions = (function() {
         storeOptions: (options) => {
             return function(dispatch) {
                 dispatch({
-                    type: "STORE_SUPPLIERS_OPTIONS",
+                    type: "SUPPLIER_OPTIONS_STORE",
                     payload: {
                         options
                     }
@@ -15,7 +15,7 @@ const supplierActions = (function() {
         extractSuppliers: (products) => {
             return function(dispatch) {
                 dispatch({
-                    type: "EXTRACT_SUPPLIERS",
+                    type: "SUPPLIERS_EXTRACT",
                     payload: {
                         products
                     }

@@ -43,7 +43,6 @@ class ProductListProvider extends React.Component {
     state = {
         initialProductsSaved: {}
     };
-    stockTabEnabled;
 
     async componentDidMount() {
         const {massUnit, lengthUnit, vatRates} = this.props;

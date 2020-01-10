@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const supplierReducer = reducerCreator(initialState, {
-    "STORE_SUPPLIERS_OPTIONS": function (state, action) {
+    "SUPPLIER_OPTIONS_STORE": function (state, action) {
         const options = [];
         Object.keys(action.payload.options).forEach((supplierId) => {
             options.push({
@@ -17,13 +17,15 @@ const supplierReducer = reducerCreator(initialState, {
                 value: supplierId
             });
         });
-        return Object.assign({}, state, {
+
+        return {
+            ...state,
             options
-        });
+        };
     },
-    "EXTRACT_SUPPLIERS": function (state, action) {
+    "SUPPLIERS_EXTRACT": function (state, action) {
         let products = action.payload.products;
-        const byProductId = Object.assign({}, state.byProductId);
+        const byProductId = {...state.byProductId};
 
         products.forEach((product) => {
             if (!product.details || !product.details.supplierId) {
@@ -32,23 +34,28 @@ const supplierReducer = reducerCreator(initialState, {
             byProductId[product.id] = product.details.supplierId;
         });
 
-        return Object.assign({}, state, {
+        return {
+            ...state,
             byProductId
-        });
+        };
     },
     "UPDATE_SUPPLIER_SUCCESS": function (state, action) {
-        return Object.assign({}, state, {
+        n.success('Supplier updated successfully.');
+        return {
+            ...state,
             byProductId: updateSupplierIdForProduct(action.payload.product, state.byProductId, action.payload.supplierId)
-        });
+        };
     },
     "SAVE_SUPPLIER_SUCCESS": function (state, action) {
         const byProductId = updateSupplierIdForProduct(action.payload.product, state.byProductId, action.payload.supplierId);
 
-        const options = state.options.slice();
+        const options = [...state.options];
         options.unshift({
             name: action.payload.supplierName,
             value: action.payload.supplierId
         });
+
+        n.success('Supplier saved successfully.');
 
         return {
             options,
@@ -60,9 +67,10 @@ const supplierReducer = reducerCreator(initialState, {
 export default supplierReducer;
 
 function updateSupplierIdForProduct(product, byProductId, supplierId) {
-    const newByProductId = Object.assign({}, byProductId, {
+    const newByProductId = {
+        ...byProductId,
         [product.id]: supplierId
-    });
+    };
 
     if (stateUtility.isParentProduct(product)) {
         product.variationIds.forEach((variationId) => {
