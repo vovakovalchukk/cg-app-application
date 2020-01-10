@@ -89,11 +89,40 @@ function addMessage(params, state) {
 }
 
 function saveStatus(params, state) {
-    // threadId: the ID of the current Thread
-    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32'; // todo
+    // todo:
+    //   get the currently viewed thread id
+    //   get the status chosen in the dropdown (resolved/awaiting reply/new)
 
-    // status: resolved/awaiting reply/new
-    const status = 'resolved'; // todo
+    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32';
+    const status = 'resolved';
+
+    // the response will be the thread again (but with updated status)
+    const fakeResponse = {
+        "id": threadId,
+        "channel": "ebay",
+        "organisationUnitId": 2,
+        "accountId": 1,
+        "status": status,
+        "created": "04/12/19 23:32",
+        "updated": "04/12/19 23:32",
+        "name": "eBay",
+        "externalUsername": "eBay",
+        "assignedUserId": null,
+        "subject": "Your eBay invoice for November is now ready to view",
+        "externalId": "",
+        "messages": [
+            "1-118607708187"
+        ],
+        "accountName": "wltd4371",
+        "createdFuzzy": "1 month ago",
+        "updatedFuzzy": "1 month ago",
+        "ordersLink": "/orders?search=eBay&searchField%5B0%5D=order.externalUsername",
+        "ordersCount": "?",
+        "assignedUserName": "",
+        "lastMessage": "\n\n\nThank you for using eBay, Michael Leung.\n\n\nThanks for using eBay! Here's your invoice.\n\nHi Michael Leung (wltd4371),Thanks for your business and for choosing eBay. Your eBay invoice for the period from 01 November 2019 through 30 November 2019 is now available to view in any web browser.\n\n\n\n\n\nTotal invoice amount due: -£0.54\n\n\n \n\n\n\n\n\nUseful information\nFee calculator \nFee illustrator\nLearn more about invoices\n\n\n Your account is up to date. No payment is required at this time.\n\n\n\n Automatic payment method: Credit cardNo payment due (credit or zero balance)\n\n\n"
+    };
+
+    return fakeResponse;
 
     return $.ajax({
         url: '/messages/ajax/save',

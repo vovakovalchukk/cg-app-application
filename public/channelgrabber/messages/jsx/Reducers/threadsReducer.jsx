@@ -45,8 +45,11 @@ const threadsReducer = reducerCreator(initialState, {
         return {...state, ...threads};
     },
     'SAVE_STATUS_SUCCESS': (state, action) => {
-        // todo
-        return null;
+        let threads = {...state};
+
+        threads.byId[action.payload.id] = action.payload;
+
+        return {...state, ...threads};
     },
 });
 
