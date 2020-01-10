@@ -7,9 +7,6 @@ import MessageCentreRoot from 'MessageCentre/Root';
 import initializeStore from './store.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-console.log('initializeStore: ', initializeStore);
-
-
 //let enhancer = applyMiddleware(thunk);
 
 //if (typeof window === 'object' &&
@@ -26,10 +23,9 @@ console.log('initializeStore: ', initializeStore);
 let store = {};
 
 const MessageCentreProvider = (props) => {
-    store = initializeStore(props);
     return (
         <Provider
-            store={store}
+            store={initializeStore(props)}
         >
             <Router>
                 <Route path="/messages/" render={() => (

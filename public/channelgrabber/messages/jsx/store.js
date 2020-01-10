@@ -17,8 +17,6 @@ if (typeof window === 'object' &&
 }
 
 export default function initializeStore(props) {
-    console.log('props in initializeStore: ', props);
-
     let initialState = {
         templates: {test: ' something'}
     };
