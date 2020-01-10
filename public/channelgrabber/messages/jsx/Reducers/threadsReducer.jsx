@@ -45,8 +45,7 @@ const threadsReducer = reducerCreator(initialState, {
         return {...state, ...threads};
     },
     'SAVE_STATUS_SUCCESS': (state, action) => {
-        console.log('SAVE_STATUS_SUCCESS state', state);
-        console.log('SAVE_STATUS_SUCCESS action', action);
+        // todo
         return null;
     },
 });
