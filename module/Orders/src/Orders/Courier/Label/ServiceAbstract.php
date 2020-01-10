@@ -265,7 +265,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrganisationUnit $rootOu
     ) {
         $data = [
-            'sku' => $this->sanitizeSku($item->getItemSku()),
+            'sku' => $item->getItemSku(),
             'organisationUnitId' => $rootOu->getId(),
         ];
         foreach ($this->productDetailFields as $field => $callback) {

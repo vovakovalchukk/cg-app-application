@@ -36,14 +36,12 @@ use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\SanitizeTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTimeZone;
 
 class SpecificsAjax
 {
     use GetProductDetailsForOrdersTrait;
-    use SanitizeTrait;
 
     const DEFAULT_PARCELS = 1;
     const MIN_PARCELS = 1;
