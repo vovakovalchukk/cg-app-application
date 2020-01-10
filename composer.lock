@@ -759,12 +759,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2e8deb81d0ffff75a737cb59aedd8590574bfe85"
+                "reference": "102677cf0f54e4e6286ff2b3930cfb71256780df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11167-trim-item-skus-08f344.zip",
-                "reference": "2e8deb81d0ffff75a737cb59aedd8590574bfe85"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11167-trim-item-skus-d209ba.zip",
+                "reference": "102677cf0f54e4e6286ff2b3930cfb71256780df"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -787,7 +787,7 @@
                 "channelgrabber/order": "^1.43.10",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.1.4",
-                "channelgrabber/product": "^1.14.0",
+                "channelgrabber/product": "dev-CGIV-11167-trim-item-skus as 1.18.6",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -838,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-01-09T10:37:20+00:00"
+            "time": "2020-01-10T14:56:25+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2839,12 +2839,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "f0cbbb0664b280d6e7317475ad6407f4e3fd79c2"
+                "reference": "96f3e58b4f8e3038ae561ad5fc5e42bb2e0cff8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11167-trim-item-skus-874659.zip",
-                "reference": "f0cbbb0664b280d6e7317475ad6407f4e3fd79c2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11167-trim-item-skus-690518.zip",
+                "reference": "96f3e58b4f8e3038ae561ad5fc5e42bb2e0cff8c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2898,7 +2898,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-09T15:28:16+00:00"
+            "time": "2020-01-10T14:51:02+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
