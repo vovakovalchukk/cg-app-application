@@ -11,6 +11,7 @@ use CG\User\Entity as User;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use CG\Product\Detail\Filter as ProductDetailFilter;
 
 /** @var Di $di */
 return [
@@ -102,6 +103,46 @@ return [
                 'array' => true,
             ],
         ],
+        'options' => [],
+    ],
+    'adhoc:removeTrailingSpaceFromDetailProductSku' => [
+        'description' => 'Removes trailing spaces from sku in Product Detail Entity',
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
+
+            /** @var $productDetailService \CG\Product\Detail\Service */
+            $productDetailService = $di->newInstance(CG\Product\Detail\Service::class);
+
+            $page = 1;
+
+            $filter = new ProductDetailFilter(100);
+
+            while (true) {
+                $output->writeln('<bg=blue>Page '.$page.'</>');
+                $filter->setPage($page);
+
+                try {
+                    $productDetails = $productDetailService->fetchCollectionByFilter($filter);
+                } catch (NotFound $exception) {
+                    $output->writeln($exception->getMessage());
+                    break;
+                }
+
+                /* @var $productDetail \CG\Product\Detail\Entity */
+                foreach ($productDetails as $productDetail) {
+                    $output->writeln('Updating ' . $productDetail->getSku() . ' ('.$productDetail->getId().')');
+                    try {
+                        $productDetail->setLocalETag(null);
+                        $productDetailService->save($productDetail);
+                    } catch (\CG\ETag\Exception\NotModified | \CG\Http\Exception\Exception3xx\NotModified $exception) {
+                        $output->writeln('<fg=yellow>'.$exception->getMessage().'</>');
+                    }
+                }
+                $page++;
+            }
+
+            $output->writeln('<fg=green>COMPLETED</>');
+        },
+        'arguments' => [],
         'options' => [],
     ]
 ];
