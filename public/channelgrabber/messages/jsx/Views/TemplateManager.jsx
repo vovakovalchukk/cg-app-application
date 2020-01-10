@@ -149,6 +149,9 @@ const TemplateManager = (props) => {
                 etag: response.success.etag
             });
             n.success("You have successfully saved your message template.");
+
+            //todo - add to redux
+
             return;
         }
         if (!response.error || !response.error.message) {

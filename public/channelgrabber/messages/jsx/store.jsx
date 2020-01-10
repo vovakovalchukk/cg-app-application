@@ -3,6 +3,8 @@ import thunk from "redux-thunk";
 import combinedReducer from "MessageCentre/Reducers/Combined";
 import {useState} from "react";
 
+import {initTemplates} from "MessageCentre/Reducers/templatesReducer";
+
 let enhancer = applyMiddleware(thunk);
 
 if (typeof window === 'object' &&
@@ -17,10 +19,8 @@ if (typeof window === 'object' &&
 }
 
 export default function initializeStore(props) {
-    console.log('props in initializeStore: ', props);
-
-    let initialState = {
-        templates: {test: ' something'}
+    const initialState = {
+        templates: initTemplates(props.messageTemplates)
     };
 
     return createStore(
