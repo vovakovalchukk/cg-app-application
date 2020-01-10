@@ -60,6 +60,7 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
+    console.log('MessageDetail props', props);
 
     return (
         <GridDiv>

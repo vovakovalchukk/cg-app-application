@@ -26,6 +26,7 @@ const Tr = styled(TableRow)`
 const MessageList = (props) => {
     const {match} = props;
     const {params} = match;
+    console.log('MessageList props', props);
 
     useEffect(() => {
         const filterObjectForAjax = {};

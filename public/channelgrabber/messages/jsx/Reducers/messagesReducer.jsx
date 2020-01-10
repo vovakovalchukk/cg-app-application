@@ -26,6 +26,15 @@ const messagesReducer = reducerCreator(initialState, {
     'ADD_MESSAGE_SUCCESS': (state, action) => {
         console.log('ADD_MESSAGE_SUCCESS state', state);
         console.log('ADD_MESSAGE_SUCCESS action', action);
+
+        // Why is state just returning threads?
+
+        // The new message is contained inside "action.payload.messageEntity"
+
+        // TODO:
+        // 1. The new message id will need to be added to the messages.allIds array in state
+        // 2. The new message will need to be added to the messages.byId object
+
         return null;
     }
 });
