@@ -40,31 +40,6 @@ const App = (props) => {
                         <TemplateManager
                             {...props}
                             match={match}
-                            // todo - remove hacked props once TAC-580 has been merged in ({...props} will be sufficient)
-                            messageTemplates={[{
-                                    id: 1,
-                                    name: 'Template dummy 1',
-                                    template: `In the template {tag in here}`
-                                }, {
-                                    id: 2,
-                                    name: 'Template dummy 2',
-                                    template: '{something} second dummy'
-                                }
-                            ]}
-                            messageTemplateTags={[{
-                                    name: 'some tag',
-                                    value: `{{product.id}}`
-                                }, {
-                                    name: 'tag 2',
-                                    value: `{{tag2}}`
-                            }]}
-                            accounts={[{
-                                name: 'Amazon',
-                                value: 'amazon',
-                            },{
-                                name: 'Ebay',
-                                value: 'ebay'
-                            }]}
                         />
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />

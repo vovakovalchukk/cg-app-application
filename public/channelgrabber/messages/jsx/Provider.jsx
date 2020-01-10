@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 //import thunk from 'redux-thunk';
 import combinedReducer from 'MessageCentre/Reducers/Combined';
 import MessageCentreRoot from 'MessageCentre/Root';
-import initializeStore from './store.js';
+import initializeStore from './store';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 //let enhancer = applyMiddleware(thunk);
