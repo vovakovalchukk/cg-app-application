@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7b883fdc4eb372e81139d2e4b663229",
+    "content-hash": "b805449b5dc16d93dcaa6a15101b2d5a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3789,16 +3789,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-580-message-templates-backend",
+            "version": "dev-TAC-589-replace-percent-tags-with-brace-tags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "6dde44139ea7a918fbc05706dcab9ffffc82d5be"
+                "reference": "8834a834662d3ad2e891ee6138c25bd5d614258f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-580-message-templates-backend-e4d1ce.zip",
-                "reference": "6dde44139ea7a918fbc05706dcab9ffffc82d5be"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-589-replace-percent-tags-with-brace-tags-79b2dd.zip",
+                "reference": "8834a834662d3ad2e891ee6138c25bd5d614258f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3850,7 +3850,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-09T13:37:19+00:00"
+            "time": "2020-01-10T09:21:29+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11931,9 +11931,9 @@
             "package": "channelgrabber/communication"
         },
         {
-            "alias": "1.9.4",
-            "alias_normalized": "1.9.4.0",
-            "version": "dev-TAC-580-message-templates-backend",
+            "alias": "1.10.0",
+            "alias_normalized": "1.10.0.0",
+            "version": "dev-TAC-589-replace-percent-tags-with-brace-tags",
             "package": "channelgrabber/template"
         }
     ],
