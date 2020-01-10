@@ -60,7 +60,6 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
-    console.log('thread', thread);
 
     return (
         <GridDiv>
@@ -84,7 +83,10 @@ const MessageDetail = (props) => {
                                     </div>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
-                                <ReplyBox {...props} />
+                                <ReplyBox
+                                    actions={props.actions}
+                                    thread={thread}
+                                />
                             </MessageLi>
                         )
                     })}

@@ -11,7 +11,8 @@ const TextArea = styled.textarea`
 `;
 
 const ReplyBox = (props) => {
-    console.log('ReplyBox props', props);
+    const {actions, thread} = props;
+
     let options = [
         {
             name: 'Send and resolve',
@@ -26,23 +27,29 @@ const ReplyBox = (props) => {
     return (
         <div>
             <TextArea
-                onChange={props.actions.replyInputType}
+                onChange={actions.replyInputType}
                 className={`u-margin-top-med`}
                 placeholder={'Compose your reply here'}
             />
             <div className={`u-clear-both u-margin-top-med`}>
-
-                <ButtonSelect
-                    options={options}
-                    ButtonTitle={() => (
-                        <span>Send and resolve</span>
-                    )}
-                    spriteClass={'sprite-email-20-dblue'}
-                    multiSelect={false}
-                    onButtonClick={props.actions.addMessage}
-                    onSelect={props.actions.addMessage}
-                />
-
+                {thread.status === 'resolved' &&
+                    <button
+                        type={`button`}
+                        onClick={actions.addMessage}
+                    >Send</button>
+                }
+                {thread.status !== 'resolved' &&
+                    <ButtonSelect
+                        options={options}
+                        ButtonTitle={() => (
+                            <span>Send and resolve</span>
+                        )}
+                        spriteClass={'sprite-email-20-dblue'}
+                        multiSelect={false}
+                        onButtonClick={actions.addMessage}
+                        onSelect={actions.addMessage}
+                    />
+                }
             </div>
         </div>
     );
