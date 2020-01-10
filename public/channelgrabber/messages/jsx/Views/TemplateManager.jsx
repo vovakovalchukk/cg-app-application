@@ -148,16 +148,13 @@ const TemplateManager = (props) => {
                 id: response.success.id,
                 etag: response.success.etag
             });
-            n.success(response.success.message);
-
-            // todo - add template to Redux
-
+            n.success("You have successfully saved your message template.");
             return;
         }
         if (!response.error || !response.error.message) {
             return;
         }
-        n.error(response.error.message);
+        n.error("We were unable to save your message template. Please contact support for assistance.");
     }
 
     async function deleteTemplateHandler() {
