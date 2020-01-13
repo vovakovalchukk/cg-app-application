@@ -250,7 +250,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('layout/sidebar/batches');
-        $view->setVariable('batches', $this->batchService->getBatches());
+        $view->setVariable('batches', array_reverse($this->batchService->getBatches()));
         return $view;
     }
 

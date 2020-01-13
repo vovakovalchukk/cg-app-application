@@ -109,6 +109,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             this.handleFilterAdding();
         };
         init.call(this);
+        return this;
     };
 
     Filters.pendingFilters = 0;
