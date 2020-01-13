@@ -15,8 +15,6 @@ define([
 ) {
     var Batch = function(selector)
     {
-        const maxItemsToDisplay = Filters().getMaxItemsToDisplayInSidebar();
-
         OrdersBulkActionAbstract.call(this);
 
         var template;
@@ -49,11 +47,6 @@ define([
         {
             return saveCheckboxes;
         };
-
-        this.getMaxItemsToDisplayInSidebar = function()
-        {
-            return maxItemsToDisplay;
-        }
     };
 
     Batch.prototype = Object.create(OrdersBulkActionAbstract.prototype);
@@ -201,7 +194,7 @@ define([
         var batchOptions = [];
         $(self.getSelector()).html('');
 
-        $.each(data['batches'].reverse().slice(0, this.getMaxItemsToDisplayInSidebar()), function(index)
+        $.each(data['batches'].reverse().slice(0, Filters().getMaxItemsToDisplayInSidebar()), function(index)
         {
             var batch = data['batches'][index];
             if (batch.active) {
