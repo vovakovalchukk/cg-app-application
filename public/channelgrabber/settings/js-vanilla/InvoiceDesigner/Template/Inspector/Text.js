@@ -94,7 +94,10 @@ define([
             .replace(/<b>([\s\S]*?)<\/>/gi, '<strong>$1</strong>')
             .replace(/<i>([\s\S]*?)<\/>/gi, '<em>$1</em>')
             .replace(/<bi>([\s\S]*?)<\/>/gi, '<strong><em>$1</em></strong>')
-            .replace(/<n>|<\/>/gi, '');
+            .replace(/<n>|<\/>/gi, '')
+            // Need to encode our tag delimiters as they're the same as Mustache's
+            .replace(/{{/gi, '&lbrace;&lbrace;')
+            .replace(/}}/gi, '&rbrace;&rbrace;');
         return {
             'id': Text.TEXT_INSPECTOR_TEXT_ID,
             'content': text,
@@ -107,7 +110,8 @@ define([
         var options = [];
         this.getDataFieldOptions().forEach(function(option)
         {
-            options.push({title: option});
+            let encodedOption = option.replace(/{{/gi, '&lbrace;&lbrace;').replace(/}}/gi, '&rbrace;&rbrace;');
+            options.push({title: encodedOption});
         });
         return {
             initialTitle: 'Select Data Field',
