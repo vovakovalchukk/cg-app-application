@@ -1,17 +1,23 @@
 import React, {useEffect} from 'react';
 
 const ShadowDomDiv = (props) => {
-    const shadowDiv = React.createRef();
+    const shadowRef = React.createRef();
+    console.log('ShadowDomDiv re-render');
 
     useEffect(() => {
-        const shadow = shadowDiv.current.attachShadow({
-            mode: 'closed'
-        });
-        shadow.innerHTML = props.body;
+        const shadowChild = shadowRef.current.querySelector('div');
+        if ( shadowRef.current.querySelector('div').shadowRoot === null) {
+            shadowChild.attachShadow({
+                mode: 'open'
+            });
+        }
+        shadowChild.shadowRoot.innerHTML = props.body;
     });
 
     return (
-        <div ref={shadowDiv} />
+        <div ref={shadowRef}>
+            <div></div>
+        </div>
     )
 };
 

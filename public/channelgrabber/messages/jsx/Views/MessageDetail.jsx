@@ -61,6 +61,7 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
+    console.log('MessageDetail re-render');
 
     useEffect(() => {
         props.threads.viewing = thread.id;
@@ -87,8 +88,8 @@ const MessageDetail = (props) => {
                                         <button type="button" onClick={() => printMessage(message)}>Print Message</button>
                                     </div>
                                 </FlexDiv>
-                                {/*<ShadowDomDiv body={message.body} />*/}
-                                <Iframe body={message.body} />
+                                <ShadowDomDiv body={message.body} />
+                                {/*<Iframe body={message.body} />*/}
                                 <ReplyBox
                                     actions={props.actions}
                                     thread={thread}
