@@ -4,7 +4,6 @@ import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
-import Iframe from 'MessageCentre/Components/Iframe';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -71,7 +70,7 @@ const MessageDetail = (props) => {
         <GridDiv>
             <div>
                 <ThreadHeader {...headerProps} />
-                <ol>
+                <ol className={`u-padding-none`}>
                     {messages.map((message, index) => {
                         return (
                             <MessageLi key={message.id}>
@@ -89,7 +88,6 @@ const MessageDetail = (props) => {
                                     </div>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
-                                {/*<Iframe body={message.body} />*/}
                                 <ReplyBox
                                     actions={props.actions}
                                     thread={thread}

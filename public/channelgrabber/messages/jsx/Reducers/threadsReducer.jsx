@@ -5,7 +5,6 @@ import reducerCreator from 'Common/Reducers/creator';
 const initialState = {
     byId: {},
     searchBy: '',
-    replyText: '',
     viewing: '',
 };
 
@@ -35,13 +34,6 @@ const threadsReducer = reducerCreator(initialState, {
         let threads = {...state};
 
         threads.searchBy = action.payload;
-
-        return {...state, ...threads};
-    },
-    'REPLY_INPUT_CHANGED': (state, action) => {
-        let threads = {...state};
-
-        threads.replyText = action.payload;
 
         return {...state, ...threads};
     },

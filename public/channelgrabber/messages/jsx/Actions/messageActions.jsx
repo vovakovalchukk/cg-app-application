@@ -54,11 +54,7 @@ function fetchThreads(params, state) {
 }
 
 function addMessage(params, state) {
-    const {threads} = state;
-
-    const threadId = threads.viewing;
-
-    const body = threads.replyText;
+    const {threads, reply} = state;
 
     const fakeResponse = {
         "messageEntity": {
@@ -68,8 +64,8 @@ function addMessage(params, state) {
             "created": "10/01/20 10:01",
             "name": "Fake Response",
             "externalUsername": "eBay",
-            "body": body,
-            "threadId": threadId,
+            "body": reply.text,
+            "threadId": threads.viewing,
             "createdFuzzy": "0 days ago",
             "personType": "customer"
         }
@@ -82,8 +78,8 @@ function addMessage(params, state) {
         url: '/messages/ajax/addMessage',
         type: 'POST',
         data: {
-            threadId: threadId,
-            body: body
+            threadId: threads.viewing,
+            body: reply.text
         }
     });
 }
