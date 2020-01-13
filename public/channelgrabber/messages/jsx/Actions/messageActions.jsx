@@ -54,12 +54,11 @@ function fetchThreads(params, state) {
 }
 
 function addMessage(params, state) {
-    // todo:
-    //   get the currently viewed thread id
-    //   get the text entered in the reply box
+    const {threads} = state;
 
-    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32';
-    const body = 'This is not the actual message body';
+    const threadId = threads.viewing;
+
+    const body = threads.replyText;
 
     const fakeResponse = {
         "messageEntity": {
@@ -78,6 +77,7 @@ function addMessage(params, state) {
 
     return fakeResponse;
 
+    // todo - remove the fake response when ready to test with real data
     return $.ajax({
         url: '/messages/ajax/addMessage',
         type: 'POST',

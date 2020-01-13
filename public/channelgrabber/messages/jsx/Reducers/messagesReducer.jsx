@@ -26,7 +26,7 @@ const messagesReducer = reducerCreator(initialState, {
     'ADD_MESSAGE_SUCCESS': (state, action) => {
         let messages = {...state};
 
-        let newMessage = action.payload.messageEntity;
+        const newMessage = action.payload.messageEntity;
 
         messages.byId[newMessage.id] = newMessage;
 

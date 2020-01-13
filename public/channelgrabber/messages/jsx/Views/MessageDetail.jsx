@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
@@ -61,7 +61,10 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
-    console.log('thread', thread);
+
+    useEffect(() => {
+        props.threads.viewing = thread.id;
+    }, []);
 
     return (
         <GridDiv>

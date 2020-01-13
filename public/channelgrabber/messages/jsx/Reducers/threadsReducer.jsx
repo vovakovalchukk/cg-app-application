@@ -6,6 +6,7 @@ const initialState = {
     byId: {},
     searchBy: '',
     replyText: '',
+    viewing: '',
 };
 
 const threadsReducer = reducerCreator(initialState, {
@@ -51,6 +52,17 @@ const threadsReducer = reducerCreator(initialState, {
 
         return {...state, ...threads};
     },
+    'ADD_MESSAGE_SUCCESS': (state, action) => {
+        let threads = {...state};
+
+        const newMessage = action.payload.messageEntity;
+
+        const thread = threads.byId[newMessage.threadId];
+
+        thread.messages.push(newMessage.id);
+
+        return {...state, ...threads};
+    }
 });
 
 export default threadsReducer;
