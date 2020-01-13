@@ -35,6 +35,18 @@ class SupplierCell extends React.Component {
             return option.value == supplier;
         });
     };
+    addNewSupplier(rowData, supplierName) {
+        const existingSupplier = this.props.supplier.options.find((option) => {
+            return option.name.toString().trim() === supplierName.toString().trim();
+        });
+
+        if (existingSupplier) {
+            n.error(`You already have a supplier named: <strong>${supplierName}</strong>. Please use a different name when adding a new supplier.`);
+            return;
+        }
+
+        this.props.actions.addNewSupplier(rowData, supplierName);
+    };
     render() {
         let {
             rowIndex,
@@ -76,7 +88,7 @@ class SupplierCell extends React.Component {
                     customOptions={true}
                     customOptionsPlaceholder={'Add a supplier...'}
                     onCustomOption={(supplierName) => {
-                        this.props.actions.addNewSupplier(rowData, supplierName)
+                        this.addNewSupplier(rowData, supplierName)
                     }}
                 />
             </div>
