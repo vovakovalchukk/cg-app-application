@@ -89,14 +89,12 @@ function addMessage(params, state) {
 }
 
 function saveStatus(params, state) {
-    // todo:
-    //   get the currently viewed thread id
-    //   get the status chosen in the dropdown (resolved/awaiting reply/new)
+    const {threads} = state;
 
-    const threadId = '1-6d5f9a764ed0e67c196d2cdc3498a0d8aea56f32';
-    const status = 'resolved';
+    const threadId = threads.viewing;
 
-    // the response will be the thread again (but with updated status)
+    const status = params.target.value;
+
     const fakeResponse = {
         "id": threadId,
         "channel": "ebay",
@@ -124,6 +122,7 @@ function saveStatus(params, state) {
 
     return fakeResponse;
 
+    // todo - remove the fake response when ready to test with real data
     return $.ajax({
         url: '/messages/ajax/save',
         type: 'POST',
