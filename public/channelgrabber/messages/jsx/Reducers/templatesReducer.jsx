@@ -4,48 +4,50 @@ import reducerCreator from 'Common/Reducers/creator';
 
 const initialState = {
     byId: {},
-    allIds: []
+    allIds: new Set()
 };
 
 const messagesReducer = reducerCreator(initialState, {
-    'TEMPLATES_ADD': (state, action) => {
-        let templates = {...state};
+    'TEMPLATE_ADD': (state, action) => {
+        const exitingTemplates = {...state};
+        const newNormalizedTemplates = normalizeTemplates([action.payload.template]);
 
-        templates.byId = {};
+        const combinedTemplates = {};
 
-        templates.allIds = [];
+        combinedTemplates.byId = {
+            ...exitingTemplates.byId,
+            ...newNormalizedTemplates.byId
+        };
+        combinedTemplates.allIds = [
+            ...exitingTemplates.allIds,
+            ...newNormalizedTemplates.allIds
+        ];
 
+        return combinedTemplates
+    },
+    "TEMPLATE_REMOVE": (state, action) => {
+        const newTemplates = {...state};
 
+        delete newTemplates.byId[action.payload.templateId];
+        newTemplates.allIds.delete(action.payload.templateId);
 
-//        action.payload.forEach(thread => {
-//            thread.messages.forEach(message => {
-//                templates.byId[message.id] = message;
-//                templates.allIds.push(message.id);
-//            });
-//        });
-
-        return {...state, ...templates};
+        return newTemplates;
     }
 });
 
-export function normalizeTemplate(template) {
-    console.log('in normalizeTemplate', template);
-
-
-}
+export default messagesReducer;
 
 export function initTemplates(templates) {
-    let initializedTemplates = {
-        byId: {},
-        allIds: []
-    };
+    return normalizeTemplates(templates);
+}
+
+function normalizeTemplates(templates) {
+    const initializedTemplates = {...initialState};
 
     for (let template of templates) {
         initializedTemplates.byId[template.id] = {...template};
-        initializedTemplates.allIds.push(template.id)
+        initializedTemplates.allIds.add(template.id)
     }
 
     return initializedTemplates;
 }
-
-export default messagesReducer;

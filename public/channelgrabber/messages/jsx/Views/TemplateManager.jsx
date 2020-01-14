@@ -21,10 +21,10 @@ const StyledButtonSelect = styled(ButtonSelect)`
 `;
 
 const TemplateManager = (props) => {
-    const {match, accounts, messageTemplates} = props;
+    const {match, accounts} = props;
     const {params} = match;
-    
-    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(messageTemplates);
+
+    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(getFormattedTemplates(props.templates));
     const templateName = useFormInputState('');
     const newTemplateName = useFormInputState('');
 
@@ -33,10 +33,7 @@ const TemplateManager = (props) => {
     const templateHTML = useTemplateHtmlState('');
 
     const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
-    
-    console.log('props: ', props);
-    
-    
+
     return (
         <div className={"module clearfix"}>
             <div className="u-form-max-width-medium">
@@ -145,13 +142,16 @@ const TemplateManager = (props) => {
 
         if (response.success) {
             setTemplateSelectValue({
-                id: response.success.id,
-                etag: response.success.etag
+                id: response.id,
+                etag: response.etag
             });
             n.success("You have successfully saved your message template.");
 
-            //todo - add to redux
-
+            props.actions.addTemplate({
+                id: response.id,
+                name: templateName.value,
+                template: templateHTML.value
+            });
             return;
         }
         if (!response.error || !response.error.message) {
@@ -179,7 +179,7 @@ const TemplateManager = (props) => {
             templateName.setValue('');
             templateHTML.setValue('');
 
-            //todo - remove from Redux
+            props.actions.removeTemplate(templateSelectValue.id);
             return;
         }
 
@@ -213,5 +213,11 @@ function formatAccounts(options) {
             ...option,
             id: option.value
         };
+    });
+}
+
+function getFormattedTemplates(templates) {
+    return Object.keys(templates.byId).map((id) => {
+        return templates.byId[id];
     });
 }
