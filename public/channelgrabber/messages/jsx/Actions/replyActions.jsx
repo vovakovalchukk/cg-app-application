@@ -8,6 +8,15 @@ const replyActions = {
             })
         };
     },
+    replyOptionSelected: (params) => {
+        const payload = params;
+        return function (dispatch, getState) {
+            dispatch({
+                type: 'REPLY_OPTION_SELECTED',
+                payload,
+            })
+        };
+    },
 };
 
 export default replyActions;

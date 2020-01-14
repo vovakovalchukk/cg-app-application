@@ -4,6 +4,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
 const initialState = {
     text: '',
+    buttonSelectTitle: 'Send and Resolve',
 }
 
 const threadsReducer = reducerCreator(initialState, {
@@ -14,6 +15,14 @@ const threadsReducer = reducerCreator(initialState, {
 
         return {...state, ...reply};
     },
+    'REPLY_OPTION_SELECTED': (state, action) => {
+        let reply = {...state};
+
+        reply.buttonSelectTitle = action.payload;
+
+        return {...state, ...reply};
+    },
+
 });
 
 export default threadsReducer;

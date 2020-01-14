@@ -12,6 +12,7 @@ const mapStateToProps = function(state) {
         threads: state.threads,
         messages: state.messages,
         column: state.column,
+        reply: state.reply,
     };
 };
 

@@ -26,6 +26,25 @@ const messageActions = {
             })
         }
     },
+    sendAndResolve: (params) => {
+        params = params || {
+            target: {
+                value: 'resolved'
+            }
+        };
+        return async function (dispatch, getState) {
+            let message = await addMessage(params, getState());
+            let status = await saveStatus(params, getState());
+            dispatch({
+                type: 'ADD_MESSAGE_SUCCESS',
+                payload: message,
+            });
+            dispatch({
+                type: 'SAVE_STATUS_SUCCESS',
+                payload: status,
+            });
+        }
+    },
 };
 
 export default messageActions;

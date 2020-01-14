@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonSelect from 'Common/Components/ButtonSelect';
 
+const StyledButtonSelect = styled(ButtonSelect)`
+    width: 16rem;
+    margin-bottom: 6rem;
+`
+
 const TextArea = styled.textarea`
     width: 100%;
     height: 20rem;
@@ -11,17 +16,19 @@ const TextArea = styled.textarea`
 `;
 
 const ReplyBox = (props) => {
-    const {actions, thread} = props;
+    const {actions, thread, reply} = props;
 
     let options = [
         {
-            name: 'Send and resolve',
-            value: 'send-and-resolve'
+            name: 'Send and Resolve',
+            id: 'send-and-resolve',
+            action: actions.sendAndResolve,
         },
         {
             name: 'Send',
-            value: 'send'
-        }
+            id: 'send',
+            action: actions.addMessage,
+        },
     ];
 
     return (
@@ -39,15 +46,22 @@ const ReplyBox = (props) => {
                     >Send</button>
                 }
                 {thread.status !== 'resolved' &&
-                    <ButtonSelect
+                    <StyledButtonSelect
                         options={options}
                         ButtonTitle={() => (
-                            <span>Send and resolve</span>
+                            <span>{reply.buttonSelectTitle}</span>
                         )}
                         spriteClass={'sprite-email-20-dblue'}
                         multiSelect={false}
-                        onButtonClick={actions.addMessage}
-                        onSelect={actions.addMessage}
+                        onButtonClick={(id)=> {
+                            let option = options.find(x => x.id === id[0]);
+                            if (!option) option = options[0];
+                            option.action();
+                        }}
+                        onSelect={(id) => {
+                            const option = options.find(x => x.id === id[0]);
+                            actions.replyOptionSelected(option.name);
+                        }}
                     />
                 }
             </div>

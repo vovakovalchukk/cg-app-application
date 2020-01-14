@@ -51,7 +51,7 @@ const getPersonSprite = (person) => {
 };
 
 const MessageDetail = (props) => {
-    const {match, threads} = props;
+    const {match, threads, actions, reply} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
@@ -60,7 +60,6 @@ const MessageDetail = (props) => {
         thread: thread,
         threadIds: threads.allIds,
     }
-    console.log('MessageDetail re-render');
 
     useEffect(() => {
         props.threads.viewing = thread.id;
@@ -89,8 +88,9 @@ const MessageDetail = (props) => {
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
                                 <ReplyBox
-                                    actions={props.actions}
+                                    actions={actions}
                                     thread={thread}
+                                    reply={reply}
                                 />
                             </MessageLi>
                         )
