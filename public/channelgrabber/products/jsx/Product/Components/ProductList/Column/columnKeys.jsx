@@ -15,5 +15,6 @@ export default {
     cost: 'cost',
     fulfillmentLatency: 'fulfillmentLatency',
     barcode: 'barcode',
-    barcodeNotApplicable: 'barcodeNotApplicable'
+    barcodeNotApplicable: 'barcodeNotApplicable',
+    supplier: 'supplier'
 };

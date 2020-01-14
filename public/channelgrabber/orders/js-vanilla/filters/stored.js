@@ -4,19 +4,23 @@ define(
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
-            var popup;
+            let popup = null;
 
-            var init = function() {
+            const init = function() {
                 var self = this;
-                var filterList = self.getFilterList();
 
-                filterList.on("click.storedFilters", "li .close", function(event) {
+                if (Array.isArray(this.getListItemNames())) {
+                    self.setupSearch('saved-filters-search');
+                    document.getElementById('savedFilters').style.display = 'block';
+                }
+
+                self.getFilterList().on("click.storedFilters", "li .close", function(event) {
                     self.deleteFilter.call(self, $(this).closest("li"));
                     event.stopImmediatePropagation();
                 });
 
                 popup = new Popup(
-                    filterList.data("popup")
+                    self.getFilterList().data("popup")
                 );
                 setupPopup.call(this); // call
             };
@@ -160,7 +164,7 @@ define(
 
         StoredFilters.prototype.saveJson = function(listElement) {
             this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-            this.getFilterList().append(listElement);
+            this.getFilterList().prepend(listElement);
             this.getFilterList().find(".empty-list").addClass("hidden");
             this.getNotifications().success("Filter Saved");
         };
