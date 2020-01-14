@@ -6,6 +6,7 @@ import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions
 import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
 import stockActions from '../ActionCreators/stockActions';
+import supplierActions from "./supplierActions";
 
 "use strict";
 
@@ -120,6 +121,7 @@ var actionCreators = (function() {
         dispatch(vatActions.extractVatFromProducts(data.products));
         dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
         dispatch(stockActions.storeLowStockThreshold(data.products));
+        dispatch(supplierActions.extractSuppliers(data.products));
     };
 
     const handleSkuSpecificSearch = (data, searchTerm, dispatch) => {
@@ -210,6 +212,7 @@ var actionCreators = (function() {
                 }
 
                 dispatch(stockActions.storeLowStockThreshold(data.products));
+                dispatch(supplierActions.extractSuppliers(data.products));
                 return data;
             }
         },
