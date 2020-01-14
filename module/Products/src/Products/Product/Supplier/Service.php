@@ -2,11 +2,14 @@
 namespace Products\Product\Supplier;
 
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Stdlib\Exception\Runtime\Conflict;
-use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Service as ProductDetailService;
+use CG\Product\Entity as Product;
+use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\Supplier\Collection as SupplierCollection;
 use CG\Supplier\Entity as Supplier;
 use CG\Supplier\Filter as SupplierFilter;
@@ -14,9 +17,14 @@ use CG\Supplier\Mapper as SupplierMapper;
 use CG\Supplier\Service as SupplierService;
 use CG\User\ActiveUserInterface;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     protected const MAX_SAVE_ATTEMPTS = 2;
+
+    protected const LOG_CODE = 'SupplierService';
+    protected const LOG_MESSAGE_SUPPLIER_VARIATION_SAVE_FAILED = 'Could not save the supplier ID %s on variation porduct with ID %s';
 
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
@@ -75,7 +83,21 @@ class Service
         return $options;
     }
 
-    public function saveProductSupplier(int $productId, int $supplierId): void
+    public function saveProductSupplier(
+        int $productId,
+        int $supplierId
+    ): void {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        if ($product->isParent()) {
+            $this->saveSupplierForParentProduct($product, $supplierId);
+            return;
+        }
+
+        $this->saveSupplierOnProductDetails($productId, $supplierId);
+    }
+
+    protected function saveSupplierOnProductDetails(int $productId, int $supplierId): void
     {
         $productDetail = $this->fetchProductDetailFromProductId($productId);
         for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
@@ -91,6 +113,17 @@ class Service
         }
         // We haven't returned, must have run out of attempts
         throw $e;
+    }
+
+    protected function saveSupplierForParentProduct(Product $product, $supplierId): void
+    {
+        foreach ($product->getVariationIds() as $variationId) {
+            try {
+                $this->saveSupplierOnProductDetails($variationId, $supplierId);
+            } catch (\Throwable $e) {
+                $this->logWarningException($e, static::LOG_MESSAGE_SUPPLIER_VARIATION_SAVE_FAILED, [$supplierId, $variationId]);
+            }
+        }
     }
 
     protected function fetchProductDetailFromProductId(int $productId): ProductDetail

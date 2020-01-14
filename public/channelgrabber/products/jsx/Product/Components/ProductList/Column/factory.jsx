@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
-import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
-import FixedDataTable, {Column} from 'fixed-data-table-2';
+import {Column} from 'fixed-data-table-2';
 import headerCellFactory from 'Product/Components/ProductList/Cell/Header/factory';
 
 "use strict";
@@ -23,7 +22,8 @@ const columnSpecificPropsMap = {
     cost: ['rows', 'detail', 'scroll'],
     fulfillmentLatency: ['rows', 'detail', 'scroll'],
     barcode: ['rows', 'detail', 'scroll'],
-    barcodeNotApplicable: ['rows', 'detail', 'scroll']
+    barcodeNotApplicable: ['rows', 'detail', 'scroll'],
+    supplier: ['rows', 'detail', 'scroll', 'supplier', 'select']
 };
 const alignFlexMap = {
     'center': 'center',
