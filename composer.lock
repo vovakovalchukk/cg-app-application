@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "011d101f3de9cabc1e65474c1ef80156",
+    "content-hash": "0b947cd0b1e1341d50f8dcedfd69deb4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -755,16 +755,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.43.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "102677cf0f54e4e6286ff2b3930cfb71256780df"
+                "reference": "dece176fbe543facbdf2642959fa569ce5224edd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11167-trim-item-skus-d209ba.zip",
-                "reference": "102677cf0f54e4e6286ff2b3930cfb71256780df"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.14-486fbd.zip",
+                "reference": "dece176fbe543facbdf2642959fa569ce5224edd"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -787,13 +787,13 @@
                 "channelgrabber/order": "^1.43.10",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.1.4",
-                "channelgrabber/product": "dev-CGIV-11167-trim-item-skus as 1.18.6",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
                 "channelgrabber/slim": "^1.15.0",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": "^1.17.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.26.4",
@@ -819,11 +819,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-11167-trim-item-skus": " 1.43.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -838,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-01-10T14:56:25+00:00"
+            "time": "2020-01-15T09:20:33+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2835,16 +2830,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.18.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "96f3e58b4f8e3038ae561ad5fc5e42bb2e0cff8c"
+                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11167-trim-item-skus-690518.zip",
-                "reference": "96f3e58b4f8e3038ae561ad5fc5e42bb2e0cff8c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.6-0236b6.zip",
+                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2861,7 +2856,7 @@
                 "channelgrabber/notification": "^1.3.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -2882,12 +2877,7 @@
                 "channelgrabber/phpunit": "~1.0.4",
                 "phpunit/phpunit": "~6.1"
             },
-            "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-11167-trim-item-skus": "1.18.x-dev"
-                }
-            },
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Product\\": "src"
@@ -2898,7 +2888,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-10T14:51:02+00:00"
+            "time": "2020-01-15T09:11:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3536,16 +3526,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "2.16.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "fef8446e13cba77e1a48711823fc82752612427b"
+                "reference": "b05a64e2215796fa8704ad2fc019805f07c4766d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-dev-CGIV-11167-trim-item-skus-b97317.zip",
-                "reference": "fef8446e13cba77e1a48711823fc82752612427b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.11-de4796.zip",
+                "reference": "b05a64e2215796fa8704ad2fc019805f07c4766d"
             },
             "require": {
                 "php": ">=7.1",
@@ -3589,7 +3579,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2020-01-07T16:56:06+00:00"
+            "time": "2020-01-15T09:00:42+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3794,16 +3784,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11167-trim-item-skus",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "56219210affc3073fbf68eb6dd5dc70418f1e019"
+                "reference": "c6b372339e59468e6aeb4c858354f17c394b7d4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11167-trim-item-skus-a17564.zip",
-                "reference": "56219210affc3073fbf68eb6dd5dc70418f1e019"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.4-316350.zip",
+                "reference": "c6b372339e59468e6aeb4c858354f17c394b7d4e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3815,9 +3805,9 @@
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.47.13",
-                "channelgrabber/product": "dev-CGIV-11167-trim-item-skus as 1.18.6",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.6.5",
-                "channelgrabber/stdlib": "dev-CGIV-11167-trim-item-skus as 2.16.11",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/user": "^1.26.8",
                 "ext-gd": "*",
                 "ext-imagick": "*",
@@ -3854,7 +3844,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-10T15:10:18+00:00"
+            "time": "2020-01-15T09:20:33+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10519,8 +10509,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11928,39 +11917,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.14",
-            "alias_normalized": "1.43.14.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.18.6",
-            "alias_normalized": "1.18.6.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "2.16.11",
-            "alias_normalized": "2.16.11.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.9.4",
-            "alias_normalized": "1.9.4.0",
-            "version": "dev-CGIV-11167-trim-item-skus",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
