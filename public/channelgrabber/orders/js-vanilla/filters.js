@@ -1,4 +1,12 @@
-define(['element/moreButton', 'element/ElementCollection'], function(MoreButton, elementCollection) {
+define([
+    'element/moreButton',
+    'element/ElementCollection',
+    'quick-score'
+], function(
+    MoreButton,
+    elementCollection,
+    quickScore
+) {
     const maxItemsToDisplayInSidebar = 5;
 
     var Filters = function(filters, filterList)
@@ -32,12 +40,22 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
         };
 
         this.applyFilterItemDisplayBasedOnSearchTerm = function(searchTerm) {
+            const itemNames = this.getFilterListItems().map((node) => this.getNameValueFromNode(node));
+
+            let searchClass = new quickScore.QuickScore(itemNames);
+            let results = searchClass.search(searchTerm);
+            
             for (let node of this.getFilterListItems()) {
-                if (this.getNameValueFromNode(node).indexOf(searchTerm) > -1) {
-                    node.style.display = 'block';
-                    continue;
-                }
                 node.style.display = 'none';
+            }
+
+            for (let result of results) {
+                for (let node of this.getFilterListItems()) {
+                    if (this.getNameValueFromNode(node).indexOf(result.item) === -1) {
+                        continue;
+                    }
+                    node.style.display = 'block';
+                }
             }
         };
 
