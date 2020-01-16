@@ -67,7 +67,7 @@ const ReplyBox = (props) => {
                         }}
                         onSelect={(id) => {
                             const option = options.find(x => x.id === id[0]);
-                            actions.replyOptionSelected(option.name);
+                            actions.replyOptionSelect(option.name);
                         }}
                     />
                 }

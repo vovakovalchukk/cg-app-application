@@ -1,19 +1,17 @@
 const replyActions = {
     replyOnChange: (params) => {
-        const payload = params.target.value;
         return function (dispatch, getState) {
             dispatch({
-                type: 'REPLY_INPUT_CHANGED',
-                payload,
+                type: 'REPLY_INPUT_CHANGE',
+                payload: params.target.value,
             })
         };
     },
-    replyOptionSelected: (params) => {
-        const payload = params;
+    replyOptionSelect: (params) => {
         return function (dispatch, getState) {
             dispatch({
-                type: 'REPLY_OPTION_SELECTED',
-                payload,
+                type: 'REPLY_OPTION_SELECT',
+                payload: params,
             })
         };
     },

@@ -8,14 +8,14 @@ const initialState = {
 }
 
 const threadsReducer = reducerCreator(initialState, {
-    'REPLY_INPUT_CHANGED': (state, action) => {
+    'REPLY_INPUT_CHANGE': (state, action) => {
         let reply = {...state};
 
         reply.text = action.payload;
 
         return {...state, ...reply};
     },
-    'REPLY_OPTION_SELECTED': (state, action) => {
+    'REPLY_OPTION_SELECT': (state, action) => {
         let reply = {...state};
 
         reply.buttonSelectTitle = action.payload;
