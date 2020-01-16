@@ -41,6 +41,7 @@ const ReplyBox = (props) => {
     return (
         <div>
             <StyledTextarea
+                value={reply.text}
                 onChange={actions.replyOnChange}
                 className={`u-margin-top-med`}
                 placeholder={'Compose your reply here'}
