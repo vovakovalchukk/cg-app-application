@@ -22,7 +22,13 @@ const threadsReducer = reducerCreator(initialState, {
 
         return {...state, ...reply};
     },
+    'ADD_MESSAGE_SUCCESS': (state, action) => {
+        let reply = {...state};
 
+        reply.text = '';
+
+        return {...state, ...reply};
+    },
 });
 
 export default threadsReducer;

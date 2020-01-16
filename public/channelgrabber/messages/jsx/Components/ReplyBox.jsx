@@ -1,22 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonSelect from 'Common/Components/ButtonSelect';
-import Textarea from 'MessageCentre/Components/Textarea';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+    return {
+        reply: state.reply
+    }
+};
 
 const StyledButtonSelect = styled(ButtonSelect)`
     width: 16rem;
     margin-bottom: 6rem;
 `
 
-const LaggyTextArea = styled.textarea`
-    width: 100%;
-    height: 20rem;
-    resize: vertical;
-    box-sizing: border-box;
-    padding: 1rem;
-`;
-
-const StyledTextarea = styled(Textarea)`
+const StyledTextarea = styled.textarea`
     width: 100%;
     height: 20rem;
     resize: vertical;
@@ -42,19 +40,11 @@ const ReplyBox = (props) => {
 
     return (
         <div>
-
             <StyledTextarea
+                onChange={actions.replyInputType}
                 className={`u-margin-top-med`}
                 placeholder={'Compose your reply here'}
-                id={`composedReply`}
             />
-
-            {/*<LaggyTextArea*/}
-            {/*    onChange={actions.replyInputType}*/}
-            {/*    className={`u-margin-top-med`}*/}
-            {/*    placeholder={'Compose your reply here'}*/}
-            {/*/>*/}
-
             <div className={`u-clear-both u-margin-top-med`}>
                 {thread.status === 'resolved' &&
                     <button
@@ -86,4 +76,4 @@ const ReplyBox = (props) => {
     );
 };
 
-export default ReplyBox;
+export default connect(mapStateToProps)(ReplyBox);

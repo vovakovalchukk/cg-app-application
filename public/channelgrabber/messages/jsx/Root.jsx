@@ -12,7 +12,6 @@ const mapStateToProps = function(state) {
         threads: state.threads,
         messages: state.messages,
         column: state.column,
-        reply: state.reply,
     };
 };
 
@@ -25,6 +24,5 @@ const mapDispatchToProps = function(dispatch, ownProps) {
         )
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

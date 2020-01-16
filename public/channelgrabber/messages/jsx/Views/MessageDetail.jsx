@@ -90,7 +90,6 @@ const MessageDetail = (props) => {
                                 <ReplyBox
                                     actions={actions}
                                     thread={thread}
-                                    reply={reply}
                                 />
                             </MessageLi>
                         )
