@@ -194,15 +194,12 @@ define([
         var batchOptions = [];
         $(self.getSelector()).html('');
 
-        let showing = 0;
         let maxDataIndex = data['batches'].length - 1;
 
         for (let index = 0; index < data['batches'].length; index++) {
             let batch = data['batches'][maxDataIndex - index];
 
-            if (showing < Filters().getMaxItemsToDisplayInSidebar() && batch.active) {
-                showing ++;
-            } else {
+            if (!batch.active) {
                 batch.hide = true;
             }
 
