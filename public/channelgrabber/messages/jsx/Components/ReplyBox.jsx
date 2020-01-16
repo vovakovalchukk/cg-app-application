@@ -9,7 +9,7 @@ const mapStateToProps = state => {
     }
 };
 
-const StyledButtonSelect = styled(ButtonSelect)`
+const StyledSendButton = styled(ButtonSelect)`
     width: 16rem;
     margin-bottom: 6rem;
 `
@@ -50,10 +50,12 @@ const ReplyBox = (props) => {
                     <button
                         type={`button`}
                         onClick={actions.addMessage}
-                    >Send</button>
+                    >
+                        Send
+                    </button>
                 }
                 {thread.status !== 'resolved' &&
-                    <StyledButtonSelect
+                    <StyledSendButton
                         options={options}
                         ButtonTitle={() => (
                             <span>{reply.buttonSelectTitle}</span>
