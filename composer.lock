@@ -1440,12 +1440,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "f42f88b93a68d0b46ce747e3dceaed7626d5d052"
+                "reference": "7202e1333ced30b700e687186fddfc9592988dfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-CGIV-11201-ekm-rest-api-token-expiring-early-de0878.zip",
-                "reference": "f42f88b93a68d0b46ce747e3dceaed7626d5d052"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-CGIV-11201-ekm-rest-api-token-expiring-early-2894f5.zip",
+                "reference": "7202e1333ced30b700e687186fddfc9592988dfe"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1493,7 +1493,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2020-01-16T12:00:42+00:00"
+            "time": "2020-01-16T13:34:39+00:00"
         },
         {
             "name": "channelgrabber/email",
