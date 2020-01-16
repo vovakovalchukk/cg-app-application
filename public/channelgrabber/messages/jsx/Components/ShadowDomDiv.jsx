@@ -5,7 +5,7 @@ const ShadowDomDiv = (props) => {
 
     useEffect(() => {
         const shadowChild = shadowRef.current.querySelector('div');
-        if ( shadowChild.shadowRoot === null) {
+        if (shadowChild.shadowRoot === null) {
             shadowChild.attachShadow({
                 mode: 'open'
             });

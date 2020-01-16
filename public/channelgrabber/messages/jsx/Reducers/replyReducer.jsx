@@ -5,7 +5,7 @@ import reducerCreator from 'Common/Reducers/creator';
 const initialState = {
     text: '',
     buttonSelectTitle: 'Send and Resolve',
-}
+};
 
 const threadsReducer = reducerCreator(initialState, {
     'REPLY_INPUT_CHANGE': (state, action) => {
