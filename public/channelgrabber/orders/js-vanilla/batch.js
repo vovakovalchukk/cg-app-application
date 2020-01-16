@@ -194,17 +194,22 @@ define([
         var batchOptions = [];
         $(self.getSelector()).html('');
 
-        $.each(data['batches'].reverse().slice(0, Filters().getMaxItemsToDisplayInSidebar()), function(index)
-        {
-            var batch = data['batches'][index];
-            if (batch.active) {
-                $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), batch));
+        let maxDataIndex = data['batches'].length - 1;
+
+        for (let index = 0; index < data['batches'].length; index++) {
+            let batch = data['batches'][maxDataIndex - index];
+
+            if (!batch.active) {
+                batch.hide = true;
             }
+
+            $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), batch));
+
             batchOptions.push({
                 title: batch.name,
                 value: batch.name + ""
             });
-        });
+        }
 
         $(document).trigger('filterable-options-changed', ['batch', batchOptions]);
     };
