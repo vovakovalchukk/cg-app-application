@@ -1150,12 +1150,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "ca82cb5234e81af06bfb20492e837c3df2555a44"
+                "reference": "cfbfedde5c26cbf9e2c9ea91dec1136e29d52f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-48-data-exchange-history-status-e834f5.zip",
-                "reference": "ca82cb5234e81af06bfb20492e837c3df2555a44",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-MIG-48-data-exchange-history-status-2b2b40.zip",
+                "reference": "cfbfedde5c26cbf9e2c9ea91dec1136e29d52f38",
                 "shasum": null
             },
             "require": {
@@ -1189,7 +1189,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-01-15T13:34:30+00:00"
+            "time": "2020-01-16T10:14:15+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -1197,12 +1197,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "1aa3188452f81b8b8b15ad084da6e8b6d5dbee9a"
+                "reference": "f2ce533d3085c440d6dd58b82febf05df2c098b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-dev-MIG-48-data-exchange-history-status-c17dc2.zip",
-                "reference": "1aa3188452f81b8b8b15ad084da6e8b6d5dbee9a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-dev-MIG-48-data-exchange-history-status-c30704.zip",
+                "reference": "f2ce533d3085c440d6dd58b82febf05df2c098b5",
                 "shasum": null
             },
             "require": {
@@ -1224,7 +1224,7 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-01-15T13:41:36+00:00"
+            "time": "2020-01-16T10:15:42+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
