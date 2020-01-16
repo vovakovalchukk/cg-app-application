@@ -1,5 +1,5 @@
 const replyActions = {
-    replyInputType: (params) => {
+    replyOnChange: (params) => {
         const payload = params.target.value;
         return function (dispatch, getState) {
             dispatch({
