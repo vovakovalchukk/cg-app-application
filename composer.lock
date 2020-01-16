@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57aaf9c7957eca84f0af0388cefaafa8",
+    "content-hash": "692dc787e6f881c9286da1ea8e3a7646",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1436,16 +1436,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.17.3",
+            "version": "dev-CGIV-11201-ekm-rest-api-token-expiring-early",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
+                "reference": "f42f88b93a68d0b46ce747e3dceaed7626d5d052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.3-9acd71.zip",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-CGIV-11201-ekm-rest-api-token-expiring-early-de0878.zip",
+                "reference": "f42f88b93a68d0b46ce747e3dceaed7626d5d052"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1458,13 +1458,14 @@
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/locking": "^1.1.3",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.8",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
-                "channelgrabber/stdlib": "^2.15.2",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/webdriver": "^1.2.3",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
@@ -1492,7 +1493,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-12-17T09:23:40+00:00"
+            "time": "2020-01-16T12:00:42+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -11917,10 +11918,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.18.0",
+            "alias_normalized": "1.18.0.0",
+            "version": "dev-CGIV-11201-ekm-rest-api-token-expiring-early",
+            "package": "channelgrabber/ekm"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ekm": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
