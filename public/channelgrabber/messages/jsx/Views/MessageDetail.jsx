@@ -4,6 +4,7 @@ import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
+import Select from 'Common/Components/Select';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -50,11 +51,18 @@ const getPersonSprite = (person) => {
     return person === 'staff' ? staff : customer;
 };
 
-const formatAssignableUsers = (users) => {
+const formatUsers = (users) => {
     let formattedUsers = [];
+
+    // This is required for unassigned threads
+    formattedUsers.push({
+        value: null,
+        name: 'Assign',
+    });
+
     Object.entries(users).forEach(user => {
         formattedUsers.push({
-            id: user[0],
+            value: user[0],
             name: user[1],
         });
     });
@@ -77,7 +85,13 @@ const MessageDetail = (props) => {
         props.threads.viewing = thread.id;
     }, []);
 
-    const formattedAssignableUsers = formatAssignableUsers(assignableUsers);
+    const formattedUsers = formatUsers(assignableUsers);
+
+    const findAssignedUser = () => {
+        return formattedUsers.find(user => {
+            return user.value === thread.assignedUserId;
+        });
+    };
 
     return (
         <GridDiv>
@@ -123,24 +137,18 @@ const MessageDetail = (props) => {
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-
-                {/*
-                TODO
-                1. Make this dropdown searchable
-                */}
-
-                {formattedAssignableUsers.length > 1 ?
-                    <select
-                        value={thread.assignedUserId === null ? '' : thread.assignedUserId}
-                        onChange={props.actions.assignThreadToUser}
-                    >
-                        <option value="">Assign</option>
-                        {formattedAssignableUsers.map(user => (
-                            <option value={user.id}>{user.name}</option>
-                        ))}
-                    </select>
+                {formattedUsers.length > 2 ?
+                    <Select
+                        id={"assignableUserSelect"}
+                        name={"assignableUserSelect"}
+                        options={formattedUsers}
+                        filterable={true}
+                        autoSelectFirst={false}
+                        selectedOption={findAssignedUser()}
+                        onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
+                        classNames={'u-width-100pc'}
+                    />
                 : null}
-
             </div>
         </GridDiv>
     );
