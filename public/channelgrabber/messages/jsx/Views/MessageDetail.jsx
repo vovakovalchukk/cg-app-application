@@ -59,19 +59,6 @@ const formatAssignableUsers = (users) => {
         });
     });
 
-    // TODO - remove this fake data when finished, had to use it
-    // as without more than 1 user, the dropdown will not render
-
-    formattedUsers.push({
-        id: 999,
-        name: 'Terry Tibbs',
-    });
-
-    formattedUsers.push({
-        id: 888,
-        name: 'Biscuity Boyle',
-    });
-
     return formattedUsers;
 };
 
@@ -98,7 +85,6 @@ const MessageDetail = (props) => {
                 <ThreadHeader {...headerProps} />
                 <ol className={`u-padding-none`}>
                     {messages.map((message, index) => {
-                        // console.log('message', message);
                         return (
                             <MessageLi key={message.id}>
                                 <FlexDiv className={`u-display-flex`}>

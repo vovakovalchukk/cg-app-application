@@ -10,8 +10,6 @@ import {
 } from 'react-router-dom';
 
 const App = (props) => {
-    // console.log('app props', props);
-
     useEffect(() => {
         props.actions.fetchFilters();
     }, []);

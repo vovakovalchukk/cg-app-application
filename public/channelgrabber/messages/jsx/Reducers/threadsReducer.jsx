@@ -54,7 +54,14 @@ const threadsReducer = reducerCreator(initialState, {
         thread.messages.push(newMessage.id);
 
         return {...state, ...threads};
-    }
+    },
+    'ASSIGN_THREAD_USER': (state, action) => {
+        let threads = {...state};
+
+        threads.byId[action.payload.id] = action.payload;
+
+        return {...state, ...threads};
+    },
 });
 
 export default threadsReducer;

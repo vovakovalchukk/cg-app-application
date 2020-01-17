@@ -46,15 +46,13 @@ const messageActions = {
         }
     },
     assignThreadToUser: (params) => {
-        console.log('TODO - assignThreadToUser action');
-        /*
-            When the user chooses a different person from the Assign dropdown then make an AJAX call to /messages/ajax/save and POST the following data:
-            - id: the ID of the Thread
-            - assignedUserId: the selected assignee User ID, or blank when Unassigned is selected
-            In the response you will get the thread details back, again, unless there’s a problem then you will get a message instead which you should show to the user.
-            If successful, update anywhere we show the assigned user to be the new assignee.
-        */
-        return null;
+        return async function (dispatch, getState) {
+            let response = await assignThreadToUser(params, getState());
+            dispatch({
+                type: 'ASSIGN_THREAD_USER',
+                payload: response,
+            })
+        }
     },
 };
 
@@ -105,6 +103,19 @@ function saveStatus(params, state) {
         data: {
             threadId: threads.viewing,
             status: params.target.value
+        }
+    });
+}
+
+function assignThreadToUser(params, state) {
+    const {threads} = state;
+
+    return $.ajax({
+        url: '/messages/ajax/save',
+        type: 'POST',
+        data: {
+            id: threads.viewing,
+            assignedUserId: params.target.value
         }
     });
 }
