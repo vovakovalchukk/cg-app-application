@@ -10,16 +10,19 @@ const FilterItem = (props) => {
     } = props;
 
     return (
-        <li>
+        <div>
             <NavLink
                 to={to}
-                activeStyle={{
-                    color: 'green'
-                }}
+                activeClassName="sidebar-item-selected"
             >
-                <span>{displayText} {filterCount}</span>
+                <span>
+                    {displayText}
+                    <span className={"statusCountPillBox"}>
+                        {filterCount}
+                    </span>
+                </span>
             </NavLink>
-        </li>
+        </div>
     )
 };
 

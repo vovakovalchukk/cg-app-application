@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import navItems from 'MessageCentre/Nav/items';
+import Sidebar from 'Common/Components/Sidebar';
+
 import {
     Switch,
     Route,
@@ -19,14 +21,27 @@ const App = (props) => {
 
     return (
         <div className="u-width-100pc u-display-flex">
-            <div id="Sidebar" className="u-flex-1">
-                <h1 className="u-width-100pc">sidebar</h1>
-                <ol className="u-padding-none">
-                    {renderNavItems((itemProps, NavComponent) => (
-                       <NavComponent key={itemProps.id} {...itemProps} to={`/messages${itemProps.to}`}/>
-                    ))}
-                </ol>
-            </div>
+            <Sidebar
+                id={"Sidebar"}
+                sections={[{
+                    header: 'Messages',
+                    renderContent: (NavItemWrapper) => {
+                        return <ul>
+                            {renderNavItems((itemProps, NavComponent) => (
+                                <li className={"u-border-box"}>
+                                    <NavItemWrapper>
+                                        <NavComponent
+                                            key={itemProps.id}
+                                            to={`/messages${itemProps.to}`}
+                                            {...itemProps}
+                                        />
+                                    </NavItemWrapper>
+                                </li>
+                            ))}
+                        </ul>
+                    }
+                }]}
+            />
             <div id="Main" className="u-flex-5">
                 <Switch>
                     <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
