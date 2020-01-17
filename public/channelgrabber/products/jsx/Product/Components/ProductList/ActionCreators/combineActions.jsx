@@ -16,6 +16,7 @@ import expandActions from 'Product/Components/ProductList/ActionCreators/expandA
 import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions';
 import focusActions from 'Product/Components/ProductList/ActionCreators/focusActions';
 import selectActions from 'Product/Components/ProductList/ActionCreators/selectActions';
+import supplierActions from "./supplierActions";
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
@@ -38,7 +39,8 @@ export default (ownProps) => {
         expandActions,
         nameActions,
         focusActions,
-        selectActions
+        selectActions,
+        supplierActions
     );
 }
 
