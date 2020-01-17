@@ -7,8 +7,6 @@ define([
     elementCollection,
     quickScore
 ) {
-    const maxItemsToDisplayInSidebar = 5;
-
     var Filters = function(filters, filterList)
     {
         this.savedFilters = {};
@@ -59,33 +57,13 @@ define([
             }
         };
 
-        this.applyFilterItemDisplayBasedOnLimit = function(limit) {
-            let displayedItems = 0;
-            for (let node of this.getFilterListItems()) {
-                if (displayedItems >= limit) {
-                    node.style.display = 'none';
-                    continue;
-                }
-
-                if (node.style.display !== 'none') {
-                    displayedItems++;
-                }
-            }
-        };
-
         this.applyDisplayPropToListItemsFromSearch = (event) => {
             this.applyFilterItemDisplayBasedOnSearchTerm(event.target.value);
-            this.applyFilterItemDisplayBasedOnLimit(this.getMaxItemsToDisplayInSidebar());
         };
 
         this.setupSearch = function(searchInputId) {
             const searchElement = document.getElementById(searchInputId);
-            this.applyFilterItemDisplayBasedOnLimit(this.getMaxItemsToDisplayInSidebar());
             searchElement.addEventListener('keyup', this.applyDisplayPropToListItemsFromSearch);
-        };
-
-        this.getMaxItemsToDisplayInSidebar = function() {
-            return maxItemsToDisplayInSidebar;
         };
 
         optionalFilters = {};
