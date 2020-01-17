@@ -115,7 +115,7 @@ function assignThreadToUser(params, state) {
         type: 'POST',
         data: {
             id: threads.viewing,
-            assignedUserId: params,
+            assignedUserId: params === null ? '' : params,
         }
     });
 }
