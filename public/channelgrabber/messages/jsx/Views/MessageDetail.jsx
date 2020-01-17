@@ -58,12 +58,24 @@ const formatAssignableUsers = (users) => {
             name: user[1],
         });
     });
+
+    // TODO - remove this fake data when finished, had to use it
+    // as without more than 1 user, the dropdown will not render
+
+    formattedUsers.push({
+        id: 999,
+        name: 'Terry Tibbs',
+    });
+
+    formattedUsers.push({
+        id: 888,
+        name: 'Biscuity Boyle',
+    });
+
     return formattedUsers;
 };
 
 const MessageDetail = (props) => {
-    // console.log('MessageDetail props', props);
-
     const {match, threads, actions, assignableUsers} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
@@ -77,8 +89,6 @@ const MessageDetail = (props) => {
     useEffect(() => {
         props.threads.viewing = thread.id;
     }, []);
-
-    console.log('MessageDetail thread', thread);
 
     const formattedAssignableUsers = formatAssignableUsers(assignableUsers);
 
@@ -114,7 +124,10 @@ const MessageDetail = (props) => {
                     })}
                 </ol>
             </div>
-            <div>
+            <div style={{
+                display: `flex`,
+                flexDirection: `column`,
+            }}>
                 <StyledSelect value={thread.status} onChange={props.actions.saveStatus}>
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>
@@ -125,29 +138,23 @@ const MessageDetail = (props) => {
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
 
-                <div style={{
-                    display: `flex`,
-                    flexDirection: `column`,
-                }}>
-                <hr />
-                <h1>TAC-571</h1>
-                <p>
-                    Assignable users: {JSON.stringify(assignableUsers)}<br/>
-                    Formatted users: {JSON.stringify(formattedAssignableUsers)}<br/>
-                    Currently assigned user name: {thread.assignedUserName}<br/>
-                    Currently assigned user id: {thread.assignedUserId}<br/>
-                    Show the dropdown?: {formattedAssignableUsers.length > 1 ? 'yes' : 'no'}<br/>
-                    Add the "unassigned" option?: {formattedAssignableUsers.length > 1 ? 'yes' : 'no'}<br/>
-                </p>
+                {/*
+                TODO
+                1. Make this dropdown searchable
+                */}
 
-                <select value={thread.assignedUserId} onChange={props.actions.assignThreadToUser}>
-                    {formattedAssignableUsers.map(user => (
-                        <option value={user.id}>{user.name}</option>
-                    ))}
-                    <option value={``}>Unassigned</option>
-                </select>
+                {formattedAssignableUsers.length > 1 ?
+                    <select
+                        value={thread.assignedUserId === null ? '' : thread.assignedUserId}
+                        onChange={props.actions.assignThreadToUser}
+                    >
+                        <option value="">Assign</option>
+                        {formattedAssignableUsers.map(user => (
+                            <option value={user.id}>{user.name}</option>
+                        ))}
+                    </select>
+                : null}
 
-                </div>
             </div>
         </GridDiv>
     );
