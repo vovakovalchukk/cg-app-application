@@ -49,7 +49,7 @@ const messageActions = {
         return async function (dispatch, getState) {
             let response = await assignThreadToUser(params, getState());
             dispatch({
-                type: 'ASSIGN_THREAD_USER',
+                type: 'ASSIGN_USER_SUCCESS',
                 payload: response,
             })
         }
@@ -115,7 +115,7 @@ function assignThreadToUser(params, state) {
         type: 'POST',
         data: {
             id: threads.viewing,
-            assignedUserId: params === null ? '' : params,
+            assignedUserId: !!params && params,
         }
     });
 }

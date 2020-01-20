@@ -27,7 +27,12 @@ const StyledSelect = styled.select`
     display: flex;
     max-width: 260px;
     width: 100%;
-`
+`;
+
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
 const printMessage = (message) => {
     const newWindow = window.open();
@@ -52,9 +57,8 @@ const getPersonSprite = (person) => {
 };
 
 const formatUsers = (users) => {
-    let formattedUsers = [];
+    const formattedUsers = [];
 
-    // This is required for unassigned threads
     formattedUsers.push({
         value: null,
         name: 'Assign',
@@ -87,11 +91,11 @@ const MessageDetail = (props) => {
 
     const formattedUsers = formatUsers(assignableUsers);
 
-    const findAssignedUser = () => {
-        return formattedUsers.find(user => {
+    const findAssignedUser = () => (
+        formattedUsers.find(user => {
             return user.value === thread.assignedUserId;
-        });
-    };
+        })
+    );
 
     return (
         <GridDiv>
@@ -124,10 +128,8 @@ const MessageDetail = (props) => {
                     })}
                 </ol>
             </div>
-            <div style={{
-                display: `flex`,
-                flexDirection: `column`,
-            }}>
+
+            <FlexColumn>
                 <StyledSelect value={thread.status} onChange={props.actions.saveStatus}>
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>
@@ -149,7 +151,7 @@ const MessageDetail = (props) => {
                         classNames={'u-width-100pc'}
                     />
                 : null}
-            </div>
+            </FlexColumn>
         </GridDiv>
     );
 };
