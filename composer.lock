@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e63cecb147da8a6b83e8919be08a9e2",
+    "content-hash": "184e6b41af06311912c3dbc6cc832e10",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1461,16 +1461,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.17.3",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
+                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.3-9acd71.zip",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.0-a589ea.zip",
+                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570",
                 "shasum": null
             },
             "require": {
@@ -1484,13 +1484,14 @@
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/locking": "^1.1.3",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.8",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
-                "channelgrabber/stdlib": "^2.15.2",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/webdriver": "^1.2.3",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
@@ -1518,7 +1519,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-12-17T09:23:40+00:00"
+            "time": "2020-01-20T14:24:52+00:00"
         },
         {
             "name": "channelgrabber/email",
