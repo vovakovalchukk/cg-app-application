@@ -79,6 +79,7 @@ const App = (props) => {
     function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
+        const characterLimit = 160;
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
                 return thread.messages.includes(message.id);
@@ -92,7 +93,10 @@ const App = (props) => {
             });
             let div = document.createElement('div');
             div.innerHTML = threadMessages[0].body;
-            thread.lastMessage = div.textContent;
+            thread.lastMessage = div.textContent.replace(/\s+/g, ' ').substring(0, characterLimit);
+            if (thread.lastMessage.length > characterLimit) {
+                thread.lastMessage = thread.lastMessage.trimEnd() + `...`;
+            }
             div.remove();
         });
         return {
