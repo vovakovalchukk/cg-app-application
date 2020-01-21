@@ -36,7 +36,7 @@ const ThreadHeader = (props) => {
         <FlexDiv className={`u-display-flex`}>
             <ButtonLink
                 to={`/messages/`}
-                text={`< Back`}
+                sprite={`sprite-arrow-double-14-black`}
             />
 
             <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>

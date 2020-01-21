@@ -12,8 +12,9 @@ const FlexDiv = styled.div`
 
 const GridDiv = styled.div`
     display: grid;
-    grid-template-columns: 1fr max-content;
+    grid-template-columns: 1fr 200px;
     grid-gap: 1rem;
+    min-height: 101vh;
 `;
 
 const MessageLi = styled.li`
@@ -32,6 +33,7 @@ const StyledSelect = styled.select`
 const FlexColumn = styled.div`
     display: flex;
     flex-direction: column;
+    background-color: rgb(239,238,238);
 `;
 
 const printMessage = (message) => {
