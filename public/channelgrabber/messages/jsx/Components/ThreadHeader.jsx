@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 `;
 
 const getNavigatorProps = (threadIds, thread) => {
@@ -33,13 +33,13 @@ const ThreadHeader = (props) => {
     const navigatorProps = getNavigatorProps(threadIds, thread);
 
     return(
-        <FlexDiv className={`u-display-flex`}>
+        <FlexDiv className={`u-display-flex u-margin-top-xsmall`}>
             <ButtonLink
                 to={`/messages/`}
                 sprite={`sprite-arrow-double-14-black`}
             />
 
-            <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
+            <h1 className={'u-clear-both u-float-none u-margin-left-small'}>{thread.subject}</h1>
 
             <ThreadNavigator
                 prev={navigatorProps.prevThreadPath}

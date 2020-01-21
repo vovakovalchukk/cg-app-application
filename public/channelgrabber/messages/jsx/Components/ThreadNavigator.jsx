@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
     align-items: center;
+    flex-shrink: 0;
 `;
 
 const ThreadNavigator = (props) => {
     const {prev, next, thread, of} = props;
     return (
-        <StyledDiv className={`u-display-flex`}>
+        <StyledDiv className={`u-display-flex u-margin-left-small`}>
             <ButtonLink
                 to={prev}
                 sprite={`sprite-arrow-left-16-grey`}
