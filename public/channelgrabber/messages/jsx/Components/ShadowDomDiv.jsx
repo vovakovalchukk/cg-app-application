@@ -1,17 +1,25 @@
 import React, {useEffect} from 'react';
 
 const ShadowDomDiv = (props) => {
-    const shadowDiv = React.createRef();
+    const shadowRef = React.createRef();
 
     useEffect(() => {
-        const shadow = shadowDiv.current.attachShadow({
-            mode: 'closed'
-        });
-        shadow.innerHTML = props.body;
+        const shadowChild = shadowRef.current.querySelector('div');
+        if (shadowChild.shadowRoot === null) {
+            shadowChild.attachShadow({
+                mode: 'open'
+            });
+        }
+        shadowChild.shadowRoot.innerHTML = props.body;
     });
 
     return (
-        <div ref={shadowDiv} />
+        <div
+            ref={shadowRef}
+            className={`u-display-flex`}
+        >
+            <div />
+        </div>
     )
 };
 
