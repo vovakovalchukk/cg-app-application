@@ -5,7 +5,7 @@ const navItems = [
         id: 'unassigned',
         filterId: 'unassigned',
         displayText: 'Unassinged',
-        to: '/list/unassigned',
+        to: '/messages/list/unassigned',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem
     },
@@ -13,7 +13,7 @@ const navItems = [
         id: 'assigned',
         filterId: 'assigned',
         displayText: 'Assigned',
-        to: '/list/assigned',
+        to: '/messages/list/assigned',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem
     },
@@ -21,7 +21,7 @@ const navItems = [
         id: 'my-messages',
         filterId: 'my-messages',
         displayText: 'My Messages',
-        to: '/list/my-messages',
+        to: '/messages/list/my-messages',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem
     },
@@ -29,14 +29,14 @@ const navItems = [
         id: 'resolved',
         filterId: 'resolved',
         displayText: 'Resolved',
-        to: '/list/resolved',
+        to: '/messages/list/resolved',
         component: FilterItem
     },
     {
         id: 'open',
         filterId: 'resolved',
         displayText: 'Open',
-        to: '/list/open',
+        to: '/messages/list/open',
         component: FilterItem
     }
 ];
