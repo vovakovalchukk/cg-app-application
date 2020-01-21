@@ -101,7 +101,7 @@ const MessageDetail = (props) => {
 
     return (
         <GridDiv>
-            <div>
+            <div className={`u-padding-left-small`}>
                 <ThreadHeader {...headerProps} />
                 <ol className={`u-padding-none`}>
                     {messages.map((message, index) => {
