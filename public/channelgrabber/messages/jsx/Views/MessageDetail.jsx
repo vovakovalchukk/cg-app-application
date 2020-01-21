@@ -36,6 +36,10 @@ const FlexColumn = styled.div`
     background-color: rgb(239,238,238);
 `;
 
+const FlexAlignItemsCenter = styled.div`
+    align-items: center;
+`;
+
 const printMessage = (message) => {
     const newWindow = window.open();
     newWindow.document.write(message.body);
@@ -108,17 +112,20 @@ const MessageDetail = (props) => {
                         return (
                             <MessageLi key={message.id}>
                                 <FlexDiv className={`u-display-flex`}>
-                                    <div>
-                                        <div
-                                            title={message.personType}
-                                            className={getPersonSprite(message.personType)}
-                                        />
-                                        <p>{message.name}</p>
-                                    </div>
-                                    <div>
-                                        <p>{message.created}</p>
-                                        <button type="button" onClick={() => printMessage(message)}>Print Message</button>
-                                    </div>
+                                    <FlexAlignItemsCenter className={`u-display-flex`}>
+                                        <div className={getPersonSprite(message.personType)} />
+                                        <div className={`u-margin-left-xsmall`}>{message.name}</div>
+                                    </FlexAlignItemsCenter>
+                                    <FlexAlignItemsCenter className={`u-display-flex`}>
+                                        <div>{message.created}</div>
+                                        <button
+                                            className={`u-margin-left-xsmall`}
+                                            type="button"
+                                            onClick={() => printMessage(message)}
+                                        >
+                                            Print Message
+                                        </button>
+                                    </FlexAlignItemsCenter>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
                                 <ReplyBox

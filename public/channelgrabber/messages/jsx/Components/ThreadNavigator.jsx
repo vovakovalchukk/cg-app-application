@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
     align-items: center;
-`
+`;
 
 const ThreadNavigator = (props) => {
     const {prev, next, thread, of} = props;
@@ -16,7 +16,7 @@ const ThreadNavigator = (props) => {
                 title={`Previous thread`}
             />
 
-            <p className={`u-margin-none`}>{thread} / {of}</p>
+            <div className={`u-margin-left-small u-margin-right-small`}>{thread} of {of}</div>
 
             <ButtonLink
                 to={next}
