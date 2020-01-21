@@ -10,6 +10,7 @@ import {
     Redirect,
     useRouteMatch
 } from 'react-router-dom';
+import ScrollToTop from "MessageCentre/Components/ScrollToTop";
 
 const App = (props) => {
     useEffect(() => {
@@ -52,7 +53,10 @@ const App = (props) => {
                             {...formattedThreads} />
                     )}/>
                     <Route path={`${match.path}thread/:threadId`} render={({match}) => (
-                        <MessageDetail {...props} match={match}/>
+                        <div>
+                            <ScrollToTop />
+                            <MessageDetail {...props} match={match}/>
+                        </div>
                     )}/>
                     <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
                 </Switch>
