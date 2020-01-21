@@ -26,7 +26,8 @@ const mapStateToProps = function(state) {
         expand: state.expand,
         name: state.name,
         focus: state.focus,
-        select: state.select
+        select: state.select,
+        supplier: state.supplier
     };
 };
 

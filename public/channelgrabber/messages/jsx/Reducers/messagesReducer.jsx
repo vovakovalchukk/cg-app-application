@@ -20,7 +20,18 @@ const messagesReducer = reducerCreator(initialState, {
                 messages.allIds.push(message.id);
             });
         });
-        
+
+        return {...state, ...messages};
+    },
+    'ADD_MESSAGE_SUCCESS': (state, action) => {
+        let messages = {...state};
+
+        const newMessage = action.payload.messageEntity;
+
+        messages.byId[newMessage.id] = newMessage;
+
+        messages.allIds.push(newMessage.id);
+
         return {...state, ...messages};
     }
 });

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
+import ReplyBox from 'MessageCentre/Components/ReplyBox';
+import Select from 'Common/Components/Select';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -19,6 +21,17 @@ const MessageLi = styled.li`
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
     margin-bottom: 1rem;
+`;
+
+const StyledSelect = styled.select`
+    display: flex;
+    max-width: 260px;
+    width: 100%;
+`;
+
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 const printMessage = (message) => {
@@ -43,8 +56,26 @@ const getPersonSprite = (person) => {
     return person === 'staff' ? staff : customer;
 };
 
+const formatUsers = (users) => {
+    const formattedUsers = [];
+
+    formattedUsers.push({
+        value: null,
+        name: 'Assign',
+    });
+
+    Object.entries(users).forEach(user => {
+        formattedUsers.push({
+            value: user[0],
+            name: user[1],
+        });
+    });
+
+    return formattedUsers;
+};
+
 const MessageDetail = (props) => {
-    const {match, threads} = props;
+    const {match, threads, actions, assignableUsers} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
@@ -54,11 +85,23 @@ const MessageDetail = (props) => {
         threadIds: threads.allIds,
     };
 
+    useEffect(() => {
+        props.threads.viewing = thread.id;
+    }, []);
+
+    const formattedUsers = formatUsers(assignableUsers);
+
+    const findAssignedUser = () => (
+        formattedUsers.find(user => {
+            return user.value === thread.assignedUserId;
+        })
+    );
+
     return (
         <GridDiv>
             <div>
                 <ThreadHeader {...headerProps} />
-                <ol>
+                <ol className={`u-padding-none`}>
                     {messages.map((message, index) => {
                         return (
                             <MessageLi key={message.id}>
@@ -76,17 +119,39 @@ const MessageDetail = (props) => {
                                     </div>
                                 </FlexDiv>
                                 <ShadowDomDiv body={message.body} />
+                                <ReplyBox
+                                    actions={actions}
+                                    thread={thread}
+                                />
                             </MessageLi>
                         )
                     })}
                 </ol>
             </div>
-            <div>
+
+            <FlexColumn>
+                <StyledSelect value={thread.status} onChange={props.actions.saveStatus}>
+                    <option value={'awaiting reply'}>Awaiting Reply</option>
+                    <option value={'resolved'}>Resolved</option>
+                    <option value={'new'}>New</option>
+                </StyledSelect>
                 <ButtonLink
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-            </div>
+                {formattedUsers.length > 2 ?
+                    <Select
+                        id={"assignableUserSelect"}
+                        name={"assignableUserSelect"}
+                        options={formattedUsers}
+                        filterable={true}
+                        autoSelectFirst={false}
+                        selectedOption={findAssignedUser()}
+                        onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
+                        classNames={'u-width-100pc'}
+                    />
+                : null}
+            </FlexColumn>
         </GridDiv>
     );
 };
