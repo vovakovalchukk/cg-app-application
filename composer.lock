@@ -1461,16 +1461,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.17.3",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496"
+                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.17.3-9acd71.zip",
-                "reference": "d23777c7c8bca78199ad242b04e38abbb94b8496",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.0-a589ea.zip",
+                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570",
                 "shasum": null
             },
             "require": {
@@ -1484,13 +1484,14 @@
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/locking": "^1.1.3",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.8",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
-                "channelgrabber/stdlib": "^2.15.2",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/webdriver": "^1.2.3",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
@@ -1518,7 +1519,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-12-17T09:23:40+00:00"
+            "time": "2020-01-20T14:24:52+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -4041,16 +4042,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.9",
+            "version": "1.27.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4"
+                "reference": "2629eae4b954732f582f8ad955d05423a07b3e75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.9-da9ebe.zip",
-                "reference": "74109f2b143baa5c295d2110a023065d8571a3e4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.27.0-dbeb99.zip",
+                "reference": "2629eae4b954732f582f8ad955d05423a07b3e75",
                 "shasum": null
             },
             "require": {
@@ -4096,7 +4097,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-09-19T10:14:15+00:00"
+            "time": "2020-01-17T14:44:13+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4909,16 +4910,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.9",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ae30dbf2017e5bd9f79b1b484fde0c26903feb85"
+                "reference": "2f4797b1221f83cdab914cd9d80bd22d6740fb26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.9-3a193a.zip",
-                "reference": "ae30dbf2017e5bd9f79b1b484fde0c26903feb85",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.7.0-8a164a.zip",
+                "reference": "2f4797b1221f83cdab914cd9d80bd22d6740fb26",
                 "shasum": null
             },
             "require": {
@@ -4929,7 +4930,7 @@
                 "channelgrabber/locale": "^1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.26.6",
+                "channelgrabber/user": "^1.27.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -4964,7 +4965,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-05-23T12:55:54+00:00"
+            "time": "2020-01-17T14:48:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -5456,16 +5457,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.33",
+            "version": "1.26.34",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c93f988b97097a278ef9007fc2e812c5788efa5b"
+                "reference": "c47b6538799c3e61f95815de08a87495e59752fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.33-dccab0.zip",
-                "reference": "c93f988b97097a278ef9007fc2e812c5788efa5b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.34-46f9a2.zip",
+                "reference": "c47b6538799c3e61f95815de08a87495e59752fb",
                 "shasum": null
             },
             "require": {
@@ -5482,7 +5483,7 @@
                 "channelgrabber/notification": "^1.2.0",
                 "channelgrabber/stdlib": "^2.13.1",
                 "channelgrabber/stock": "^1.5.9",
-                "channelgrabber/user": "^1.26.0",
+                "channelgrabber/user": "^1.27.0",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
@@ -5518,7 +5519,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-01-15T12:08:28+00:00"
+            "time": "2020-01-17T14:58:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6139,6 +6140,7 @@
                 "selenium",
                 "webdriver"
             ],
+            "abandoned": "php-webdriver/webdriver",
             "time": "2018-05-16T17:37:13+00:00"
         },
         {
