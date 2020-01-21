@@ -139,12 +139,17 @@ const MessageDetail = (props) => {
             </div>
 
             <FlexColumn>
-                <StyledSelect value={thread.status} onChange={props.actions.saveStatus}>
+                <StyledSelect
+                    className={`u-margin-bottom-small`}
+                    value={thread.status}
+                    onChange={props.actions.saveStatus}
+                >
                     <option value={'awaiting reply'}>Awaiting Reply</option>
                     <option value={'resolved'}>Resolved</option>
                     <option value={'new'}>New</option>
                 </StyledSelect>
                 <ButtonLink
+                    className={`u-margin-bottom-small`}
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />

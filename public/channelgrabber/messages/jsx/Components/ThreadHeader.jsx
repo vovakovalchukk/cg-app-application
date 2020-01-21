@@ -13,9 +13,9 @@ const getNavigatorProps = (threadIds, thread) => {
     const totalThreadCount = threadIds.length;
     const thisThreadPosition = threadIds.indexOf(safeThreadId);
     const prevThreadId = threadIds[thisThreadPosition - 1];
-    const nextThreadId = threadIds[thisThreadPosition + 1]
+    const nextThreadId = threadIds[thisThreadPosition + 1];
     const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
-    const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
+    const nextThreadPath = thisThreadPosition + 1 !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
     return {
         nextThreadPath: nextThreadPath,
         prevThreadPath: prevThreadPath,
