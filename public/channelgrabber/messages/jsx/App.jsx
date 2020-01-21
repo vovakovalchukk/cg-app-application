@@ -45,7 +45,11 @@ const App = (props) => {
             <div id="Main" className="u-flex-5">
                 <Switch>
                     <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
-                        <MessageList {...props} match={match} {...formattedThreads} />
+                        <MessageList
+                            filters={props.filters}
+                            actions={props.actions}
+                            match={match}
+                            {...formattedThreads} />
                     )}/>
                     <Route path={`${match.path}thread/:threadId`} render={({match}) => (
                         <MessageDetail {...props} match={match}/>

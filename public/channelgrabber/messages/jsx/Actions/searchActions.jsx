@@ -2,11 +2,10 @@ import messageActions from 'MessageCentre/Actions/messageActions';
 
 const searchActions = {
     searchInputType: (params) => {
-        const searchTerm = params.target.value;
         return function (dispatch, getState) {
             dispatch({
                 type: 'SEARCH_INPUT_CHANGED',
-                payload: searchTerm,
+                payload: params.target.value,
             })
         };
     },
@@ -15,7 +14,7 @@ const searchActions = {
             const state = getState();
 
             const filter = {
-                searchTerm: state.threads.searchBy
+                searchTerm: state.search.query
             };
 
             dispatch(messageActions.fetchMessages({

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Table from 'Common/Components/Table';
 import styled from 'styled-components';
 import allColumns from 'MessageCentre/Columns/allColumns';
-import Search from 'Common/Components/Search';
+import ThreadSearch from 'MessageCentre/Components/ThreadSearch';
 
 const TableRow = (props) => {
     return (
@@ -50,11 +50,8 @@ const MessageList = (props) => {
 
     return (
         <div>
-            <Search
-                value={props.threads.searchBy}
-                onChange={props.actions.searchInputType}
-                onSearch={props.actions.searchSubmit}
-            />
+
+            <ThreadSearch actions={props.actions} />
 
             <Table
                 actions={props.actions}
