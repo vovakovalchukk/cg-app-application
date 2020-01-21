@@ -51,9 +51,13 @@ const MessageList = (props) => {
     return (
         <div>
 
-            <ThreadSearch actions={props.actions} />
+            <ThreadSearch
+                className={`u-margin-top-xsmall`}
+                actions={props.actions}
+            />
 
             <Table
+                className={`u-margin-top-xsmall`}
                 actions={props.actions}
                 data={props.formattedThreads}
                 maxItems={100}

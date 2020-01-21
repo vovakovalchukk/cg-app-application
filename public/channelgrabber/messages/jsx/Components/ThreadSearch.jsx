@@ -28,7 +28,9 @@ const ThreadSearch = (props) => {
     const {actions, query} = props;
 
     return (
-        <StyledDiv>
+        <StyledDiv
+            className={props.className}
+        >
             <Search
                 value={query}
                 onChange={actions.searchInputType}
