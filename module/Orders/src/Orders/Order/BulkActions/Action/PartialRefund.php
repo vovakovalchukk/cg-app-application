@@ -57,6 +57,7 @@ class PartialRefund extends Action implements OrderAwareInterface
         $this->addElementView($this->getUrlView());
         $this->getJavascript()->setVariables(
             [
+                'orderId' => $order->getId(),
                 'refundReasons' => json_encode(Reasons::getAllRefundReasons()),
                 'items' => $this->getRefundableItemsData($order),
             ]
@@ -80,12 +81,13 @@ class PartialRefund extends Action implements OrderAwareInterface
         $data = [];
         $items = $order->getItems();
         $itemRefunds = $this->fetchItemRefundsForItems($items);
+        /** @var Item $item */
         foreach ($items as $item) {
             $data[] = [
                 'id' => $item->getId(),
                 'sku' => $item->getItemSku(),
                 'name' => $item->getItemName(),
-                'amount' => $this->calculateRefundableAmountForItem($item, $itemRefunds->getBy('itemId', $item->getId())),
+                'amount' => $item->getRefundableAmount($itemRefunds->getBy('itemId', $item->getId())),
             ];
         }
         return $data;
@@ -94,11 +96,7 @@ class PartialRefund extends Action implements OrderAwareInterface
     protected function fetchItemRefundsForItems(ItemCollection $items): ItemRefundCollection
     {
         try {
-            $filter = (new ItemRefundFilter())
-                ->setLimit('all')
-                ->setPage(1)
-                ->setItemId($items->getIds());
-            return $this->itemRefundService->fetchCollectionByFilter($filter);
+            return $this->itemRefundService->fetchCollectionByItemIds($items->getIds());
         } catch (NotFound $e) {
             return new ItemRefundCollection(ItemRefund::class, 'empty');
         }
