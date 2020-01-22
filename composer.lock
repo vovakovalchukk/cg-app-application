@@ -759,12 +759,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "180bd61f957b493cec47e6a441ccb77a30f318b5"
+                "reference": "3fbdb91ec13eeb9b4324b47edc64f00d07bc9db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-582-partial-refund-backend-3d928e.zip",
-                "reference": "180bd61f957b493cec47e6a441ccb77a30f318b5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-582-partial-refund-backend-b62883.zip",
+                "reference": "3fbdb91ec13eeb9b4324b47edc64f00d07bc9db4"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -833,7 +833,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-01-21T15:38:05+00:00"
+            "time": "2020-01-22T11:46:48+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2436,12 +2436,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "294b6fbbc142a22cf2f0d7c46473621e1dbdd011"
+                "reference": "f37e17ab72875126341b9c8fbf396de3f92fe12c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-582-partial-refund-backend-a9cc38.zip",
-                "reference": "294b6fbbc142a22cf2f0d7c46473621e1dbdd011"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-582-partial-refund-backend-35af6f.zip",
+                "reference": "f37e17ab72875126341b9c8fbf396de3f92fe12c"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2513,7 +2513,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-01-21T16:20:22+00:00"
+            "time": "2020-01-22T11:48:18+00:00"
         },
         {
             "name": "channelgrabber/partner",
