@@ -32,10 +32,26 @@ class RootComponent extends React.Component {
                     <Select prefix="Show" options={FILTER_OPTIONS} onOptionChange={this.props.onFilterSelected}/>
                 </div>
                 <div className="purchase-orders-action">
+                    <Select
+                        prefix="Supplier: "
+                        options={this.props.supplierOptions}
+                        autoSelectFirst={false}
+                        onOptionChange={this.props.onSupplierChange}
+                    />
+                </div>
+                <div className="purchase-orders-action">
                     <Button
                         onClick={this.props.onCreateNewPurchaseOrderButtonPressed}
                         sprite="sprite-plus-18-black"
-                        text="New"
+                        text="Create new Purchase Order for products with low stock"
+                        disabled={this.props.newButtonDisabled}
+                    />
+                </div>
+                <div className="purchase-orders-action">
+                    <Button
+                        onClick={this.props.onCreateNewPurchaseOrderButtonPressed}
+                        sprite="sprite-plus-18-black"
+                        text="Create new Purchase Order"
                         disabled={this.props.newButtonDisabled}
                     />
                 </div>

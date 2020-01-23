@@ -8,7 +8,8 @@ class RootContainer extends React.Component {
         filterStatus: 'All',
         sortAsc: true,
         purchaseOrders: [],
-        isEditorEmpty: true
+        isEditorEmpty: true,
+        supplierOptions: []
     };
 
     getChildContext() {
@@ -62,6 +63,20 @@ class RootContainer extends React.Component {
         });
     };
 
+    buildSuppliersOptions = () => {
+        return Object.keys(this.props.supplierOptions).map((supplierId) => {
+            return {
+                name: this.props.supplierOptions[supplierId],
+                value: supplierId
+            }
+        });
+    };
+
+    fetchProductsBySupplier = (option) => {
+        const event = new CustomEvent('createNewPurchaseOrderForSupplier', {detail: {supplierId: option.value}});
+        window.dispatchEvent(event);
+    };
+
     render() {
         return (
             <RootComponent
@@ -74,6 +89,8 @@ class RootContainer extends React.Component {
                 onDateColumnClicked={this.onDateColumnClicked}
                 newButtonDisabled={this.state.isEditorEmpty}
                 setEditorEmptyFlag={this.setEditorEmptyFlag}
+                supplierOptions={this.buildSuppliersOptions()}
+                onSupplierChange={this.fetchProductsBySupplier}
             />
         );
     }

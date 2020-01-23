@@ -20,6 +20,11 @@ class EditorContainer extends React.Component {
         window.addEventListener('purchaseOrderSelected', this.populateEditor);
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('purchaseOrderListRefresh', this.resetEditor);
+        window.addEventListener('createNewPurchaseOrderForSupplier', (event) => {
+            this.resetEditor(
+                this.fetchProductsBySupplier(event.detail.supplierId)
+            );
+        });
 
         this.fetchProductsWithLowStock();
     }
@@ -288,6 +293,22 @@ class EditorContainer extends React.Component {
 
     fetchProductsWithLowStock = () => {
         $.get('/products/purchaseOrders/fetchLowStockProducts', (data) => {
+            if (data.skus.length === 0) {
+                return;
+            }
+            let filter = new ProductFilter;
+            filter.sku = data.skus;
+            filter.limit = 500;
+            filter.replaceVariationWithParent = true;
+            filter.embedVariationsAsLinks = false;
+            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
+            AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
+        });
+    };
+
+    fetchProductsBySupplier = (supplierId) => {
+        console.log(supplierId);
+        $.post('/products/purchaseOrders/fetchProductsForSupplier', {supplierId}).done((data) => {
             if (data.skus.length === 0) {
                 return;
             }
