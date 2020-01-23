@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1129,20 +1129,20 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "1.2.0.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "6e6965d2ba8abf290149ab73adda4685f30ed8c5"
+                "reference": "3e9362f86f2866282de89b5ae6c9c95be6f0f8ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.0.1-ae89a3.zip",
-                "reference": "6e6965d2ba8abf290149ab73adda4685f30ed8c5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.1-eff9cf.zip",
+                "reference": "3e9362f86f2866282de89b5ae6c9c95be6f0f8ee"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/data-exchange-history": "^1.0.2",
+                "channelgrabber/data-exchange-history": "^1.0.4",
                 "channelgrabber/data-exchange-schedule": "^1.0.5",
                 "channelgrabber/data-exchange-template": "^1.0.3",
                 "channelgrabber/email-account": "^1.0.1",
@@ -1171,20 +1171,20 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-19T14:32:22+00:00"
+            "time": "2020-01-22T13:12:45+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504"
+                "reference": "9f1734583a4afd48e17fac98f5861a7fd53e02cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.3-dfcb61.zip",
-                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.4-0875a8.zip",
+                "reference": "9f1734583a4afd48e17fac98f5861a7fd53e02cc"
             },
             "require": {
                 "channelgrabber/data-exchange-schedule": "^1.0.3",
@@ -1205,7 +1205,7 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-25T15:35:44+00:00"
+            "time": "2020-01-22T13:05:17+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
