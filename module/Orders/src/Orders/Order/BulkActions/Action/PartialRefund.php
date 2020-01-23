@@ -48,7 +48,6 @@ class PartialRefund extends Action implements OrderAwareInterface
     {
         $actions = array_fill_keys($this->actionDecider->getAvailableActionsForOrder($order), true);
         $this->setEnabled(isset($actions[static::ALLOWED_ACTION]));
-        $this->setEnabled(true);//temp
         $this->configure($order);
     }
 
