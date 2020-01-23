@@ -3588,12 +3588,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "7bef21b0e8ddf1ede4b49d8fe547e31890ef29be"
+                "reference": "0347879bc9df2fb992c51b7a0dc3bc9c5e4e2734"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-582-partial-refund-backend-63d32a.zip",
-                "reference": "7bef21b0e8ddf1ede4b49d8fe547e31890ef29be"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-582-partial-refund-backend-af4b22.zip",
+                "reference": "0347879bc9df2fb992c51b7a0dc3bc9c5e4e2734"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3639,7 +3639,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-01-21T16:46:43+00:00"
+            "time": "2020-01-23T09:12:32+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -6335,6 +6335,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2015-05-20T03:37:09+00:00"
         },
         {
