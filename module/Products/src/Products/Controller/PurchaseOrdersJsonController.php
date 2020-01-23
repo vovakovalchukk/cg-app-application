@@ -16,6 +16,10 @@ use CG\Stock\Entity as Stock;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG\Product\Detail\Service as ProductDetailsService;
+use CG\Product\Detail\Filter as ProductDetailsFilter;
+use CG\Product\Detail\Entity as ProductDetails;
+use CG\Product\Detail\Collection as ProductDetailsCollection;
 
 class PurchaseOrdersJsonController extends AbstractJsonController
 {
@@ -28,9 +32,11 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     const ROUTE_SAVE = 'AJAX Save';
     const ROUTE_CREATE = 'AJAX Create';
     const FETCH_LOW_STOCK_PRODUCTS = 'Fetch low stock products';
+    const ROUTE_FETCH_SKUS_BY_SUPPLIER = 'AJAX Fetch Skus for supplier';
     const DEFAULT_PO_STATUS = 'In Progress';
 
     const STOCK_FETCH_LIMIT = 300;
+    const PRODUCT_DETAILS_FETCH_LIMIT = 300;
 
     /** @var PurchaseOrderService */
     protected $purchaseOrderService;
@@ -40,19 +46,23 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     protected $activeUserContainer;
     /** @var StockService */
     protected $stockService;
+    /** @var ProductDetailsService */
+    protected $productDetailsService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         PurchaseOrderService $purchaseOrderService,
         PurchaseOrderMapper $purchaseOrderMapper,
         ActiveUserInterface $activeUserContainer,
-        StockService $stockService
+        StockService $stockService,
+        ProductDetailsService $productDetailsService
     ) {
         parent::__construct($jsonModelFactory);
         $this->purchaseOrderService = $purchaseOrderService;
         $this->purchaseOrderMapper = $purchaseOrderMapper;
         $this->activeUserContainer = $activeUserContainer;
         $this->stockService = $stockService;
+        $this->productDetailsService = $productDetailsService;
     }
 
     public function createAction()
@@ -182,5 +192,45 @@ class PurchaseOrdersJsonController extends AbstractJsonController
         return $this->buildResponse([
             'skus' => $productSkus
         ]);
+    }
+
+    public function fetchProductSkusForSupplierAction()
+    {
+        $supplierId = intval($this->params()->fromPost('supplierId', 0));
+        $filter = $this->buildProductDetailsFilterBySupplier($supplierId);
+
+        return $this->buildResponse([
+            'skus' => array_values($this->fetchProductDetailSkusByFilter($filter))
+        ]);
+    }
+
+    protected function buildProductDetailsFilterBySupplier(int $supplierId): ProductDetailsFilter
+    {
+        return (new ProductDetailsFilter())
+            ->setLimit(static::PRODUCT_DETAILS_FETCH_LIMIT)
+            ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
+            ->setSupplierId([$supplierId]);
+    }
+
+    protected function fetchProductDetailSkusByFilter(ProductDetailsFilter $filter): array
+    {
+        $page = 0;
+        $skus = [];
+
+        do {
+            $filter->setPage(++$page);
+            try {
+                /** @var ProductDetailsCollection $productDetailsCollection */
+                $productDetailsCollection = $this->productDetailsService->fetchCollectionByFilter($filter);
+                /** @var ProductDetails $productDetails */
+                foreach ($productDetailsCollection as $productDetails) {
+                    $skus[$productDetails->getSku()] = $productDetails->getSku();
+                }
+            } catch (NotFound $e) {
+                break;
+            }
+        } while ($productDetailsCollection->getTotal() > $page * static::PRODUCT_DETAILS_FETCH_LIMIT);
+
+        return $skus;
     }
 }
