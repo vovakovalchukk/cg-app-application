@@ -9,7 +9,8 @@ class RootContainer extends React.Component {
         sortAsc: true,
         purchaseOrders: [],
         isEditorEmpty: true,
-        supplierOptions: []
+        supplierOptions: [],
+        onNewPurchaseOrderConfirm: () => {}
     };
 
     getChildContext() {
@@ -44,11 +45,19 @@ class RootContainer extends React.Component {
     };
 
     onCreateNewPurchaseOrderButtonPressed = () => {
-        window.triggerEvent('triggerPopup');
+        this.setState({
+            onNewPurchaseOrderConfirm: () => {window.triggerEvent('createNewPurchaseOrder')}
+        }, () => {
+            window.triggerEvent('triggerPopup')
+        });
     };
 
-    onCreateNewPurchaseOrder = () => {
-        window.triggerEvent('createNewPurchaseOrder');
+    createNewPurchaseOrderWithLowStockProducts = () => {
+        this.setState({
+            onNewPurchaseOrderConfirm: () => {window.triggerEvent('createNewPurchaseOrderForLowStockProducts')}
+        }, () => {
+            window.triggerEvent('triggerPopup')
+        });
     };
 
     onDateColumnClicked = () => {
@@ -72,6 +81,14 @@ class RootContainer extends React.Component {
         });
     };
 
+    onSupplierChange = (option) => {
+        this.setState({
+            onNewPurchaseOrderConfirm: this.fetchProductsBySupplier.bind(this, option)
+        }, () => {
+            window.triggerEvent('triggerPopup');
+        })
+    };
+
     fetchProductsBySupplier = (option) => {
         const event = new CustomEvent('createNewPurchaseOrderForSupplier', {detail: {supplierId: option.value}});
         window.dispatchEvent(event);
@@ -84,13 +101,14 @@ class RootContainer extends React.Component {
                 sortAsc={this.state.sortAsc}
                 purchaseOrders={this.state.purchaseOrders}
                 onFilterSelected={function(selection){this.setState({filterStatus: selection.value})}.bind(this)}
-                onCreateNewPurchaseOrder={this.onCreateNewPurchaseOrder}
                 onCreateNewPurchaseOrderButtonPressed={this.onCreateNewPurchaseOrderButtonPressed}
+                onCreateNewPurchaseOrderWithLowStockProducts={this.createNewPurchaseOrderWithLowStockProducts}
                 onDateColumnClicked={this.onDateColumnClicked}
                 newButtonDisabled={this.state.isEditorEmpty}
                 setEditorEmptyFlag={this.setEditorEmptyFlag}
                 supplierOptions={this.buildSuppliersOptions()}
-                onSupplierChange={this.fetchProductsBySupplier}
+                onSupplierChange={this.onSupplierChange}
+                onNewPurchaseOrderConfirm={this.state.onNewPurchaseOrderConfirm}
             />
         );
     }

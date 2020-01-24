@@ -26,7 +26,11 @@ class EditorContainer extends React.Component {
             );
         });
 
-        this.fetchProductsWithLowStock();
+        window.addEventListener('createNewPurchaseOrderForLowStockProducts', () => {
+            this.resetEditor(
+                this.fetchProductsWithLowStock()
+            );
+        });
     }
 
     componentWillUnmount() {
@@ -307,7 +311,6 @@ class EditorContainer extends React.Component {
     };
 
     fetchProductsBySupplier = (supplierId) => {
-        console.log(supplierId);
         $.post('/products/purchaseOrders/fetchProductsForSupplier', {supplierId}).done((data) => {
             if (data.skus.length === 0) {
                 return;
