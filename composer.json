@@ -72,7 +72,7 @@
         "channelgrabber/predis": "~1.1.8",
         "channelgrabber/product": "~1.18.6",
         "channelgrabber/profiling": "^1.1",
-        "channelgrabber/purchase-order": "~1.0.2",
+        "channelgrabber/purchase-order": "dev-TAC-557-suppliers-on-purchase-order as 1.0.3",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/reporting": "~1.0.0",
