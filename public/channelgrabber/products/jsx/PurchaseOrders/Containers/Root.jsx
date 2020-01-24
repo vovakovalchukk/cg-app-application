@@ -90,7 +90,10 @@ class RootContainer extends React.Component {
     };
 
     fetchProductsBySupplier = (option) => {
-        const event = new CustomEvent('createNewPurchaseOrderForSupplier', {detail: {supplierId: option.value}});
+        const event = new CustomEvent('createNewPurchaseOrderForSupplier', {detail: {supplier: {
+            id: option.value,
+            name: option.name
+        }}});
         window.dispatchEvent(event);
     };
 

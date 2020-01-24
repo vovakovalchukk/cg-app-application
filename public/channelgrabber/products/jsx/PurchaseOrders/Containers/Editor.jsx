@@ -22,7 +22,7 @@ class EditorContainer extends React.Component {
         window.addEventListener('purchaseOrderListRefresh', this.resetEditor);
         window.addEventListener('createNewPurchaseOrderForSupplier', (event) => {
             this.resetEditor(
-                this.fetchProductsBySupplier(event.detail.supplierId)
+                this.fetchProductsBySupplier(event.detail.supplier)
             );
         });
 
@@ -297,45 +297,41 @@ class EditorContainer extends React.Component {
 
     fetchProductsWithLowStock = () => {
         $.get('/products/purchaseOrders/fetchLowStockProducts', (data) => {
-            if (data.skus.length === 0) {
-                return;
-            }
-            let filter = new ProductFilter;
-            filter.sku = data.skus;
-            filter.limit = 500;
-            filter.replaceVariationWithParent = true;
-            filter.embedVariationsAsLinks = false;
-            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
-            AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
+            this.fetchProductsBySkus(data.skus, true);
         });
     };
 
-    fetchProductsBySupplier = (supplierId) => {
-        $.post('/products/purchaseOrders/fetchProductsForSupplier', {supplierId}).done((data) => {
-            if (data.skus.length === 0) {
-                return;
-            }
-            let filter = new ProductFilter;
-            filter.sku = data.skus;
-            filter.limit = 500;
-            filter.replaceVariationWithParent = true;
-            filter.embedVariationsAsLinks = false;
-            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
-            AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
+    fetchProductsBySupplier = (supplier) => {
+        $.post('/products/purchaseOrders/fetchProductsForSupplier', {supplierId: supplier.id}).done((data) => {
+            this.fetchProductsBySkus(data.skus);
         });
     };
 
-    populateWithLowStockProducts = (response) => {
-        let products = response.products.slice();
-        response = undefined;
+    fetchProductsBySkus = (skus, lowStockProductsOnly = false) => {
+        if (skus.length === 0) {
+            n.notice('No products found', true, 4000);
+            return;
+        }
 
-        let lowStockProducts = [];
+        n.success(`Found ${skus.length} products, please wait while we populate the new Purchase Order...`, true, 3000);
 
-        for (let product of products) {
+        let filter = new ProductFilter;
+        filter.sku = skus;
+        filter.limit = 500;
+        filter.replaceVariationWithParent = true;
+        filter.embedVariationsAsLinks = false;
+        filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
+        AjaxHandler.fetchByFilter(filter, this.populateWithProducts.bind(this, lowStockProductsOnly));
+    };
+
+    populateWithProducts = (lowStockProductsOnly, response) => {
+        let products = [];
+
+        for (let product of response.products.slice()) {
             this.cleanupProductData(product);
 
             if (product.variationCount === 0) {
-                lowStockProducts.push({
+                products.push({
                     product: product,
                     sku: product.sku,
                     quantity: 1
@@ -343,32 +339,31 @@ class EditorContainer extends React.Component {
                 continue;
             }
 
-            let lowStockVariations = this.getLowStockVariationsFromProduct(product);
-            lowStockProducts = lowStockProducts.concat(lowStockVariations);
+            let variations = this.getVariationsFromProduct(product, lowStockProductsOnly);
+            products = products.concat(variations);
         }
 
-        if(lowStockProducts.length === 0){
+        if (products.length === 0){
             return;
         }
 
-        this.addItemRowMulti(lowStockProducts)
+        this.addItemRowMulti(products)
     };
 
-    getLowStockVariationsFromProduct = product => {
-        let lowStockVariations = [];
-        let variations = product.variations.slice();
-        for (let variation of variations) {
-            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
+    getVariationsFromProduct = (product, lowStockProductsOnly) => {
+        let variations = [];
+        for (let variation of product.variations.slice()) {
+            if (!variation.stock || (lowStockProductsOnly && !variation.stock.lowStockThresholdTriggered)) {
                 continue;
             }
             this.cleanupProductData(variation);
-            lowStockVariations.push({
+            variations.push({
                 product: product,
                 sku: variation.sku,
                 quantity: 1
             });
         }
-        return lowStockVariations;
+        return variations;
     };
 
     populateWithLowStockVariations = (product) => {
