@@ -3,6 +3,10 @@ namespace Products\Controller;
 
 use Application\Controller\AbstractJsonController;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Product\Detail\Collection as ProductDetailsCollection;
+use CG\Product\Detail\Entity as ProductDetails;
+use CG\Product\Detail\Filter as ProductDetailsFilter;
+use CG\Product\Detail\Service as ProductDetailsService;
 use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
 use CG\PurchaseOrder\Entity as PurchaseOrder;
 use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
@@ -10,16 +14,13 @@ use CG\PurchaseOrder\Service as PurchaseOrderService;
 use CG\PurchaseOrder\Status as PurchaseOrderStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LogTrait;
-use CG\Stock\Service as StockService;
-use CG\Stock\Filter as StockFilter;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Filter as StockFilter;
+use CG\Stock\Service as StockService;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\Product\Detail\Service as ProductDetailsService;
-use CG\Product\Detail\Filter as ProductDetailsFilter;
-use CG\Product\Detail\Entity as ProductDetails;
-use CG\Product\Detail\Collection as ProductDetailsCollection;
+use Products\PurchaseOrder\Service as PurchaseOrderLocalService;
 
 class PurchaseOrdersJsonController extends AbstractJsonController
 {
@@ -48,6 +49,8 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     protected $stockService;
     /** @var ProductDetailsService */
     protected $productDetailsService;
+    /** @var PurchaseOrderLocalService */
+    protected $purchaseOrderLocalService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -55,7 +58,8 @@ class PurchaseOrdersJsonController extends AbstractJsonController
         PurchaseOrderMapper $purchaseOrderMapper,
         ActiveUserInterface $activeUserContainer,
         StockService $stockService,
-        ProductDetailsService $productDetailsService
+        ProductDetailsService $productDetailsService,
+        PurchaseOrderLocalService $purchaseOrderLocalService
     ) {
         parent::__construct($jsonModelFactory);
         $this->purchaseOrderService = $purchaseOrderService;
@@ -63,6 +67,7 @@ class PurchaseOrdersJsonController extends AbstractJsonController
         $this->activeUserContainer = $activeUserContainer;
         $this->stockService = $stockService;
         $this->productDetailsService = $productDetailsService;
+        $this->purchaseOrderLocalService = $purchaseOrderLocalService;
     }
 
     public function createAction()
@@ -128,8 +133,7 @@ class PurchaseOrdersJsonController extends AbstractJsonController
         $id = $this->params()->fromPost('id');
 
         try {
-            $purchaseOrder = $this->purchaseOrderService->fetch($id);
-            $purchaseOrderCsv = $this->purchaseOrderService->convertToCsv($purchaseOrder);
+            $purchaseOrderCsv = $this->purchaseOrderLocalService->exportPurchaseOrderAsCsv($id);
             $fileName = date('Y-m-d hi') . " purchase_order.csv";
 
             return new FileResponse('text/csv', $fileName, (string) $purchaseOrderCsv);
