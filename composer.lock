@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba6953bef952d42228635259bdc51b28",
+    "content-hash": "28bafbabd56d15596831580f9a7ef308",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3016,16 +3016,16 @@
         },
         {
             "name": "channelgrabber/purchase-order",
-            "version": "dev-TAC-557-suppliers-on-purchase-order",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "163487ee8b048d892b5f18527dee11745fc11538"
+                "reference": "9ab4c181c0610866f216c446054f26bc0884ff01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-dev-TAC-557-suppliers-on-purchase-order-9b3c36.zip",
-                "reference": "163487ee8b048d892b5f18527dee11745fc11538",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-1.0.3-8c1c20.zip",
+                "reference": "9ab4c181c0610866f216c446054f26bc0884ff01",
                 "shasum": null
             },
             "require": {
@@ -3043,7 +3043,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2020-01-24T15:02:35+00:00"
+            "time": "2020-01-27T14:40:52+00:00"
         },
         {
             "name": "channelgrabber/purge",
@@ -6509,6 +6509,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
@@ -12045,18 +12046,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-TAC-557-suppliers-on-purchase-order",
-            "package": "channelgrabber/purchase-order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/purchase-order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
