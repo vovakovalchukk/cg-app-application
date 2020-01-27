@@ -2436,12 +2436,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8654593c99cb62e9dc93195d44cee1fa43c51647"
+                "reference": "1aef0a087ff2918b18636c933c8baa8b7a1ec5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-594-display-partial-refunds-on-orders-3f8807.zip",
-                "reference": "8654593c99cb62e9dc93195d44cee1fa43c51647"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-594-display-partial-refunds-on-orders-bb12cd.zip",
+                "reference": "1aef0a087ff2918b18636c933c8baa8b7a1ec5ad"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2513,7 +2513,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-01-24T16:40:42+00:00"
+            "time": "2020-01-27T11:58:59+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -6386,6 +6386,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
