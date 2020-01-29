@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2d4166af7d7357046c94040521ebc7974e7ec4c9"
+                "reference": "424ae997db26de04616aa92f43bbc63bac88c5d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-585-partial-refunds-amazon-23fb05.zip",
-                "reference": "2d4166af7d7357046c94040521ebc7974e7ec4c9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-585-partial-refunds-amazon-b1c4e2.zip",
+                "reference": "424ae997db26de04616aa92f43bbc63bac88c5d9"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-01-28T16:06:49+00:00"
+            "time": "2020-01-29T14:41:15+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
