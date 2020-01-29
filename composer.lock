@@ -3356,12 +3356,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "9a73a6c35e6711205186202c97f1775ea8d81be0"
+                "reference": "af0a8fe74f70bf85d2b126253152409be789373d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-587-reorder-quantity-e92d67.zip",
-                "reference": "9a73a6c35e6711205186202c97f1775ea8d81be0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-587-reorder-quantity-304d93.zip",
+                "reference": "af0a8fe74f70bf85d2b126253152409be789373d",
                 "shasum": null
             },
             "require": {
@@ -3386,7 +3386,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-01-29T10:59:29+00:00"
+            "time": "2020-01-29T15:17:18+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
