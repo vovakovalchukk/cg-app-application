@@ -23,7 +23,7 @@ class RootComponent extends React.Component {
     render() {
         return (
         <div className="purchase-orders-root">
-            <PopupComponent onYesButtonPressed={this.props.onCreateNewPurchaseOrder}>
+            <PopupComponent onYesButtonPressed={this.props.onNewPurchaseOrderConfirm}>
                 <p>Do you want to create a new Purchase Order?</p>
                 <p>Any unsaved changes to the current Purchase Order will be lost.</p>
             </PopupComponent>
@@ -31,11 +31,26 @@ class RootComponent extends React.Component {
                 <div className="purchase-orders-action">
                     <Select prefix="Show" options={FILTER_OPTIONS} onOptionChange={this.props.onFilterSelected}/>
                 </div>
+                <div className="purchase-orders-action u-flex-center">
+                    <label className={"u-margin-right-small"}>Create new Purchase Order for products with Supplier: </label>
+                    <Select
+                        options={this.props.supplierOptions}
+                        autoSelectFirst={false}
+                        onOptionChange={this.props.onSupplierChange}
+                    />
+                </div>
+                <div className="purchase-orders-action">
+                    <Button
+                        onClick={this.props.onCreateNewPurchaseOrderWithLowStockProducts}
+                        sprite="sprite-plus-18-black"
+                        text="Create new Purchase Order for products with low stock"
+                    />
+                </div>
                 <div className="purchase-orders-action">
                     <Button
                         onClick={this.props.onCreateNewPurchaseOrderButtonPressed}
                         sprite="sprite-plus-18-black"
-                        text="New"
+                        text="Create new Purchase Order"
                         disabled={this.props.newButtonDisabled}
                     />
                 </div>

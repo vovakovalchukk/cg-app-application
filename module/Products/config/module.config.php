@@ -534,6 +534,16 @@ return [
                                     ]
                                 ]
                             ],
+                            PurchaseOrdersJsonController::ROUTE_FETCH_SKUS_BY_SUPPLIER => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetchProductsForSupplier',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'fetchProductSkusForSupplier'
+                                    ]
+                                ]
+                            ],
                         ],
                     ],
                     CreateListingsJsonController::ROUTE_CREATE_LISTINGS => [
