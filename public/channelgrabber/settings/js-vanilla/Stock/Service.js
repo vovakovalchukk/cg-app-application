@@ -48,13 +48,17 @@ define([
 
     Service.prototype.lowStockThresholdChanged = function(toggle)
     {
-        let thresholdInput = $(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_INPUT);
+        const lowStockValueInputElements = [$(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_INPUT), $(EventHandler.SELECTOR_REORDER_QUANTITY_INPUT)];
         if (toggle) {
-            thresholdInput.removeAttr('disabled').removeClass('disabled');
+            lowStockValueInputElements.forEach((element) => {
+                element.removeAttr('disabled').removeClass('disabled');
+            });
             return;
         }
 
-        thresholdInput.attr('disabled', 'disabled').addClass('disabled');
+        lowStockValueInputElements.forEach((element) => {
+            element.attr('disabled', 'disabled').addClass('disabled');
+        });
     };
 
     Service.prototype.save = function()
