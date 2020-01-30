@@ -45,7 +45,8 @@ let initialState = {
         byProductId: {}
     },
     lowStockThresholdToggle: {},
-    lowStockThresholdValue: {}
+    lowStockThresholdValue: {},
+    reorderQuantity: {}
 };
 
 let stockModeReducer = reducerCreator(initialState, {
@@ -140,6 +141,7 @@ let stockModeReducer = reducerCreator(initialState, {
 
         let lowStockThresholdToggle = Object.assign({}, state.lowStockThresholdToggle);
         let lowStockThresholdValue = Object.assign({}, state.lowStockThresholdValue);
+        let reorderQuantity = Object.assign({}, state.reorderQuantity);
 
         products.forEach((product) => {
             if (stateUtility.isParentProduct(product) || !product.stock) {
@@ -155,11 +157,16 @@ let stockModeReducer = reducerCreator(initialState, {
                 value: product.stock.lowStockThresholdValue,
                 editedValue: product.stock.lowStockThresholdValue
             };
+            reorderQuantity[product.id] = {
+                value: product.stock.reorderQuantity,
+                editedValue: product.stock.reorderQuantity
+            }
         });
 
         return Object.assign({}, state, {
             lowStockThresholdToggle,
-            lowStockThresholdValue
+            lowStockThresholdValue,
+            reorderQuantity
         });
     },
     "LOW_STOCK_CHANGE": function(state, action) {
@@ -256,6 +263,41 @@ let stockModeReducer = reducerCreator(initialState, {
         let error = action.payload;
         n.showErrorNotification(error, "There was an error when attempting to update the product\'s include purchase order stock setting.");
         return state;
+    },
+    "REORDER_QUANTITY_CHANGE": function(state, action) {
+        let {productId, newValue} = action.payload;
+
+        return Object.assign({}, state, {
+            reorderQuantity: Object.assign({}, state.reorderQuantity, {
+                [productId]: Object.assign({}, state.reorderQuantity[productId], {
+                    editedValue: newValue
+                })
+            })
+        });
+    },
+    "REORDER_QUANTITY_RESET": function(state, action) {
+        let {productId} = action.payload;
+
+        return Object.assign({}, state, {
+            reorderQuantity: Object.assign({}, state.reorderQuantity, {
+                [productId]: Object.assign({}, state.reorderQuantity[productId], {
+                    editedValue: state.reorderQuantity[productId].value
+                })
+            })
+        });
+    },
+    "REORDER_QUANTITY_UPDATE_SUCCESSFUL": function(state, action) {
+        let {productId, value} = action.payload;
+
+        return Object.assign({}, state, {
+            reorderQuantity: Object.assign({}, state.reorderQuantity, {
+                [productId]: Object.assign({}, state.reorderQuantity[productId], {
+                    value: value,
+                    editedValue: value,
+                    active: false
+                })
+            })
+        });
     }
 });
 

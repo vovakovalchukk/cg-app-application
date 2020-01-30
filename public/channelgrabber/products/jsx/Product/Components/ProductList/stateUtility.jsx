@@ -125,6 +125,12 @@ let stateUtility = function() {
                 value: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null
             }
         },
+        getReorderQuantityForProduct(product, stock) {
+            return stock.reorderQuantity[product.id] ? stock.reorderQuantity[product.id] : null;
+        },
+        getDefaultReorderQuantityFromProducts(products) {
+            return products.length === 0 ? null : products[0].reorderQuantityDefault;
+        },
         getCellIdentifier(products, rowIndex, columnKey) {
             const row = self.getRowData(products, rowIndex);
             return columnKey + row.id;

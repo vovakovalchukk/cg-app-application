@@ -144,6 +144,11 @@ class Service
         return $this->getProductSettings()->getLowStockThresholdValue();
     }
 
+    public function getReorderQuantityDefault()
+    {
+        return $this->getProductSettings()->getReorderQuantity();
+    }
+
     public function getStockLevelDefault()
     {
         $productSettings = $this->getProductSettings();
@@ -261,6 +266,40 @@ class Service
                 $this->stockStorage->save($stock);
                 // Only generate the low stock threshold triggered job if the stock entity was updated
                 $this->lowStockThresholdUpdateGenerator->generateJob($stock->getId());
+                return $stock;
+            } catch (NotModified $e) {
+                return $stock;
+            } catch (Conflict $e) {
+                continue;
+            }
+        }
+
+        throw $e;
+    }
+
+    public function saveReorderQuantity(int $productId, ?int $reorderQuantity): array
+    {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        $products = $product->isParent() ? $product->getVariations() : [$product];
+
+        $resultsById = [];
+        foreach ($products as $product) {
+            $stock = $this->saveReorderQuantityOnStockEntity($product->getStock()->getId(), $reorderQuantity);
+            $resultsById[$product->getId()] = ['reorderQuantity' => $stock->getReorderQuantity()];
+        }
+
+        return $resultsById;
+    }
+
+    protected function saveReorderQuantityOnStockEntity(int $stockId, ?int $reorderQuantity): Stock
+    {
+        for ($attempt = 0; $attempt < self::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                /** @var Stock $stock */
+                $stock = $this->stockStorage->fetch($stockId);
+                $stock->setReorderQuantity($reorderQuantity);
+                $this->stockStorage->save($stock);
                 return $stock;
             } catch (NotModified $e) {
                 return $stock;

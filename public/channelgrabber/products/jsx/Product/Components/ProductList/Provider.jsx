@@ -71,6 +71,9 @@ class ProductListProvider extends React.Component {
         store.dispatch(userSettingsActions.storeLowStockThresholdDefaults(
             stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
         ));
+        store.dispatch(userSettingsActions.storeDefaultReorderQuantity(
+            stateUtility.getDefaultReorderQuantityFromProducts(productsResponse.products)
+        ));
         store.dispatch(supplierActions.storeOptions(this.props.supplierOptions));
         store.dispatch(supplierActions.extractSuppliers(productsResponse.products));
     }
