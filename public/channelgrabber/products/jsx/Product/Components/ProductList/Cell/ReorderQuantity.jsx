@@ -25,6 +25,10 @@ class ReorderQuantityCell extends React.Component {
     };
 
     renderSubmits = (product) => {
+        const portalSettings = this.getPortalSettingsForSubmits();
+        if (!portalSettings) {
+            return null;
+        }
         return portalFactory.createPortal({
             portalSettings: this.getPortalSettingsForSubmits(),
             Component: StyledSafeSubmits,
@@ -58,11 +62,11 @@ class ReorderQuantityCell extends React.Component {
     getReorderQuantity = (product) => {
         const reorderQuantity = stateUtility.getReorderQuantityForProduct(product, this.props.stock);
 
-        if (!reorderQuantity.value && !reorderQuantity.editedValue) {
+        if (!reorderQuantity || (reorderQuantity.value === null && reorderQuantity.editedValue === null)) {
             return this.props.userSettings.reorderQuantity;
         }
 
-        if (!reorderQuantity.editedValue) {
+        if (reorderQuantity.editedValue === null) {
             return reorderQuantity.value;
         }
 
