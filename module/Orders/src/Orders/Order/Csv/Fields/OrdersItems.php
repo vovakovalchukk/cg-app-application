@@ -1,0 +1,83 @@
+<?php
+namespace Orders\Order\Csv\Fields;
+
+use Orders\Order\Csv\FieldsInterface;
+
+class OrdersItems implements FieldsInterface
+{
+    protected const FIELDS = [
+        'externalId',
+        'item.externalId',
+        'accountDisplayName',
+        'purchaseDate',
+        'paymentDate',
+        'printedDate',
+        'dispatchDate',
+        'invoiceDate',
+        'channel',
+        'status',
+        'shippingPrice',
+        'shippingMethod',
+        'currencyCode',
+        'itemName',
+        'individualItemPriceString',
+        'itemQuantity',
+        'itemSku',
+        'item.itemTaxPercentage',
+        'lineDiscountString',
+        'lineTaxString',
+        'totalOrderAndItemsDiscountString',
+        'lineTotalString',
+        'calculatedBillingAddressCompanyName',
+        'calculatedBillingAddressFullName',
+        'calculatedBillingAddress1',
+        'calculatedBillingAddress2',
+        'calculatedBillingAddress3',
+        'calculatedBillingAddressCity',
+        'calculatedBillingAddressCounty',
+        'calculatedBillingAddressCountry',
+        'calculatedBillingAddressCountryCode',
+        'calculatedBillingAddressPostcode',
+        'calculatedBillingEmailAddress',
+        'calculatedBillingPhoneNumber',
+        'calculatedShippingAddressCompanyName',
+        'calculatedShippingAddressFullName',
+        'calculatedShippingAddress1',
+        'calculatedShippingAddress2',
+        'calculatedShippingAddress3',
+        'calculatedShippingAddressCity',
+        'calculatedShippingAddressCounty',
+        'calculatedShippingAddressCountry',
+        'calculatedShippingAddressCountryCode',
+        'calculatedShippingAddressPostcode',
+        'calculatedShippingEmailAddress',
+        'calculatedShippingPhoneNumber',
+        'buyerMessage',
+        'item.giftWrapType',
+        'item.giftWrapMessage',
+        'item.giftWrapPrice',
+        'invoiceNumber',
+        'vatNumber',
+        'externalUsername',
+        'shippingTax',
+        'alert',
+        'productDetail.cost',
+        'calculatedFulfilmentAddressCompanyName',
+        'calculatedFulfilmentAddressFullName',
+        'calculatedFulfilmentAddress1',
+        'calculatedFulfilmentAddress2',
+        'calculatedFulfilmentAddress3',
+        'calculatedFulfilmentAddressCity',
+        'calculatedFulfilmentAddressCounty',
+        'calculatedFulfilmentAddressCountry',
+        'calculatedFulfilmentAddressCountryCode',
+        'calculatedFulfilmentAddressPostcode',
+        'calculatedFulfilmentEmailAddress',
+        'calculatedFulfilmentPhoneNumber',
+    ];
+
+    public static function getFields(): array
+    {
+        return static::FIELDS;
+    }
+}
