@@ -293,8 +293,7 @@ let stockModeReducer = reducerCreator(initialState, {
             reorderQuantity: Object.assign({}, state.reorderQuantity, {
                 [productId]: Object.assign({}, state.reorderQuantity[productId], {
                     value: value,
-                    editedValue: value,
-                    active: false
+                    editedValue: value
                 })
             })
         });

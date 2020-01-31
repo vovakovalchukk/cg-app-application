@@ -1,6 +1,6 @@
 import React from 'react';
 import stateUtility from "../stateUtility";
-import LowStockInputs, {ValueInput as ValueInputContainer, Container} from "../Components/LowStockInputs";
+import {ValueInput as ValueInputContainer, Container} from "../Components/LowStockInputs";
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
 import {StockModeCellContainer, StyledSafeSubmits} from "./StockMode";
@@ -56,7 +56,10 @@ class ReorderQuantityCell extends React.Component {
 
     hasReorderQuantityChanged = (product) => {
         const reorderQuantity = stateUtility.getReorderQuantityForProduct(product, this.props.stock);
-        return reorderQuantity.value !== reorderQuantity.editedValue;
+        if (reorderQuantity === null) {
+            return false;
+        }
+        return reorderQuantity.value != reorderQuantity.editedValue;
     };
 
     getReorderQuantity = (product) => {
