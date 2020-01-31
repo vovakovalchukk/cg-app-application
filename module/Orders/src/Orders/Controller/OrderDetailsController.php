@@ -132,7 +132,7 @@ class OrderDetailsController extends AbstractActionController
         $carriers = $this->courierHelper->getCarriersData();
         $tracking = $order->getFirstTracking();
         $priorityOptions = $this->courierHelper->getCarrierPriorityOptions($tracking);
-        $options = [];
+        $options = [['title' => 'None', 'value' => '-', 'selected' => ($tracking == null)]];
         foreach ($carriers as $carrier) {
             $selected = false;
             if(!is_null($tracking)) {
