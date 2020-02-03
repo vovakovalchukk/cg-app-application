@@ -385,23 +385,6 @@ class EditorContainer extends React.Component {
         return variations;
     };
 
-    populateWithLowStockVariations = (product) => {
-        let variations = product.variations.slice();
-        for (let variation of variations) {
-            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
-                continue;
-            }
-            this.cleanupProductData(variation);
-            this.onProductSelected({
-                detail: {
-                    product: product,
-                    sku: variation.sku,
-                    quantity: 1
-                }
-            });
-        }
-    };
-
     cleanupProductData = (product) => {
         delete product.imageIds;
         delete product.listingImageIds;
