@@ -285,25 +285,26 @@ class Service
 
         $resultsById = [];
         foreach ($products as $product) {
-            $stock = $this->saveReorderQuantityOnStockEntity($product->getStock()->getId(), $reorderQuantity);
+            $stock = $this->saveReorderQuantityOnStockEntity($product, $reorderQuantity);
             $resultsById[$product->getId()] = ['reorderQuantity' => $stock->getReorderQuantity()];
         }
 
         return $resultsById;
     }
 
-    protected function saveReorderQuantityOnStockEntity(int $stockId, ?int $reorderQuantity): Stock
+    protected function saveReorderQuantityOnStockEntity(Product $product, ?int $reorderQuantity): Stock
     {
+        /** @var Stock $stock */
+        $stock = $product->getStock();
         for ($attempt = 0; $attempt < self::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
-                /** @var Stock $stock */
-                $stock = $this->stockStorage->fetch($stockId);
                 $stock->setReorderQuantity($reorderQuantity);
                 $this->stockStorage->save($stock);
                 return $stock;
             } catch (NotModified $e) {
                 return $stock;
             } catch (Conflict $e) {
+                $stock = $this->stockStorage->fetch($product->getStock()->getId());
                 continue;
             }
         }
