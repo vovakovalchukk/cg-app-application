@@ -174,7 +174,7 @@ let actionCreators = (function() {
                     );
                     let responseForProduct = {};
 
-                    n.success('The low stock threshold was updates successfully');
+                    n.success('The low stock threshold was updated successfully');
 
                     Object.keys(response.products).forEach((productId) => {
                         responseForProduct = response.products[productId];
@@ -191,6 +191,52 @@ let actionCreators = (function() {
                     console.error(error);
                     n.error('There was an error while saving the low stock threshold. Please try again or contact support if the problem persists');
                     actionCreators.lowStockReset(productId);
+                }
+            }
+        },
+        reorderQuantityChange: (productId, newValue) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "REORDER_QUANTITY_CHANGE",
+                    payload: {
+                        productId, newValue
+                    }
+                });
+            }
+        },
+        reorderQuantityReset: (productId) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "REORDER_QUANTITY_RESET",
+                    payload: {
+                        productId
+                    }
+                });
+            }
+        },
+        saveReorderQuantityToBackend: (productId, value) => {
+            return async function (dispatch) {
+                n.notice('Updating the reorder quantity...', true);
+                try {
+                    let response = await updateReorderQuantity(productId, value);
+                    let responseForProduct = {};
+
+                    n.success('The reorder quantity was updated successfully');
+
+                    Object.keys(response.products).forEach((productId) => {
+                        responseForProduct = response.products[productId];
+                        dispatch({
+                            type: "REORDER_QUANTITY_UPDATE_SUCCESSFUL",
+                            payload: {
+                                productId,
+                                reorderQuantity: responseForProduct.reorderQuantity
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error(error);
+                    n.error('There was an error while saving the reorder quantity. Please try again or contact support if the problem persists');
+                    actionCreators.reorderQuantityReset(productId);
                 }
             }
         },
@@ -283,6 +329,20 @@ function updateLowStock(productId, toggle, value) {
             productId: productId,
             lowStockThresholdToggle: toggle,
             lowStockThresholdValue: value
+        },
+        success: response => (response),
+        error: error => (error)
+    });
+}
+
+function updateReorderQuantity(productId, reorderQuantity) {
+    return $.ajax({
+        url: "products/reorderQuantity",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            productId,
+            reorderQuantity
         },
         success: response => (response),
         error: error => (error)

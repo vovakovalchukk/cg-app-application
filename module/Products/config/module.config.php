@@ -140,6 +140,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_REORDER_QUANTITY => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/reorderQuantity',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveReorderQuantity'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [

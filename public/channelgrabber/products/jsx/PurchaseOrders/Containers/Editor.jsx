@@ -7,6 +7,8 @@ var COMPLETE_STATUS = "Complete";
 var DEFAULT_PO_STATUS = "In Progress";
 var DEFAULT_PO_NUMBER = "Enter Purchase Order Number";
 
+const DEFAULT_REORDER_QUANTITY = 1;
+
 class EditorContainer extends React.Component {
     state = {
         purchaseOrderId: 0,
@@ -334,7 +336,7 @@ class EditorContainer extends React.Component {
                 products.push({
                     product: product,
                     sku: product.sku,
-                    quantity: 1
+                    quantity: this.getQuantityForProduct(product)
                 });
                 continue;
             }
@@ -350,6 +352,23 @@ class EditorContainer extends React.Component {
         this.addItemRowMulti(products)
     };
 
+    getQuantityForProduct = (product) => {
+        const stock = product.stock;
+        if (!stock) {
+            return DEFAULT_REORDER_QUANTITY;
+        }
+
+        if (stock.reorderQuantity !== undefined && stock.reorderQuantity !== null) {
+            return stock.reorderQuantity;
+        }
+
+        if (product.reorderQuantityDefault !== undefined && product.reorderQuantityDefault !== null) {
+            return product.reorderQuantityDefault;
+        }
+
+        return DEFAULT_REORDER_QUANTITY;
+    };
+
     getVariationsFromProduct = (product, lowStockProductsOnly) => {
         let variations = [];
         for (let variation of product.variations.slice()) {
@@ -360,27 +379,10 @@ class EditorContainer extends React.Component {
             variations.push({
                 product: product,
                 sku: variation.sku,
-                quantity: 1
+                quantity: this.getQuantityForProduct(variation)
             });
         }
         return variations;
-    };
-
-    populateWithLowStockVariations = (product) => {
-        let variations = product.variations.slice();
-        for (let variation of variations) {
-            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
-                continue;
-            }
-            this.cleanupProductData(variation);
-            this.onProductSelected({
-                detail: {
-                    product: product,
-                    sku: variation.sku,
-                    quantity: 1
-                }
-            });
-        }
     };
 
     cleanupProductData = (product) => {
