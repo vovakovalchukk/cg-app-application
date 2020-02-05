@@ -20,6 +20,7 @@ use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Settings\Product\Entity as ProductSettings;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Entity as Stock;
@@ -326,7 +327,7 @@ class ProductsJsonController extends AbstractActionController
                 'toggle' => $this->stockSettingsService->getLowStockThresholdToggleDefault(),
                 'value' => $this->stockSettingsService->getLowStockThresholdDefaultValue()
             ],
-            'reorderQuantityDefault' => $this->stockSettingsService->getReorderQuantityDefault()
+            'reorderQuantityDefault' => $this->stockSettingsService->getReorderQuantityDefault() ?? ProductSettings::DEFAULT_REORDER_QUANTITY
         ]);
 
         $images = array_column($productEntity->getImageIds(), 'id', 'order');
