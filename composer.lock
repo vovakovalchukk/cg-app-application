@@ -3585,16 +3585,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.17.8",
+            "version": "1.17.8.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "0b1bf6cc13ac523f33c4fa4e17e9b029ee48b0a1"
+                "reference": "ee6a5f46277fa7cbcf7a09a388dc598ab99e1756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.8-377b53.zip",
-                "reference": "0b1bf6cc13ac523f33c4fa4e17e9b029ee48b0a1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.8.1-54992f.zip",
+                "reference": "ee6a5f46277fa7cbcf7a09a388dc598ab99e1756"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3640,7 +3640,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-02-05T13:26:16+00:00"
+            "time": "2020-02-05T16:05:58+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
