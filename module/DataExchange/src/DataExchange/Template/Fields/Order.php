@@ -6,6 +6,7 @@ use DataExchange\Template\FieldsInterface;
 class Order implements FieldsInterface
 {
     const FIELDS = [
+        'CG Order ID' => 'id',
         'Order ID' => 'externalId',
         'Order Item ID' => 'item.externalId',
         'Sales Channel Name' => 'channel',
