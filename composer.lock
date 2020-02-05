@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44167b8b5e242b323f684852e3e7246a",
+    "content-hash": "3c957929407b178edda08b91553f52b3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3281,16 +3281,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-TAC-587-reorder-quantity",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e89580a4945bcac59d10fe0c6dd24f6f5c6a3990"
+                "reference": "2e54339b55fa161b9fbd8fd2df6e2776a0de1066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-587-reorder-quantity-28667b.zip",
-                "reference": "e89580a4945bcac59d10fe0c6dd24f6f5c6a3990"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.8.2-d1d503.zip",
+                "reference": "2e54339b55fa161b9fbd8fd2df6e2776a0de1066"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3314,7 +3314,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-02-03T09:46:44+00:00"
+            "time": "2020-02-05T13:26:16+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3585,16 +3585,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-TAC-587-reorder-quantity",
+            "version": "1.17.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "442b7016856065c41e49f788bd4ae6ba5f2acda7"
+                "reference": "0b1bf6cc13ac523f33c4fa4e17e9b029ee48b0a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-587-reorder-quantity-5c217b.zip",
-                "reference": "442b7016856065c41e49f788bd4ae6ba5f2acda7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.8-377b53.zip",
+                "reference": "0b1bf6cc13ac523f33c4fa4e17e9b029ee48b0a1"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3640,7 +3640,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-02-03T09:45:47+00:00"
+            "time": "2020-02-05T13:26:16+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -11922,25 +11922,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.1",
-            "alias_normalized": "1.8.1.0",
-            "version": "dev-TAC-587-reorder-quantity",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.17.8",
-            "alias_normalized": "1.17.8.0",
-            "version": "dev-TAC-587-reorder-quantity",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
