@@ -14,6 +14,8 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use Orders\Order\Csv\Fields\Orders as OrdersFields;
+use Orders\Order\Csv\Fields\OrdersItems as OrdersItemsFields;
 use Orders\Order\Csv\Service as OrderCsvService;
 use Products\Product\Csv\Exporter as ProductCsvService;
 use Settings\Module;
@@ -142,7 +144,8 @@ class ExportController extends AdvancedController
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
         $csv = $this->orderCsvService->generateCsvForAllOrders(
             $this->getActiveUser()->getOuList(),
-            $guid
+            $guid,
+            OrdersFields::getFields()
         );
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
@@ -152,7 +155,8 @@ class ExportController extends AdvancedController
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
         $csv = $this->orderCsvService->generateCsvForAllOrdersAndItems(
             $this->getActiveUser()->getOuList(),
-            $guid
+            $guid,
+            OrdersItemsFields::getFields()
         );
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
@@ -215,4 +219,4 @@ class ExportController extends AdvancedController
             ->setLimit('all')
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
     }
-} 
+}

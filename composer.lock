@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cdfa7edceffe5ffef79a29b8afe61d6",
+    "content-hash": "44167b8b5e242b323f684852e3e7246a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1580,8 +1580,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-verification/channelgrabber-email-verification-1.0.1-0fd707.zip",
-                "reference": "dd48ff7194ff573cc72b8c7057c25ecb6b75d764",
-                "shasum": null
+                "reference": "dd48ff7194ff573cc72b8c7057c25ecb6b75d764"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -2433,16 +2432,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.48.4",
+            "version": "1.48.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3f1e4ad3ddd1196ed412eea05f72dd2bf0465336"
+                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.4-b9b761.zip",
-                "reference": "3f1e4ad3ddd1196ed412eea05f72dd2bf0465336"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.7-fae6c1.zip",
+                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2514,7 +2513,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-01-24T08:45:47+00:00"
+            "time": "2020-02-03T16:20:06+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3286,13 +3285,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "af0a8fe74f70bf85d2b126253152409be789373d"
+                "reference": "e89580a4945bcac59d10fe0c6dd24f6f5c6a3990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-587-reorder-quantity-304d93.zip",
-                "reference": "af0a8fe74f70bf85d2b126253152409be789373d",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-587-reorder-quantity-28667b.zip",
+                "reference": "e89580a4945bcac59d10fe0c6dd24f6f5c6a3990"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3316,7 +3314,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-01-29T15:17:18+00:00"
+            "time": "2020-02-03T09:46:44+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3596,8 +3594,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-587-reorder-quantity-5c217b.zip",
-                "reference": "442b7016856065c41e49f788bd4ae6ba5f2acda7",
-                "shasum": null
+                "reference": "442b7016856065c41e49f788bd4ae6ba5f2acda7"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
