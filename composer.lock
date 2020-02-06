@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c957929407b178edda08b91553f52b3",
+    "content-hash": "5a69d751cb2e5025560c3d0388d77ffc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -2432,16 +2432,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.48.7",
+            "version": "dev-TAC-594-display-partial-refunds-on-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
+                "reference": "1aef0a087ff2918b18636c933c8baa8b7a1ec5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.7-fae6c1.zip",
-                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-594-display-partial-refunds-on-orders-bb12cd.zip",
+                "reference": "1aef0a087ff2918b18636c933c8baa8b7a1ec5ad"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2513,7 +2513,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-02-03T16:20:06+00:00"
+            "time": "2020-01-27T11:58:59+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11922,10 +11922,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.48.5",
+            "alias_normalized": "1.48.5.0",
+            "version": "dev-TAC-594-display-partial-refunds-on-orders",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
