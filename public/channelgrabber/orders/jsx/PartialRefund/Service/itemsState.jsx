@@ -8,8 +8,7 @@ const useItemsState = (initialItems) => {
         items.forEach((item) => {
             itemsById[item.id] = {
                 ...item,
-                selectedAmount: item.amount,
-                selected: false
+                selectedAmount: 0
             }
         });
 
@@ -32,9 +31,6 @@ const useItemsState = (initialItems) => {
         items,
         updateItemAmount: (productId, newAmount) => {
             setItems(updateItemPropertyInItems(items, productId, 'selectedAmount', newAmount));
-        },
-        toggleItem: (productId) => {
-            setItems(updateItemPropertyInItems(items, productId, 'selected', !(items[productId].selected)));
         }
     }
 };

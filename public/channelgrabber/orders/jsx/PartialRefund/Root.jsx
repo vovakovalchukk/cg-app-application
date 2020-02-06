@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PartialRefundPopup from "./Popup";
+import PartialRefundPopup from "./Components/Popup";
 
 const PartialRefundRoot = function(
     mountingNode,

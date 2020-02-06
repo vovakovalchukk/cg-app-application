@@ -1,11 +1,10 @@
 import React from 'react';
-import CheckboxComponent from "Common/Components/Checkbox";
 
-const AMOUNT_MIN = 0.01;
+const AMOUNT_MIN = 0;
 
 const RefundItems = (props) => {
 
-    const columns = ['Name', 'SKU', 'Maximum refund amount', 'Refund amount', 'Selected'];
+    const columns = ['Name', 'SKU', 'Maximum refund amount', 'Refund amount'];
     const {items, onAmountChange, onItemSelected} = props;
 
     const renderTableHeader = () => {
@@ -24,7 +23,6 @@ const RefundItems = (props) => {
                 <td>{item.sku}</td>
                 <td>{item.amount}</td>
                 <td>{renderAmountInput(item)}</td>
-                <td>{renderCheckbox(item)}</td>
             </tr>
         });
     };
@@ -38,7 +36,13 @@ const RefundItems = (props) => {
                 max={item.amount}
                 step={0.1}
                 id={`refund-item-${item.id}`}
-                onChange={(event) => {onAmountChange(item.id, event.target.value)}}
+                onChange={(event) => {
+                    const newValue = parseInt(event.target.value);
+                    if (newValue < AMOUNT_MIN) {
+                        return;
+                    }
+                    onAmountChange(item.id, event.target.value)}
+                }
                 value={item.selectedAmount}
             />
         </div>
@@ -58,17 +62,9 @@ const RefundItems = (props) => {
         return className;
     };
 
-    const renderCheckbox = (item) => {
-        return <CheckboxComponent
-            checked={item.selected}
-            onChange={() => {onItemSelected(item.id)}}
-            id={item.id}
-        />
-    };
-
     return <div className={'items-table-container u-margin-top-large'}>
         <form name={'partial-refund'}>
-            <table>
+            <table className="u-margin-bottom-med">
                 <thead>{renderTableHeader()}</thead>
                 <tbody>{renderRows()}</tbody>
             </table>

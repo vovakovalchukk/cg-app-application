@@ -15,6 +15,7 @@ const partialRefundRequest = (orderId, refundReason, items, setPopupActive) => {
     }).done((data) => {
         n.success('Order marked to be partially refunded.');
         setPopupActive(false);
+        window.location.reload();
     });
 };
 
@@ -25,7 +26,8 @@ function formatItemsForRequest(items) {
 
     Object.keys(items).forEach((itemId) => {
         const item = items[itemId];
-        if (!item.selected) {
+        const amount = parseInt(item.selectedAmount);
+        if (amount === 0) {
             return false;
         }
 

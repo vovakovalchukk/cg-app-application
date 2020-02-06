@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import PopupComponent from "Common/Components/Popup";
 import SelectComponent from "Common/Components/Select";
-import RefundItems, {AMOUNT_MIN} from "PartialRefund/Items";
-import useItemsState from "PartialRefund/itemsState";
-import partialRefundRequest from "PartialRefund/partialRefundRequest";
+import RefundItems, {AMOUNT_MIN} from "./Items";
+import useItemsState from "../Service/itemsState";
+import partialRefundRequest from "../Service/partialRefundRequest";
 
 "use strict";
 
@@ -64,12 +64,12 @@ const PartialRefundPopup = (props) => {
         let selectedItemsCount = 0;
         Object.keys(itemsState.items).forEach((itemId) => {
             const item = itemsState.items[itemId];
-            if (!item.selected) {
+            if (item.selectedAmount <= AMOUNT_MIN) {
                 return;
             }
 
             selectedItemsCount++;
-            if (item.selectedAmount < AMOUNT_MIN || item.selectedAmount > item.amount) {
+            if (item.selectedAmount > item.amount) {
                 isAmountValid = false;
             }
         });
@@ -81,7 +81,6 @@ const PartialRefundPopup = (props) => {
         initiallyActive={popupActive}
         headerText={"Partial Refund"}
         subHeaderText={"Please select which items you want to refund, their quantity and a reason for the refund."}
-        yesButtonText={"Save"}
         noButtonText={"Cancel"}
         closeOnYes={false}
         onYesButtonPressed={onConfirmButtonPressed}
