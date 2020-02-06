@@ -1,3 +1,28 @@
-<?php
-// This will be rendered inside <script> tags so you can just output JavaScript from here
-// You have access to the PHP variables: $orderId, $refundReasons and $items
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'Orders': '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER; ?>js/Orders'
+    }
+});
+require([
+        'Orders/PartialRefund/Root'
+    ],
+    function(
+        PartialRefund
+    ) {
+
+    const partialRefundContainer = document.createElement("div");
+    document.getElementById('main-wrapper').appendChild(partialRefundContainer);
+
+    const partialRefund = new PartialRefund(
+        partialRefundContainer,
+        <?= json_encode($orderId) ?>,
+        <?= $refundReasons ?>,
+        <?= json_encode($items) ?>
+    );
+
+    document.getElementById('product-bulk-action-partialRefund').onclick = () => {
+        window.triggerEvent('partialRefundPopup')
+    };
+});
+<?php $this->inlineScript()->captureEnd(); ?>
