@@ -7,6 +7,8 @@ var COMPLETE_STATUS = "Complete";
 var DEFAULT_PO_STATUS = "In Progress";
 var DEFAULT_PO_NUMBER = "Enter Purchase Order Number";
 
+const DEFAULT_REORDER_QUANTITY = 1;
+
 class EditorContainer extends React.Component {
     state = {
         purchaseOrderId: 0,
@@ -20,8 +22,17 @@ class EditorContainer extends React.Component {
         window.addEventListener('purchaseOrderSelected', this.populateEditor);
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('purchaseOrderListRefresh', this.resetEditor);
+        window.addEventListener('createNewPurchaseOrderForSupplier', (event) => {
+            this.resetEditor(
+                this.fetchProductsBySupplier(event.detail.supplier)
+            );
+        });
 
-        this.fetchProductsWithLowStock();
+        window.addEventListener('createNewPurchaseOrderForLowStockProducts', () => {
+            this.resetEditor(
+                this.fetchProductsWithLowStock()
+            );
+        });
     }
 
     componentWillUnmount() {
@@ -288,80 +299,90 @@ class EditorContainer extends React.Component {
 
     fetchProductsWithLowStock = () => {
         $.get('/products/purchaseOrders/fetchLowStockProducts', (data) => {
-            if (data.skus.length === 0) {
-                return;
-            }
-            let filter = new ProductFilter;
-            filter.sku = data.skus;
-            filter.limit = 500;
-            filter.replaceVariationWithParent = true;
-            filter.embedVariationsAsLinks = false;
-            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
-            AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
+            this.fetchProductsBySkus(data.skus, true);
         });
     };
 
-    populateWithLowStockProducts = (response) => {
-        let products = response.products.slice();
-        response = undefined;
+    fetchProductsBySupplier = (supplier) => {
+        $.post('/products/purchaseOrders/fetchProductsForSupplier', {supplierId: supplier.id}).done((data) => {
+            this.fetchProductsBySkus(data.skus);
+        });
+    };
 
-        let lowStockProducts = [];
+    fetchProductsBySkus = (skus, lowStockProductsOnly = false) => {
+        if (skus.length === 0) {
+            n.notice('No products found', true, 4000);
+            return;
+        }
 
-        for (let product of products) {
+        n.success(`Found ${skus.length} products, please wait while we populate the new Purchase Order...`, true, 3000);
+
+        let filter = new ProductFilter;
+        filter.sku = skus;
+        filter.limit = 500;
+        filter.replaceVariationWithParent = true;
+        filter.embedVariationsAsLinks = false;
+        filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
+        AjaxHandler.fetchByFilter(filter, this.populateWithProducts.bind(this, lowStockProductsOnly));
+    };
+
+    populateWithProducts = (lowStockProductsOnly, response) => {
+        let products = [];
+
+        for (let product of response.products.slice()) {
             this.cleanupProductData(product);
 
             if (product.variationCount === 0) {
-                lowStockProducts.push({
+                products.push({
                     product: product,
                     sku: product.sku,
-                    quantity: 1
+                    quantity: this.getQuantityForProduct(product)
                 });
                 continue;
             }
 
-            let lowStockVariations = this.getLowStockVariationsFromProduct(product);
-            lowStockProducts = lowStockProducts.concat(lowStockVariations);
+            let variations = this.getVariationsFromProduct(product, lowStockProductsOnly);
+            products = products.concat(variations);
         }
 
-        if(lowStockProducts.length === 0){
+        if (products.length === 0){
             return;
         }
 
-        this.addItemRowMulti(lowStockProducts)
+        this.addItemRowMulti(products)
     };
 
-    getLowStockVariationsFromProduct = product => {
-        let lowStockVariations = [];
-        let variations = product.variations.slice();
-        for (let variation of variations) {
-            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
+    getQuantityForProduct = (product) => {
+        const stock = product.stock;
+        if (!stock) {
+            return DEFAULT_REORDER_QUANTITY;
+        }
+
+        if (stock.reorderQuantity !== undefined && stock.reorderQuantity !== null) {
+            return stock.reorderQuantity;
+        }
+
+        if (product.reorderQuantityDefault !== undefined && product.reorderQuantityDefault !== null) {
+            return product.reorderQuantityDefault;
+        }
+
+        return DEFAULT_REORDER_QUANTITY;
+    };
+
+    getVariationsFromProduct = (product, lowStockProductsOnly) => {
+        let variations = [];
+        for (let variation of product.variations.slice()) {
+            if (!variation.stock || (lowStockProductsOnly && !variation.stock.lowStockThresholdTriggered)) {
                 continue;
             }
             this.cleanupProductData(variation);
-            lowStockVariations.push({
+            variations.push({
                 product: product,
                 sku: variation.sku,
-                quantity: 1
+                quantity: this.getQuantityForProduct(variation)
             });
         }
-        return lowStockVariations;
-    };
-
-    populateWithLowStockVariations = (product) => {
-        let variations = product.variations.slice();
-        for (let variation of variations) {
-            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
-                continue;
-            }
-            this.cleanupProductData(variation);
-            this.onProductSelected({
-                detail: {
-                    product: product,
-                    sku: variation.sku,
-                    quantity: 1
-                }
-            });
-        }
+        return variations;
     };
 
     cleanupProductData = (product) => {
