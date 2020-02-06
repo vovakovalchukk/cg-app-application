@@ -11,9 +11,10 @@ class AmazonCategoryFormComponent extends React.Component {
     static defaultProps = {
         categoryId: null,
         accountId: 0,
-        itemSpecifics: {},
+        //itemSpecifics: {},
         rootCategories: {},
-        variationThemes: {},
+        //variationThemes: {},
+        amazonCategories: {},
         variationsDataForProduct: [],
         product: {},
         fieldChange: null,
@@ -390,17 +391,53 @@ class AmazonCategoryFormComponent extends React.Component {
         );
     };
 
+    renderAmazonCategorySelect = () => {
+        return (
+            <div className={'u-defloat u-display-flex'}>
+                <label className="inputbox-label u-font-large">Amazon Category</label>
+                <Select
+                    autoSelectFirst={false}
+                    filterable={true}
+                    options={this.formatAmazonCategoriesAsSelectOptions()}
+                    onOptionChange={(option) => {
+                        this.fetchAndSetAmazonCategoryDependentValues(option.value)
+                    }}
+                />
+            </div>
+        );
+    };
+
+    formatAmazonCategoriesAsSelectOptions = () => {
+        let options = [];
+        for (let id in Object.keys(this.props.amazonCategories)) {
+            if (this.props.amazonCategories[id] == undefined) {
+                continue;
+            }
+            options.push({
+                name: this.props.amazonCategories[id],
+                value: id
+            });
+        }
+        return options;
+    };
+
+    fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId, categoryIndex, previouslySetState) => {
+        // TODO
+
+    };
+
     render() {
         return (
             <div className="amazon-category-form-container">
                 <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>
-                <FormSection
-                    name="itemSpecifics"
-                    component={ItemSpecifics}
-                    categoryId={this.props.categoryId}
-                    itemSpecifics={this.props.itemSpecifics}
-                />
-                {this.isSimpleProduct() ? this.renderVariationThemeContent(false) : ''}
+                {this.renderAmazonCategorySelect()}
+                {/*<FormSection*/}
+                {/*    name="itemSpecifics"*/}
+                {/*    component={ItemSpecifics}*/}
+                {/*    categoryId={this.props.categoryId}*/}
+                {/*    itemSpecifics={this.props.itemSpecifics}*/}
+                {/*/>*/}
+                {/*{this.isSimpleProduct() ? this.renderVariationThemeContent(false) : ''}*/}
             </div>
         );
     }
