@@ -3,6 +3,7 @@ namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorage;
 use CG\Amazon\Category\Entity as AmazonCategory;
 use CG\Amazon\Category\Filter as AmazonCategoryFilter;
 use CG\Amazon\Category\Service as AmazonCategoryService;
@@ -44,19 +45,23 @@ class Service implements
     protected $amazonCategoryService;
     /** @var VariationThemeService */
     protected $variationThemeService;
+    /** @var BrowseNodeCategoryUsageStorage */
+    protected $browseNodeCategoryUsageStorage;
 
     public function __construct(
         CategoryService $categoryService,
         Cryptor $cryptor,
         RegionFactory $regionFactory,
         AmazonCategoryService $amazonCategoryService,
-        VariationThemeService $variationThemeService
+        VariationThemeService $variationThemeService,
+        BrowseNodeCategoryUsageStorage $browseNodeCategoryUsageStorage
     ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
         $this->regionFactory = $regionFactory;
         $this->amazonCategoryService = $amazonCategoryService;
         $this->variationThemeService = $variationThemeService;
+        $this->browseNodeCategoryUsageStorage = $browseNodeCategoryUsageStorage;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -94,9 +99,15 @@ class Service implements
         $marketplace = $this->getMarketplaceForAccount($account);
 
         return [
-            'amazonCategories' => $this->fetchAmazonCategoryOptions(),
+            'amazonCategories' => $this->getAmazonCategoryOptions($categoryId),
             'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace, false),
         ];
+    }
+
+    protected function getAmazonCategoryOptions(int $cgCategoryId): array
+    {
+        $options = $this->fetchAmazonCategoryOptions();
+        return $this->sortAmazonCategoryOptions($options, $cgCategoryId);
     }
 
     protected function fetchAmazonCategoryOptions(): array
@@ -113,6 +124,30 @@ class Service implements
         } catch (NotFound $e) {
             return [];
         }
+    }
+
+    protected function sortAmazonCategoryOptions(array $options, int $cgCategoryId): array
+    {
+        $alpha = $this->sortAmazonCategoryOptionsAlphabetically($options);
+        return $this->sortAmazonCategoryOptionsByUsage($alpha, $cgCategoryId);
+    }
+
+    protected function sortAmazonCategoryOptionsAlphabetically(array $options): array
+    {
+        asort($options);
+        return $options;
+    }
+
+    protected function sortAmazonCategoryOptionsByUsage(array $options, int $cgCategoryId): array
+    {
+        $cgCategory = $this->categoryService->fetch($cgCategoryId);
+        $browseNodeId = $cgCategory->getExternalId();
+        $usage = $this->browseNodeCategoryUsageStorage->getForBrowseNode($browseNodeId);
+        if (empty($usage)) {
+            return $options;
+        }
+        // Move the already-sorted usage keys to the top
+        return array_intersect_key($options, array_flip($usage)) + $options;
     }
 
     public function formatExternalChannelData(array $data, string $processGuid): array

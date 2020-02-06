@@ -64,6 +64,11 @@ class Service
         }
     }
 
+    public function fetch(int $categoryId): Category
+    {
+        return $this->categoryService->fetch($categoryId);
+    }
+
     public function formatCategoriesResponse(CategoryCollection $categoryCollection): array
     {
         $categories = [];

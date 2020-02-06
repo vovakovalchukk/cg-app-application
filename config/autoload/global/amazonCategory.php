@@ -1,5 +1,6 @@
 <?php
 
+use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorage;
 use CG\Amazon\Category\Mapper as AmazonCategoryMapper;
 use CG\Amazon\Category\Storage\Db as AmazonCategoryStorageDb;
 use CG\Amazon\Category\StorageInterface as AmazonCategoryStorage;
@@ -28,6 +29,11 @@ return [
                     'fastReadSql' => 'amazonFastReadSql',
                     'writeSql' => 'amazonWriteSql',
                     'mapper' => AmazonVariationThemeMapper::class
+                ]
+            ],
+            BrowseNodeCategoryUsageStorage::class => [
+                'parameter' => [
+                    'predis' => 'reliable_redis'
                 ]
             ],
         ]

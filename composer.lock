@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b02c7a0a44d09cd9ff35286155601e6e",
+    "content-hash": "a724ba8816c3e4bd2d386ee711382ca5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -374,16 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.33.3",
+            "version": "dev-MIG-62-amazon-browse-node-category-usage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "1bcaa2d0571891de851533b1023392a9259bd7b5"
+                "reference": "d46b62f173bf6869a454cdc766053f7f6b0e79f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.3-975040.zip",
-                "reference": "1bcaa2d0571891de851533b1023392a9259bd7b5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-62-amazon-browse-node-category-usage-f9d100.zip",
+                "reference": "d46b62f173bf6869a454cdc766053f7f6b0e79f4"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-02-05T10:17:10+00:00"
+            "time": "2020-02-06T14:02:12+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -11923,9 +11923,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.33.4",
+            "alias_normalized": "1.33.4.0",
+            "version": "dev-MIG-62-amazon-browse-node-category-usage",
+            "package": "channelgrabber/amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
