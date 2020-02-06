@@ -22,7 +22,11 @@ require([
     );
 
     document.getElementById('product-bulk-action-partialRefund').onclick = () => {
-        window.triggerEvent('partialRefundPopup')
+        const container = document.getElementById('product-bulk-action-partialRefund').parentNode.parentNode;
+        if (container.classList.contains('disabled')) {
+            return;
+        }
+        window.triggerEvent('partialRefundPopup');
     };
 });
 <?php $this->inlineScript()->captureEnd(); ?>
