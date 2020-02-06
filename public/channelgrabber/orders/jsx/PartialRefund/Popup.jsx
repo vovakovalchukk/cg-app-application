@@ -87,6 +87,7 @@ const PartialRefundPopup = (props) => {
         onYesButtonPressed={onConfirmButtonPressed}
         yesButtonDisabled={!isFormValid()}
         onNoButtonPressed={() => {setPopupActive(false)}}
+        yesButtonText={"Confirm"}
     >
         <div className={'partial-refund-container u-margin-top-large'}>
             {renderReasonSelect()}
