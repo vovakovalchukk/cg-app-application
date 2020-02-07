@@ -107,7 +107,13 @@ class Service implements
     protected function getAmazonCategoryOptions(int $cgCategoryId): array
     {
         $options = $this->fetchAmazonCategoryOptions();
-        return $this->sortAmazonCategoryOptions($options, $cgCategoryId);
+        $highUsageOptions = $this->extractHighUsageAmazonCategoryOptions($options, $cgCategoryId);
+        $options = $this->sortAmazonCategoryOptionsAlphabetically($options);
+
+        return [
+            'priorityOptions' => $this->formatAmazonCategoryOptions($highUsageOptions),
+            'options' => $this->formatAmazonCategoryOptions($options),
+        ];
     }
 
     protected function fetchAmazonCategoryOptions(): array
@@ -126,28 +132,39 @@ class Service implements
         }
     }
 
-    protected function sortAmazonCategoryOptions(array $options, int $cgCategoryId): array
-    {
-        $alpha = $this->sortAmazonCategoryOptionsAlphabetically($options);
-        return $this->sortAmazonCategoryOptionsByUsage($alpha, $cgCategoryId);
-    }
-
     protected function sortAmazonCategoryOptionsAlphabetically(array $options): array
     {
         asort($options);
         return $options;
     }
 
-    protected function sortAmazonCategoryOptionsByUsage(array $options, int $cgCategoryId): array
+    protected function extractHighUsageAmazonCategoryOptions(array &$options, int $cgCategoryId): array
     {
         $cgCategory = $this->categoryService->fetch($cgCategoryId);
         $browseNodeId = $cgCategory->getExternalId();
         $usage = $this->browseNodeCategoryUsageStorage->getForBrowseNode($browseNodeId);
         if (empty($usage)) {
-            return $options;
+            return [];
         }
-        // Move the already-sorted usage keys to the top
-        return array_intersect_key($options, array_flip($usage)) + $options;
+        $usedOptions = [];
+        foreach ($usage as $amazonCategoryId) {
+            if (!isset($options[$amazonCategoryId])) {
+                continue;
+            }
+            $usedOptions[$amazonCategoryId] = $options[$amazonCategoryId];
+            unset($options[$amazonCategoryId]);
+        }
+        return $usedOptions;
+    }
+
+    protected function formatAmazonCategoryOptions(array $options): array
+    {
+        return array_map(function ($id, $name) {
+            return [
+                'name' => $name,
+                'value' => $id,
+            ];
+        }, array_keys($options), $options);
     }
 
     public function formatExternalChannelData(array $data, string $processGuid): array
