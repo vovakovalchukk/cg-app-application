@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc3daa24694ea6d16b489f506f1fd601",
+    "content-hash": "a7b75061f16a2a919b58c72bef251344",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -2432,16 +2432,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.48.7",
+            "version": "1.48.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
+                "reference": "bfad037ed120969f3113f1c8ea0121d48d4f2f00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.7-fae6c1.zip",
-                "reference": "193dd35e75144fd7be4ad342a787e2391e668b17"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.9-41aabb.zip",
+                "reference": "bfad037ed120969f3113f1c8ea0121d48d4f2f00"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2513,7 +2513,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-02-03T16:20:06+00:00"
+            "time": "2020-02-06T14:08:07+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2831,16 +2831,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.18.6",
+            "version": "1.18.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
+                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.6-0236b6.zip",
-                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.8-cb0046.zip",
+                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2889,7 +2889,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-15T09:11:31+00:00"
+            "time": "2020-02-06T14:10:02+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
