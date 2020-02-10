@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63a77a55c31876f9ea429e9c6bbd8fd4",
+    "content-hash": "118c11cd7968ff307cfd67e31356fab5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,16 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.32.1",
+            "version": "1.33.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "a7d4fc2ec1b8233abdb1d3562cd861a1fe1d4721"
+                "reference": "7240f54ba3e7c52936e8e3f29ded21d2306b3611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.32.1-aa0da1.zip",
-                "reference": "a7d4fc2ec1b8233abdb1d3562cd861a1fe1d4721"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.5-903f4d.zip",
+                "reference": "7240f54ba3e7c52936e8e3f29ded21d2306b3611"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -396,20 +396,20 @@
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/email-verification": "^1.0.0",
                 "channelgrabber/exchangerate": "^1.1.1",
-                "channelgrabber/gearman": "^1.7.1",
+                "channelgrabber/gearman": "^1.8.1",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.18.4",
                 "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/order": "^1.43.16",
+                "channelgrabber/order": "^1.48.6",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "^1.17.5",
+                "channelgrabber/product": "^1.18.6",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
-                "channelgrabber/stdlib": "^2.13.1",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "contextio/php-contextio": "~2.1",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-12-09T10:13:10+00:00"
+            "time": "2020-02-06T13:46:04+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1497,16 +1497,16 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "59f539466025416b009b63c40309a282424bee51"
+                "reference": "e9733b81c696ab254af442f81d5cc8c43edac975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email/channelgrabber-email-1.1.2-700b6b.zip",
-                "reference": "59f539466025416b009b63c40309a282424bee51"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email/channelgrabber-email-1.1.3-a0901e.zip",
+                "reference": "e9733b81c696ab254af442f81d5cc8c43edac975"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1528,7 +1528,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2017-08-16T08:13:02+00:00"
+            "time": "2020-02-06T13:57:28+00:00"
         },
         {
             "name": "channelgrabber/email-account",
@@ -1818,16 +1818,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.7.1",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "b24f40db5e742e9649caf304a0254ae2379bb60c"
+                "reference": "1c874056d061ee06b4797b53770399a2f6bd1772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.7.1-dd62b0.zip",
-                "reference": "b24f40db5e742e9649caf304a0254ae2379bb60c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.8.1-781b4d.zip",
+                "reference": "1c874056d061ee06b4797b53770399a2f6bd1772"
             },
             "require": {
                 "channelgrabber/cg-predis": "^0.8.7",
@@ -1836,7 +1836,7 @@
                 "channelgrabber/log": "^2.2.0",
                 "channelgrabber/opsgenie": "^1.1.0",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/stats": "^1.0.6",
+                "channelgrabber/stats": "^1.1.1",
                 "channelgrabber/stdlib": "^2.16.8",
                 "ext-gearman": "*",
                 "guzzle/guzzle": "~3.7",
@@ -1850,7 +1850,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-9693-clean-gearman-dynamic-queues-for-inactive-users": "1.3.x-dev"
+                    "dev-CGIV-11176-gearman-dynamic-queues": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -1863,7 +1863,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-05-22T08:05:40+00:00"
+            "time": "2020-01-30T11:34:56+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -2703,25 +2703,25 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.3.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "reference": "13edf92ea8991e44572980606eb008bc7521c7c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.0-079bf1.zip",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-TAC-598-fix-phpstan-errors-in-app-86ee22.zip",
+                "reference": "13edf92ea8991e44572980606eb008bc7521c7c7"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.7.0",
+                "channelgrabber/template": "dev-TAC-598-fix-phpstan-errors-in-app as 1.9.6",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
-                "zendframework/zendpdf": "2.0.2.2"
+                "zendframework/zendpdf": "dev-TAC-598-fix-phpstan-errors-in-app as 2.0.2.3"
             },
             "conflict": {
                 "channelgrabber/template": "<1.5.0"
@@ -2742,7 +2742,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-30T12:25:07+00:00"
+            "time": "2020-02-10T11:59:31+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -3356,29 +3356,31 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.3.1",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
+                "reference": "93a5e7331be3ac9b2ce79d04086a7a85e8ffad60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.3.1-7a62cf.zip",
-                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.5.1-716545.zip",
+                "reference": "93a5e7331be3ac9b2ce79d04086a7a85e8ffad60"
             },
             "require": {
-                "channelgrabber/channel": "^1.24.6",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/listing": "^1.16.2",
+                "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.38.5",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.33",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "predis/predis": "^0.8.3",
                 "zendframework/zend-di": "~2.3"
             },
             "require-dev": {
@@ -3397,7 +3399,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-06-20T09:25:41+00:00"
+            "time": "2019-12-11T09:13:24+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3501,21 +3503,22 @@
         },
         {
             "name": "channelgrabber/stats",
-            "version": "1.0.6",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stats.git",
-                "reference": "54c50d32e976408ef2d8c6fca1f8489243a397f1"
+                "reference": "9c83134d1af9c6c5d001d55d85ef8a7b47cbef21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stats/channelgrabber-stats-1.0.6-3619a7.zip",
-                "reference": "54c50d32e976408ef2d8c6fca1f8489243a397f1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stats/channelgrabber-stats-1.1.2-6b9ae0.zip",
+                "reference": "9c83134d1af9c6c5d001d55d85ef8a7b47cbef21"
             },
             "require": {
-                "channelgrabber/stdlib": ">=2.10.1, <3.0.0",
+                "channelgrabber/stdlib": "^2.10.1",
                 "liuggio/statsd-php-client": "~1.0.12",
-                "zendframework/zend-eventmanager": ">=2.2,<3.0"
+                "php": ">=7.1",
+                "zendframework/zend-eventmanager": "^2.2"
             },
             "type": "library",
             "autoload": {
@@ -3524,7 +3527,7 @@
                 }
             },
             "description": "ChannelGrabber application stat logging",
-            "time": "2015-04-22T08:58:22+00:00"
+            "time": "2019-10-14T13:53:44+00:00"
         },
         {
             "name": "channelgrabber/stdlib",
@@ -3786,16 +3789,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.4",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c6b372339e59468e6aeb4c858354f17c394b7d4e"
+                "reference": "014368a7f7e7054fbb26b0c5c98b809a0ec4d90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.4-316350.zip",
-                "reference": "c6b372339e59468e6aeb4c858354f17c394b7d4e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-598-fix-phpstan-errors-in-app-1b4e8f.zip",
+                "reference": "014368a7f7e7054fbb26b0c5c98b809a0ec4d90a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3820,7 +3823,7 @@
                 "zendframework/zend-di": "^2.2.5",
                 "zendframework/zend-i18n": "^2.2.5",
                 "zendframework/zend-view": "^2.2.6",
-                "zendframework/zendpdf": "2.0.2.2"
+                "zendframework/zendpdf": "dev-TAC-598-fix-phpstan-errors-in-app as 2.0.2.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -3846,7 +3849,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-15T09:20:33+00:00"
+            "time": "2020-02-10T11:37:03+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9396,19 +9399,20 @@
         },
         {
             "name": "zendframework/zendpdf",
-            "version": "2.0.2.2",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
-                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
+                "reference": "6f709f53058f755cb50e65c0428d45ecdd3e5383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
-                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-dev-TAC-598-fix-phpstan-errors-in-app-d0668a.zip",
+                "reference": "6f709f53058f755cb50e65c0428d45ecdd3e5383"
             },
             "require": {
                 "php": ">=5.3.3",
+                "zendframework/zend-log": ">=2.0.0",
                 "zendframework/zend-memory": ">=2.0.0",
                 "zendframework/zend-stdlib": ">=2.0.0"
             },
@@ -9432,7 +9436,7 @@
                 "pdf",
                 "zf2"
             ],
-            "time": "2014-09-22T08:39:00+00:00"
+            "time": "2020-02-10T10:57:06+00:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -11927,12 +11931,34 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/picklist"
+        },
+        {
+            "alias": "1.9.6",
+            "alias_normalized": "1.9.6.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "2.0.2.3-dev",
+            "alias_normalized": "2.0.2.3-dev",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "zendframework/zendpdf"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
+        "zendframework/zendpdf": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
