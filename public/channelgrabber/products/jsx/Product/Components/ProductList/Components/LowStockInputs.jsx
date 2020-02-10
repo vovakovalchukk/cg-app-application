@@ -226,3 +226,4 @@ class LowStockInputs extends React.Component {
 }
 
 export default LowStockInputs;
+export {ValueInput, Container};
