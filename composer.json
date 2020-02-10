@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "dev-TAC-594-display-partial-refunds-on-orders as 1.48.5",
+        "channelgrabber/order": "~1.48.10",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
