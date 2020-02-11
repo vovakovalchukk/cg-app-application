@@ -21,9 +21,10 @@ const StyledLink = styled(Link)`
 `;
 
 const ButtonLink = (props) => {
+    const {className, sprite, to, text} = props;
     return (
-        <StyledLink to={props.to}>
-            {props.sprite ? <span className={props.sprite}></span> : props.text}
+        <StyledLink className={className} to={to}>
+            {sprite ? <span className={sprite}></span> : text}
         </StyledLink>
     )
 }

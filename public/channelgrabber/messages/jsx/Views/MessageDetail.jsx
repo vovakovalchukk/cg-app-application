@@ -28,10 +28,13 @@ const StyledSelect = styled.select`
     display: flex;
     max-width: 260px;
     width: 100%;
-    margin: 0.5rem 0 1rem;
+    margin: 0.5rem 0 2rem;
     background-color: #fff;
     border: 1px solid #c2c2c2;
     border-radius: 5px;
+    height: 28px;
+    background-color: #ffffff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f5f5f5));
 `;
 
 const FlexColumn = styled.div`
@@ -156,7 +159,7 @@ const MessageDetail = (props) => {
                     </StyledSelect>
                 </label>
                 <ButtonLink
-                    className={`u-margin-bottom-small`}
+                    className={`u-margin-bottom-small button`}
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
