@@ -73,11 +73,6 @@ const getPersonSprite = (person) => {
 const formatUsers = (users) => {
     const formattedUsers = [];
 
-    formattedUsers.push({
-        value: null,
-        name: 'Assign',
-    });
-
     Object.entries(users).forEach(user => {
         formattedUsers.push({
             value: user[0],
@@ -159,21 +154,24 @@ const MessageDetail = (props) => {
                     </StyledSelect>
                 </label>
                 <ButtonLink
-                    className={`u-margin-bottom-small button`}
+                    className={`u-margin-bottom-med button`}
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-                {formattedUsers.length > 2 ?
-                    <Select
-                        id={"assignableUserSelect"}
-                        name={"assignableUserSelect"}
-                        options={formattedUsers}
-                        filterable={true}
-                        autoSelectFirst={false}
-                        selectedOption={findAssignedUser()}
-                        onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
-                        classNames={'u-width-100pc'}
-                    />
+                {formattedUsers.length > 1 ?
+                    <label className={'heading-medium u-cursor-pointer'}>
+                        <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
+                        <Select
+                            id={"assignableUserSelect"}
+                            name={"assignableUserSelect"}
+                            options={formattedUsers}
+                            filterable={true}
+                            autoSelectFirst={false}
+                            selectedOption={findAssignedUser()}
+                            onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
+                            classNames={'u-width-100pc'}
+                        />
+                    </label>
                 : null}
             </FlexColumn>
         </GridDiv>
