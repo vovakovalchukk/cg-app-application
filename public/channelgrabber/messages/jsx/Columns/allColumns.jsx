@@ -34,6 +34,13 @@ export default [
         cell: ValueCell,
     },
     {
+        key: 'createdFuzzy',
+        label: 'Date Created',
+        cell: ValueCell,
+        headerCell: HeaderCell,
+        width: '100px',
+    },
+    {
         key: 'updatedFuzzy',
         label: 'Date Updated',
         cell: ValueCell,
