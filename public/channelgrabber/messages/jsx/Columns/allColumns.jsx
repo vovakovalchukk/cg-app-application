@@ -34,6 +34,12 @@ export default [
         cell: ValueCell,
     },
     {
+        key: 'assignedUserName',
+        label: 'Assigned User',
+        cell: ValueCell,
+        width: '200px',
+    },
+    {
         key: 'createdFuzzy',
         label: 'Date Created',
         cell: ValueCell,
