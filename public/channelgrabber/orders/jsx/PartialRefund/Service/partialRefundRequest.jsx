@@ -26,7 +26,7 @@ function formatItemsForRequest(items) {
 
     Object.keys(items).forEach((itemId) => {
         const item = items[itemId];
-        const amount = parseInt(item.selectedAmount);
+        const amount = parseFloat(item.selectedAmount);
         if (amount === 0) {
             return false;
         }
