@@ -7,13 +7,22 @@ const StyledDiv = styled.div`
     flex-shrink: 0;
 `;
 
+const getButtonSprite = (path, direction) => {
+    return path === '/messages/' ? `sprite-arrow-${direction}-16-grey` : `sprite-arrow-${direction}-16-blue`;
+}
+
 const ThreadNavigator = (props) => {
     const {prev, next, thread, of} = props;
+
+    const prevSprite = getButtonSprite(prev, 'left');
+
+    const nextSprite = getButtonSprite(next, 'right');
+
     return (
         <StyledDiv className={`u-display-flex u-margin-left-small`}>
             <ButtonLink
                 to={prev}
-                sprite={`sprite-arrow-left-16-grey`}
+                sprite={prevSprite}
                 title={`Previous thread`}
             />
 
@@ -21,7 +30,7 @@ const ThreadNavigator = (props) => {
 
             <ButtonLink
                 to={next}
-                sprite={`sprite-arrow-right-16-grey`}
+                sprite={nextSprite}
                 title={`Next thread`}
             />
         </StyledDiv>
