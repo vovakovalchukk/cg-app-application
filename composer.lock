@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8862bb51aae2a3a20c9fa3445afb1332",
+    "content-hash": "c2c2ece13a792ab83db2a42124cb1274",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1020,16 +1020,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.8",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c7140e3a31508c80a8650b0fc2c9ad14b7681c38"
+                "reference": "fc66924276bb1ac6e459901f4ad5742bc1f028a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.8-5085ac.zip",
-                "reference": "c7140e3a31508c80a8650b0fc2c9ad14b7681c38"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-598-fix-phpstan-errors-in-app-229bb0.zip",
+                "reference": "fc66924276bb1ac6e459901f4ad5742bc1f028a8"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1040,16 +1040,21 @@
                 "maennchen/zipstream-php": "~0.3.1",
                 "php": ">=7.1",
                 "phpseclib/phpseclib": "~2.0.0",
+                "zendframework/zend-di": "^2.3",
                 "zendframework/zend-servicemanager": "^2.3"
             },
             "require-dev": {
+                "phpstan/phpstan": "^0.12.9",
                 "phpunit/phpunit": "^6.3"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Courier\\": "src"
-                }
+                },
+                "classmap": [
+                    "src/classes/"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
@@ -1063,7 +1068,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-02-10T13:20:30+00:00"
+            "time": "2020-02-10T16:23:46+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1436,16 +1441,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.18.0",
+            "version": "1.18.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570"
+                "reference": "7fe7c5eb79bc356ccaa7524525757f2edf47a09f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.0-a589ea.zip",
-                "reference": "a0d37ae297c0a84720ea5befa21a3b6047ec6570"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.3-399125.zip",
+                "reference": "7fe7c5eb79bc356ccaa7524525757f2edf47a09f"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1493,20 +1498,20 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2020-01-20T14:24:52+00:00"
+            "time": "2020-02-06T13:54:04+00:00"
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "59f539466025416b009b63c40309a282424bee51"
+                "reference": "e9733b81c696ab254af442f81d5cc8c43edac975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email/channelgrabber-email-1.1.2-700b6b.zip",
-                "reference": "59f539466025416b009b63c40309a282424bee51"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email/channelgrabber-email-1.1.3-a0901e.zip",
+                "reference": "e9733b81c696ab254af442f81d5cc8c43edac975"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1528,7 +1533,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2017-08-16T08:13:02+00:00"
+            "time": "2020-02-06T13:57:28+00:00"
         },
         {
             "name": "channelgrabber/email-account",
@@ -1633,24 +1638,27 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.1.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "6881bf30b9edbe9426e54fd7beaf29333f6861ac"
+                "reference": "b42220240472321f3c86f7ad99a5475d8a8ec3ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.1.0-3cd734.zip",
-                "reference": "6881bf30b9edbe9426e54fd7beaf29333f6861ac"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.1-7212eb.zip",
+                "reference": "b42220240472321f3c86f7ad99a5475d8a8ec3ef"
             },
             "require": {
                 "channelgrabber/cglib": "~1.16.12",
-                "channelgrabber/channel": "^1.36.8",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/feature-flags": "^2.1.0",
+                "channelgrabber/gearman": "^1.5.0",
                 "channelgrabber/http": "^1.3.0",
+                "channelgrabber/predis": "^1.1.1",
                 "channelgrabber/stdlib": "^2.14.1",
+                "channelgrabber/webhook-framework": "~1.0.0",
                 "ext-oauth": "*",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "zendframework/zend-di": "^2.2"
@@ -1669,7 +1677,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-11-06T11:18:57+00:00"
+            "time": "2020-02-06T14:03:36+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -2007,16 +2015,16 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.5.4",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff"
+                "reference": "e83a6d582edff2e0bdb0801780d9764b380a1d6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/intercom/channelgrabber-intercom-1.5.4-835212.zip",
-                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/intercom/channelgrabber-intercom-1.6.0-af3c90.zip",
+                "reference": "e83a6d582edff2e0bdb0801780d9764b380a1d6c"
             },
             "require": {
                 "channelgrabber/billing": "^1.13.1",
@@ -2024,11 +2032,12 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/order": "^1.36.4",
+                "channelgrabber/partner": "^1.0.0",
                 "channelgrabber/product": "^1.4.12",
                 "channelgrabber/queue": "^1.0.0",
                 "channelgrabber/settings": "^1.3.6",
                 "channelgrabber/stdlib": "^2.12.42",
-                "channelgrabber/user": "^1.22.4",
+                "channelgrabber/user": "^1.26.6",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -2046,7 +2055,7 @@
                     "CG\\Intercom\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-05-03T14:18:00+00:00"
+            "time": "2020-02-06T14:05:33+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -2432,16 +2441,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.48.10",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "93475be6c616797502962f2b3ed037a96225a511"
+                "reference": "3ae2296ea374860dc63e2bf3762bc48091caae5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.10-22eb45.zip",
-                "reference": "93475be6c616797502962f2b3ed037a96225a511"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-598-fix-phpstan-errors-in-app-30ea9d.zip",
+                "reference": "3ae2296ea374860dc63e2bf3762bc48091caae5e"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2513,7 +2522,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-02-10T08:45:12+00:00"
+            "time": "2020-02-10T14:30:28+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2703,25 +2712,25 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.3.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "reference": "13edf92ea8991e44572980606eb008bc7521c7c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.0-079bf1.zip",
-                "reference": "4c45c169551c612a7935df88b056be0da9f47a9a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-TAC-598-fix-phpstan-errors-in-app-86ee22.zip",
+                "reference": "13edf92ea8991e44572980606eb008bc7521c7c7"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.7.0",
+                "channelgrabber/template": "dev-TAC-598-fix-phpstan-errors-in-app as 1.9.6",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
-                "zendframework/zendpdf": "2.0.2.2"
+                "zendframework/zendpdf": "dev-TAC-598-fix-phpstan-errors-in-app as 2.0.2.3"
             },
             "conflict": {
                 "channelgrabber/template": "<1.5.0"
@@ -2742,7 +2751,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-10-30T12:25:07+00:00"
+            "time": "2020-02-10T11:59:31+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2831,16 +2840,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.18.6",
+            "version": "1.18.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
+                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.6-0236b6.zip",
-                "reference": "1c541cf557b6bb51c6801a90e5fa78418c5c7104"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.8-cb0046.zip",
+                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2889,7 +2898,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-01-15T09:11:31+00:00"
+            "time": "2020-02-06T14:10:02+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2955,21 +2964,21 @@
         },
         {
             "name": "channelgrabber/purchase-order",
-            "version": "1.0.4",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "e864404770ecd95c464a31a0584b9dd9ae6bbc73"
+                "reference": "f1a9cd95bfa57d44de6545fa95b877cdf468acfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-1.0.4-78c953.zip",
-                "reference": "e864404770ecd95c464a31a0584b9dd9ae6bbc73"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-dev-TAC-598-fix-phpstan-errors-in-app-7b836a.zip",
+                "reference": "f1a9cd95bfa57d44de6545fa95b877cdf468acfc"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.12.42",
-                "channelgrabber/stock": "^1.9.0"
+                "channelgrabber/stock": "dev-TAC-598-fix-phpstan-errors-in-app as 1.18.0"
             },
             "type": "library",
             "autoload": {
@@ -2981,7 +2990,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2020-02-06T11:42:34+00:00"
+            "time": "2020-02-10T15:35:15+00:00"
         },
         {
             "name": "channelgrabber/purge",
@@ -3356,29 +3365,31 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.3.1",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
+                "reference": "93a5e7331be3ac9b2ce79d04086a7a85e8ffad60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.3.1-7a62cf.zip",
-                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.5.1-716545.zip",
+                "reference": "93a5e7331be3ac9b2ce79d04086a7a85e8ffad60"
             },
             "require": {
-                "channelgrabber/channel": "^1.24.6",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/listing": "^1.16.2",
+                "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.38.5",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.33",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "predis/predis": "^0.8.3",
                 "zendframework/zend-di": "~2.3"
             },
             "require-dev": {
@@ -3397,7 +3408,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-06-20T09:25:41+00:00"
+            "time": "2019-12-11T09:13:24+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3586,16 +3597,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.17.9",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "06f05226c99736a66abb5b5a14ad0a5a7f38b1e8"
+                "reference": "fbaea58ebb05afea5607b2b8ab01a8bbf3f7da8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.9-4af3f3.zip",
-                "reference": "06f05226c99736a66abb5b5a14ad0a5a7f38b1e8"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-598-fix-phpstan-errors-in-app-15d02b.zip",
+                "reference": "fbaea58ebb05afea5607b2b8ab01a8bbf3f7da8d"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3641,7 +3652,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-02-06T11:57:51+00:00"
+            "time": "2020-02-10T15:30:21+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3787,16 +3798,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.9.5",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "142196e9da5cb98c96bcb81c0d9a3531082c8cfb"
+                "reference": "014368a7f7e7054fbb26b0c5c98b809a0ec4d90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.5-d44ca9.zip",
-                "reference": "142196e9da5cb98c96bcb81c0d9a3531082c8cfb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-598-fix-phpstan-errors-in-app-1b4e8f.zip",
+                "reference": "014368a7f7e7054fbb26b0c5c98b809a0ec4d90a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3821,7 +3832,7 @@
                 "zendframework/zend-di": "^2.2.5",
                 "zendframework/zend-i18n": "^2.2.5",
                 "zendframework/zend-view": "^2.2.6",
-                "zendframework/zendpdf": "2.0.2.2"
+                "zendframework/zendpdf": "dev-TAC-598-fix-phpstan-errors-in-app as 2.0.2.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -3847,7 +3858,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-02-06T11:57:51+00:00"
+            "time": "2020-02-10T11:37:03+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4095,16 +4106,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.1",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
+                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.1-63208e.zip",
-                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.4-d23fe6.zip",
+                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -4127,7 +4138,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-04-08T13:52:43+00:00"
+            "time": "2020-01-30T11:52:56+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -9431,19 +9442,20 @@
         },
         {
             "name": "zendframework/zendpdf",
-            "version": "2.0.2.2",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
-                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
+                "reference": "6f709f53058f755cb50e65c0428d45ecdd3e5383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
-                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-dev-TAC-598-fix-phpstan-errors-in-app-d0668a.zip",
+                "reference": "6f709f53058f755cb50e65c0428d45ecdd3e5383"
             },
             "require": {
                 "php": ">=5.3.3",
+                "zendframework/zend-log": ">=2.0.0",
                 "zendframework/zend-memory": ">=2.0.0",
                 "zendframework/zend-stdlib": ">=2.0.0"
             },
@@ -9467,7 +9479,7 @@
                 "pdf",
                 "zf2"
             ],
-            "time": "2014-09-22T08:39:00+00:00"
+            "time": "2020-02-10T10:57:06+00:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -11968,14 +11980,63 @@
             "alias_normalized": "1.33.7.0",
             "version": "dev-EPIC-MIG-56-separate-amazon-categories-from-browse-nodes",
             "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.2.9",
+            "alias_normalized": "1.2.9.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.49.0",
+            "alias_normalized": "1.49.0.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/picklist"
+        },
+        {
+            "alias": "1.0.4",
+            "alias_normalized": "1.0.4.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/purchase-order"
+        },
+        {
+            "alias": "1.17.9",
+            "alias_normalized": "1.17.9.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.9.6",
+            "alias_normalized": "1.9.6.0",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "2.0.2.3-dev",
+            "alias_normalized": "2.0.2.3-dev",
+            "version": "dev-TAC-598-fix-phpstan-errors-in-app",
+            "package": "zendframework/zendpdf"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/picklist": 20,
+        "channelgrabber/purchase-order": 20,
+        "channelgrabber/stock": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
+        "zendframework/zendpdf": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
