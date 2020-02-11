@@ -34,6 +34,7 @@ const FlexColumn = styled.div`
     display: flex;
     flex-direction: column;
     background-color: rgb(239,238,238);
+    padding: 1rem;
 `;
 
 const FlexAlignItemsCenter = styled.div`

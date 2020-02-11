@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const FlexDiv = styled.div`
     justify-content: space-between;
     align-items: flex-start;
+    margin-top: 1rem;
 `;
 
 const getNavigatorProps = (threadIds, thread) => {
