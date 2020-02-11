@@ -3,6 +3,7 @@ namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorage;
 use CG\Amazon\Category\Entity as AmazonCategory;
 use CG\Amazon\Category\Filter as AmazonCategoryFilter;
 use CG\Amazon\Category\Service as AmazonCategoryService;
@@ -44,19 +45,23 @@ class Service implements
     protected $amazonCategoryService;
     /** @var VariationThemeService */
     protected $variationThemeService;
+    /** @var BrowseNodeCategoryUsageStorage */
+    protected $browseNodeCategoryUsageStorage;
 
     public function __construct(
         CategoryService $categoryService,
         Cryptor $cryptor,
         RegionFactory $regionFactory,
         AmazonCategoryService $amazonCategoryService,
-        VariationThemeService $variationThemeService
+        VariationThemeService $variationThemeService,
+        BrowseNodeCategoryUsageStorage $browseNodeCategoryUsageStorage
     ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
         $this->regionFactory = $regionFactory;
         $this->amazonCategoryService = $amazonCategoryService;
         $this->variationThemeService = $variationThemeService;
+        $this->browseNodeCategoryUsageStorage = $browseNodeCategoryUsageStorage;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -94,8 +99,20 @@ class Service implements
         $marketplace = $this->getMarketplaceForAccount($account);
 
         return [
-            'amazonCategories' => $this->fetchAmazonCategoryOptions(),
+            'amazonCategories' => $this->getAmazonCategoryOptions($categoryId),
             'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace, false),
+        ];
+    }
+
+    protected function getAmazonCategoryOptions(int $cgCategoryId): array
+    {
+        $options = $this->fetchAmazonCategoryOptions();
+        $highUsageOptions = $this->extractHighUsageAmazonCategoryOptions($options, $cgCategoryId);
+        $options = $this->sortAmazonCategoryOptionsAlphabetically($options);
+
+        return [
+            'priorityOptions' => $this->formatAmazonCategoryOptions($highUsageOptions),
+            'options' => $this->formatAmazonCategoryOptions($options),
         ];
     }
 
@@ -113,6 +130,41 @@ class Service implements
         } catch (NotFound $e) {
             return [];
         }
+    }
+
+    protected function sortAmazonCategoryOptionsAlphabetically(array $options): array
+    {
+        asort($options);
+        return $options;
+    }
+
+    protected function extractHighUsageAmazonCategoryOptions(array &$options, int $cgCategoryId): array
+    {
+        $cgCategory = $this->categoryService->fetch($cgCategoryId);
+        $browseNodeId = $cgCategory->getExternalId();
+        $usage = $this->browseNodeCategoryUsageStorage->getForBrowseNode($browseNodeId);
+        if (empty($usage)) {
+            return [];
+        }
+        $usedOptions = [];
+        foreach ($usage as $amazonCategoryId) {
+            if (!isset($options[$amazonCategoryId])) {
+                continue;
+            }
+            $usedOptions[$amazonCategoryId] = $options[$amazonCategoryId];
+            unset($options[$amazonCategoryId]);
+        }
+        return $usedOptions;
+    }
+
+    protected function formatAmazonCategoryOptions(array $options): array
+    {
+        return array_map(function ($id, $name) {
+            return [
+                'name' => $name,
+                'value' => $id,
+            ];
+        }, array_keys($options), $options);
     }
 
     public function formatExternalChannelData(array $data, string $processGuid): array
