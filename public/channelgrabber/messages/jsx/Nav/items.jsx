@@ -4,7 +4,7 @@ const navItems = [
     {
         id: 'unassigned',
         filterId: 'unassigned',
-        displayText: 'Unassinged',
+        displayText: 'Unassigned',
         to: '/messages/list/unassigned',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem
@@ -18,8 +18,8 @@ const navItems = [
         component: FilterItem
     },
     {
-        id: 'my-messages',
-        filterId: 'my-messages',
+        id: 'myMessages',
+        filterId: 'myMessages',
         displayText: 'My Messages',
         to: '/messages/list/my-messages',
         shouldDisplay: areNumberOfOusAbove0,
