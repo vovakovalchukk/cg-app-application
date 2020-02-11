@@ -28,6 +28,10 @@ const StyledSelect = styled.select`
     display: flex;
     max-width: 260px;
     width: 100%;
+    margin: 0.5rem 0 1rem;
+    background-color: #fff;
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
 `;
 
 const FlexColumn = styled.div`
@@ -140,15 +144,17 @@ const MessageDetail = (props) => {
             </div>
 
             <FlexColumn>
-                <StyledSelect
-                    className={`u-margin-bottom-small`}
-                    value={thread.status}
-                    onChange={props.actions.saveStatus}
-                >
-                    <option value={'awaiting reply'}>Awaiting Reply</option>
-                    <option value={'resolved'}>Resolved</option>
-                    <option value={'new'}>New</option>
-                </StyledSelect>
+                <label className={'heading-medium u-cursor-pointer'}>
+                    Status:
+                    <StyledSelect
+                        value={thread.status}
+                        onChange={props.actions.saveStatus}
+                    >
+                        <option value={'awaiting reply'}>Awaiting Reply</option>
+                        <option value={'resolved'}>Resolved</option>
+                        <option value={'new'}>New</option>
+                    </StyledSelect>
+                </label>
                 <ButtonLink
                     className={`u-margin-bottom-small`}
                     to={thread.ordersLink}
