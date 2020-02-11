@@ -9,9 +9,11 @@ const StyledLink = styled(Link)`
 const ValueCell = (props) => {
     let {rowData, column} = props;
     const value = rowData[column.key] || null;
+    const title = column.key === 'updatedFuzzy' ? rowData.updated : null;
+
     return (
         <StyledLink to={`/messages/thread/:${props.rowData.id}`}>
-            <div>{value}</div>
+            <div title={title}>{value}</div>
         </StyledLink>
     );
 };
