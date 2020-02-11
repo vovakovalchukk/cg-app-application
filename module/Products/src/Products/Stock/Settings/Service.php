@@ -144,6 +144,11 @@ class Service
         return $this->getProductSettings()->getLowStockThresholdValue();
     }
 
+    public function getReorderQuantityDefault()
+    {
+        return $this->getProductSettings()->getReorderQuantity();
+    }
+
     public function getStockLevelDefault()
     {
         $productSettings = $this->getProductSettings();
@@ -265,6 +270,41 @@ class Service
             } catch (NotModified $e) {
                 return $stock;
             } catch (Conflict $e) {
+                continue;
+            }
+        }
+
+        throw $e;
+    }
+
+    public function saveReorderQuantity(int $productId, ?int $reorderQuantity): array
+    {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        $products = $product->isParent() ? $product->getVariations() : [$product];
+
+        $resultsById = [];
+        foreach ($products as $product) {
+            $stock = $this->saveReorderQuantityOnStockEntity($product, $reorderQuantity);
+            $resultsById[$product->getId()] = ['reorderQuantity' => $stock->getReorderQuantity()];
+        }
+
+        return $resultsById;
+    }
+
+    protected function saveReorderQuantityOnStockEntity(Product $product, ?int $reorderQuantity): Stock
+    {
+        /** @var Stock $stock */
+        $stock = $product->getStock();
+        for ($attempt = 0; $attempt < self::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                $stock->setReorderQuantity($reorderQuantity);
+                $this->stockStorage->save($stock);
+                return $stock;
+            } catch (NotModified $e) {
+                return $stock;
+            } catch (Conflict $e) {
+                $stock = $this->stockStorage->fetch($product->getStock()->getId());
                 continue;
             }
         }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "184e6b41af06311912c3dbc6cc832e10",
+    "content-hash": "d04cdd9aa3f563e36b41a99f9601eed2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -763,16 +763,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.14",
+            "version": "1.43.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "dece176fbe543facbdf2642959fa569ce5224edd"
+                "reference": "18d276c7fdfcc75dfb6f74eb160d73a945b292f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.14-486fbd.zip",
-                "reference": "dece176fbe543facbdf2642959fa569ce5224edd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.16.1-ba8e12.zip",
+                "reference": "18d276c7fdfcc75dfb6f74eb160d73a945b292f9",
                 "shasum": null
             },
             "require": {
@@ -793,7 +793,7 @@
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
-                "channelgrabber/order": "^1.43.10",
+                "channelgrabber/order": "^1.48.4",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/product": "^1.18.6",
@@ -842,7 +842,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-01-15T09:20:33+00:00"
+            "time": "2020-01-29T08:25:29+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1034,16 +1034,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b42cf95c0814e21b17f081dd86b07fe7ac2725cf"
+                "reference": "c7140e3a31508c80a8650b0fc2c9ad14b7681c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.7-322d4f.zip",
-                "reference": "b42cf95c0814e21b17f081dd86b07fe7ac2725cf",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.8-5085ac.zip",
+                "reference": "c7140e3a31508c80a8650b0fc2c9ad14b7681c38",
                 "shasum": null
             },
             "require": {
@@ -1078,7 +1078,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-01-03T08:44:22+00:00"
+            "time": "2020-02-10T13:20:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1146,21 +1146,21 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "1.2.0.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "6e6965d2ba8abf290149ab73adda4685f30ed8c5"
+                "reference": "3e9362f86f2866282de89b5ae6c9c95be6f0f8ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.0.1-ae89a3.zip",
-                "reference": "6e6965d2ba8abf290149ab73adda4685f30ed8c5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.1-eff9cf.zip",
+                "reference": "3e9362f86f2866282de89b5ae6c9c95be6f0f8ee",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/data-exchange-history": "^1.0.2",
+                "channelgrabber/data-exchange-history": "^1.0.4",
                 "channelgrabber/data-exchange-schedule": "^1.0.5",
                 "channelgrabber/data-exchange-template": "^1.0.3",
                 "channelgrabber/email-account": "^1.0.1",
@@ -1189,20 +1189,20 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-12-19T14:32:22+00:00"
+            "time": "2020-01-22T13:12:45+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange-history.git",
-                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504"
+                "reference": "9f1734583a4afd48e17fac98f5861a7fd53e02cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.3-dfcb61.zip",
-                "reference": "f0f84d342dc43408d9cb97893c19051c23a31504",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange-history/channelgrabber-data-exchange-history-1.0.4-0875a8.zip",
+                "reference": "9f1734583a4afd48e17fac98f5861a7fd53e02cc",
                 "shasum": null
             },
             "require": {
@@ -1224,7 +1224,7 @@
                     "CG\\DataExchangeHistory\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-11-25T15:35:44+00:00"
+            "time": "2020-01-22T13:05:17+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-schedule",
@@ -1599,16 +1599,16 @@
         },
         {
             "name": "channelgrabber/email-verification",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email-verification.git",
-                "reference": "f643d877b6c742cb583708693ef712ae3f8e14c6"
+                "reference": "dd48ff7194ff573cc72b8c7057c25ecb6b75d764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-verification/channelgrabber-email-verification-1.0.0-4a4c4b.zip",
-                "reference": "f643d877b6c742cb583708693ef712ae3f8e14c6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/email-verification/channelgrabber-email-verification-1.0.1-0fd707.zip",
+                "reference": "dd48ff7194ff573cc72b8c7057c25ecb6b75d764",
                 "shasum": null
             },
             "require": {
@@ -1630,7 +1630,7 @@
                     "CG\\EmailVerification\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-09-16T12:16:46+00:00"
+            "time": "2019-10-04T13:08:37+00:00"
         },
         {
             "name": "channelgrabber/etag",
@@ -2482,16 +2482,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.48.2",
+            "version": "1.48.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c1fc540c49b698859a7092269d60b15788302661"
+                "reference": "93475be6c616797502962f2b3ed037a96225a511"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.2-c9ecb2.zip",
-                "reference": "c1fc540c49b698859a7092269d60b15788302661",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.48.10-22eb45.zip",
+                "reference": "93475be6c616797502962f2b3ed037a96225a511",
                 "shasum": null
             },
             "require": {
@@ -2564,7 +2564,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-01-07T12:15:26+00:00"
+            "time": "2020-02-10T08:45:12+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3016,16 +3016,16 @@
         },
         {
             "name": "channelgrabber/purchase-order",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "0b574a9ae1176ebd0695db6e5d26c0db4bae4f70"
+                "reference": "9ab4c181c0610866f216c446054f26bc0884ff01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-1.0.2-2966b8.zip",
-                "reference": "0b574a9ae1176ebd0695db6e5d26c0db4bae4f70",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-1.0.3-8c1c20.zip",
+                "reference": "9ab4c181c0610866f216c446054f26bc0884ff01",
                 "shasum": null
             },
             "require": {
@@ -3043,7 +3043,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2019-03-11T15:19:02+00:00"
+            "time": "2020-01-27T14:40:52+00:00"
         },
         {
             "name": "channelgrabber/purge",
@@ -3352,22 +3352,23 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.7.0",
+            "version": "1.8.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "8f685cfa8b01fbd6e237d8f3ac0552ef4c8c599d"
+                "reference": "4bba9fb1be74acb70d8044fc7a5723e87a3f0e81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.7.0-809c38.zip",
-                "reference": "8f685cfa8b01fbd6e237d8f3ac0552ef4c8c599d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.8.3-d6ecda.zip",
+                "reference": "4bba9fb1be74acb70d8044fc7a5723e87a3f0e81",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/email-verification": "^1.0.1",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
@@ -3385,7 +3386,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-03-11T15:16:09+00:00"
+            "time": "2020-02-06T11:57:51+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3662,16 +3663,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.17.6",
+            "version": "1.17.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "bec8639d21fd3025c0c786b92ae15331fdec4ac0"
+                "reference": "06f05226c99736a66abb5b5a14ad0a5a7f38b1e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.6-2400e2.zip",
-                "reference": "bec8639d21fd3025c0c786b92ae15331fdec4ac0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.9-4af3f3.zip",
+                "reference": "06f05226c99736a66abb5b5a14ad0a5a7f38b1e8",
                 "shasum": null
             },
             "require": {
@@ -3688,7 +3689,7 @@
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
-                "channelgrabber/order": "^1.43.10",
+                "channelgrabber/order": "^1.48.4",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
@@ -3718,7 +3719,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-10-24T08:44:58+00:00"
+            "time": "2020-02-06T11:57:51+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -5457,16 +5458,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.34",
+            "version": "1.26.35",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c47b6538799c3e61f95815de08a87495e59752fb"
+                "reference": "275d50911937f274ee61684157b00d59fb8ea28f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.34-46f9a2.zip",
-                "reference": "c47b6538799c3e61f95815de08a87495e59752fb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.35-a8e05a.zip",
+                "reference": "275d50911937f274ee61684157b00d59fb8ea28f",
                 "shasum": null
             },
             "require": {
@@ -5519,7 +5520,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-01-17T14:58:54+00:00"
+            "time": "2020-01-28T16:15:06+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6458,6 +6459,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2015-05-20T03:37:09+00:00"
         },
         {
@@ -6508,6 +6510,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
@@ -10777,6 +10780,45 @@
                 "stub"
             ],
             "time": "2017-09-04T11:05:03+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
+                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2020-02-04T22:30:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
