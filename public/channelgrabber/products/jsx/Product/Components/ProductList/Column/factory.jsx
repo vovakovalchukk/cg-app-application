@@ -16,6 +16,7 @@ const columnSpecificPropsMap = {
     vat: ['rows', 'vat', 'scroll', 'select'],
     bulkSelect: ['bulkSelect'],
     lowStock: ['rows', 'stock', 'userSettings', 'scroll', 'select'],
+    reorderQuantity: ['rows', 'stock', 'userSettings', 'scroll', 'select'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect', 'select'],
     name: ['rows', 'name', 'focus'],
     productExpand: ['expand'],

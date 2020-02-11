@@ -47,11 +47,15 @@ class TrackingController extends AbstractActionController implements StatsAwareI
 
     public function validateAction()
     {
+        $view = $this->getJsonModelFactory()->newInstance();
+        if (!$this->params()->fromPost('trackingNumber')) {
+            $view->setVariable('valid', true);
+            return $view;
+        }
         $filter = (new Filter(1))
             ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
             ->setNumber([$this->params()->fromPost('trackingNumber')]);
 
-        $view = $this->getJsonModelFactory()->newInstance();
         try {
             $this->getService()->fetchCollectionByFilter($filter);
             $view->setVariable('valid', false);
@@ -64,6 +68,9 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     public function updateAction()
     {
         $tracking = $this->fetchTracking();
+        if (!$tracking) {
+            $tracking = $this->create();
+        }
         $tracking = $this->update($tracking);
         try {
             $this->getService()->save($tracking);
@@ -131,10 +138,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         return $this->getOrderService()->fetch($this->params()->fromRoute('order'));
     }
 
-    /**
-     * @return Tracking
-     */
-    protected function fetchTracking()
+    protected function fetchTracking(): ?Tracking
     {
         try {
             $orderId = $this->params('order');
@@ -152,7 +156,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
             $trackings->rewind();
             $tracking = $trackings->current();
         } catch (NotFound $e) {
-            $tracking = $this->create();
+            $tracking = null;
         }
 
         return $tracking;

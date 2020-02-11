@@ -164,6 +164,14 @@ let stockColumns = [
         tab: 'stock',
         align: 'center',
         feature: 'lowStockThresholdEnabled'
+    },
+    {
+        key: 'reorderQuantity',
+        width: 80,
+        headerText: 'Reorder Quantity',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
     }
 ];
 

@@ -24,6 +24,7 @@ import FulfillmentLatencyCell from 'Product/Components/ProductList/Cell/Fulfillm
 import BarcodeCell from 'Product/Components/ProductList/Cell/Barcode';
 import BarcodeNotApplicableCell from 'Product/Components/ProductList/Cell/BarcodeNotApplicableCell';
 import SupplierCell from 'Product/Components/ProductList/Cell/Supplier';
+import ReorderQuantityCell from "./ReorderQuantity";
 
 "use strict";
 
@@ -47,6 +48,7 @@ let cells = {
     onPurchaseOrder: OnPurchaseOrderCell,
     includePurchaseOrdersInAvailable: IncludePurchaseOrdersInAvailableCell,
     lowStock: LowStock,
+    reorderQuantity: ReorderQuantityCell,
     cost: CostCell,
     fulfillmentLatency: FulfillmentLatencyCell,
     barcode: BarcodeCell,

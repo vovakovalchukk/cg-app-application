@@ -21,6 +21,7 @@ define([], function()
     EventHandler.SELECTOR_DEFAULT_STOCK_LEVEL = '#settings-stock-default-stock-level';
     EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_TOGGLE = '#low-stock-threshold-toggle';
     EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_INPUT = '#low-stock-threshold-value';
+    EventHandler.SELECTOR_REORDER_QUANTITY_INPUT = '#reorder-quantity';
     EventHandler.SELECTOR_SAVE_BUTTON = '#settings-stock-save-button';
     EventHandler.SELECTOR_FORM = '#settings-stock-form';
 

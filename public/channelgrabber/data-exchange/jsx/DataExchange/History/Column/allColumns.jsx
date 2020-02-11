@@ -1,5 +1,6 @@
 import LinkCell from 'DataExchange/History/Cell/LinkCell';
 import StopCell from 'DataExchange/History/Cell/StopCell';
+import StatusCell from "DataExchange/History/Cell/StatusCell";
 
 export default [
     {
@@ -23,6 +24,16 @@ export default [
         cell: LinkCell
     },
     {
+        key: 'endDate',
+        label: 'Finish',
+        cell: LinkCell
+    },
+    {
+        key: 'status',
+        label: 'Status',
+        cell: StatusCell
+    },
+    {
         key: 'totalRows',
         label: 'Total Rows',
         cell: LinkCell
@@ -39,11 +50,6 @@ export default [
         label: 'File',
         cell: LinkCell,
         getLink: (data) => (data.fileLink)
-    },
-    {
-        key: 'endDate',
-        label: 'Finish',
-        cell: LinkCell
     },
     {
         key: 'successfulRows',

@@ -24,8 +24,8 @@ const HeaderCell = styled.th`
     width: ${props => props.width ? props.width : 'auto'};
 `;
 const Input = styled.input`
-    width: auto;
     max-width: 70%;
+    float: none;
 `;
 
 const renderActiveCheckbox = ({schedule, index, onInputChange}) => {
