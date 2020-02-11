@@ -18,6 +18,9 @@ const App = (props) => {
     }, []);
 
     const match = useRouteMatch();
+
+    const characterLimit = 160;
+
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
     return (
@@ -50,7 +53,8 @@ const App = (props) => {
                             filters={props.filters}
                             actions={props.actions}
                             match={match}
-                            {...formattedThreads} />
+                            {...formattedThreads}
+                        />
                     )}/>
                     <Route path={`${match.path}thread/:threadId`} render={({match}) => (
                         <div>
@@ -83,7 +87,7 @@ const App = (props) => {
     function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
-        const characterLimit = 160;
+
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
                 return thread.messages.includes(message.id);
