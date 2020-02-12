@@ -398,27 +398,14 @@ class AmazonCategoryFormComponent extends React.Component {
                 <Select
                     autoSelectFirst={false}
                     filterable={true}
-                    options={this.formatAmazonCategoriesAsSelectOptions()}
+                    priorityOptions={this.props.amazonCategories.priorityOptions}
+                    options={this.props.amazonCategories.options}
                     onOptionChange={(option) => {
                         this.fetchAndSetAmazonCategoryDependentValues(option.value)
                     }}
                 />
             </div>
         );
-    };
-
-    formatAmazonCategoriesAsSelectOptions = () => {
-        let options = [];
-        for (let id in Object.keys(this.props.amazonCategories)) {
-            if (this.props.amazonCategories[id] == undefined) {
-                continue;
-            }
-            options.push({
-                name: this.props.amazonCategories[id],
-                value: id
-            });
-        }
-        return options;
     };
 
     fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId, categoryIndex, previouslySetState) => {
