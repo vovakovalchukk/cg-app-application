@@ -55,7 +55,8 @@ class Service implements LoggerAwareInterface
         $defaultStockLevel,
         ?bool $includePurchaseOrders,
         bool $lowStockThresholdOn,
-        ?int $lowStockThresholdValue
+        ?int $lowStockThresholdValue,
+        ?int $reorderQuantity
     ) {
         $this->addGlobalLogEventParam('ou', $rootOu->getId());
         $defaultsString = 'stock mode "' . $defaultStockMode . '", stock level "' . $defaultStockLevel . '"';
@@ -68,7 +69,8 @@ class Service implements LoggerAwareInterface
             ->setDefaultStockMode($defaultStockMode)
             ->setDefaultStockLevel($defaultStockLevel)
             ->setLowStockThresholdOn($lowStockThresholdOn)
-            ->setLowStockThresholdValue($lowStockThresholdValue);
+            ->setLowStockThresholdValue($lowStockThresholdValue)
+            ->setReorderQuantity($reorderQuantity);
 
         if ($includePurchaseOrders !== null) {
             $productSettings->setIncludePurchaseOrdersInAvailable($includePurchaseOrders);
