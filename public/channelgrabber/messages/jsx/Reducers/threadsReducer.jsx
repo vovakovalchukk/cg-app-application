@@ -50,7 +50,7 @@ const threadsReducer = reducerCreator(initialState, {
     'ASSIGN_USER_SUCCESS': (state, action) => {
         let threads = {...state};
 
-        threads.byId[action.payload.id] = action.payload;
+        threads.byId[action.payload.thread.id] = action.payload.thread;
 
         return {...state, ...threads};
     },
