@@ -83,6 +83,13 @@ const formatUsers = (users) => {
     return formattedUsers;
 };
 
+const findAssignedUser = (userId, users) => {
+    const foundUser = users.find(user => {
+        return user.value === userId;
+    });
+    return foundUser;
+}
+
 const MessageDetail = (props) => {
     const {match, threads, actions, assignableUsers} = props;
     const {params} = match;
@@ -99,12 +106,6 @@ const MessageDetail = (props) => {
     }, []);
 
     const formattedUsers = formatUsers(assignableUsers);
-
-    const findAssignedUser = () => (
-        formattedUsers.find(user => {
-            return user.value === thread.assignedUserId;
-        })
-    );
 
     return (
         <GridDiv>
@@ -158,7 +159,7 @@ const MessageDetail = (props) => {
                     to={thread.ordersLink}
                     text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                 />
-                {formattedUsers.length > 1 ?
+                {formattedUsers.length > 1 &&
                     <label className={'heading-medium u-cursor-pointer'}>
                         <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
                         <Select
@@ -167,12 +168,12 @@ const MessageDetail = (props) => {
                             options={formattedUsers}
                             filterable={true}
                             autoSelectFirst={false}
-                            selectedOption={findAssignedUser()}
+                            selectedOption={findAssignedUser(thread.assignedUserId, formattedUsers)}
                             onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
                             classNames={'u-width-100pc'}
                         />
                     </label>
-                : null}
+                }
             </FlexColumn>
         </GridDiv>
     );
