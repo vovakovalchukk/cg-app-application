@@ -11,9 +11,7 @@ class AmazonCategoryFormComponent extends React.Component {
     static defaultProps = {
         categoryId: null,
         accountId: 0,
-        //itemSpecifics: {},
         rootCategories: {},
-        //variationThemes: {},
         amazonCategories: {},
         variationsDataForProduct: [],
         product: {},
@@ -26,7 +24,10 @@ class AmazonCategoryFormComponent extends React.Component {
         lastChangedThemeAttributeSelect: null,
         autopopulateMethods: [],
         autopopulated: false,
-        numberOfSelectFieldsRendered: 0
+        numberOfSelectFieldsRendered: 0,
+        selectedAmazonCategory: null,
+        itemSpecifics: [],
+        variationThemes: []
     };
 
     shouldComponentUpdate() {
@@ -49,11 +50,11 @@ class AmazonCategoryFormComponent extends React.Component {
     }
 
     isSimpleProduct = () => {
-        return this.props.product.variationCount > 1
+        return this.props.product.variationCount <= 1;
     };
 
     formatVariationThemesAsSelectOptions = () => {
-        return this.props.variationThemes.map((variationTheme) => {
+        return this.state.variationThemes.map((variationTheme) => {
             return {
                 name: variationTheme.name,
                 value: variationTheme.name
@@ -237,7 +238,7 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     getThemeDataByName = (name) => {
-        return this.props.variationThemes.find((theme) => {
+        return this.state.variationThemes.find((theme) => {
             return theme.name == name;
         });
     };
@@ -368,7 +369,24 @@ class AmazonCategoryFormComponent extends React.Component {
         })
     };
 
+    renderItemSpecifics = () => {
+        if (this.state.itemSpecifics.length == 0) {
+            return;
+        }
+        return (
+            <FormSection
+                name="itemSpecifics"
+                component={ItemSpecifics}
+                categoryId={this.props.categoryId}
+                itemSpecifics={this.state.itemSpecifics}
+            />
+        );
+    };
+
     renderVariationThemeContent = () => {
+        if (this.isSimpleProduct() || this.state.variationThemes.length == 0) {
+            return;
+        }
         return (
             <div>
                 <Field
@@ -393,14 +411,16 @@ class AmazonCategoryFormComponent extends React.Component {
 
     renderAmazonCategorySelect = () => {
         return (
-            <div className={'u-defloat u-display-flex'}>
+            <div className={'order-inputbox-holder u-defloat u-display-flex'}>
                 <label className="inputbox-label u-font-large">Amazon Category</label>
                 <Select
                     autoSelectFirst={false}
                     filterable={true}
                     priorityOptions={this.props.amazonCategories.priorityOptions}
                     options={this.props.amazonCategories.options}
+                    selectedOption={this.state.selectedAmazonCategory}
                     onOptionChange={(option) => {
+                        this.setState({selectedAmazonCategory: option});
                         this.fetchAndSetAmazonCategoryDependentValues(option.value)
                     }}
                 />
@@ -408,9 +428,18 @@ class AmazonCategoryFormComponent extends React.Component {
         );
     };
 
-    fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId, categoryIndex, previouslySetState) => {
-        // TODO
-
+    fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId) => {
+        $.ajax({
+            context: this,
+            url: '/products/create-listings/amazon-category-dependent-field-values/' + amazonCategoryId,
+            type: 'GET',
+            success: function (response) {
+                this.setState({
+                    itemSpecifics: response.itemSpecifics,
+                    variationThemes: response.variationThemes
+                });
+            }
+        });
     };
 
     render() {
@@ -418,13 +447,8 @@ class AmazonCategoryFormComponent extends React.Component {
             <div className="amazon-category-form-container">
                 <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>
                 {this.renderAmazonCategorySelect()}
-                {/*<FormSection*/}
-                {/*    name="itemSpecifics"*/}
-                {/*    component={ItemSpecifics}*/}
-                {/*    categoryId={this.props.categoryId}*/}
-                {/*    itemSpecifics={this.props.itemSpecifics}*/}
-                {/*/>*/}
-                {/*{this.isSimpleProduct() ? this.renderVariationThemeContent(false) : ''}*/}
+                {this.renderItemSpecifics()}
+                {this.renderVariationThemeContent()}
             </div>
         );
     }
