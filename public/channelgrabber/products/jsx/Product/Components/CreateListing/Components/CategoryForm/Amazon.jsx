@@ -218,6 +218,7 @@ class AmazonCategoryFormComponent extends React.Component {
                     options={field.options}
                     selectedOption={optionToShowAsSelected}
                     filterable={true}
+                    customOptions={true}
                     onOptionChange={(option) => {
                         this.setState({
                             lastChangedThemeAttributeSelect: field.input.name
