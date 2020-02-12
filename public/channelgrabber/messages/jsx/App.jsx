@@ -3,6 +3,7 @@ import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import navItems from 'MessageCentre/Nav/items';
 import Sidebar from 'Common/Components/Sidebar';
+import styled from 'styled-components';
 
 import {
     Switch,
@@ -11,6 +12,12 @@ import {
     useRouteMatch
 } from 'react-router-dom';
 import ScrollToTop from "MessageCentre/Components/ScrollToTop";
+
+const StickySidebar = styled.div`
+    position: sticky;
+    top: 52px;
+    display: inline-table;
+`;
 
 const App = (props) => {
     useEffect(() => {
@@ -25,27 +32,29 @@ const App = (props) => {
 
     return (
         <div className="u-width-100pc u-display-flex">
-            <Sidebar
-                id={"Sidebar"}
-                sections={[{
-                    header: 'Messages',
-                    renderContent: (NavItemWrapper) => {
-                        return <ul>
-                            {renderNavItems((itemProps, NavComponent) => (
-                                <li className={"u-border-box"}>
-                                    <NavItemWrapper>
-                                        <NavComponent
-                                            key={itemProps.id}
-                                            to={`/messages${itemProps.to}`}
-                                            {...itemProps}
-                                        />
-                                    </NavItemWrapper>
-                                </li>
-                            ))}
-                        </ul>
-                    }
-                }]}
-            />
+            <StickySidebar>
+                <Sidebar
+                    id={"Sidebar"}
+                    sections={[{
+                        header: 'Messages',
+                        renderContent: (NavItemWrapper) => {
+                            return <ul>
+                                {renderNavItems((itemProps, NavComponent) => (
+                                    <li className={"u-border-box"}>
+                                        <NavItemWrapper>
+                                            <NavComponent
+                                                key={itemProps.id}
+                                                to={`/messages${itemProps.to}`}
+                                                {...itemProps}
+                                            />
+                                        </NavItemWrapper>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
+                    }]}
+                />
+            </StickySidebar>
             <div id="Main" className="u-flex-5">
                 <Switch>
                     <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
