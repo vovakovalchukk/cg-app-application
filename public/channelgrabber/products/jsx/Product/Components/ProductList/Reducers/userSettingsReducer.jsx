@@ -8,7 +8,8 @@ let initialState = {
     stockModeDefault: '',
     stockLevelDefault: '',
     lowStockThresholdToggle: false,
-    lowStockThresholdValue: null
+    lowStockThresholdValue: null,
+    reorderQuantity: null
 };
 
 var userSettingsReducer = reducerCreator(initialState, {
@@ -30,6 +31,11 @@ var userSettingsReducer = reducerCreator(initialState, {
     },
     "LOW_STOCK_DEFAULT_THRESHOLD": function(state, action) {
         return Object.assign({}, state, action.payload);
+    },
+    "DEFAULT_REORDER_QUANTITY_STORE": function (state, action) {
+        return Object.assign({}, state, {
+            reorderQuantity: action.payload.reorderQuantity
+        });
     }
 });
 
