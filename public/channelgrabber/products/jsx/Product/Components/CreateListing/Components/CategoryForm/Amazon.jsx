@@ -419,6 +419,18 @@ class AmazonCategoryFormComponent extends React.Component {
 
     renderAmazonCategorySelect = () => {
         return (
+            <div>
+                <Field
+                    name="amazonCategoryId"
+                    component={this.renderAmazonCategorySelectComponent}
+                    validate={Validators.required}
+                />
+            </div>
+        );
+    };
+
+    renderAmazonCategorySelectComponent = (field) => {
+        return (
             <div className={'order-inputbox-holder u-defloat u-display-flex'}>
                 <label className="inputbox-label u-font-large">Amazon Category</label>
                 <Select
@@ -428,10 +440,14 @@ class AmazonCategoryFormComponent extends React.Component {
                     options={this.props.amazonCategories.options}
                     selectedOption={this.state.selectedAmazonCategory}
                     onOptionChange={(option) => {
+                        field.input.onChange(option.value);
                         this.setState({selectedAmazonCategory: option});
                         this.fetchAndSetAmazonCategoryDependentValues(option.value)
                     }}
                 />
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error u-margin-left-small">{field.meta.error}</span>
+                )}
             </div>
         );
     };
