@@ -96,12 +96,11 @@ function addMessage(params, state) {
 
 function saveStatus(params, state) {
     const {threads} = state;
-
     return $.ajax({
         url: '/messages/ajax/save',
         type: 'POST',
         data: {
-            threadId: threads.viewing,
+            id: threads.viewing,
             status: params.target.value
         }
     });
@@ -109,7 +108,6 @@ function saveStatus(params, state) {
 
 function assignThreadToUser(params, state) {
     const {threads} = state;
-
     return $.ajax({
         url: '/messages/ajax/save',
         type: 'POST',

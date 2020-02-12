@@ -32,7 +32,13 @@ const threadsReducer = reducerCreator(initialState, {
     'SAVE_STATUS_SUCCESS': (state, action) => {
         let threads = {...state};
 
-        threads.byId[action.payload.id] = action.payload;
+        let thread = action.payload.thread;
+
+        thread.messages = thread.messages.map(message => {
+            return message.id;
+        })
+
+        threads.byId[thread.id] = thread;
 
         return {...state, ...threads};
     },
