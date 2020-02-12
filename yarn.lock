@@ -2671,7 +2671,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#MIG-61-separated-amazon-category-data-frontend":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#aefc629339e9bd60fc3c6a4df458484ffc17f0ac"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#385edc102b85ef9ce099e7de72cfa35a2b109b87"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"

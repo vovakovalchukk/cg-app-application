@@ -208,6 +208,7 @@ class Service implements
         foreach ($variationThemes as $variationTheme) {
             $variationThemesOptions[] = [
                 'name' => $variationTheme->getName(),
+                'attributes' => $variationTheme->getAttributes(),
                 'validValues' => array_map(function($key, $options){
                     return [
                         'name' => $key,

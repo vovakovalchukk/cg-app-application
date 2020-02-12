@@ -247,10 +247,16 @@ class AmazonCategoryFormComponent extends React.Component {
     getThemeHeadersByName = (name) => {
         let themeData = this.getThemeDataByName(name);
         let headers = [];
-        themeData.validValues.forEach((header) => {
-            headers.push(header.name);
+        themeData.attributes.forEach((header) => {
+            headers.push(header);
         });
         return headers;
+    };
+
+    getThemeValidValuesByName = (name, themeData) => {
+        return themeData.validValues.find((validValue) => {
+            return validValue.name == name;
+        });
     };
 
     renderThemeHeaders = () => {
@@ -325,16 +331,17 @@ class AmazonCategoryFormComponent extends React.Component {
             return;
         }
         let themeData = this.getThemeDataByName(this.state.themeSelected);
-        return this.props.variationsDataForProduct.length * themeData.validValues.length;
+        return this.props.variationsDataForProduct.length * themeData.attributes.length;
     };
 
     renderThemeColumns = (variation) => {
         let themeColumns = [];
         let themeData = this.getThemeDataByName(this.state.themeSelected);
 
-        themeData.validValues.forEach((value, index) => {
-            themeColumns.push(this.renderThemeVariationSelect(value, variation.sku, index));
-            themeColumns.push(this.renderThemeVariationDisplayNameInput(value, variation.sku, index));
+        themeData.attributes.forEach((attribute, index) => {
+            let validValues = this.getThemeValidValuesByName(attribute, themeData) || {name: attribute, options: []};
+            themeColumns.push(this.renderThemeVariationSelect(validValues, variation.sku, index));
+            themeColumns.push(this.renderThemeVariationDisplayNameInput(validValues, variation.sku, index));
         });
 
         return themeColumns.map((column) => {
