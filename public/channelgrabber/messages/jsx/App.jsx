@@ -3,7 +3,7 @@ import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import navItems from 'MessageCentre/Nav/items';
 import Sidebar from 'Common/Components/Sidebar';
-import styled from 'styled-components';
+import StickySidebar from 'MessageCentre/Components/StickySidebar';
 
 import {
     Switch,
@@ -12,12 +12,6 @@ import {
     useRouteMatch
 } from 'react-router-dom';
 import ScrollToTop from "MessageCentre/Components/ScrollToTop";
-
-const StickySidebar = styled.div`
-    position: sticky;
-    top: 52px;
-    display: inline-table;
-`;
 
 const App = (props) => {
     useEffect(() => {
@@ -32,7 +26,7 @@ const App = (props) => {
 
     return (
         <div className="u-width-100pc u-display-flex">
-            <StickySidebar>
+            <StickySidebar top={52}>
                 <Sidebar
                     id={"Sidebar"}
                     sections={[{

@@ -5,6 +5,7 @@ import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
 import Select from 'Common/Components/Select';
+import StickySidebar from 'MessageCentre/Components/StickySidebar';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
@@ -143,37 +144,39 @@ const MessageDetail = (props) => {
             </div>
 
             <FlexColumn>
-                <label className={'heading-medium u-cursor-pointer'}>
-                    Status:
-                    <StyledSelect
-                        value={thread.status}
-                        onChange={props.actions.saveStatus}
-                    >
-                        <option value={'awaiting reply'}>Awaiting Reply</option>
-                        <option value={'resolved'}>Resolved</option>
-                        <option value={'new'}>New</option>
-                    </StyledSelect>
-                </label>
-                <ButtonLink
-                    className={`u-margin-bottom-med button`}
-                    to={thread.ordersLink}
-                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
-                />
-                {formattedUsers.length > 1 &&
+                <StickySidebar top={66}>
                     <label className={'heading-medium u-cursor-pointer'}>
-                        <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
-                        <Select
-                            id={"assignableUserSelect"}
-                            name={"assignableUserSelect"}
-                            options={formattedUsers}
-                            filterable={true}
-                            autoSelectFirst={false}
-                            selectedOption={findAssignedUser(thread.assignedUserId, formattedUsers)}
-                            onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
-                            classNames={'u-width-100pc'}
-                        />
+                        Status:
+                        <StyledSelect
+                            value={thread.status}
+                            onChange={props.actions.saveStatus}
+                        >
+                            <option value={'awaiting reply'}>Awaiting Reply</option>
+                            <option value={'resolved'}>Resolved</option>
+                            <option value={'new'}>New</option>
+                        </StyledSelect>
                     </label>
-                }
+                    <ButtonLink
+                        className={`u-margin-bottom-med button`}
+                        to={thread.ordersLink}
+                        text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+                    />
+                    {formattedUsers.length > 1 &&
+                        <label className={'heading-medium u-cursor-pointer'}>
+                            <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
+                            <Select
+                                id={"assignableUserSelect"}
+                                name={"assignableUserSelect"}
+                                options={formattedUsers}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={findAssignedUser(thread.assignedUserId, formattedUsers)}
+                                onOptionChange={(option) => props.actions.assignThreadToUser(option.value)}
+                                classNames={'u-width-100pc'}
+                            />
+                        </label>
+                    }
+                </StickySidebar>
             </FlexColumn>
         </GridDiv>
     );
