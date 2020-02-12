@@ -157,7 +157,7 @@ const MessageDetail = (props) => {
                         </StyledSelect>
                     </label>
                     <ButtonLink
-                        className={`u-margin-bottom-med button`}
+                        className={`u-margin-bottom-med button u-display-flex`}
                         to={thread.ordersLink}
                         text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
                     />
