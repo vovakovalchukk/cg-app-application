@@ -85,7 +85,7 @@ const formatUsers = (users) => {
 
 const findAssignedUser = (userId, users) => {
     const foundUser = users.find(user => {
-        return user.value === userId;
+        return Number(user.value) === userId;
     });
     return foundUser;
 }
