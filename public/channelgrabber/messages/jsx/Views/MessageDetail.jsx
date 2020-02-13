@@ -53,6 +53,18 @@ const MessageList = styled.ol`
     margin: 0;
 `;
 
+const Message = styled.li`
+    margin-top: 1rem;
+    border-top: 1px solid #dddddd;
+    padding-top: 1rem;
+    
+    &:first-child {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+    }
+`
+
 const MessageMeta = styled.div`
     display: flex;
     justify-content: space-between;
@@ -130,7 +142,7 @@ const MessageDetail = (props) => {
                 <MessageList>
                     {formattedMessages.map((message) => {
                         return (
-                            <li key={message.id}>
+                            <Message key={message.id}>
                                 <MessageMeta>
                                     <FlexAlignItemsCenter className={`u-display-flex`}>
                                         <div className={getPersonSprite(message.personType)} />
@@ -148,7 +160,7 @@ const MessageDetail = (props) => {
                                     </FlexAlignItemsCenter>
                                 </MessageMeta>
                                 <ShadowDomDiv body={message.body} />
-                            </li>
+                            </Message>
                         )
                     })}
                 </MessageList>
