@@ -13,7 +13,7 @@ const appReducer = combineReducers({
     messages: messagesReducer,
     threads: threadsReducer,
     column: columnReducer,
-    templates: templatesReducer
+    templates: templatesReducer,
     reply: replyReducer,
     search: searchReducer,
 });
