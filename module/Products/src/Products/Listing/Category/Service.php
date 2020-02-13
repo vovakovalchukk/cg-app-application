@@ -21,7 +21,7 @@ class Service
     public function fetchCategoriesForAccount(
         Account $account,
         int $parentId = null,
-        bool $listable = true,
+        ?bool $listable = true,
         string $marketplace = null,
         bool $useAccountId = true
     ): array {
@@ -47,7 +47,7 @@ class Service
 
     public function fetchRootCategoriesForAccount(
         Account $account,
-        bool $listable = true,
+        ?bool $listable = true,
         string $marketplace = null,
         bool $useAccountId = true
     ) {
