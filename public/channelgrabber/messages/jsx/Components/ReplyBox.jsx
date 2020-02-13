@@ -9,17 +9,29 @@ const mapStateToProps = state => {
     }
 };
 
-const StyledSendButton = styled(ButtonSelect)`
-    width: 16rem;
+const buttonWidth = '16rem';
+
+const SimpleButton = styled.button`
+    width: ${buttonWidth} !important;
+`;
+
+const ComplexButton = styled(ButtonSelect)`
+    width: ${buttonWidth};
     margin-bottom: 6rem;
-`
+    margin-right: 0;
+`;
 
 const StyledTextarea = styled.textarea`
-    width: 100%;
-    height: 20rem;
-    resize: vertical;
+    flex-grow: 1;
+    height: 14rem;
+    resize: none;
     box-sizing: border-box;
     padding: 1rem;
+    margin-right: 1rem;
+`;
+
+const FlexDiv = styled.div`
+    display: flex;
 `;
 
 const ReplyBox = (props) => {
@@ -38,25 +50,26 @@ const ReplyBox = (props) => {
         },
     ];
 
+    const isThreadResolved = thread.status === 'resolved';
+
     return (
-        <div>
+        <FlexDiv>
             <StyledTextarea
                 value={reply.text}
                 onChange={actions.replyOnChange}
-                className={`u-margin-top-med`}
                 placeholder={'Compose your reply here'}
             />
-            <div className={`u-clear-both u-margin-top-med`}>
-                {thread.status === 'resolved' &&
-                    <button
+            <div>
+                {isThreadResolved ?
+                    <SimpleButton
                         type={`button`}
                         onClick={actions.addMessage}
+                        className={'button'}
                     >
-                        Send
-                    </button>
-                }
-                {thread.status !== 'resolved' &&
-                    <StyledSendButton
+                        Send reply
+                    </SimpleButton>
+                    :
+                    <ComplexButton
                         options={options}
                         ButtonTitle={() => (
                             <span>{reply.buttonSelectTitle}</span>
@@ -75,7 +88,7 @@ const ReplyBox = (props) => {
                     />
                 }
             </div>
-        </div>
+        </FlexDiv>
     );
 };
 

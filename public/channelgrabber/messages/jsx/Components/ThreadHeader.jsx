@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const FlexDiv = styled.div`
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 1rem;
 `;
 
 const getNavigatorProps = (threadIds, thread) => {
@@ -34,7 +33,7 @@ const ThreadHeader = (props) => {
     const navigatorProps = getNavigatorProps(threadIds, thread);
 
     return(
-        <FlexDiv className={`u-display-flex u-margin-top-xsmall`}>
+        <FlexDiv className={`u-display-flex`}>
             <ButtonLink
                 to={`/messages/`}
                 sprite={`sprite-arrow-double-14-black`}

@@ -27,7 +27,7 @@ const ValueCell = (props) => {
     const title = getHoverText(column.key, rowData);
     return (
         <StyledLink to={`/messages/thread/:${rowData.id}`}>
-            <div title={title}>{value}</div>
+            <div title={title}>{value || '-'}</div>
         </StyledLink>
     );
 };

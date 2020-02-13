@@ -14,13 +14,21 @@ const StyledDiv = styled.div`
     display: inline-flex;
     border-radius: 8px;
     padding: 2px;
+    background-color: #fff;
     
     div {
         flex-direction: row-reverse;
     }
     
     button {
-        padding: 0 3px;
+        padding: 0 4px;
+    }
+    
+    input {
+        border: 1px solid #c2c2c2;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 5px;
     }
 `;
 
@@ -35,6 +43,7 @@ const ThreadSearch = (props) => {
                 value={query}
                 onChange={actions.searchInputType}
                 onSearch={actions.searchSubmit}
+                placeholder={'Search for...'}
             />
         </StyledDiv>
     );

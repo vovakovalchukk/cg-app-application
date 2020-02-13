@@ -3,7 +3,7 @@ import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import navItems from 'MessageCentre/Nav/items';
 import Sidebar from 'Common/Components/Sidebar';
-import StickySidebar from 'MessageCentre/Components/StickySidebar';
+import styled from 'styled-components';
 
 import {
     Switch,
@@ -11,7 +11,26 @@ import {
     Redirect,
     useRouteMatch
 } from 'react-router-dom';
-import ScrollToTop from "MessageCentre/Components/ScrollToTop";
+
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 200px 1fr 225px;
+    grid-template-rows: min-content 1fr min-content;
+    grid-template-areas:
+        "left head right"
+        "left main right"
+        "left foot right";
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+`;
+
+const GridLeftSide = styled.div`
+    grid-area: left;
+    background-color: #efeeee;
+`;
 
 const App = (props) => {
     useEffect(() => {
@@ -25,8 +44,8 @@ const App = (props) => {
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
     return (
-        <div className="u-width-100pc u-display-flex">
-            <StickySidebar top={52}>
+        <Grid>
+            <GridLeftSide>
                 <Sidebar
                     id={"Sidebar"}
                     sections={[{
@@ -48,27 +67,25 @@ const App = (props) => {
                         }
                     }]}
                 />
-            </StickySidebar>
-            <div id="Main" className="u-flex-5">
-                <Switch>
-                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
-                        <MessageList
-                            filters={props.filters}
-                            actions={props.actions}
-                            match={match}
-                            {...formattedThreads}
-                        />
-                    )}/>
-                    <Route path={`${match.path}thread/:threadId`} render={({match}) => (
-                        <div>
-                            <ScrollToTop />
-                            <MessageDetail {...props} match={match}/>
-                        </div>
-                    )}/>
-                    <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
-                </Switch>
-            </div>
-        </div>
+            </GridLeftSide>
+            <Switch>
+                <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
+                    <MessageList
+                        filters={props.filters}
+                        actions={props.actions}
+                        match={match}
+                        {...formattedThreads}
+                    />
+                )}/>
+                <Route path={`${match.path}thread/:threadId`} render={({match}) => (
+                    <MessageDetail
+                        {...props}
+                        match={match}
+                    />
+                )}/>
+                <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+            </Switch>
+        </Grid>
     );
 
     function renderNavItems(renderItem) {
