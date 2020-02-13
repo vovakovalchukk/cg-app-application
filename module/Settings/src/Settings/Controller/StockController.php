@@ -123,6 +123,7 @@ class StockController extends AbstractActionController
 
         $view
             ->setVariable('lowStockThresholdValue', (int) $productSettings->getLowStockThresholdValue())
+            ->setVariable('reorderQuantity', $productSettings->getReorderQuantity() ?? ProductSettings::DEFAULT_REORDER_QUANTITY)
             ->addChild($this->getLowStockThreshold($productSettings->isLowStockThresholdOn()), 'lowStockThreshold');
     }
 

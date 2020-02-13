@@ -3,6 +3,9 @@ import MessageList from 'MessageCentre/Views/MessageList';
 import MessageDetail from 'MessageCentre/Views/MessageDetail';
 import TemplateManager from 'MessageCentre/Views/TemplateManager';
 import navItems from 'MessageCentre/Nav/items';
+import Sidebar from 'Common/Components/Sidebar';
+import styled from 'styled-components';
+
 import {
     Switch,
     Route,
@@ -10,42 +13,86 @@ import {
     useRouteMatch
 } from 'react-router-dom';
 
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 200px 1fr 225px;
+    grid-template-rows: min-content 1fr min-content;
+    grid-template-areas:
+        "left head right"
+        "left main right"
+        "left foot right";
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+`;
+
+const GridLeftSide = styled.div`
+    grid-area: left;
+    background-color: #efeeee;
+`;
+
 const App = (props) => {
     useEffect(() => {
         props.actions.fetchFilters();
     }, []);
 
     const match = useRouteMatch();
+
+    const characterLimit = 160;
+
     const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
 
     return (
-        <div className="u-width-100pc u-display-flex">
-            <div id="Sidebar" className="u-flex-1">
-                <h1 className="u-width-100pc">sidebar</h1>
-                <ol className="u-padding-none">
-                    {renderNavItems((itemProps, NavComponent) => (
-                       <NavComponent key={itemProps.id} {...itemProps} to={`/messages${itemProps.to}`}/>
-                    ))}
-                </ol>
-            </div>
-            <div id="Main" className="u-flex-5">
-                <Switch>
-                    <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
-                        <MessageList {...props} match={match} {...formattedThreads} />
-                    )}/>
-                    <Route path={`${match.path}thread/:threadId`} render={({match}) => (
-                        <MessageDetail {...props} match={match}/>
-                    )}/>
-                    <Route path={`${match.path}templates`} render={({match}) => (
-                        <TemplateManager
-                            {...props}
-                            match={match}
-                        />
-                    )}/>
-                    <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
-                </Switch>
-            </div>
-        </div>
+        <Grid>
+            <GridLeftSide>
+                <Sidebar
+                    id={"Sidebar"}
+                    sections={[{
+                        header: 'Messages',
+                        renderContent: (NavItemWrapper) => {
+                            return <ul>
+                                {renderNavItems((itemProps, NavComponent) => (
+                                    <li className={"u-border-box"}>
+                                        <NavItemWrapper>
+                                            <NavComponent
+                                                key={itemProps.id}
+                                                to={`/messages${itemProps.to}`}
+                                                {...itemProps}
+                                            />
+                                        </NavItemWrapper>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
+                    }]}
+                />
+            </GridLeftSide>
+            <Switch>
+                <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
+                    <MessageList
+                        filters={props.filters}
+                        actions={props.actions}
+                        match={match}
+                        {...formattedThreads}
+                    />
+                )}/>
+                <Route path={`${match.path}thread/:threadId`} render={({match}) => (
+                    <MessageDetail
+                        {...props}
+                        match={match}
+                    />
+                )}/>
+                <Route path={`${match.path}templates`} render={({match}) => (
+                    <TemplateManager
+                        {...props}
+                        match={match}
+                    />
+                )}/>
+                <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+            </Switch>
+        </Grid>
     );
 
     function renderNavItems(renderItem) {
@@ -58,7 +105,8 @@ const App = (props) => {
                 id: item.id,
                 displayText: item.displayText,
                 filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count,
-                to: item.to
+                to: item.to,
+                className: item.className
             };
             return renderItem(navItemProps, item.component);
         })
@@ -67,6 +115,7 @@ const App = (props) => {
     function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
+
         threads.forEach(thread => {
             let threadMessages = messages.filter(function(message){
                 return thread.messages.includes(message.id);
@@ -80,7 +129,10 @@ const App = (props) => {
             });
             let div = document.createElement('div');
             div.innerHTML = threadMessages[0].body;
-            thread.lastMessage = div.textContent;
+            thread.lastMessage = div.textContent.replace(/\s+/g, ' ').substring(0, characterLimit);
+            if (thread.lastMessage.length > characterLimit) {
+                thread.lastMessage = thread.lastMessage.trimEnd() + `...`;
+            }
             div.remove();
         });
         return {

@@ -18,7 +18,11 @@ require([
     var utilities = {
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
     };
-    var purchaseOrders = new PurchaseOrders(document.getElementById('purchase-orders-mount-node'), utilities);
+    var purchaseOrders = new PurchaseOrders(
+        document.getElementById('purchase-orders-mount-node'),
+        utilities,
+        <?= json_encode($supplierOptions) ?>
+    );
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>

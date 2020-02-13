@@ -15,6 +15,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailer;
+use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -69,6 +70,7 @@ class Service extends ClientService implements StatsAwareInterface
     public function __construct(
         RendererService $rendererService,
         TemplateCache $templateCache,
+        PartialRefundService $partialRefundService,
         TemplateFactory $templateFactory,
         OrderService $orderService,
         ElementFactory $elementFactory,
@@ -82,7 +84,7 @@ class Service extends ClientService implements StatsAwareInterface
         InvoiceEmailer $invoiceEmailer,
         InvoiceValidator $invoiceValidator
     ) {
-        parent::__construct($rendererService, $templateCache);
+        parent::__construct($rendererService, $templateCache, $partialRefundService);
         $this->templateFactory = $templateFactory;
         $this->orderService = $orderService;
         $this->elementFactory = $elementFactory;

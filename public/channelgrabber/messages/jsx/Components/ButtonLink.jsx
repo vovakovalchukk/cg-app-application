@@ -7,7 +7,6 @@ const StyledLink = styled(Link)`
     color: #222 !important;
     font-family: Lato, Helvetica, Arial, sans-serif;
     font-size: 100%;
-    margin: 0;
     vertical-align: baseline;
     line-height: normal;
     text-transform: none;
@@ -18,11 +17,15 @@ const StyledLink = styled(Link)`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    word-break: break-all;
 `;
 
 const ButtonLink = (props) => {
+    const {className, sprite, to, text} = props;
     return (
-        <StyledLink to={props.to}>{props.text}</StyledLink>
+        <StyledLink className={className} to={to}>
+            {sprite ? <span className={sprite}></span> : text}
+        </StyledLink>
     )
 }
 

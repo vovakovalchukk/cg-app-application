@@ -87,6 +87,7 @@ return [
                 'ToCsvJavascript' => ViewModel::class,
                 'CourierJavascript' => ViewModel::class,
                 'CourierManifestJavascript' => ViewModel::class,
+                'PartialRefundJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewInvoiceByTitle' => ViewModel::class,
@@ -105,6 +106,7 @@ return [
                 'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
                 'UrlDataViewCourier' => ViewModel::class,
                 'UrlDataViewCourierManifest' => ViewModel::class,
+                'UrlDataViewPartialRefund' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -149,6 +151,7 @@ return [
                         ['action' => Action\Cancel::class],
                         ['action' => Action\Pay::class],
                         ['action' => Action\Refund::class],
+                        ['action' => Action\PartialRefund::class],
                         ['action' => Action\Unlink::class],
                     ],
                 ],
@@ -370,6 +373,15 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
+            Action\PartialRefund::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewPartialRefund',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'PartialRefundJavascript',
+                ],
+            ],
             Action\Unlink::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewUnlink',
@@ -554,7 +566,17 @@ return [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ]
-            ]
+            ],
+            'PartialRefundJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/partialRefund.phtml',
+                ],
+            ],
+            'UrlDataViewPartialRefund' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
         ],
     ],
 ];

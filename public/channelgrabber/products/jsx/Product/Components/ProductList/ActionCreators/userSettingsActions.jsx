@@ -26,7 +26,13 @@ let userSettingsActions = (function() {
                     lowStockThresholdValue: lowStockThresholdDefault.value
                 }
             }
-        }
+        },
+        storeDefaultReorderQuantity: (reorderQuantity) => {
+            return {
+                type: "DEFAULT_REORDER_QUANTITY_STORE",
+                payload: {reorderQuantity}
+            }
+        },
     };
 })();
 

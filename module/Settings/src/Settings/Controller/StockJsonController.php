@@ -41,6 +41,7 @@ class StockJsonController extends AbstractActionController
 
         $lowStockThresholdOn = $this->params()->fromPost('low-stock-threshold-toggle', null) === 'on';
         $lowStockThresholdValue = $this->params()->fromPost('low-stock-threshold-value', null);
+        $reorderQuantity = $this->params()->fromPost('reorder-quantity', null);
 
         if ($defaultStockMode != StockMode::LIST_ALL && (!is_numeric($defaultStockLevel) || (int)$defaultStockLevel < 0)) {
             throw new \InvalidArgumentException('Default stock level must be a number >= 0');
@@ -58,7 +59,8 @@ class StockJsonController extends AbstractActionController
             $defaultStockLevel,
             $includePurchaseOrders,
             $lowStockThresholdOn,
-            $lowStockThresholdValue
+            $lowStockThresholdValue,
+            $reorderQuantity
         );
 
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);

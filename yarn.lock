@@ -2679,6 +2679,7 @@ caseless@~0.12.0:
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-576-ui-for-templates-page":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#d79ff731da22c1dc85ec5582740dbc27d4c80a92"
+
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
