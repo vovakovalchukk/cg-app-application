@@ -98,7 +98,8 @@ const App = (props) => {
                 id: item.id,
                 displayText: item.displayText,
                 filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count,
-                to: item.to
+                to: item.to,
+                className: item.className
             };
             return renderItem(navItemProps, item.component);
         })

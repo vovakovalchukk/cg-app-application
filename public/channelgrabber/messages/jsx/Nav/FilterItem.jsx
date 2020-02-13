@@ -6,7 +6,8 @@ const FilterItem = (props) => {
         id,
         displayText,
         filterCount,
-        to
+        to,
+        className
     } = props;
 
     return (
@@ -17,7 +18,7 @@ const FilterItem = (props) => {
             >
                 <span>
                     {displayText}
-                    <span className={"statusCountPillBox"}>
+                    <span className={className || 'statusCountPillBox'}>
                         {filterCount}
                     </span>
                 </span>
