@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import Select from 'Common/Components/Select';
 import ajax from 'Common/Utils/xhr/ajax';
+import Table from "DataExchange/Schedule/Table";
+import Service from "DataExchange/StockImport/Components/Service";
 
 const importUrl = "/dataExchange/stock/import/upload";
 
@@ -39,49 +41,60 @@ const StockImportApp = (props) => {
     };
 
     return (
-        <div className="u-margin-top-xxlarge u-form-max-width-medium">
-            <form id={"stock-import-form"} onSubmit={onSubmit}>
-                <div className="u-flex-v-center u-margin-top-small">
-                    <input
-                        type="file"
-                        name="uploadFile"
-                        id="uploadFile"
-                        accept=".text,.csv, .txt"
-                        onChange={onFileUpload}
-                    />
-                </div>
-                <div className="u-flex-v-center u-margin-top-small">
-                    <label htmlFor="template" className="u-flex-1">Template:</label>
-                    <div className="u-flex-4">
-                        <Select
-                            id={"template"}
-                            name={"template"}
-                            options={formattedTemplateOptions}
-                            filterable={true}
-                            autoSelectFirst={false}
-                            selectedOption={templateState.selectedOption}
-                            onOptionChange={templateState.onOptionChange}
-                            classNames={'u-inline-block'}
+        <div>
+            <div className="u-margin-top-xxlarge u-form-max-width-medium">
+                <form id={"stock-import-form"} onSubmit={onSubmit}>
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <input
+                            type="file"
+                            name="uploadFile"
+                            id="uploadFile"
+                            accept=".text,.csv, .txt"
+                            onChange={onFileUpload}
                         />
                     </div>
-                </div>
-                <div className="u-flex-v-center u-margin-top-small">
-                    <label htmlFor="action" className="u-flex-1">Import Action:</label>
-                    <div className="u-flex-4">
-                        <Select
-                            id={"action"}
-                            name={"action"}
-                            options={formattedActionOptions}
-                            filterable={true}
-                            autoSelectFirst={false}
-                            selectedOption={actionState.selectedOption}
-                            onOptionChange={actionState.onOptionChange}
-                            classNames={'u-inline-block'}
-                        />
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <label htmlFor="template" className="u-flex-1">Template:</label>
+                        <div className="u-flex-4">
+                            <Select
+                                id={"template"}
+                                name={"template"}
+                                options={formattedTemplateOptions}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={templateState.selectedOption}
+                                onOptionChange={templateState.onOptionChange}
+                                classNames={'u-inline-block'}
+                            />
+                        </div>
                     </div>
-                </div>
-                <button type="submit" className={'u-margin-top-med button'}>Upload</button>
-            </form>
+                    <div className="u-flex-v-center u-margin-top-small">
+                        <label htmlFor="action" className="u-flex-1">Import Action:</label>
+                        <div className="u-flex-4">
+                            <Select
+                                id={"action"}
+                                name={"action"}
+                                options={formattedActionOptions}
+                                filterable={true}
+                                autoSelectFirst={false}
+                                selectedOption={actionState.selectedOption}
+                                onOptionChange={actionState.onOptionChange}
+                                classNames={'u-inline-block'}
+                            />
+                        </div>
+                    </div>
+                    <button type="submit" className={'u-margin-top-med button'}>Upload</button>
+                </form>
+            </div>
+            <div className={'u-margin-top-medium u-inline-block'}>
+                <Table
+                    {...props}
+                    buildEmptySchedule={Service.buildEmptySchedule}
+                    columns={Service.getColumns()}
+                    formatPostDataForSave={Service.formatPostDataForSave}
+                    validators={Service.validators()}
+                />
+            </div>
         </div>
     );
 };

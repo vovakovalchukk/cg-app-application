@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const FlexDiv = styled.div`
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 `;
 
 const getNavigatorProps = (threadIds, thread) => {
@@ -13,9 +13,9 @@ const getNavigatorProps = (threadIds, thread) => {
     const totalThreadCount = threadIds.length;
     const thisThreadPosition = threadIds.indexOf(safeThreadId);
     const prevThreadId = threadIds[thisThreadPosition - 1];
-    const nextThreadId = threadIds[thisThreadPosition + 1]
+    const nextThreadId = threadIds[thisThreadPosition + 1];
     const prevThreadPath = thisThreadPosition !== 0 ? `/messages/thread/:${prevThreadId}` : `/messages/`;
-    const nextThreadPath = thisThreadPosition !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
+    const nextThreadPath = thisThreadPosition + 1 !== totalThreadCount ? `/messages/thread/:${nextThreadId}` : `/messages/`;
     return {
         nextThreadPath: nextThreadPath,
         prevThreadPath: prevThreadPath,
@@ -36,10 +36,10 @@ const ThreadHeader = (props) => {
         <FlexDiv className={`u-display-flex`}>
             <ButtonLink
                 to={`/messages/`}
-                text={`< Back`}
+                sprite={`sprite-arrow-double-14-black`}
             />
 
-            <h1 className='u-clear-both u-float-none'>{thread.subject}</h1>
+            <h1 className={'u-clear-both u-float-none u-margin-left-small'}>{thread.subject}</h1>
 
             <ThreadNavigator
                 prev={navigatorProps.prevThreadPath}

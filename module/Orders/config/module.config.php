@@ -35,7 +35,7 @@ use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
-use Orders\Controller\CancelController;
+use Orders\Controller\PartialRefundController;
 use Orders\Controller\StoredBatchesController;
 use Orders\Controller\BarcodeController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
@@ -522,6 +522,16 @@ return [
                             'defaults' => [
                                 'controller' => BulkActionsController::class,
                                 'action' => 'cancelOrderIds'
+                            ]
+                        ]
+                    ],
+                    'partialRefund' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/partialRefund',
+                            'defaults' => [
+                                'controller' => PartialRefundController::class,
+                                'action' => 'partialRefund'
                             ]
                         ]
                     ],

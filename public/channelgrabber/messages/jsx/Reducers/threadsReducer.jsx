@@ -4,7 +4,6 @@ import reducerCreator from 'Common/Reducers/creator';
 
 const initialState = {
     byId: {},
-    searchBy: '',
     viewing: '',
 };
 
@@ -30,17 +29,16 @@ const threadsReducer = reducerCreator(initialState, {
 
         return newState ;
     },
-    'SEARCH_INPUT_CHANGED': (state, action) => {
-        let threads = {...state};
-
-        threads.searchBy = action.payload;
-
-        return {...state, ...threads};
-    },
     'SAVE_STATUS_SUCCESS': (state, action) => {
         let threads = {...state};
 
-        threads.byId[action.payload.id] = action.payload;
+        let thread = action.payload.thread;
+
+        thread.messages = thread.messages.map(message => {
+            return message.id;
+        })
+
+        threads.byId[thread.id] = thread;
 
         return {...state, ...threads};
     },
@@ -58,7 +56,13 @@ const threadsReducer = reducerCreator(initialState, {
     'ASSIGN_USER_SUCCESS': (state, action) => {
         let threads = {...state};
 
-        threads.byId[action.payload.id] = action.payload;
+        let thread = action.payload.thread;
+
+        thread.messages = thread.messages.map(message => {
+            return message.id;
+        })
+
+        threads.byId[thread.id] = thread;
 
         return {...state, ...threads};
     },

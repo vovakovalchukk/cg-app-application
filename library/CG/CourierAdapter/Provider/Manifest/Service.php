@@ -8,8 +8,8 @@ use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterfac
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\Stdlib\Exception\Storage as StorageException;
-use CG\StdLib\Log\LoggerAwareInterface;
-use CG\StdLib\Log\LogTrait;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
 class Service implements LoggerAwareInterface
 {

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Table from 'Common/Components/Table';
 import styled from 'styled-components';
 import allColumns from 'MessageCentre/Columns/allColumns';
-import Search from 'Common/Components/Search';
+import ThreadSearch from 'MessageCentre/Components/ThreadSearch';
 
 const TableRow = (props) => {
     return (
@@ -14,7 +14,7 @@ const TableRow = (props) => {
 
 const Th = styled.th`
     position: sticky;
-    top: 50px;
+    top: 0;
     width: ${props => props.width || 'auto'};
 `;
 
@@ -23,18 +23,36 @@ const Tr = styled(TableRow)`
     white-space: nowrap;
 `;
 
+const TableHolder = styled.div`
+    margin-top: -1rem;
+`;
+
+const MessagesGridActions = styled.div`
+    background-color: #f5f5f5;
+    padding: 10px;
+    grid-column: head/right;
+    grid-row: head;
+`;
+
+const MessagesGridList = styled.div`
+    grid-row: main/foot;
+    grid-column: main/right;
+    overflow: auto;
+`;
+
+
 const MessageList = (props) => {
-    const {match} = props;
+    const {match, filters, actions, formattedThreads} = props;
     const {params} = match;
 
     useEffect(() => {
         const filterObjectForAjax = {};
-        const filterInState = props.filters.getById(params.activeFilter);
+        const filterInState = filters.getById(params.activeFilter);
 
         if (!filterInState) {
             // filters have not yet been fetched - this will be when the view has initially rendered
-            filterObjectForAjax[props.filters.default] = props.filters.default;
-            props.actions.fetchMessages({
+            filterObjectForAjax[filters.default] = filters.default;
+            actions.fetchMessages({
                 filter: filterObjectForAjax
             });
             return;
@@ -43,34 +61,39 @@ const MessageList = (props) => {
         // fire the ajax request corresponding to react-router parameter on view load.
         filterObjectForAjax[filterInState.ajaxFilterProperty] = filterInState.ajaxFilterValue;
 
-        props.actions.fetchMessages({
+        actions.fetchMessages({
             filter: filterObjectForAjax
         });
-    }, [props.filters, props.match.params.activeFilter]);
+    }, [filters, match.params.activeFilter]);
 
     return (
-        <div>
-            <Search
-                value={props.threads.searchBy}
-                onChange={props.actions.searchInputType}
-                onSearch={props.actions.searchSubmit}
-            />
-
-            <Table
-                actions={props.actions}
-                data={props.formattedThreads}
-                maxItems={100}
-                pagination={1}
-                onPageChange={(newPage)=>{}}
-                setRowValue={[]}
-                columns={allColumns}
-                maxPages={1}
-                styledComponents={{
-                    Th,
-                    Tr
-                }}
-            />
-        </div>
+        <React.Fragment>
+            <MessagesGridActions>
+                <ThreadSearch
+                    actions={actions}
+                />
+            </MessagesGridActions>
+            <MessagesGridList>
+                <TableHolder>
+                    <Table
+                        actions={actions}
+                        data={formattedThreads}
+                        maxItems={100}
+                        pagination={1}
+                        onPageChange={(newPage)=>{
+                            // todo - need to test pagination works
+                        }}
+                        setRowValue={[]}
+                        columns={allColumns}
+                        maxPages={1}
+                        styledComponents={{
+                            Th,
+                            Tr
+                        }}
+                    />
+                </TableHolder>
+            </MessagesGridList>
+        </React.Fragment>
     );
 };
 
