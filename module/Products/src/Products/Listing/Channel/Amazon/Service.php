@@ -179,13 +179,14 @@ class Service implements
         return array_merge($data, $externalData);
     }
 
-    public function getAmazonCategoryDependentValues(int $amazonCategoryId): array
+    public function getAmazonCategoryDependentValues(Account $account, int $amazonCategoryId): array
     {
         $amazonCategory = $this->amazonCategoryService->fetch($amazonCategoryId);
+        $marketplace = $this->getMarketplaceForAccount($account);
 
         return [
             'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
-            'variationThemes' => $this->getVariationThemes($amazonCategory),
+            'variationThemes' => $this->getVariationThemes($amazonCategory, $marketplace),
         ];
     }
 
@@ -195,10 +196,10 @@ class Service implements
         return $this->filterItemSpecifics($itemSpecifics);
     }
 
-    protected function getVariationThemes(AmazonCategory $amazonCategory): array
+    protected function getVariationThemes(AmazonCategory $amazonCategory, string $marketplace): array
     {
         try {
-            $variationThemes = $this->variationThemeService->fetchCollectionByCategoryId($amazonCategory->getId());
+            $variationThemes = $this->variationThemeService->fetchCollectionByCategoryIdAndMarketplaces($amazonCategory->getId(), [$marketplace]);
         } catch (NotFound $e) {
             return [];
         }

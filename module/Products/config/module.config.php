@@ -642,19 +642,19 @@ return [
                                     ],
                                 ],
                             ],
-                        ]
-                    ],
-                    CreateListingsAmazonJsonController::ROUTE_AMAZON_CATEGORY_DEPENDENT_FIELD_VALUES => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/create-listings/amazon-category-dependent-field-values/:amazonCategoryId',
-                            'defaults' => [
-                                'controller' => CreateListingsAmazonJsonController::class,
-                                'action' => 'amazonCategoryDependentFieldValues'
+                            CreateListingsAmazonJsonController::ROUTE_AMAZON_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/amazon-category-dependent-field-values/:amazonCategoryId',
+                                    'defaults' => [
+                                        'controller' => CreateListingsAmazonJsonController::class,
+                                        'action' => 'amazonCategoryDependentFieldValues'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'amazonCategoryId' => '[0-9]+'
+                                ]
                             ],
-                        ],
-                        'constraints' => [
-                            'amazonCategoryId' => '[0-9]+'
                         ]
                     ],
                     CreateListingsJsonController::ROUTE_CATEGORY_TEMPLATE_DEPENDENT_FIELD_VALUES => [

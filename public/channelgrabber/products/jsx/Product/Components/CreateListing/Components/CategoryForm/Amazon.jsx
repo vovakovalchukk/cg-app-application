@@ -455,7 +455,7 @@ class AmazonCategoryFormComponent extends React.Component {
     fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId) => {
         $.ajax({
             context: this,
-            url: '/products/create-listings/amazon-category-dependent-field-values/' + amazonCategoryId,
+            url: '/products/create-listings/' + this.props.accountId + '/amazon-category-dependent-field-values/' + amazonCategoryId,
             type: 'GET',
             success: function (response) {
                 this.setState({
