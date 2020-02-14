@@ -89,7 +89,7 @@
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/supplier": "~1.0.1",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "dev-TAC-575-message-centre-phase-2 as 1.9.4",
+        "channelgrabber/template": "dev-TAC-575-message-centre-phase-2 as 1.9.7",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.4",
         "channelgrabber/user": "~1.27.0",
