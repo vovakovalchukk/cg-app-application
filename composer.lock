@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+
     "content-hash": "1b45cfebe2c46e241a0966487b0ba09e",
+
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -375,16 +377,21 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.33.6",
+            "version": "1.33.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2f7995d4557a77391b6dbbdf67770f0a1ae5729d"
+                "reference": "6cab65289288accee7f43d61b1a9470aaeeb4e3f"
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.6-d36601.zip",
                 "reference": "2f7995d4557a77391b6dbbdf67770f0a1ae5729d",
+=======
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.7-b018c7.zip",
+                "reference": "6cab65289288accee7f43d61b1a9470aaeeb4e3f",
+>>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
@@ -405,7 +412,7 @@
                 "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/order": "^1.48.6",
+                "channelgrabber/order": "^1.49.1",
                 "channelgrabber/predis": "^1.1.1",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/scraper": "^1.1.1",
@@ -440,7 +447,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-02-11T08:31:10+00:00"
+            "time": "2020-02-17T11:27:47+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -971,6 +978,18 @@
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-575-message-centre-phase-2-829917.zip",
                 "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc",
                 "shasum": null
+<<<<<<< HEAD
+=======
+=======
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.0-04b629.zip",
+<<<<<<< HEAD
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
+>>>>>>> TAC-566-message-centre-ui-rewrite
+=======
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9",
+                "shasum": null
+>>>>>>> develop
+>>>>>>> TAC-575-message-centre-phase-2
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -2491,16 +2510,21 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.49.0",
+            "version": "1.49.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "af979cf087d13c0f3d17b2d4e3efec91b0d03de2"
+                "reference": "11f5b73557c7948fe9e71770a124dcba430bb7ed"
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.49.0-039197.zip",
                 "reference": "af979cf087d13c0f3d17b2d4e3efec91b0d03de2",
+=======
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.49.1-582f9f.zip",
+                "reference": "11f5b73557c7948fe9e71770a124dcba430bb7ed",
+>>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
@@ -2573,7 +2597,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-02-11T11:41:03+00:00"
+            "time": "2020-02-17T11:16:49+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3892,6 +3916,26 @@
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-575-message-centre-phase-2-e4d1ce.zip",
                 "reference": "6dde44139ea7a918fbc05706dcab9ffffc82d5be",
                 "shasum": null
+<<<<<<< HEAD
+=======
+=======
+            "version": "1.9.6",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-template.git",
+                "reference": "73c79dae752e4648478012370df95c61934bb059"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.6-ad63c5.zip",
+<<<<<<< HEAD
+                "reference": "73c79dae752e4648478012370df95c61934bb059"
+>>>>>>> TAC-566-message-centre-ui-rewrite
+=======
+                "reference": "73c79dae752e4648478012370df95c61934bb059",
+                "shasum": null
+>>>>>>> develop
+>>>>>>> TAC-575-message-centre-phase-2
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -5471,16 +5515,21 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.35",
+            "version": "1.26.36",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "275d50911937f274ee61684157b00d59fb8ea28f"
+                "reference": "ab69b5ee8648b94ae445e93cffcd67fac44f7432"
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.35-a8e05a.zip",
                 "reference": "275d50911937f274ee61684157b00d59fb8ea28f",
+=======
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.36-173192.zip",
+                "reference": "ab69b5ee8648b94ae445e93cffcd67fac44f7432",
+>>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
@@ -5533,7 +5582,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-01-28T16:15:06+00:00"
+            "time": "2020-02-17T11:30:32+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

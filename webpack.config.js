@@ -13,6 +13,7 @@ module.exports = {
 
         "orders/js/index": "./public/channelgrabber/orders/js-vanilla/index.js",
         "orders/js/ManualOrder/ManualOrder": "./public/channelgrabber/orders/jsx/ManualOrder/ManualOrder.jsx",
+        "orders/js/PartialRefund/Root": "./public/channelgrabber/orders/jsx/PartialRefund/Root.jsx",
 
         "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
         "settings/js/PickListSettings/PickListSettings": "./public/channelgrabber/settings/jsx/PickListSettings/PickListSettings.jsx",
@@ -105,6 +106,7 @@ module.exports = {
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             Orders: path.resolve(__dirname, 'public', 'channelgrabber', 'orders'),
+            PartialRefund: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'PartialRefund'),
             Courier: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'Courier'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),
