@@ -8,7 +8,7 @@ const Item = (props) => {
     } = props;
 
     return (
-        <li>
+        <div>
             <NavLink
                 to={to}
                 activeStyle={{
@@ -17,7 +17,7 @@ const Item = (props) => {
             >
                 <span>{displayText}</span>
             </NavLink>
-        </li>
+        </div>
     )
 };
 

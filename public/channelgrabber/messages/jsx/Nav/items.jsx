@@ -49,7 +49,7 @@ const navItems = [
     {
         id: 'templates',
         displayText: 'Templates',
-        to: '/templates',
+        to: '/messages/templates',
         component: Item,
     }
 ];
