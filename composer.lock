@@ -385,13 +385,8 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.6-d36601.zip",
-                "reference": "2f7995d4557a77391b6dbbdf67770f0a1ae5729d",
-=======
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.7-b018c7.zip",
                 "reference": "6cab65289288accee7f43d61b1a9470aaeeb4e3f",
->>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
@@ -978,18 +973,6 @@
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-575-message-centre-phase-2-829917.zip",
                 "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc",
                 "shasum": null
-<<<<<<< HEAD
-=======
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.0-04b629.zip",
-<<<<<<< HEAD
-                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
->>>>>>> TAC-566-message-centre-ui-rewrite
-=======
-                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9",
-                "shasum": null
->>>>>>> develop
->>>>>>> TAC-575-message-centre-phase-2
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -2518,13 +2501,8 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.49.0-039197.zip",
-                "reference": "af979cf087d13c0f3d17b2d4e3efec91b0d03de2",
-=======
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.49.1-582f9f.zip",
                 "reference": "11f5b73557c7948fe9e71770a124dcba430bb7ed",
->>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
@@ -3916,9 +3894,7 @@
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-575-message-centre-phase-2-e4d1ce.zip",
                 "reference": "6dde44139ea7a918fbc05706dcab9ffffc82d5be",
                 "shasum": null
-<<<<<<< HEAD
-=======
-=======
+            },
             "version": "1.9.6",
             "source": {
                 "type": "git",
@@ -3928,14 +3904,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.9.6-ad63c5.zip",
-<<<<<<< HEAD
-                "reference": "73c79dae752e4648478012370df95c61934bb059"
->>>>>>> TAC-566-message-centre-ui-rewrite
-=======
                 "reference": "73c79dae752e4648478012370df95c61934bb059",
                 "shasum": null
->>>>>>> develop
->>>>>>> TAC-575-message-centre-phase-2
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -5523,13 +5493,8 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.35-a8e05a.zip",
-                "reference": "275d50911937f274ee61684157b00d59fb8ea28f",
-=======
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.36-173192.zip",
                 "reference": "ab69b5ee8648b94ae445e93cffcd67fac44f7432",
->>>>>>> TAC-575-message-centre-phase-2
                 "shasum": null
             },
             "require": {
