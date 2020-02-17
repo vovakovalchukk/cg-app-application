@@ -11,9 +11,7 @@ const Item = (props) => {
         <div>
             <NavLink
                 to={to}
-                activeStyle={{
-                    color: 'green'
-                }}
+                activeClassName="sidebar-item-selected"
             >
                 <span>{displayText}</span>
             </NavLink>
