@@ -2669,9 +2669,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-583-part-refund-frontend":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.47":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#188aa77534f3f2c956185dc33397144b1ac895c4"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#775067c3ce16c5d95a4c8d9d54950f29ca3afb65"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
