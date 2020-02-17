@@ -29,7 +29,7 @@ const TemplateManager = (props) => {
     const newTemplateName = useFormInputState('');
 
     const [templateInitialised, setTemplateInitialised] = useState(false);
-    const [templateSelectValue, setTemplateSelectValue] = useState({});
+    const [templateSelectValue, setTemplateSelectValue] = useState(null);
     const templateHTML = useTemplateHtmlState('');
 
     const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
