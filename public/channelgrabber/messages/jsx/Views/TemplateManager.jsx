@@ -20,6 +20,19 @@ const StyledButtonSelect = styled(ButtonSelect)`
     width: 14rem;
 `;
 
+const StyledTemplateEditor = styled.div`
+    textarea {
+        resize: vertical;
+    }
+`;
+
+const MessagesGridTemplates = styled.div`
+    grid-row: main/foot;
+    grid-column: main/right;
+    overflow: auto;
+    padding: 20px;
+`;
+
 const TemplateManager = (props) => {
     const {match, accounts} = props;
     const {params} = match;
@@ -35,7 +48,7 @@ const TemplateManager = (props) => {
     const [previewAccountValue, setPreviewAccountValue] = useState(accounts[0].value);
 
     return (
-        <div className={"module clearfix"}>
+        <MessagesGridTemplates>
             <div className="u-form-max-width-medium">
                 <span className="heading-large u-defloat">
                     Message Templates
@@ -72,7 +85,9 @@ const TemplateManager = (props) => {
                 }
 
                 {templateInitialised &&
-                    <TemplateEditor templateHTML={templateHTML} templateTags={props.messageTemplateTags}/>
+                    <StyledTemplateEditor>
+                        <TemplateEditor templateHTML={templateHTML} templateTags={props.messageTemplateTags}/>
+                    </StyledTemplateEditor>
                 }
 
                 {templateInitialised &&
@@ -92,7 +107,7 @@ const TemplateManager = (props) => {
                     </div>
                 }
             </div>
-        </div>
+        </MessagesGridTemplates>
     );
 
     async function openPreview() {
