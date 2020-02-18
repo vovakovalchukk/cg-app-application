@@ -18,10 +18,11 @@ const messagesReducer = reducerCreator(initialState, {
             ...existingTemplates.byId,
             ...newNormalizedTemplates.byId
         };
-        combinedTemplates.allIds = [
+
+        combinedTemplates.allIds = [...new Set([
             ...existingTemplates.allIds,
             ...newNormalizedTemplates.allIds
-        ];
+        ])];
 
         return combinedTemplates
     },
