@@ -964,12 +964,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc"
+                "reference": "7eeec71f7924aaebcc3b718f4d4847f4b7737b62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-575-message-centre-phase-2-829917.zip",
-                "reference": "4a217cff4cbc7c2cbaae759de874b37a31f8f7dc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-575-message-centre-phase-2-95c86e.zip",
+                "reference": "7eeec71f7924aaebcc3b718f4d4847f4b7737b62",
                 "shasum": null
             },
             "require": {
@@ -983,7 +983,7 @@
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Communication\\": "src"
@@ -994,13 +994,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "authors": [
-                {
-                    "name": "M King",
-                    "email": "matthew.king@channelgrabber.com"
-                }
-            ],
-            "time": "2020-01-08T10:32:17+00:00"
+            "time": "2020-02-17T16:14:42+00:00"
         },
         {
             "name": "channelgrabber/constants",
