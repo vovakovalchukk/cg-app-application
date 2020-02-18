@@ -147,11 +147,26 @@ const TemplateManager = (props) => {
             });
             n.success("You have successfully saved your message template.");
 
-            props.actions.addTemplate({
+            const newTemplate = {
                 id: response.id,
                 name: templateName.value,
                 template: templateHTML.value
+            };
+
+            props.actions.addTemplate(newTemplate);
+
+            const hookTemplates = [...templates];
+
+            const templateIndex = templates.findIndex(template => {
+                return template.id === newTemplate.id;
             });
+
+            const targetIndex = templateIndex > -1 ? templateIndex : hookTemplates.length;
+
+            hookTemplates[targetIndex] = newTemplate;
+
+            setTemplates(hookTemplates);
+
             return;
         }
         if (!response.error || !response.error.message) {
