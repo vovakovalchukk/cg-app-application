@@ -9,17 +9,17 @@ const initialState = {
 
 const messagesReducer = reducerCreator(initialState, {
     'TEMPLATE_ADD': (state, action) => {
-        const exitingTemplates = {...state};
+        const existingTemplates = {...state};
         const newNormalizedTemplates = normalizeTemplates([action.payload.template]);
 
         const combinedTemplates = {};
 
         combinedTemplates.byId = {
-            ...exitingTemplates.byId,
+            ...existingTemplates.byId,
             ...newNormalizedTemplates.byId
         };
         combinedTemplates.allIds = [
-            ...exitingTemplates.allIds,
+            ...existingTemplates.allIds,
             ...newNormalizedTemplates.allIds
         ];
 
