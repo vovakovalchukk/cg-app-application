@@ -174,7 +174,8 @@ const TemplateManager = (props) => {
         });
 
         if (response.success) {
-            n.success(response.success.message);
+            const popupText = typeof response.success.message === 'undefined' ? 'Template deleted' : response.success.message;
+            n.success(popupText);
             deleteTemplateInState(templateSelectValue);
             templateName.setValue('');
             templateHTML.setValue('');
