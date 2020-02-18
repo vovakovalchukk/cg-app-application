@@ -112,7 +112,7 @@ const TemplateManager = (props) => {
         });
 
         if (response.success) {
-            htmlToRender = response.success.data.html;
+            htmlToRender = response.content;
         }
 
         if (!htmlToRender) {
