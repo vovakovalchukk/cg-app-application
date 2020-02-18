@@ -179,7 +179,7 @@ const TemplateManager = (props) => {
             deleteTemplateInState(templateSelectValue);
             templateName.setValue('');
             templateHTML.setValue('');
-
+            setTemplateSelectValue({});
             props.actions.removeTemplate(templateSelectValue.id);
             return;
         }
