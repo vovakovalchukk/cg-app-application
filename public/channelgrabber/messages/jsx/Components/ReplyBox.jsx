@@ -17,8 +17,7 @@ const SimpleButton = styled.button`
 
 const ComplexButton = styled(ButtonSelect)`
     width: ${buttonWidth};
-    margin-bottom: 6rem;
-    margin-right: 0;
+    margin-bottom: 1rem;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -32,6 +31,7 @@ const StyledTextarea = styled.textarea`
 
 const FlexDiv = styled.div`
     display: flex;
+    flex-direction: column;
 `;
 
 const ReplyBox = (props) => {
@@ -54,11 +54,6 @@ const ReplyBox = (props) => {
 
     return (
         <FlexDiv>
-            <StyledTextarea
-                value={reply.text}
-                onChange={actions.replyOnChange}
-                placeholder={'Compose your reply here'}
-            />
             <div>
                 {isThreadResolved ?
                     <SimpleButton
@@ -88,6 +83,11 @@ const ReplyBox = (props) => {
                     />
                 }
             </div>
+            <StyledTextarea
+                value={reply.text}
+                onChange={actions.replyOnChange}
+                placeholder={'Compose your reply here'}
+            />
         </FlexDiv>
     );
 };
