@@ -12096,8 +12096,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
             "version": "dev-TAC-575-message-centre-phase-2",
             "package": "channelgrabber/communication"
         },
