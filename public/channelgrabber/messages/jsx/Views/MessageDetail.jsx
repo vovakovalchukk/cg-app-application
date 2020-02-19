@@ -113,7 +113,7 @@ const GridRightSide = styled.div`
 `;
 
 const MessageDetail = (props) => {
-    const {match, threads, messages, actions, assignableUsers} = props;
+    const {match, threads, messages, actions, assignableUsers, templates} = props;
     const {params} = match;
     const threadId = params.threadId.replace(':','');
     const thread = threads.byId[threadId];
@@ -170,6 +170,7 @@ const MessageDetail = (props) => {
                 <ReplyBox
                     actions={actions}
                     thread={thread}
+                    templates={templates}
                 />
             </GridReply>
 
