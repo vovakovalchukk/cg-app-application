@@ -140,7 +140,7 @@ return [
                         'type' => Regex::class,
                         'priority' => -100,
                         'options' => [
-                            'regex' => '\/(?<route>[\/A-Za-z0-9]{2,})',
+                            'regex' => '\/(?<route>[\/A-Za-z0-9\:\-]{2,})',
                             'defaults' => [
                                 'controller' => IndexController::class,
                                 'action' => 'index',

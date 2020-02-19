@@ -121,7 +121,7 @@ const MessageDetail = (props) => {
     const headerProps = {
         thread: thread,
         threadIds: threads.allIds,
-    }
+    };
 
     useEffect(() => {
         threads.viewing = thread.id;
