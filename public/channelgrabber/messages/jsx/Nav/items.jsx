@@ -22,7 +22,7 @@ const navItems = [
         id: 'myMessages',
         filterId: 'myMessages',
         displayText: 'My Messages',
-        to: '/messages/list/my-messages',
+        to: '/messages/list/myMessages',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem,
         className: 'statusCountPillBox dispatched',
