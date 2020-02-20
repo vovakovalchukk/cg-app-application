@@ -151,7 +151,7 @@ class AmazonItemSpecifics extends React.Component {
                     options={options}
                     onOptionChange={this.onChoiceOptionSelected.bind(this, field.input)}
                     selectedOption={this.findSelectedOption(field.input.value)}
-                    className={Validators.shouldShowError(field) ? 'u-border-red' : null}
+                    className={Validators.shouldShowError(field) ? 'error' : null}
                     filterable={true}
                 />
             </div>
@@ -270,7 +270,7 @@ class AmazonItemSpecifics extends React.Component {
                     onOptionChange={this.onOptionSelected.bind(this, field.input)}
                     selectedOptions={field.input.value ? field.input.value : []}
                     selectedOption={this.findSelectedOption(field.input.value)}
-                    className={Validators.shouldShowError(field) ? 'u-border-red' : null}
+                    className={Validators.shouldShowError(field) ? 'error' : null}
                     filterable={true}
                 />
             </div>
