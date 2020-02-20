@@ -5,7 +5,8 @@ import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
 import Select from 'Common/Components/Select';
-import ScrollToTop from "MessageCentre/Components/ScrollToTop";
+import ScrollToTop from 'MessageCentre/Components/ScrollToTop';
+import LoadingSpinner from 'MessageCentre/Components/LoadingSpinner';
 
 const printMessage = (message) => {
     const newWindow = window.open();
@@ -16,10 +17,12 @@ const printMessage = (message) => {
 
 const formatMessages = (thread, allMessages) => {
     const formattedMessages = [];
-    thread.messages.forEach(messageId => {
-        const message = allMessages.byId[messageId];
-        formattedMessages.push(message);
-    });
+    if (typeof thread !== 'undefined'){
+        thread.messages.forEach(messageId => {
+            const message = allMessages.byId[messageId];
+            formattedMessages.push(message);
+        });
+    }
     return formattedMessages;
 };
 
@@ -113,21 +116,59 @@ const GridRightSide = styled.div`
 `;
 
 const MessageDetail = (props) => {
-    const {match, threads, messages, actions, assignableUsers} = props;
+    const {match, threads, messages, actions, assignableUsers, filters} = props;
+
     const {params} = match;
+
     const threadId = params.threadId.replace(':','');
+
     const thread = threads.byId[threadId];
+
     const formattedMessages = formatMessages(thread, messages);
+
     const headerProps = {
         thread: thread,
         threadIds: threads.allIds,
     };
 
     useEffect(() => {
-        threads.viewing = thread.id;
+        if (typeof thread !== 'undefined') {
+            threads.viewing = thread.id;
+        }
     }, []);
 
+    useEffect(() => {
+        if (typeof thread === 'undefined') {
+            const filterObjectForAjax = {};
+            const filterInState = filters.getById(params.activeFilter);
+
+            if (!filterInState) {
+                // filters have not yet been fetched - this will be when the view has initially rendered
+                filterObjectForAjax[filters.default] = filters.default;
+                actions.fetchMessages({
+                    filter: filterObjectForAjax
+                });
+                return;
+            }
+
+            // fire the ajax request corresponding to react-router parameter on view load.
+            filterObjectForAjax[filterInState.ajaxFilterProperty] = filterInState.ajaxFilterValue;
+
+            actions.fetchMessages({
+                filter: filterObjectForAjax
+            });
+        }
+    }, [filters, match.params.activeFilter]);
+
     const formattedUsers = formatUsers(assignableUsers);
+
+    if (typeof thread === 'undefined') {
+        return (
+            <React.Fragment>
+                <LoadingSpinner />
+            </React.Fragment>
+        );
+    }
 
     return (
         <React.Fragment>
