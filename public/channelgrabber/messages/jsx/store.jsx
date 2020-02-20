@@ -1,9 +1,7 @@
 import {applyMiddleware, createStore} from 'redux';
-import thunk from "redux-thunk";
-import combinedReducer from "MessageCentre/Reducers/Combined";
-import {useState} from "react";
-
-import {initTemplates} from "MessageCentre/Reducers/templatesReducer";
+import thunk from 'redux-thunk';
+import combinedReducer from 'MessageCentre/Reducers/Combined';
+import {initTemplates} from 'MessageCentre/Reducers/templatesReducer';
 
 let enhancer = applyMiddleware(thunk);
 
