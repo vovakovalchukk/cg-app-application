@@ -74,6 +74,7 @@ const App = (props) => {
                         filters={props.filters}
                         actions={props.actions}
                         match={match}
+                        threadsLoaded={props.threads.loaded}
                         {...formattedThreads}
                     />
                 )}/>

@@ -1,6 +1,10 @@
 const messageActions = {
     fetchMessages: (params) => {
         return async function (dispatch, getState) {
+            dispatch({
+                type: 'THREADS_FETCH_START',
+                payload: null,
+            });
             let response = await fetchThreads(params, getState());
             dispatch({
                 type: 'THREADS_FETCH_SUCCESS',

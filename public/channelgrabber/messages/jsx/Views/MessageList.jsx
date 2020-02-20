@@ -40,9 +40,12 @@ const MessagesGridList = styled.div`
     overflow: auto;
 `;
 
+const NoMessages = styled.div`
+    padding: 2rem;
+`;
 
 const MessageList = (props) => {
-    const {match, filters, actions, formattedThreads} = props;
+    const {match, filters, actions, formattedThreads, threadsLoaded} = props;
     const {params} = match;
 
     useEffect(() => {
@@ -66,6 +69,8 @@ const MessageList = (props) => {
         });
     }, [filters, match.params.activeFilter]);
 
+    const showNoMessagesMessage = threadsLoaded === true && formattedThreads.length === 0;
+
     return (
         <React.Fragment>
             <MessagesGridActions>
@@ -74,24 +79,37 @@ const MessageList = (props) => {
                 />
             </MessagesGridActions>
             <MessagesGridList>
-                <TableHolder>
-                    <Table
-                        actions={actions}
-                        data={formattedThreads}
-                        maxItems={100}
-                        pagination={1}
-                        onPageChange={(newPage)=>{
-                            // todo - need to test pagination works
-                        }}
-                        setRowValue={[]}
-                        columns={allColumns}
-                        maxPages={1}
-                        styledComponents={{
-                            Th,
-                            Tr
-                        }}
-                    />
-                </TableHolder>
+
+                {
+                    showNoMessagesMessage &&
+                    <NoMessages>
+                        <span className="heading-large u-margin-bottom-med">No matching messages</span>
+                        Please try another filter or search term.
+                    </NoMessages>
+                }
+
+                {
+                    !showNoMessagesMessage &&
+                    <TableHolder>
+                        <Table
+                            actions={actions}
+                            data={formattedThreads}
+                            maxItems={100}
+                            pagination={1}
+                            onPageChange={(newPage)=>{
+                                // todo - need to test pagination works
+                            }}
+                            setRowValue={[]}
+                            columns={allColumns}
+                            maxPages={1}
+                            styledComponents={{
+                                Th,
+                                Tr
+                            }}
+                        />
+                    </TableHolder>
+                }
+
             </MessagesGridList>
         </React.Fragment>
     );

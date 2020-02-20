@@ -5,9 +5,17 @@ import reducerCreator from 'Common/Reducers/creator';
 const initialState = {
     byId: {},
     viewing: '',
+    loaded: false,
 };
 
 const threadsReducer = reducerCreator(initialState, {
+    'THREADS_FETCH_START': (state) => {
+        let threads = {...state};
+
+        threads.loaded = false;
+
+        return {...state, ...threads};
+    },
     'THREADS_FETCH_SUCCESS': (state, action) => {
         let threads = {...state};
 
@@ -24,6 +32,8 @@ const threadsReducer = reducerCreator(initialState, {
         threads.allIds = action.payload.map(thread => {
             return thread.id;
         });
+
+        threads.loaded = true;
 
         let newState = {...state, ...threads};
 
