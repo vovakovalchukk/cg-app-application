@@ -24,7 +24,7 @@ const messagesReducer = reducerCreator(initialState, {
             ...newNormalizedTemplates.allIds
         ])];
 
-        return combinedTemplates
+        return combinedTemplates;
     },
     "TEMPLATE_REMOVE": (state, action) => {
         const newTemplates = {...state};
