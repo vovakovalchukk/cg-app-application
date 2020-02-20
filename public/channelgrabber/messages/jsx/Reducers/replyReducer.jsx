@@ -30,11 +30,7 @@ const threadsReducer = reducerCreator(initialState, {
         return {...state, ...reply};
     },
     'REPLY_TEMPLATE_SELECT': (state, action) => {
-        let reply = {...state};
-
-        reply.text = action.payload;
-
-        return {...state, ...reply};
+        return {...state, ...{text: action.payload}};
     },
 });
 
