@@ -10,6 +10,10 @@ const REQUIRED_ITEM_SPECIFICS = {
     'ProductType': 'ProductType'
 };
 
+const ITEM_SPECIFICS_TYPE_MAP = {
+    'simpleContent': 'text'
+};
+
 class AmazonItemSpecifics extends React.Component {
     static defaultProps = {
         itemSpecifics: {}
@@ -51,7 +55,8 @@ class AmazonItemSpecifics extends React.Component {
     };
 
     renderItemSpecific = (itemSpecific) => {
-        var functionName = 'render' + itemSpecific.type.ucfirst() + 'Field';
+        const type = ITEM_SPECIFICS_TYPE_MAP[itemSpecific.type] || itemSpecific.type;
+        const functionName = 'render' + type.ucfirst() + 'Field';
         return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
     };
 
@@ -133,7 +138,12 @@ class AmazonItemSpecifics extends React.Component {
     renderChoiceSelectComponent = (field) => {
         var options = this.buildSelectOptionsForItemSpecific(field.options);
         return <label className="input-container">
-            <span className={"inputbox-label"}>{this.formatDisplayTitle(field.displayTitle)}</span>
+            <span className={"inputbox-label"}>
+                {this.formatDisplayTitle(field.displayTitle)}
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
+            </span>
             <div className={"order-inputbox-holder"}>
                 <Select
                     autoSelectFirst={false}
@@ -141,13 +151,10 @@ class AmazonItemSpecifics extends React.Component {
                     options={options}
                     onOptionChange={this.onChoiceOptionSelected.bind(this, field.input)}
                     selectedOption={this.findSelectedOption(field.input.value)}
-                    className={Validators.shouldShowError(field) ? 'error' : null}
+                    className={Validators.shouldShowError(field) ? 'u-border-red' : null}
                     filterable={true}
                 />
             </div>
-            {Validators.shouldShowError(field) && (
-                <span className="input-error">{field.meta.error}</span>
-            )}
         </label>;
     };
 
@@ -249,7 +256,12 @@ class AmazonItemSpecifics extends React.Component {
         var options = this.buildSelectOptionsForItemSpecific(field.options);
 
         return <label className="input-container">
-            <span className={"inputbox-label"}>{this.formatDisplayTitle(field.displayTitle)}</span>
+            <span className={"inputbox-label"}>
+                {this.formatDisplayTitle(field.displayTitle)}
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
+            </span>
             <div className={"order-inputbox-holder"}>
                 <SelectComponent
                     autoSelectFirst={false}
@@ -258,13 +270,10 @@ class AmazonItemSpecifics extends React.Component {
                     onOptionChange={this.onOptionSelected.bind(this, field.input)}
                     selectedOptions={field.input.value ? field.input.value : []}
                     selectedOption={this.findSelectedOption(field.input.value)}
-                    className={Validators.shouldShowError(field) ? 'error' : null}
+                    className={Validators.shouldShowError(field) ? 'u-border-red' : null}
                     filterable={true}
                 />
             </div>
-            {Validators.shouldShowError(field) && (
-                <span className="input-error">{field.meta.error}</span>
-            )}
         </label>;
     };
 
