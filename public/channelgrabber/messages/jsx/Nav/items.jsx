@@ -1,7 +1,6 @@
+import React from 'react';
 import FilterItem from './FilterItem';
 import Item from './Item';
-
-import React from 'react';
 
 const navItems = [
     {
