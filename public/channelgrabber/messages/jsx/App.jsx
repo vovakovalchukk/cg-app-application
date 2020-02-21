@@ -84,8 +84,7 @@ const App = (props) => {
                         match={match}
                     />
                 )}/>
-                <Redirect from={`${match.path}list`} exact to={`${match.path}list/unassigned`} />
-                <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+                <Redirect to={`${match.path}list/unassigned`} />
             </Switch>
         </Grid>
     );

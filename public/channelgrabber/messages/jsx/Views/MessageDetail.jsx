@@ -115,8 +115,12 @@ const GridRightSide = styled.div`
     padding: 1rem;
 `;
 
+const NoMessage = styled.div`
+    padding: 2rem;
+`;
+
 const MessageDetail = (props) => {
-    const {match, threads, messages, actions, assignableUsers, filters} = props;
+    const {match, threads, messages, actions, assignableUsers} = props;
 
     const {params} = match;
 
@@ -131,42 +135,32 @@ const MessageDetail = (props) => {
         threadIds: threads.allIds,
     };
 
-    useEffect(() => {
-        if (typeof thread !== 'undefined') {
-            threads.viewing = thread.id;
-        }
-    }, []);
+    if (typeof thread !== 'undefined') {
+        threads.viewing = thread.id;
+    }
 
     useEffect(() => {
         if (typeof thread === 'undefined') {
-            const filterObjectForAjax = {};
-            const filterInState = filters.getById(params.activeFilter);
-
-            if (!filterInState) {
-                // filters have not yet been fetched - this will be when the view has initially rendered
-                filterObjectForAjax[filters.default] = filters.default;
-                actions.fetchMessages({
-                    filter: filterObjectForAjax
-                });
-                return;
-            }
-
-            // fire the ajax request corresponding to react-router parameter on view load.
-            filterObjectForAjax[filterInState.ajaxFilterProperty] = filterInState.ajaxFilterValue;
-
-            actions.fetchMessages({
-                filter: filterObjectForAjax
-            });
+            actions.fetchThreadById(threadId);
         }
-    }, [filters, match.params.activeFilter]);
+    }, []);
 
     const formattedUsers = formatUsers(assignableUsers);
 
-    if (typeof thread === 'undefined') {
+    if (!threads.loaded && typeof thread === 'undefined') {
         return (
             <React.Fragment>
                 <LoadingSpinner />
             </React.Fragment>
+        );
+    }
+
+    if (threads.loaded && typeof thread === 'undefined') {
+        return (
+            <NoMessage>
+                <span className="heading-large u-margin-bottom-med">No message found</span>
+                Please choose a filter from the sidebar to load available messages.
+            </NoMessage>
         );
     }
 
