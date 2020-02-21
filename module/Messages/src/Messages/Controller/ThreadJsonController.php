@@ -3,8 +3,6 @@ namespace Messages\Controller;
 
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Service as UsageService;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
 use Messages\Thread\Service as ThreadService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -24,15 +22,12 @@ class ThreadJsonController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var ThreadService $threadService */
     protected $threadService;
-    /** @var UsageService */
-    protected $usageService;
     /** @var AccessUsageExceededService */
     protected $accessUsageExceededService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ThreadService $threadService,
-        UsageService $usageService,
         AccessUsageExceededService $accessUsageExceededService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
