@@ -111,10 +111,10 @@ const App = (props) => {
         messages = Object.values(messages);
 
         threads.forEach(thread => {
-            let threadMessages = messages.filter(function(message){
+            let threadMessages = messages.filter(message => {
                 return thread.messages.includes(message.id);
             });
-            threadMessages.sort(function(a,b){
+            threadMessages.sort((a,b) => {
                 let date_a = new Date(a.created);
                 let date_b = new Date(b.created);
                 if(date_a > date_b) return 1;

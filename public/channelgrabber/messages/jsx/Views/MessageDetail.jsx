@@ -17,7 +17,7 @@ const printMessage = (message) => {
 
 const formatMessages = (thread, allMessages) => {
     const formattedMessages = [];
-    if (typeof thread !== 'undefined'){
+    if (typeof thread !== 'undefined') {
         thread.messages.forEach(messageId => {
             const message = allMessages.byId[messageId];
             formattedMessages.push(message);
