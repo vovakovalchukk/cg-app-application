@@ -135,7 +135,7 @@ class ProductsJsonController extends AbstractActionController
         ImageUploader $imageUploader,
         ProductCreator $productCreator,
         ProductImporter $productImporter,
-        AccessUsageExceededService $accessUsageExceededService
+        AccessUsageExceededService $accessUsageExceededService,
         SupplierService $supplierService
     ) {
         $this->productService = $productService;
