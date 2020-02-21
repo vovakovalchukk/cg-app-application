@@ -135,8 +135,15 @@ const MessageDetail = (props) => {
         threadIds: threads.allIds,
     };
 
+    let ordersButtonText = 'Loading order count...';
+
     if (typeof thread !== 'undefined') {
         threads.viewing = thread.id;
+        if (thread.ordersCount === '?') {
+            actions.fetchThreadOrderCountByThreadId(threadId);
+        } else {
+            ordersButtonText = `${thread.ordersCount} orders from ${thread.externalUsername}`;
+        }
     }
 
     useEffect(() => {
@@ -223,7 +230,7 @@ const MessageDetail = (props) => {
                 <ButtonLink
                     className={`u-margin-bottom-med button u-display-flex`}
                     to={thread.ordersLink}
-                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+                    text={ordersButtonText}
                 />
                 {formattedUsers.length > 1 &&
                 <label className={'heading-medium u-cursor-pointer'}>

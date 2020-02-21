@@ -39,6 +39,17 @@ const threadsReducer = reducerCreator(initialState, {
 
         return newState ;
     },
+    'THREAD_ORDER_COUNT_FETCH_SUCCESS': (state, action) => {
+        let threads = {...state};
+
+        let thread = threads.byId[threads.viewing];
+
+        thread.ordersCount = action.payload;
+
+        let newState = {...state, ...threads};
+
+        return newState ;
+    },
     'SAVE_STATUS_SUCCESS': (state, action) => {
         let threads = {...state};
 

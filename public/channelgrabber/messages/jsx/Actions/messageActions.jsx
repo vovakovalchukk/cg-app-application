@@ -25,6 +25,15 @@ const messageActions = {
             })
         };
     },
+    fetchThreadOrderCountByThreadId: (params) => {
+        return async function (dispatch) {
+            let response = await fetchThreadOrderCountByThreadId(params);
+            dispatch({
+                type: 'THREAD_ORDER_COUNT_FETCH_SUCCESS',
+                payload: response.counts.orders,
+            })
+        };
+    },
     addMessage: (params) => {
         return async function (dispatch, getState) {
             let response = await addMessage(params, getState());
@@ -107,6 +116,14 @@ function fetchThreadById(id) {
                 id: id,
             },
         }
+    });
+}
+
+function fetchThreadOrderCountByThreadId(id) {
+    return $.ajax({
+        url: `/messages/${id}/ajax/counts`,
+        type: 'POST',
+        data: {},
     });
 }
 
