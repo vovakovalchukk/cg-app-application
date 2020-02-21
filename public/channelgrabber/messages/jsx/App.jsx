@@ -109,7 +109,6 @@ const App = (props) => {
     function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
-
         threads.forEach(thread => {
             let threadMessages = messages.filter(message => {
                 return thread.messages.includes(message.id);
@@ -121,13 +120,10 @@ const App = (props) => {
                 if(date_a < date_b) return -1;
                 return 0;
             });
-            let div = document.createElement('div');
-            div.innerHTML = threadMessages[0].body;
-            thread.lastMessage = div.textContent.replace(/\s+/g, ' ').substring(0, characterLimit);
-            if (thread.lastMessage.length > characterLimit) {
+            thread.lastMessage = threadMessages[0].body.replace(/(<script(\s|\S)*?<\/script>)|(<style(\s|\S)*?<\/style>)|(<!--(\s|\S)*?-->)|(<\/?(\s|\S)*?>)/g,'').replace(/\s+/g, ' ').substring(0, characterLimit);
+            if (thread.lastMessage.length === characterLimit) {
                 thread.lastMessage = thread.lastMessage.trimEnd() + `...`;
             }
-            div.remove();
         });
         return {
             formattedThreads: threads
