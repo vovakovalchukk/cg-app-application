@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff8677314d2f34c29892c3c5b97309ac",
+    "content-hash": "b45e050ee83237b2ac6c9dc1a155b546",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4999,16 +4999,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.19",
+            "version": "dev-CGIV-11154-csrf-in-cg-forms",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
+                "reference": "cf00d459470042a60c894c56ac2c168ff7228d94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.19-6a26a7.zip",
-                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-CGIV-11154-csrf-in-cg-forms-92edbc.zip",
+                "reference": "cf00d459470042a60c894c56ac2c168ff7228d94"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5047,7 +5047,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2019-05-01T14:59:46+00:00"
+            "time": "2020-02-21T09:37:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -10527,7 +10527,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11974,10 +11975,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.6.20",
+            "alias_normalized": "1.6.20.0",
+            "version": "dev-CGIV-11154-csrf-in-cg-forms",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
