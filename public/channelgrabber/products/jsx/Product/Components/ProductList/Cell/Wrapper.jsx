@@ -9,13 +9,17 @@ let cellRefs = {};
 let cellNodes = {};
 
 class CellWrapper extends React.Component {
+    componentDidMount() {
+        if (!this.isFirstCell()) {
+            return;
+        }
+        this.props.actions.runIntialUpdateForRowsIfApplicable();
+    }
+
     render() {
         let {CellContent, products, rowIndex} = this.props;
         rowData[rowIndex] = stateUtility.getRowData(products, rowIndex);
 
-        if (this.isFirstCell()) {
-            this.props.actions.runIntialUpdateForRowsIfApplicable();
-        }
 
         if (this.isLastRow()) {
             return (

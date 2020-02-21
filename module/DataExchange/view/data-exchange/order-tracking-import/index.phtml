@@ -1,0 +1,28 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="ftp-accounts-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('Scheduled Order Tracking Import'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'OrderTrackingImport': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/OrderTrackingImport',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+            }
+        });
+        require(["OrderTrackingImport/App"], function(App) {
+            App(
+                document.getElementById('app-mount-node'),
+                {
+                    schedules: <?= json_encode($orderTrackingImportSchedules); ?>,
+                    templateOptions: <?= json_encode($orderTrackingTemplateOptions); ?>,
+                    fromAccountOptions: <?= json_encode($fromAccountOptions); ?>
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

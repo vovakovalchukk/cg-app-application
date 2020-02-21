@@ -114,7 +114,14 @@ let detailsColumns = [
         headerText: 'Barcode Not Applicable',
         fixed: false,
         align: 'center'
-    }
+    },
+    {
+        key: 'supplier',
+        width: 150,
+        headerText: 'Supplier',
+        fixed: false,
+        align: 'center'
+    },
 ];
 
 let stockColumns = [
@@ -157,6 +164,14 @@ let stockColumns = [
         tab: 'stock',
         align: 'center',
         feature: 'lowStockThresholdEnabled'
+    },
+    {
+        key: 'reorderQuantity',
+        width: 80,
+        headerText: 'Reorder Quantity',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
     }
 ];
 

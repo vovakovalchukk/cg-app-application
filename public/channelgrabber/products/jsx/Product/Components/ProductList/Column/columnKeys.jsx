@@ -11,9 +11,11 @@ export default {
     weight: 'weight',
     dimensions: 'dimensions',
     lowStock: 'lowStock',
+    reorderQuantity: 'reorderQuantity',
     pickingLocation: 'pickingLocation',
     cost: 'cost',
     fulfillmentLatency: 'fulfillmentLatency',
     barcode: 'barcode',
-    barcodeNotApplicable: 'barcodeNotApplicable'
+    barcodeNotApplicable: 'barcodeNotApplicable',
+    supplier: 'supplier'
 };

@@ -13,8 +13,8 @@
                 'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
             }
         });
-        require(["OrderExport/App"], function(App) {
-            App(
+        require(["OrderExport/Index"], function(Index) {
+            Index(
                 document.getElementById('app-mount-node'),
                 {
                     schedules: <?= json_encode($orderExportSchedules); ?>,

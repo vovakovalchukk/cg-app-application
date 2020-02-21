@@ -7,7 +7,7 @@ const Service = {
             active: false,
             date: 1,
             day: 1,
-            filename: '{{type}}-{{date}}-{{time}}.csv',
+            filename: 'stock.csv',
             frequency: 'hourly',
             fromDataExchangeAccountId: null,
             hour: 0,

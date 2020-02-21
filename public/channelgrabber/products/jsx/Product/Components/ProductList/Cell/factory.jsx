@@ -13,7 +13,7 @@ import LinkCell from 'Product/Components/ProductList/Cell/Link';
 import AvailableCell from 'Product/Components/ProductList/Cell/Available';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
-import FixedDataTable from 'fixed-data-table-2';
+import FixedDataTable, {Cell} from 'fixed-data-table-2';
 import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
 import LowStock from 'Product/Components/ProductList/Cell/LowStock';
 import PickingLocationCell from 'Product/Components/ProductList/Cell/PickingLocation';
@@ -23,10 +23,10 @@ import CostCell from 'Product/Components/ProductList/Cell/Cost';
 import FulfillmentLatencyCell from 'Product/Components/ProductList/Cell/FulfillmentLatency';
 import BarcodeCell from 'Product/Components/ProductList/Cell/Barcode';
 import BarcodeNotApplicableCell from 'Product/Components/ProductList/Cell/BarcodeNotApplicableCell';
+import SupplierCell from 'Product/Components/ProductList/Cell/Supplier';
+import ReorderQuantityCell from "./ReorderQuantity";
 
 "use strict";
-
-const Cell = FixedDataTable.Cell;
 
 let cells = {
     productExpand: ProductExpandCell,
@@ -48,10 +48,12 @@ let cells = {
     onPurchaseOrder: OnPurchaseOrderCell,
     includePurchaseOrdersInAvailable: IncludePurchaseOrdersInAvailableCell,
     lowStock: LowStock,
+    reorderQuantity: ReorderQuantityCell,
     cost: CostCell,
     fulfillmentLatency: FulfillmentLatencyCell,
     barcode: BarcodeCell,
-    barcodeNotApplicable: BarcodeNotApplicableCell
+    barcodeNotApplicable: BarcodeNotApplicableCell,
+    supplier: SupplierCell
 };
 
 export default (function() {

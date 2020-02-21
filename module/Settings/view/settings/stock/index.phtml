@@ -32,6 +32,12 @@
                         <input id="low-stock-threshold-value" name="low-stock-threshold-value" type="number" step="1" min="0" class="inputbox number" value="<?=$this->lowStockThresholdValue;?>" />
                     </div>
                 </label>
+                <label>
+                    <span class="inputbox-label"><?= $this->translate('Reorder Quantity');?>:</span>
+                    <div class="order-inputbox-holder">
+                        <input id="reorder-quantity" name="reorder-quantity" type="number" step="1" min="0" class="inputbox number" value="<?=$this->reorderQuantity;?>" />
+                    </div>
+                </label>
             <?php endif; ?>
 
             <?php if (isset($this->includePurchaseOrdersToggle)): ?>

@@ -139,6 +139,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_REORDER_QUANTITY => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/reorderQuantity',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveReorderQuantity'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
@@ -156,6 +166,16 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'saveProductStockIncludePurchaseOrders'
+                            ]
+                        ],
+                    ],
+                    ProductsJsonController::ROUTE_SUPPLIER => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/supplier',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductSupplier'
                             ]
                         ],
                     ],
@@ -521,6 +541,16 @@ return [
                                     'defaults' => [
                                         'controller' => PurchaseOrdersJsonController::class,
                                         'action' => 'fetchLowStockProducts'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_FETCH_SKUS_BY_SUPPLIER => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetchProductsForSupplier',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'fetchProductSkusForSupplier'
                                     ]
                                 ]
                             ],

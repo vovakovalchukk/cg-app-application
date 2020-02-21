@@ -35,7 +35,7 @@ use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
-use Orders\Controller\CancelController;
+use Orders\Controller\PartialRefundController;
 use Orders\Controller\StoredBatchesController;
 use Orders\Controller\BarcodeController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
@@ -166,6 +166,37 @@ return [
                             ]
                         ],
                         'may_terminate' => true
+                    ],
+                    'pdf-export' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pdf-export',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'pdfExport'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'pdf-export-check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkPdfExportAllowed'
+                                    ]
+                                ],
+                            ],
+                            'pdf-export-progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkPdfExportGenerationProgress'
+                                    ]
+                                ],
+                            ],
+                        ]
                     ],
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -491,6 +522,16 @@ return [
                             'defaults' => [
                                 'controller' => BulkActionsController::class,
                                 'action' => 'cancelOrderIds'
+                            ]
+                        ]
+                    ],
+                    'partialRefund' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/partialRefund',
+                            'defaults' => [
+                                'controller' => PartialRefundController::class,
+                                'action' => 'partialRefund'
                             ]
                         ]
                     ],

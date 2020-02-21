@@ -6,6 +6,7 @@ use CG\Locale\Mass;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
+use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -34,6 +35,10 @@ use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
+
+// todo - likely will need to be removed during TAC-450
+use Settings\Invoice\Settings as InvoiceSettings;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -82,6 +87,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderTableUserPreferences;
     /** @var OrdersTableHelper $orderTableHelper */
     protected $orderTableHelper;
+    /** @var InvoiceSettings $invoiceSettings */
+    protected $invoiceSettings;
+    /** @var PartialRefundService */
+    protected $partialRefundService;
 
     public function __construct(
         UsageService $usageService,
@@ -101,7 +110,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         CurrencyFormat $currencyFormat,
         TableService $tableService,
         OrdersTableUserPreferences $orderTableUserPreferences,
-        OrdersTableHelper $orderTableHelper
+        OrdersTableHelper $orderTableHelper,
+        InvoiceSettings $invoiceSettings,
+        PartialRefundService $partialRefundService
     ) {
         $this->currencyFormat = $currencyFormat;
         $this->usageService = $usageService;
@@ -120,6 +131,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->tableService = $tableService;
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->orderTableHelper = $orderTableHelper;
+        $this->invoiceSettings = $invoiceSettings;
+        $this->partialRefundService = $partialRefundService;
     }
 
     public function indexAction()
@@ -149,6 +162,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
         $view->addChild($ordersTable, 'ordersTable');
+
         $bulkActions = $this->getBulkActionsViewModel();
         $bulkAction = $this->viewModelFactory->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
@@ -156,8 +170,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-
         $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
@@ -166,10 +180,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ),
             'storedFiltersSidebar'
         );
+
         $view->addChild($this->getBatches(), 'batches');
+
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
+        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions());
+
         return $view;
     }
 
@@ -237,7 +255,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('layout/sidebar/batches');
-        $view->setVariable('batches', $this->batchService->getBatches());
+        $view->setVariable('batches', array_reverse($this->batchService->getBatches()));
         return $view;
     }
 
@@ -338,6 +356,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         try {
             $orders = $this->orderService->getOrders($filter);
+            $orders = $this->partialRefundService->addRefundLinesToOrders($orders);
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,

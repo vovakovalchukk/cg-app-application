@@ -26,6 +26,7 @@ use Products\Product\BulkActions\Service as BulkActionsService;
 use Products\Product\Category\Service as CategoryService;
 use Products\Product\Listing\Service as ProductListingService;
 use Products\Product\Service as ProductService;
+use Products\Product\Supplier\Service as SupplierService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
@@ -78,6 +79,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $listingChannelService;
     /** @var AccessService */
     protected $accessService;
+    /** @var SupplierService */
+    protected $supplierService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -95,7 +98,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         PickListService $pickListService,
         ListingTemplateService $listingTemplateService,
         ListingChannelService $listingChannelService,
-        AccessService $accessService
+        AccessService $accessService,
+        SupplierService $supplierService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -113,6 +117,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->listingTemplateService = $listingTemplateService;
         $this->listingChannelService = $listingChannelService;
         $this->accessService = $accessService;
+        $this->supplierService = $supplierService;
     }
 
     public function indexAction()
@@ -206,6 +211,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('pickLocations', $this->pickListService->getPickListSettings($rootOuId)->getLocationNames());
         $view->setVariable('pickLocationValues', $this->pickListService->getPickListValues($rootOuId));
         $view->setVariable('listingTemplates', $this->getListingTemplateOptions());
+        $view->setVariable('supplierOptions', $this->supplierService->getSupplierOptions());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

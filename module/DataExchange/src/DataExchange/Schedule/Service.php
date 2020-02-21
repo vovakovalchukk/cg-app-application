@@ -72,6 +72,11 @@ class Service
         return $this->fetchForActiveUser(Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
     }
 
+    public function fetchOrderTrackingImportsForActiveUser(): array
+    {
+        return $this->fetchForActiveUser(Schedule::TYPE_ORDER_TRACKING, Schedule::OPERATION_IMPORT);
+    }
+
     protected function fetchForActiveUser(string $type, string $operation): array
     {
         try {
@@ -117,6 +122,11 @@ class Service
     public function fetchOrderTemplateOptionsForActiveUser(): array
     {
         return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_ORDER);
+    }
+
+    public function fetchOrderTrackingTemplateOptionsForActiveUser(): array
+    {
+        return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_ORDER_TRACKING);
     }
 
     protected function fetchTemplateOptionsForActiveUser(string $type): array
@@ -287,6 +297,12 @@ class Service
             unset($data['savedFilterName']);
         }
         return $this->saveForActiveUser($data, Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
+    }
+
+    public function saveOrderTrackingImportForActiveUser(array $data): Schedule
+    {
+        $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
+        return $this->saveForActiveUser($data, Schedule::TYPE_ORDER_TRACKING, Schedule::OPERATION_IMPORT);
     }
 
     protected function prepareExportDataForSaving(array $data): array

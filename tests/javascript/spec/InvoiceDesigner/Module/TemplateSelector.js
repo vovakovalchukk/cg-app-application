@@ -33,7 +33,7 @@ define(['jasq'], function ()
                 spyOn(mockService, 'fetchAndLoadModules');
 
                 var id = 1;
-                templateSelector.selectionMade(id);
+                templateSelector.paperTypeSelectionMade(id);
                 expect(mockService.fetchAndLoadModules).toHaveBeenCalled();
             }
         });
