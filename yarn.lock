@@ -2678,8 +2678,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-575-message-centre-phase-2":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#23bca098d7c4ea5f744c24651ac60ad84393dcd6"
-
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#ec1b94125c52b7e071a0477d222862b81cbdd474"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
