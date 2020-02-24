@@ -5,7 +5,8 @@ import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
 import Select from 'Common/Components/Select';
-import ScrollToTop from "MessageCentre/Components/ScrollToTop";
+import ScrollToTop from 'MessageCentre/Components/ScrollToTop';
+import LoadingSpinner from 'MessageCentre/Components/LoadingSpinner';
 
 const printMessage = (message) => {
     const newWindow = window.open();
@@ -16,10 +17,12 @@ const printMessage = (message) => {
 
 const formatMessages = (thread, allMessages) => {
     const formattedMessages = [];
-    thread.messages.forEach(messageId => {
-        const message = allMessages.byId[messageId];
-        formattedMessages.push(message);
-    });
+    if (typeof thread !== 'undefined') {
+        thread.messages.forEach(messageId => {
+            const message = allMessages.byId[messageId];
+            formattedMessages.push(message);
+        });
+    }
     return formattedMessages;
 };
 
@@ -112,22 +115,61 @@ const GridRightSide = styled.div`
     padding: 1rem;
 `;
 
+const NoMessage = styled.div`
+    padding: 2rem;
+`;
+
 const MessageDetail = (props) => {
     const {match, threads, messages, actions, assignableUsers, templates} = props;
+
     const {params} = match;
+
     const threadId = params.threadId.replace(':','');
+
     const thread = threads.byId[threadId];
+
     const formattedMessages = formatMessages(thread, messages);
+
     const headerProps = {
         thread: thread,
         threadIds: threads.allIds,
     };
 
-    useEffect(() => {
+    let ordersButtonText = 'Loading order count...';
+
+    if (typeof thread !== 'undefined') {
         threads.viewing = thread.id;
+        if (thread.ordersCount === '?') {
+            actions.fetchThreadOrderCountByThreadId(threadId);
+        } else {
+            ordersButtonText = `${thread.ordersCount} orders from ${thread.externalUsername}`;
+        }
+    }
+
+    useEffect(() => {
+        if (typeof thread === 'undefined') {
+            actions.fetchThreadById(threadId);
+        }
     }, []);
 
     const formattedUsers = formatUsers(assignableUsers);
+
+    if (!threads.loaded && typeof thread === 'undefined') {
+        return (
+            <React.Fragment>
+                <LoadingSpinner />
+            </React.Fragment>
+        );
+    }
+
+    if (threads.loaded && typeof thread === 'undefined') {
+        return (
+            <NoMessage>
+                <span className="heading-large u-margin-bottom-med">No message found</span>
+                Please choose a filter from the sidebar to load available messages.
+            </NoMessage>
+        );
+    }
 
     return (
         <React.Fragment>
@@ -189,7 +231,7 @@ const MessageDetail = (props) => {
                 <ButtonLink
                     className={`u-margin-bottom-med button u-display-flex`}
                     to={thread.ordersLink}
-                    text={`${thread.ordersCount} Orders from ${thread.externalUsername}`}
+                    text={ordersButtonText}
                 />
                 {formattedUsers.length > 1 &&
                 <label className={'heading-medium u-cursor-pointer'}>

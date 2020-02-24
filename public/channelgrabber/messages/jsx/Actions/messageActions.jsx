@@ -1,10 +1,36 @@
 const messageActions = {
     fetchMessages: (params) => {
         return async function (dispatch, getState) {
+            dispatch({
+                type: 'THREADS_FETCH_START',
+                payload: null,
+            });
             let response = await fetchThreads(params, getState());
             dispatch({
                 type: 'THREADS_FETCH_SUCCESS',
                 payload: response.threads,
+            })
+        };
+    },
+    fetchThreadById: (params) => {
+        return async function (dispatch) {
+            dispatch({
+                type: 'THREADS_FETCH_START',
+                payload: null,
+            });
+            let response = await fetchThreadById(params);
+            dispatch({
+                type: 'THREADS_FETCH_SUCCESS',
+                payload: response.threads,
+            })
+        };
+    },
+    fetchThreadOrderCountByThreadId: (params) => {
+        return async function (dispatch) {
+            let response = await fetchThreadOrderCountByThreadId(params);
+            dispatch({
+                type: 'THREAD_ORDER_COUNT_FETCH_SUCCESS',
+                payload: response.counts.orders,
             })
         };
     },
@@ -78,6 +104,26 @@ function fetchThreads(params, state) {
             sortDescending: true, // TODO - date column sort order
             ...newParams
         }
+    });
+}
+
+function fetchThreadById(id) {
+    return $.ajax({
+        url: '/messages/ajax',
+        type: 'POST',
+        data: {
+            filter: {
+                id: id,
+            },
+        }
+    });
+}
+
+function fetchThreadOrderCountByThreadId(id) {
+    return $.ajax({
+        url: `/messages/${id}/ajax/counts`,
+        type: 'POST',
+        data: {},
     });
 }
 

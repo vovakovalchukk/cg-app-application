@@ -75,6 +75,7 @@ const App = (props) => {
                         filters={props.filters}
                         actions={props.actions}
                         match={match}
+                        threadsLoaded={props.threads.loaded}
                         {...formattedThreads}
                     />
                 )}/>
@@ -91,6 +92,7 @@ const App = (props) => {
                     />
                 )}/>
                 <Redirect from={match.path} exact to={`${match.path}list/unassigned`} />
+                <Redirect to={`${match.path}list/unassigned`} />
             </Switch>
         </Grid>
     );
@@ -115,25 +117,21 @@ const App = (props) => {
     function formatThreads(threads, messages) {
         threads = Object.values(threads);
         messages = Object.values(messages);
-
         threads.forEach(thread => {
-            let threadMessages = messages.filter(function(message){
+            let threadMessages = messages.filter(message => {
                 return thread.messages.includes(message.id);
             });
-            threadMessages.sort(function(a,b){
+            threadMessages.sort((a,b) => {
                 let date_a = new Date(a.created);
                 let date_b = new Date(b.created);
                 if(date_a > date_b) return 1;
                 if(date_a < date_b) return -1;
                 return 0;
             });
-            let div = document.createElement('div');
-            div.innerHTML = threadMessages[0].body;
-            thread.lastMessage = div.textContent.replace(/\s+/g, ' ').substring(0, characterLimit);
-            if (thread.lastMessage.length > characterLimit) {
+            thread.lastMessage = threadMessages[0].body.replace(/(<script(\s|\S)*?<\/script>)|(<style(\s|\S)*?<\/style>)|(<!--(\s|\S)*?-->)|(<\/?(\s|\S)*?>)/g,'').replace(/\s+/g, ' ').substring(0, characterLimit);
+            if (thread.lastMessage.length === characterLimit) {
                 thread.lastMessage = thread.lastMessage.trimEnd() + `...`;
             }
-            div.remove();
         });
         return {
             formattedThreads: threads
