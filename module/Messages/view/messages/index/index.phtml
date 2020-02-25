@@ -5,117 +5,29 @@
 $(document).ready(function() {
     require.config({
         paths: {
-            'Messages': "<?=$this->basePath() . Messages\Module::PUBLIC_FOLDER . 'js/Messages';?>",
+            'Messages': "<?=$this->basePath() . Messages\Module::PUBLIC_FOLDER . 'js/';?>",
             'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
         }
     });
     require([
-        'Messages/Application'
+        'Messages/Index'
     ], function(
-        MessagesApp
+        MessagesIndex
     ) {
         var assignableUsers = <?=json_encode($assignableUsersArray);?>;
         var singleUserMode = <?= (count($assignableUsersArray) == 1) ? 1 : 0; ?>;
-        new MessagesApp(
-            <?=$this->jsString($uri);?>,
-            <?=$rootOuId;?>,
-            assignableUsers,
-            singleUserMode,
-            <?=($threadId ? $this->jsString($threadId) : 'null');?>,
-            <?=($filter ? $this->jsString($filter) : 'null');?>,
-            <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
-        );
+        var mountingNode = document.getElementById('app-mount-node');
+        MessagesIndex(mountingNode, {
+            uri: <?=$this->jsString($uri);?>,
+            rootOuId: <?=$rootOuId;?>,
+            assignableUsers: assignableUsers,
+            singleUserMode: singleUserMode,
+            threadId: <?=($threadId ? $this->jsString($threadId) : 'null');?>,
+            filter: <?=($filter ? $this->jsString($filter) : 'null');?>,
+            filterValue: <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
+        });
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-<div class="message-center-nav">
-<ul>
-    <?php if (count($assignableUsersArray) == 1) : ?>
-    <li data-filter-type="new,awaiting reply" id="open">
-        <div class="sprite-sprite sprite-mymessages-24-black"></div>
-        <div class="label">Open</div>
-        <div class="number-loz">?</div>
-        <div class="indicator"></div>
-    </li>
-    <?php else: ?>
-    <li data-filter-type="active-user" id="active-user">
-        <div class="sprite-sprite sprite-mymessages-24-black"></div>
-        <div class="label">My Messages</div>
-        <div class="number-loz">?</div>
-        <div class="indicator"></div>
-    </li>
-    <li data-filter-type="unassigned" id="unassigned">
-        <div class="sprite-sprite sprite-unassigned-24-black"></div>
-        <div class="label">Unassigned</div>
-        <div class="number-loz">?</div>
-        <div class="indicator"></div>
-    </li>
-    <li data-filter-type="assigned" id="assigned">
-        <div class="sprite-sprite sprite-assigned-24-black"></div>
-        <div class="label">Assigned</div>
-        <div class="number-loz">?</div>
-        <div class="indicator"></div>
-    </li>
-    <?php endif; ?>
-    <li data-filter-type="resolved" id="resolved">
-        <div class="sprite-sprite sprite-resolved-24-black"></div>
-        <div class="label">Resolved</div>
-        <div class="number-loz">?</div>
-        <div class="indicator"></div>
-    </li>
-    <li data-filter-type="search" class="message-search-holder">
-        <div class="message-search-field">
-            <?=$filterSearchInput;?>
-        </div>
-        <div class="message-button-holder">
-            <?=$filterSearchButton;?>
-      </div>
-    </li>
-</ul>
-</div>
-<div class="main-section">
-    <div class="message-pane">
-        <div class="sort-order">
-            <strong>Date</strong>
-            <span class="sprite-arrow-down-10-black"></span>
-        </div>
-        <ul>
-            <!-- JS will add the thread summaries here -->
-            <div id="threads-loading-message" class="dataTables_processing u-ease_0-15">
-                <span class="u-flex-center">
-                    <span class="indicator-wrapper -default u-margin-right-small">
-                        <?=
-                          $this->mustache(
-                            'elements/loadingIndicator.mustache'
-                          );
-                        ?>
-                    </span>
-                    <span>Loading...</span>
-                </span>
-            </div>
-
-        </ul>
-        <div id="next-page"><a href="#">Load more messages</a></div>
-    </div>
-    <div class="message-preview">
-        <div class="no-messages-content">
-            <div class="paragraph">
-                <h1>No Conversations</h1>
-                <p>Please select a conversation from the left hand pane</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-<?php /* This is a hack to hide the sidebar away for now */ ?>
-#main-wrapper {
-    margin-left:0px;
-    width:100%;
-}
-   <?php /* This is a hack to make the page content have a height as child elements depend on it */ ?>
-   #content {
-       height: calc(100% - 50px);
-   }
-</style>
+<div id="app-mount-node" class="module clearfix section-separator"></div>

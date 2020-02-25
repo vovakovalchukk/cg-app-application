@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43d55065d5ae52f0f095d24ddc4a1987",
+    "content-hash": "91d8e3673e9f96ee3a9b8e97063eaed8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2268cbf7fa611bd62359979687c8e7faa1409ae6"
+                "reference": "8663bbc047c75b15ae6bf8ce423f98911ebb2dc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-EPIC-MIG-56-separate-amazon-categories-from-browse-nodes-04a480.zip",
-                "reference": "2268cbf7fa611bd62359979687c8e7faa1409ae6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-EPIC-MIG-56-separate-amazon-categories-from-browse-nodes-403273.zip",
+                "reference": "8663bbc047c75b15ae6bf8ce423f98911ebb2dc6"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-02-19T15:33:42+00:00"
+            "time": "2020-02-20T15:01:42+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -948,16 +948,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.1.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "37adabdffe46a8db78755b47fe47cd8342aa0fa4"
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.1-e5dae2.zip",
-                "reference": "37adabdffe46a8db78755b47fe47cd8342aa0fa4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.0-04b629.zip",
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -970,7 +970,7 @@
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
             },
-            "type": "library",
+            "type": "di-definition",
             "autoload": {
                 "psr-4": {
                     "CG\\Communication\\": "src"
@@ -981,7 +981,13 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-02-06T11:47:53+00:00"
+            "authors": [
+                {
+                    "name": "M King",
+                    "email": "matthew.king@channelgrabber.com"
+                }
+            ],
+            "time": "2019-08-22T12:52:54+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -1632,16 +1638,16 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "b42220240472321f3c86f7ad99a5475d8a8ec3ef"
+                "reference": "78e24352eddec1c93bf7ba8ec7e444fb963ef04f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.1-7212eb.zip",
-                "reference": "b42220240472321f3c86f7ad99a5475d8a8ec3ef"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.2-a33576.zip",
+                "reference": "78e24352eddec1c93bf7ba8ec7e444fb963ef04f"
             },
             "require": {
                 "channelgrabber/cglib": "~1.16.12",
@@ -1671,7 +1677,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-02-06T14:03:36+00:00"
+            "time": "2020-02-20T12:15:31+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -4993,16 +4999,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.19",
+            "version": "1.6.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
+                "reference": "eabfacf2002fa3e130bd73cabc4bbbd90b0a6c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.19-6a26a7.zip",
-                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.20-e19101.zip",
+                "reference": "eabfacf2002fa3e130bd73cabc4bbbd90b0a6c50"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5041,7 +5047,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2019-05-01T14:59:46+00:00"
+            "time": "2020-02-21T16:01:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
