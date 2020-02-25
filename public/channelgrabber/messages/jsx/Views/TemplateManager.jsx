@@ -17,12 +17,23 @@ import ButtonSelect from 'Common/Components/ButtonSelect';
 let previewWindow = null;
 
 const StyledButtonSelect = styled(ButtonSelect)`
-    width: 14rem;
+    width: auto;
+    min-width: 14rem;
+    
+    .bulkaction-dropdown {
+        left: 0px;
+        right: auto;
+    }
 `;
 
 const StyledTemplateEditor = styled.div`
+    fieldset {
+        margin: 1rem 0 0;
+    }
+    
     textarea {
         resize: vertical;
+        box-sizing: border-box;
     }
 `;
 
