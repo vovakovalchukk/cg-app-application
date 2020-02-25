@@ -16,7 +16,7 @@ const messagesReducer = reducerCreator(initialState, {
 
         action.payload.forEach(thread => {
             thread.messages.forEach(message => {
-                if (message.body.indexOf('<') === -1 && message.body.indexOf('<') === -1) {
+                if (message.body.indexOf('<') === -1 && message.body.indexOf('>') === -1) {
                     message.body = message.body.nl2br();
                 }
                 messages.byId[message.id] = message;
