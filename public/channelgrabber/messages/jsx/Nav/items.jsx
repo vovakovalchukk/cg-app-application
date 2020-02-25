@@ -37,7 +37,7 @@ const navItems = [
     },
     {
         id: 'open',
-        filterId: 'resolved',
+        filterId: 'open',
         displayText: 'Open',
         to: '/messages/list/open',
         component: FilterItem,

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
@@ -119,6 +118,24 @@ const NoMessage = styled.div`
     padding: 2rem;
 `;
 
+const ButtonA = styled.a`
+    -webkit-font-smoothing: antialiased;
+    color: #222 !important;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    vertical-align: baseline;
+    line-height: normal;
+    text-transform: none;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    appearance: button;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+`;
+
 const MessageDetail = (props) => {
     const {match, threads, messages, actions, assignableUsers} = props;
 
@@ -227,11 +244,12 @@ const MessageDetail = (props) => {
                         <option value={'new'}>New</option>
                     </StyledSelect>
                 </label>
-                <ButtonLink
+                <ButtonA
                     className={`u-margin-bottom-med button u-display-flex`}
-                    to={thread.ordersLink}
-                    text={ordersButtonText}
-                />
+                    href={thread.ordersLink}
+                >
+                    {ordersButtonText}
+                </ButtonA>
                 {formattedUsers.length > 1 &&
                 <label className={'heading-medium u-cursor-pointer'}>
                     <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
