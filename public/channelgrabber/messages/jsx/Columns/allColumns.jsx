@@ -23,7 +23,7 @@ export default [
         width: '200px',
     },
     {
-        key: 'externalUsername',
+        key: 'name',
         label: 'Customer Name',
         cell: ValueCell,
         width: '150px',
