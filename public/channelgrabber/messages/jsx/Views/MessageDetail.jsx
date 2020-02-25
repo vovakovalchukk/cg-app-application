@@ -245,7 +245,7 @@ const MessageDetail = (props) => {
                     </StyledSelect>
                 </label>
                 <ButtonA
-                    className={`u-margin-bottom-med button u-display-flex`}
+                    className={`u-margin-bottom-med button`}
                     href={thread.ordersLink}
                 >
                     {ordersButtonText}
