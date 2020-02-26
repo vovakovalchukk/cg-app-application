@@ -16,9 +16,7 @@ const messagesReducer = reducerCreator(initialState, {
 
         action.payload.forEach(thread => {
             thread.messages.forEach(message => {
-                if (thread.channel.toLowerCase() === 'amazon') {
-                    message.body = message.body.nl2br();
-                }
+                message.body = message.body.nl2br();
                 messages.byId[message.id] = message;
                 messages.allIds.push(message.id);
             });
