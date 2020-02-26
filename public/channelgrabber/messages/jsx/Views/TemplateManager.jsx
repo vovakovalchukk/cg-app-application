@@ -138,7 +138,7 @@ const TemplateManager = (props) => {
         });
 
         if (response.success) {
-            htmlToRender = response.content;
+            htmlToRender = response.content.nl2br();
         }
 
         if (!htmlToRender) {
