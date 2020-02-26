@@ -159,7 +159,7 @@ const MessageDetail = (props) => {
         if (thread.ordersCount === '?') {
             actions.fetchThreadOrderCountByThreadId(threadId);
         } else {
-            ordersButtonText = `${thread.ordersCount} orders from ${thread.externalUsername}`;
+            ordersButtonText = `${thread.ordersCount} orders from ${thread.name}`;
         }
     }
 
