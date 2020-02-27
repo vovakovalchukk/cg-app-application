@@ -69,7 +69,8 @@ const MinifyString = string => {
 const formatMessageBody = messageBody => {
     const regex = RegExp(/((?:^\>.*?$[\r\n]*)+)/gm);
     const markup = MinifyString(collapsibleHtml);
-    return messageBody.replace(regex, markup).nl2br();
+    const tagsWithSpaces = RegExp(/>[\r\n]</g);
+    return messageBody.replace(regex, markup).replace(tagsWithSpaces, '><').nl2br();
 }
 
 const formatMessages = (thread, allMessages) => {
