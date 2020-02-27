@@ -33,15 +33,25 @@ const GridLeftSide = styled.div`
 `;
 
 const App = (props) => {
+    const {
+        actions,
+        assignableUsers,
+        threads,
+        messages,
+        filters,
+        filter,
+        filterValue
+    } = props;
+
     useEffect(() => {
-        props.actions.fetchFilters();
+        actions.fetchFilters();
     }, []);
 
     const match = useRouteMatch();
 
     const characterLimit = 160;
 
-    const formattedThreads = formatThreads(props.threads.byId, props.messages.byId);
+    const formattedThreads = formatThreads(threads.byId, messages.byId);
 
     return (
         <Grid>
@@ -71,13 +81,29 @@ const App = (props) => {
             <Switch>
                 <Route path={`${match.path}list/:activeFilter`} render={({match}) => (
                     <MessageList
-                        filters={props.filters}
-                        actions={props.actions}
+                        filters={filters}
+                        actions={actions}
                         match={match}
-                        threadsLoaded={props.threads.loaded}
+                        threadsLoaded={threads.loaded}
                         {...formattedThreads}
                     />
                 )}/>
+                <Route exact path={`${match.path}`} render={({match, history}) => {
+                    if (history.location.search === '') {
+                        return <Redirect to={`${match.path}list/unassigned`} />
+                    }
+                    return (
+                        <MessageList
+                            filters={filters}
+                            actions={actions}
+                            match={match}
+                            threadsLoaded={threads.loaded}
+                            {...formattedThreads}
+                            filter={filter}
+                            filterValue={filterValue}
+                        />
+                    );
+                }}/>
                 <Route path={`${match.path}thread/:threadId`} render={({match}) => (
                     <MessageDetail
                         {...props}
@@ -91,14 +117,14 @@ const App = (props) => {
 
     function renderNavItems(renderItem) {
         const filteredItems = navItems.filter((item) => {
-            return typeof item.shouldDisplay !== 'function' || item.shouldDisplay({ous: Object.values(props.assignableUsers)});
+            return typeof item.shouldDisplay !== 'function' || item.shouldDisplay({ous: Object.values(assignableUsers)});
         });
 
         return filteredItems.map((item) => {
             let navItemProps = {
                 id: item.id,
                 displayText: item.displayText,
-                filterCount: props.filters.byId[item.filterId] && props.filters.byId[item.filterId].count,
+                filterCount: filters.byId[item.filterId] && filters.byId[item.filterId].count,
                 to: item.to,
                 className: item.className
             };
