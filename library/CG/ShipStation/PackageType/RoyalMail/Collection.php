@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\PackageType\RoyalMail;
 
-use CG\StdLib\Collection as StdlibCollection;
+use CG\Stdlib\Collection as StdlibCollection;
 
 class Collection extends StdlibCollection
 {

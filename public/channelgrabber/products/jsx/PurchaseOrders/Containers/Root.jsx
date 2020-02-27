@@ -8,7 +8,9 @@ class RootContainer extends React.Component {
         filterStatus: 'All',
         sortAsc: true,
         purchaseOrders: [],
-        isEditorEmpty: true
+        isEditorEmpty: true,
+        supplierOptions: [],
+        onNewPurchaseOrderConfirm: () => {}
     };
 
     getChildContext() {
@@ -43,11 +45,19 @@ class RootContainer extends React.Component {
     };
 
     onCreateNewPurchaseOrderButtonPressed = () => {
-        window.triggerEvent('triggerPopup');
+        this.setState({
+            onNewPurchaseOrderConfirm: () => {window.triggerEvent('createNewPurchaseOrder')}
+        }, () => {
+            window.triggerEvent('triggerPopup')
+        });
     };
 
-    onCreateNewPurchaseOrder = () => {
-        window.triggerEvent('createNewPurchaseOrder');
+    createNewPurchaseOrderWithLowStockProducts = () => {
+        this.setState({
+            onNewPurchaseOrderConfirm: () => {window.triggerEvent('createNewPurchaseOrderForLowStockProducts')}
+        }, () => {
+            window.triggerEvent('triggerPopup')
+        });
     };
 
     onDateColumnClicked = () => {
@@ -62,6 +72,31 @@ class RootContainer extends React.Component {
         });
     };
 
+    buildSuppliersOptions = () => {
+        return Object.keys(this.props.supplierOptions).map((supplierId) => {
+            return {
+                name: this.props.supplierOptions[supplierId],
+                value: supplierId
+            }
+        });
+    };
+
+    onSupplierChange = (option) => {
+        this.setState({
+            onNewPurchaseOrderConfirm: this.fetchProductsBySupplier.bind(this, option)
+        }, () => {
+            window.triggerEvent('triggerPopup');
+        })
+    };
+
+    fetchProductsBySupplier = (option) => {
+        const event = new CustomEvent('createNewPurchaseOrderForSupplier', {detail: {supplier: {
+            id: option.value,
+            name: option.name
+        }}});
+        window.dispatchEvent(event);
+    };
+
     render() {
         return (
             <RootComponent
@@ -69,11 +104,14 @@ class RootContainer extends React.Component {
                 sortAsc={this.state.sortAsc}
                 purchaseOrders={this.state.purchaseOrders}
                 onFilterSelected={function(selection){this.setState({filterStatus: selection.value})}.bind(this)}
-                onCreateNewPurchaseOrder={this.onCreateNewPurchaseOrder}
                 onCreateNewPurchaseOrderButtonPressed={this.onCreateNewPurchaseOrderButtonPressed}
+                onCreateNewPurchaseOrderWithLowStockProducts={this.createNewPurchaseOrderWithLowStockProducts}
                 onDateColumnClicked={this.onDateColumnClicked}
                 newButtonDisabled={this.state.isEditorEmpty}
                 setEditorEmptyFlag={this.setEditorEmptyFlag}
+                supplierOptions={this.buildSuppliersOptions()}
+                onSupplierChange={this.onSupplierChange}
+                onNewPurchaseOrderConfirm={this.state.onNewPurchaseOrderConfirm}
             />
         );
     }

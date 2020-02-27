@@ -1,5 +1,12 @@
-define(['element/moreButton', 'element/ElementCollection'], function(MoreButton, elementCollection) {
-
+define([
+    'element/moreButton',
+    'element/ElementCollection',
+    'quick-score'
+], function(
+    MoreButton,
+    elementCollection,
+    quickScore
+) {
     var Filters = function(filters, filterList)
     {
         this.savedFilters = {};
@@ -12,6 +19,51 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
         filterList = $(filterList);
         this.getFilterList = function() {
             return filterList;
+        };
+
+        this.getFilterListItems = function() {
+            return [...this.getFilterList()[0].children].filter((childNode) => {
+                return !!childNode.attributes['data-name'];
+            });
+        };
+
+        this.getListItemNames = function() {
+            return this.getFilterListItems().map((childNode) => {
+                return this.getNameValueFromNode(childNode)
+            });
+        };
+
+        this.getNameValueFromNode = function(node) {
+            return node.attributes['data-name'].value;
+        };
+
+        this.applyFilterItemDisplayBasedOnSearchTerm = function(searchTerm) {
+            const itemNames = this.getFilterListItems().map((node) => this.getNameValueFromNode(node));
+
+            let searchClass = new quickScore.QuickScore(itemNames);
+            let results = searchClass.search(searchTerm);
+            
+            for (let node of this.getFilterListItems()) {
+                node.style.display = 'none';
+            }
+
+            for (let result of results) {
+                for (let node of this.getFilterListItems()) {
+                    if (this.getNameValueFromNode(node).indexOf(result.item) === -1) {
+                        continue;
+                    }
+                    node.style.display = 'block';
+                }
+            }
+        };
+
+        this.applyDisplayPropToListItemsFromSearch = (event) => {
+            this.applyFilterItemDisplayBasedOnSearchTerm(event.target.value);
+        };
+
+        this.setupSearch = function(searchInputId) {
+            const searchElement = document.getElementById(searchInputId);
+            searchElement.addEventListener('keyup', this.applyDisplayPropToListItemsFromSearch);
         };
 
         optionalFilters = {};
@@ -53,6 +105,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             this.handleFilterAdding();
         };
         init.call(this);
+        return this;
     };
 
     Filters.pendingFilters = 0;

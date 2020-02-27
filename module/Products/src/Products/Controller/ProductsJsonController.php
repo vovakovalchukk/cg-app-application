@@ -20,6 +20,7 @@ use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Settings\Product\Entity as ProductSettings;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Entity as Stock;
@@ -50,6 +51,7 @@ class ProductsJsonController extends AbstractActionController
     public const ROUTE_STOCK_MODE = 'Stock Mode';
     public const ROUTE_STOCK_LEVEL = 'Stock Level';
     public const ROUTE_LOW_STOCK_THRESHOLD = 'Low stock threshold';
+    public const ROUTE_REORDER_QUANTITY = 'Reorder Quantity';
     public const ROUTE_STOCK_UPDATE = 'stockupdate';
     public const ROUTE_STOCK_INC_PURCHASE_ORDERS = 'stockIncludePurchaseOrders';
     public const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
@@ -324,7 +326,8 @@ class ProductsJsonController extends AbstractActionController
             'lowStockThresholdDefault' => [
                 'toggle' => $this->stockSettingsService->getLowStockThresholdToggleDefault(),
                 'value' => $this->stockSettingsService->getLowStockThresholdDefaultValue()
-            ]
+            ],
+            'reorderQuantityDefault' => $this->stockSettingsService->getReorderQuantityDefault() ?? ProductSettings::DEFAULT_REORDER_QUANTITY
         ]);
 
         $images = array_column($productEntity->getImageIds(), 'id', 'order');
@@ -632,6 +635,19 @@ class ProductsJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance(
             ['products' => $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)]
+        );
+    }
+
+    public function saveReorderQuantityAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId', 0);
+        $reorderQuantity = $this->params()->fromPost('reorderQuantity', null);
+        $reorderQuantity = filter_var($reorderQuantity, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+
+        return $this->jsonModelFactory->newInstance(
+            ['products' => $this->stockSettingsService->saveReorderQuantity($productId, $reorderQuantity)]
         );
     }
 

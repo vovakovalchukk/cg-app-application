@@ -3,6 +3,7 @@ namespace CG\Command;
 
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
+use CG\User\UserInterface;
 
 class NullActiveUser implements ActiveUserInterface
 {
@@ -11,7 +12,7 @@ class NullActiveUser implements ActiveUserInterface
         // No-op
     }
 
-    public function setActiveUser(User $activeUser)
+    public function setActiveUser(UserInterface $activeUser)
     {
         // No-op
     }

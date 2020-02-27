@@ -43,7 +43,8 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $massUnit; ?>',
         '<?= $lengthUnit; ?>',
         <?= json_encode($this->pickLocations) ?>,
-        <?= json_encode($this->pickLocationValues) ?>
+        <?= json_encode($this->pickLocationValues) ?>,
+        <?= json_encode($supplierOptions) ?>
     );
 });
 <?php $this->inlineScript()->captureEnd(); ?>

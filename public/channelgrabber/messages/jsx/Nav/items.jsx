@@ -1,11 +1,13 @@
+import React from 'react';
 import FilterItem from './FilterItem';
+import Item from './Item';
 
 const navItems = [
     {
         id: 'unassigned',
         filterId: 'unassigned',
-        displayText: 'Unassinged',
-        to: '/list/unassigned',
+        displayText: 'Unassigned',
+        to: '/messages/list/unassigned',
         shouldDisplay: areNumberOfOusAbove0,
         component: FilterItem
     },
@@ -13,31 +15,41 @@ const navItems = [
         id: 'assigned',
         filterId: 'assigned',
         displayText: 'Assigned',
-        to: '/list/assigned',
+        to: '/messages/list/assigned',
         shouldDisplay: areNumberOfOusAbove0,
-        component: FilterItem
+        component: FilterItem,
+        className: 'statusCountPillBox awaiting-payment',
     },
     {
-        id: 'my-messages',
-        filterId: 'my-messages',
+        id: 'myMessages',
+        filterId: 'myMessages',
         displayText: 'My Messages',
-        to: '/list/my-messages',
+        to: '/messages/list/myMessages',
         shouldDisplay: areNumberOfOusAbove0,
-        component: FilterItem
+        component: FilterItem,
+        className: 'statusCountPillBox dispatched',
     },
     {
         id: 'resolved',
         filterId: 'resolved',
         displayText: 'Resolved',
-        to: '/list/resolved',
-        component: FilterItem
+        to: '/messages/list/resolved',
+        component: FilterItem,
+        className: 'statusCountPillBox new',
     },
     {
         id: 'open',
-        filterId: 'resolved',
+        filterId: 'open',
         displayText: 'Open',
-        to: '/list/open',
-        component: FilterItem
+        to: '/messages/list/open',
+        component: FilterItem,
+        className: 'statusCountPillBox processing',
+    },
+    {
+        id: 'templates',
+        displayText: 'Templates',
+        to: '/messages/templates',
+        component: Item,
     }
 ];
 

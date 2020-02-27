@@ -5,6 +5,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use Products\Product\Supplier\Service as SupplierService;
 
 class PurchaseOrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -15,10 +16,14 @@ class PurchaseOrdersController extends AbstractActionController implements Logge
 
     protected $viewModelFactory;
 
+    protected $supplierService;
+
     public function __construct(
-        ViewModelFactory $viewModelFactory
+        ViewModelFactory $viewModelFactory,
+        SupplierService $supplierService
     ) {
         $this->viewModelFactory = $viewModelFactory;
+        $this->supplierService = $supplierService;
     }
 
     public function indexAction()
@@ -27,6 +32,7 @@ class PurchaseOrdersController extends AbstractActionController implements Logge
         $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $view->setVariable('supplierOptions', $this->supplierService->getSupplierOptions());
         return $view;
     }
 }

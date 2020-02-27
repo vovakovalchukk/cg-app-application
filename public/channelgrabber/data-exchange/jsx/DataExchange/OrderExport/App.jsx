@@ -18,7 +18,7 @@ const OrderExportApp = (props) => {
 
     const templateState = useSelectState(formattedTemplateOptions);
     const filterState = useSelectState(formattedFilters);
-    const sendViaEmailState = useCheckboxState(formattedFilters);
+    const sendViaEmailState = useCheckboxState(false);
 
     const onSubmit = async (event) => {
         event.preventDefault();

@@ -6,6 +6,7 @@ use CG\Locale\Mass;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
+use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -88,6 +89,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderTableHelper;
     /** @var InvoiceSettings $invoiceSettings */
     protected $invoiceSettings;
+    /** @var PartialRefundService */
+    protected $partialRefundService;
 
     public function __construct(
         UsageService $usageService,
@@ -108,7 +111,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         TableService $tableService,
         OrdersTableUserPreferences $orderTableUserPreferences,
         OrdersTableHelper $orderTableHelper,
-        InvoiceSettings $invoiceSettings
+        InvoiceSettings $invoiceSettings,
+        PartialRefundService $partialRefundService
     ) {
         $this->currencyFormat = $currencyFormat;
         $this->usageService = $usageService;
@@ -128,6 +132,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->orderTableHelper = $orderTableHelper;
         $this->invoiceSettings = $invoiceSettings;
+        $this->partialRefundService = $partialRefundService;
     }
 
     public function indexAction()
@@ -250,7 +255,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('layout/sidebar/batches');
-        $view->setVariable('batches', $this->batchService->getBatches());
+        $view->setVariable('batches', array_reverse($this->batchService->getBatches()));
         return $view;
     }
 
@@ -351,6 +356,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         try {
             $orders = $this->orderService->getOrders($filter);
+            $orders = $this->partialRefundService->addRefundLinesToOrders($orders);
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,

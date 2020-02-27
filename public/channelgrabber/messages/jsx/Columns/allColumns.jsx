@@ -23,7 +23,7 @@ export default [
         width: '200px',
     },
     {
-        key: 'accountName',
+        key: 'name',
         label: 'Customer Name',
         cell: ValueCell,
         width: '150px',
@@ -32,6 +32,19 @@ export default [
         key: 'lastMessage',
         label: 'Last Message',
         cell: ValueCell,
+    },
+    {
+        key: 'assignedUserName',
+        label: 'Assigned User',
+        cell: ValueCell,
+        width: '200px',
+    },
+    {
+        key: 'createdFuzzy',
+        label: 'Date Created',
+        cell: ValueCell,
+        headerCell: HeaderCell,
+        width: '100px',
     },
     {
         key: 'updatedFuzzy',
