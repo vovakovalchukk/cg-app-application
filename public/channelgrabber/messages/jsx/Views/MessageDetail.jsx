@@ -14,11 +14,72 @@ const printMessage = (message) => {
     newWindow.close();
 };
 
+const collapsibleCss = `<style>` +
+`.collapsible-section {` +
+    `display: none;` +
+    `color: #989898;` +
+`}` +
+`.message-section-collapser {` +
+    `cursor: pointer;` +
+    `outline: none;` +
+    `padding: 10px 0;` +
+    `width: 22px;` +
+`}` +
+`.message-section-collapser.active + .collapsible-section {` +
+    `display: block;` +
+`}` +
+`.message-section-collapser .message-collapser-img-wrap {` +
+    `background-color: #f5f5f5;` +
+    `border: 1px solid #c2c2c2;` +
+    `clear: both;` +
+    `line-height: 6px;` +
+    `outline: none;` +
+    `position: relative;` +
+    `width: 20px;` +
+`}` +
+`.message-section-collapser .message-collapser-img-wrap img {` +
+    `background: url(/channelgrabber/zf2-v4-ui/img/ellipsis.png) no-repeat;` +
+    `height: 8px;` +
+    `opacity: .3;` +
+    `width: 20px;` +
+`}` +
+`.message-section-collapser .message-collapser-img-wrap img:hover {` +
+    `opacity: 0.9;` +
+`}` +
+`.message-section-collapser .message-collapser-img-wrap:hover {` +
+    `background-color: #c2c2c2;` +
+    `border: 1px solid #989898;` +
+    `color: #444444;` +
+`}` +
+`table br {` +
+    `display: none;` +
+`}` +
+`</style>`;
+
+const collapsibleHtml = `<div class="message-collapser-wrap">` +
+    `<div class="message-section-collapser" title="Toggle Hidden Lines" onclick="this.classList.toggle('active')">` +
+    `<div class="message-collapser-img-wrap">` +
+    `<img src="/channelgrabber/zf2-v4-ui/img/transparent-square.gif" alt="" />` +
+    `</div>` +
+    `</div>` +
+    `<span class="collapsible-section">$&</span>` +
+    `</div>`;
+
+
+const formatMessageBody = messageBody => {
+    const regex = RegExp(/((?:^\>.*?$[\r\n]*)+)/gm);
+    const markup = `${collapsibleCss}${collapsibleHtml}`;
+    messageBody = messageBody.replace(regex, markup);
+    messageBody = messageBody.nl2br();
+    return messageBody;
+}
+
 const formatMessages = (thread, allMessages) => {
     const formattedMessages = [];
     if (typeof thread !== 'undefined') {
         thread.messages.forEach(messageId => {
             const message = allMessages.byId[messageId];
+            message.body = formatMessageBody(message.body);
             formattedMessages.push(message);
         });
     }
