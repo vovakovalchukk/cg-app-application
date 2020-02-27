@@ -1,4 +1,6 @@
+import React from 'react';
 import FilterItem from './FilterItem';
+import Item from './Item';
 
 const navItems = [
     {
@@ -42,6 +44,12 @@ const navItems = [
         to: '/messages/list/open',
         component: FilterItem,
         className: 'statusCountPillBox processing',
+    },
+    {
+        id: 'templates',
+        displayText: 'Templates',
+        to: '/messages/templates',
+        component: Item,
     }
 ];
 

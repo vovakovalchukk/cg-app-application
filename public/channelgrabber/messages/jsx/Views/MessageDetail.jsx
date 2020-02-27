@@ -137,7 +137,7 @@ const ButtonA = styled.a`
 `;
 
 const MessageDetail = (props) => {
-    const {match, threads, messages, actions, assignableUsers} = props;
+    const {match, threads, messages, actions, assignableUsers, templates} = props;
 
     const {params} = match;
 
@@ -229,6 +229,7 @@ const MessageDetail = (props) => {
                 <ReplyBox
                     actions={actions}
                     thread={thread}
+                    templates={templates}
                 />
             </GridReply>
 

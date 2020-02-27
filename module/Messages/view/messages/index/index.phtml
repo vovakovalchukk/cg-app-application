@@ -24,7 +24,10 @@ $(document).ready(function() {
             singleUserMode: singleUserMode,
             threadId: <?=($threadId ? $this->jsString($threadId) : 'null');?>,
             filter: <?=($filter ? $this->jsString($filter) : 'null');?>,
-            filterValue: <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
+            filterValue: <?=($filterValue ? $this->jsString($filterValue) : 'null');?>,
+            messageTemplates: <?= json_encode($messageTemplates); ?>,
+            messageTemplateTags: <?= json_encode($messageTemplateTags); ?>,
+            accounts: <?= json_encode($accounts); ?>
         });
     });
 });

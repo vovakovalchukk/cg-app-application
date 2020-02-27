@@ -29,6 +29,9 @@ const threadsReducer = reducerCreator(initialState, {
 
         return {...state, ...reply};
     },
+    'REPLY_TEMPLATE_SELECT': (state, action) => {
+        return {...state, ...{text: action.payload}};
+    },
 });
 
 export default threadsReducer;

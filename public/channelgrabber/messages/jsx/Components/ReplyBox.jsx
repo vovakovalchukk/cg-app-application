@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ButtonSelect from 'Common/Components/ButtonSelect';
 import { connect } from 'react-redux';
@@ -17,8 +17,11 @@ const SimpleButton = styled.button`
 
 const ComplexButton = styled(ButtonSelect)`
     width: ${buttonWidth};
-    margin-bottom: 6rem;
-    margin-right: 0;
+    margin-bottom: 1rem;
+`;
+
+const TemplateButton = styled(ButtonSelect)`
+    margin-bottom: 1rem;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -32,10 +35,23 @@ const StyledTextarea = styled.textarea`
 
 const FlexDiv = styled.div`
     display: flex;
+    flex-direction: column;
 `;
 
+const formatTemplatesForPicker = (templates, actions) => {
+    return Object.values(templates.byId).map(template => {
+        return {
+            name: template.name,
+            id: template.id,
+            action: () => {actions.replyTemplateSelect(template.template)},
+        };
+    });
+};
+
 const ReplyBox = (props) => {
-    const {actions, thread, reply} = props;
+    const {actions, thread, reply, templates} = props;
+    const [templateOptions] = useState(formatTemplatesForPicker(templates, actions));
+    const [templateOption, setTemplateOption] = useState(templateOptions[0] || null);
 
     const options = [
         {
@@ -52,13 +68,10 @@ const ReplyBox = (props) => {
 
     const isThreadResolved = thread.status === 'resolved';
 
+    const hasTemplateOptions = templateOptions.length > 0;
+
     return (
         <FlexDiv>
-            <StyledTextarea
-                value={reply.text}
-                onChange={actions.replyOnChange}
-                placeholder={'Compose your reply here'}
-            />
             <div>
                 {isThreadResolved ?
                     <SimpleButton
@@ -87,7 +100,30 @@ const ReplyBox = (props) => {
                         }}
                     />
                 }
+                {hasTemplateOptions &&
+                    <TemplateButton
+                        options={templateOptions}
+                        ButtonTitle={() => (
+                            <span>Use template: {templateOption.name}</span>
+                        )}
+                        spriteClass={'sprite-picklist-21-black'}
+                        multiSelect={false}
+                        onButtonClick={id => {
+                            const option = id.length === 0 ? templateOptions[0] : templateOptions.find(x => x.id === id[0]);
+                            option.action();
+                        }}
+                        onSelect={id => {
+                            const option = templateOptions.find(x => x.id === id[0]);
+                            setTemplateOption(option || options[0]);
+                        }}
+                    />
+                }
             </div>
+            <StyledTextarea
+                value={reply.text}
+                onChange={actions.replyOnChange}
+                placeholder={'Compose your reply here'}
+            />
         </FlexDiv>
     );
 };
