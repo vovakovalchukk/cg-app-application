@@ -20,7 +20,7 @@ import SectionData from 'Common/SectionData';
 
 const FormSelector = formValueSelector('createListing');
 
-function submitForm (values, dispatch, props){
+function submitForm (values, dispatch, props) {
     dispatch(Actions.submitListingsForm(
         dispatch,
         values,
