@@ -72,6 +72,11 @@ class Service
         return $this->fetchForActiveUser(Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
     }
 
+    public function fetchOrderTrackingImportsForActiveUser(): array
+    {
+        return $this->fetchForActiveUser(Schedule::TYPE_ORDER_TRACKING, Schedule::OPERATION_IMPORT);
+    }
+
     protected function fetchForActiveUser(string $type, string $operation): array
     {
         try {
@@ -117,6 +122,11 @@ class Service
     public function fetchOrderTemplateOptionsForActiveUser(): array
     {
         return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_ORDER);
+    }
+
+    public function fetchOrderTrackingTemplateOptionsForActiveUser(): array
+    {
+        return $this->fetchTemplateOptionsForActiveUser(Template::TYPE_ORDER_TRACKING);
     }
 
     protected function fetchTemplateOptionsForActiveUser(string $type): array
@@ -278,11 +288,21 @@ class Service
     public function saveOrderExportForActiveUser(array $data): Schedule
     {
         $data = $this->prepareExportDataForSaving($data);
+        $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_EMAIL;
         if (isset($data['savedFilterName'])) {
-            $data['options'] = ['savedFilterName' => $data['savedFilterName']];
+            $data['options'] = [
+                'savedFilterName' => $data['savedFilterName'],
+                'savedFilterUserId' => $this->activeUserContainer->getActiveUser()->getId(),
+            ];
             unset($data['savedFilterName']);
         }
         return $this->saveForActiveUser($data, Schedule::TYPE_ORDER, Schedule::OPERATION_EXPORT);
+    }
+
+    public function saveOrderTrackingImportForActiveUser(array $data): Schedule
+    {
+        $data['fromDataExchangeAccountType'] = Schedule::ACCOUNT_TYPE_FTP;
+        return $this->saveForActiveUser($data, Schedule::TYPE_ORDER_TRACKING, Schedule::OPERATION_IMPORT);
     }
 
     protected function prepareExportDataForSaving(array $data): array

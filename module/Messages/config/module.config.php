@@ -4,10 +4,12 @@ namespace Messages;
 use Messages\Controller\HeadlineJsonController;
 use Messages\Controller\IndexController;
 use Messages\Controller\MessageJsonController;
+use Messages\Controller\MessageTemplateJsonController;
 use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Messages\Thread\Service;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Regex;
 use Zend\Mvc\Router\Http\Segment;
 
 return [
@@ -101,7 +103,7 @@ return [
                     ],
                     IndexController::ROUTE_THREAD => [
                         'type' => Segment::class,
-                        'priority' => -100,
+                        'priority' => -50,
                         'options' => [
                             'route' => '/:threadId',
                             'defaults' => [
@@ -134,6 +136,57 @@ return [
                                 ],
                             ],
                         ],
+                    ],
+                    // Note: do NOT make /messages/templates a concrete route, it needs to be handled by the default route below
+                    MessageTemplateJsonController::ROUTE_SAVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/save',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'save',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    MessageTemplateJsonController::ROUTE_DELETE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/delete',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'delete',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    MessageTemplateJsonController::ROUTE_PREVIEW => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/preview',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'preview',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+
+                    // The Messages tab is now a single-page app managed by React Router which requires this default route
+                    'Default Route' => [
+                        'type' => Regex::class,
+                        'priority' => -100,
+                        'options' => [
+                            'regex' => '\/(?<route>[\/A-Za-z0-9\:\-]{2,})',
+                            'defaults' => [
+                                'controller' => IndexController::class,
+                                'action' => 'index',
+                                'breadcrumbs' => false,
+                                'sidebar' => false
+                            ],
+                            'spec' => '/%route%'
+                        ],
+                        'may_terminate' => true
                     ],
                 ],
             ]

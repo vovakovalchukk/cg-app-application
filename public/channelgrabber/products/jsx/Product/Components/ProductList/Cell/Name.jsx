@@ -13,6 +13,7 @@ const TextAreaContainer = styled.div`
   align-items: center;
   padding-left: ${layoutSettings.columnPadding};
   padding-right: ${layoutSettings.columnPadding};
+  box-sizing: border-box;
 `;
 const TextArea = styled.textarea`
     background:none;
@@ -146,6 +147,7 @@ class NameCell extends React.Component {
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     value={nameValue}
+                    title={nameValue}
                     onChange={this.changeName}
                     data-inputinfo={JSON.stringify(this.getInputInfo(rowData[rowIndex]),null,1)}
                 />

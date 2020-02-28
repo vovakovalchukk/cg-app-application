@@ -8,7 +8,7 @@ class Factory
     public static function fetchFieldsForType(string $type): array
     {
         /** @var FieldsInterface $class */
-        $class = __NAMESPACE__ . ucfirst(strtolower($type));
+        $class = __NAMESPACE__ . '\\' . ucfirst($type);
         if (!class_exists($class)) {
             return NullFields::getFields();
         }

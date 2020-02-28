@@ -19,8 +19,12 @@ function(StoredFilters) {
     <ul class="module-content nav">
         <li>
             <span class="heading-medium"><?= $this->translate('Saved Filters') ?></span>
+            <div class="u-float-left u-margin-left-small" style="display: <?= count($filters) > 5  ? 'block' : 'none'?>">
+                <input id="saved-filters-search" type="text" class="inputbox" placeholder="search"/>
+            </div>
             <ul
                 id="savedFilters"
+                style="display:none;"
                 data-save="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_SAVE) ?>"
                 data-remove="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_REMOVE) ?>"
                 data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/elements/savedFilter.mustache"

@@ -36,7 +36,8 @@ class RootComponent extends React.Component {
         massUnit: null,
         lengthUnit: null,
         pickLocations: [],
-        pickLocationValues: []
+        pickLocationValues: [],
+        supplierOptions: []
     };
 
     state = {
@@ -233,6 +234,7 @@ class RootComponent extends React.Component {
                     vatRates={this.props.taxRates}
                     pickLocations={this.props.pickLocations}
                     pickLocationValues={this.props.pickLocationValues}
+                    supplierOptions={this.props.supplierOptions}
                 />
             </div>
         )

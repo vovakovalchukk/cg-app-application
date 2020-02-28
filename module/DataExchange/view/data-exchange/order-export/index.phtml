@@ -1,4 +1,30 @@
-<?php
-// To be done in MIG-37
-?>
-<h1>Order Export</h1>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+
+<div class="ftp-accounts-container">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('Scheduled Orders Exports'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'OrderExport': '<?= $this->basePath() . DataExchange\Module::PUBLIC_FOLDER; ?>/js/DataExchange/OrderExport',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+            }
+        });
+        require(["OrderExport/Index"], function(Index) {
+            Index(
+                document.getElementById('app-mount-node'),
+                {
+                    schedules: <?= json_encode($orderExportSchedules); ?>,
+                    templateOptions: <?= json_encode($orderTemplateOptions); ?>,
+                    fromAccountOptions: <?= json_encode($fromAccountOptions); ?>,
+                    toAccountOptions: <?= json_encode($toAccountOptions); ?>,
+                    savedFilterOptions: <?= json_encode($savedFilterOptions); ?>,
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

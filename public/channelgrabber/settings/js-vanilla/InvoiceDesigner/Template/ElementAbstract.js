@@ -1,10 +1,14 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
     'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Template/Element/Helpers/Element',
+    'InvoiceDesigner/Template/Module/ElementResizeMove',
     'Common/IdGenerator'
 ], function(
     EntityHydrateAbstract,
     PubSubAbstract,
+    ElementHelper,
+    ElementResizeMove,
     idGenerator
 ) {
     var ElementAbstract = function(additionalData)
@@ -21,8 +25,11 @@ define([
             y: 0,
             backgroundColour: undefined,
             borderWidth: 1,
-            borderColour: 'black'
+            borderColour: 'black',
+            errorBorder: false,
+            allPagesDisplay: false
         };
+
         var baseInspectableAttributes = [];
         for (var field in data) {
             baseInspectableAttributes.push(field);
@@ -162,20 +169,38 @@ define([
             return this;
         };
 
+        this.setDisplayOnAllPages = function(desiredValue, populating)
+        {
+            this.set('allPagesDisplay', desiredValue, populating);
+            return this;
+        };
+
+        this.getDisplayOnAllPages = function() {
+            return this.get('allPagesDisplay');
+        };
+
+        this.setErrorBorder = function(value, populating) {
+            this.set('errorBorder', value, populating);
+        };
+
+        this.getErrorBorder = function() {
+            return this.get('errorBorder');
+        };
+
         this.get = function(field)
         {
             return data[field];
         };
 
-        this.set = function(field, value, populating)
+        this.set = function(field, value, populating, bypassSaveDiscardBar)
         {
-            var oldValue = data[field];
+            var oldValue = stringify(data[field]);
             data[field] = value;
 
-            if (oldValue === value || populating) {
+            if ((oldValue === stringify(value)) || populating) {
                 return;
             }
-            this.publish();
+            this.publish(null, bypassSaveDiscardBar);
         };
 
         this.getData = function()
@@ -225,9 +250,12 @@ define([
             return maxHeight;
         };
         
-        this.setMinWidth = function(newMinWidth)
+        this.setMinWidth = function(newMinWidth, publish)
         {
             minWidth = newMinWidth;
+            if (publish) {
+                this.publish(null);
+            }
             return this;
         };
         
@@ -282,7 +310,14 @@ define([
             for (var key in inspectors) {
                 this.disableBaseInspector(inspectors[key]);
             }
-        }
+        };
+
+        this.applyErrorBorderIfNeeded = function()
+        {
+            const elementDomId = ElementHelper.getElementDomId(this);
+            ElementResizeMove.isElementInPrintableArea(elementDomId) ?
+                this.setErrorBorder(false) : this.setErrorBorder(true);
+        };
 
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
@@ -310,14 +345,24 @@ define([
         return allAttribs;
     };
 
-    ElementAbstract.prototype.toJson = function()
+    ElementAbstract.prototype.applyMissingDataForSave = function() {
+        return this;
+    };
+
+    ElementAbstract.prototype.formatCoreJsonPropertiesForBackend = function(json)
     {
-        var json = JSON.parse(JSON.stringify(this.getData()));
         json.x = Number(json.x).mmToPt();
         json.y = Number(json.y).mmToPt();
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
         json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
+        return json;
+    };
+
+    ElementAbstract.prototype.toJson = function()
+    {
+        let json = JSON.parse(JSON.stringify(this.getData()));
+        json = this.formatCoreJsonPropertiesForBackend(json);
         return json;
     };
 
@@ -329,7 +374,12 @@ define([
         this.setX(data.x, populating);
         this.setY(data.y, populating);
         this.setBorderWidth(data.borderWidth, populating);
+        this.setDisplayOnAllPages(data.allPagesDisplay, populating)
     };
 
     return ElementAbstract;
+
+    function stringify(value) {
+        return Object.assign({}, JSON.stringify(value, null, 1));
+    }
 });

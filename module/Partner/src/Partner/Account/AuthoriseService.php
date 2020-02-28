@@ -1,16 +1,18 @@
 <?php
 namespace Partner\Account;
 
+use CG\Account\Credentials\Cryptor;
 use CG\Account\Request\Collection as AccountRequestCollection;
 use CG\Account\Request\Entity as AccountRequest;
 use CG\Account\Request\Filter as AccountRequestFilter;
 use CG\Account\Request\StorageInterface as AccountRequestService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
+use CG\Developer\Application\Credentials\SigningSecret;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Partner\Entity as Partner;
 use CG\Partner\StatusCodes as PartnerStatusCodes;
-use CG\Partner\StorageInterface as PartnerStorage;
+use CG\Partner\Service as PartnerStorage;
 use CG\Sso\Client\Service as SsoClient;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -57,6 +59,8 @@ class AuthoriseService implements LoggerAwareInterface
     protected $channelService;
     /** @var NotificationService */
     protected $notificationService;
+    /** @var Cryptor */
+    protected $cryptor;
 
     public function __construct(
         AccountRequestService $accountRequestService,
@@ -66,7 +70,8 @@ class AuthoriseService implements LoggerAwareInterface
         LoginService $loginService,
         SsoClient $ssoClient,
         ChannelService $channelService,
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        Cryptor $cryptor
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
@@ -76,6 +81,7 @@ class AuthoriseService implements LoggerAwareInterface
         $this->ssoClient = $ssoClient;
         $this->channelService = $channelService;
         $this->notificationService = $notificationService;
+        $this->cryptor = $cryptor;
     }
 
     public function connectAccount(
@@ -213,9 +219,11 @@ class AuthoriseService implements LoggerAwareInterface
             throw new \InvalidArgumentException(static::LOG_MESSAGE_NO_SIGNATURE);
         }
 
+        /** @var SigningSecret $signingSecret */
+        $signingSecret = $this->cryptor->decrypt($partner->getSigningSecret());
         $uri->setQuery([
             'token' => $token,
-            'secret' => $partner->getClientSecret()
+            'secret' => $signingSecret->getSigningSecret()
         ]);
 
         $hashedSignature = hash('sha256', $uri->toString());

@@ -1,15 +1,21 @@
 <?php
 
 use CG\DataExchangeTemplate\Entity as DataExchangeTemplate;
-use DataExchange\Controller\IndexController;
 use DataExchange\Controller\EmailAccountController;
 use DataExchange\Controller\FtpAccountController;
+use DataExchange\Controller\HistoryController;
+use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
+use DataExchange\Controller\OrderExportManualController;
+use DataExchange\Controller\OrderTrackingImportController;
 use DataExchange\Controller\StockExportController;
+use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
+use DataExchange\Controller\StockImportManualController;
 use DataExchange\Controller\TemplateController;
-use DataExchange\Navigation\Factory as DataExchangeNavigation;
+use DataExchange\History\Service as HistoryService;
 use DataExchange\Module;
+use DataExchange\Navigation\Factory as DataExchangeNavigation;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
@@ -75,6 +81,26 @@ return [
                     ]
                 ]
             ],
+            'Order Tracking' => [
+                'label' => 'Order Tracking',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'Export' => [
+                        'label' => 'Import',
+                        'title' => 'Import',
+                        'route' => Module::ROUTE . '/' . OrderTrackingImportController::ROUTE
+                    ],
+                    'Templates' => [
+                        'label' => 'Templates',
+                        'title' => 'Templates',
+                        'route' => Module::ROUTE . '/' . TemplateController::ROUTE,
+                        'params' => [
+                            'type' => TemplateController::getRouteTypeForTemplateType(DataExchangeTemplate::TYPE_ORDER_TRACKING)
+                        ]
+                    ]
+                ]
+            ],
             'Accounts' => [
                 'label' => 'Accounts',
                 'uri' => '',
@@ -90,6 +116,18 @@ return [
                         'title' => 'Email',
                         'route' => Module::ROUTE . '/' . EmailAccountController::ROUTE
                     ],
+                ]
+            ],
+            'History' => [
+                'label' => 'History',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    'History' => [
+                        'label' => 'History',
+                        'title' => 'History',
+                        'route' => Module::ROUTE . '/' . HistoryController::ROUTE
+                    ]
                 ]
             ],
         ]
@@ -263,6 +301,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            StockImportManualController::ROUTE_UPLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/upload',
+                                    'defaults' => [
+                                        'controller' => StockImportManualController::class,
+                                        'action' => 'upload'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     StockExportController::ROUTE => [
@@ -296,6 +345,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            StockExportManualController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => StockExportManualController::class,
+                                        'action' => 'download'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     OrderExportController::ROUTE => [
@@ -320,6 +380,97 @@ return [
                                 'may_terminate' => true,
                             ],
                             OrderExportController::ROUTE_REMOVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove',
+                                    'defaults' => [
+                                        'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderExportManualController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => OrderExportManualController::class,
+                                        'action' => 'download'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    HistoryController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/history',
+                            'defaults' => [
+                                'controller' => HistoryController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            HistoryController::ROUTE_FETCH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'action' => 'fetch'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_FILES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/files/:historyId/:fileType',
+                                    'constraints' => [
+                                        'historyId' => '[0-9]+',
+                                        'fileType' => implode('|', HistoryService::getAllowedFileTypes())
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'files'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HistoryController::ROUTE_STOP => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/stop',
+                                    'defaults' => [
+                                        'action' => 'stop'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    OrderTrackingImportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/orderTracking/import',
+                            'defaults' => [
+                                'controller' => OrderTrackingImportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            OrderTrackingImportController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderTrackingImportController::ROUTE_REMOVE => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/remove',

@@ -20,6 +20,7 @@ use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Settings\Product\Entity as ProductSettings;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Entity as Stock;
@@ -35,36 +36,40 @@ use Products\Product\Creator as ProductCreator;
 use Products\Product\Importer as ProductImporter;
 use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
+use Products\Product\Supplier\Service as SupplierService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class ProductsJsonController extends AbstractActionController
 {
-    const ROUTE_AJAX = 'AJAX';
-    const ROUTE_AJAX_TAX_RATE = 'tax_rate';
-    const ROUTE_PICK_LOCATIONS = 'PickLocation';
-    const ROUTE_STOCK_MODE = 'Stock Mode';
-    const ROUTE_STOCK_LEVEL = 'Stock Level';
-    const ROUTE_LOW_STOCK_THRESHOLD = 'Low stock threshold';
-    const ROUTE_STOCK_UPDATE = 'stockupdate';
-    const ROUTE_STOCK_INC_PURCHASE_ORDERS = 'stockIncludePurchaseOrders';
-    const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
-    const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
-    const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
-    const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
-    const ROUTE_PRODUCT_CSV_IMPORT = 'productCsvImport';
-    const ROUTE_PRODUCT_LINK_CSV_EXPORT = 'productLinkCsvExport';
-    const ROUTE_PRODUCT_LINK_CSV_IMPORT = 'productLinkCsvImport';
-    const ROUTE_DELETE = 'Delete';
-    const ROUTE_DELETE_CHECK = 'Delete Check';
-    const ROUTE_DELETE_PROGRESS = 'Delete Progress';
-    const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
-    const ROUTE_NEW_NAME = 'newName';
-    const ROUTE_STOCK_FETCH = 'StockFetch';
-    const ROUTE_IMAGE_UPLOAD = 'Image Upload';
-    const ROUTE_CREATE = 'Create';
+    public const ROUTE_AJAX = 'AJAX';
+    public const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    public const ROUTE_PICK_LOCATIONS = 'PickLocation';
+    public const ROUTE_STOCK_MODE = 'Stock Mode';
+    public const ROUTE_STOCK_LEVEL = 'Stock Level';
+    public const ROUTE_LOW_STOCK_THRESHOLD = 'Low stock threshold';
+    public const ROUTE_REORDER_QUANTITY = 'Reorder Quantity';
+    public const ROUTE_STOCK_UPDATE = 'stockupdate';
+    public const ROUTE_STOCK_INC_PURCHASE_ORDERS = 'stockIncludePurchaseOrders';
+    public const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
+    public const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
+    public const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
+    public const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
+    public const ROUTE_PRODUCT_CSV_IMPORT = 'productCsvImport';
+    public const ROUTE_PRODUCT_LINK_CSV_EXPORT = 'productLinkCsvExport';
+    public const ROUTE_PRODUCT_LINK_CSV_IMPORT = 'productLinkCsvImport';
+    public const ROUTE_DELETE = 'Delete';
+    public const ROUTE_DELETE_CHECK = 'Delete Check';
+    public const ROUTE_DELETE_PROGRESS = 'Delete Progress';
+    public const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
+    public const ROUTE_NEW_NAME = 'newName';
+    public const ROUTE_STOCK_FETCH = 'StockFetch';
+    public const ROUTE_IMAGE_UPLOAD = 'Image Upload';
+    public const ROUTE_CREATE = 'Create';
+    public const ROUTE_SUPPLIER = 'Supplier';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
     protected const PRODUCT_DETAIL_CHANNEL_MAP = [
@@ -109,6 +114,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productCreator;
     /** @var ProductImporter */
     protected $productImporter;
+    /** @var SupplierService */
+    protected $supplierService;
 
     public function __construct(
         ProductService $productService,
@@ -129,7 +136,8 @@ class ProductsJsonController extends AbstractActionController
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
         ProductCreator $productCreator,
-        ProductImporter $productImporter
+        ProductImporter $productImporter,
+        SupplierService $supplierService
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -150,6 +158,7 @@ class ProductsJsonController extends AbstractActionController
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
         $this->productImporter = $productImporter;
+        $this->supplierService = $supplierService;
     }
 
     public function ajaxAction()
@@ -317,7 +326,8 @@ class ProductsJsonController extends AbstractActionController
             'lowStockThresholdDefault' => [
                 'toggle' => $this->stockSettingsService->getLowStockThresholdToggleDefault(),
                 'value' => $this->stockSettingsService->getLowStockThresholdDefaultValue()
-            ]
+            ],
+            'reorderQuantityDefault' => $this->stockSettingsService->getReorderQuantityDefault() ?? ProductSettings::DEFAULT_REORDER_QUANTITY
         ]);
 
         $images = array_column($productEntity->getImageIds(), 'id', 'order');
@@ -503,6 +513,26 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function saveProductSupplierAction(): JsonModel
+    {
+        $this->checkUsage();
+        $productId = $this->params()->fromPost('productId');
+        $supplierId = $this->params()->fromPost('supplierId');
+        $supplierName = $this->params()->fromPost('supplierName');
+        $view = $this->jsonModelFactory->newInstance();
+        if (!$supplierId && !$supplierName) {
+            $view->setVariables(['success' => false, 'error' => 'No Supplier was specified']);
+            return $view;
+        }
+        if ($supplierId) {
+            $this->supplierService->saveProductSupplier($productId, $supplierId);
+        } else {
+            $supplierId = $this->supplierService->createAndSaveProductSupplier($productId, $supplierName);
+        }
+        $view->setVariables(['success' => true, 'supplierId' => $supplierId]);
+        return $view;
+    }
+
     public function deleteCheckAction()
     {
         $this->checkUsage();
@@ -605,6 +635,19 @@ class ProductsJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance(
             ['products' => $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)]
+        );
+    }
+
+    public function saveReorderQuantityAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId', 0);
+        $reorderQuantity = $this->params()->fromPost('reorderQuantity', null);
+        $reorderQuantity = filter_var($reorderQuantity, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+
+        return $this->jsonModelFactory->newInstance(
+            ['products' => $this->stockSettingsService->saveReorderQuantity($productId, $reorderQuantity)]
         );
     }
 

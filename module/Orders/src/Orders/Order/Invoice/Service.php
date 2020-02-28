@@ -15,16 +15,20 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailer;
+use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
+use CG\Template\Collection as TemplateCollection;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\Entity as Template;
 use CG\Template\PaperPage;
+use CG\Template\Type as TemplateType;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Orders\Order\Service as OrderService;
+use function CG\Stdlib\mergePdfData;
 
 class Service extends ClientService implements StatsAwareInterface
 {
@@ -66,6 +70,7 @@ class Service extends ClientService implements StatsAwareInterface
     public function __construct(
         RendererService $rendererService,
         TemplateCache $templateCache,
+        PartialRefundService $partialRefundService,
         TemplateFactory $templateFactory,
         OrderService $orderService,
         ElementFactory $elementFactory,
@@ -79,7 +84,7 @@ class Service extends ClientService implements StatsAwareInterface
         InvoiceEmailer $invoiceEmailer,
         InvoiceValidator $invoiceValidator
     ) {
-        parent::__construct($rendererService, $templateCache);
+        parent::__construct($rendererService, $templateCache, $partialRefundService);
         $this->templateFactory = $templateFactory;
         $this->orderService = $orderService;
         $this->elementFactory = $elementFactory;
@@ -225,21 +230,37 @@ class Service extends ClientService implements StatsAwareInterface
     public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null): string
     {
         $this->key = $key;
-        $this->count = 0;
-        $this->updateInvoiceGenerationProgress();
-        $result = parent::generateInvoiceForCollection($collection, $template);
-        $this->notifyOfGeneration();
+        $this->resetGenerationProgress();
+        return $this->generateInvoicesForOrders($collection, $template, $key);
+    }
+
+    public function generateInvoicesForOrders(Collection $collection, Template $template = null, string $key = null): string
+    {
+        $this->key = $key;
+        $result = parent::generateDocumentForOrders($collection, $template);
+        $this->notifyOfInvoiceGeneration();
         return $result;
     }
 
-    protected function generateInvoiceForOrder(Order $order, Template $template = null): void
+    protected function generateDocumentForOrder(Order $order, Template $template): void
     {
-        parent::generateInvoiceForOrder($order, $template);
-        $this->count++;
-        $this->updateInvoiceGenerationProgress();
+        parent::generateDocumentForOrder($order, $template);
+        $this->incrementGenerationProgress();
     }
 
-    protected function updateInvoiceGenerationProgress()
+    protected function resetGenerationProgress(): void
+    {
+        $this->count = 0;
+        $this->updateGenerationProgress();
+    }
+
+    protected function incrementGenerationProgress(): void
+    {
+        $this->count++;
+        $this->updateGenerationProgress();
+    }
+
+    protected function updateGenerationProgress()
     {
         if (!$this->key) {
             return $this;
@@ -249,7 +270,7 @@ class Service extends ClientService implements StatsAwareInterface
         return $this;
     }
 
-    protected function notifyOfGeneration()
+    protected function notifyOfInvoiceGeneration()
     {
         $event = new IntercomEvent(static::EVENT_INVOICES_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
         $this->intercomEventService->save($event);
@@ -285,5 +306,23 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $invoiceValidator = $this->invoiceValidator;
         $invoiceValidator($order);
+    }
+
+    public function generatePdfsForOrders(Collection $orders, TemplateCollection $templates, string $key = null): string
+    {
+        $this->key = $key;
+        $this->resetGenerationProgress();
+        $pdf = $this->generateDocumentsForOrders($orders, $templates);
+        /** @var Template $template */
+        foreach ($templates as $template) {
+            if ($template->getType() != TemplateType::INVOICE) {
+                continue;
+            }
+            // Invoices require special treatment
+            $this->markOrdersAsPrintedFromOrderCollection($orders);
+            $this->notifyOfInvoiceGeneration();
+            break;
+        }
+        return $pdf;
     }
 }

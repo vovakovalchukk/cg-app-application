@@ -8,6 +8,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -49,6 +50,8 @@ class OrderDetailsController extends AbstractActionController
     protected $orderTrackingMapper;
 
     protected $activeUserContainer;
+    /** @var PartialRefundService */
+    protected $partialRefundService;
 
     protected $courierNameMapper = [
         'royal-mail-click-drop' => 'Royal Mail',
@@ -64,7 +67,8 @@ class OrderDetailsController extends AbstractActionController
         TimelineService $timelineService,
         OrderNotesHelper $orderNotesHelper,
         OrderTrackingMapper $orderTrackingMapper,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        PartialRefundService $partialRefundService
     ) {
         $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
@@ -76,6 +80,7 @@ class OrderDetailsController extends AbstractActionController
         $this->orderNotesHelper = $orderNotesHelper;
         $this->orderTrackingMapper = $orderTrackingMapper;
         $this->activeUserContainer = $activeUserContainer;
+        $this->partialRefundService = $partialRefundService;
     }
 
     public function orderAction()
@@ -84,6 +89,7 @@ class OrderDetailsController extends AbstractActionController
 
         /** @var Order $order */
         $order = $this->orderService->getOrder($this->params('order'));
+        $order = $this->partialRefundService->addRefundLinesToOrder($order);
         $carriers = $this->getCarrierSelect($order);
         $view = $this->viewModelFactory->newInstance(
             [
@@ -132,7 +138,7 @@ class OrderDetailsController extends AbstractActionController
         $carriers = $this->courierHelper->getCarriersData();
         $tracking = $order->getFirstTracking();
         $priorityOptions = $this->courierHelper->getCarrierPriorityOptions($tracking);
-        $options = [];
+        $options = [['title' => 'None', 'value' => '-', 'selected' => ($tracking == null)]];
         foreach ($carriers as $carrier) {
             $selected = false;
             if(!is_null($tracking)) {

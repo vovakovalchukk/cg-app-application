@@ -94,22 +94,15 @@ use CG\Listing\Unimported\Storage\Api as UnimportedListingApi;
 use CG\Ekm\Product\TaxRate\Mapper as EkmTaxRateMapper;
 use CG\Ekm\Product\TaxRate\Storage\Cache as EkmTaxRateCache;
 use CG\Ekm\Product\TaxRate\Storage\Db as EkmTaxRateDb;
+use CG\Ekm\Product\TaxRate\StorageInterface as EkmTaxRateStorage;
 use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
-use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
+use CG\Ekm\Product\TaxRate\Importer\Soap as EkmSoapTaxRateImporter;
 
 // Stock Import
 use CG\Stock\Import\File\StorageInterface as StockImportInterface;
 use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\FileStorage\S3\Adapter as S3FileImportAdapter;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
-
-// Communication
-use CG\Communication\Headline\StorageInterface as HeadlineStorage;
-use CG\Communication\Headline\Storage\Api as HeadlineApi;
-use CG\Communication\Message\StorageInterface as MessageStorage;
-use CG\Communication\Message\Storage\Api as MessageApi;
-use CG\Communication\Thread\StorageInterface as ThreadStorage;
-use CG\Communication\Thread\Storage\Api as ThreadApi;
 
 // Amazon\Thread\Additional
 use CG\Amazon\Thread\Additional\Mapper as AmzThreadAdditionalMapper;
@@ -213,9 +206,6 @@ $config = array(
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
-                ThreadStorage::class => ThreadApi::class,
-                MessageStorage::class => MessageApi::class,
-                HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateRedisClient::class,
@@ -240,6 +230,7 @@ $config = array(
                 LocationStorage::class => LocationApiStorage::class,
                 PackageRulesStorage::class => PackageRulesApiStorage::class,
                 Smtp::class => 'orderhub-smtp',
+                EkmTaxRateStorage::class => EkmTaxRateRepository::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -444,7 +435,7 @@ $config = array(
                     'repository' => EkmTaxRateDb::class,
                 ]
             ],
-            EkmTaxRateService::class => [
+            EkmSoapTaxRateImporter::class => [
                 'parameters' => [
                     'cryptor' => 'ekm_cryptor',
                     'repository' => EkmTaxRateRepository::class
@@ -459,21 +450,6 @@ $config = array(
             'StockImportS3FileImportAdapter' => [
                 'parameter' => [
                     'location' => function() { return StockImportFileS3::S3_BUCKET; }
-                ]
-            ],
-            ThreadApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
-                ]
-            ],
-            MessageApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
-                ]
-            ],
-            HeadlineApi::class => [
-                'parameters' => [
-                    'client' => 'communication_guzzle'
                 ]
             ],
             AmzThreadAdditionalDb::class => [

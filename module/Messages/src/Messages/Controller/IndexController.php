@@ -4,18 +4,26 @@ namespace Messages\Controller;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\User\Service as UserService;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Messages\Message\Template\Service as MessageTemplateService;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-    const ROUTE_INDEX_URL = '/messages';
-    const ROUTE_THREAD = 'Thread';
+    public const ROUTE_INDEX_URL = '/messages';
+    public const ROUTE_THREAD = 'Thread';
 
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var UserOrganisationUnitService */
     protected $userOrganisationUnitService;
+    /** @var UserService */
     protected $userService;
+    /** @var Service */
     protected $service;
+    /** @var MessageTemplateService */
+    protected $messageTemplateService;
 
     protected $filterNameMap = [
         'eu' => 'externalUsername'
@@ -25,15 +33,17 @@ class IndexController extends AbstractActionController
         ViewModelFactory $viewModelFactory,
         UserOrganisationUnitService $userOrganisationUnitService,
         UserService $userService,
-        Service $service
+        Service $service,
+        MessageTemplateService $messageTemplateService
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setUserService($userService)
-            ->setService($service);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->userService = $userService;
+        $this->service = $service;
+        $this->messageTemplateService = $messageTemplateService;
     }
 
-    public function indexAction()
+    public function indexAction(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $threadId = $this->params('threadId');
@@ -53,12 +63,15 @@ class IndexController extends AbstractActionController
         $view->setVariable('assignableUsersArray', $this->userService->getUserOptionsArray($rootOu));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $view->setVariable('messageTemplates', $this->messageTemplateService->fetchAllForActiveOuAsArray());
+        $view->setVariable('messageTemplateTags', $this->messageTemplateService->getTemplateTagOptions());
+        $view->setVariable('accounts', $this->messageTemplateService->fetchAllSalesAccountsForActiveOuAsOptions());
         $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
         $view->addChild($this->getFilterSearchButtonView(), 'filterSearchButton');
         return $view;
     }
 
-    protected function getFilterSearchInputView()
+    protected function getFilterSearchInputView(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/search.mustache');
@@ -67,7 +80,7 @@ class IndexController extends AbstractActionController
         return $view;
     }
 
-    protected function getFilterSearchButtonView()
+    protected function getFilterSearchButtonView(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/buttons.mustache');
@@ -80,29 +93,5 @@ class IndexController extends AbstractActionController
             ]
         ]);
         return $view;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setUserOrganisationUnitService(UserOrganisationUnitService $userOrganisationUnitService)
-    {
-        $this->userOrganisationUnitService = $userOrganisationUnitService;
-        return $this;
-    }
-
-    protected function setUserService(UserService $userService)
-    {
-        $this->userService = $userService;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
     }
 }
