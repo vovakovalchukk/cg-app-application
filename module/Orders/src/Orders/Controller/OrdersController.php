@@ -186,22 +186,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
-        $view->setVariable('courierOptions', $this->getCourierOptions());
         $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions());
         return $view;
-    }
-
-    protected function getCourierOptions()
-    {
-        $carriers = $this->courierHelper->getCarriersData();
-        $options = [];
-        foreach ($carriers as $carrier) {
-            $options[] = [
-                'title' => $carrier,
-                'value' => $carrier
-            ];
-        }
-        return $options;
     }
 
     protected function getStatusFilters()

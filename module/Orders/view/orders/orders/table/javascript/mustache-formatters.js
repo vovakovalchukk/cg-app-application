@@ -24,4 +24,24 @@ $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, c
         };
     };
     data.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: data.id});
+    data.addTrackingInfo = function()
+    {
+        return function(variable, render) {
+            data.courierSelect = {
+                options: data.couriers,
+                name: 'carrier-' + data.id,
+                id: 'carrier-' + data.id,
+                blankOption: false,
+                searchField: true,
+                priorityOptions: data.couriersPriorityOptions
+            };
+            data.trackingNumberInput = {
+                name: 'tracking-number-' + data.id,
+                id: 'tracking-number-' + data.id,
+                value: '',
+                placeholder: 'Tracking number'
+            };
+            return render(variable);
+        };
+    };
 });
