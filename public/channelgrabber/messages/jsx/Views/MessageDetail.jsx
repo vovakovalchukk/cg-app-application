@@ -246,11 +246,17 @@ const MessageDetail = (props) => {
                     </StyledSelect>
                 </label>
                 <ButtonA
-                    className={`u-margin-bottom-med button`}
+                    className={`u-margin-bottom-xsmall button`}
                     href={thread.ordersLink}
                 >
                     {ordersButtonText}
                 </ButtonA>
+
+                <FlexAlignItemsCenter className={`u-display-flex u-margin-bottom-xsmall`}>
+                    <div className={`sprite-messages-${thread.channel}-36`} />
+                    <span className={`u-margin-left-xsmall`}>{thread.accountName}</span>
+                </FlexAlignItemsCenter>
+
                 {formattedUsers.length > 1 &&
                 <label className={'heading-medium u-cursor-pointer'}>
                     <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
