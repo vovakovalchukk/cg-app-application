@@ -16,7 +16,6 @@ const messagesReducer = reducerCreator(initialState, {
 
         action.payload.forEach(thread => {
             thread.messages.forEach(message => {
-                message.body = message.body.nl2br();
                 messages.byId[message.id] = message;
                 messages.allIds.push(message.id);
             });
