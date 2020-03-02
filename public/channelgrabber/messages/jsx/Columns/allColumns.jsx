@@ -11,6 +11,12 @@ export default [
         width: '70px'
     },
     {
+        key: 'accountName',
+        label: 'Account',
+        cell: ValueCell,
+        width: '100px',
+    },
+    {
         key: 'status',
         label: 'Status',
         cell: ValueCell,
@@ -23,7 +29,7 @@ export default [
         width: '200px',
     },
     {
-        key: 'accountName',
+        key: 'name',
         label: 'Customer Name',
         cell: ValueCell,
         width: '150px',

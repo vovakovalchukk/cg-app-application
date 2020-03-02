@@ -4,6 +4,7 @@ namespace Messages;
 use Messages\Controller\HeadlineJsonController;
 use Messages\Controller\IndexController;
 use Messages\Controller\MessageJsonController;
+use Messages\Controller\MessageTemplateJsonController;
 use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Messages\Thread\Service;
@@ -136,6 +137,42 @@ return [
                             ],
                         ],
                     ],
+                    // Note: do NOT make /messages/templates a concrete route, it needs to be handled by the default route below
+                    MessageTemplateJsonController::ROUTE_SAVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/save',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'save',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    MessageTemplateJsonController::ROUTE_DELETE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/delete',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'delete',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    MessageTemplateJsonController::ROUTE_PREVIEW => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/templates/preview',
+                            'defaults' => [
+                                'controller' => MessageTemplateJsonController::class,
+                                'action' => 'preview',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+
+                    // The Messages tab is now a single-page app managed by React Router which requires this default route
                     'Default Route' => [
                         'type' => Regex::class,
                         'priority' => -100,
