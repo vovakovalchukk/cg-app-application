@@ -2678,7 +2678,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#EPIC-MIG-56-separate-amazon-categories-from-browse-nodes":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1fe093ee63acc3d52781b4ab8f28b6b89e4f1500"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#a95325aa597b037aa990a3c94fd6c41185391a73"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
