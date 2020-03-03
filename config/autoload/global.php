@@ -104,13 +104,6 @@ use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\FileStorage\S3\Adapter as S3FileImportAdapter;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
-// Amazon\Thread\Additional
-use CG\Amazon\Thread\Additional\Mapper as AmzThreadAdditionalMapper;
-use CG\Amazon\Thread\Additional\Storage\Cache as AmzThreadAdditionalCache;
-use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
-use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
-use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
-
 // ApiCredentials
 use CG\ApiCredentials\StorageInterface as ApiCredentialsStorage;
 use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
@@ -206,7 +199,6 @@ $config = array(
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
-                AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateRedisClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
@@ -450,25 +442,6 @@ $config = array(
             'StockImportS3FileImportAdapter' => [
                 'parameter' => [
                     'location' => function() { return StockImportFileS3::S3_BUCKET; }
-                ]
-            ],
-            AmzThreadAdditionalDb::class => [
-                'parameters' => [
-                    'readSql' => 'amazonReadSql',
-                    'fastReadSql' => 'amazonFastReadSql',
-                    'writeSql' => 'amazonWriteSql',
-                    'mapper' => AmzThreadAdditionalMapper::class,
-                ]
-            ],
-            AmzThreadAdditionalCache::class => [
-                'parameters' => [
-                    'mapper' => AmzThreadAdditionalMapper::class
-                ]
-            ],
-            AmzThreadAdditionalRepository::class => [
-                'parameters' => [
-                    'storage' => AmzThreadAdditionalCache::class,
-                    'repository' => AmzThreadAdditionalDb::class
                 ]
             ],
             ApiCredentialsApi::class => [
