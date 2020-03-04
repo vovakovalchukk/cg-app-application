@@ -22,6 +22,7 @@ use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG_UI\View\DataTable;
+use Products\Controller\CreateListings\AmazonJsonController as CreateListingsAmazonJsonController;
 use Products\Controller\CreateListings\JsonController as CreateListingsJsonController;
 use Products\Controller\CreateMultipleListings\JsonController as CreateMultipleListingsJsonController;
 use Products\Controller\LinksJsonController;
@@ -640,6 +641,19 @@ return [
                                         'action' => 'search'
                                     ],
                                 ],
+                            ],
+                            CreateListingsAmazonJsonController::ROUTE_AMAZON_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/amazon-category-dependent-field-values/:amazonCategoryId',
+                                    'defaults' => [
+                                        'controller' => CreateListingsAmazonJsonController::class,
+                                        'action' => 'amazonCategoryDependentFieldValues'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'amazonCategoryId' => '[0-9]+'
+                                ]
                             ],
                         ]
                     ],
