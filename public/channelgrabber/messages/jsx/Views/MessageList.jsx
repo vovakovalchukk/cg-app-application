@@ -45,12 +45,30 @@ const NoMessages = styled.div`
 `;
 
 const MessageList = (props) => {
-    const {match, filters, actions, formattedThreads, threadsLoaded} = props;
+    const {
+        match,
+        filters,
+        actions,
+        formattedThreads,
+        threadsLoaded,
+        filter,
+        filterValue
+    } = props;
+
     const {params} = match;
 
     useEffect(() => {
         const filterObjectForAjax = {};
         const filterInState = filters.getById(params.activeFilter);
+
+        if (
+            filter !== null &&
+            filterValue !== null &&
+            typeof filter !== 'undefined' &&
+            typeof filterValue !== 'undefined'
+        ) {
+            filterObjectForAjax[filter] = filterValue;
+        }
 
         if (!filterInState) {
             // filters have not yet been fetched - this will be when the view has initially rendered
@@ -79,7 +97,6 @@ const MessageList = (props) => {
                 />
             </MessagesGridActions>
             <MessagesGridList>
-
                 {
                     showNoMessagesMessage &&
                     <NoMessages>
