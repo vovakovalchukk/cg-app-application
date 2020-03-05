@@ -33,13 +33,15 @@ $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, c
                 id: 'carrier-' + data.id,
                 blankOption: false,
                 searchField: true,
-                priorityOptions: data.couriersPriorityOptions
+                priorityOptions: data.couriersPriorityOptions,
+                class: 'order-courier-select'
             };
             data.trackingNumberInput = {
                 name: 'tracking-number-' + data.id,
                 id: 'tracking-number-' + data.id,
                 value: '',
-                placeholder: 'Tracking number'
+                placeholder: 'Tracking number',
+                class: 'order-tracking-number'
             };
             return render(variable);
         };

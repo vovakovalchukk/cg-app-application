@@ -25,7 +25,6 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\MvcEvent;
-use function foo\func;
 
 class OrdersTable
 {
