@@ -21,7 +21,7 @@ class Service
     public function fetchCategoriesForAccount(
         Account $account,
         int $parentId = null,
-        bool $listable = true,
+        ?bool $listable = true,
         string $marketplace = null,
         bool $useAccountId = true
     ): array {
@@ -47,7 +47,7 @@ class Service
 
     public function fetchRootCategoriesForAccount(
         Account $account,
-        bool $listable = true,
+        ?bool $listable = true,
         string $marketplace = null,
         bool $useAccountId = true
     ) {
@@ -62,6 +62,11 @@ class Service
         } catch (NotFound $e) {
             return [];
         }
+    }
+
+    public function fetch(int $categoryId): Category
+    {
+        return $this->categoryService->fetch($categoryId);
     }
 
     public function formatCategoriesResponse(CategoryCollection $categoryCollection): array

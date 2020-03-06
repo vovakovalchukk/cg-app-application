@@ -4,7 +4,11 @@ import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
 import AddTemplate from 'Common/Components/Templates/AddTemplate';
 import TemplateSelect from 'Common/Components/Templates/TemplateSelect';
-import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
+import TemplateEditor from 'Common/Components/Templates/TemplateEditor';
+
+import {useFormInputState} from 'Common/Hooks/Form/input';
+import {useTemplatesState} from 'Common/Hooks/Template/items';
+import {useTemplateHtmlState} from 'Common/Hooks/Template/html';
 
 let previewWindow = null;
 
@@ -51,14 +55,14 @@ const RootComponent = props => {
 
 
             {templateInitialised &&
-            <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
+                <TemplateEditor templateHTML={templateHTML} templateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
-            <div>
-                <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
-                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
-            </div>
+                <div>
+                    <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
+                    <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
+                </div>
             }
         </div>
     );
@@ -147,66 +151,3 @@ const RootComponent = props => {
 };
 
 export default RootComponent;
-
-function useTemplatesState(initialTemplates) {
-    initialTemplates = Array.isArray(initialTemplates) ? initialTemplates : [];
-    const formattedTemplates = initialTemplates.map(template => {
-        return {
-            ...template,
-            value: template.name
-        };
-    });
-    const [templates, setTemplates] = useState(formattedTemplates);
-
-    function deleteTemplateInState(template) {
-        if (!template) {
-            return;
-        }
-        let newTemplates = templates.slice();
-        let templateIndex = newTemplates.findIndex(temp => temp === template);
-        newTemplates.splice(templateIndex, 1);
-        setTemplates(newTemplates);
-    }
-    return {
-        templates,
-        setTemplates,
-        deleteTemplateInState
-    };
-}
-
-function useFormInputState(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    function onChange(e) {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange,
-        setValue
-    }
-}
-
-function useTemplateHtmlState(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    function onChange(e) {
-        setValue(e.target.value);
-    }
-
-    function setTag(tag, position) {
-        if (!tag) {
-            return;
-        }
-        if(!position){
-            position = 0;
-        }
-        let newStr = `${value.slice(0, position)} ${tag} ${value.slice(position)}`;
-        setValue(newStr);
-    }
-
-    return {
-        value,
-        onChange,
-        setValue,
-        setTag
-    }
-}

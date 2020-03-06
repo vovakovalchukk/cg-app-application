@@ -15,6 +15,14 @@ const replyActions = {
             })
         };
     },
+    replyTemplateSelect: (params) => {
+        return function (dispatch, getState) {
+            dispatch({
+                type: 'REPLY_TEMPLATE_SELECT',
+                payload: params,
+            })
+        };
+    },
 };
 
 export default replyActions;

@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 
 const ShadowDomDiv = (props) => {
+    const { styles, body } = props;
+
     const shadowRef = React.createRef();
 
     useEffect(() => {
@@ -10,7 +12,7 @@ const ShadowDomDiv = (props) => {
                 mode: 'open'
             });
         }
-        shadowChild.shadowRoot.innerHTML = props.body;
+        shadowChild.shadowRoot.innerHTML = `${typeof styles !== 'undefined' ? styles : ''}${body}`;
     });
 
     return (

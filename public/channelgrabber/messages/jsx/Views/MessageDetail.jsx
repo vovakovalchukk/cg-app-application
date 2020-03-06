@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ButtonLink from 'MessageCentre/Components/ButtonLink';
 import ThreadHeader from 'MessageCentre/Components/ThreadHeader';
 import ShadowDomDiv from 'MessageCentre/Components/ShadowDomDiv';
 import ReplyBox from 'MessageCentre/Components/ReplyBox';
@@ -15,11 +14,71 @@ const printMessage = (message) => {
     newWindow.close();
 };
 
+const collapsibleCss = `<style>
+    .collapsible-section {
+        display: none;
+        color: #989898;
+    }
+    .message-section-collapser {
+        cursor: pointer;
+        outline: none;
+        padding: 10px 0;
+        width: 22px;
+    }
+    .message-section-collapser.active + .collapsible-section {
+        display: block;
+    }
+    .message-section-collapser .message-collapser-img-wrap {
+        background-color: #f5f5f5;
+        border: 1px solid #c2c2c2;
+        clear: both;
+        line-height: 6px;
+        outline: none;
+        position: relative;
+        width: 20px;
+    }
+    .message-section-collapser .message-collapser-img-wrap img {
+        background: url(/channelgrabber/zf2-v4-ui/img/ellipsis.png) no-repeat;
+        height: 8px;
+        opacity: .3;
+        width: 20px;
+    }
+    .message-section-collapser .message-collapser-img-wrap img:hover {
+        opacity: 0.9;
+    }
+    .message-section-collapser .message-collapser-img-wrap:hover {
+        background-color: #c2c2c2;
+        border: 1px solid #989898;
+        color: #444444;
+    }
+</style>`;
+
+const collapsibleHtml = `<div class="message-collapser-wrap">
+    <div class="message-section-collapser" title="Toggle Hidden Lines" onclick="this.classList.toggle('active')">
+        <div class="message-collapser-img-wrap">
+            <img src="/channelgrabber/zf2-v4-ui/img/transparent-square.gif" alt="" />
+        </div>
+    </div>
+    <span class="collapsible-section">$&</span>
+</div>`;
+
+const MinifyString = string => {
+    return string.replace(/(\r\n|\n|\r)/gm, '').replace(/\s\s+/g, '');
+};
+
+const formatMessageBody = messageBody => {
+    const regex = RegExp(/((?:^\>.*?$[\r\n]*)+)/gm);
+    const markup = MinifyString(collapsibleHtml);
+    const tagsWithSpaces = RegExp(/>[\r\n]</g);
+    return messageBody.replace(regex, markup).replace(tagsWithSpaces, '><').nl2br();
+}
+
 const formatMessages = (thread, allMessages) => {
     const formattedMessages = [];
     if (typeof thread !== 'undefined') {
         thread.messages.forEach(messageId => {
             const message = allMessages.byId[messageId];
+            message.body = formatMessageBody(message.body);
             formattedMessages.push(message);
         });
     }
@@ -119,8 +178,26 @@ const NoMessage = styled.div`
     padding: 2rem;
 `;
 
+const ButtonA = styled.a`
+    -webkit-font-smoothing: antialiased;
+    color: #222 !important;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    vertical-align: baseline;
+    line-height: normal;
+    text-transform: none;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    appearance: button;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+`;
+
 const MessageDetail = (props) => {
-    const {match, threads, messages, actions, assignableUsers} = props;
+    const {match, threads, messages, actions, assignableUsers, templates} = props;
 
     const {params} = match;
 
@@ -142,7 +219,7 @@ const MessageDetail = (props) => {
         if (thread.ordersCount === '?') {
             actions.fetchThreadOrderCountByThreadId(threadId);
         } else {
-            ordersButtonText = `${thread.ordersCount} orders from ${thread.externalUsername}`;
+            ordersButtonText = `${thread.ordersCount} orders from ${thread.name}`;
         }
     }
 
@@ -201,7 +278,10 @@ const MessageDetail = (props) => {
                                         </button>
                                     </FlexAlignItemsCenter>
                                 </MessageMeta>
-                                <ShadowDomDiv body={message.body} />
+                                <ShadowDomDiv
+                                    body={message.body}
+                                    styles={MinifyString(collapsibleCss)}
+                                />
                             </Message>
                         )
                     })}
@@ -212,6 +292,7 @@ const MessageDetail = (props) => {
                 <ReplyBox
                     actions={actions}
                     thread={thread}
+                    templates={templates}
                 />
             </GridReply>
 
@@ -227,11 +308,18 @@ const MessageDetail = (props) => {
                         <option value={'new'}>New</option>
                     </StyledSelect>
                 </label>
-                <ButtonLink
-                    className={`u-margin-bottom-med button u-display-flex`}
-                    to={thread.ordersLink}
-                    text={ordersButtonText}
-                />
+                <ButtonA
+                    className={`u-margin-bottom-xsmall button`}
+                    href={thread.ordersLink}
+                >
+                    {ordersButtonText}
+                </ButtonA>
+
+                <FlexAlignItemsCenter className={`u-display-flex u-margin-bottom-xsmall`}>
+                    <div className={`sprite-messages-${thread.channel}-36`} />
+                    <span className={`u-margin-left-xsmall`}>{thread.accountName}</span>
+                </FlexAlignItemsCenter>
+
                 {formattedUsers.length > 1 &&
                 <label className={'heading-medium u-cursor-pointer'}>
                     <span className={'u-display-flex u-margin-bottom-xsmall'}>Assign:</span>
