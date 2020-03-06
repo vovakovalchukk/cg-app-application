@@ -49,6 +49,7 @@ const getOrderId = (currentInput) => {
 
 const validateOrderTracking = (postData, orderId) => {
     const validateUrl = `/orders/${orderId}/tracking/validate`;
+
     n.notice(MESSAGE_NOTICE_UPDATING);
 
     $.ajax({
@@ -78,6 +79,7 @@ const saveOrderTracking = (postData, orderId) => {
         dataType : 'json',
         success: () => {
             n.success(MESSAGE_SUCCESS);
+            updateRowWithTrackingInfo(orderId, postData.carrier, postData.trackingNumber);
         },
         error: handleAjaxError
     });
@@ -99,4 +101,22 @@ const showConfirmation = (postData, orderId) => {
 
 const handleAjaxError = (error, textStatus, errorThrown) => {
     return n.ajaxError(error, textStatus, errorThrown);
+};
+
+
+const updateRowWithTrackingInfo = (orderId, carrier, trackingNumber) => {
+    const dataTable = $('#datatable').dataTable();
+    const tableData = dataTable.fnGetData();
+    const rowIndex = tableData.findIndex((row) => {
+        return row.id == orderId;
+    });
+
+    const rowData = tableData[rowIndex];
+
+    rowData.trackings = [{
+        carrier,
+        number: trackingNumber
+    }];
+
+    dataTable.fnUpdate(rowData, rowIndex, undefined, false, false);
 };
