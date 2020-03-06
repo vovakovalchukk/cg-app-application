@@ -136,9 +136,8 @@ import ResponseActions from './ResponseActions';
                 let formattedAttribute = {
                     displayName: currentAttributeData.displayName
                 };
-                delete currentAttributeData.displayName;
 
-                for (var attribute in currentAttributeData) {
+                for (let attribute in currentAttributeData) {
                     formattedAttribute["name"] = attribute;
                     formattedAttribute["option"] = currentAttributeData[attribute];
                     break;

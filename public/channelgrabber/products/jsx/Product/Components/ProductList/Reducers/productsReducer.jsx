@@ -39,7 +39,7 @@ var ProductsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "PRODUCTS_GET_REQUEST_ERROR": function() {
+    "PRODUCTS_GET_REQUEST_ERROR": function(state) {
         let newState = Object.assign({}, state, {
             fetching: false
         });

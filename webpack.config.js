@@ -6,6 +6,7 @@ module.exports = {
     mode: "production",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
+        "messages/js/Index": "./public/channelgrabber/messages/jsx/Index.jsx",
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
         "products/js/PurchaseOrders/PurchaseOrders": "./public/channelgrabber/products/jsx/PurchaseOrders/PurchaseOrders.jsx",
         "products/js/CategoryMapper/App": "./public/channelgrabber/products/jsx/CategoryMapper/App.jsx",
@@ -101,6 +102,7 @@ module.exports = {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             DataExchange: path.resolve(__dirname, 'public', 'channelgrabber', 'data-exchange', 'jsx', 'DataExchange'),
+            MessageCentre: path.resolve(__dirname, 'public', 'channelgrabber', 'messages', 'jsx'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             Orders: path.resolve(__dirname, 'public', 'channelgrabber', 'orders'),

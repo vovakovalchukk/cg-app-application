@@ -41,8 +41,8 @@
     }
   }
 
-  div.error > .custom-select > .selected {
-    border-color: $color-red;
+  .custom-select.error > .selected {
+    border-color: $color-red !important;
   }
 
   .react-image-picker

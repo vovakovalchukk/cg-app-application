@@ -15,7 +15,7 @@ define([
     DeliveryAddress.prototype.createElement = function()
     {
         var element = new TextElement();
-        var text = "%%order.shippingAddressFullName%%\n%%order.shippingAddressCompanyName%%\n%%order.shippingAddress1%%\n%%order.shippingAddress2%%\n%%order.shippingAddress3%%\n%%order.shippingAddressCity%%\n%%order.shippingAddressCounty%%\n%%order.shippingAddressPostcode%%";
+        var text = "{{order.shippingAddressFullName}}\n{{order.shippingAddressCompanyName}}\n{{order.shippingAddress1}}\n{{order.shippingAddress2}}\n{{order.shippingAddress3}}\n{{order.shippingAddressCity}}\n{{order.shippingAddressCounty}}\n{{order.shippingAddressPostcode}}";
         return element
             .setWidth('100')
             .setHeight('40')

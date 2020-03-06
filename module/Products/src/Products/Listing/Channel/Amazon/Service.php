@@ -3,18 +3,21 @@ namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
-use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
+use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorage;
+use CG\Amazon\Category\Entity as AmazonCategory;
+use CG\Amazon\Category\Filter as AmazonCategoryFilter;
+use CG\Amazon\Category\Service as AmazonCategoryService;
+use CG\Amazon\Category\VariationTheme\Entity as VariationTheme;
+use CG\Amazon\Category\VariationTheme\Service as VariationThemeService;
 use CG\Amazon\Credentials;
-use CG\Product\Category\ExternalData\Entity as CategoryExternalData;
-use CG\Product\Category\ExternalData\Service as CategoryExternalService;
+use CG\Amazon\RegionAbstract as Region;
+use CG\Amazon\RegionFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelDataInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
-use CG\Amazon\RegionFactory;
-use CG\Amazon\RegionAbstract as Region;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -34,23 +37,31 @@ class Service implements
 
     /** @var CategoryService */
     protected $categoryService;
-    /** @var CategoryExternalService */
-    protected $categoryExternalService;
     /** @var Cryptor */
     protected $cryptor;
     /** @var RegionFactory */
     protected $regionFactory;
+    /** @var AmazonCategoryService */
+    protected $amazonCategoryService;
+    /** @var VariationThemeService */
+    protected $variationThemeService;
+    /** @var BrowseNodeCategoryUsageStorage */
+    protected $browseNodeCategoryUsageStorage;
 
     public function __construct(
         CategoryService $categoryService,
-        CategoryExternalService $categoryExternalService,
         Cryptor $cryptor,
-        RegionFactory $regionFactory
+        RegionFactory $regionFactory,
+        AmazonCategoryService $amazonCategoryService,
+        VariationThemeService $variationThemeService,
+        BrowseNodeCategoryUsageStorage $browseNodeCategoryUsageStorage
     ) {
         $this->categoryService = $categoryService;
-        $this->categoryExternalService = $categoryExternalService;
         $this->cryptor = $cryptor;
         $this->regionFactory = $regionFactory;
+        $this->amazonCategoryService = $amazonCategoryService;
+        $this->variationThemeService = $variationThemeService;
+        $this->browseNodeCategoryUsageStorage = $browseNodeCategoryUsageStorage;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -58,7 +69,7 @@ class Service implements
         return [
             'categories' => $this->categoryService->fetchRootCategoriesForAccount(
                 $account,
-                true,
+                null,
                 $this->getMarketplaceForAccount($account),
                 false
             )
@@ -85,71 +96,129 @@ class Service implements
 
     public function getCategoryDependentValues(?Account $account, int $categoryId): array
     {
-        $categoryData = $this->fetchAmazonSpecificCategoryData($categoryId);
         $marketplace = $this->getMarketplaceForAccount($account);
 
         return [
-            'itemSpecifics' => $this->getItemSpecifics($categoryData),
+            'amazonCategories' => $this->getAmazonCategoryOptions($categoryId),
             'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace, false),
-            'variationThemes' => $this->getVariationThemes($categoryData),
         ];
+    }
+
+    protected function getAmazonCategoryOptions(int $cgCategoryId): array
+    {
+        $options = $this->fetchAmazonCategoryOptions();
+        $highUsageOptions = $this->extractHighUsageAmazonCategoryOptions($options, $cgCategoryId);
+        $options = $this->sortAmazonCategoryOptionsAlphabetically($options);
+
+        return [
+            'priorityOptions' => $this->formatAmazonCategoryOptions($highUsageOptions),
+            'options' => $this->formatAmazonCategoryOptions($options),
+        ];
+    }
+
+    protected function fetchAmazonCategoryOptions(): array
+    {
+        try {
+            $filter = new AmazonCategoryFilter('all', 1);
+            $amazonCategories = $this->amazonCategoryService->fetchCollectionByFilter($filter);
+            $options = [];
+            /** @var AmazonCategory $amazonCategory */
+            foreach ($amazonCategories as $amazonCategory) {
+                $options[$amazonCategory->getId()] = $amazonCategory->getName();
+            }
+            return $options;
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function sortAmazonCategoryOptionsAlphabetically(array $options): array
+    {
+        asort($options);
+        return $options;
+    }
+
+    protected function extractHighUsageAmazonCategoryOptions(array &$options, int $cgCategoryId): array
+    {
+        $cgCategory = $this->categoryService->fetch($cgCategoryId);
+        $browseNodeId = $cgCategory->getExternalId();
+        $usage = $this->browseNodeCategoryUsageStorage->getForBrowseNode($browseNodeId);
+        if (empty($usage)) {
+            return [];
+        }
+        $usedOptions = [];
+        foreach ($usage as $amazonCategoryId) {
+            if (!isset($options[$amazonCategoryId])) {
+                continue;
+            }
+            $usedOptions[$amazonCategoryId] = $options[$amazonCategoryId];
+            unset($options[$amazonCategoryId]);
+        }
+        return $usedOptions;
+    }
+
+    protected function formatAmazonCategoryOptions(array $options): array
+    {
+        return array_map(function ($id, $name) {
+            return [
+                'name' => $name,
+                'value' => $id,
+            ];
+        }, array_keys($options), $options);
     }
 
     public function formatExternalChannelData(array $data, string $processGuid): array
     {
         $externalData = [];
-        foreach (array_values($data['bulletPoint']) as $key => $value) {
+        foreach (array_values($data['bulletPoint'] ?? []) as $key => $value) {
             $externalData['bulletPoint'.++$key] = $value;
         }
-        foreach (array_values($data['searchTerm']) as $key => $value) {
+        foreach (array_values($data['searchTerm'] ?? []) as $key => $value) {
             $externalData['searchTerm'.++$key] = $value;
         }
         return array_merge($data, $externalData);
     }
 
-    protected function getItemSpecifics(?AmazonCategoryExternalData $categoryData): array
+    public function getAmazonCategoryDependentValues(Account $account, int $amazonCategoryId): array
     {
-        if (!$categoryData) {
-            return [];
-        }
-        $itemSpecifics = $categoryData->getAttributes();
+        $amazonCategory = $this->amazonCategoryService->fetch($amazonCategoryId);
+        $marketplace = $this->getMarketplaceForAccount($account);
+
+        return [
+            'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
+            'variationThemes' => $this->getVariationThemes($amazonCategory, $marketplace),
+        ];
+    }
+
+    protected function getItemSpecifics(AmazonCategory $amazonCategory): array
+    {
+        $itemSpecifics = $amazonCategory->getAttributes();
         return $this->filterItemSpecifics($itemSpecifics);
     }
 
-    protected function getVariationThemes(?AmazonCategoryExternalData $categoryData = null): array
+    protected function getVariationThemes(AmazonCategory $amazonCategory, string $marketplace): array
     {
-        if (!$categoryData || !$categoryData->getVariationThemes()) {
+        try {
+            $variationThemes = $this->variationThemeService->fetchCollectionByCategoryIdAndMarketplaces($amazonCategory->getId(), [$marketplace]);
+        } catch (NotFound $e) {
             return [];
         }
 
-        $variationThemes = [];
-        foreach ($categoryData->getVariationThemes() as $variationTheme) {
-            $variationThemes[] = [
-                'name' => $variationTheme['name'],
+        $variationThemesOptions = [];
+        /** @var VariationTheme $variationTheme */
+        foreach ($variationThemes as $variationTheme) {
+            $variationThemesOptions[] = [
+                'name' => $variationTheme->getName(),
+                'attributes' => $variationTheme->getAttributes(),
                 'validValues' => array_map(function($key, $options){
                     return [
                         'name' => $key,
                         'options' => array_combine($options, $options)
                     ];
-                }, array_keys($variationTheme['validValues']), $variationTheme['validValues'])
+                }, array_keys($variationTheme->getValidValues()), $variationTheme->getValidValues())
             ];
         }
-        return $variationThemes;
-    }
-
-    protected function fetchAmazonSpecificCategoryData(int $categoryId): ?AmazonCategoryExternalData
-    {
-        try {
-            /** @var CategoryExternalData $categoryExternal */
-            $categoryExternal = $this->categoryExternalService->fetch($categoryId);
-            $data = $categoryExternal->getData();
-            if (!$data instanceof AmazonCategoryExternalData) {
-                throw new NotFound('The given category ' . $categoryId . ' doesn\'t belong to Amazon');
-            }
-            return $data;
-        } catch (NotFound $e) {
-            return null;
-        }
+        return $variationThemesOptions;
     }
 
     protected function filterItemSpecifics(array $itemSpecifics): array

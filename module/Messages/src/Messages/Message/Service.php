@@ -4,28 +4,38 @@ namespace Messages\Message;
 use CG\Communication\Message\Mapper as MessageMapper;
 use CG\Communication\Message\ReplyFactory as MessageReplyFactory;
 use CG\Communication\Message\Service as MessageService;
+use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Service as ThreadService;
-use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\DateTime as StdlibDateTime;
-use CG_UI\View\Helper\DateFormat;
+use CG\Template\Element\SimpleString as SimpleStringElement;
+use CG\Template\ReplaceManager\MessageContent as TagReplacer;
 use CG\User\OrganisationUnit\Service as UserOuService;
-use Messages\Message\FormatMessageDataTrait;
+use CG_UI\View\Helper\DateFormat;
 
 class Service
 {
     use FormatMessageDataTrait;
 
-    const EVENT_REPLY_SENT = 'Message Reply Sent';
+    protected const EVENT_REPLY_SENT = 'Message Reply Sent';
 
+    /** @var MessageService */
     protected $messageService;
+    /** @var MessageMapper */
     protected $messageMapper;
+    /** @var ThreadService */
     protected $threadService;
+    /** @var UserOuService */
     protected $userOuService;
+    /** @var MessageReplyFactory */
     protected $messageReplyFactory;
+    /** @var IntercomEventService */
     protected $intercomEventService;
+    /** @var DateFormat */
     protected $dateFormatter;
+    /** @var TagReplacer */
+    protected $tagReplacer;
 
     public function __construct(
         MessageService $messageService,
@@ -34,25 +44,28 @@ class Service
         UserOuService $userOuService,
         MessageReplyFactory $messageReplyFactory,
         IntercomEventService $intercomEventService,
-        DateFormat $dateFormatter
+        DateFormat $dateFormatter,
+        TagReplacer $tagReplacer
     ) {
-        $this->setMessageService($messageService)
-            ->setMessageMapper($messageMapper)
-            ->setThreadService($threadService)
-            ->setUserOuService($userOuService)
-            ->setMessageReplyFactory($messageReplyFactory)
-            ->setIntercomEventService($intercomEventService)
-            ->setDateFormatter($dateFormatter);
+        $this->messageService = $messageService;
+        $this->messageMapper = $messageMapper;
+        $this->threadService = $threadService;
+        $this->userOuService = $userOuService;
+        $this->messageReplyFactory = $messageReplyFactory;
+        $this->intercomEventService = $intercomEventService;
+        $this->dateFormatter = $dateFormatter;
+        $this->tagReplacer = $tagReplacer;
     }
 
-    public function createMessageForThreadForActiveUser($threadId, $body)
+    public function createMessageForThreadForActiveUser($threadId, $body): array
     {
+        /** @var Thread $thread */
         $thread = $this->threadService->fetch($threadId);
         $user = $this->userOuService->getActiveUser();
         $data = [
             'id' => 'TEMP', // Required by the mapper but will be replaced by the reply factory
             'threadId' => $threadId,
-            'body' => $body,
+            'body' => $this->performTagReplacementsOnMessageBody($body, $thread),
             'created' => (new StdlibDateTime())->stdFormat(),
             'organisationUnitId' => $thread->getOrganisationUnitId(),
             'accountId' => $thread->getAccountId(),
@@ -66,53 +79,18 @@ class Service
         return $this->formatMessageData($message, $thread);
     }
 
-    protected function notifyOfReply()
+    protected function performTagReplacementsOnMessageBody(string $body, Thread $thread): string
+    {
+        $element = new SimpleStringElement($body);
+        $element = $this->tagReplacer->replaceTagsOnElementForThread($element, $thread);
+        return $element->getReplacedText();
+    }
+
+    protected function notifyOfReply(): void
     {
         $user = $this->userOuService->getActiveUser();
         $event = new IntercomEvent(static::EVENT_REPLY_SENT, $user->getId());
         $this->intercomEventService->save($event);
-    }
-
-    protected function setMessageService(MessageService $messageService)
-    {
-        $this->messageService = $messageService;
-        return $this;
-    }
-
-    protected function setMessageMapper(MessageMapper $messageMapper)
-    {
-        $this->messageMapper = $messageMapper;
-        return $this;
-    }
-
-    protected function setThreadService(ThreadService $threadService)
-    {
-        $this->threadService = $threadService;
-        return $this;
-    }
-
-    protected function setUserOuService(UserOuService $userOuService)
-    {
-        $this->userOuService = $userOuService;
-        return $this;
-    }
-
-    protected function setMessageReplyFactory(MessageReplyFactory $messageReplyFactory)
-    {
-        $this->messageReplyFactory = $messageReplyFactory;
-        return $this;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    protected function setDateFormatter(DateFormat $dateFormatter)
-    {
-        $this->dateFormatter = $dateFormatter;
-        return $this;
     }
 
     // Required by FormatMessageDataTrait
