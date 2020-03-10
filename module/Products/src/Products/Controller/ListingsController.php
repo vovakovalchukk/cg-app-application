@@ -3,11 +3,13 @@ namespace Products\Controller;
 
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG_Access\Service as AccessService;
+use CG\UsageCheck\Exception\Exceeded as UsageExceeded;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG_Usage\Exception\Exceeded;
 use Products\Listing\BulkActions\Service as BulkActionsService;
 use Products\Listing\Filter\Service as FilterService;
 use Products\Listing\Service as ListingService;
@@ -28,8 +30,8 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected $listingList;
     protected $filterService;
     protected $uiFiltersService;
-    /** @var AccessService */
-    protected $accessService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -38,7 +40,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
         DataTable $listingList,
         FilterService $filterService,
         UIFiltersService $uiFiltersService,
-        AccessService $accessService
+        AccessUsageExceededService $accessUsageExceededService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setListingService($listingService)
@@ -46,7 +48,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
             ->setListingList($listingList)
             ->setFilterService($filterService)
             ->setUIFiltersService($uiFiltersService);
-        $this->accessService = $accessService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     public function indexAction()
@@ -71,23 +73,30 @@ class ListingsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActionsForUsage(BulkActions $bulkActions)
     {
-        if ($this->accessService->isReadOnly()) {
-            return $this;
-        }
-        $actions = $bulkActions->getActions();
-        foreach ($actions as $action) {
-            $action->setEnabled(false);
+        try {
+            $this->accessUsageExceededService->checkUsage();
+        } catch (UsageExceeded $e) {
+            $actions = $bulkActions->getActions();
+            foreach ($actions as $action) {
+                $action->setEnabled(false);
+            }
         }
         return $this;
     }
 
     protected function getRefreshButtonView()
     {
+        try {
+            $this->accessUsageExceededService->checkUsage();
+            $disabled = false;
+        } catch (UsageExceeded $e) {
+            $disabled = true;
+        }
         $refresh = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
             'value' => 'Download listings',
             'id' => 'refresh-button',
-            'disabled' => $this->accessService->isReadOnly(),
+            'disabled' => $disabled,
             'icon' => 'sprite-refresh-14-black'
         ]);
         $refresh->setTemplate('elements/buttons.mustache');

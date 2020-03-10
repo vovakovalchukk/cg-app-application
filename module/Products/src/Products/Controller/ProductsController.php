@@ -16,8 +16,9 @@ use CG\Product\Client\Service as ProductClientService;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\UsageCheck\Exception\Exceeded as UsageExceeded;
 use CG\User\ActiveUserInterface;
-use CG_Access\Service as AccessService;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\BulkActions as BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -77,8 +78,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $pickListService;
     /** @var ListingChannelService */
     protected $listingChannelService;
-    /** @var AccessService */
-    protected $accessService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
     /** @var SupplierService */
     protected $supplierService;
 
@@ -98,7 +99,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         PickListService $pickListService,
         ListingTemplateService $listingTemplateService,
         ListingChannelService $listingChannelService,
-        AccessService $accessService,
+        AccessUsageExceededService $accessUsageExceededService,
         SupplierService $supplierService
     ) {
         $this->viewModelFactory = $viewModelFactory;
@@ -116,7 +117,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->pickListService = $pickListService;
         $this->listingTemplateService = $listingTemplateService;
         $this->listingChannelService = $listingChannelService;
-        $this->accessService = $accessService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
         $this->supplierService = $supplierService;
     }
 
@@ -249,12 +250,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActionsForUsage(BulkActions $bulkActions)
     {
-        if ($this->accessService->isReadOnly()) {
-            return $this;
-        }
-        $actions = $bulkActions->getActions();
-        foreach($actions as $action) {
-            $action->setEnabled(false);
+        try {
+            $this->accessUsageExceededService->checkUsage();
+        } catch (UsageExceeded $e) {
+            $actions = $bulkActions->getActions();
+            foreach ($actions as $action) {
+                $action->setEnabled(false);
+            }
         }
         return $this;
     }
