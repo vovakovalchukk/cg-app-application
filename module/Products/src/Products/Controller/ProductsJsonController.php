@@ -679,6 +679,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function linkCsvExportAction()
     {
+        $this->checkUsage();
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         $userName = $this->activeUser->getActiveUser()->getUsername();
         $this->productLinkCsvService->generateExportProductLinksJob($rootOuId, $userName);
