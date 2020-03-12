@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c67b0004cd01d0d00729744b3ffdc6af",
+    "content-hash": "5d1a1a70f2784b14a0f79e72ff32e312",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.18.0",
+            "version": "1.18.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "39656c0c806cf94379ce99166283366c15817cb4"
+                "reference": "a27698a636111f669c132d1d390a6048d1e101f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.18.0-3e8eec.zip",
-                "reference": "39656c0c806cf94379ce99166283366c15817cb4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.18.1-b1f7d7.zip",
+                "reference": "a27698a636111f669c132d1d390a6048d1e101f4"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3620,7 +3620,7 @@
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.13.1",
-                "channelgrabber/transaction": ">=1.1.3, <2.0.0",
+                "channelgrabber/transaction": ">=1.3.0,<2.0.0",
                 "nocarrier/hal": "~0.9.4",
                 "php": ">= 7.1"
             },
@@ -3645,7 +3645,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-02-11T11:38:20+00:00"
+            "time": "2020-03-09T14:05:13+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
