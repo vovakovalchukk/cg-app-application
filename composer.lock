@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "672797b02abfd11aad752528f1f99dc0",
+    "content-hash": "c67b0004cd01d0d00729744b3ffdc6af",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2435,16 +2435,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.50.1",
+            "version": "dev-CGIV-11199-vat-calculation-ignores-order-discounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d93e7830db21e9d2063b65191e53d4be054b9983"
+                "reference": "853b968b9b99ec9bccbe3e2c360122f334d5f3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.50.1-82fe99.zip",
-                "reference": "d93e7830db21e9d2063b65191e53d4be054b9983"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11199-vat-calculation-ignores-order-discounts-9d7526.zip",
+                "reference": "853b968b9b99ec9bccbe3e2c360122f334d5f3fa"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2453,7 +2453,6 @@
                 "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/courieradapter": "^1.6.0",
                 "channelgrabber/db": "^1.0.9",
                 "channelgrabber/di": "^2.2.0",
@@ -2482,7 +2481,7 @@
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
-                "channelgrabber/transaction": "^1.2.1",
+                "channelgrabber/transaction": "^1.3.0",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -2516,7 +2515,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-03-05T09:42:48+00:00"
+            "time": "2020-03-12T15:20:43+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3857,22 +3856,23 @@
         },
         {
             "name": "channelgrabber/transaction",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-transaction.git",
-                "reference": "d8e8d7bed8664e959a4138ac2db30ad66f0266ad"
+                "reference": "8de213f1e3550e81d390908cb2d585f2013fe865"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/transaction/channelgrabber-transaction-1.2.1-a88fc1.zip",
-                "reference": "d8e8d7bed8664e959a4138ac2db30ad66f0266ad"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/transaction/channelgrabber-transaction-1.3.0-c6a592.zip",
+                "reference": "8de213f1e3550e81d390908cb2d585f2013fe865"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/stdlib": "^2.10.4",
-                "composer/composer": "@dev"
+                "composer/composer": "@dev",
+                "php": ">=7.1"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "dev-develop",
@@ -3889,7 +3889,7 @@
                     "CG\\Transaction\\": "src"
                 }
             },
-            "time": "2016-02-05T13:27:34+00:00"
+            "time": "2020-03-09T13:47:49+00:00"
         },
         {
             "name": "channelgrabber/usage",
@@ -8444,6 +8444,7 @@
                 "fpdi",
                 "pdf"
             ],
+            "abandoned": true,
             "time": "2017-10-12T14:26:38+00:00"
         },
         {
@@ -11969,10 +11970,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.51.1",
+            "alias_normalized": "1.51.1.0",
+            "version": "dev-CGIV-11199-vat-calculation-ignores-order-discounts",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
