@@ -98,7 +98,7 @@
         "channelgrabber/walmart": "~1.1.1",
         "channelgrabber/woocommerce": "~1.6.1",
         "channelgrabber/zendesk": "~1.0.0",
-        "channelgrabber/zf2-access": "~1.0.2",
+        "channelgrabber/zf2-access": "dev-CGIV-11308-read-only-hotfix as 1.1.0",
         "channelgrabber/zf2-amazon": "~1.1.6",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-billing": "~1.2.10",
