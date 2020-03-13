@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -374,16 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.33.9",
+            "version": "1.33.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "479536b404d274cdf5327d865651d2cb174c371a"
+                "reference": "81a1fddf90e6268e4fd8cb78f53cda72a562c532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.9-213b3c.zip",
-                "reference": "479536b404d274cdf5327d865651d2cb174c371a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.33.10-dc4256.zip",
+                "reference": "81a1fddf90e6268e4fd8cb78f53cda72a562c532"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-03-03T14:56:04+00:00"
+            "time": "2020-03-05T14:59:26+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -4323,16 +4323,16 @@
         },
         {
             "name": "channelgrabber/zf2-access",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/access-module.git",
-                "reference": "9386a3ae34b213c78931dac4e11042b36135a8b9"
+                "reference": "60b272af6ffa4e12974f4486ecacaf7b3c9e8112"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.0.2-1053a5.zip",
-                "reference": "9386a3ae34b213c78931dac4e11042b36135a8b9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-access/channelgrabber-zf2-access-1.1.0-b48f08.zip",
+                "reference": "60b272af6ffa4e12974f4486ecacaf7b3c9e8112"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -4369,7 +4369,7 @@
                     "CG_Access\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-03-12T11:39:54+00:00"
+            "time": "2020-03-13T10:18:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-amazon",
