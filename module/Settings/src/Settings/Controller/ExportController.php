@@ -10,10 +10,9 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\Entity as User;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
 use Orders\Order\Csv\Fields\Orders as OrdersFields;
 use Orders\Order\Csv\Fields\OrdersItems as OrdersItemsFields;
 use Orders\Order\Csv\Service as OrderCsvService;
@@ -40,8 +39,6 @@ class ExportController extends AdvancedController
     protected $userOUService;
     /** @var OrderCsvService $orderCsvService */
     protected $orderCsvService;
-    /** @var UsageService */
-    protected $usageService;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
     /** @var ProductCsvService */
@@ -50,25 +47,27 @@ class ExportController extends AdvancedController
     protected $featureFlagsService;
     /** @var AccountService */
     protected $accountService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         UserOUService $userOUService,
         OrderCsvService $orderCsvService,
-        UsageService $usageService,
         JsonModelFactory $jsonModelFactory,
         ProductCsvService $productCsvService,
         FeatureFlagsService $featureFlagsService,
-        AccountService $accountService
+        AccountService $accountService,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->userOUService = $userOUService;
         $this->orderCsvService = $orderCsvService;
-        $this->usageService = $usageService;
         $this->jsonModelFactory = $jsonModelFactory;
         $this->productCsvService = $productCsvService;
         $this->featureFlagsService = $featureFlagsService;
         $this->accountService = $accountService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     public function exportAction()
@@ -174,9 +173,7 @@ class ExportController extends AdvancedController
 
     public function exportCheckAction()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->accessUsageExceededService->checkUsage();
 
         $guid = uniqid('', true);
         $this->orderCsvService->startProgress($guid);

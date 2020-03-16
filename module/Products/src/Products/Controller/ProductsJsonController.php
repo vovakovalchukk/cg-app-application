@@ -28,9 +28,8 @@ use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
 use Products\Product\Importer as ProductImporter;
@@ -96,8 +95,6 @@ class ProductsJsonController extends AbstractActionController
     protected $productLinkCsvService;
     /** @var StockSettingsService */
     protected $stockSettingsService;
-    /** @var UsageService */
-    protected $usageService;
     /** @var LocationService */
     protected $locationService;
     /** @var StockLocationService */
@@ -114,6 +111,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productCreator;
     /** @var ProductImporter */
     protected $productImporter;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
     /** @var SupplierService */
     protected $supplierService;
 
@@ -128,7 +127,6 @@ class ProductsJsonController extends AbstractActionController
         StockCsvService $stockCsvService,
         ProductLinkCsvService $productLinkCsvService,
         StockSettingsService $stockSettingsService,
-        UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
         ActiveUserInterface $activeUser,
@@ -137,6 +135,7 @@ class ProductsJsonController extends AbstractActionController
         ImageUploader $imageUploader,
         ProductCreator $productCreator,
         ProductImporter $productImporter,
+        AccessUsageExceededService $accessUsageExceededService,
         SupplierService $supplierService
     ) {
         $this->productService = $productService;
@@ -149,7 +148,6 @@ class ProductsJsonController extends AbstractActionController
         $this->stockCsvService = $stockCsvService;
         $this->productLinkCsvService = $productLinkCsvService;
         $this->stockSettingsService = $stockSettingsService;
-        $this->usageService = $usageService;
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
         $this->activeUser = $activeUser;
@@ -158,6 +156,7 @@ class ProductsJsonController extends AbstractActionController
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
         $this->productImporter = $productImporter;
+        $this->accessUsageExceededService = $accessUsageExceededService;
         $this->supplierService = $supplierService;
     }
 
@@ -680,6 +679,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function linkCsvExportAction()
     {
+        $this->checkUsage();
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         $userName = $this->activeUser->getActiveUser()->getUsername();
         $this->productLinkCsvService->generateExportProductLinksJob($rootOuId, $userName);
@@ -849,8 +849,6 @@ class ProductsJsonController extends AbstractActionController
 
     protected function checkUsage()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->accessUsageExceededService->checkUsage();
     }
 }

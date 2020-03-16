@@ -2,10 +2,10 @@
 namespace Orders\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Client\Invoice\Email\Address as InvoiceEmailAddress;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
-use CG\Order\Client\Invoice\Email\Address as InvoiceEmailAddress;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -16,9 +16,8 @@ use CG\Template\Filter as TemplateFilter;
 use CG\Template\Service as TemplateService;
 use CG\Template\Type as TemplateType;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
@@ -34,6 +33,7 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+
 use function CG\Stdlib\mergePdfData;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
@@ -62,8 +62,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $csvService;
     /** @var BatchService $batchService */
     protected $batchService;
-    /** @var UsageService $usageService */
-    protected $usageService;
     /** @var OrdersToOperateOn $ordersToOperatorOn */
     protected $ordersToOperatorOn;
     /** @var TimelineService $timelineService */
@@ -74,6 +72,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $invoiceSettingsService;
     /** @var InvoiceEmailAddress $invoiceEmailAddress */
     protected $invoiceEmailAddress;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
     /** @var TemplateService */
     protected $templateService;
 
@@ -90,12 +90,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         PickListService $pickListService,
         CsvService $csvService,
         BatchService $batchService,
-        UsageService $usageService,
         OrdersToOperateOn $ordersToOperatorOn,
         TimelineService $timelineService,
         BulkActionsService $bulkActionService,
         InvoiceSettingsService $invoiceSettingsService,
         InvoiceEmailAddress $invoiceEmailAddress,
+        AccessUsageExceededService $accessUsageExceededService,
         TemplateService $templateService
     ) {
         $this
@@ -105,12 +105,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setPickListService($pickListService)
             ->setCsvService($csvService)
             ->setBatchService($batchService)
-            ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->invoiceEmailAddress = $invoiceEmailAddress;
         $this->bulkActionService = $bulkActionService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
         $this->templateService = $templateService;
     }
 
@@ -200,17 +200,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function getBatchService()
     {
         return $this->batchService;
-    }
-
-    protected function getUsageService()
-    {
-        return $this->usageService;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 
     /**
@@ -878,9 +867,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function checkUsage()
     {
-        if ($this->getUsageService()->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->accessUsageExceededService->checkUsage();
     }
 
     public function saveFilterAction()

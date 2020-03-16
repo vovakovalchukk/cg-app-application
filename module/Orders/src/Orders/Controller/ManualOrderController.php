@@ -1,10 +1,9 @@
 <?php
 namespace Orders\Controller;
 
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
 use Orders\ManualOrder\Service;
 use Orders\Order\Service as OrderService;
 use CG\OrganisationUnit\Service as OuService;
@@ -21,8 +20,6 @@ class ManualOrderController extends AbstractActionController
     protected $viewModelFactory;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
-    /** @var UsageService */
-    protected $usageService;
     /** @var Service */
     protected $service;
     /** @var OuService */
@@ -31,31 +28,30 @@ class ManualOrderController extends AbstractActionController
     protected $orderService;
     /** @var ActiveUserContainer */
     protected $activeUserContainer;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
-        UsageService $usageService,
         Service $service,
         OuService $ouService,
         ActiveUserContainer $activeUserContainer,
-        OrderService $orderService
+        OrderService $orderService,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setUsageService($usageService)
             ->setService($service)
             ->setOuService($ouService)
             ->setActiveUserContainer($activeUserContainer)
             ->setOrderService($orderService);
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     public function indexAction()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
-
+        $this->accessUsageExceededService->checkUsage();
         $currenciesList = $this->service->getCurrencyOptions();
         $tradingCompanies = $this->getTradingCompanyOptions();
         $carrierDropdownOptions = $this->getCarrierDropdownOptions();
@@ -194,12 +190,6 @@ class ManualOrderController extends AbstractActionController
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
         return $this;
     }
 
