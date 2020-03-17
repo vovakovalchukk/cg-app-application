@@ -73,13 +73,16 @@ let stateUtility = function() {
             return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
         },
         getOnHandStock: function(rowData) {
-            return (rowData.stock ? rowData.stock.locations[0].onHand : '');
+            return stateUtility().hasStockData(rowData) ? rowData.stock.locations[0].onHand : '';
         },
         getAllocatedStock: function(rowData) {
-            return (rowData.stock ? rowData.stock.locations[0].allocated : '');
+            return stateUtility().hasStockData(rowData) ? rowData.stock.locations[0].allocated : '';
         },
         getOnPurchaseOrderStock: function(rowData) {
-            return (rowData.stock ? rowData.stock.locations[0].onPurchaseOrder : '');
+            return stateUtility().hasStockData(rowData) ? rowData.stock.locations[0].onPurchaseOrder : '';
+        },
+        hasStockData: function(rowData) {
+            return rowData.stock && rowData.stock.locations[0];
         },
         getProductIdFromSku(products, sku) {
             return products.find((product) => {

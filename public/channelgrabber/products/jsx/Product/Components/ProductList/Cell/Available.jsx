@@ -24,8 +24,8 @@ class AvailableCell extends React.Component {
 
         const isParentProduct = stateUtility.isParentProduct(rowData);
 
-        if (isParentProduct) {
-            return <span></span>
+        if (isParentProduct || !stateUtility.hasStockData(rowData)) {
+            return <span/>;
         }
 
         let availableValue = stateUtility.getCellData(

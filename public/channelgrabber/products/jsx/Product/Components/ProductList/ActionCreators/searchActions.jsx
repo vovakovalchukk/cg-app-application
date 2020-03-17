@@ -1,4 +1,4 @@
-import productActions from 'Product/Components/ProductList/ActionCreators/productActions'
+import productActions from 'Product/Components/ProductList/ActionCreators/productActions';
 
 "use strict";
 
@@ -16,9 +16,8 @@ let searchActions = (function() {
             return async function(dispatch, getState) {
                 const state = getState();
                 dispatch(setProductSearchTerm(searchTerm));
-                let currentPageNumber = getState.customGetters.getCurrentPageNumber(state);
                 try {
-                    await dispatch(productActions.getProducts(currentPageNumber));
+                    await dispatch(productActions.getProducts());
                 } catch (err) {
                     console.error(err);
                 }
