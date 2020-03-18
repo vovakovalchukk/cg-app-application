@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d1a1a70f2784b14a0f79e72ff32e312",
+    "content-hash": "f13642da5b59be82fe5577178ee54bb5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -2435,16 +2435,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11199-vat-calculation-ignores-order-discounts",
+            "version": "1.51.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "853b968b9b99ec9bccbe3e2c360122f334d5f3fa"
+                "reference": "9c794ff07c4cb42f1bd9c77c57bb63685741e3c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11199-vat-calculation-ignores-order-discounts-9d7526.zip",
-                "reference": "853b968b9b99ec9bccbe3e2c360122f334d5f3fa"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.51.1-390439.zip",
+                "reference": "9c794ff07c4cb42f1bd9c77c57bb63685741e3c6"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2515,7 +2515,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-03-12T15:20:43+00:00"
+            "time": "2020-03-18T11:45:48+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11969,18 +11969,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.51.1",
-            "alias_normalized": "1.51.1.0",
-            "version": "dev-CGIV-11199-vat-calculation-ignores-order-discounts",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
