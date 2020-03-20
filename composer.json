@@ -25,7 +25,7 @@
         "channelgrabber/bigcommerce": "~1.4.1",
         "channelgrabber/billing": "~1.20.16",
         "channelgrabber/cache": "~2.6.2",
-        "channelgrabber/cglib": "dev-TAC-504-skip-subscription-and-pricing-scheme-new-billing as 1.17.1",
+        "channelgrabber/cglib": "~1.17.1",
         "channelgrabber/channel": "~1.43.16",
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
