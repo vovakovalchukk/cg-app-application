@@ -71,6 +71,7 @@ class AmazonCategoryFormComponent extends React.Component {
             <div className={'u-defloat u-display-flex'}>
                 <label className="inputbox-label u-font-large">{field.displayTitle}</label>
                 <Select
+                    filterable={true}
                     autoSelectFirst={false}
                     options={field.options}
                     selectedOption={selected}

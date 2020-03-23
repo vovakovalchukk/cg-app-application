@@ -14,13 +14,13 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\PageLimit;
+use CG\UsageCheck\Exception\Exceeded as UsageExceeded;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\BulkActions as BulkActionsViewModel;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\OrdersTable as OrdersTableHelper;
 use Orders\Filter\DisplayFilter;
@@ -33,12 +33,11 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
+use Settings\Invoice\Settings as InvoiceSettings;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
 
 // todo - likely will need to be removed during TAC-450
-use Settings\Invoice\Settings as InvoiceSettings;
-use CG\Zend\Stdlib\Http\FileResponse as Response;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -51,8 +50,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
     const FILTER_TYPE = "orders";
 
-    /** @var UsageService $usageService */
-    protected $usageService;
+    /** @var AccessUsageExceededService $accessUsageExceededService */
+    protected $accessUsageExceededService;
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -93,7 +92,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $partialRefundService;
 
     public function __construct(
-        UsageService $usageService,
+        AccessUsageExceededService $accessUsageExceededService,
         CourierHelper $courierHelper,
         OrderService $orderService,
         FilterService $filterService,
@@ -115,7 +114,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         PartialRefundService $partialRefundService
     ) {
         $this->currencyFormat = $currencyFormat;
-        $this->usageService = $usageService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
         $this->courierHelper = $courierHelper;
         $this->orderService = $orderService;
         $this->filterService = $filterService;
@@ -240,7 +239,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function amendBulkActionsForUsage(BulkActionsViewModel $bulkActionsViewModel)
     {
         try {
-            $this->usageService->checkUsage();
+            $this->accessUsageExceededService->checkUsage();
         } catch (UsageExceeded $exception) {
             $actions = $bulkActionsViewModel->getActions();
             foreach ($actions as $action) {

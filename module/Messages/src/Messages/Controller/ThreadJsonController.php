@@ -1,10 +1,9 @@
 <?php
 namespace Messages\Controller;
 
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Service as UsageService;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use Messages\Thread\Service;
+use Messages\Thread\Service as ThreadService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -21,19 +20,19 @@ class ThreadJsonController extends AbstractActionController
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
-    /** @var Service $service */
-    protected $service;
-    /** @var UsageService */
-    protected $usageService;
+    /** @var ThreadService $threadService */
+    protected $threadService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        Service $service,
-        UsageService $usageService
+        ThreadService $threadService,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service)
-            ->setUsageService($usageService);
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->threadService = $threadService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     public function ajaxAction()
@@ -47,7 +46,7 @@ class ThreadJsonController extends AbstractActionController
         $page = $this->params()->fromPost('page');
         $sortDescending = filter_var($this->params()->fromPost('sortDescending', true), FILTER_VALIDATE_BOOLEAN);
 
-        $threadsData = $this->service->fetchThreadDataForFilters($filters, $page, $sortDescending);
+        $threadsData = $this->threadService->fetchThreadDataForFilters($filters, $page, $sortDescending);
 
         return $view->setVariable('threads', $threadsData);
     }
@@ -61,15 +60,14 @@ class ThreadJsonController extends AbstractActionController
             throw new \InvalidArgumentException(__METHOD__ . ' requires an id in the POST data');
         }
 
-        $threadData = $this->service->fetchThreadDataForId($id);
+        $threadData = $this->threadService->fetchThreadDataForId($id);
 
         return $view->setVariable('thread', $threadData);
     }
 
     public function saveAction()
     {
-        $this->checkUsage();
-
+        $this->accessUsageExceededService->checkUsage();
         /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $id = $this->params()->fromPost('id');
@@ -79,7 +77,7 @@ class ThreadJsonController extends AbstractActionController
         $assignedUserId = $this->params()->fromPost('assignedUserId', false);
         $status = $this->params()->fromPost('status', null);
 
-        $threadData = $this->service->updateThreadAndReturnData($id, $assignedUserId, $status);
+        $threadData = $this->threadService->updateThreadAndReturnData($id, $assignedUserId, $status);
 
         return $view->setVariable('thread', $threadData);
     }
@@ -92,34 +90,9 @@ class ThreadJsonController extends AbstractActionController
 
         $threadId = $this->params('threadId');
         if ($threadId) {
-            $counts['orders'] = $this->service->getOrderCountForId($threadId);
+            $counts['orders'] = $this->threadService->getOrderCountForId($threadId);
         }
 
         return $this->jsonModelFactory->newInstance(['counts' => $counts]);
-    }
-
-    protected function checkUsage()
-    {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 }
