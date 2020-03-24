@@ -265,6 +265,30 @@
     }
 }
 
+.custom-select.order-courier-select {
+    min-width: 0;
+    width: 90px;
+    margin-bottom: 2px;
+
+    .selected {
+        padding: 3px 5px 3px 5px;
+
+        span.sprite-arrow-down-10-black {
+            right: 4px;
+            top: 7px;
+        }
+    }
+}
+
+.order-tracking-number {
+    width: 82px;
+    padding: 3px;
+    font-size: 12px;
+}
+.order-tracking-number::placeholder {
+    font-size: 11px;
+}
+
 .bold {
     font-weight: 600;
 }
