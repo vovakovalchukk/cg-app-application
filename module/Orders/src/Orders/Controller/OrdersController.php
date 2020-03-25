@@ -186,7 +186,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
         $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions());
-
         return $view;
     }
 

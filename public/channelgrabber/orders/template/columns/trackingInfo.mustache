@@ -3,3 +3,13 @@
     {{#trackingUrl}}<a href="{{.}}" title="Track item {{number}}" target="_blank">{{number}}</a>{{/trackingUrl}}
     {{^trackingUrl}}<span title="{{number}}">{{number}}</span>{{/trackingUrl}}
 {{/trackings}}
+{{^trackings}}
+    {{#addTrackingInfo}}
+        {{#courierSelect}}
+            {{> customSelect }}
+        {{/courierSelect}}
+        {{#trackingNumberInput}}
+            {{> text }}
+        {{/trackingNumberInput}}
+    {{/addTrackingInfo}}
+{{/trackings}}

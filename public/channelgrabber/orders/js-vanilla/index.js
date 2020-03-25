@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
-import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
+import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction';
+import handleOrderTrackingSave from "Orders/js/Courier/OrderTracking";
 
 const ordersIndex = (function ordersIndex() {
     return {
@@ -14,6 +15,7 @@ const ordersIndex = (function ordersIndex() {
             renderGiftMessageTemplate();
             setupDataTableListeners();
             renderBulkTemplateExport(pdfExportOptions);
+            handleOrderTrackingSave();
         }
     };
 
