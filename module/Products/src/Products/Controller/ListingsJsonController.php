@@ -3,23 +3,21 @@ namespace Products\Controller;
 
 use CG\Channel\Listing\CreationService;
 use CG\Channel\Listing\CreationService\Status as CreationStatus;
+use CG\FeatureFlags\Service as FeatureFlagService;
+use CG\Listing\Unimported\Collection as UnimportedListingCollection;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\PageLimit;
+use CG\User\ActiveUserInterface;
+use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG_Usage\Service as UsageService;
 use Products\Listing\Filter\Service as FilterService;
 use Products\Listing\Service as ListingService;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Listing\Unimported\Collection as UnimportedListingCollection;
-use CG\Listing\Unimported\Entity as UnimportedListingEntity;
-use CG\User\ActiveUserInterface;
-use CG\FeatureFlags\Service as FeatureFlagService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class ListingsJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -44,8 +42,6 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     protected $listingMapper;
     /** @var FilterService */
     protected $filterService;
-    /** @var UsageService */
-    protected $usageService;
     /** @var CreationService */
     protected $creationService;
     /** @var ActiveUserInterface */
@@ -54,6 +50,8 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     protected $featureFlagService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var AccessUsageExceededService */
+    protected $accessUsageExceededService;
 
     public function __construct(
         ListingService $listingService,
@@ -61,22 +59,22 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         FilterMapper $filterMapper,
         ListingMapper $listingMapper,
         FilterService $filterService,
-        UsageService $usageService,
         CreationService $creationService,
         ActiveUserInterface $activeUserContainer,
         FeatureFlagService $featureFlagService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        AccessUsageExceededService $accessUsageExceededService
     ) {
         $this->listingService = $listingService;
         $this->jsonModelFactory = $jsonModelFactory;
         $this->filterMapper = $filterMapper;
         $this->listingMapper = $listingMapper;
         $this->filterService = $filterService;
-        $this->usageService = $usageService;
         $this->creationService = $creationService;
         $this->activeUserContainer = $activeUserContainer;
         $this->featureFlagService = $featureFlagService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->accessUsageExceededService = $accessUsageExceededService;
     }
 
     protected function getPageLimit()
@@ -262,9 +260,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     protected function checkUsage()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->accessUsageExceededService->checkUsage();
     }
 
     protected function getOuEntity()

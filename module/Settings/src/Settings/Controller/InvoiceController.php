@@ -231,7 +231,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('emailVerified', $invoiceSettings->isEmailVerified())
             ->setVariable('emailSendAs', $invoiceSettings->getEmailSendAs())
             ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
-            ->setVariable('tagOptions', $this->orderTagManager->getAvailableTags())
+            ->setVariable('tagOptions', array_values($this->orderTagManager->getAvailableTags()))
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
@@ -278,7 +278,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $templateTypeDropdown = $this->getTemplateTypeDropdown();
         $view->addChild($templateTypeDropdown, 'templateTypeDropdown');
 
-        $view->setVariable('dataFieldOptions', $this->orderTagManager->getAvailableTags());
+        $view->setVariable('dataFieldOptions', array_values($this->orderTagManager->getAvailableTags()));
 
         return $view;
     }
