@@ -1371,7 +1371,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "d16a6074c125ac0d0d0ca59d463872dbed96b8de"
+                "reference": "2db15db028dfb536502c9a79e82912a7c0ca985d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2431,7 +2431,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f41eab7fd3ea7570f13a9dd68c3c967f2ebcfb9c"
+                "reference": "ce0ce8a9ad60602567034fc5fda74a108341b0a6"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
