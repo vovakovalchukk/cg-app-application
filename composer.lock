@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfb574f52b8f90acb3476dccbf9b3fa2",
+    "content-hash": "320d7ab11f1536b5b9ad2f4c3a36e458",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1714,16 +1714,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "767c44b4281d481f2930e4efc6603fa6846db435"
+                "reference": "9c9452351e2467f23922ce7258af0b1ca5626473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-2.1.3-b0be40.zip",
-                "reference": "767c44b4281d481f2930e4efc6603fa6846db435"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feature-flags/channelgrabber-feature-flags-2.1.4-65d75b.zip",
+                "reference": "9c9452351e2467f23922ce7258af0b1ca5626473"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.2",
@@ -1746,7 +1746,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2019-11-22T09:31:34+00:00"
+            "time": "2020-02-06T11:42:34+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -3475,16 +3475,16 @@
         },
         {
             "name": "channelgrabber/sso",
-            "version": "1.2.7.1",
+            "version": "dev-TAC-608-amazon-nl",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso.git",
-                "reference": "5bd2f6ad9bee20d658bda9e45416161a67a4a560"
+                "reference": "a9eeb0395ad4a58a769ba17c04ac6d94add39501"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sso/channelgrabber-sso-1.2.7.1-b08fec.zip",
-                "reference": "5bd2f6ad9bee20d658bda9e45416161a67a4a560"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sso/channelgrabber-sso-dev-TAC-608-amazon-nl-b5a710.zip",
+                "reference": "a9eeb0395ad4a58a769ba17c04ac6d94add39501"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3508,7 +3508,7 @@
                     "CG\\Sso\\": ""
                 }
             },
-            "time": "2016-01-07T16:32:16+00:00"
+            "time": "2020-04-03T13:07:21+00:00"
         },
         {
             "name": "channelgrabber/stats",
@@ -4027,16 +4027,16 @@
         },
         {
             "name": "channelgrabber/userpreference",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-userpreference.git",
-                "reference": "73be3743bc9205cff190f9ced5972b18732e8fce"
+                "reference": "e49a21ebf635f3cbd3cface1085b1c222344d403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/userpreference/channelgrabber-userpreference-1.3.1-b54faf.zip",
-                "reference": "73be3743bc9205cff190f9ced5972b18732e8fce"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/userpreference/channelgrabber-userpreference-1.3.2-71ed9d.zip",
+                "reference": "e49a21ebf635f3cbd3cface1085b1c222344d403"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4053,7 +4053,7 @@
                     "CG\\UserPreference\\": ""
                 }
             },
-            "time": "2018-02-01T08:41:06+00:00"
+            "time": "2020-02-06T11:57:51+00:00"
         },
         {
             "name": "channelgrabber/validation",
@@ -5144,16 +5144,16 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.2.1.2",
+            "version": "dev-TAC-608-amazon-nl",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12"
+                "reference": "b1c310fd0e73403fd1fcd0b6ff971c0be818d6b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1.2-1aabdd.zip",
-                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-dev-TAC-608-amazon-nl-2d103b.zip",
+                "reference": "b1c310fd0e73403fd1fcd0b6ff971c0be818d6b0"
             },
             "require": {
                 "channelgrabber/di": "^2.1.0",
@@ -5179,7 +5179,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2019-07-26T12:29:09+00:00"
+            "time": "2020-04-03T14:55:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -11988,6 +11988,18 @@
             "alias_normalized": "1.51.3.0",
             "version": "dev-CGIV-10747-cancelling-labels-for-ebay",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.2.8",
+            "alias_normalized": "1.2.8.0",
+            "version": "dev-TAC-608-amazon-nl",
+            "package": "channelgrabber/sso"
+        },
+        {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-TAC-608-amazon-nl",
+            "package": "channelgrabber/zf2-sessions"
         }
     ],
     "minimum-stability": "stable",
@@ -11995,6 +12007,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/sso": 20,
+        "channelgrabber/zf2-sessions": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
