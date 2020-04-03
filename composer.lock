@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fef9148383e9a3dcfda188f8c96fb4aa",
+    "content-hash": "1349db70be5a70cbef08a024acc7e8e2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1376,7 +1376,7 @@
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
-                "channelgrabber/channel": "^1.43.9",
+                "channelgrabber/channel": "~1.44.4",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1385,7 +1385,7 @@
                 "channelgrabber/listing": "^1.19.4",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.48.6",
+                "channelgrabber/order": "dev-CGIV-10747-cancelling-labels-for-ebay as 1.51.3",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
@@ -1423,7 +1423,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-03-18T16:32:42+00:00"
+            "time": "2020-04-03T13:54:17+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2433,6 +2433,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "ce0ce8a9ad60602567034fc5fda74a108341b0a6"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10747-cancelling-labels-for-ebay-1b5e1a.zip",
+                "reference": "ce0ce8a9ad60602567034fc5fda74a108341b0a6"
+            },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -2502,7 +2507,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-03-18T11:45:48+00:00"
+            "time": "2020-04-03T14:15:31+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -10509,7 +10514,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11958,14 +11964,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.21.3",
-            "alias_normalized": "1.21.3.0",
+            "alias": "1.21.4",
+            "alias_normalized": "1.21.4.0",
             "version": "dev-CGIV-10747-cancelling-labels-for-ebay",
             "package": "channelgrabber/ebay"
         },
         {
-            "alias": "1.51.2",
-            "alias_normalized": "1.51.2.0",
+            "alias": "1.51.3",
+            "alias_normalized": "1.51.3.0",
             "version": "dev-CGIV-10747-cancelling-labels-for-ebay",
             "package": "channelgrabber/order"
         }
@@ -11976,8 +11982,8 @@
         "channelgrabber/ebay": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
