@@ -7,6 +7,7 @@ use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Locking\Service as LockingService;
 use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Tracking\Cancel\Factory as CancelActionFactory;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -17,7 +18,6 @@ use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use GearmanClient;
-use Orders\Courier\Label\Cancel\Factory as CancelActionFactory;
 
 class CancelService extends ServiceAbstract
 {
@@ -99,8 +99,6 @@ class CancelService extends ServiceAbstract
                 $this->orderTrackingService->removeByOrderId($updatableOrder->getId());
                 $orderTrackings = $updatableOrder->getTrackings();
                 $orderTrackings->removeAll($orderTrackings);
-//                $this->orderTrackingService->createGearmanJob($updatableOrder);
-
                 (($this->cancelActionFactory)($updatableOrder->getChannel()))->postTrackingNumberRemovalAction($updatableOrder);
             } catch (NotFound $e) {
                 // No-op
