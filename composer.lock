@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "320d7ab11f1536b5b9ad2f4c3a36e458",
+    "content-hash": "5e97d1a49b838adfd2c1de95400e3962",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -690,16 +690,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.17.1",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "4eceb6e65437898b51a2ba5c5228d01c78b4df76"
+                "reference": "fc326e94483ff1deb2147da17eff7eed8437a458"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.17.1-88f40d.zip",
-                "reference": "4eceb6e65437898b51a2ba5c5228d01c78b4df76"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.17.2-c67dab.zip",
+                "reference": "fc326e94483ff1deb2147da17eff7eed8437a458"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.14",
@@ -713,15 +713,18 @@
                 "channelgrabber/listing": "^1.19.2",
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.0",
+                "channelgrabber/locking": "^1.1.3",
                 "channelgrabber/opsgenie": "^1.1.0",
                 "channelgrabber/order": "^1.28.14",
                 "channelgrabber/predis": "^1.0.11",
                 "channelgrabber/product": "^1.16.7",
                 "channelgrabber/purge": "^1.0.6",
+                "channelgrabber/queue": "^1.1.0",
+                "channelgrabber/redis": "^1.0.2",
                 "channelgrabber/settings": "^1.5.3",
                 "channelgrabber/slim": "^1.14.4",
                 "channelgrabber/stdlib": "^2.16.6",
-                "channelgrabber/stock": "^1.16.0",
+                "channelgrabber/stock": "^1.20.0",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.24",
@@ -753,7 +756,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2020-03-19T15:22:55+00:00"
+            "time": "2020-04-06T07:56:07+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1395,12 +1398,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "3c356d75a5f997bb30369d202e3ad54233961141"
+                "reference": "6f751fa026db4d5ef0cbe5899470c705561211ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-10747-cancelling-labels-for-ebay-40a6ca.zip",
-                "reference": "3c356d75a5f997bb30369d202e3ad54233961141"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-10747-cancelling-labels-for-ebay-aec893.zip",
+                "reference": "6f751fa026db4d5ef0cbe5899470c705561211ff"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1414,7 +1417,7 @@
                 "channelgrabber/listing": "^1.19.4",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-10747-cancelling-labels-for-ebay as 1.51.3",
+                "channelgrabber/order": "dev-CGIV-10747-cancelling-labels-for-ebay as 1.53.1",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
@@ -1452,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-04-03T14:32:29+00:00"
+            "time": "2020-04-06T08:53:07+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2461,17 +2464,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ce0ce8a9ad60602567034fc5fda74a108341b0a6"
+                "reference": "4339755c7deda7c8b8fabc97d13806f214247e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10747-cancelling-labels-for-ebay-1b5e1a.zip",
-                "reference": "ce0ce8a9ad60602567034fc5fda74a108341b0a6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10747-cancelling-labels-for-ebay-e0e43a.zip",
+                "reference": "4339755c7deda7c8b8fabc97d13806f214247e27"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "^1.14.0",
+                "channelgrabber/cglib": "1.17.2",
                 "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
@@ -2500,7 +2503,7 @@
                 "channelgrabber/slim": "^1.15.3",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.16.9",
-                "channelgrabber/stock": "^1.12.3",
+                "channelgrabber/stock": "^1.20.0",
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
@@ -2537,7 +2540,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-03T14:15:31+00:00"
+            "time": "2020-04-06T08:46:52+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3047,16 +3050,16 @@
         },
         {
             "name": "channelgrabber/queue",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-queue.git",
-                "reference": "f188f9d6e8db93db9f780bb59c0496f90cc53482"
+                "reference": "27490025e89b090224d37742ab71df711b728c9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/queue/channelgrabber-queue-1.0.1-92c0a5.zip",
-                "reference": "f188f9d6e8db93db9f780bb59c0496f90cc53482"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/queue/channelgrabber-queue-1.1.0-560a65.zip",
+                "reference": "27490025e89b090224d37742ab71df711b728c9f"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.12.38",
@@ -3071,32 +3074,33 @@
                     "CG\\Queue\\": "src"
                 }
             },
-            "time": "2017-03-23T09:36:01+00:00"
+            "time": "2020-04-06T07:30:00+00:00"
         },
         {
             "name": "channelgrabber/redis",
-            "version": "0.1.2",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-redis.git",
-                "reference": "98cbcc1b5aab57c1f58e27102925461a2dc385a9"
+                "reference": "08a4b58464db44144055577788c5c101f8a55aa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/redis/channelgrabber-redis-0.1.2-888e69.zip",
-                "reference": "98cbcc1b5aab57c1f58e27102925461a2dc385a9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/redis/channelgrabber-redis-1.0.2-6b4b5a.zip",
+                "reference": "08a4b58464db44144055577788c5c101f8a55aa5"
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1",
-                "predis/predis": "~0.8.3"
+                "channelgrabber/queue": "^1.0.1",
+                "php": ">=7.1",
+                "predis/predis": "^0.8.3"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Redis\\": "src"
                 }
             },
-            "time": "2015-06-24T07:21:01+00:00"
+            "time": "2020-04-06T07:34:11+00:00"
         },
         {
             "name": "channelgrabber/redis-locking",
@@ -3612,21 +3616,20 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.18.1",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "a27698a636111f669c132d1d390a6048d1e101f4"
+                "reference": "d50416707c30f1c09e921a4eac19752c542eae9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.18.1-b1f7d7.zip",
-                "reference": "a27698a636111f669c132d1d390a6048d1e101f4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.20.0-ff76b3.zip",
+                "reference": "d50416707c30f1c09e921a4eac19752c542eae9a"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": "^1.0.4",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/email": "^1.0.8",
@@ -3667,7 +3670,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-03-09T14:05:13+00:00"
+            "time": "2020-04-06T07:46:34+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -11998,8 +12001,8 @@
             "package": "channelgrabber/ebay"
         },
         {
-            "alias": "1.51.3",
-            "alias_normalized": "1.51.3.0",
+            "alias": "1.53.1",
+            "alias_normalized": "1.53.1.0",
             "version": "dev-CGIV-10747-cancelling-labels-for-ebay",
             "package": "channelgrabber/order"
         },
