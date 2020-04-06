@@ -1,34 +1,26 @@
 <?php
 
 use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorage;
-use CG\Amazon\Category\Mapper as AmazonCategoryMapper;
-use CG\Amazon\Category\Storage\Db as AmazonCategoryStorageDb;
+use CG\Amazon\Category\Storage\Api as AmazonCategoryStorageApi;
 use CG\Amazon\Category\StorageInterface as AmazonCategoryStorage;
-use CG\Amazon\Category\VariationTheme\Mapper as AmazonVariationThemeMapper;
-use CG\Amazon\Category\VariationTheme\Storage\Db as AmazonVariationThemeStorageDb;
+use CG\Amazon\Category\VariationTheme\Storage\Api as AmazonVariationThemeStorageApi;
 use CG\Amazon\Category\VariationTheme\StorageInterface as AmazonVariationThemeStorage;
 
 return [
     'di' => [
         'instance' => [
             'preferences' => [
-                AmazonCategoryStorage::class => AmazonCategoryStorageDb::class,
-                AmazonVariationThemeStorage::class => AmazonVariationThemeStorageDb::class,
+                AmazonCategoryStorage::class => AmazonCategoryStorageApi::class,
+                AmazonVariationThemeStorage::class => AmazonVariationThemeStorageApi::class,
             ],
-            AmazonCategoryStorageDb::class => [
+            AmazonCategoryStorageApi::class => [
                 'parameter' => [
-                    'readSql' => 'amazonReadSql',
-                    'fastReadSql' => 'amazonFastReadSql',
-                    'writeSql' => 'amazonWriteSql',
-                    'mapper' => AmazonCategoryMapper::class
+                    'client' => 'amazon_guzzle',
                 ]
             ],
-            AmazonVariationThemeStorageDb::class => [
+            AmazonVariationThemeStorageApi::class => [
                 'parameter' => [
-                    'readSql' => 'amazonReadSql',
-                    'fastReadSql' => 'amazonFastReadSql',
-                    'writeSql' => 'amazonWriteSql',
-                    'mapper' => AmazonVariationThemeMapper::class
+                    'client' => 'amazon_guzzle',
                 ]
             ],
             BrowseNodeCategoryUsageStorage::class => [

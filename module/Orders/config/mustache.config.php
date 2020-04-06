@@ -7,6 +7,8 @@ return [
         'template' => [
             'map' => [
                 'orderList' => [
+                    'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+                    'text' => UiModule::PUBLIC_FOLDER . 'templates/elements/text.mustache',
                     'id' => UiModule::PUBLIC_FOLDER . 'templates/columns/id.mustache',
                     'channel' => UiModule::PUBLIC_FOLDER . 'templates/columns/channel.mustache',
                     'accountId' => UiModule::PUBLIC_FOLDER . 'templates/columns/accountId.mustache',

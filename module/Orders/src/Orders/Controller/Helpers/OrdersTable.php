@@ -19,6 +19,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
+use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Order\Service as OrderService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
@@ -47,6 +48,8 @@ class OrdersTable
     protected $orderTableUserPreferences;
     /** @var CourierTrackingUrl $courierTrackingUrl */
     protected $courierTrackingUrl;
+    /** @var CourierHelper */
+    protected $courierHelper;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -56,7 +59,8 @@ class OrdersTable
         OrderService $orderService,
         DateFormatHelper $dateFormatHelper,
         OrdersTableUserPreferences $orderTableUserPreferences,
-        CourierTrackingUrl $courierTrackingUrl
+        CourierTrackingUrl $courierTrackingUrl,
+        CourierHelper $courierHelper
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
@@ -66,6 +70,7 @@ class OrdersTable
         $this->dateFormatHelper = $dateFormatHelper;
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->courierTrackingUrl = $courierTrackingUrl;
+        $this->courierHelper = $courierHelper;
     }
 
     public function mapOrdersCollectionToArray(Orders $orderCollection, MvcEvent $event)
@@ -80,6 +85,7 @@ class OrdersTable
             ->mapGiftMessages($orderCollection, $orders)
             ->mapImageIdsToImages($orders)
             ->mapTrackingUrls($orders)
+            ->mapCouriers($orders)
             ->mapLabelData($orders)
             ->mapLinkedOrdersData($orderCollection, $orders)
             ->mapOrderItemCustomisations($orderCollection, $orders);
@@ -298,6 +304,25 @@ class OrdersTable
                 $order['trackings'][$i]['trackingUrl'] = $this->courierTrackingUrl->getTrackingUrl($tracking['carrier'], $tracking['number']);
             }
         }
+        return $this;
+    }
+
+    protected function mapCouriers(array &$orders)
+    {
+        $options = array_values(
+            array_map(function($courier) {
+                return [
+                    'value' => $courier,
+                    'title' => $courier
+                ];
+            }, $this->courierHelper->getCarriersData())
+        );
+
+        foreach ($orders as &$order) {
+            $order['couriers'] = $options;
+            $order['couriersPriorityOptions'] = $this->courierHelper->getCarrierPriorityOptions(null);
+        };
+
         return $this;
     }
 
