@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aeda864b1737c293fb2f35adebe32b37",
+    "content-hash": "c25e308a62c572bc992b5bc36c85f466",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,23 +374,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.35.0",
+            "version": "1.35.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "38ebdf5831a6fdd3fa3b3b8f77aa832fcc2d7ea7"
+                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.0-5d6176.zip",
-                "reference": "38ebdf5831a6fdd3fa3b3b8f77aa832fcc2d7ea7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.1-57ac80.zip",
+                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.43.0",
+                "channelgrabber/channel": "~1.44.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-03-27T09:37:47+00:00"
+            "time": "2020-03-31T08:48:36+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -768,16 +768,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-11341-linked-orders-causing-dispatch-fatals",
+            "version": "1.44.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3533c672333606022439e30d5becb14fb998ed34"
+                "reference": "66848cf130fedf074be82080991c01702fe2097a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11341-linked-orders-causing-dispatch-fatals-4d49a8.zip",
-                "reference": "3533c672333606022439e30d5becb14fb998ed34",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.5-6edf95.zip",
+                "reference": "66848cf130fedf074be82080991c01702fe2097a",
                 "shasum": null
             },
             "require": {
@@ -846,7 +846,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-04-06T14:52:33+00:00"
+            "time": "2020-04-07T15:22:54+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2510,16 +2510,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11341-linked-orders-causing-dispatch-fatals",
+            "version": "1.53.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ea128d25ef50fb8c3db5fbf9c57c50b23ba062e5"
+                "reference": "1529b9e738c422b1bb8c89c213efbef17dc03f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11341-linked-orders-causing-dispatch-fatals-be935e.zip",
-                "reference": "ea128d25ef50fb8c3db5fbf9c57c50b23ba062e5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.53.2-d20118.zip",
+                "reference": "1529b9e738c422b1bb8c89c213efbef17dc03f10",
                 "shasum": null
             },
             "require": {
@@ -2591,7 +2591,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-07T11:32:47+00:00"
+            "time": "2020-04-07T15:24:16+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12117,25 +12117,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.5",
-            "alias_normalized": "1.44.5.0",
-            "version": "dev-CGIV-11341-linked-orders-causing-dispatch-fatals",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.53.2",
-            "alias_normalized": "1.53.2.0",
-            "version": "dev-CGIV-11341-linked-orders-causing-dispatch-fatals",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
