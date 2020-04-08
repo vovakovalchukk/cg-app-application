@@ -34,6 +34,7 @@ return [
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
                     'linkedOrdersPopup' => Module::PUBLIC_FOLDER . 'template/popup/linkedOrders.mustache',
+                    'multiItemPopup' => Module::PUBLIC_FOLDER . 'template/popup/multiItem.mustache',
                     'customisation' => Module::PUBLIC_FOLDER . 'template/columns/customisation.mustache',
                 ],
                 'courierReview' => [
