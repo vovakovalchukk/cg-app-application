@@ -52,7 +52,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
             if (!isset($response->outboundCarriers->carrier1, $response->outboundCarriers->carrier1->barcode1)) {
                 continue;
             }
-            $barcodes[] = (string)$response->outboundCarriers->carrier1->barcode1->barcodeDisplay;
+            $barcodes[] = (string)$response->outboundCarriers->carrier1->barcode1->barcodeNumber;
         }
         return new static($barcodes, $labels, $errors, $warnings);
     }
