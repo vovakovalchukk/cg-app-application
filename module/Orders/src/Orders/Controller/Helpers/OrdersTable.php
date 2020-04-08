@@ -88,7 +88,8 @@ class OrdersTable
             ->mapCouriers($orders)
             ->mapLabelData($orders)
             ->mapLinkedOrdersData($orderCollection, $orders)
-            ->mapOrderItemCustomisations($orderCollection, $orders);
+            ->mapOrderItemCustomisations($orderCollection, $orders)
+            ->mapMultiItemData($orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -376,6 +377,14 @@ class OrdersTable
             }
 
             $order['customisation'] = $hasCustomisation;
+        }
+        return $this;
+    }
+
+    protected function mapMultiItemData(array &$orders): OrdersTable
+    {
+        foreach ($orders as &$order) {
+            $order['multiItem'] = count($order['items']) > 1;
         }
         return $this;
     }
