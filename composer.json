@@ -138,7 +138,7 @@
     "require-dev": {
         "phpspec/phpspec": "2.0.*@dev",
         "phpspec/prophecy": "~1.0",
-        "phpstan/phpstan": "^0.12.9",
+        "phpstan/phpstan": "^0.12.11",
         "phpunit/phpunit": "~6.0.0"
     },
     "scripts": {
