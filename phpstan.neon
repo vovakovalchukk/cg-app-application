@@ -17,3 +17,4 @@ parameters:
         - vendor/channelgrabber/*/di/definitions/*
     parallel:
         maximumNumberOfProcesses: 4
+        processTimeout: 300.0
