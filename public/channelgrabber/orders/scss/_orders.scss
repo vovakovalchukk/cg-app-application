@@ -413,6 +413,9 @@
         }
         .itemAvailableStock {
             max-width: 30%;
+            &.skuOutOfStock {
+                color: $color-red;
+            }
         }
     }
     .multi-item-popup {

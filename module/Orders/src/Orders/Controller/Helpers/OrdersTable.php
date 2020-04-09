@@ -411,6 +411,7 @@ class OrdersTable
                 $stock = $stockCollection->getBy('sku', $item['itemSku'])->getFirst();
                 // In the Products UI we just use the first StockLocation, do the same here for consistency
                 $item['availableStock'] = ($stock && $stock->getLocations()->getFirst() ? (string)$stock->getLocations()->getFirst()->getAvailable() : null);
+                $item['outOfStock'] = ((int)$item['availableStock'] <= 0);
             }
         }
         return $this;
