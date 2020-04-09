@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4875dc3e8106bdb3d74ee865829134a8",
+    "content-hash": "423f3ae682a52107911a0e5511f5fe57",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-608-amazon-nl",
+            "version": "1.35.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "454ebd42b529a461a0f5358d3353f7488914c83f"
+                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-608-amazon-nl-6bffc0.zip",
-                "reference": "454ebd42b529a461a0f5358d3353f7488914c83f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.1-57ac80.zip",
+                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-04-08T11:12:42+00:00"
+            "time": "2020-03-31T08:48:36+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -527,20 +527,19 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.17",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "3a34a04e23e28d91a98276e807cf7eb6595bf0ec"
+                "reference": "8d5b265c11f8c33d5b4ff02b8e7401ad41d2bf41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.17-195ea3.zip",
-                "reference": "3a34a04e23e28d91a98276e807cf7eb6595bf0ec"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.21.0-5f7603.zip",
+                "reference": "8d5b265c11f8c33d5b4ff02b8e7401ad41d2bf41"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.2",
@@ -590,7 +589,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2020-02-06T11:47:53+00:00"
+            "time": "2020-03-12T09:46:42+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -909,27 +908,27 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.12.3",
+            "version": "1.12.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "a87433556ac33ecb84e9ae81177ea6136787f58a"
+                "reference": "895c67e98083aae3f36dae6c9b0267f5c9c6ab32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.3-0619cb.zip",
-                "reference": "a87433556ac33ecb84e9ae81177ea6136787f58a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.3.2-423d27.zip",
+                "reference": "895c67e98083aae3f36dae6c9b0267f5c9c6ab32"
             },
             "require": {
-                "channelgrabber/billing": "^1.20.1",
+                "channelgrabber/billing": "^1.21.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.14.2",
-                "channelgrabber/settings": "^1.6.2",
-                "channelgrabber/stdlib": "^2.14.1",
-                "channelgrabber/user": "^1.25.0",
+                "channelgrabber/settings": "^1.9.0",
+                "channelgrabber/stdlib": "^2.17.0",
+                "channelgrabber/user": "^1.28.0",
                 "php": ">=7.1",
                 "zendframework/zend-uri": "^2.3"
             },
@@ -948,7 +947,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-04T14:28:20+00:00"
+            "time": "2020-04-09T08:13:10+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -3309,20 +3308,19 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.8.5",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "6d5756b53281cae0b1114ca86bedf7a9052a1f63"
+                "reference": "c1746eabfd7e1eb84b40e8734984cc3bcc1350be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.8.5-d43a82.zip",
-                "reference": "6d5756b53281cae0b1114ca86bedf7a9052a1f63"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.0-b3b2c7.zip",
+                "reference": "c1746eabfd7e1eb84b40e8734984cc3bcc1350be"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email-verification": "^1.0.1",
                 "channelgrabber/etag": "^1.5.4",
@@ -3342,7 +3340,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-03-05T09:43:19+00:00"
+            "time": "2020-03-12T10:03:37+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3559,16 +3557,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.11",
+            "version": "2.17.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b05a64e2215796fa8704ad2fc019805f07c4766d"
+                "reference": "bc8440b33d992330e01194cd4fca4fdc5674ddb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.11-de4796.zip",
-                "reference": "b05a64e2215796fa8704ad2fc019805f07c4766d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.17.0-e626f1.zip",
+                "reference": "bc8440b33d992330e01194cd4fca4fdc5674ddb0"
             },
             "require": {
                 "php": ">=7.1",
@@ -3577,6 +3575,7 @@
                 "zendframework/zend-db": ">=2.2,<3.0"
             },
             "conflict": {
+                "channelgrabber/cache": "<2.7.0",
                 "channelgrabber/cilex": "<1.2.0",
                 "channelgrabber/http": "<1.3.32",
                 "channelgrabber/log": "<2.2.0",
@@ -3612,7 +3611,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2020-01-15T09:00:42+00:00"
+            "time": "2020-03-12T10:08:14+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -10689,16 +10688,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.9",
+            "version": "0.12.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32"
+                "reference": "1ce27fe29c8660a27926127d350d53d80c4d4286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
-                "reference": "297cb2458a96ea96d5e9d6ef38f1b7305c071f32",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1ce27fe29c8660a27926127d350d53d80c4d4286",
+                "reference": "1ce27fe29c8660a27926127d350d53d80c4d4286",
                 "shasum": ""
             },
             "require": {
@@ -10724,7 +10723,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-02-04T22:30:27+00:00"
+            "time": "2020-03-22T16:51:47+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -11992,17 +11991,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.35.2",
-            "alias_normalized": "1.35.2.0",
-            "version": "dev-TAC-608-amazon-nl",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

@@ -15,5 +15,6 @@ parameters:
         - vendor/channelgrabber/*/examples/*
         - vendor/channelgrabber/*/phinx/migrations/*
         - vendor/channelgrabber/*/di/definitions/*
-    featureToggles:
-        parallel: true
+    parallel:
+        maximumNumberOfProcesses: 4
+        processTimeout: 300.0

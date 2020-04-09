@@ -23,7 +23,7 @@
         "channelgrabber/amazon": "dev-TAC-608-amazon-nl as 1.35.2",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.4.1",
-        "channelgrabber/billing": "~1.20.16",
+        "channelgrabber/billing": "~1.21.0",
         "channelgrabber/cache": "~2.8.0",
         "channelgrabber/cglib": "~1.17.1",
         "channelgrabber/channel": "~1.44.5",
@@ -79,12 +79,12 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sagepay": "~1.1.26",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "~1.8.5",
+        "channelgrabber/settings": "~1.9.0",
         "channelgrabber/shipstation": "~1.1.1",
         "channelgrabber/shopify": "~1.5.1",
         "channelgrabber/sso": "~1.2.8",
         "channelgrabber/stats": "~1.1.1",
-        "channelgrabber/stdlib": "~2.16.11",
+        "channelgrabber/stdlib": "~2.17.0",
         "channelgrabber/stock": "~1.20.0",
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/supplier": "~1.0.1",
@@ -138,7 +138,7 @@
     "require-dev": {
         "phpspec/phpspec": "2.0.*@dev",
         "phpspec/prophecy": "~1.0",
-        "phpstan/phpstan": "^0.12.9",
+        "phpstan/phpstan": "^0.12.11",
         "phpunit/phpunit": "~6.0.0"
     },
     "scripts": {
