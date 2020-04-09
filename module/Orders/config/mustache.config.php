@@ -18,6 +18,7 @@ return [
                     'giftMessage' => Module::PUBLIC_FOLDER . 'template/columns/giftMessage.mustache',
                     'custom-tag' => Module::PUBLIC_FOLDER . 'template/columns/custom-tag.mustache',
                     'externalId' => Module::PUBLIC_FOLDER . 'template/columns/externalId.mustache',
+                    'itemDetails' => Module::PUBLIC_FOLDER . 'template/columns/itemDetails.mustache',
                     'dispatchDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'labelCreatedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'printedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',

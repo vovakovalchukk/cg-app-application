@@ -13,11 +13,13 @@
         <div class="productinfo">
             <span class="subtitle">
                 {{#multiItem}}
-                <strong>Multiple Items</strong>
-                {{> multiItemPopup }}
+                    <strong>Multiple Items</strong>
+                    {{> multiItemPopup }}
                 {{/multiItem}}
                 {{^multiItem}}
-                <span class="itemQuantity">{{items.0.itemQuantity}}</span> x {{#items.0.itemSku}}<span class="itemSku">({{items.0.itemSku}}) - </span>{{/items.0.itemSku}}{{#formatItemName}}<span class="itemName">{{items.0.itemName}}</span>{{/formatItemName}}
+                    {{#items}}
+                        {{> itemDetails}}
+                    {{/items}}
                 {{/multiItem}}
             </span>
         </div>
