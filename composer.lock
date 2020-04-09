@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "423f3ae682a52107911a0e5511f5fe57",
+    "content-hash": "a6b7e5c63a5465843bb0b2dec5aba3d6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.35.1",
+            "version": "1.35.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08"
+                "reference": "59f37db7e851b987c7cd9f827e45acaebf22636e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.1-57ac80.zip",
-                "reference": "4913d99a1f8f6a797c6c19ccf11c64b2e91b9e08"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.3-bb2fec.zip",
+                "reference": "59f37db7e851b987c7cd9f827e45acaebf22636e"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-03-31T08:48:36+00:00"
+            "time": "2020-04-09T08:45:57+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
