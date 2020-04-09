@@ -13,7 +13,7 @@
         <div class="productinfo">
             <span class="subtitle">
                 {{#multiItem}}
-                    <strong>Multiple Items</strong>
+                    <span class="order-multi-item-text"><strong>Multiple Items</strong></span>
                     {{> multiItemPopup }}
                 {{/multiItem}}
                 {{^multiItem}}
@@ -23,24 +23,4 @@
                 {{/multiItem}}
             </span>
         </div>
-        {{#items.1}}
-        {{#formatAdditionalOrderItems}}
-        {{#extraItems}}
-        <div class="hidden additional-items">
-            <div class="productinfo">
-                <span class="subtitle">
-                  <span class="itemQuantity">{{itemQuantity}}</span> x {{#itemSku}}<span class="itemSku">({{itemSku}}) - </span>{{/itemSku}}{{#formatItemName}}<span class="itemName">{{itemName}}</span>{{/formatItemName}}
-                </span>
-            </div>
-        </div>
-    </a>
-    {{/extraItems}}
-    {{/formatAdditionalOrderItems}}
-    <div class="hidden additional-item-links">
-        <a href="#" class="toggle-info" data-target="order-info-row">
-            <strong class="more">[Show All]</strong>
-            <strong class="hide">[Hide]</strong>
-        </a>
-    </div>
-    {{/items.1}}
 </div>
