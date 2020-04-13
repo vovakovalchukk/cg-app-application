@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Ekm\Response\Rest\Order;
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -11,6 +12,7 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class ManualOrderController extends AbstractActionController
 {
@@ -51,19 +53,32 @@ class ManualOrderController extends AbstractActionController
 
     public function indexAction()
     {
+        return $this->buildResponse();
+    }
+
+    public function duplicateExistingOrderAction()
+    {
+        $orderId = $this->params()->fromRoute('order');
+        $order = $this->orderService->getOrder($orderId);
+        return $this->buildResponse($order);
+    }
+
+    protected function buildResponse(?OrderEntity $order = null): ViewModel
+    {
         $this->accessUsageExceededService->checkUsage();
         $currenciesList = $this->service->getCurrencyOptions();
         $tradingCompanies = $this->getTradingCompanyOptions();
         $carrierDropdownOptions = $this->getCarrierDropdownOptions();
 
         $view = $this->viewModelFactory->newInstance();
-        $view->setVariable('isHeaderBarVisible', false)
+        $view->setTemplate('orders/manual-order/index')
+            ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
             ->setVariable('currenciesJson', json_encode($currenciesList))
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->setVariable('tradingCompanies', json_encode($tradingCompanies))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
-            ->addChild($this->getAddressInformation(), 'addressInformation')
+            ->addChild($this->getAddressInformation($order), 'addressInformation')
             ->addChild($this->getOrderAlert(), 'orderAlert')
             ->addChild($this->getSidebar(), 'sidebar');
 
@@ -124,11 +139,11 @@ class ManualOrderController extends AbstractActionController
         return $view;
     }
 
-    protected function getAddressInformation()
+    protected function getAddressInformation(?OrderEntity $order = null)
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/addressInformation');
-        $view->setVariable('order', null);
+        $view->setVariable('order', $order);
         $view->setVariable('addressSaveUrl', 'Orders/new/create');
         $view->setVariable('billingAddressEditable', true);
         $view->setVariable('shippingAddressEditable', true);
