@@ -771,16 +771,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "14ebc5585d40700c360ae0794b8af6611f237236"
+                "reference": "65b73ba3fd2ede9962acb969b3e065c51d474fbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-605-amazon-invoice-upload-deb356.zip",
-                "reference": "14ebc5585d40700c360ae0794b8af6611f237236",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-605-amazon-invoice-upload-c28474.zip",
+                "reference": "65b73ba3fd2ede9962acb969b3e065c51d474fbe",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/access": "^1.0.0",
+                "channelgrabber/access": "^1.1.2",
                 "channelgrabber/billing": "^1.19.7",
                 "channelgrabber/cache": "^2.6.0",
                 "channelgrabber/cilex": "^1.1.4",
@@ -788,7 +788,7 @@
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/feature-flags": "^2.1.0",
-                "channelgrabber/gearman": "^1.4.1",
+                "channelgrabber/gearman": "^1.8.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.20.0",
@@ -808,7 +808,7 @@
                 "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": "^1.17.1",
                 "channelgrabber/stock-locking": "^1.1.0",
-                "channelgrabber/user": "^1.26.4",
+                "channelgrabber/user": "^1.28.1",
                 "channelgrabber/zf2-email-template": "^1.0.12",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -845,7 +845,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-03-25T10:30:24+00:00"
+            "time": "2020-04-13T12:46:15+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4497,12 +4497,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "6bb14af58875f88ca5736e97bf82f75781b2d895"
+                "reference": "e296740943d06bd4a2de5ed5548fabdb94e1bf63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-TAC-605-amazon-invoice-upload-fa404a.zip",
-                "reference": "6bb14af58875f88ca5736e97bf82f75781b2d895",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-TAC-605-amazon-invoice-upload-43c907.zip",
+                "reference": "e296740943d06bd4a2de5ed5548fabdb94e1bf63",
                 "shasum": null
             },
             "require": {
@@ -4535,7 +4535,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2020-03-25T11:16:53+00:00"
+            "time": "2020-04-13T12:33:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
