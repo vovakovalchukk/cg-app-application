@@ -405,3 +405,22 @@
         }
     }
 }
+
+.orderid-cell {
+    .multi-item-popup {
+        display: none;
+        position: absolute;
+        width: 400px;
+        z-index: 100;
+        border-radius: 10px;
+        .productinfo {
+            padding-bottom: 5px;
+        }
+    }
+    &:hover {
+        .multi-item-popup {
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24);
+        }
+    }
+}
