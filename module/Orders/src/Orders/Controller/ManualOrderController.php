@@ -1,16 +1,16 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Ekm\Response\Rest\Order;
+use CG\Order\Shared\Entity as OrderEntity;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\Service as OuService;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\ManualOrder\Service;
-use Orders\Order\Service as OrderService;
-use CG\OrganisationUnit\Service as OuService;
-use CG\Order\Shared\Entity as OrderEntity;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Module;
+use Orders\Order\Service as OrderService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -67,7 +67,7 @@ class ManualOrderController extends AbstractActionController
     {
         $this->accessUsageExceededService->checkUsage();
         $currenciesList = $this->service->getCurrencyOptions($order);
-        $tradingCompanies = $this->getTradingCompanyOptions();
+        $tradingCompanies = $this->getTradingCompanyOptions($order);
         $carrierDropdownOptions = $this->getCarrierDropdownOptions();
 
         $view = $this->viewModelFactory->newInstance();
@@ -85,13 +85,15 @@ class ManualOrderController extends AbstractActionController
         return $view;
     }
 
-    protected function getTradingCompanyOptions()
+    protected function getTradingCompanyOptions(?OrderEntity $order = null): array
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        /** @var OrganisationUnit $rootOu */
         $rootOu = $this->ouService->fetch($rootOuId);
         $tradingCompanyOptions = [[
             'name' => $rootOu->getAddressCompanyName(),
-            'value' => $rootOuId
+            'value' => $rootOuId,
+            'selected' => $order ? $order->getOrganisationUnitId() == $rootOuId : false
         ]];
 
         try {
@@ -100,19 +102,13 @@ class ManualOrderController extends AbstractActionController
             return $tradingCompanyOptions;
         }
 
-        $noneSelected = true;
+        /** @var OrganisationUnit $ou */
         foreach ($tradingCompanies as $ou) {
-            $option = [
+            $tradingCompanyOptions[] = [
                 'name' => $ou->getAddressCompanyName(),
-                'value' => $ou->getId()
-            ];
-
-            if ($noneSelected) {
-                $option['selected'] = true;
-                $noneSelected = false;
-            }
-
-            $tradingCompanyOptions[] = $option;
+                'value' => $ou->getId(),
+                'selected' =>  $order ? $order->getOrganisationUnitId() == $ou->getId() : false
+            ];;
         }
         return $tradingCompanyOptions;
     }
