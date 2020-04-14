@@ -15,6 +15,10 @@ class Module implements DependencyIndicatorInterface
     const PUBLIC_FOLDER = '/cg-built/setup-wizard/';
     const ROUTE = 'SetupWizard';
 
+    protected const HIDDEN_STEPS = [
+        __DIR__ . '/config/steps/payment.config.php'
+    ];
+
     public function onBootstrap(MvcEvent $event)
     {
         $eventManager = $event->getApplication()->getEventManager();
@@ -103,7 +107,7 @@ class Module implements DependencyIndicatorInterface
     public function getConfig()
     {
         $configFiles = array_merge(glob(__DIR__ . '/config/*.config.php'), glob(__DIR__ . '/config/steps/*.config.php'));
-        return ConfigFactory::fromFiles($configFiles);
+        return ConfigFactory::fromFiles($this->removeHiddenSteps($configFiles));
     }
 
     public function getAutoloaderConfig()
@@ -125,5 +129,10 @@ class Module implements DependencyIndicatorInterface
             'CG_Register',
             'Settings',
         ];
+    }
+
+    protected function removeHiddenSteps(array $configFiles): array
+    {
+        return array_diff($configFiles, static::HIDDEN_STEPS);
     }
 }
