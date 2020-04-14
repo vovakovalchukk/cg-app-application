@@ -4497,12 +4497,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "e296740943d06bd4a2de5ed5548fabdb94e1bf63"
+                "reference": "ddef71a219bb4accb646a6a867199e43f52809b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-TAC-605-amazon-invoice-upload-43c907.zip",
-                "reference": "e296740943d06bd4a2de5ed5548fabdb94e1bf63",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-TAC-605-amazon-invoice-upload-4bdfc9.zip",
+                "reference": "ddef71a219bb4accb646a6a867199e43f52809b4",
                 "shasum": null
             },
             "require": {
@@ -4535,7 +4535,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2020-04-13T12:33:14+00:00"
+            "time": "2020-04-14T11:10:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
