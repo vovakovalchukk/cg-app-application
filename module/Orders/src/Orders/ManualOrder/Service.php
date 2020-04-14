@@ -163,7 +163,7 @@ class Service implements LoggerAwareInterface
         return $this->orderService->save($order);
     }
 
-    public function getCurrencyOptions()
+    public function getCurrencyOptions(?Order $order = null)
     {
         $currencyCodes = array_keys(array_merge($this->currencyService->getPriorityActiveUserCurrencies(), $this->currencyService->getActiveUserCurrencies()));
         $formatter = new CurrencyFormatter($this->userOuService->getRootOuByActiveUser());
@@ -173,6 +173,7 @@ class Service implements LoggerAwareInterface
             $currencyOptions[] = [
                 'name' => $code,
                 'value' => $formatter->getSymbol($code),
+                'selected' => $order ? $order->getCurrencyCode() == $code : false
             ];
         }
         return $currencyOptions;

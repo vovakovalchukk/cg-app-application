@@ -66,7 +66,7 @@ class ManualOrderController extends AbstractActionController
     protected function buildResponse(?OrderEntity $order = null): ViewModel
     {
         $this->accessUsageExceededService->checkUsage();
-        $currenciesList = $this->service->getCurrencyOptions();
+        $currenciesList = $this->service->getCurrencyOptions($order);
         $tradingCompanies = $this->getTradingCompanyOptions();
         $carrierDropdownOptions = $this->getCarrierDropdownOptions();
 
@@ -149,7 +149,7 @@ class ManualOrderController extends AbstractActionController
         $view->setVariable('shippingAddressEditable', true);
         $view->setVariable('requiresSaveButton', false);
         $view->setVariable('includeAddressCopy', false);
-        $view->setVariable('includeUseBillingInfo', true);
+        $view->setVariable('includeUseBillingInfo', $order === null);
         return $view;
     }
 
