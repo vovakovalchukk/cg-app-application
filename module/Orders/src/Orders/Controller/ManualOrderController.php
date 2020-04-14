@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OuService;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
@@ -77,6 +78,7 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('currenciesJson', json_encode($currenciesList))
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->setVariable('tradingCompanies', json_encode($tradingCompanies))
+            ->setVariable('orderItems', str_replace("\u0022","\\\\\"", json_encode($this->formatItemsForOrder($order), JSON_HEX_QUOT)))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
             ->addChild($this->getAddressInformation($order), 'addressInformation')
             ->addChild($this->getOrderAlert(), 'orderAlert')
@@ -90,27 +92,36 @@ class ManualOrderController extends AbstractActionController
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         /** @var OrganisationUnit $rootOu */
         $rootOu = $this->ouService->fetch($rootOuId);
-        $tradingCompanyOptions = [[
-            'name' => $rootOu->getAddressCompanyName(),
-            'value' => $rootOuId,
-            'selected' => $order ? $order->getOrganisationUnitId() == $rootOuId : false
-        ]];
-
         try {
             $tradingCompanies = $this->ouService->fetchFiltered('all', 1, $rootOuId);
         } catch (\Exception $e) {
-            return $tradingCompanyOptions;
+            return [$this->buildTradingCompany($rootOu, true)];
         }
 
+        $tradingCompanyOptions = [
+            $this->buildTradingCompany(
+                $rootOu,
+                $order ? $order->getOrganisationUnitId() == $rootOuId : false
+            )
+        ];
+
         /** @var OrganisationUnit $ou */
-        foreach ($tradingCompanies as $ou) {
-            $tradingCompanyOptions[] = [
-                'name' => $ou->getAddressCompanyName(),
-                'value' => $ou->getId(),
-                'selected' =>  $order ? $order->getOrganisationUnitId() == $ou->getId() : false
-            ];;
+        foreach ($tradingCompanies as $key => $ou) {
+            $tradingCompanyOptions[] = $this->buildTradingCompany(
+                $ou,
+                $order ? ($order->getOrganisationUnitId() == $ou->getId()) : ($key === 0)
+            );
         }
         return $tradingCompanyOptions;
+    }
+
+    protected function buildTradingCompany(OrganisationUnit $ou, bool $selected = false): array
+    {
+        return [
+            'name' => $ou->getAddressCompanyName(),
+            'value' => $ou->getId(),
+            'selected' => $selected
+        ];
     }
 
     protected function getCarrierDropdownOptions()
@@ -126,6 +137,25 @@ class ManualOrderController extends AbstractActionController
             ];
         }
         return $carrierDropdownOptions;
+    }
+
+    protected function formatItemsForOrder(?OrderEntity $order = null): array
+    {
+        $items = [];
+        if (!$order) {
+            return [];
+        }
+
+        /** @var OrderItem $item */
+        foreach ($order->getItems() as $item) {
+            $items[] = [
+                'sku' => $item->getItemSku(),
+                'name' => $item->getItemName(),
+                'quantity' => $item->getItemQuantity(),
+                'price' => $item->getIndividualItemPrice()
+            ];
+        }
+        return $items;
     }
 
     protected function getBuyerMessage()

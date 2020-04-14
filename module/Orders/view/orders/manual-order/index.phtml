@@ -32,7 +32,8 @@ require(
         ou: new OuUtils({ ouList: JSON.parse('<?= str_replace("'", "\\'", $tradingCompanies); ?>') }),
         carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
-        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
+        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' }),
+        orderItems: JSON.parse('<?= $orderItems ?>')
     };
 
     var manualOrdersRoot = new ManualOrderRoot(domElements, utilities, usersName);

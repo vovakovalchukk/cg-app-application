@@ -54,6 +54,7 @@ class RootComponent extends React.Component {
                 <OrderTable
                     currency={this.state.selectedCurrency}
                     getOrderData={this.getOrderData}
+                    orderItems={this.props.utilities.orderItems}
                 />
             </div>
         );
