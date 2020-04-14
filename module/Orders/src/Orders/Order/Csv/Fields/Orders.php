@@ -64,6 +64,7 @@ class Orders implements FieldsInterface
         'calculatedFulfilmentAddressPostcode' => 'Fulfilment Postcode',
         'calculatedFulfilmentEmailAddress' => 'Fulfilment Email',
         'calculatedFulfilmentPhoneNumber' => 'Fulfilment Telephone',
+        'weightString' => 'Weight',
     ];
 
     public static function getFields(): array
