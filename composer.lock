@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19d9cfa378513d6d85e018e90fefdcad",
+    "content-hash": "bf30ee5060e9b7becdcecef358117eb1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2463,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6f3ed49f4dfcac987291809f6472da3b1a51fe17"
+                "reference": "8ec2b13a64dc0fd70db22065e511b79250a94afa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-615-export-order-weights-to-csv-bd5eb9.zip",
-                "reference": "6f3ed49f4dfcac987291809f6472da3b1a51fe17"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-615-export-order-weights-to-csv-6db709.zip",
+                "reference": "8ec2b13a64dc0fd70db22065e511b79250a94afa"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-14T15:18:22+00:00"
+            "time": "2020-04-15T08:58:51+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11999,8 +11999,8 @@
             "package": "channelgrabber/data-exchange"
         },
         {
-            "alias": "1.53.3",
-            "alias_normalized": "1.53.3.0",
+            "alias": "1.53.5",
+            "alias_normalized": "1.53.5.0",
             "version": "dev-TAC-615-export-order-weights-to-csv",
             "package": "channelgrabber/order"
         }
@@ -12019,5 +12019,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
