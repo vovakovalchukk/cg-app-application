@@ -49,6 +49,7 @@ class Service
     const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
     const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
     const FILTER_ORDER_SUPPLIER = 'orderSupplier';
+    const FILTER_ORDER_MULTI_LINE = 'orderMultiLine';
 
     protected static function getOrderFilters()
     {
@@ -535,6 +536,28 @@ class Service
                     'options' => []
                 ],
                 'optionsProvider' => OrdersTableSuppliers::class,
+            ],
+            self::FILTER_ORDER_MULTI_LINE => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'multiLineSameOrder',
+                    'title' => 'Multiple Items',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes',
+                            'selected' => true
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No'
+                        ],
+                    ]
+                ],
             ],
         ];
     }

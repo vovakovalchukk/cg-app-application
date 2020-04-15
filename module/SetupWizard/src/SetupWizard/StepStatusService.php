@@ -160,9 +160,15 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected function setFreeTrialEndDate()
     {
         $user = $this->activeUserContainer->getActiveUser();
-        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        /** @var OrganisationUnitEntity $rootOu */
+        $rootOu = $this->organisationUnitService->fetch(
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+        );
+        if ($rootOu->getBillingType() !== OrganisationUnitEntity::BILLING_TYPE_CG) {
+            return;
+        }
         $freeTrialDays = SubscriptionService::FREE_TRIAL_DAYS;
-        $subscription = $this->subscriptionService->fetchActiveSubscriptionForOuId($ouId);
+        $subscription = $this->subscriptionService->fetchActiveSubscriptionForOuId($rootOu->getId());
 
         // If they already have an end date we don't want to extend it any further
         if ($subscription->getToDate() !== null) {
@@ -171,7 +177,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 
         try {
             $this->subscriptionService->extendTrial($subscription, $freeTrialDays);
-            $this->logDebug(static::LOG_TRIAL_END_DATE, [$user->getId(), $ouId, $freeTrialDays], [static::LOG_CODE, 'TrialEndDate']);
+            $this->logDebug(static::LOG_TRIAL_END_DATE, [$user->getId(), $rootOu->getId(), $freeTrialDays], [static::LOG_CODE, 'TrialEndDate']);
 
         } catch (ValidationException $e) {
             // This would be thrown if the user is not on a free trial. No-op.
