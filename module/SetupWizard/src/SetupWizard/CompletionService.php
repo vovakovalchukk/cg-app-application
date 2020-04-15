@@ -9,6 +9,7 @@ use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Access\Entity as OrganisationUnitAccess;
 use CG\OrganisationUnit\Access\Service as OrganisationUnitAccessService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
@@ -60,7 +61,7 @@ class CompletionService implements LoggerAwareInterface
         try {
             $cgAccessStrategy = $this->createCgAccessStrategy($organisationUnit);
             $access
-                ->setSystem($cgAccessStrategy->hasSystemAccess())
+                ->setSystem($cgAccessStrategy->hasSystemAccess() ? OrganisationUnitAccess::SYSTEM_ON : OrganisationUnitAccess::SYSTEM_RESTRICTED)
                 ->setApi($cgAccessStrategy->hasApiAccess())
                 ->setListings($cgAccessStrategy->hasListingsAccess());
         } catch (NotFound $e) {
