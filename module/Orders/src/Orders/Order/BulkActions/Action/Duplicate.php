@@ -9,7 +9,7 @@ use Zend\View\Model\ViewModel;
 
 class Duplicate extends Action implements OrderAwareInterface
 {
-    const ICON = 'sprite-batch-22-black';
+    protected const ICON = 'sprite-duplicate-18-black';
 
     public function __construct(
         array $elementData = [],
