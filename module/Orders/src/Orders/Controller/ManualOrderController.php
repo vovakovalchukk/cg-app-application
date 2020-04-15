@@ -80,6 +80,7 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('tradingCompanies', json_encode($tradingCompanies))
             ->setVariable('orderItems', str_replace("\u0022","\\\\\"", json_encode($this->formatItemsForOrder($order), JSON_HEX_QUOT)))
             ->setVariable('shippingData', json_encode($this->formatShippingDataForOrder($order)))
+            ->setVariable('discount', json_encode($order ? $order->getOrderDiscount() : null))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
             ->addChild($this->getAddressInformation($order), 'addressInformation')
             ->addChild($this->getOrderAlert(), 'orderAlert')

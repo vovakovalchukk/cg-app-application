@@ -22,6 +22,7 @@ class OrderTable extends React.Component {
     componentDidMount() {
         this.fetchProductsForOrderItems();
         this.setShippingDataOnState();
+        this.setDiscountOnState();
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('orderSubmit', this.onOrderSubmit);
     }
@@ -100,6 +101,21 @@ class OrderTable extends React.Component {
                 cost: this.props.shippingData.cost || 0
             }
         });
+    };
+
+    setDiscountOnState = () => {
+        const discount = parseFloat(this.props.discount || 0);
+        if (!discount) {
+            return;
+        }
+
+        this.setState({
+            discount: {
+                value: discount
+            }
+        }, () => {
+            this.onToggleDiscountBox();
+        })
     };
 
     onProductSelected = (e) => {

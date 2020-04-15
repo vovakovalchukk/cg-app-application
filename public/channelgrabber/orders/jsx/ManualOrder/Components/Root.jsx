@@ -56,6 +56,7 @@ class RootComponent extends React.Component {
                     getOrderData={this.getOrderData}
                     orderItems={this.props.utilities.orderItems}
                     shippingData={this.props.utilities.shippingData}
+                    discount={this.props.utilities.discount}
                 />
             </div>
         );

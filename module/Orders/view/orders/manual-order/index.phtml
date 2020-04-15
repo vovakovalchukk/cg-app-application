@@ -35,6 +35,7 @@ require(
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' }),
         orderItems: JSON.parse('<?= $orderItems ?>'),
         shippingData: JSON.parse('<?= $shippingData ?>'),
+        discount: JSON.parse('<?= $discount ?>'),
     };
 
     var manualOrdersRoot = new ManualOrderRoot(domElements, utilities, usersName);
