@@ -1,7 +1,8 @@
 <?php
 namespace SetupWizard;
 
-use CG\Access\Strategy\Cg as CgAccessStrategy;
+use CG\Access\Strategy\Factory as AccessStrategyFactory;
+use CG\Access\StrategyInterface as AccessStrategyInterface;
 use CG\Billing\Subscription\Collection as Subscriptions;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Billing\Subscription\Filter as SubscriptionFilter;
@@ -32,19 +33,19 @@ class CompletionService implements LoggerAwareInterface
     protected $organisationUnitAccessService;
     /** @var SubscriptionService */
     protected $subscriptionService;
-    /** @var Di */
-    protected $di;
+    /** @var AccessStrategyFactory */
+    protected $accessStrategyFactory;
 
     public function __construct(
         OrganisationUnitService $organisationUnitService,
         OrganisationUnitAccessService $organisationUnitAccessService,
         SubscriptionService $subscriptionService,
-        Di $di
+        AccessStrategyFactory $accessStrategyFactory
     ) {
         $this->organisationUnitService = $organisationUnitService;
         $this->organisationUnitAccessService = $organisationUnitAccessService;
         $this->subscriptionService = $subscriptionService;
-        $this->di = $di;
+        $this->accessStrategyFactory = $accessStrategyFactory;
     }
 
     public function completeSetup(User $user)
@@ -59,11 +60,11 @@ class CompletionService implements LoggerAwareInterface
     {
         $access = $this->organisationUnitAccessService->fetch($organisationUnit->getRoot());
         try {
-            $cgAccessStrategy = $this->createCgAccessStrategy($organisationUnit);
+            $accessStrategy = $this->createAccessStrategy($organisationUnit);
             $access
-                ->setSystem($cgAccessStrategy->hasSystemAccess() ? OrganisationUnitAccess::SYSTEM_ON : OrganisationUnitAccess::SYSTEM_RESTRICTED)
-                ->setApi($cgAccessStrategy->hasApiAccess())
-                ->setListings($cgAccessStrategy->hasListingsAccess());
+                ->setSystem($accessStrategy->hasSystemAccess() ? OrganisationUnitAccess::SYSTEM_ON : OrganisationUnitAccess::SYSTEM_RESTRICTED)
+                ->setApi($accessStrategy->hasApiAccess())
+                ->setListings($accessStrategy->hasListingsAccess());
         } catch (NotFound $e) {
             $this->logWarning('No subscription found for OU %s', ['organisationUnit' => $organisationUnit->getRoot()], static::LOG_CODE);
         } finally {
@@ -117,11 +118,18 @@ class CompletionService implements LoggerAwareInterface
     protected function markSetupCompleted(OrganisationUnit $organisationUnit): void
     {
         $organisationUnit->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+        // ensure billing type is Manual going forwards
+        $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_MANUAL);
         $this->organisationUnitService->save($organisationUnit);
     }
 
-    protected function createCgAccessStrategy(OrganisationUnit $organisationUnit): CgAccessStrategy
+    protected function createAccessStrategy(OrganisationUnit $organisationUnit): AccessStrategyInterface
     {
-        return $this->di->get(CgAccessStrategy::class, ['organisationUnit' => $organisationUnit->getRootEntity()]);
+        /*
+         * We are forcing the factory to create a Cg access strategy in order to determine access
+         * based on the temporary subscription created during the Payment stage of setup
+         */
+        $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_CG);
+        return ($this->accessStrategyFactory)($organisationUnit);
     }
 }
