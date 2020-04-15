@@ -63,6 +63,7 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_HAS_CUSTOMISATION),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SUPPLIER),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_MULTI_LINE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_LINKED),
                     ]
                 ]
             ],
