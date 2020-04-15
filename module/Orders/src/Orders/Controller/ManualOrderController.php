@@ -79,6 +79,7 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->setVariable('tradingCompanies', json_encode($tradingCompanies))
             ->setVariable('orderItems', str_replace("\u0022","\\\\\"", json_encode($this->formatItemsForOrder($order), JSON_HEX_QUOT)))
+            ->setVariable('shippingData', json_encode($this->formatShippingDataForOrder($order)))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
             ->addChild($this->getAddressInformation($order), 'addressInformation')
             ->addChild($this->getOrderAlert(), 'orderAlert')
@@ -156,6 +157,14 @@ class ManualOrderController extends AbstractActionController
             ];
         }
         return $items;
+    }
+
+    protected function formatShippingDataForOrder(?OrderEntity $order = null): array
+    {
+        return !$order ? [] : [
+            'cost' => $order->getShippingPrice(),
+            'method' => $order->getShippingMethod()
+        ];
     }
 
     protected function getBuyerMessage()

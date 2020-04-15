@@ -21,6 +21,7 @@ class OrderTable extends React.Component {
 
     componentDidMount() {
         this.fetchProductsForOrderItems();
+        this.setShippingDataOnState();
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('orderSubmit', this.onOrderSubmit);
     }
@@ -36,9 +37,9 @@ class OrderTable extends React.Component {
         });
 
         if (skus.length === 0) {
-            this.populateWithProducts({});
             return;
         }
+
         this.fetchProductsBySkus(skus);
     };
 
@@ -90,6 +91,15 @@ class OrderTable extends React.Component {
             sku: orderItem.sku,
             name: orderItem.name
         };
+    };
+
+    setShippingDataOnState = () => {
+        this.setState({
+            shippingMethod: {
+                name: this.props.shippingData.method || 'N/A',
+                cost: this.props.shippingData.cost || 0
+            }
+        });
     };
 
     onProductSelected = (e) => {

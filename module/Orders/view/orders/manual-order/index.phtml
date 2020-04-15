@@ -33,7 +33,8 @@ require(
         carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' }),
-        orderItems: JSON.parse('<?= $orderItems ?>')
+        orderItems: JSON.parse('<?= $orderItems ?>'),
+        shippingData: JSON.parse('<?= $shippingData ?>'),
     };
 
     var manualOrdersRoot = new ManualOrderRoot(domElements, utilities, usersName);
