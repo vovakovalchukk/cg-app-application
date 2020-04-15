@@ -273,8 +273,20 @@ class OrderTable extends React.Component {
     getShippingMarkup = () => {
         return (
             <div className="detail-shipping">
-                <span className="detail-label"><SearchBox placeholder="Shipping method..." results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
-                <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
+                <span className="detail-label">
+                    <SearchBox
+                        placeholder="Shipping method..."
+                        results={this.context.carrierUtils.getCarriers()}
+                        onResultSelected={this.onShippingMethodSelected}
+                        selected={this.state.shippingMethod.name}
+                    />
+                    Shipping
+                </span>
+                <CurrencyInput
+                    value={this.state.shippingMethod.cost}
+                    currency={this.props.currency.value}
+                    onChange={this.onManualShippingCost}
+                />
             </div>
         );
     };
