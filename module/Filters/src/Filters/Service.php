@@ -566,7 +566,7 @@ class Service
                 'variables' => [
                     'isBoolean' => true,
                     'name' => 'linked',
-                    'title' => 'Has Linked Orders',
+                    'title' => 'Linked Orders',
                     'isOptional' => true,
                     'emptyValue' => true,
                     'options' => [
