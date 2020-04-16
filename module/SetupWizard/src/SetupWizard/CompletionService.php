@@ -63,7 +63,7 @@ class CompletionService implements LoggerAwareInterface
             $accessStrategy = $this->createAccessStrategy($organisationUnit);
             $access
                 ->setSystem($accessStrategy->hasSystemAccess() ? OrganisationUnitAccess::SYSTEM_ON : OrganisationUnitAccess::SYSTEM_RESTRICTED)
-                ->setApi($accessStrategy->hasApiAccess())
+                ->setApi($accessStrategy->hasApiCredentialsAccess())
                 ->setListings($accessStrategy->hasListingsAccess());
         } catch (NotFound $e) {
             $this->logWarning('No subscription found for OU %s', ['organisationUnit' => $organisationUnit->getRoot()], static::LOG_CODE);
