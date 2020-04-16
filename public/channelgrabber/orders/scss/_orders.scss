@@ -407,6 +407,17 @@
 }
 
 .orderid-cell {
+    .productinfo {
+        .subtitle {
+            width: 100%;
+        }
+        .itemAvailableStock {
+            max-width: 30%;
+            &.skuOutOfStock {
+                color: $color-red;
+            }
+        }
+    }
     .multi-item-popup {
         display: none;
         position: absolute;
