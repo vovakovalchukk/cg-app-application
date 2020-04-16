@@ -5,10 +5,6 @@ use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
-// CGIV-11352: the Payment step is currently incompatible with manual billing,
-// but may be reinstated in the future with changes made
-return [];
-/*
 return [
     'navigation' => [
         'setup-navigation' => [
@@ -85,4 +81,3 @@ return [
         ],
     ],
 ];
-*/
