@@ -18,6 +18,7 @@ return [
                     'giftMessage' => Module::PUBLIC_FOLDER . 'template/columns/giftMessage.mustache',
                     'custom-tag' => Module::PUBLIC_FOLDER . 'template/columns/custom-tag.mustache',
                     'externalId' => Module::PUBLIC_FOLDER . 'template/columns/externalId.mustache',
+                    'itemDetails' => Module::PUBLIC_FOLDER . 'template/columns/itemDetails.mustache',
                     'dispatchDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'labelCreatedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'printedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
@@ -34,6 +35,7 @@ return [
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
                     'linkedOrdersPopup' => Module::PUBLIC_FOLDER . 'template/popup/linkedOrders.mustache',
+                    'multiItemPopup' => Module::PUBLIC_FOLDER . 'template/popup/multiItem.mustache',
                     'customisation' => Module::PUBLIC_FOLDER . 'template/columns/customisation.mustache',
                 ],
                 'courierReview' => [

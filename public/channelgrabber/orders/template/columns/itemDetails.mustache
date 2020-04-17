@@ -1,0 +1,4 @@
+<span class="itemQuantity">{{itemQuantity}}</span> x
+{{#itemSku}}<span class="itemSku">{{itemSku}} - </span>{{/itemSku}}
+{{#availableStock}}<span class="itemAvailableStock{{#outOfStock}} skuOutOfStock{{/outOfStock}}">({{.}} in stock)</span> - {{/availableStock}}
+{{#formatItemName}}<span class="itemName">{{itemName}}</span>{{/formatItemName}}
