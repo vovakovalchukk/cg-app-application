@@ -8,9 +8,9 @@ use Zend\Session\ManagerInterface;
 
 class FilterManager
 {
-    const DEFAULT_DATE_FROM = '-30 days  00:00:00';
+    const DEFAULT_DATE_FROM = '-7 days  00:00:00';
     const DEFAULT_DATE_TO = '23:59:59';
-    const DEFAULT_DATE_PERIOD = 'Last 30 days';
+    const DEFAULT_DATE_PERIOD = 'Last 7 days';
 
     protected $filter;
     protected $persistentStorage;
