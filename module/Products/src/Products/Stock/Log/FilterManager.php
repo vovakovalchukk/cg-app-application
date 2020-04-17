@@ -8,21 +8,22 @@ use Zend\Session\ManagerInterface;
 
 class FilterManager
 {
-    const DEFAULT_DATE_FROM = '-7 days  00:00:00';
-    const DEFAULT_DATE_TO = '23:59:59';
-    const DEFAULT_DATE_PERIOD = 'Last 7 days';
+    protected const DEFAULT_DATE_FROM = '-7 days  00:00:00';
+    protected const DEFAULT_DATE_TO = '23:59:59';
+    protected const DEFAULT_DATE_PERIOD = 'Last 7 days';
 
+    /** @var Filter */
     protected $filter;
+    /** @var ManagerInterface */
     protected $persistentStorage;
 
     public function __construct(Filter $filter, ManagerInterface $persistentStorage)
     {
-        $this
-            ->setFilter($filter)
-            ->setPersistentStorage($persistentStorage);
+        $this->filter = $filter;
+        $this->persistentStorage = $persistentStorage;
     }
 
-    public function setPersistentFilter(Filter $filter)
+    public function setPersistentFilter(Filter $filter): FilterManager
     {
         $storage = $this->persistentStorage->getStorage();
         $filterType = StockLogController::FILTER_PRODUCT_LOGS;
@@ -36,7 +37,7 @@ class FilterManager
         return $this;
     }
 
-    public function getPersistentFilter()
+    public function getPersistentFilter(): Filter
     {
         $storage = $this->persistentStorage->getStorage();
         $filterType = StockLogController::FILTER_PRODUCT_LOGS;
@@ -52,7 +53,7 @@ class FilterManager
         return $storage[$filterType]['filter'];
     }
 
-    public function setFilterDefaults(Filter $filter)
+    public function setFilterDefaults(Filter $filter): void
     {
         if (!$filter->getDateTimeFrom() && !$filter->getDateTimeTo()) {
             $filter->setDateTimeFrom(static::DEFAULT_DATE_FROM)
@@ -62,23 +63,5 @@ class FilterManager
         if (empty($filter->getType())) {
             $filter->setType(array_values(Type::getAllTypes()));
         }
-    }
-
-    /**
-     * @return self
-     */
-    protected function setFilter(Filter $filter)
-    {
-        $this->filter = $filter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setPersistentStorage(ManagerInterface $persistentStorage)
-    {
-        $this->persistentStorage = $persistentStorage;
-        return $this;
     }
 }
