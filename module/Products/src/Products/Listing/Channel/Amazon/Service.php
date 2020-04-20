@@ -183,10 +183,11 @@ class Service implements
     {
         $amazonCategory = $this->amazonCategoryService->fetch($amazonCategoryId);
         $marketplace = $this->getMarketplaceForAccount($account);
-
+        $variationThemes = $this->getVariationThemes($amazonCategory, $marketplace);
         return [
             'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
-            'variationThemes' => $this->getVariationThemes($amazonCategory, $marketplace),
+            'variationThemes' => $variationThemes,
+            'categoryRootVariationThemes' => $this->filterToCategoryRootVariationThemes($variationThemes),
         ];
     }
 
@@ -239,5 +240,15 @@ class Service implements
         }
 
         return $result;
+    }
+
+    protected function filterToCategoryRootVariationThemes(array $variationThemes): array
+    {
+        return array_map(
+            function ($variationTheme) {
+                return isset($variationTheme['productType']) && ($variationTheme['productType'] === null);
+            },
+            $variationThemes
+        );
     }
 }
