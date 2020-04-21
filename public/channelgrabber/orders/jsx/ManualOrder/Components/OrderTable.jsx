@@ -49,7 +49,9 @@ class OrderTable extends React.Component {
             return;
         }
 
-        n.notice(`Please wait while we populate the order items...`, true, 3000);
+        // For some reason, our Notifications service is sometimes loaded later than when we show this notice message,
+        // so it needs to be executed after a short while to make sure that the notification service is available
+        setTimeout(() => n.notice(`Please wait while we populate the order items...`, true, 3000), 200);
 
         let filter = new ProductFilter;
         filter.sku = skus;
