@@ -231,9 +231,9 @@ class Service implements LoggerAwareInterface
         $count = 0;
         $collection = new OrderItemCollection(OrderItem::class, 'fetchCollectionByOrderId', ['orderId' => $order->getId()]);
         $products = $this->fetchProductsForItemsData($itemsData);
-        foreach ($itemsData as $index => $itemData) {
+        foreach ($itemsData as $itemData) {
             $productId = $itemData['productId'] ?? null;
-            $product = !$productId ? $this->createProductFromItemData($order, $itemData, $index) : $products->getById($itemData['productId']);
+            $product = !$productId ? $this->createProductFromItemData($itemData) : $products->getById($itemData['productId']);
             $count++;
             $item = $this->createItem($itemData, $order, $product, $count);
             $collection->attach($item);
@@ -245,15 +245,15 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function createProductFromItemData(Order $order, array $itemData, int $index): Product
+    protected function createProductFromItemData(array $itemData): Product
     {
-        $quantity = $itemData['itemQuantity'] ?? 0;
-        $sku = $itemData['itemSku'] ?? $itemData['itemName'] ?? $this->generateSkuForItem($order, $index);
-        $name = $itemData['itemName'] ?? $sku;
+        $quantity = (float) $itemData['itemQuantity'];
+        $sku = $itemData['itemSku'];
+        $name = (string) $itemData['itemName'];
 
         try {
             return $this->productCreator->createFromUserInput([
-                'name' => $name,
+                'name' => $name !== '' ? $name : $sku,
                 'sku' => $sku,
                 'quantity' => $quantity
             ]);
@@ -261,11 +261,6 @@ class Service implements LoggerAwareInterface
             $this->logWarningException($exception);
             throw new \BadFunctionCallException('There was an error with the provided order items: ' . $exception->getMessage());
         }
-    }
-
-    protected function generateSkuForItem(Order $order, int $index): string
-    {
-        return static::GENERATED_SKU_PREFIX . $order->getId() . '_' . $index . '_';
     }
 
     protected function createItem(array $itemData, Order $order, Product $product, $index): OrderItem

@@ -17,7 +17,8 @@ use Zend\View\Model\ViewModel;
 
 class ManualOrderController extends AbstractActionController
 {
-    const ROUTE_INDEX_URL = '/new';
+    public const ROUTE_INDEX_URL = '/new';
+    protected const GENERATED_SKU_PREFIX = '_GENERATED_SKU_';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -149,15 +150,21 @@ class ManualOrderController extends AbstractActionController
         }
 
         /** @var OrderItem $item */
-        foreach ($order->getItems() as $item) {
+        foreach ($order->getItems() as $index => $item) {
+            $sku = $item->getItemSku();
             $items[] = [
-                'sku' => $item->getItemSku(),
+                'sku' => $sku !== '' ? $sku : $this->generateSkuForItem($order, $index),
                 'name' => $item->getItemName(),
                 'quantity' => $item->getItemQuantity(),
                 'price' => $item->getIndividualItemPrice()
             ];
         }
         return $items;
+    }
+
+    protected function generateSkuForItem(OrderEntity $order, int $index): string
+    {
+        return static::GENERATED_SKU_PREFIX . $order->getId() . '_' . $index . '_';
     }
 
     protected function formatShippingDataForOrder(?OrderEntity $order = null): array
