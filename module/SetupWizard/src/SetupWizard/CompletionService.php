@@ -64,7 +64,7 @@ class CompletionService implements LoggerAwareInterface
     {
         $setupCompletionDate = $organisationUnit->getMetaData()->getSetupCompleteDate();
         if ($setupCompletionDate === null) {
-            return true;
+            return false;
         }
         return new DateTime($setupCompletionDate) <= new DateTime();
     }
