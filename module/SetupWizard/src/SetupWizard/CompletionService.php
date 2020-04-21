@@ -55,6 +55,7 @@ class CompletionService implements LoggerAwareInterface
             $this->logDebug('Setup already completed for OU %s', [$organisationUnit->getId()], static::LOG_CODE);
             return;
         }
+        $this->endTrial($organisationUnit);
         $this->createAccess($organisationUnit);
         $this->endSubscriptions($organisationUnit);
         $this->markSetupCompleted($organisationUnit);
@@ -82,6 +83,22 @@ class CompletionService implements LoggerAwareInterface
             $this->logWarning('No subscription found for OU %s', ['organisationUnit' => $organisationUnit->getRoot()], static::LOG_CODE);
         } finally {
             $this->organisationUnitAccessService->save($access);
+        }
+    }
+
+    protected function endTrial(OrganisationUnit $organisationUnit): void
+    {
+        /*
+         * We need to end trials at this point, otherwise the access strategy will determine
+         * access based on the trial subscription and not the paid-for subscription
+         */
+        $subscriptions = $this->fetchAllActiveSubscriptions($organisationUnit);
+        /** @var Subscription $subscription */
+        foreach ($subscriptions as $subscription) {
+            if ($subscription->getTrialPackage() === null) {
+                continue;
+            }
+            $this->endSubscription($subscription);
         }
     }
 
