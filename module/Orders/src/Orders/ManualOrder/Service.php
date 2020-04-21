@@ -36,6 +36,8 @@ use Products\Product\Creator as ProductCreator;
 
 class Service implements LoggerAwareInterface
 {
+    protected const GENERATED_SKU_PREFIX = '_GENERATED_';
+
     use LogTrait;
     use SaveCollectionHandleErrorsTrait;
 
@@ -229,9 +231,9 @@ class Service implements LoggerAwareInterface
         $count = 0;
         $collection = new OrderItemCollection(OrderItem::class, 'fetchCollectionByOrderId', ['orderId' => $order->getId()]);
         $products = $this->fetchProductsForItemsData($itemsData);
-        foreach ($itemsData as $itemData) {
+        foreach ($itemsData as $index => $itemData) {
             $productId = $itemData['productId'] ?? null;
-            $product = !$productId ? $this->createProductFromItemData($itemData) : $products->getById($itemData['productId']);
+            $product = !$productId ? $this->createProductFromItemData($order, $itemData, $index) : $products->getById($itemData['productId']);
             $count++;
             $item = $this->createItem($itemData, $order, $product, $count);
             $collection->attach($item);
@@ -243,20 +245,27 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function createProductFromItemData(array $itemData): Product
+    protected function createProductFromItemData(Order $order, array $itemData, int $index): Product
     {
-        $productData = [
-            'name' => $itemData['itemName'] ?? '',
-            'sku' => $itemData['itemSku'] ?? '',
-            'quantity' => $itemData['itemQuantity'] ?? ''
-        ];
+        $quantity = $itemData['itemQuantity'] ?? 0;
+        $sku = $itemData['itemSku'] ?? $itemData['itemName'] ?? $this->generateSkuForItem($order, $index);
+        $name = $itemData['itemName'] ?? $sku;
 
         try {
-            return $this->productCreator->createFromUserInput($productData);
+            return $this->productCreator->createFromUserInput([
+                'name' => $name,
+                'sku' => $sku,
+                'quantity' => $quantity
+            ]);
         } catch (ValidationException $exception) {
             $this->logWarningException($exception);
             throw new \BadFunctionCallException('There was an error with the provided order items: ' . $exception->getMessage());
         }
+    }
+
+    protected function generateSkuForItem(Order $order, int $index): string
+    {
+        return static::GENERATED_SKU_PREFIX . $order->getId() . '_' . $index . '_';
     }
 
     protected function createItem(array $itemData, Order $order, Product $product, $index): OrderItem
