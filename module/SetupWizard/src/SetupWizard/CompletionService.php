@@ -51,9 +51,19 @@ class CompletionService implements LoggerAwareInterface
     public function completeSetup(User $user)
     {
         $organisationUnit = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
+        if ($this->isSetupAlreadyCompleted($organisationUnit)) {
+            $this->logDebug('Setup already completed for OU %s', [$organisationUnit->getId()], static::LOG_CODE);
+            return;
+        }
         $this->createAccess($organisationUnit);
         $this->endSubscriptions($organisationUnit);
         $this->markSetupCompleted($organisationUnit);
+    }
+
+    protected function isSetupAlreadyCompleted(OrganisationUnit $organisationUnit): bool
+    {
+        $setupCompletionDate = new DateTime($organisationUnit->getMetaData()->getSetupCompleteDate());
+        return $setupCompletionDate <= new DateTime();
     }
 
     protected function createAccess(OrganisationUnit $organisationUnit): void
@@ -117,10 +127,24 @@ class CompletionService implements LoggerAwareInterface
 
     protected function markSetupCompleted(OrganisationUnit $organisationUnit): void
     {
-        $organisationUnit->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
-        // ensure billing type is Manual going forwards
-        $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_MANUAL);
-        $this->organisationUnitService->save($organisationUnit);
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                $organisationUnit->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+                // ensure billing type is Manual going forwards
+                $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_MANUAL);
+                $this->organisationUnitService->save($organisationUnit);
+                return;
+            } catch (NotModified $e) {
+                return;
+            } catch (Conflict $e) {
+                $this->logDebug('Conflict on attempt %s of updating OU %s', [$attempt, 'ou' => $organisationUnit->getId()], static::LOG_CODE);
+                if ($attempt == static::MAX_SAVE_ATTEMPTS) {
+                    $this->logError('Couldn\'t update OU %s after %s attempts', ['ou' => $organisationUnit->getId(), static::MAX_SAVE_ATTEMPTS], static::LOG_CODE);
+                    return;
+                }
+                $organisationUnit = $this->organisationUnitService->fetch($organisationUnit->getId());
+            }
+        }
     }
 
     protected function createAccessStrategy(OrganisationUnit $organisationUnit): AccessStrategyInterface
