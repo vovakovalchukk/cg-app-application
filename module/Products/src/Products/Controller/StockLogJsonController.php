@@ -1,6 +1,7 @@
 <?php
 namespace Products\Controller;
 
+use CG\Stdlib\PageLimit;
 use CG\Stock\Audit\Combined\Filter;
 use CG\Stock\Audit\Combined\Filter\Mapper as FilterMapper;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -43,11 +44,11 @@ class StockLogJsonController extends AbstractActionController
         if (!isset($requestFilter['sku']) || $requestFilter['sku'] == '') {
             $requestFilter['sku'] = [$productDetails['sku']];
         }
+        $pageLimit = $this->getPageLimit();
 
-        $filter = $this->filterMapper->fromArray($requestFilter)
-            ->setPage(1)
-            ->setLimit('all');
+        $filter = $this->filterMapper->fromArray($requestFilter);
         $this->filterManager->setPersistentFilter($filter);
+        $filter->setPage($pageLimit->getPage())->setLimit($pageLimit->getLimit());
 
         // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
         $this->formatDates($filter);
@@ -57,6 +58,19 @@ class StockLogJsonController extends AbstractActionController
         $data['Records'] = $this->service->stockLogsToUiData($stocklogs, $this->getEvent(), $filter);
 
         return $this->jsonModelFactory->newInstance($data);
+    }
+
+    protected function getPageLimit(): PageLimit
+    {
+        $pageLimit = new PageLimit();
+
+        if ($this->params()->fromPost('iDisplayLength') > 0) {
+            $pageLimit
+                ->setLimit($this->params()->fromPost('iDisplayLength'))
+                ->setPageFromOffset($this->params()->fromPost('iDisplayStart'));
+        }
+
+        return $pageLimit;
     }
 
     public function updateColumnsAction()

@@ -1125,8 +1125,15 @@ return [
             ],
             'StockLogTableSettings' => [
                 'parameters' => [
+                    'scrollHeightAuto' => false,
+                    'footer' => true,
+                    'pagination' => true,
+                    'rowsPerPage' => 200,
+                    'rowsPerPageList' => [50, 100, 200, 500],
+                    'tableOptions' => ' rt<"table-footer" ilp>',
                     'language' => [
                         'sProcessing' => 'Loading logs',
+                        'sLengthMenu' => '<span class="show">Show</span> _MENU_'
                     ],
                 ]
             ],
