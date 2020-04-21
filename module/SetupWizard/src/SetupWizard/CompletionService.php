@@ -62,8 +62,11 @@ class CompletionService implements LoggerAwareInterface
 
     protected function isSetupAlreadyCompleted(OrganisationUnit $organisationUnit): bool
     {
-        $setupCompletionDate = new DateTime($organisationUnit->getMetaData()->getSetupCompleteDate());
-        return $setupCompletionDate <= new DateTime();
+        $setupCompletionDate = $organisationUnit->getMetaData()->getSetupCompleteDate();
+        if ($setupCompletionDate === null) {
+            return true;
+        }
+        return new DateTime($setupCompletionDate) <= new DateTime();
     }
 
     protected function createAccess(OrganisationUnit $organisationUnit): void
