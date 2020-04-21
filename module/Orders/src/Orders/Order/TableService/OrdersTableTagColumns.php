@@ -54,7 +54,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
      */
     public function getSelectOptions()
     {
-        $options = [Filter::TAGS_ALL => Filter::TAGS_ALL];
+        $options = [Filter::TAGS_ANY => Filter::TAGS_ANY];
 
         try {
             $tags = $this->getActiveUserTags();
