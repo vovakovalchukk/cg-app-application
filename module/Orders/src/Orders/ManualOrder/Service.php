@@ -36,8 +36,6 @@ use Products\Product\Creator as ProductCreator;
 
 class Service implements LoggerAwareInterface
 {
-    protected const GENERATED_SKU_PREFIX = '_GENERATED_';
-
     use LogTrait;
     use SaveCollectionHandleErrorsTrait;
 
