@@ -51,9 +51,23 @@ class CompletionService implements LoggerAwareInterface
     public function completeSetup(User $user)
     {
         $organisationUnit = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
+        if ($this->isSetupAlreadyCompleted($organisationUnit)) {
+            $this->logDebug('Setup already completed for OU %s', [$organisationUnit->getId()], static::LOG_CODE);
+            return;
+        }
+        $this->endTrial($organisationUnit);
         $this->createAccess($organisationUnit);
         $this->endSubscriptions($organisationUnit);
         $this->markSetupCompleted($organisationUnit);
+    }
+
+    protected function isSetupAlreadyCompleted(OrganisationUnit $organisationUnit): bool
+    {
+        $setupCompletionDate = $organisationUnit->getMetaData()->getSetupCompleteDate();
+        if ($setupCompletionDate === null) {
+            return false;
+        }
+        return new DateTime($setupCompletionDate) <= new DateTime();
     }
 
     protected function createAccess(OrganisationUnit $organisationUnit): void
@@ -69,6 +83,22 @@ class CompletionService implements LoggerAwareInterface
             $this->logWarning('No subscription found for OU %s', ['organisationUnit' => $organisationUnit->getRoot()], static::LOG_CODE);
         } finally {
             $this->organisationUnitAccessService->save($access);
+        }
+    }
+
+    protected function endTrial(OrganisationUnit $organisationUnit): void
+    {
+        /*
+         * We need to end trials at this point, otherwise the access strategy will determine
+         * access based on the trial subscription and not the paid-for subscription
+         */
+        $subscriptions = $this->fetchAllActiveSubscriptions($organisationUnit);
+        /** @var Subscription $subscription */
+        foreach ($subscriptions as $subscription) {
+            if ($subscription->getTrialPackage() === null) {
+                continue;
+            }
+            $this->endSubscription($subscription);
         }
     }
 
@@ -117,10 +147,24 @@ class CompletionService implements LoggerAwareInterface
 
     protected function markSetupCompleted(OrganisationUnit $organisationUnit): void
     {
-        $organisationUnit->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
-        // ensure billing type is Manual going forwards
-        $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_MANUAL);
-        $this->organisationUnitService->save($organisationUnit);
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                $organisationUnit->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+                // ensure billing type is Manual going forwards
+                $organisationUnit->setBillingType(OrganisationUnit::BILLING_TYPE_MANUAL);
+                $this->organisationUnitService->save($organisationUnit);
+                return;
+            } catch (NotModified $e) {
+                return;
+            } catch (Conflict $e) {
+                $this->logDebug('Conflict on attempt %s of updating OU %s', [$attempt, 'ou' => $organisationUnit->getId()], static::LOG_CODE);
+                if ($attempt == static::MAX_SAVE_ATTEMPTS) {
+                    $this->logError('Couldn\'t update OU %s after %s attempts', ['ou' => $organisationUnit->getId(), static::MAX_SAVE_ATTEMPTS], static::LOG_CODE);
+                    return;
+                }
+                $organisationUnit = $this->organisationUnitService->fetch($organisationUnit->getId());
+            }
+        }
     }
 
     protected function createAccessStrategy(OrganisationUnit $organisationUnit): AccessStrategyInterface
