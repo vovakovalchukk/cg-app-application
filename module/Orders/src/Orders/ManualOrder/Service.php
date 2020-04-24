@@ -23,6 +23,7 @@ use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Entity as Product;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -292,9 +293,13 @@ class Service implements LoggerAwareInterface
         return $item;
     }
 
-    protected function fetchProductsForItemsData(array $itemsData)
+    protected function fetchProductsForItemsData(array $itemsData): ProductCollection
     {
         $productIds = array_column($itemsData, 'productId');
+        if (empty($productIds)) {
+            return new ProductCollection(Product::class, __METHOD__);
+        }
+
         $filter = (new ProductFilter())
             ->setLimit('all')
             ->setPage(1)
