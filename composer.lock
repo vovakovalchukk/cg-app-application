@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4298f74f3d36399e37d0314ff914c844",
+    "content-hash": "98c39f31508039f8d91a6b6f8aaa1663",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -759,16 +759,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-11382-bigcommerce-listing-import-taking-system-down",
+            "version": "1.44.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "60886f4a821b935e715fe69cbd3a6c4b2b5266f6"
+                "reference": "1748ca22a4b0f19c7525d16b987c1536bb40c2c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11382-bigcommerce-listing-import-taking-system-down-1533cb.zip",
-                "reference": "60886f4a821b935e715fe69cbd3a6c4b2b5266f6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.7-172c84.zip",
+                "reference": "1748ca22a4b0f19c7525d16b987c1536bb40c2c1"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -836,7 +836,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-04-27T09:37:26+00:00"
+            "time": "2020-04-27T10:02:40+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -11991,17 +11991,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.7",
-            "alias_normalized": "1.44.7.0",
-            "version": "dev-CGIV-11382-bigcommerce-listing-import-taking-system-down",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
