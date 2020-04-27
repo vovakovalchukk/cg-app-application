@@ -1135,12 +1135,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "3fb6472c8e7eb52b38d41448f986ccbd178e5247"
+                "reference": "b600020598d24d6e238ba7f9506c60b63441ee45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-TAC-615-export-order-weights-to-csv-d155d9.zip",
-                "reference": "3fb6472c8e7eb52b38d41448f986ccbd178e5247"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-TAC-615-export-order-weights-to-csv-b7ff31.zip",
+                "reference": "b600020598d24d6e238ba7f9506c60b63441ee45"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1150,7 +1150,7 @@
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.4",
                 "channelgrabber/ftp-account": "^1.0.1",
-                "channelgrabber/order": "^1.48.0",
+                "channelgrabber/order": "dev-TAC-615-export-order-weights-to-csv as 1.53.4",
                 "channelgrabber/product": "^1.18.2",
                 "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/stock": "^1.17.6",
@@ -1173,7 +1173,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-04-14T15:14:55+00:00"
+            "time": "2020-04-27T14:19:44+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -2463,17 +2463,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f38fed31f66897bdea9d48e8bf76adc4f9c68e47"
+                "reference": "1f5345ff46203be601090e8f7b6abfb251322741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-615-export-order-weights-to-csv-88be67.zip",
-                "reference": "f38fed31f66897bdea9d48e8bf76adc4f9c68e47"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-615-export-order-weights-to-csv-d890a0.zip",
+                "reference": "1f5345ff46203be601090e8f7b6abfb251322741"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "1.17.2",
+                "channelgrabber/cglib": "^1.17.2",
                 "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-27T14:00:17+00:00"
+            "time": "2020-04-27T14:40:48+00:00"
         },
         {
             "name": "channelgrabber/partner",
