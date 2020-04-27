@@ -16,6 +16,10 @@ use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrap;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Collection as StockCollection;
+use CG\Stock\Entity as Stock;
+use CG\Stock\Filter as StockFilter;
+use CG\Stock\Service as StockService;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
@@ -50,6 +54,8 @@ class OrdersTable
     protected $courierTrackingUrl;
     /** @var CourierHelper */
     protected $courierHelper;
+    /** @var StockService */
+    protected $stockService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -60,7 +66,8 @@ class OrdersTable
         DateFormatHelper $dateFormatHelper,
         OrdersTableUserPreferences $orderTableUserPreferences,
         CourierTrackingUrl $courierTrackingUrl,
-        CourierHelper $courierHelper
+        CourierHelper $courierHelper,
+        StockService $stockService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
@@ -71,6 +78,7 @@ class OrdersTable
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->courierTrackingUrl = $courierTrackingUrl;
         $this->courierHelper = $courierHelper;
+        $this->stockService = $stockService;
     }
 
     public function mapOrdersCollectionToArray(Orders $orderCollection, MvcEvent $event)
@@ -89,7 +97,8 @@ class OrdersTable
             ->mapLabelData($orders)
             ->mapLinkedOrdersData($orderCollection, $orders)
             ->mapOrderItemCustomisations($orderCollection, $orders)
-            ->mapMultiItemData($orders);
+            ->mapMultiItemData($orders)
+            ->mapStockData($orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -387,6 +396,51 @@ class OrdersTable
             $order['multiItem'] = count($order['items']) > 1;
         }
         return $this;
+    }
+
+    protected function mapStockData(array &$orders): OrdersTable
+    {
+        $skus = $this->getDistinctSkusFromOrderData($orders);
+        $stockCollection = $this->fetchStockCollectionBySkus($skus);
+        if (!$stockCollection) {
+            return $this;
+        }
+        foreach ($orders as &$order) {
+            foreach ($order['items'] as &$item) {
+                /** @var Stock $stock */
+                $stock = $stockCollection->getBy('sku', $item['itemSku'])->getFirst();
+                // In the Products UI we just use the first StockLocation, do the same here for consistency
+                $item['availableStock'] = ($stock && $stock->getLocations()->getFirst() ? (string)$stock->getLocations()->getFirst()->getAvailable() : null);
+                $item['outOfStock'] = ((int)$item['availableStock'] <= 0);
+            }
+        }
+        return $this;
+    }
+
+    protected function getDistinctSkusFromOrderData(array $orders): array
+    {
+        $skus = [];
+        foreach ($orders as $order) {
+            foreach ($order['items'] as $item) {
+                $skus[$item['itemSku']] = $item['itemSku'];
+            }
+        }
+        return array_values($skus);
+    }
+
+    protected function fetchStockCollectionBySkus(array $skus): ?StockCollection
+    {
+        try {
+            if (empty($skus)) {
+                throw new NotFound();
+            }
+            $filter = (new StockFilter('all', 1))
+                ->setSku($skus)
+                ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
+            return $this->stockService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return null;
+        }
     }
 
     /**

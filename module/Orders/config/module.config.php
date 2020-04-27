@@ -48,6 +48,7 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 use Orders\Controller\OrderDetailsController;
+use Zend\Mvc\Router\Http\Segment;
 
 // Manual Orders
 use Orders\Controller\ManualOrderController;
@@ -467,6 +468,20 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                            ],
+                            'duplicateExistingOrder' => [
+                                'type' => Segment::class,
+                                'may_terminate' => true,
+                                'options' => [
+                                    'route' => '/:order',
+                                    'defaults' => [
+                                        'controller' => ManualOrderController::class,
+                                        'action' => 'duplicateExistingOrder',
+                                    ],
+                                    'constraints' => [
+                                        'order' => '[0-9]*\-[a-zA-Z0-9_\- ]*'
+                                    ],
+                                ],
                             ],
                         ]
                     ],
