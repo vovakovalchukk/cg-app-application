@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98c39f31508039f8d91a6b6f8aaa1663",
+    "content-hash": "e43bb9a613a0b20f9e658c02e27c4f6b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.53.3",
+            "version": "1.53.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b4d54de89deba392cefec47026991c2483f106ce"
+                "reference": "2bdb2be4a3ba2378d55632b3f718a1e08c84478b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.53.3-f81adf.zip",
-                "reference": "b4d54de89deba392cefec47026991c2483f106ce"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.53.5-776be0.zip",
+                "reference": "2bdb2be4a3ba2378d55632b3f718a1e08c84478b"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-14T14:39:41+00:00"
+            "time": "2020-04-24T10:18:36+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3103,19 +3103,20 @@
         },
         {
             "name": "channelgrabber/redis-locking",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-redis-locking.git",
-                "reference": "6f46c49376f1a27e63d5f1b6b832acf2c04a218b"
+                "reference": "2550caf274708d088852a59d9c5bfc8ab172c7b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/redis-locking/channelgrabber-redis-locking-1.0.0-2e6e76.zip",
-                "reference": "6f46c49376f1a27e63d5f1b6b832acf2c04a218b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/redis-locking/channelgrabber-redis-locking-1.0.2-7efa0d.zip",
+                "reference": "2550caf274708d088852a59d9c5bfc8ab172c7b9"
             },
             "require": {
                 "channelgrabber/locking": "^1.0.0",
+                "channelgrabber/predis": "^1.0.14",
                 "predis/predis": "~0.8.3"
             },
             "require-dev": {
@@ -3132,7 +3133,7 @@
                     "CG\\Redis\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-01-19T15:18:35+00:00"
+            "time": "2018-01-18T13:45:47+00:00"
         },
         {
             "name": "channelgrabber/reporting",

@@ -74,7 +74,7 @@
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.5",
         "channelgrabber/redis": "~1.0.2",
-        "channelgrabber/redis-locking": "~1.0.0",
+        "channelgrabber/redis-locking": "~1.0.2",
         "channelgrabber/reporting": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sagepay": "~1.1.26",
