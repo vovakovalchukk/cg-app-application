@@ -12,9 +12,8 @@ use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Order\Service\Filter as OrderFilter;
-use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\CustomerCounts\Service as CustomerCountService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -29,13 +28,13 @@ class Service
 {
     use FormatMessageDataTrait;
 
-    const DEFAULT_LIMIT = 100;
-    const KEY_HAS_NEW = 'messages-has-new-user:';
-    const TTL_HAS_NEW = 300;
-    const ASSIGNEE_ACTIVE_USER = 'active-user';
-    const ASSIGNEE_ASSIGNED = 'assigned';
-    const ASSIGNEE_UNASSIGNED = 'unassigned';
-    const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
+    protected const DEFAULT_LIMIT = 100;
+    protected const KEY_HAS_NEW = 'messages-has-new-user:';
+    protected const TTL_HAS_NEW = 300;
+    protected const ASSIGNEE_ACTIVE_USER = 'active-user';
+    protected const ASSIGNEE_ASSIGNED = 'assigned';
+    protected const ASSIGNEE_UNASSIGNED = 'unassigned';
+    protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
     protected const CHANNEL_TO_ORDER_SEARCH_FIELD_MAP = [
         Thread::CHANNEL_EBAY => 'order.externalUsername',
         Thread::CHANNEL_AMAZON => 'billing.emailAddress',
@@ -88,22 +87,18 @@ class Service
         DateFormat $dateFormatter,
         Url $url
     ) {
-        $this
-            ->setThreadService($threadService)
-            ->setUserOuService($userOuService)
-            ->setUserService($userService)
-            ->setAccountService($accountService)
-            ->setCustomerCountService($customerCountService)
-            ->setThreadResolveFactory($threadResolveFactory)
-            ->setIntercomEventService($intercomEventService)
-            ->setDateFormatter($dateFormatter)
-            ->setUrl($url);
+        $this->threadService = $threadService;
+        $this->userOuService = $userOuService;
+        $this->userService = $userService;
+        $this->accountService = $accountService;
+        $this->customerCountService = $customerCountService;
+        $this->threadResolveFactory = $threadResolveFactory;
+        $this->intercomEventService = $intercomEventService;
+        $this->dateFormatter = $dateFormatter;
+        $this->url = $url;
     }
 
-    /**
-     * @return array
-     */
-    public function fetchThreadDataForFilters(array $filters, $page = 1, $sortDescending = true)
+    public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
     {
         $ou = $this->userOuService->getRootOuByActiveUser();
 
@@ -148,7 +143,7 @@ class Service
         }
     }
 
-    protected function filterByAssignee(ThreadFilter $threadFilter, $assignee)
+    protected function filterByAssignee(ThreadFilter $threadFilter, string $assignee): Service
     {
         $assignee = strtolower($assignee);
         if (!isset($this->assigneeMethodMap[$assignee])) {
@@ -159,14 +154,14 @@ class Service
         return $this;
     }
 
-    protected function filterByNotResolved(ThreadFilter $threadFilter)
+    protected function filterByNotResolved(ThreadFilter $threadFilter): Service
     {
         $otherStatuses = array_diff(ThreadStatus::getStatuses(), [ThreadStatus::RESOLVED]);
         $threadFilter->setStatus($otherStatuses);
         return $this;
     }
 
-    protected function convertThreadCollectionToArray(ThreadCollection $threads)
+    protected function convertThreadCollectionToArray(ThreadCollection $threads): array
     {
         $threadsData = [];
         foreach ($threads as $thread) {
@@ -175,7 +170,7 @@ class Service
         return $threadsData;
     }
 
-    protected function formatThreadData(Thread $thread, $includeCounts = false)
+    protected function formatThreadData(Thread $thread, bool $includeCounts = false): array
     {
         $threadData = $thread->toArray();
         $messages = [];
@@ -226,20 +221,20 @@ class Service
         return ['order.externalUsername'];
     }
 
-    public function getOrderCountForId($id)
+    public function getOrderCountForId(string $id): int
     {
         $thread = $this->threadService->fetch($id);
         return $this->getOrderCount($thread);
     }
 
-    protected function getOrderCount(Thread $thread)
+    protected function getOrderCount(Thread $thread): int
     {
         $account = $this->accountService->fetch($thread->getAccountId());
         $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
         return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $externalUsername);
     }
 
-    protected function sortThreadCollection(ThreadCollection $threads)
+    protected function sortThreadCollection(ThreadCollection $threads): ThreadCollection
     {
         // Sort by status
         $sortedCollection = new ThreadCollection(Thread::class, __FUNCTION__);
@@ -263,35 +258,32 @@ class Service
         return $sortedCollection;
     }
 
-    protected function filterByActiveUser(ThreadFilter $threadFilter)
+    protected function filterByActiveUser(ThreadFilter $threadFilter): Service
     {
         $user = $this->userOuService->getActiveUser();
         $threadFilter->setAssignedUserId([$user->getId()]);
         return $this;
     }
 
-    protected function filterByAssigned(ThreadFilter $threadFilter)
+    protected function filterByAssigned(ThreadFilter $threadFilter): Service
     {
         $threadFilter->setIsAssigned(true);
         return $this;
     }
 
-    protected function filterByUnassigned(ThreadFilter $threadFilter)
+    protected function filterByUnassigned(ThreadFilter $threadFilter): Service
     {
         $threadFilter->setIsAssigned(false);
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function fetchThreadDataForId($id)
+    public function fetchThreadDataForId(string $id): array
     {
         $thread = $this->threadService->fetch($id);
         return $this->formatThreadData($thread);
     }
 
-    public function updateThreadAndReturnData($id, $assignedUserId = false, $status = null)
+    public function updateThreadAndReturnData(string $id, $assignedUserId = false, ?string $status = null): array
     {
         $thread = $this->threadService->fetch($id);
 
@@ -306,7 +298,8 @@ class Service
         return $this->formatThreadData($thread);
     }
 
-    protected function updateThreadAssignedUserId(Thread $thread, $assignedUserId) {
+    protected function updateThreadAssignedUserId(Thread $thread, $assignedUserId): Service
+    {
         if (!$this->isAssignedUserIdProvided($assignedUserId)) {
             return $this;
         }
@@ -321,13 +314,13 @@ class Service
         return $this;
     }
 
-    protected function isAssignedUserIdProvided($assignedUserId)
+    protected function isAssignedUserIdProvided($assignedUserId): bool
     {
         // As null is a valid value (it means unassign) we default to false when its not specified at all
         return ($assignedUserId !== false);
     }
 
-    protected function updateThreadStatus(Thread $thread, $status)
+    protected function updateThreadStatus(Thread $thread, ?string $status): Service
     {
         if (!$this->hasThreadStatusChanged($thread, $status)) {
             return $this;
@@ -341,22 +334,19 @@ class Service
         return $this;
     }
 
-    protected function hasThreadStatusChanged(Thread $thread, $status)
+    protected function hasThreadStatusChanged(Thread $thread, ?string $status): bool
     {
         return ($status && $status != $thread->getStatus());
     }
 
-    protected function notifyOfResolve()
+    protected function notifyOfResolve(): void
     {
         $user = $this->userOuService->getActiveUser();
         $event = new IntercomEvent(static::EVENT_THREAD_RESOLVED, $user->getId());
         $this->intercomEventService->save($event);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasNew()
+    public function hasNew(): bool
     {
         $success = false;
         $user = $this->userOuService->getActiveUser();
@@ -372,7 +362,7 @@ class Service
         return $hasNew;
     }
 
-    protected function hasNewUnassigned($ou)
+    protected function hasNewUnassigned(OrganisationUnit $ou): bool
     {
         $threadFilter = new ThreadFilter();
         $threadFilter->setPage(1)
@@ -388,7 +378,7 @@ class Service
         }
     }
 
-    protected function hasNewAssignedToActiveUser($ou)
+    protected function hasNewAssignedToActiveUser(OrganisationUnit $ou): bool
     {
         $user = $this->userOuService->getActiveUser();
         $threadFilter = new ThreadFilter();
@@ -405,7 +395,7 @@ class Service
         }
     }
 
-    public function changeNavSpriteIfHasNew(NavPage $page)
+    public function changeNavSpriteIfHasNew(NavPage $page): void
     {
         try {
             if (!$this->userOuService->getActiveUser() || !$this->hasNew()) {
@@ -417,91 +407,10 @@ class Service
         }
     }
 
-    /**
-     * @return self
-     */
-    protected function setThreadService(ThreadService $threadService)
-    {
-        $this->threadService = $threadService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUserOuService(UserOuService $userOuService)
-    {
-        $this->userOuService = $userOuService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUserService(UserService $userService)
-    {
-        $this->userService = $userService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected  function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setCustomerCountService(CustomerCountService $customerCountService)
-    {
-        $this->customerCountService = $customerCountService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setThreadResolveFactory(ThreadResolveFactory $threadResolveFactory)
-    {
-        $this->threadResolveFactory = $threadResolveFactory;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDateFormatter(DateFormat $dateFormatter)
-    {
-        $this->dateFormatter = $dateFormatter;
-        return $this;
-    }
-
     // Required by FormatMessageDataTrait
     protected function getDateFormatter()
     {
         return $this->dateFormatter;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUrl(Url $url)
-    {
-        $this->url = $url;
-        return $this;
     }
 
     protected function attemptToRemoveAdditionalDataFromExternalUsername(Thread $thread, Account $account): string
