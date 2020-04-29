@@ -20,6 +20,7 @@ use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
 use Messages\Message\FormatMessageDataTrait;
+use Messages\Thread\Formatter\Factory as FormatterFactory;
 use Orders\Module as OrdersModule;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 use Zend\View\Helper\Url;
@@ -58,6 +59,8 @@ class Service
     protected $dateFormatter;
     /** @var Url $url */
     protected $url;
+    /** @var FormatterFactory */
+    protected $formatterFactory;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -85,7 +88,8 @@ class Service
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter,
-        Url $url
+        Url $url,
+        FormatterFactory $formatterFactory
     ) {
         $this->threadService = $threadService;
         $this->userOuService = $userOuService;
@@ -96,6 +100,7 @@ class Service
         $this->intercomEventService = $intercomEventService;
         $this->dateFormatter = $dateFormatter;
         $this->url = $url;
+        $this->formatterFactory = $formatterFactory;
     }
 
     public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
@@ -208,6 +213,10 @@ class Service
         if ($threadData['assignedUserId']) {
             $assignedUser = $this->userService->fetch($threadData['assignedUserId']);
             $threadData['assignedUserName'] = $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
+        }
+
+        if ($formatter = ($this->formatterFactory)($thread)) {
+            $threadData = $formatter($threadData, $thread);
         }
 
         return $threadData;
