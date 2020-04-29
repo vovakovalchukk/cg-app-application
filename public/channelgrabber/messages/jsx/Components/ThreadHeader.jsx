@@ -39,7 +39,7 @@ const ThreadHeader = (props) => {
                 sprite={`sprite-arrow-double-14-black`}
             />
 
-            <h1 className={'u-clear-both u-float-none u-margin-left-small'}>{thread.subject}</h1>
+            <h1 className={'u-clear-both u-float-none u-margin-left-small'} dangerouslySetInnerHTML={{__html: thread.detailSubject || thread.subject}}></h1>
 
             <ThreadNavigator
                 prev={navigatorProps.prevThreadPath}
