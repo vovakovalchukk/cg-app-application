@@ -188,8 +188,6 @@ class Service implements
         return [
             'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
             'variationThemes' => $this->getVariationThemes($variationThemes),
-            'categoryRootVariationThemes' => $this->getVariationThemes($this->filterToCategoryRootVariationThemes($variationThemes)),
-            'productTypesFromVariationThemes' => $this->extractProductTypes($variationThemes)
         ];
     }
 
@@ -216,7 +214,8 @@ class Service implements
             $variationThemesOptions[] = [
                 'name' => $variationTheme->getName(),
                 'attributes' => $variationTheme->getAttributes(),
-                'productType' => $variationTheme->getProductType(),
+                'supportsRootCategory' => $variationTheme->isSupportsRootCategory(),
+                'productTypes' => $variationTheme->getProductTypes(),
                 'validValues' => array_map(function($key, $options){
                     return [
                         'name' => $key,
@@ -245,23 +244,5 @@ class Service implements
         }
 
         return $result;
-    }
-
-    protected function filterToCategoryRootVariationThemes(VariationThemes $variationThemes): VariationThemes
-    {
-        $categoryRootVariationThemes = new VariationThemes(VariationTheme::class, __METHOD__, $variationThemes->getSourceFilters());
-        foreach ($variationThemes as $variationTheme) {
-            /** @var VariationTheme $variationTheme */
-            if ($variationTheme->getProductType() !== null) {
-                continue;
-            }
-            $categoryRootVariationThemes->attach($variationTheme);
-        }
-        return $categoryRootVariationThemes;
-    }
-
-    protected function extractProductTypes(VariationThemes $variationThemes): array
-    {
-        return array_filter($variationThemes->getArrayOf('ProductType'));
     }
 }
