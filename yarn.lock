@@ -2676,9 +2676,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-11387-fix-manual-products-search":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.53":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#0484599ca0787a1c6a2715f16c72f54a010fff19"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#584168b317101b6d1331cc51f1c8334a0ae5c73b"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
