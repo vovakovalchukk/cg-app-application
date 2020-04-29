@@ -55,6 +55,7 @@ class Order implements FieldsInterface
         'Invoice Number' => 'invoiceNumber',
         'VAT Number' => 'vatNumber',
         'Billing Username' => 'externalUsername',
+        'Weight' => 'weightString'
     ];
 
     public static function getFields(): array

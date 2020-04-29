@@ -83,6 +83,7 @@ return [
                 'PayJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
                 'UnlinkJavascript' => ViewModel::class,
+                'DuplicateJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
                 'ToCsvJavascript' => ViewModel::class,
                 'CourierJavascript' => ViewModel::class,
@@ -101,6 +102,7 @@ return [
                 'UrlDataViewPay' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
                 'UrlDataViewUnlink' => ViewModel::class,
+                'UrlDataViewDuplicate' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
                 'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
@@ -153,6 +155,7 @@ return [
                         ['action' => Action\Refund::class],
                         ['action' => Action\PartialRefund::class],
                         ['action' => Action\Unlink::class],
+                        ['action' => Action\Duplicate::class],
                     ],
                 ],
             ],
@@ -391,6 +394,15 @@ return [
                     'javascript' => 'UnlinkJavascript',
                 ],
             ],
+            Action\Duplicate::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewDuplicate',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'DuplicateJavascript',
+                ],
+            ],
             Action\PickList::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewPickList',
@@ -500,6 +512,16 @@ return [
             'UrlDataViewUnlink' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewDuplicate' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'DuplicateJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/duplicate.js',
                 ],
             ],
             'UrlDataViewInvoice' => [
