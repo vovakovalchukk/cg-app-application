@@ -32,22 +32,6 @@ const ThreadHeader = (props) => {
 
     const navigatorProps = getNavigatorProps(threadIds, thread);
 
-    const renderProductLink = (thread) => {
-        if (typeof thread.productLink.url == 'undefined' || typeof thread.productLink.wrap == 'undefined' || !thread.subject.match(thread.productLink.wrap) ) {
-            return thread.subject;
-        }
-        let parts = thread.subject.split(thread.productLink.wrap);
-        let prefix = parts.shift();
-        let suffix = parts.join(thread.productLink.wrap);
-        return (
-            <span>
-                {prefix}
-                <a href={thread.productLink.url} target="_blank">{thread.productLink.wrap}</a>
-                {suffix}
-            </span>
-        )
-    };
-
     return(
         <FlexDiv className={`u-display-flex`}>
             <ButtonLink
@@ -55,9 +39,7 @@ const ThreadHeader = (props) => {
                 sprite={`sprite-arrow-double-14-black`}
             />
 
-            <h1 className={'u-clear-both u-float-none u-margin-left-small'}>
-                {typeof thread.productLink == 'undefined' ? thread.subject : renderProductLink(thread)}
-            </h1>
+            <h1 className={'u-clear-both u-float-none u-margin-left-small'}>{thread.subject}</h1>
 
             <ThreadNavigator
                 prev={navigatorProps.prevThreadPath}
