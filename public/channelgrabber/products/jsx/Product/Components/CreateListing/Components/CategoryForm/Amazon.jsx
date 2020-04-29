@@ -30,9 +30,7 @@ class AmazonCategoryFormComponent extends React.Component {
         itemSpecifics: [],
         variationThemes: [],
         availableVariationThemes: [],
-        categoryRootVariationThemes: [],
-        selectedProductType: null,
-        productTypesFromVariationThemes: []
+        selectedProductType: null
     };
 
     shouldComponentUpdate() {
@@ -429,8 +427,8 @@ class AmazonCategoryFormComponent extends React.Component {
 
     enforceSelectionOfProductTypeBeforeRenderingVariationThemes = () => {
         let productTypeIsSelected = this.state.selectedProductType != null;
-        let categoryHasRootVariationThemes = this.state.categoryRootVariationThemes.length() > 0;
-        let productTypesWithVariationOverridesExist = this.state.productTypesFromVariationThemes.length() > 0;
+        let categoryHasRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length() > 0;
+        let productTypesWithVariationOverridesExist = this.state.variationThemes.filter(variationTheme => variationTheme.productTypes.length() > 0).length() > 0;
         return !productTypeIsSelected && !categoryHasRootVariationThemes && productTypesWithVariationOverridesExist;
     };
 
@@ -534,15 +532,17 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     setAvailableVariationThemes = () => {
+        let categoryRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true)
         if (this.state.selectedProductType == null) {
-            this.setState({availableVariationThemes: this.state.categoryRootVariationThemes});
+            this.setState({availableVariationThemes: categoryRootVariationThemes});
             return;
         }
-        let productTypeVariationThemes = this.variationThemes.filter(variationTheme => variationTheme.productType == this.state.selectedProductType);
+        let productTypeVariationThemes = this.variationThemes.filter(variationTheme => variationTheme.productType.includes(this.state.selectedProductType));
         if (productTypeVariationThemes.length > 0) {
             this.setState({availableVariationThemes: productTypeVariationThemes});
+            return;
         }
-        this.setState({availableVariationThemes: this.state.categoryRootVariationThemes});
+        this.setState({availableVariationThemes: categoryRootVariationThemes});
         return;
     }
 
@@ -555,8 +555,6 @@ class AmazonCategoryFormComponent extends React.Component {
                 this.setState({
                     itemSpecifics: response.itemSpecifics,
                     variationThemes: response.variationThemes,
-                    categoryRootVariationThemes: response.categoryRootVariationThemes,
-                    productTypesFromVariationThemes: response.productTypesFromVariationThemes
                 });
             }
         });
