@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "dev-TAC-616-linked-orders-filter as 1.54.1",
+        "channelgrabber/order": "dev-qa-20200430-0930 as 1.54.1",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",

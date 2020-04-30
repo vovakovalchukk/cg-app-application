@@ -51,6 +51,7 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BATCH),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_METHOD),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_TAGS),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_EXCLUDE_TAGS),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_FULFILMENT_CHANNEL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_ARCHIVED),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BUYER_MESSAGE),

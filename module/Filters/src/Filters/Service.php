@@ -35,6 +35,7 @@ class Service
     public const FILTER_ORDER_BATCH = 'orderBatch';
     public const FILTER_ORDER_SHIPPING_METHOD = 'orderShippingMethod';
     public const FILTER_ORDER_TAGS = 'orderTags';
+    public const FILTER_ORDER_EXCLUDE_TAGS = 'orderExcludeTags';
     public const FILTER_ORDER_FULFILMENT_CHANNEL = 'orderFulfilmentChannel';
     public const FILTER_ORDER_IS_ARCHIVED = 'orderIsArchived';
     public const FILTER_ORDER_BUYER_MESSAGE = 'orderBuyerMessage';
@@ -239,6 +240,19 @@ class Service
                 'variables' => [
                     'name' => 'tag',
                     'title' => 'Tags',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => OrdersTableTagColumns::class,
+            ],
+            self::FILTER_ORDER_EXCLUDE_TAGS => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'excludeTag',
+                    'title' => 'Exclude Tags',
                     'searchField' => true,
                     'isOptional' => true,
                     'concatenate' => true,

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b94f6b8529cdbd06d731539f3e4ea4e",
+    "content-hash": "1541d64d591339069576508806821b23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-616-linked-orders-filter",
+            "version": "dev-qa-20200430-0930",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "be0d490f43fb041a7a81926ffe43f5a425100308"
+                "reference": "815a770b316fb2db5daf91c01f251f4a3cc786f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-616-linked-orders-filter-c0132a.zip",
-                "reference": "be0d490f43fb041a7a81926ffe43f5a425100308"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-qa-20200430-0930-b523f1.zip",
+                "reference": "815a770b316fb2db5daf91c01f251f4a3cc786f8"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-30T07:21:05+00:00"
+            "time": "2020-04-30T08:41:21+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11996,7 +11996,7 @@
         {
             "alias": "1.54.1",
             "alias_normalized": "1.54.1.0",
-            "version": "dev-TAC-616-linked-orders-filter",
+            "version": "dev-qa-20200430-0930",
             "package": "channelgrabber/order"
         }
     ],
@@ -12013,5 +12013,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
