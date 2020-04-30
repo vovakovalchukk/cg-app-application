@@ -489,13 +489,10 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     categorySelected = () => {
-        return this.state.selectedAmazonCategory != null;
+        return this.state.selectedAmazonCategory !== null;
     };
 
     renderAmazonProductTypeSelect = () => {
-        if (this.categorySelected() == false) {
-            return;
-        }
         return (
             <div>
                 <Field
@@ -508,6 +505,9 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderAmazonProductTypeSelectComponent = (field) => {
+        if (this.categorySelected() === false) {
+            return null;
+        }
         return (
             <div className={'order-inputbox-holder u-defloat u-display-flex'}>
                 <label className="inputbox-label u-font-large">Product Type</label>
@@ -552,7 +552,7 @@ class AmazonCategoryFormComponent extends React.Component {
         let productTypesFromVariationThemes = this.state.variationThemes.map(variationTheme => variationTheme.productTypes);
         console.log(productTypesFromVariationThemes);
         return [];
-    }
+    };
 
     setAvailableVariationThemes = () => {
         let categoryRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true)
