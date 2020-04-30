@@ -17,39 +17,41 @@ use Orders\Order\TableService\OrdersTableSuppliers;
 
 class Service
 {
-    const FILTER_ORDER_DATE_RANGE = 'orderDateRange';
-    const FILTER_ORDER_STATUS = 'orderStatus';
-    const FILTER_ORDER_SEARCH = 'orderSearch';
-    const FILTER_ORDER_SEARCH_FIELDS = 'orderSearchFields';
-    const FILTER_ORDER_MORE = 'orderMoreButton';
-    const FILTER_ORDER_BUTTONS = 'orderButtons';
-    const FILTER_ORDER_BUTTON_APPLY = 'orderButtonApply';
-    const FILTER_ORDER_BUTTON_CLEAR = 'orderButtonClear';
-    const FILTER_ORDER_BUTTON_SAVE = 'orderButtonSave';
-    const FILTER_ORDER_SHIPPING_COUNTRY = 'orderShippingCountry';
-    const FILTER_ORDER_CURRENCY_CODE = 'orderCurrencyCode';
-    const FILTER_ORDER_TOTAL = 'orderTotal';
-    const FILTER_ORDER_WEIGHT = 'orderWeight';
-    const FILTER_ORDER_CHANNEL = 'orderChannel';
-    const FILTER_ORDER_ACCOUNT = 'orderAccount';
-    const FILTER_ORDER_BATCH = 'orderBatch';
-    const FILTER_ORDER_SHIPPING_METHOD = 'orderShippingMethod';
-    const FILTER_ORDER_TAGS = 'orderTags';
-    const FILTER_ORDER_FULFILMENT_CHANNEL = 'orderFulfilmentChannel';
-    const FILTER_ORDER_IS_ARCHIVED = 'orderIsArchived';
-    const FILTER_ORDER_BUYER_MESSAGE = 'orderBuyerMessage';
-    const FILTER_ORDER_GIFT_MESSAGE = 'orderGiftMessage';
-    const FILTER_ORDER_STATE_FILTERS = 'orderFilterStateFilters';
-    const FILTER_ORDER_IS_DISPATCHABLE = 'orderIsDispatchable';
-    const FILTER_ORDER_MARKETPLACE = 'orderMarketplace';
-    const FILTER_ORDER_PRINTED = 'orderIsPrinted';
-    const FILTER_ORDER_EMAILED = 'orderIsEmailed';
-    const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
-    const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
-    const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
-    const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
-    const FILTER_ORDER_SUPPLIER = 'orderSupplier';
-    const FILTER_ORDER_MULTI_LINE = 'orderMultiLine';
+    public const FILTER_ORDER_DATE_RANGE = 'orderDateRange';
+    public const FILTER_ORDER_STATUS = 'orderStatus';
+    public const FILTER_ORDER_SEARCH = 'orderSearch';
+    public const FILTER_ORDER_SEARCH_FIELDS = 'orderSearchFields';
+    public const FILTER_ORDER_MORE = 'orderMoreButton';
+    public const FILTER_ORDER_BUTTONS = 'orderButtons';
+    public const FILTER_ORDER_BUTTON_APPLY = 'orderButtonApply';
+    public const FILTER_ORDER_BUTTON_CLEAR = 'orderButtonClear';
+    public const FILTER_ORDER_BUTTON_SAVE = 'orderButtonSave';
+    public const FILTER_ORDER_SHIPPING_COUNTRY = 'orderShippingCountry';
+    public const FILTER_ORDER_CURRENCY_CODE = 'orderCurrencyCode';
+    public const FILTER_ORDER_TOTAL = 'orderTotal';
+    public const FILTER_ORDER_WEIGHT = 'orderWeight';
+    public const FILTER_ORDER_CHANNEL = 'orderChannel';
+    public const FILTER_ORDER_ACCOUNT = 'orderAccount';
+    public const FILTER_ORDER_BATCH = 'orderBatch';
+    public const FILTER_ORDER_SHIPPING_METHOD = 'orderShippingMethod';
+    public const FILTER_ORDER_TAGS = 'orderTags';
+    public const FILTER_ORDER_EXCLUDE_TAGS = 'orderExcludeTags';
+    public const FILTER_ORDER_FULFILMENT_CHANNEL = 'orderFulfilmentChannel';
+    public const FILTER_ORDER_IS_ARCHIVED = 'orderIsArchived';
+    public const FILTER_ORDER_BUYER_MESSAGE = 'orderBuyerMessage';
+    public const FILTER_ORDER_GIFT_MESSAGE = 'orderGiftMessage';
+    public const FILTER_ORDER_STATE_FILTERS = 'orderFilterStateFilters';
+    public const FILTER_ORDER_IS_DISPATCHABLE = 'orderIsDispatchable';
+    public const FILTER_ORDER_MARKETPLACE = 'orderMarketplace';
+    public const FILTER_ORDER_PRINTED = 'orderIsPrinted';
+    public const FILTER_ORDER_EMAILED = 'orderIsEmailed';
+    public const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
+    public const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
+    public const FILTER_ORDER_PAYMENT_DATE_RANGE = 'orderPaymentDateRange';
+    public const FILTER_ORDER_DISPATCH_DATE_RANGE = 'orderDispatchDateRange';
+    public const FILTER_ORDER_SUPPLIER = 'orderSupplier';
+    public const FILTER_ORDER_MULTI_LINE = 'orderMultiLine';
+    public const FILTER_ORDER_LINKED = 'orderLinked';
 
     protected static function getOrderFilters()
     {
@@ -238,6 +240,19 @@ class Service
                 'variables' => [
                     'name' => 'tag',
                     'title' => 'Tags',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => OrdersTableTagColumns::class,
+            ],
+            self::FILTER_ORDER_EXCLUDE_TAGS => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'excludeTag',
+                    'title' => 'Exclude Tags',
                     'searchField' => true,
                     'isOptional' => true,
                     'concatenate' => true,
@@ -544,6 +559,28 @@ class Service
                     'isBoolean' => true,
                     'name' => 'multiLineSameOrder',
                     'title' => 'Multiple Items',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes',
+                            'selected' => true
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No'
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_LINKED => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'linked',
+                    'title' => 'Linked Orders',
                     'isOptional' => true,
                     'emptyValue' => true,
                     'options' => [
