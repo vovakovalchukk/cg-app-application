@@ -7,6 +7,10 @@ import Validators from '../../../Validators';
 import OptionalItemSpecificsSelect from './OptionalItemSpecificsSelect';
 
 const REQUIRED_ITEM_SPECIFICS = {
+
+};
+
+const EXCLUDED_ITEM_SPECIFICS = {
     'ProductType': 'ProductType'
 };
 
@@ -37,6 +41,9 @@ class AmazonItemSpecifics extends React.Component {
 
         itemSpecifics.forEach((itemSpecific) => {
             itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
+            if (itemSpecific.excluded) {
+                return;
+            }
             if (!itemSpecific.required) {
                 optional.push(itemSpecific);
                 return;
@@ -63,6 +70,9 @@ class AmazonItemSpecifics extends React.Component {
     formatItemSpecificForRendering = (itemSpecific) => {
         if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
             itemSpecific.required = true;
+        }
+        if (itemSpecific.name && EXCLUDED_ITEM_SPECIFICS[itemSpecific.name]) {
+            itemSpecific.excluded = true;
         }
         return itemSpecific;
     };
