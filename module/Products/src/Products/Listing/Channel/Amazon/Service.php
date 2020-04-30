@@ -188,6 +188,7 @@ class Service implements
         return [
             'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
             'variationThemes' => $this->getVariationThemes($variationThemes),
+            'productTypesFromVariationThemes' => $this->getProductTypesFromVariationThemes($variationThemes),
         ];
     }
 
@@ -225,6 +226,16 @@ class Service implements
             ];
         }
         return $variationThemesOptions;
+    }
+
+    protected function getProductTypesFromVariationThemes(VariationThemes $variationThemes): array
+    {
+        $productTypes = [];
+        foreach ($variationThemes as $variationTheme) {
+            /** @var  VariationTheme $variationTheme */
+            $productTypes = array_merge($productTypes, $variationTheme->getProductTypes());
+        }
+        return array_unique($productTypes);
     }
 
     protected function filterItemSpecifics(array $itemSpecifics): array
