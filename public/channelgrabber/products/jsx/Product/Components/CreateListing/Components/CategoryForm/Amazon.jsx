@@ -6,7 +6,6 @@ import VariationsTable from 'Product/Components/CreateListing/Components/CreateL
 import Validators from 'Product/Components/CreateListing/Validators';
 import Select from 'Common/Components/Select';
 import Input from 'Common/Components/Input';
-import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
 class AmazonCategoryFormComponent extends React.Component {
     static defaultProps = {
@@ -31,7 +30,8 @@ class AmazonCategoryFormComponent extends React.Component {
         variationThemes: [],
         availableVariationThemes: [],
         selectedProductType: null,
-        availableProductTypes: []
+        availableProductTypes: [],
+        productTypesFromVariationThemes: []
     };
 
     shouldComponentUpdate() {
@@ -67,6 +67,9 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderVariationThemesSelectComponent = (field) => {
+        if (this.enforceSelectionOfPrerequisitesBeforeRenderingVariationThemes()) {
+            return this.renderVariationPrerequisitesWarning();
+        }
         let selected = {
             name: field.input.value,
             value: field.input.value
@@ -400,9 +403,6 @@ class AmazonCategoryFormComponent extends React.Component {
         if (this.isSimpleProduct()) {
             return;
         }
-        if (this.enforceSelectionOfProductTypeBeforeRenderingVariationThemes()) {
-            return this.renderProductTypeWarning();
-        }
         return (
             <div>
                 <Field
@@ -426,31 +426,31 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
 
-    enforceSelectionOfProductTypeBeforeRenderingVariationThemes = () => {
+    enforceSelectionOfPrerequisitesBeforeRenderingVariationThemes = () => {
         let productTypeIsSelected = this.state.selectedProductType != null;
         let categoryHasRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0;
+        if (productTypeIsSelected === false && categoryHasRootVariationThemes === false) {
+            return true;
+        }
         let productTypesWithVariationOverridesExist = this.state.variationThemes.filter(variationTheme => variationTheme.productTypes.length > 0).length > 0;
-        return !productTypeIsSelected && !categoryHasRootVariationThemes && productTypesWithVariationOverridesExist;
+        return !categoryHasRootVariationThemes && (productTypesWithVariationOverridesExist && !productTypeIsSelected);
     };
 
-    renderProductTypeWarning = () => {
+    renderVariationPrerequisitesWarning = () => {
+        let message = this.getVariationPrerequisitesMessage();
         return (
-            <div>
-                <Field
-                    name="variationTheme"
-                    component={this.renderProductTypeWarningComponent}
-                    displayTitle={"Variation Theme"}
-                />
+            <div className={'order-inputbox-holder u-defloat u-display-flex'}>
+                <label className="inputbox-label u-font-large">Variation Theme</label>
+                <div>{message}</div>
             </div>
         );
     };
 
-    renderProductTypeWarningComponent = () => {
-        return (
-            <FieldWithLabel
-                label={'Please select a Product Type'}
-            />
-        );
+    getVariationPrerequisitesMessage = () => {
+        if (this.state.selectedAmazonCategory === null) {
+            return "Please select Amazon Category";
+        }
+        return "Please select Product Type";
     };
 
     renderAmazonCategorySelect = () => {
@@ -477,7 +477,11 @@ class AmazonCategoryFormComponent extends React.Component {
                     selectedOption={this.state.selectedAmazonCategory}
                     onOptionChange={(option) => {
                         field.input.onChange(option.value);
-                        this.setState({selectedAmazonCategory: option});
+                        this.setState({
+                            selectedAmazonCategory: option,
+                            selectedProductType: null,
+                            availableVariationThemes: []
+                        });
                         this.fetchAndSetAmazonCategoryDependentValues(option.value);
                     }}
                 />
@@ -499,16 +503,14 @@ class AmazonCategoryFormComponent extends React.Component {
                     name="amazonProductType"
                     component={this.renderAmazonProductTypeSelectComponent}
                     validate={Validators.required}
-                    onChange={() => ({})}
+                    onChange={() => {} }
                 />
             </div>
         );
     };
 
     renderAmazonProductTypeSelectComponent = (field) => {
-        console.log(this.categorySelected());
         if (this.categorySelected() === false) {
-            console.log(this.state);
             return (
                 <div className={'order-inputbox-holder u-defloat u-display-flex'}>
                     <label className="inputbox-label u-font-large">Product Type</label>
@@ -524,25 +526,27 @@ class AmazonCategoryFormComponent extends React.Component {
                     options={this.getAvailableProductTypes()}
                     selectedOption={this.state.selectedProductType}
                     onOptionChange={(option) => {
-                        field.input.onChange(option.value);
+                        this.setAvailableVariationThemes(option.value)
                         this.setState({selectedProductType: option});
-                        this.setAvailableVariationThemes();
+                        field.input.onChange(option.value);
                     }}
                 />
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error u-margin-left-small">{field.meta.error}</span>
+                )}
             </div>
         );
     };
 
     getAvailableProductTypes = () => {
         if (this.state.itemSpecifics.length == 0) {
-            return;
+            return [];
         }
         let rootItemSpecific = this.state.itemSpecifics[0];
-        console.log(rootItemSpecific);
         if (this.isSimpleProduct() || this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0) {
             return this.getProductTypesFromItemSpecifics(rootItemSpecific);
         }
-        return this.getProductTypesFromVariationThemes();
+        return this.state.productTypesFromVariationThemes.map(productType => ({name: productType, value: productType}) );
     };
 
     getProductTypesFromItemSpecifics = (rootItemSpecific) => {
@@ -558,19 +562,13 @@ class AmazonCategoryFormComponent extends React.Component {
         }
     };
 
-    getProductTypesFromVariationThemes = () => {
-        let productTypesFromVariationThemes = this.state.variationThemes.map(variationTheme => variationTheme.productTypes);
-        console.log(productTypesFromVariationThemes);
-        return [];
-    };
-
-    setAvailableVariationThemes = () => {
+    setAvailableVariationThemes = (productType) => {
         let categoryRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true)
-        if (this.state.selectedProductType == null) {
+        if (productType === null) {
             this.setState({availableVariationThemes: categoryRootVariationThemes});
             return;
         }
-        let productTypeVariationThemes = this.variationThemes.filter(variationTheme => variationTheme.productType.includes(this.state.selectedProductType));
+        let productTypeVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.productTypes.includes(productType));
         if (productTypeVariationThemes.length > 0) {
             this.setState({availableVariationThemes: productTypeVariationThemes});
             return;
@@ -587,7 +585,9 @@ class AmazonCategoryFormComponent extends React.Component {
             success: function (response) {
                 this.setState({
                     itemSpecifics: response.itemSpecifics,
-                    variationThemes: response.variationThemes
+                    variationThemes: response.variationThemes,
+                    productTypesFromVariationThemes: response.productTypesFromVariationThemes,
+                    availableVariationThemes: response.variationThemes
                 });
             }
         });
