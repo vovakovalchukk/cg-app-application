@@ -1,5 +1,4 @@
 <?php
-
 namespace Messages\Thread\Formatter;
 
 use CG\Communication\Thread\Entity as Thread;
