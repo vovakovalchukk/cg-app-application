@@ -1,15 +1,16 @@
 <?php
 namespace Orders\Order\TableService;
 
-use Zend\Di\Di;
+use CG\Order\Shared\Tag\Entity as Tag;
+use CG\Order\Service\Filter as Filter;
+use CG\Order\Shared\Tag\StorageInterface as TagStorage;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG_UI\View\DataTable;
-use CG\Order\Shared\Tag\StorageInterface as TagStorage;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Order\Shared\Tag\Entity as Tag;
-use Zend\View\Model\ViewModel;
 use CG_UI\View\Filters\SelectOptionsInterface;
+use Zend\Di\Di;
+use Zend\View\Model\ViewModel;
 
 class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptionsInterface
 {
@@ -23,78 +24,24 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
         ActiveUserInterface $activeUserContainer,
         TagStorage $tagClient,
         ViewModel $javascript
-    )
-    {
-        $this
-            ->setDi($di)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setTagClient($tagClient);
-    }
-
-    public function setDi(Di $di)
-    {
+    ) {
         $this->di = $di;
-        return $this;
-    }
-
-    /**
-     * @return Di
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
         $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    public function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    /**
-     * @return User
-     */
-    public function getActiveUser()
-    {
-        return $this->getActiveUserContainer()->getActiveUser();
-    }
-
-    public function setTagClient(TagStorage $tagClient)
-    {
         $this->tagClient = $tagClient;
-        return $this;
-    }
-
-    /**
-     * @return TagStorage
-     */
-    public function getTagClient()
-    {
-        return $this->tagClient;
-    }
-
-    public function setJavascript(ViewModel $javascript)
-    {
         $this->javascript = $javascript;
-        return $this;
+    }
+
+    public function getActiveUser(): User
+    {
+        return $this->activeUserContainer->getActiveUser();
     }
 
     /**
-     * @return ViewModel
+     * @return Tag[]
      */
-    public function getJavascript()
-    {
-        return $this->javascript;
-    }
-
     protected function getActiveUserTags()
     {
-        return $this->getTagClient()->fetchCollectionAll(
+        return $this->tagClient->fetchCollectionAll(
             1,
             'all',
             $this->getActiveUser()->getOuList(),
@@ -107,7 +54,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
      */
     public function getSelectOptions()
     {
-        $options = [];
+        $options = [Filter::TAGS_ANY => Filter::TAGS_ANY];
 
         try {
             $tags = $this->getActiveUserTags();
@@ -131,7 +78,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
             }
 
             $ordersTable->addChild(
-                $this->getJavascript(),
+                $this->javascript,
                 'javascript',
                 true
             );
@@ -142,7 +89,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
 
     protected function addTagColumn(DataTable $ordersTable, Tag $tag)
     {
-        $viewModel = $this->getDi()->newInstance(
+        $viewModel = $this->di->newInstance(
             ViewModel::class,
             [
                 'variables' => [
@@ -153,7 +100,8 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
             ]
         );
 
-        $column = $this->getDi()->newInstance(
+        /** @var DataTable\Column $column */
+        $column = $this->di->newInstance(
             DataTable\Column::class,
             [
                 'column' => base64_encode($tag->getTag()),
