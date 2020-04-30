@@ -1999,16 +1999,11 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.12",
+            "version": "dev-CGIV-11372-fix-image-links",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "ae7e60a13d6504d1147a44f8722b4f45f591a3d7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.2.12-35aa22.zip",
-                "reference": "ae7e60a13d6504d1147a44f8722b4f45f591a3d7"
+                "reference": "e9f8072e7214bddfa2bd2169d21572ecc5474455"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11993,13 +11988,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.12",
+            "alias_normalized": "1.2.12.0",
+            "version": "dev-CGIV-11372-fix-image-links",
+            "package": "channelgrabber/image"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/image": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

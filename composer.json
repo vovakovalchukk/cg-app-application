@@ -54,7 +54,7 @@
         "channelgrabber/ftp-account": "~1.0.1",
         "channelgrabber/gearman": "~1.8.1",
         "channelgrabber/http": "~1.3.33",
-        "channelgrabber/image": "~1.2.11",
+        "channelgrabber/image": "dev-CGIV-11372-fix-image-links as 1.2.12",
         "channelgrabber/intercom": "~1.6.0",
         "channelgrabber/listing": "~1.20.0",
         "channelgrabber/locale": "~1.2.2",
