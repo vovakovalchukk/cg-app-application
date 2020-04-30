@@ -547,7 +547,9 @@ class AmazonCategoryFormComponent extends React.Component {
 
     getProductTypesFromItemSpecifics = (rootItemSpecific) => {
         let productTypeItemSpecific = rootItemSpecific.children.find(itemSpecific => itemSpecific.name == 'ProductType');
-        console.log(productTypeItemSpecific);
+        if (productTypeItemSpecific === undefined) {
+            return [];
+        }
         if (productTypeItemSpecific.options) {
             return productTypeItemSpecific.options.map(productType => ({name: productType, value: productType}) );
         }
