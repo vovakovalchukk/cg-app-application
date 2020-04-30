@@ -506,8 +506,15 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderAmazonProductTypeSelectComponent = (field) => {
+        console.log(this.categorySelected());
         if (this.categorySelected() === false) {
-            return null;
+            console.log(this.state);
+            return (
+                <div className={'order-inputbox-holder u-defloat u-display-flex'}>
+                    <label className="inputbox-label u-font-large">Product Type</label>
+                    <div>Please select Amazon Category</div>
+                </div>
+            );
         }
         return (
             <div className={'order-inputbox-holder u-defloat u-display-flex'}>
@@ -580,7 +587,6 @@ class AmazonCategoryFormComponent extends React.Component {
                     itemSpecifics: response.itemSpecifics,
                     variationThemes: response.variationThemes
                 });
-                console.log(this.state);
             }
         });
     };
