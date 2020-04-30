@@ -23,14 +23,17 @@ use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Entity as Product;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use Orders\Order\CurrencyService;
+use Products\Product\Creator as ProductCreator;
 
 class Service implements LoggerAwareInterface
 {
@@ -69,6 +72,8 @@ class Service implements LoggerAwareInterface
     protected $userOuService;
     /** @var  ConversionService */
     protected $conversionService;
+    /** @var ProductCreator */
+    protected $productCreator;
 
     public function __construct(
         ManualOrderAccountService $manualOrderAccountService,
@@ -86,24 +91,26 @@ class Service implements LoggerAwareInterface
         TaxService $taxService,
         CurrencyService $currencyService,
         UserOuService $userOuService,
-        ConversionService $conversionService
+        ConversionService $conversionService,
+        ProductCreator $productCreator
     ) {
-        $this->setManualOrderAccountService($manualOrderAccountService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setOrganisationUnitService($organisationUnitService)
-            ->setProductService($productService)
-            ->setOrderService($orderService)
-            ->setOrderItemService($orderItemService)
-            ->setOrderAlertService($orderAlertService)
-            ->setOrderNoteService($orderNoteService)
-            ->setOrderMapper($orderMapper)
-            ->setOrderItemMapper($orderItemMapper)
-            ->setOrderAlertMapper($orderAlertMapper)
-            ->setOrderNoteMapper($orderNoteMapper)
-            ->setTaxService($taxService)
-            ->setCurrencyService($currencyService)
-            ->setConversionService($conversionService)
-            ->setUserOuService($userOuService);
+        $this->manualOrderAccountService = $manualOrderAccountService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->productService = $productService;
+        $this->orderService = $orderService;
+        $this->orderItemService = $orderItemService;
+        $this->orderAlertService = $orderAlertService;
+        $this->orderNoteService = $orderNoteService;
+        $this->orderMapper = $orderMapper;
+        $this->orderItemMapper = $orderItemMapper;
+        $this->orderAlertMapper = $orderAlertMapper;
+        $this->orderNoteMapper = $orderNoteMapper;
+        $this->taxService = $taxService;
+        $this->currencyService = $currencyService;
+        $this->userOuService = $userOuService;
+        $this->conversionService = $conversionService;
+        $this->productCreator = $productCreator;
     }
 
     /**
@@ -163,7 +170,7 @@ class Service implements LoggerAwareInterface
         return $this->orderService->save($order);
     }
 
-    public function getCurrencyOptions()
+    public function getCurrencyOptions(?Order $order = null)
     {
         $currencyCodes = array_keys(array_merge($this->currencyService->getPriorityActiveUserCurrencies(), $this->currencyService->getActiveUserCurrencies()));
         $formatter = new CurrencyFormatter($this->userOuService->getRootOuByActiveUser());
@@ -173,6 +180,7 @@ class Service implements LoggerAwareInterface
             $currencyOptions[] = [
                 'name' => $code,
                 'value' => $formatter->getSymbol($code),
+                'selected' => $order ? $order->getCurrencyCode() == $code : false
             ];
         }
         return $currencyOptions;
@@ -223,8 +231,9 @@ class Service implements LoggerAwareInterface
         $collection = new OrderItemCollection(OrderItem::class, 'fetchCollectionByOrderId', ['orderId' => $order->getId()]);
         $products = $this->fetchProductsForItemsData($itemsData);
         foreach ($itemsData as $itemData) {
+            $productId = $itemData['productId'] ?? null;
+            $product = !$productId ? $this->createProductFromItemData($itemData) : $products->getById($itemData['productId']);
             $count++;
-            $product = $products->getById($itemData['productId']);
             $item = $this->createItem($itemData, $order, $product, $count);
             $collection->attach($item);
         }
@@ -235,7 +244,25 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function createItem(array $itemData, Order $order, Product $product, $index)
+    protected function createProductFromItemData(array $itemData): Product
+    {
+        $quantity = (float) $itemData['itemQuantity'];
+        $sku = $itemData['itemSku'];
+        $name = (string) $itemData['itemName'];
+
+        try {
+            return $this->productCreator->createFromUserInput([
+                'name' => $name !== '' ? $name : $sku,
+                'sku' => $sku,
+                'quantity' => $quantity
+            ]);
+        } catch (ValidationException $exception) {
+            $this->logWarningException($exception);
+            throw new \BadFunctionCallException('There was an error with the provided order items: ' . $exception->getMessage());
+        }
+    }
+
+    protected function createItem(array $itemData, Order $order, Product $product, $index): OrderItem
     {
         $itemData['id'] = $order->getId() . '-' . $index;
         $itemData['externalId'] = $order->getExternalId() . '-' . $index;
@@ -266,9 +293,13 @@ class Service implements LoggerAwareInterface
         return $item;
     }
 
-    protected function fetchProductsForItemsData(array $itemsData)
+    protected function fetchProductsForItemsData(array $itemsData): ProductCollection
     {
         $productIds = array_column($itemsData, 'productId');
+        if (empty($productIds)) {
+            return new ProductCollection(Product::class, __METHOD__);
+        }
+
         $filter = (new ProductFilter())
             ->setLimit('all')
             ->setPage(1)
@@ -333,101 +364,5 @@ class Service implements LoggerAwareInterface
     {
         $passedEntity->setStoredETag($fetchedEntity->getStoredETag());
         return $passedEntity;
-    }
-
-    protected function setManualOrderAccountService(ManualOrderAccountService $manualOrderAccountService)
-    {
-        $this->manualOrderAccountService = $manualOrderAccountService;
-        return $this;
-    }
-
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
-    }
-
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    protected function setOrderItemService(OrderItemService $orderItemService)
-    {
-        $this->orderItemService = $orderItemService;
-        return $this;
-    }
-
-    protected function setOrderAlertService(OrderAlertService $orderAlertService)
-    {
-        $this->orderAlertService = $orderAlertService;
-        return $this;
-    }
-
-    protected function setOrderNoteService(OrderNoteService $orderNoteService)
-    {
-        $this->orderNoteService = $orderNoteService;
-        return $this;
-    }
-
-    protected function setOrderMapper(OrderMapper $orderMapper)
-    {
-        $this->orderMapper = $orderMapper;
-        return $this;
-    }
-
-    protected function setOrderItemMapper(OrderItemMapper $orderItemMapper)
-    {
-        $this->orderItemMapper = $orderItemMapper;
-        return $this;
-    }
-
-    protected function setOrderAlertMapper(OrderAlertMapper $orderAlertMapper)
-    {
-        $this->orderAlertMapper = $orderAlertMapper;
-        return $this;
-    }
-
-    protected function setOrderNoteMapper(OrderNoteMapper $orderNoteMapper)
-    {
-        $this->orderNoteMapper = $orderNoteMapper;
-        return $this;
-    }
-
-    protected function setTaxService(TaxService $taxService)
-    {
-        $this->taxService = $taxService;
-        return $this;
-    }
-
-    protected function setCurrencyService(CurrencyService $currencyService)
-    {
-        $this->currencyService = $currencyService;
-        return $this;
-    }
-
-    protected function setConversionService(ConversionService $conversionService)
-    {
-        $this->conversionService = $conversionService;
-        return $this;
-    }
-
-    protected function setUserOuService(UserOuService $userOuService)
-    {
-        $this->userOuService = $userOuService;
-        return $this;
     }
 }

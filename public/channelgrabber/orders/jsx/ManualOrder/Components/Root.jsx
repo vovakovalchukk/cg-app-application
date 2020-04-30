@@ -7,7 +7,13 @@ import Select from 'Common/Components/Select';
 
 class RootComponent extends React.Component {
     state = {
-        selectedCurrency: this.props.utilities.currency.getCurrencies()[0]
+        selectedCurrency: (() => {
+            const selectedCurrency = this.props.utilities.currency.getCurrencies().find((currency) => {
+                return currency.selected;
+            });
+
+            return selectedCurrency || this.props.utilities.currency.getCurrencies()[0];
+        })()
     };
 
     getCurrencyOptions = () => {
@@ -45,7 +51,13 @@ class RootComponent extends React.Component {
                         <Select filterable={true} options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onOptionChange={this.onCurrencyChanged}/>
                     </div>
                 </div>
-                <OrderTable currency={this.state.selectedCurrency} getOrderData={this.getOrderData}/>
+                <OrderTable
+                    currency={this.state.selectedCurrency}
+                    getOrderData={this.getOrderData}
+                    orderItems={this.props.utilities.orderItems}
+                    shippingData={this.props.utilities.shippingData}
+                    discount={this.props.utilities.discount}
+                />
             </div>
         );
     }

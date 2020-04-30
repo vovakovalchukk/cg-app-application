@@ -3,6 +3,8 @@ import React from 'react';
 import ItemRow from 'Common/Components/ItemRow';
 import SearchBox from 'Common/Components/SearchBox';
 import CurrencyInput from 'Common/Components/CurrencyInput';
+import ProductFilter from 'Product/Filter/Entity';
+import AjaxHandler from 'Product/Storage/Ajax';
 
 class OrderTable extends React.Component {
     state = {
@@ -18,6 +20,9 @@ class OrderTable extends React.Component {
     };
 
     componentDidMount() {
+        this.fetchProductsForOrderItems();
+        this.setShippingDataOnState();
+        this.setDiscountOnState();
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('orderSubmit', this.onOrderSubmit);
     }
@@ -26,6 +31,94 @@ class OrderTable extends React.Component {
         window.removeEventListener('productSelection', this.onProductSelected);
         window.removeEventListener('orderSubmit', this.onOrderSubmit);
     }
+
+    fetchProductsForOrderItems = () => {
+        const skus = this.props.orderItems.map((orderItem) => {
+            return orderItem.sku;
+        });
+
+        if (skus.length === 0) {
+            return;
+        }
+
+        this.fetchProductsBySkus(skus);
+    };
+
+    fetchProductsBySkus = (skus) => {
+        if (skus.length === 0) {
+            return;
+        }
+
+        // For some reason, our Notifications service is sometimes loaded later than when we show this notice message,
+        // so it needs to be executed after a short while to make sure that the notification service is available
+        setTimeout(() => n.notice(`Please wait while we populate the order items...`, true, 3000), 200);
+
+        let filter = new ProductFilter;
+        filter.sku = skus;
+        filter.limit = 500;
+        filter.replaceVariationWithParent = true;
+        filter.embedVariationsAsLinks = false;
+        filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
+        AjaxHandler.fetchByFilter(filter, this.populateWithProducts);
+    };
+
+    populateWithProducts = (response) => {
+        this.props.orderItems.forEach((orderItem) => {
+            this.addItemRow(
+                this.findProductForOrderItem(response.products, orderItem),
+                orderItem.sku,
+                orderItem.quantity,
+                orderItem.price
+            );
+        });
+    };
+
+    findProductForOrderItem = (products, orderItem) => {
+        const product = products.find((product) => {
+            if (product.sku == orderItem.sku) {
+                return true;
+            }
+
+            if (product.variationCount === 0 || product.variations.length === 0) {
+                return false;
+            }
+
+            for (let variation of product.variations) {
+                if (variation.sku == orderItem.sku) {
+                    return true;
+                }
+            }
+        });
+
+        return product || {
+            sku: orderItem.sku,
+            name: orderItem.name
+        };
+    };
+
+    setShippingDataOnState = () => {
+        this.setState({
+            shippingMethod: {
+                name: this.props.shippingData.method || 'N/A',
+                cost: this.props.shippingData.cost || 0
+            }
+        });
+    };
+
+    setDiscountOnState = () => {
+        const discount = parseFloat(this.props.discount || 0);
+        if (!discount) {
+            return;
+        }
+
+        this.setState({
+            discount: {
+                value: discount
+            }
+        }, () => {
+            this.onToggleDiscountBox();
+        })
+    };
 
     onProductSelected = (e) => {
         var data = e.detail;
@@ -36,7 +129,7 @@ class OrderTable extends React.Component {
         this.props.getOrderData(this.state);
     };
 
-    addItemRow = (product, sku, quantity) => {
+    addItemRow = (product, sku, quantity, price = 0) => {
         var orderRows = this.state.orderRows.slice();
 
         var alreadyAddedToForm = orderRows.find(function (row) {
@@ -46,7 +139,7 @@ class OrderTable extends React.Component {
             }
         });
         if (! alreadyAddedToForm) {
-            orderRows.push({product: product, sku: sku, quantity: quantity, price: 0});
+            orderRows.push({product: product, sku: sku, quantity: quantity, price: price});
         }
 
         this.setState({
@@ -147,12 +240,14 @@ class OrderTable extends React.Component {
         return (
             this.state.orderRows.map(function (row) {
                 return (
-                    <ItemRow row={row}
-                              currency={this.props.currency}
-                              onSkuChange={this.onSkuChanged}
-                              onStockQuantityUpdate={this.onStockQuantityUpdated}
-                              onPriceChange={this.onPriceChanged}
-                              onRowRemove={this.onRowRemove}
+                    <ItemRow
+                        row={row}
+                        currency={this.props.currency}
+                        price={row.price}
+                        onSkuChange={this.onSkuChanged}
+                        onStockQuantityUpdate={this.onStockQuantityUpdated}
+                        onPriceChange={this.onPriceChanged}
+                        onRowRemove={this.onRowRemove}
                     />
                 )
             }.bind(this))
@@ -196,8 +291,20 @@ class OrderTable extends React.Component {
     getShippingMarkup = () => {
         return (
             <div className="detail-shipping">
-                <span className="detail-label"><SearchBox placeholder="Shipping method..." results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
-                <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
+                <span className="detail-label">
+                    <SearchBox
+                        placeholder="Shipping method..."
+                        results={this.context.carrierUtils.getCarriers()}
+                        onResultSelected={this.onShippingMethodSelected}
+                        selected={this.state.shippingMethod.name}
+                    />
+                    Shipping
+                </span>
+                <CurrencyInput
+                    value={this.state.shippingMethod.cost}
+                    currency={this.props.currency.value}
+                    onChange={this.onManualShippingCost}
+                />
             </div>
         );
     };

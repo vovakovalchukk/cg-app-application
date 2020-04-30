@@ -342,7 +342,7 @@
         display: none;
         position: absolute;
         width: 200px;
-        z-index: 100;
+        z-index: 101;
         border-radius: 10px;
         .hover-popup-header {
             border-radius: 10px 10px 0 0;
@@ -407,6 +407,17 @@
 }
 
 .orderid-cell {
+    .productinfo {
+        .subtitle {
+            width: 100%;
+        }
+        .itemAvailableStock {
+            max-width: 30%;
+            &.skuOutOfStock {
+                color: $color-red;
+            }
+        }
+    }
     .multi-item-popup {
         display: none;
         position: absolute;

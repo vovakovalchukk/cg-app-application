@@ -1,20 +1,24 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Item\Entity as OrderItem;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\Service as OuService;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\ManualOrder\Service;
-use Orders\Order\Service as OrderService;
-use CG\OrganisationUnit\Service as OuService;
-use CG\Order\Shared\Entity as OrderEntity;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Module;
+use Orders\Order\Service as OrderService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class ManualOrderController extends AbstractActionController
 {
-    const ROUTE_INDEX_URL = '/new';
+    public const ROUTE_INDEX_URL = '/new';
+    protected const GENERATED_SKU_PREFIX = '_GENERATED_SKU_';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -51,55 +55,76 @@ class ManualOrderController extends AbstractActionController
 
     public function indexAction()
     {
+        return $this->buildResponse();
+    }
+
+    public function duplicateExistingOrderAction()
+    {
+        $orderId = $this->params()->fromRoute('order');
+        $order = $this->orderService->getOrder($orderId);
+        return $this->buildResponse($order);
+    }
+
+    protected function buildResponse(?OrderEntity $order = null): ViewModel
+    {
         $this->accessUsageExceededService->checkUsage();
-        $currenciesList = $this->service->getCurrencyOptions();
-        $tradingCompanies = $this->getTradingCompanyOptions();
+        $currenciesList = $this->service->getCurrencyOptions($order);
+        $tradingCompanies = $this->getTradingCompanyOptions($order);
         $carrierDropdownOptions = $this->getCarrierDropdownOptions();
 
         $view = $this->viewModelFactory->newInstance();
-        $view->setVariable('isHeaderBarVisible', false)
+        $view->setTemplate('orders/manual-order/index')
+            ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
             ->setVariable('currenciesJson', json_encode($currenciesList))
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->setVariable('tradingCompanies', json_encode($tradingCompanies))
+            ->setVariable('orderItems', str_replace("\u0022","\\\\\"", json_encode($this->formatItemsForOrder($order), JSON_HEX_QUOT)))
+            ->setVariable('shippingData', json_encode($this->formatShippingDataForOrder($order)))
+            ->setVariable('discount', json_encode($order ? $order->getOrderDiscount() : null))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
-            ->addChild($this->getAddressInformation(), 'addressInformation')
+            ->addChild($this->getAddressInformation($order), 'addressInformation')
             ->addChild($this->getOrderAlert(), 'orderAlert')
             ->addChild($this->getSidebar(), 'sidebar');
 
         return $view;
     }
 
-    protected function getTradingCompanyOptions()
+    protected function getTradingCompanyOptions(?OrderEntity $order = null): array
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        /** @var OrganisationUnit $rootOu */
         $rootOu = $this->ouService->fetch($rootOuId);
-        $tradingCompanyOptions = [[
-            'name' => $rootOu->getAddressCompanyName(),
-            'value' => $rootOuId
-        ]];
-
         try {
             $tradingCompanies = $this->ouService->fetchFiltered('all', 1, $rootOuId);
         } catch (\Exception $e) {
-            return $tradingCompanyOptions;
+            return [$this->buildTradingCompany($rootOu, true)];
         }
 
-        $noneSelected = true;
-        foreach ($tradingCompanies as $ou) {
-            $option = [
-                'name' => $ou->getAddressCompanyName(),
-                'value' => $ou->getId()
-            ];
+        $tradingCompanyOptions = [
+            $this->buildTradingCompany(
+                $rootOu,
+                $order ? $order->getOrganisationUnitId() == $rootOuId : false
+            )
+        ];
 
-            if ($noneSelected) {
-                $option['selected'] = true;
-                $noneSelected = false;
-            }
-
-            $tradingCompanyOptions[] = $option;
+        /** @var OrganisationUnit $ou */
+        foreach ($tradingCompanies as $key => $ou) {
+            $tradingCompanyOptions[] = $this->buildTradingCompany(
+                $ou,
+                $order ? ($order->getOrganisationUnitId() == $ou->getId()) : ($key === 0)
+            );
         }
         return $tradingCompanyOptions;
+    }
+
+    protected function buildTradingCompany(OrganisationUnit $ou, bool $selected = false): array
+    {
+        return [
+            'name' => $ou->getAddressCompanyName(),
+            'value' => $ou->getId(),
+            'selected' => $selected
+        ];
     }
 
     protected function getCarrierDropdownOptions()
@@ -117,6 +142,39 @@ class ManualOrderController extends AbstractActionController
         return $carrierDropdownOptions;
     }
 
+    protected function formatItemsForOrder(?OrderEntity $order = null): array
+    {
+        $items = [];
+        if (!$order) {
+            return [];
+        }
+
+        /** @var OrderItem $item */
+        foreach ($order->getItems() as $index => $item) {
+            $sku = $item->getItemSku();
+            $items[] = [
+                'sku' => $sku !== '' ? $sku : $this->generateSkuForItem($order, $index),
+                'name' => $item->getItemName(),
+                'quantity' => $item->getItemQuantity(),
+                'price' => $item->getIndividualItemPrice()
+            ];
+        }
+        return $items;
+    }
+
+    protected function generateSkuForItem(OrderEntity $order, int $index): string
+    {
+        return static::GENERATED_SKU_PREFIX . $order->getId() . '_' . $index . '_';
+    }
+
+    protected function formatShippingDataForOrder(?OrderEntity $order = null): array
+    {
+        return !$order ? [] : [
+            'cost' => $order->getShippingPrice(),
+            'method' => $order->getShippingMethod()
+        ];
+    }
+
     protected function getBuyerMessage()
     {
         $view = $this->viewModelFactory->newInstance();
@@ -124,17 +182,17 @@ class ManualOrderController extends AbstractActionController
         return $view;
     }
 
-    protected function getAddressInformation()
+    protected function getAddressInformation(?OrderEntity $order = null)
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/addressInformation');
-        $view->setVariable('order', null);
+        $view->setVariable('order', $order);
         $view->setVariable('addressSaveUrl', 'Orders/new/create');
         $view->setVariable('billingAddressEditable', true);
         $view->setVariable('shippingAddressEditable', true);
         $view->setVariable('requiresSaveButton', false);
         $view->setVariable('includeAddressCopy', false);
-        $view->setVariable('includeUseBillingInfo', true);
+        $view->setVariable('includeUseBillingInfo', $order === null);
         return $view;
     }
 
