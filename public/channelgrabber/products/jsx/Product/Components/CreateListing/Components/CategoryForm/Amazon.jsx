@@ -502,7 +502,6 @@ class AmazonCategoryFormComponent extends React.Component {
                 <Field
                     name="amazonProductType"
                     component={this.renderAmazonProductTypeSelectComponent}
-                    validate={Validators.required}
                     onChange={() => {} }
                 />
             </div>
