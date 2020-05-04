@@ -12,7 +12,7 @@ use Zend\View\Helper\Url;
 
 class Ebay implements FormatterInterface
 {
-    protected const LISTING_ID_PATTERN = '/item #(\d+)/';
+    protected const LISTING_ID_PATTERN = '/#(\d+)/';
 
     /** @var ListingService */
     protected $listingService;
