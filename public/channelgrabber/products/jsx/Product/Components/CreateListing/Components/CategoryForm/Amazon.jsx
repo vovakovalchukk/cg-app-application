@@ -67,7 +67,7 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderVariationThemesSelectComponent = (field) => {
-        if (this.enforceSelectionOfPrerequisitesBeforeRenderingVariationThemes()) {
+        if (this.shouldEnforceSelectionOfPrerequisitesBeforeRenderingVariationThemes()) {
             return this.renderVariationPrerequisitesWarning();
         }
         let selected = {
@@ -426,7 +426,7 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
 
-    enforceSelectionOfPrerequisitesBeforeRenderingVariationThemes = () => {
+    shouldEnforceSelectionOfPrerequisitesBeforeRenderingVariationThemes = () => {
         let productTypeIsSelected = this.state.selectedProductType != null;
         let categoryHasRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0;
         if (productTypeIsSelected === false && categoryHasRootVariationThemes === false) {
@@ -448,9 +448,9 @@ class AmazonCategoryFormComponent extends React.Component {
 
     getVariationPrerequisitesMessage = () => {
         if (this.state.selectedAmazonCategory === null) {
-            return "Please select Amazon Category";
+            return "Please select an Amazon Category";
         }
-        return "Please select Product Type";
+        return "Please select a Product Type";
     };
 
     renderAmazonCategorySelect = () => {
@@ -492,7 +492,7 @@ class AmazonCategoryFormComponent extends React.Component {
         );
     };
 
-    categorySelected = () => {
+    isCategorySelected = () => {
         return this.state.selectedAmazonCategory !== null;
     };
 
@@ -509,11 +509,11 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderAmazonProductTypeSelectComponent = (field) => {
-        if (this.categorySelected() === false) {
+        if (this.isCategorySelected() === false) {
             return (
                 <div className={'order-inputbox-holder u-defloat u-display-flex'}>
                     <label className="inputbox-label u-font-large">Product Type</label>
-                    <div>Please select Amazon Category</div>
+                    <div>Please select an Amazon Category</div>
                 </div>
             );
         }
