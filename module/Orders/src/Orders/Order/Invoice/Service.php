@@ -308,21 +308,31 @@ class Service extends ClientService implements StatsAwareInterface
         $invoiceValidator($order);
     }
 
-    public function generatePdfsForOrders(Collection $orders, TemplateCollection $templates, string $key = null): string
-    {
+    public function generatePdfsForOrders(
+        Collection $orders,
+        TemplateCollection $templates,
+        bool $includeDefaultInvoice = false,
+        string $key = null,
+        string $orderBy = null
+    ): string {
         $this->key = $key;
         $this->resetGenerationProgress();
-        $pdf = $this->generateDocumentsForOrders($orders, $templates);
-        /** @var Template $template */
-        foreach ($templates as $template) {
-            if ($template->getType() != TemplateType::INVOICE) {
-                continue;
-            }
+        $pdf = $this->generateDocumentsForOrders($orders, $templates, $includeDefaultInvoice, $orderBy);
+        if ($includeDefaultInvoice || $this->templatesIncludeInvoice($templates)) {
             // Invoices require special treatment
             $this->markOrdersAsPrintedFromOrderCollection($orders);
             $this->notifyOfInvoiceGeneration();
-            break;
         }
         return $pdf;
+    }
+
+    protected function templatesIncludeInvoice(TemplateCollection $templates): bool
+    {
+        foreach ($templates as $template) {
+            if ($template->getType() == TemplateType::INVOICE) {
+                return true;
+            }
+        }
+        return false;
     }
 }

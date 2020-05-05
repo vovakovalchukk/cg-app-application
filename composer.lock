@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2caacabb2b3fab679d9bf2034098eeb",
+    "content-hash": "099390b9c1366c1fedda15ea02d2c77e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.54.1",
+            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4c23765a4b13d0bd973c649eceb413e5d20d4b1e"
+                "reference": "a34f51028cb105cc012c16cacc14b189a5a269de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.54.1-48b70e.zip",
-                "reference": "4c23765a4b13d0bd973c649eceb413e5d20d4b1e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-dbfb7e.zip",
+                "reference": "a34f51028cb105cc012c16cacc14b189a5a269de"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-04-30T10:24:53+00:00"
+            "time": "2020-05-05T12:51:10+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3816,22 +3816,21 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.10.0",
+            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "17c8431f35325cc617426a3526150b26ac198c75"
+                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.10.0-b088b2.zip",
-                "reference": "17c8431f35325cc617426a3526150b26ac198c75"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-fde842.zip",
+                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.6.0",
                 "channelgrabber/communication": "^1.1.0",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.3",
                 "channelgrabber/image": "^1.2.11",
@@ -3877,7 +3876,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-03-05T08:59:13+00:00"
+            "time": "2020-05-05T13:39:16+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11992,10 +11991,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.54.2",
+            "alias_normalized": "1.54.2.0",
+            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12005,5 +12019,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
