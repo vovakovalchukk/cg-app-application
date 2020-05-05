@@ -442,7 +442,7 @@ class Settings
         return $templateViewDataElement;
     }
 
-    public function getTemplateOptions(): array
+    public function getTemplateOptions(array $selectedTemplateIds = []): array
     {
         $options = [];
         $templates = $this->fetchTemplates();
@@ -450,6 +450,7 @@ class Settings
             $options[] = [
                 'id' => $template->getId(),
                 'name' => $template->getName(),
+                'selected' => in_array($template->getId(), $selectedTemplateIds),
                 'favourite' => $template->isFavourite(),
             ];
         }

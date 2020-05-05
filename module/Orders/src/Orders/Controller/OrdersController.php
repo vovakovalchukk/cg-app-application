@@ -29,6 +29,7 @@ use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
+use Orders\Order\Invoice\Template\Selection\Storage as TemplateSelectionStorage;
 use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\TableService;
@@ -90,6 +91,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $invoiceSettings;
     /** @var PartialRefundService */
     protected $partialRefundService;
+    /** @var TemplateSelectionStorage */
+    protected $templateSelectionStorage;
 
     public function __construct(
         AccessUsageExceededService $accessUsageExceededService,
@@ -111,7 +114,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         OrdersTableUserPreferences $orderTableUserPreferences,
         OrdersTableHelper $orderTableHelper,
         InvoiceSettings $invoiceSettings,
-        PartialRefundService $partialRefundService
+        PartialRefundService $partialRefundService,
+        TemplateSelectionStorage $templateSelectionStorage
     ) {
         $this->currencyFormat = $currencyFormat;
         $this->accessUsageExceededService = $accessUsageExceededService;
@@ -132,6 +136,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->orderTableHelper = $orderTableHelper;
         $this->invoiceSettings = $invoiceSettings;
         $this->partialRefundService = $partialRefundService;
+        $this->templateSelectionStorage = $templateSelectionStorage;
     }
 
     public function indexAction()
@@ -185,7 +190,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
-        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions());
+        $templateSelection = $this->templateSelectionStorage->fetch();
+        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions($templateSelection->getTemplateIds()));
+        $view->setVariable('pdfExportSelectDefaultInvoice', in_array(BulkActionsController::DEFAULT_INVOICE_ID, $templateSelection->getTemplateIds()));
+        $view->setVariable('pdfExportOrderBy', $templateSelection->getOrderBy());
         return $view;
     }
 

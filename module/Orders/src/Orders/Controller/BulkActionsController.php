@@ -26,6 +26,8 @@ use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\Csv\Service as CsvService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
+use Orders\Order\Invoice\Template\Selection;
+use Orders\Order\Invoice\Template\Selection\Storage as TemplateSelectionStorage;
 use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
@@ -76,6 +78,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $accessUsageExceededService;
     /** @var TemplateService */
     protected $templateService;
+    /** @var TemplateSelectionStorage */
+    protected $templateSelectionStorage;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -96,7 +100,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         InvoiceSettingsService $invoiceSettingsService,
         InvoiceEmailAddress $invoiceEmailAddress,
         AccessUsageExceededService $accessUsageExceededService,
-        TemplateService $templateService
+        TemplateService $templateService,
+        TemplateSelectionStorage $templateSelectionStorage
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -112,6 +117,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->bulkActionService = $bulkActionService;
         $this->accessUsageExceededService = $accessUsageExceededService;
         $this->templateService = $templateService;
+        $this->templateSelectionStorage = $templateSelectionStorage;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -908,6 +914,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             $pdf = '';
             if ($templates->count() > 0 || $defaultInvoiceRequested) {
                 $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $defaultInvoiceRequested, $progressKey, $orderBy);
+                $this->templateSelectionStorage->save(new Selection($templateIds, $orderBy));
             }
             $filename = date('Y-m-d Hi') . ' documents.pdf';
             return new FileResponse('application/pdf', $filename, $pdf);
