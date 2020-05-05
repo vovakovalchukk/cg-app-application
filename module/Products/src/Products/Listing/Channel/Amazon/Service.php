@@ -215,7 +215,7 @@ class Service implements
             $variationThemesOptions[] = [
                 'name' => $variationTheme->getName(),
                 'attributes' => $variationTheme->getAttributes(),
-                'supportsRootCategory' => $variationTheme->isSupportsRootCategory(),
+                'supportsRootCategory' => $variationTheme->getSupportsRootCategory(),
                 'productTypes' => $variationTheme->getProductTypes(),
                 'validValues' => array_map(function($key, $options){
                     return [
