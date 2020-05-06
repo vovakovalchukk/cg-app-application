@@ -254,6 +254,9 @@ class AmazonCategoryFormComponent extends React.Component {
 
     getThemeHeadersByName = (name) => {
         let themeData = this.getThemeDataByName(name);
+        if (themeData === undefined) {
+            return [];
+        }
         let headers = [];
         themeData.attributes.forEach((header) => {
             headers.push(header);
@@ -480,8 +483,10 @@ class AmazonCategoryFormComponent extends React.Component {
                         this.setState({
                             selectedAmazonCategory: option,
                             selectedProductType: null,
+                            themeSelected: null,
                             availableVariationThemes: []
                         });
+                        this.resetThemeTable();
                         this.fetchAndSetAmazonCategoryDependentValues(option.value);
                     }}
                 />
