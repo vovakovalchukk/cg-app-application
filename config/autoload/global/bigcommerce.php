@@ -1,7 +1,7 @@
 <?php
 use CG\BigCommerce\ListingImport as BigCommerceListingImport;
-Use CG\BigCommerce\Gearman\Generator\ListingDownload as BigCommercListingDownloadGenerator;
-use CG\BigCommerce\Gearman\Generator\Listing\CreateListing as BigCommercListingCreateListingGenerator;
+Use CG\BigCommerce\Gearman\Generator\ListingDownload as BigCommerceListingDownloadGenerator;
+use CG\BigCommerce\Gearman\Generator\Listing\CreateListing as BigCommerceListingCreateListingGenerator;
 
 return [
     'di' => [
@@ -11,12 +11,12 @@ return [
                     'gearmanClient' => 'bigcommerceGearmanClient'
                 ]
             ],
-            BigCommercListingDownloadGenerator::class => [
+            BigCommerceListingDownloadGenerator::class => [
                 'parameters' => [
                     'gearmanClient' => 'bigcommerceGearmanClient'
                 ]
             ],
-            BigCommercListingCreateListingGenerator::class => [
+            BigCommerceListingCreateListingGenerator::class => [
                 'parameters' => [
                     'gearmanClient' => 'bigcommerceGearmanClient'
                 ]
