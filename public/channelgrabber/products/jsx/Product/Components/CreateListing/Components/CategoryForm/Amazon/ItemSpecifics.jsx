@@ -7,10 +7,10 @@ import Validators from '../../../Validators';
 import OptionalItemSpecificsSelect from './OptionalItemSpecificsSelect';
 
 const REQUIRED_ITEM_SPECIFICS = {
-
+    'ProductType': 'ProductType'
 };
 
-const EXCLUDED_ITEM_SPECIFICS = {
+const OVERRIDE_ITEM_SPECIFICS = {
     'ProductType': 'ProductType'
 };
 
@@ -20,7 +20,8 @@ const ITEM_SPECIFICS_TYPE_MAP = {
 
 class AmazonItemSpecifics extends React.Component {
     static defaultProps = {
-        itemSpecifics: {}
+        itemSpecifics: {},
+        selectedProductType: null
     };
 
     state = {
@@ -32,7 +33,28 @@ class AmazonItemSpecifics extends React.Component {
             return null;
         }
         var rootItemSpecific = this.props.itemSpecifics[0];
+        if (this.isProductTypeSelectionRequired(rootItemSpecific) === true) {
+            return this.renderEmptyFormSection(rootItemSpecific);
+        }
         return this.renderItemSpecifics(rootItemSpecific.children, rootItemSpecific.name);
+    };
+
+    isProductTypeSelectionRequired = (rootItemSpecific) => {
+        let productTypeItemSpecific = rootItemSpecific.children.find(itemSpecific => itemSpecific.name == 'ProductType');
+        if (productTypeItemSpecific === undefined) {
+            return false;
+        }
+        if (this.props.selectedProductType === null) {
+            return true;
+        }
+        return false;
+    }
+
+    renderEmptyFormSection = (rootItemSpecific) => {
+        return <FormSection
+            name={rootItemSpecific.name}
+            component={this.renderFormSection}
+        />;
     };
 
     renderItemSpecifics = (itemSpecifics, name) => {
@@ -41,9 +63,6 @@ class AmazonItemSpecifics extends React.Component {
 
         itemSpecifics.forEach((itemSpecific) => {
             itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
-            if (itemSpecific.excluded) {
-                return;
-            }
             if (!itemSpecific.required) {
                 optional.push(itemSpecific);
                 return;
@@ -61,20 +80,52 @@ class AmazonItemSpecifics extends React.Component {
         </FormSection>;
     };
 
+    formatItemSpecificForRendering = (itemSpecific) => {
+        if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
+            itemSpecific.required = true;
+        }
+        return itemSpecific;
+    };
+
     renderItemSpecific = (itemSpecific) => {
+        if (this.hasOverride(itemSpecific)) {
+            return this.renderOverride(itemSpecific);
+        }
         const type = ITEM_SPECIFICS_TYPE_MAP[itemSpecific.type] || itemSpecific.type;
         const functionName = 'render' + type.ucfirst() + 'Field';
         return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
     };
 
-    formatItemSpecificForRendering = (itemSpecific) => {
-        if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
-            itemSpecific.required = true;
+    hasOverride = (itemSpecific) => {
+        return OVERRIDE_ITEM_SPECIFICS[itemSpecific.name] ? true : false;
+    };
+
+    renderOverride = (itemSpecific) => {
+        let functionName = 'render' + itemSpecific.name.ucfirst();
+        return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
+    };
+
+    renderProductType = (productTypeItemSpecific) => {
+        let selectedProductType = this.retrieveSelectedProductType(productTypeItemSpecific);
+        if (selectedProductType === undefined) {
+            return null;
         }
-        if (itemSpecific.name && EXCLUDED_ITEM_SPECIFICS[itemSpecific.name]) {
-            itemSpecific.excluded = true;
+        let fields = [this.renderItemSpecifics(selectedProductType.children, selectedProductType.name)];
+        return <FormSection
+            name={productTypeItemSpecific.name}
+            component={this.renderFormSection}
+        >
+            {fields}
+        </FormSection>
+    };
+
+    retrieveSelectedProductType = (productTypeItemSpecific) => {
+        if (productTypeItemSpecific.options) {
+            return productTypeItemSpecific.options.find(productType => productType.name == this.props.selectedProductType );
         }
-        return itemSpecific;
+        if (productTypeItemSpecific.children) {
+            return productTypeItemSpecific.children.find(productType => productType.name == this.props.selectedProductType );
+        }
     };
 
     renderTextField = (itemSpecific) => {
