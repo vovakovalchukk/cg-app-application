@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a93ef3b4622864e1c475ca444117377",
+    "content-hash": "2796bce6ef6c9b984cb4749de73b3645",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1017,16 +1017,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-11415-dpd-services-disappeared",
+            "version": "1.2.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "24b1d35c83977658780948df80225ecb13ed38f3"
+                "reference": "6e3e9dfa8ce728407359ff5fe9c9407c54e1ce6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11415-dpd-services-disappeared-ffb41c.zip",
-                "reference": "24b1d35c83977658780948df80225ecb13ed38f3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.10-6e46c8.zip",
+                "reference": "6e3e9dfa8ce728407359ff5fe9c9407c54e1ce6a"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1065,7 +1065,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-05-07T10:07:50+00:00"
+            "time": "2020-05-07T10:39:17+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11991,18 +11991,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.10",
-            "alias_normalized": "1.2.10.0",
-            "version": "dev-CGIV-11415-dpd-services-disappeared",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12012,6 +12004,5 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
