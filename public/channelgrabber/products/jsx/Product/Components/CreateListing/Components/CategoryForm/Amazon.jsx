@@ -430,6 +430,11 @@ class AmazonCategoryFormComponent extends React.Component {
 
 
     shouldEnforceSelectionOfPrerequisitesBeforeRenderingVariationThemes = () => {
+        let amazonCategoryIsSelected = this.state.selectedAmazonCategory != null;
+        let amazonCategorySupportsVariations = this.state.variationThemes.length > 0;
+        if (amazonCategoryIsSelected === true && amazonCategorySupportsVariations === false) {
+            return true;
+        }
         let productTypeIsSelected = this.state.selectedProductType != null;
         let categoryHasRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0;
         if (productTypeIsSelected === false && categoryHasRootVariationThemes === false) {
@@ -452,6 +457,9 @@ class AmazonCategoryFormComponent extends React.Component {
     getVariationPrerequisitesMessage = () => {
         if (this.state.selectedAmazonCategory === null) {
             return "Please select an Amazon Category";
+        }
+        if (this.state.variationThemes.length == 0) {
+            return "Amazon do not support variation listings in the selected Amazon Category. Please select another Amazon Category.";
         }
         return "Please select a Product Type";
     };
