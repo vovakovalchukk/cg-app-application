@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c990ef8830f9926e8561bd9dc20e1b6a",
+    "content-hash": "7df7d38438ffd05a7c8ceaef647c6dd9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1999,16 +1999,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "dev-CGIV-11372-fix-image-links",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "8ef95b4a54d81eb83ccc9791ba3c9e2c3483463f"
+                "reference": "4c99cae967c21bb157f6b4008fe62de9ce770828"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-dev-CGIV-11372-fix-image-links-85a23a.zip",
-                "reference": "8ef95b4a54d81eb83ccc9791ba3c9e2c3483463f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/image/channelgrabber-image-1.3.1-1adcee.zip",
+                "reference": "4c99cae967c21bb157f6b4008fe62de9ce770828"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2029,7 +2029,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2020-04-30T15:15:42+00:00"
+            "time": "2020-05-07T08:46:55+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -11991,18 +11991,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-CGIV-11372-fix-image-links",
-            "package": "channelgrabber/image"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/image": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
