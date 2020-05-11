@@ -33,12 +33,13 @@ class Ebay implements FormatterInterface
 
     protected function replaceSubjectListingIdWithProductLink(Thread $thread): string
     {
+        $ouId = $thread->getOrganisationUnitId();
         $subject = $thread->getSubject();
         $listingExternalId = $this->getListingExternalIdFromSubject($subject);
         if (!$listingExternalId) {
             return $subject;
         }
-        $sku = $this->getSkuFromListingExternalId($listingExternalId);
+        $sku = $this->getSkuFromListingExternalId($listingExternalId, $ouId);
         if (!$sku) {
             return $subject;
         }
@@ -56,9 +57,9 @@ class Ebay implements FormatterInterface
         return null;
     }
 
-    protected function getSkuFromListingExternalId(string $listingExternalId): ?string
+    protected function getSkuFromListingExternalId(string $listingExternalId, int $ouId): ?string
     {
-        $listing = $this->fetchListingByExternalId($listingExternalId);
+        $listing = $this->fetchListingByExternalId($listingExternalId, $ouId);
         if (!$listing) {
             return null;
         }
@@ -69,10 +70,10 @@ class Ebay implements FormatterInterface
         return array_shift($skus);
     }
 
-    protected function fetchListingByExternalId(string $externalId): ?Listing
+    protected function fetchListingByExternalId(string $externalId, int $ouId): ?Listing
     {
         try {
-            $filter = (new ListingFilter(1, 1))->setExternalId([$externalId]);
+            $filter = (new ListingFilter(1, 1))->setExternalId([$externalId])->setOrganisationUnitId([$ouId]);
             return $this->listingService->fetchCollectionByFilter($filter)->getFirst();
         } catch (NotFound $e) {
             return null;
