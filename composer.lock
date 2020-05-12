@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2796bce6ef6c9b984cb4749de73b3645",
+    "content-hash": "67e330024f676d56ed9146e90789d96d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3819,7 +3819,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ae38729cebdab291fce0a9e75dbf47a75d9e248f"
+                "reference": "8601147d0ce8e9810152fe2ee2e0eac1048649d9"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
