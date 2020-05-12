@@ -3815,16 +3815,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.10.0",
+            "version": "dev-CGIV-11357-ekm-incorrect-vat",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "17c8431f35325cc617426a3526150b26ac198c75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.10.0-b088b2.zip",
-                "reference": "17c8431f35325cc617426a3526150b26ac198c75"
+                "reference": "ae38729cebdab291fce0a9e75dbf47a75d9e248f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11991,13 +11986,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-CGIV-11357-ekm-incorrect-vat",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
