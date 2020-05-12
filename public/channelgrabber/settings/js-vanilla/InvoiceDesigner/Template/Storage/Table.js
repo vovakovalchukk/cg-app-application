@@ -103,7 +103,7 @@ define([
             displayText: 'Shipping Total ',
             position: 1,
             placeholder: '£4.00',
-            optionText: "Shipping Total Ex Vat",
+            optionText: "Shipping Total ex VAT",
             default: false
         },
         {
@@ -115,9 +115,17 @@ define([
             default: true
         },
         {
+            id: 'totalExVatExShipping',
+            displayText: 'Subtotal',
+            position: 3,
+            placeholder: '£4.00',
+            optionText: "Total ex VAT, ex Shipping",
+            default: false
+        },
+        {
             id: 'totalVat',
             displayText: 'VAT',
-            position: 3,
+            position: 4,
             placeholder: '£0.80',
             optionText: "Total VAT",
             default: true
@@ -125,7 +133,7 @@ define([
         {
             id: 'total',
             displayText: 'Total',
-            position: 4,
+            position: 5,
             placeholder: '£4.80',
             optionText: "Total",
             default: true
