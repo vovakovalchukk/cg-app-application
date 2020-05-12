@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67e330024f676d56ed9146e90789d96d",
+    "content-hash": "fdfc1a51ef11f677aba23dbad9b1a67d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -11993,8 +11993,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
+            "alias": "1.11.2",
+            "alias_normalized": "1.11.2.0",
             "version": "dev-CGIV-11357-ekm-incorrect-vat",
             "package": "channelgrabber/template"
         }
