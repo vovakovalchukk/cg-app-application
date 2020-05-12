@@ -33,6 +33,12 @@ class SearchComponent extends React.Component {
         }
     };
 
+    componentDidMount = () => {
+        if (this.props.initialSearchTerm) {
+            this.searchButtonPressed();
+        }
+    };
+
     render() {
         return (
             <div id="search-box-wrapper">
