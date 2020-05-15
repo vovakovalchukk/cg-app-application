@@ -99,17 +99,33 @@ define([
             default: true
         },
         {
+            id: 'postageAndPackagingCostExVat',
+            displayText: 'Shipping Total ',
+            position: 1,
+            placeholder: '£4.00',
+            optionText: "Shipping Total ex VAT",
+            default: false
+        },
+        {
             id: 'totalExVat',
             displayText: 'Subtotal',
-            position: 1,
+            position: 2,
             placeholder: '£4.00',
             optionText: "Total ex VAT",
             default: true
         },
         {
+            id: 'totalExVatExShipping',
+            displayText: 'Subtotal',
+            position: 3,
+            placeholder: '£4.00',
+            optionText: "Total ex VAT, ex Shipping",
+            default: false
+        },
+        {
             id: 'totalVat',
             displayText: 'VAT',
-            position: 2,
+            position: 4,
             placeholder: '£0.80',
             optionText: "Total VAT",
             default: true
@@ -117,7 +133,7 @@ define([
         {
             id: 'total',
             displayText: 'Total',
-            position: 3,
+            position: 5,
             placeholder: '£4.80',
             optionText: "Total",
             default: true

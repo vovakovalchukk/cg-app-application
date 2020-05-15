@@ -1,7 +1,7 @@
 <?php
 namespace Orders\Order\Invoice\Template;
 
-use CG\Template\Storage\Object as Storage;
+use CG\Template\Storage\ObjectFactory as Storage;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
 
