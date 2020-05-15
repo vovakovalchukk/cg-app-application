@@ -514,7 +514,7 @@ class AmazonCategoryFormComponent extends React.Component {
         return (
             <div>
                 <Field
-                    name="amazonProductType"
+                    name="productType"
                     component={this.renderAmazonProductTypeSelectComponent}
                     onChange={() => {} }
                 />
