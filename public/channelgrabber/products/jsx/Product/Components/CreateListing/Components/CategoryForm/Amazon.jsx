@@ -399,6 +399,9 @@ class AmazonCategoryFormComponent extends React.Component {
                 categoryId={this.props.categoryId}
                 itemSpecifics={this.state.itemSpecifics}
                 selectedProductType={this.state.selectedProductType ? this.state.selectedProductType.name : null}
+                currentVariationThemeAttributes={this.state.themeSelected ? this.getThemeDataByName(this.state.themeSelected).attributes : null}
+                isSimpleProduct={this.isSimpleProduct()}
+                isVariationThemeSelected={this.state.themeSelected !== null}
             />
         );
     };
