@@ -18,15 +18,26 @@ const ITEM_SPECIFICS_TYPE_MAP = {
     'simpleContent': 'text'
 };
 
+const COMMON_ATTRIBUTE_SUFFIXES = [
+    'name',
+    'map',
+    'specification'
+];
+
 class AmazonItemSpecifics extends React.Component {
     static defaultProps = {
         itemSpecifics: {},
-        selectedProductType: null
+        selectedProductType: null,
+        currentVariationThemeAttributes: [],
+        isSimpleProduct: null,
+        isVariationThemeSelected: null
     };
 
     state = {
         selectedChoices: {}
     };
+
+    itemSpecificsHandledByVariations = [];
 
     renderRoot = () => {
         if (Object.keys(this.props.itemSpecifics).length === 0 || !(0 in this.props.itemSpecifics)) {
@@ -36,6 +47,10 @@ class AmazonItemSpecifics extends React.Component {
         if (this.isProductTypeSelectionRequired(rootItemSpecific) === true) {
             return this.renderEmptyFormSection(rootItemSpecific);
         }
+        if (this.isVariationThemeSelectionRequired() === true) {
+            return this.renderEmptyFormSection(rootItemSpecific);
+        }
+        this.setItemSpecificsAlreadyHandledByVariations();
         return this.renderItemSpecifics(rootItemSpecific.children, rootItemSpecific.name);
     };
 
@@ -48,7 +63,11 @@ class AmazonItemSpecifics extends React.Component {
             return true;
         }
         return false;
-    }
+    };
+
+    isVariationThemeSelectionRequired = () => {
+        return (this.props.isSimpleProduct === false) && (this.props.isVariationThemeSelected !== true);
+    };
 
     renderEmptyFormSection = (rootItemSpecific) => {
         return <FormSection
@@ -57,12 +76,28 @@ class AmazonItemSpecifics extends React.Component {
         />;
     };
 
+    setItemSpecificsAlreadyHandledByVariations = () => {
+        if (this.props.isSimpleProduct === true) {
+            return;
+        }
+        let itemSpecificsHandledByVariations = [];
+        for (let attribute of this.props.currentVariationThemeAttributes) {
+            itemSpecificsHandledByVariations.push(attribute.toLowerCase());
+            for (let suffix of COMMON_ATTRIBUTE_SUFFIXES) {
+                itemSpecificsHandledByVariations.push((attribute + suffix).toLowerCase());
+            }
+        }
+        this.itemSpecificsHandledByVariations = itemSpecificsHandledByVariations;
+    };
+
     renderItemSpecifics = (itemSpecifics, name) => {
         var optional = [],
             fields = [];
-
         itemSpecifics.forEach((itemSpecific) => {
             itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
+            if (this.isItemSpecificHandledByVariations(itemSpecific)) {
+                return;
+            }
             if (!itemSpecific.required) {
                 optional.push(itemSpecific);
                 return;
@@ -86,6 +121,10 @@ class AmazonItemSpecifics extends React.Component {
         }
         return itemSpecific;
     };
+
+    isItemSpecificHandledByVariations = (itemSpecific) => {
+        return this.itemSpecificsHandledByVariations.find(variationItemSpecific => variationItemSpecific === itemSpecific.name.toLowerCase()) !== undefined;
+    }
 
     renderItemSpecific = (itemSpecific) => {
         if (this.hasOverride(itemSpecific)) {
