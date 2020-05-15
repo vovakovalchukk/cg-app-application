@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a03181de74a6872c1119c65eed1cbebc",
+    "content-hash": "fcdb19d480951c9074316ff5b5c8d46f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3815,16 +3815,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11357-ekm-incorrect-vat",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "d18db8c83330d5b874f97da4a93746e30f19dde8"
+                "reference": "a264e433f1c121047a14247d2f77c1360d89bd7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11357-ekm-incorrect-vat-b64923.zip",
-                "reference": "d18db8c83330d5b874f97da4a93746e30f19dde8"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.11.2-8c252e.zip",
+                "reference": "a264e433f1c121047a14247d2f77c1360d89bd7f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3875,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-05-12T13:51:40+00:00"
+            "time": "2020-05-15T12:06:09+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11990,18 +11990,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.2",
-            "alias_normalized": "1.11.2.0",
-            "version": "dev-CGIV-11357-ekm-incorrect-vat",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
