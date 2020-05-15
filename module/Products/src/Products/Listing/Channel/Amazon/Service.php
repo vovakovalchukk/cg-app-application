@@ -7,6 +7,7 @@ use CG\Amazon\BrowseNode\Category\Usage\Storage as BrowseNodeCategoryUsageStorag
 use CG\Amazon\Category\Entity as AmazonCategory;
 use CG\Amazon\Category\Filter as AmazonCategoryFilter;
 use CG\Amazon\Category\Service as AmazonCategoryService;
+use CG\Amazon\Category\VariationTheme\Collection as VariationThemes;
 use CG\Amazon\Category\VariationTheme\Entity as VariationTheme;
 use CG\Amazon\Category\VariationTheme\Service as VariationThemeService;
 use CG\Amazon\Credentials;
@@ -183,10 +184,11 @@ class Service implements
     {
         $amazonCategory = $this->amazonCategoryService->fetch($amazonCategoryId);
         $marketplace = $this->getMarketplaceForAccount($account);
-
+        $variationThemes = $this->getAmazonCategoryVariationThemes($amazonCategory, $marketplace);
         return [
             'itemSpecifics' => $this->getItemSpecifics($amazonCategory),
-            'variationThemes' => $this->getVariationThemes($amazonCategory, $marketplace),
+            'variationThemes' => $this->getVariationThemes($variationThemes),
+            'productTypesFromVariationThemes' => $this->getProductTypesFromVariationThemes($variationThemes),
         ];
     }
 
@@ -196,20 +198,25 @@ class Service implements
         return $this->filterItemSpecifics($itemSpecifics);
     }
 
-    protected function getVariationThemes(AmazonCategory $amazonCategory, string $marketplace): array
+    protected function getAmazonCategoryVariationThemes(AmazonCategory $amazonCategory, string $marketplace): VariationThemes
     {
         try {
-            $variationThemes = $this->variationThemeService->fetchCollectionByCategoryIdAndMarketplaces($amazonCategory->getId(), [$marketplace]);
+            return $this->variationThemeService->fetchCollectionByCategoryIdAndMarketplaces($amazonCategory->getId(), [$marketplace]);
         } catch (NotFound $e) {
-            return [];
+            return new VariationThemes(VariationTheme::class, __METHOD__, ['amazonCategory' => $amazonCategory->getId(), 'marketplace' => [$marketplace]]);
         }
+    }
 
+    protected function getVariationThemes(VariationThemes $variationThemes): array
+    {
         $variationThemesOptions = [];
         /** @var VariationTheme $variationTheme */
         foreach ($variationThemes as $variationTheme) {
             $variationThemesOptions[] = [
                 'name' => $variationTheme->getName(),
                 'attributes' => $variationTheme->getAttributes(),
+                'supportsRootCategory' => $variationTheme->getSupportsRootCategory(),
+                'productTypes' => $variationTheme->getProductTypes(),
                 'validValues' => array_map(function($key, $options){
                     return [
                         'name' => $key,
@@ -219,6 +226,16 @@ class Service implements
             ];
         }
         return $variationThemesOptions;
+    }
+
+    protected function getProductTypesFromVariationThemes(VariationThemes $variationThemes): array
+    {
+        $productTypes = [];
+        foreach ($variationThemes as $variationTheme) {
+            /** @var  VariationTheme $variationTheme */
+            $productTypes = array_merge($productTypes, $variationTheme->getProductTypes());
+        }
+        return array_unique($productTypes);
     }
 
     protected function filterItemSpecifics(array $itemSpecifics): array

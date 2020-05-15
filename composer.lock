@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdfc1a51ef11f677aba23dbad9b1a67d",
+    "content-hash": "a03181de74a6872c1119c65eed1cbebc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.35.3",
+            "version": "1.36.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "59f37db7e851b987c7cd9f827e45acaebf22636e"
+                "reference": "d1063063f0a1ff40941c2f4ec3ad679167e05114"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.35.3-bb2fec.zip",
-                "reference": "59f37db7e851b987c7cd9f827e45acaebf22636e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.36.5-40e178.zip",
+                "reference": "d1063063f0a1ff40941c2f4ec3ad679167e05114"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-04-09T08:45:57+00:00"
+            "time": "2020-05-14T10:42:14+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -10543,8 +10543,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
