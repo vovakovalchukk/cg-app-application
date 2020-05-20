@@ -1393,16 +1393,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.4",
+            "version": "dev-CGIV-11426-ebay-messages-unsent",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "002e8da98bc0eb98500238d76a179655d4dbf1e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.4-c3a3f9.zip",
-                "reference": "002e8da98bc0eb98500238d76a179655d4dbf1e2"
+                "reference": "6a9741a6c34f670fee522fe259d199e1a3284558"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11990,13 +11985,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.21.5",
+            "alias_normalized": "1.21.5.0",
+            "version": "dev-CGIV-11426-ebay-messages-unsent",
+            "package": "channelgrabber/ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
