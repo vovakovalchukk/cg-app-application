@@ -138,6 +138,9 @@ import ResponseActions from './ResponseActions';
                 };
 
                 for (let attribute in currentAttributeData) {
+                    if (attribute === "displayName") {
+                        continue;
+                    }
                     formattedAttribute["name"] = attribute;
                     formattedAttribute["option"] = currentAttributeData[attribute];
                     break;
