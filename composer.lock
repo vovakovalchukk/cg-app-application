@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcdb19d480951c9074316ff5b5c8d46f",
+    "content-hash": "b20ded6c19e12923ddf9a7560b2bf508",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -759,16 +759,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.44.7",
+            "version": "dev-CGIV-11424-amazon-sfp-turns-off",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1748ca22a4b0f19c7525d16b987c1536bb40c2c1"
+                "reference": "420a1599e601b9409dd0c14eb6852afa6375b182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.7-172c84.zip",
-                "reference": "1748ca22a4b0f19c7525d16b987c1536bb40c2c1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11424-amazon-sfp-turns-off-8d39ca.zip",
+                "reference": "420a1599e601b9409dd0c14eb6852afa6375b182"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -836,7 +836,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-04-27T10:02:40+00:00"
+            "time": "2020-05-19T14:51:31+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4394,16 +4394,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.7",
+            "version": "dev-CGIV-11424-amazon-sfp-turns-off",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "38080262652df0b5656ea2100647dde71e60767e"
+                "reference": "4861470601fe0f0ab32e12b6330386f93409c34e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.7-fe7ba3.zip",
-                "reference": "38080262652df0b5656ea2100647dde71e60767e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-11424-amazon-sfp-turns-off-0aa147.zip",
+                "reference": "4861470601fe0f0ab32e12b6330386f93409c34e"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -4435,7 +4435,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2020-04-24T10:17:53+00:00"
+            "time": "2020-05-20T08:35:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -10543,7 +10543,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11990,10 +11991,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.44.8",
+            "alias_normalized": "1.44.8.0",
+            "version": "dev-CGIV-11424-amazon-sfp-turns-off",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.1.8",
+            "alias_normalized": "1.1.8.0",
+            "version": "dev-CGIV-11424-amazon-sfp-turns-off",
+            "package": "channelgrabber/zf2-amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
