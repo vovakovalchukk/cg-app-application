@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a14639cec518ce9cdaa7d058e3381acb",
+    "content-hash": "5e983cd7590beb8d6cfd7d97834cd043",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1397,7 +1397,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "6a9741a6c34f670fee522fe259d199e1a3284558"
+                "reference": "14a6a84a16ef1a1b4c385f428dfe0bfa43fe77a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11426-ebay-messages-unsent-423013.zip",
+                "reference": "14a6a84a16ef1a1b4c385f428dfe0bfa43fe77a4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1449,7 +1454,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-04-07T11:12:30+00:00"
+            "time": "2020-05-20T15:37:24+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10538,7 +10543,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11987,8 +11993,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.21.5",
-            "alias_normalized": "1.21.5.0",
+            "alias": "1.21.8",
+            "alias_normalized": "1.21.8.0",
             "version": "dev-CGIV-11426-ebay-messages-unsent",
             "package": "channelgrabber/ebay"
         }
@@ -11998,8 +12004,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
