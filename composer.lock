@@ -1397,12 +1397,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0fa0027b67cb257d288d12e2691fde6b128acb2f"
+                "reference": "283876e09e14397b58f728b5685e718b87f80132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11426-ebay-messages-unsent-df297d.zip",
-                "reference": "0fa0027b67cb257d288d12e2691fde6b128acb2f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11426-ebay-messages-unsent-57f0be.zip",
+                "reference": "283876e09e14397b58f728b5685e718b87f80132"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1454,7 +1454,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-05-22T13:27:21+00:00"
+            "time": "2020-05-22T14:07:09+00:00"
         },
         {
             "name": "channelgrabber/ekm",
