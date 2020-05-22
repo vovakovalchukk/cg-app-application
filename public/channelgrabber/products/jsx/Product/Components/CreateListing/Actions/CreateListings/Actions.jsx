@@ -108,7 +108,6 @@ import ResponseActions from './ResponseActions';
         }
 
         values = formatTextArrayValues(values, 'bulletPoint');
-        values = formatTextArrayValues(values, 'searchTerm');
 
         return values;
     };

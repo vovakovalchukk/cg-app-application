@@ -2,6 +2,8 @@ import React from 'react';
 import {Field, FieldArray} from 'redux-form';
 import TextFieldArray from 'Product/Components/CreateListing/Components/CreateListing/TextFieldArray';
 import ConditionNote from 'Product/Components/ConditionNote';
+import SearchTerms from 'Product/Components/CreateListing/Components/ChannelForm/Amazon/SearchTerms';
+import Validators from 'Product/Components/CreateListing/Validators';
 
 class AmazonChannelFormComponent extends React.Component {
     render() {
@@ -11,23 +13,20 @@ class AmazonChannelFormComponent extends React.Component {
 
                 {this.renderBulletPointFields()}
 
-                {this.renderSearchTermFields()}
+                {this.renderSearchTermsField()}
             </section>
         );
     }
-    renderSearchTermFields() {
+    renderSearchTermsField = () => {
         return <div className="amazon-channel-form-container channel-form-container">
-            <FieldArray
-                component={TextFieldArray}
-                name="searchTerm"
+            <Field
+                name="searchTerms"
+                component={ConditionNote}
                 displayTitle="Search Terms"
-                itemPlaceholder={"search term"}
-                itemLimit={5}
-                maxCharLength={250}
-                identifier={'searchTerm'}
+                validate={Validators.maxLength(500)}
             />
         </div>;
-    }
+    };
     renderBulletPointFields() {
         return <div className="amazon-channel-form-container channel-form-container">
             <FieldArray
