@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4118c622620b5a45ad6ede2fecaa4212",
+    "content-hash": "04d87744dd72b1dce49adf44a9091145",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,16 +374,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-11429-amazon-one-search-term-per-listing",
+            "version": "1.37.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "02e4161edc483509b8ec0c7e599f2e659c743ee8"
+                "reference": "2d0e5e68261f1a4a0c0468315b9ceb817e4b970e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11429-amazon-one-search-term-per-listing-f1140a.zip",
-                "reference": "02e4161edc483509b8ec0c7e599f2e659c743ee8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.37.0-0cb0a8.zip",
+                "reference": "2d0e5e68261f1a4a0c0468315b9ceb817e4b970e",
                 "shasum": null
             },
             "require": {
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-05-20T14:16:09+00:00"
+            "time": "2020-05-22T12:29:00+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -776,7 +776,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.8-4fb3ac.zip",
-                "reference": "fbb8ec5d480c1c1ef606dd7106c4263b7cf23f23"
+                "reference": "fbb8ec5d480c1c1ef606dd7106c4263b7cf23f23",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -4500,7 +4501,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.8-9c68b3.zip",
-                "reference": "99890b10eca3a0ee11e4cef2b437bea19365779b"
+                "reference": "99890b10eca3a0ee11e4cef2b437bea19365779b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -12113,17 +12115,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.36.8",
-            "alias_normalized": "1.36.8.0",
-            "version": "dev-CGIV-11429-amazon-one-search-term-per-listing",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
