@@ -10,33 +10,94 @@ const REQUIRED_ITEM_SPECIFICS = {
     'ProductType': 'ProductType'
 };
 
+const OVERRIDE_ITEM_SPECIFICS = {
+    'ProductType': 'ProductType'
+};
+
 const ITEM_SPECIFICS_TYPE_MAP = {
     'simpleContent': 'text'
 };
 
+const COMMON_ATTRIBUTE_SUFFIXES = [
+    'name',
+    'map',
+    'specification'
+];
+
 class AmazonItemSpecifics extends React.Component {
     static defaultProps = {
-        itemSpecifics: {}
+        itemSpecifics: {},
+        selectedProductType: null,
+        currentVariationThemeAttributes: [],
+        isSimpleProduct: null,
+        isVariationThemeSelected: null
     };
 
     state = {
         selectedChoices: {}
     };
 
+    itemSpecificsHandledByVariations = [];
+
     renderRoot = () => {
         if (Object.keys(this.props.itemSpecifics).length === 0 || !(0 in this.props.itemSpecifics)) {
             return null;
         }
         var rootItemSpecific = this.props.itemSpecifics[0];
+        if (this.isProductTypeSelectionRequired(rootItemSpecific) === true) {
+            return this.renderEmptyFormSection(rootItemSpecific);
+        }
+        if (this.isVariationThemeSelectionRequired() === true) {
+            return this.renderEmptyFormSection(rootItemSpecific);
+        }
+        this.setItemSpecificsAlreadyHandledByVariations();
         return this.renderItemSpecifics(rootItemSpecific.children, rootItemSpecific.name);
+    };
+
+    isProductTypeSelectionRequired = (rootItemSpecific) => {
+        let productTypeItemSpecific = rootItemSpecific.children.find(itemSpecific => itemSpecific.name == 'ProductType');
+        if (productTypeItemSpecific === undefined) {
+            return false;
+        }
+        if (this.props.selectedProductType === null) {
+            return true;
+        }
+        return false;
+    };
+
+    isVariationThemeSelectionRequired = () => {
+        return (this.props.isSimpleProduct === false) && (this.props.isVariationThemeSelected !== true);
+    };
+
+    renderEmptyFormSection = (rootItemSpecific) => {
+        return <FormSection
+            name={rootItemSpecific.name}
+            component={this.renderFormSection}
+        />;
+    };
+
+    setItemSpecificsAlreadyHandledByVariations = () => {
+        if (this.props.isSimpleProduct === true) {
+            return;
+        }
+        let itemSpecificsHandledByVariations = [];
+        for (let attribute of this.props.currentVariationThemeAttributes) {
+            itemSpecificsHandledByVariations.push(attribute.toLowerCase());
+            for (let suffix of COMMON_ATTRIBUTE_SUFFIXES) {
+                itemSpecificsHandledByVariations.push((attribute + suffix).toLowerCase());
+            }
+        }
+        this.itemSpecificsHandledByVariations = itemSpecificsHandledByVariations;
     };
 
     renderItemSpecifics = (itemSpecifics, name) => {
         var optional = [],
             fields = [];
-
         itemSpecifics.forEach((itemSpecific) => {
             itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
+            if (this.isItemSpecificHandledByVariations(itemSpecific)) {
+                return;
+            }
             if (!itemSpecific.required) {
                 optional.push(itemSpecific);
                 return;
@@ -54,17 +115,56 @@ class AmazonItemSpecifics extends React.Component {
         </FormSection>;
     };
 
-    renderItemSpecific = (itemSpecific) => {
-        const type = ITEM_SPECIFICS_TYPE_MAP[itemSpecific.type] || itemSpecific.type;
-        const functionName = 'render' + type.ucfirst() + 'Field';
-        return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
-    };
-
     formatItemSpecificForRendering = (itemSpecific) => {
         if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
             itemSpecific.required = true;
         }
         return itemSpecific;
+    };
+
+    isItemSpecificHandledByVariations = (itemSpecific) => {
+        return this.itemSpecificsHandledByVariations.find(variationItemSpecific => variationItemSpecific === itemSpecific.name.toLowerCase()) !== undefined;
+    }
+
+    renderItemSpecific = (itemSpecific) => {
+        if (this.hasOverride(itemSpecific)) {
+            return this.renderOverride(itemSpecific);
+        }
+        const type = ITEM_SPECIFICS_TYPE_MAP[itemSpecific.type] || itemSpecific.type;
+        const functionName = 'render' + type.ucfirst() + 'Field';
+        return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
+    };
+
+    hasOverride = (itemSpecific) => {
+        return OVERRIDE_ITEM_SPECIFICS[itemSpecific.name] ? true : false;
+    };
+
+    renderOverride = (itemSpecific) => {
+        let functionName = 'render' + itemSpecific.name.ucfirst();
+        return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
+    };
+
+    renderProductType = (productTypeItemSpecific) => {
+        let selectedProductType = this.retrieveSelectedProductType(productTypeItemSpecific);
+        if (selectedProductType === undefined) {
+            return null;
+        }
+        let fields = [this.renderItemSpecifics(selectedProductType.children, selectedProductType.name)];
+        return <FormSection
+            name={productTypeItemSpecific.name}
+            component={this.renderFormSection}
+        >
+            {fields}
+        </FormSection>
+    };
+
+    retrieveSelectedProductType = (productTypeItemSpecific) => {
+        if (productTypeItemSpecific.options) {
+            return productTypeItemSpecific.options.find(productType => productType.name == this.props.selectedProductType );
+        }
+        if (productTypeItemSpecific.children) {
+            return productTypeItemSpecific.children.find(productType => productType.name == this.props.selectedProductType );
+        }
     };
 
     renderTextField = (itemSpecific) => {

@@ -27,7 +27,11 @@ class AmazonCategoryFormComponent extends React.Component {
         numberOfSelectFieldsRendered: 0,
         selectedAmazonCategory: null,
         itemSpecifics: [],
-        variationThemes: []
+        variationThemes: [],
+        availableVariationThemes: [],
+        selectedProductType: null,
+        availableProductTypes: [],
+        productTypesFromVariationThemes: []
     };
 
     shouldComponentUpdate() {
@@ -47,14 +51,14 @@ class AmazonCategoryFormComponent extends React.Component {
             autopopulated: true
         });
         return true;
-    }
+    };
 
     isSimpleProduct = () => {
         return this.props.product.variationCount <= 1;
     };
 
     formatVariationThemesAsSelectOptions = () => {
-        return this.state.variationThemes.map((variationTheme) => {
+        return this.state.availableVariationThemes.map((variationTheme) => {
             return {
                 name: variationTheme.name,
                 value: variationTheme.name
@@ -63,6 +67,9 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     renderVariationThemesSelectComponent = (field) => {
+        if (this.shouldEnforceSelectionOfPrerequisitesBeforeRenderingVariationThemes()) {
+            return this.renderVariationPrerequisitesWarning();
+        }
         let selected = {
             name: field.input.value,
             value: field.input.value
@@ -247,6 +254,9 @@ class AmazonCategoryFormComponent extends React.Component {
 
     getThemeHeadersByName = (name) => {
         let themeData = this.getThemeDataByName(name);
+        if (themeData === undefined) {
+            return [];
+        }
         let headers = [];
         themeData.attributes.forEach((header) => {
             headers.push(header);
@@ -388,12 +398,16 @@ class AmazonCategoryFormComponent extends React.Component {
                 component={ItemSpecifics}
                 categoryId={this.props.categoryId}
                 itemSpecifics={this.state.itemSpecifics}
+                selectedProductType={this.state.selectedProductType ? this.state.selectedProductType.name : null}
+                currentVariationThemeAttributes={this.state.themeSelected ? this.getThemeDataByName(this.state.themeSelected).attributes : null}
+                isSimpleProduct={this.isSimpleProduct()}
+                isVariationThemeSelected={this.state.themeSelected !== null}
             />
         );
     };
 
     renderVariationThemeContent = () => {
-        if (this.isSimpleProduct() || this.state.variationThemes.length == 0) {
+        if (this.isSimpleProduct()) {
             return;
         }
         return (
@@ -416,6 +430,42 @@ class AmazonCategoryFormComponent extends React.Component {
                 {this.state.themeSelected && this.props.variationsDataForProduct ? this.renderThemeTable() : ''}
             </div>
         );
+    };
+
+
+    shouldEnforceSelectionOfPrerequisitesBeforeRenderingVariationThemes = () => {
+        let amazonCategoryIsSelected = this.state.selectedAmazonCategory != null;
+        let amazonCategorySupportsVariations = this.state.variationThemes.length > 0;
+        if (amazonCategoryIsSelected === true && amazonCategorySupportsVariations === false) {
+            return true;
+        }
+        let productTypeIsSelected = this.state.selectedProductType != null;
+        let categoryHasRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0;
+        if (productTypeIsSelected === false && categoryHasRootVariationThemes === false) {
+            return true;
+        }
+        let productTypesWithVariationOverridesExist = this.state.variationThemes.filter(variationTheme => variationTheme.productTypes.length > 0).length > 0;
+        return !categoryHasRootVariationThemes && (productTypesWithVariationOverridesExist && !productTypeIsSelected);
+    };
+
+    renderVariationPrerequisitesWarning = () => {
+        let message = this.getVariationPrerequisitesMessage();
+        return (
+            <div className={'order-inputbox-holder u-defloat u-display-flex'}>
+                <label className="inputbox-label u-font-large">Variation Theme</label>
+                <div>{message}</div>
+            </div>
+        );
+    };
+
+    getVariationPrerequisitesMessage = () => {
+        if (this.state.selectedAmazonCategory === null) {
+            return "Please select an Amazon Category";
+        }
+        if (this.state.variationThemes.length == 0) {
+            return "Amazon do not support variation listings in the selected Amazon Category. Please select another Amazon Category.";
+        }
+        return "Please select a Product Type";
     };
 
     renderAmazonCategorySelect = () => {
@@ -442,8 +492,14 @@ class AmazonCategoryFormComponent extends React.Component {
                     selectedOption={this.state.selectedAmazonCategory}
                     onOptionChange={(option) => {
                         field.input.onChange(option.value);
-                        this.setState({selectedAmazonCategory: option});
-                        this.fetchAndSetAmazonCategoryDependentValues(option.value)
+                        this.setState({
+                            selectedAmazonCategory: option,
+                            selectedProductType: null,
+                            themeSelected: null,
+                            availableVariationThemes: []
+                        });
+                        this.resetThemeTable();
+                        this.fetchAndSetAmazonCategoryDependentValues(option.value);
                     }}
                 />
                 {Validators.shouldShowError(field) && (
@@ -451,6 +507,90 @@ class AmazonCategoryFormComponent extends React.Component {
                 )}
             </div>
         );
+    };
+
+    isCategorySelected = () => {
+        return this.state.selectedAmazonCategory !== null;
+    };
+
+    renderAmazonProductTypeSelect = () => {
+        return (
+            <div>
+                <Field
+                    name="productType"
+                    component={this.renderAmazonProductTypeSelectComponent}
+                    onChange={() => {} }
+                />
+            </div>
+        );
+    };
+
+    renderAmazonProductTypeSelectComponent = (field) => {
+        if (this.isCategorySelected() === false) {
+            return (
+                <div className={'order-inputbox-holder u-defloat u-display-flex'}>
+                    <label className="inputbox-label u-font-large">Product Type</label>
+                    <div>Please select an Amazon Category</div>
+                </div>
+            );
+        }
+        return (
+            <div className={'order-inputbox-holder u-defloat u-display-flex'}>
+                <label className="inputbox-label u-font-large">Product Type</label>
+                <Select
+                    autoSelectFirst={false}
+                    options={this.getAvailableProductTypes()}
+                    selectedOption={this.state.selectedProductType}
+                    onOptionChange={(option) => {
+                        this.setAvailableVariationThemes(option.value)
+                        this.setState({selectedProductType: option});
+                        field.input.onChange(option.value);
+                    }}
+                />
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error u-margin-left-small">{field.meta.error}</span>
+                )}
+            </div>
+        );
+    };
+
+    getAvailableProductTypes = () => {
+        if (this.state.itemSpecifics.length == 0) {
+            return [];
+        }
+        let rootItemSpecific = this.state.itemSpecifics[0];
+        if (this.isSimpleProduct() || this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true).length > 0) {
+            return this.getProductTypesFromItemSpecifics(rootItemSpecific);
+        }
+        return this.state.productTypesFromVariationThemes.map(productType => ({name: productType, value: productType}) );
+    };
+
+    getProductTypesFromItemSpecifics = (rootItemSpecific) => {
+        let productTypeItemSpecific = rootItemSpecific.children.find(itemSpecific => itemSpecific.name == 'ProductType');
+        if (productTypeItemSpecific === undefined) {
+            return [];
+        }
+        if (productTypeItemSpecific.options) {
+            return productTypeItemSpecific.options.map(productType => ({name: productType, value: productType}) );
+        }
+        if (productTypeItemSpecific.children) {
+            return productTypeItemSpecific.children.map(productType => ({name: productType.name, value: productType.name}) );
+        }
+    };
+
+    setAvailableVariationThemes = (productType) => {
+        let categoryRootVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.supportsRootCategory == true)
+        if (productType === null) {
+            this.setState({availableVariationThemes: categoryRootVariationThemes});
+            return;
+        }
+        let productTypeVariationThemes = this.state.variationThemes.filter(variationTheme => variationTheme.productTypes.includes(productType));
+        if (productTypeVariationThemes.length > 0) {
+            this.setState({availableVariationThemes: productTypeVariationThemes});
+            return;
+        }
+        this.setState({availableVariationThemes: categoryRootVariationThemes});
+        return;
     };
 
     fetchAndSetAmazonCategoryDependentValues = (amazonCategoryId) => {
@@ -461,7 +601,9 @@ class AmazonCategoryFormComponent extends React.Component {
             success: function (response) {
                 this.setState({
                     itemSpecifics: response.itemSpecifics,
-                    variationThemes: response.variationThemes
+                    variationThemes: response.variationThemes,
+                    productTypesFromVariationThemes: response.productTypesFromVariationThemes,
+                    availableVariationThemes: response.variationThemes
                 });
             }
         });
@@ -472,11 +614,12 @@ class AmazonCategoryFormComponent extends React.Component {
             <div className="amazon-category-form-container">
                 <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>
                 {this.renderAmazonCategorySelect()}
+                {this.renderAmazonProductTypeSelect()}
                 {this.renderItemSpecifics()}
                 {this.renderVariationThemeContent()}
             </div>
         );
-    }
+    };
 }
 
 export default AmazonCategoryFormComponent;

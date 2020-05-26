@@ -25,6 +25,7 @@ class Amazon implements ChannelInterface
     protected const CHANNEL_ID = '%d-%s';
     protected const ACCOUNT_ID = '%d-%d';
     protected const PRODUCT_ACCOUNT_DETAIL_CHUNK_LIMIT = 500;
+    protected const PRODUCT_CHANNEL_DETAILS_CHUNK_LIMIT = 500;
 
     /** @var ProductChannelDetailService */
     protected $productChannelDetailService;
@@ -59,20 +60,30 @@ class Amazon implements ChannelInterface
         return $channelDetails;
     }
 
-    /**
-     * @return ProductChannelDetail[]
-     */
     protected function fetchProductChannelDetails(array $productIds): ProductChannelDetails
     {
         if (empty($productIds)) {
             throw new NotFound();
         }
 
-        return $this->productChannelDetailService->fetchCollectionByFilter(
-            (new ProductChannelDetailFilter('all', 1))->setId(array_map(function(int $productId) {
-                return sprintf(static::CHANNEL_ID, $productId, static::CHANNEL);
-            }, $productIds))
-        );
+        $productChannelDetailIds = array_map(function(int $productId) {
+            return sprintf(static::CHANNEL_ID, $productId, static::CHANNEL);
+        }, $productIds);
+
+        $productChannelDetails = new ProductChannelDetails(ProductChannelDetail::class, __METHOD__, ['id' => $productChannelDetailIds]);
+        $productChannelDetailFilter = new ProductChannelDetailFilter('all', 1);
+
+        foreach (array_chunk($productChannelDetailIds, static::PRODUCT_CHANNEL_DETAILS_CHUNK_LIMIT) as $idBatch) {
+            try {
+                $productChannelDetails->attachAll($this->productChannelDetailService->fetchCollectionByFilter(
+                    $productChannelDetailFilter->setId($idBatch))
+                );
+            } catch (NotFound $e) {
+                //no-op
+            }
+        }
+
+        return $productChannelDetails;
     }
 
     protected function appendProductChannelDetails(array &$channelDetails, array $productIds): void

@@ -108,7 +108,6 @@ import ResponseActions from './ResponseActions';
         }
 
         values = formatTextArrayValues(values, 'bulletPoint');
-        values = formatTextArrayValues(values, 'searchTerm');
 
         return values;
     };
@@ -138,6 +137,9 @@ import ResponseActions from './ResponseActions';
                 };
 
                 for (let attribute in currentAttributeData) {
+                    if (attribute === "displayName") {
+                        continue;
+                    }
                     formattedAttribute["name"] = attribute;
                     formattedAttribute["option"] = currentAttributeData[attribute];
                     break;
