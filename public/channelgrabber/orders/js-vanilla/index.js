@@ -8,18 +8,19 @@ import handleOrderTrackingSave from "Orders/js/Courier/OrderTracking";
 const ordersIndex = (function ordersIndex() {
     return {
         init: ({
-               pdfExportOptions
-           }) => {
+                pdfExportOptions,
+                pdfExportOrderBy
+            }) => {
             var orderPage = new showHideFilters();
             createToolTip();
             renderGiftMessageTemplate();
             setupDataTableListeners();
-            renderBulkTemplateExport(pdfExportOptions);
+            renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy);
             handleOrderTrackingSave();
         }
     };
 
-    function renderBulkTemplateExport(pdfExportOptions) {
+    function renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy) {
         let bulkActionBar = document.getElementById('bulk-actions');
         let templateExportMount = document.createElement("div");
         templateExportMount.id = 'bulk-template-export-mount';
@@ -27,6 +28,7 @@ const ordersIndex = (function ordersIndex() {
         ReactDOM.render(
             <TemplateExportBulkAction
                 pdfExportOptions={pdfExportOptions}
+                pdfExportOrderBy={pdfExportOrderBy}
             />,
             templateExportMount
         )

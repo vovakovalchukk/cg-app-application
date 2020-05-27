@@ -13,6 +13,7 @@ require([
     filterCollection
 ) {
     const pdfExportOptions = <?= json_encode($pdfExportOptions) ?>;
+    const pdfExportOrderBy = <?= json_encode($pdfExportOrderBy || null) ?>;
     var filterNames = {
         <?php
             foreach ($filterNames as $index => $filterName) {
@@ -24,7 +25,8 @@ require([
     filterCollection.setFilters(filterNames);
 
     ordersIndex.init({
-        pdfExportOptions
+        pdfExportOptions,
+        pdfExportOrderBy
     })
 });
 <?php $this->inlineScript()->captureEnd(); ?>
