@@ -174,9 +174,6 @@ class Service implements
         foreach (array_values($data['bulletPoint'] ?? []) as $key => $value) {
             $externalData['bulletPoint'.++$key] = $value;
         }
-        foreach (array_values($data['searchTerm'] ?? []) as $key => $value) {
-            $externalData['searchTerm'.++$key] = $value;
-        }
         return array_merge($data, $externalData);
     }
 
