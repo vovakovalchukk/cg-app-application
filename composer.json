@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.1",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.2.10",
+        "channelgrabber/courier": "dev-CGIV-11421-dpd-geogaz as 1.2.11",
         "channelgrabber/courieradapter": "~1.6.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.2",
