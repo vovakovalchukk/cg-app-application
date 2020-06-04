@@ -33,7 +33,7 @@ class ProductDetail implements CsvExportInterface
     {
         $skus = $this->getUniqueSkusForPurchaseOrder($purchaseOrder);
         $productDetailCollection = $this->fetchProductDetails($purchaseOrder->getOrganisationUnitId(), $skus);
-        return $this->buildSkuToSupplierMap($productDetailCollection, $purchaseOrder->getOrganisationUnitId());
+        return $this->buildSkusToDetailsMap($productDetailCollection, $purchaseOrder->getOrganisationUnitId());
     }
 
     protected function getUniqueSkusForPurchaseOrder(PurchaseOrder $purchaseOrder): array
@@ -72,6 +72,21 @@ class ProductDetail implements CsvExportInterface
             ->setSku($skus)
             ->setOrganisationUnitId([$ouId])
             ->setLimit(static::PRODUCT_DETAIL_FETCH_LIMIT);
+    }
+
+    protected function buildSkusToDetailsMap(ProductDetailCollection $collection, int $ouId): array
+    {
+        $skuToSupplierMap = $this->buildSkuToSupplierMap($collection, $ouId);
+
+        $skuToDetailsMap = [];
+        /** @var ProductDetailEntity $productDetail */
+        foreach ($collection as $productDetail) {
+            $skuToDetailsMap[$productDetail->getSku()] = array_merge($productDetail->toArray(), [
+                'supplier' => $skuToSupplierMap[$productDetail->getSku()] ?? ''
+            ]);
+        }
+
+        return $skuToDetailsMap;
     }
 
     protected function buildSkuToSupplierMap(ProductDetailCollection $collection, int $ouId): array
