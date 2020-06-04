@@ -34,7 +34,6 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     const ROUTE_CREATE = 'AJAX Create';
     const FETCH_LOW_STOCK_PRODUCTS = 'Fetch low stock products';
     const ROUTE_FETCH_SKUS_BY_SUPPLIER = 'AJAX Fetch Skus for supplier';
-    const DEFAULT_PO_STATUS = 'In Progress';
 
     const STOCK_FETCH_LIMIT = 300;
     const PRODUCT_DETAILS_FETCH_LIMIT = 300;

@@ -5,5 +5,5 @@ use CG\PurchaseOrder\Entity as PurchaseOrder;
 
 interface CsvExportInterface
 {
-    public function fetchAdditionalData(PurchaseOrder $purchaseOrder): array;
+    public function fetchAdditionalData(PurchaseOrder $purchaseOrder, array $uniqueSkus): array;
 }
