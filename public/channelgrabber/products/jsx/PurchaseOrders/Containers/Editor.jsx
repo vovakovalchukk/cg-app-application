@@ -157,6 +157,7 @@ class EditorContainer extends React.Component {
     };
 
     onDownloadPurchaseOrder = () => {
+        n.notice('Please wait while we generate the CSV with your Purchase Order data...', 3000);
         this.downloadPurchaseOrderRequest = $.ajax({
             method: 'POST',
             data: {id: this.state.purchaseOrderId},
