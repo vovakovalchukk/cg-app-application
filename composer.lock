@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "04d87744dd72b1dce49adf44a9091145",
+    "content-hash": "aa97d58475dca0831393a2578aa3671a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -963,21 +963,20 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.1.3",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "c80f7af0d868941efb20f3aeff7033a95a873df2"
+                "reference": "6101751a93b4e3bbc9eb0989679ca3346805b38c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.3-fe4f59.zip",
-                "reference": "c80f7af0d868941efb20f3aeff7033a95a873df2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.2.1-0e5aa9.zip",
+                "reference": "6101751a93b4e3bbc9eb0989679ca3346805b38c",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.3.14",
@@ -997,7 +996,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-03-05T16:10:21+00:00"
+            "time": "2020-05-26T14:48:44+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -1031,16 +1030,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.10",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "6e3e9dfa8ce728407359ff5fe9c9407c54e1ce6a"
+                "reference": "465df29bf10c56d1533160fcaf55f5bb9c724364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.10-6e46c8.zip",
-                "reference": "6e3e9dfa8ce728407359ff5fe9c9407c54e1ce6a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.11-c139fb.zip",
+                "reference": "465df29bf10c56d1533160fcaf55f5bb9c724364",
                 "shasum": null
             },
             "require": {
@@ -1080,7 +1079,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-05-07T10:39:17+00:00"
+            "time": "2020-06-02T12:36:18+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1417,23 +1416,23 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.4",
+            "version": "1.21.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "002e8da98bc0eb98500238d76a179655d4dbf1e2"
+                "reference": "930756fcd978fa63c2bcdd133262d8c4c6df6de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.4-c3a3f9.zip",
-                "reference": "002e8da98bc0eb98500238d76a179655d4dbf1e2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.8-dc83c5.zip",
+                "reference": "930756fcd978fa63c2bcdd133262d8c4c6df6de7",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
                 "channelgrabber/channel": "^1.44.4",
-                "channelgrabber/communication": "^1.0.0",
+                "channelgrabber/communication": "^1.2.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.8.0",
@@ -1479,7 +1478,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-04-07T11:12:30+00:00"
+            "time": "2020-05-26T14:52:23+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2512,12 +2511,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a34f51028cb105cc012c16cacc14b189a5a269de"
+                "reference": "494920dd3c14f71633106709b5043ab4dd0d92ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-dbfb7e.zip",
-                "reference": "a34f51028cb105cc012c16cacc14b189a5a269de"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-347ae3.zip",
+                "reference": "494920dd3c14f71633106709b5043ab4dd0d92ce",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2588,7 +2588,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-05-05T12:51:10+00:00"
+            "time": "2020-06-04T13:30:10+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2913,22 +2913,21 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.18.8",
+            "version": "1.20.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59"
+                "reference": "871eabe1dbf38ca4b9749aace286279879a3ec07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.8-cb0046.zip",
-                "reference": "eb5b1ca95a8878cf5a2b42ad4a3e36d3ad272b59",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.3-b60406.zip",
+                "reference": "871eabe1dbf38ca4b9749aace286279879a3ec07",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.42.13",
-                "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
@@ -2942,6 +2941,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": "^1.13.0",
+                "channelgrabber/supplier": "^1.0.1",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
@@ -2972,7 +2972,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-02-06T14:10:02+00:00"
+            "time": "2020-05-29T13:38:28+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3906,8 +3906,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-fde842.zip",
-                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841"
-
+                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -12116,8 +12116,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.54.2",
-            "alias_normalized": "1.54.2.0",
+            "alias": "1.54.6",
+            "alias_normalized": "1.54.6.0",
             "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
             "package": "channelgrabber/order"
         },
@@ -12142,6 +12142,5 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
