@@ -19,14 +19,18 @@ export default TemplateExportBulkAction;
 
 const baseTemplateGenerationText = 'Generating templates...';
 
-const requestTemplateExport = async function(templateIds, orders) {
+const requestTemplateExport = async function(templateData, orders) {
     orders = orders || BulkActionService.getSelectedOrders();
-    const maxProgress = templateIds.length * orders.length;
+
+    const templateIds = templateData.template;
+    const groupBy = templateData.groupBy;
 
     if (!Array.isArray(templateIds) ||
         !Array.isArray(orders) ||
+        !Array.isArray(groupBy) ||
         !templateIds.length ||
-        !orders.length
+        !orders.length ||
+        !groupBy.length
     ) {
         return;
     }
@@ -34,6 +38,7 @@ const requestTemplateExport = async function(templateIds, orders) {
     const externalSuccessEventName = 'successEvent';
     const successEvent = new Event(externalSuccessEventName);
 
+    const maxProgress = templateIds.length * orders.length;
     const handleError = () => {
         n.error('Templates could not be generated successfully.')
     };
@@ -63,6 +68,7 @@ const requestTemplateExport = async function(templateIds, orders) {
             data: {
                 orders,
                 templateIds,
+                orderBy: groupBy[0],
                 invoiceProgressKey: guid
             }
         }).then(response => {
