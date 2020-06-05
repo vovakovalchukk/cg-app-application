@@ -6,7 +6,6 @@ use CG\Product\Detail\Entity as ProductDetailEntity;
 use CG\Product\Detail\Filter as ProductDetailFilter;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\PurchaseOrder\Entity as PurchaseOrder;
-use CG\PurchaseOrder\Item\Entity as PurchaseOrderItem;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Supplier\Collection as SupplierCollection;
 use CG\Supplier\Entity as Supplier;
@@ -29,21 +28,10 @@ class ProductDetail implements CsvExportInterface
         $this->supplierService = $supplierService;
     }
 
-    public function fetchAdditionalData(PurchaseOrder $purchaseOrder): array
+    public function fetchAdditionalData(PurchaseOrder $purchaseOrder, array $uniqueSkus): array
     {
-        $skus = $this->getUniqueSkusForPurchaseOrder($purchaseOrder);
-        $productDetailCollection = $this->fetchProductDetails($purchaseOrder->getOrganisationUnitId(), $skus);
-        return $this->buildSkuToSupplierMap($productDetailCollection, $purchaseOrder->getOrganisationUnitId());
-    }
-
-    protected function getUniqueSkusForPurchaseOrder(PurchaseOrder $purchaseOrder): array
-    {
-        $skus = [];
-        /** @var PurchaseOrderItem $item */
-        foreach ($purchaseOrder->getItems() as $item) {
-            $skus[$item->getSku()] = $item->getSku();
-        }
-        return array_values($skus);
+        $productDetailCollection = $this->fetchProductDetails($purchaseOrder->getOrganisationUnitId(), $uniqueSkus);
+        return $this->buildSkusToDetailsMap($productDetailCollection, $purchaseOrder->getOrganisationUnitId());
     }
 
     protected function fetchProductDetails(int $ouId, array $skus): ProductDetailCollection
@@ -72,6 +60,21 @@ class ProductDetail implements CsvExportInterface
             ->setSku($skus)
             ->setOrganisationUnitId([$ouId])
             ->setLimit(static::PRODUCT_DETAIL_FETCH_LIMIT);
+    }
+
+    protected function buildSkusToDetailsMap(ProductDetailCollection $collection, int $ouId): array
+    {
+        $skuToSupplierMap = $this->buildSkuToSupplierMap($collection, $ouId);
+
+        $skuToDetailsMap = [];
+        /** @var ProductDetailEntity $productDetail */
+        foreach ($collection as $productDetail) {
+            $skuToDetailsMap[$productDetail->getSku()] = array_merge($productDetail->toArray(), [
+                'supplier' => $skuToSupplierMap[$productDetail->getSku()] ?? ''
+            ]);
+        }
+
+        return $skuToDetailsMap;
     }
 
     protected function buildSkuToSupplierMap(ProductDetailCollection $collection, int $ouId): array
