@@ -161,7 +161,6 @@ import ResponseActions from './ResponseActions';
             var categoryDetail = Object.assign({}, category, {
                 categoryId: categoryId
             });
-
             categoryDetail.itemSpecifics = formatItemSpecificsForCategory(categoryDetail.itemSpecifics);
             if (categoryDetail.subcategory) {
                 categoryDetail.subCategoryId = formatSubCategoryId(categoryDetail.subcategory);
@@ -172,7 +171,6 @@ import ResponseActions from './ResponseActions';
         }
 
         details = formatThemeDetails(details);
-
         return details;
     };
 
@@ -201,6 +199,10 @@ import ResponseActions from './ResponseActions';
         var itemSpecific;
         Object.keys(itemSpecifics).forEach(key => {
             itemSpecific = itemSpecifics[key];
+            if (key == 'ProductType' && typeof itemSpecific == 'string') {
+                itemSpecifics[key] = formatItemSpecificsForCategory({[itemSpecific]: null});
+                return;
+            }
             if (typeof itemSpecific !== 'object' || itemSpecific === null) {
                 return;
             }
