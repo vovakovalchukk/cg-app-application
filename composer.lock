@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8a9c08a0859fa630fdebf9890d6d3a2",
+    "content-hash": "09937ec984426fdaf130aa401031b2d6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -759,16 +759,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-11006-update-api-version",
+            "version": "1.44.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c6491265117f2c4c8b3ff905d70af87a720e9e96"
+                "reference": "b23efdc14be2aff78ef5521063d32437eafe2512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11006-update-api-version-69b8d4.zip",
-                "reference": "c6491265117f2c4c8b3ff905d70af87a720e9e96"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.11-6ae41c.zip",
+                "reference": "b23efdc14be2aff78ef5521063d32437eafe2512"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -836,7 +836,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-06-19T09:55:37+00:00"
+            "time": "2020-06-24T12:10:19+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3381,19 +3381,19 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-11006-update-api-version",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "e8f12b4612c6e40ec4d7d68b13af98c442e1f3bd"
+                "reference": "cf6c20cea96eb06e5a5e132791a778a4327b3359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-dev-CGIV-11006-update-api-version-210d8b.zip",
-                "reference": "e8f12b4612c6e40ec4d7d68b13af98c442e1f3bd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.6.0-8bb891.zip",
+                "reference": "cf6c20cea96eb06e5a5e132791a778a4327b3359"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-11006-update-api-version as 1.44.11",
+                "channelgrabber/channel": "^1.44.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/listing": "^1.16.2",
@@ -3424,7 +3424,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2020-06-19T10:48:07+00:00"
+            "time": "2020-06-24T12:23:01+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -10542,8 +10542,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11990,25 +11989,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.11",
-            "alias_normalized": "1.44.11.0",
-            "version": "dev-CGIV-11006-update-api-version",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.6.0",
-            "alias_normalized": "1.6.0.0",
-            "version": "dev-CGIV-11006-update-api-version",
-            "package": "channelgrabber/shopify"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/shopify": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12018,5 +12002,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
