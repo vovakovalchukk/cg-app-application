@@ -88,7 +88,7 @@
         "channelgrabber/stock": "~1.20.0",
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/supplier": "~1.0.1",
-        "channelgrabber/tax": "~1.0.2",
+        "channelgrabber/tax": "dev-CGIV-11511-update-gearman-vat-values as 1.1.1",
         "channelgrabber/template": "~1.11.2",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.4",

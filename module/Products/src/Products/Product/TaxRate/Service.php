@@ -66,7 +66,7 @@ class Service
         foreach ($rates->getAll() as $rateId => $rate) {
             $ratesOptions[$rateId] = [
                 'name' => $rate->getName(),
-                'rate' => (float) bcmul($rate->getCurrent(), 100, 2)
+                'rate' => (float) bcmul($rate->getActive(), 100, 2)
             ];
         }
         return $ratesOptions;
