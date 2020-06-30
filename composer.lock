@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad256bc78a2267df8ee07d5d2dd45e3b",
+    "content-hash": "50136d266532cd0f4be952f39ca36772",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3813,16 +3813,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.11.2",
+            "version": "dev-CGIV-11511-update-gearman-vat-values",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a264e433f1c121047a14247d2f77c1360d89bd7f"
+                "reference": "848cb453dab15422c458c064bbcad08a5379fd1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.11.2-8c252e.zip",
-                "reference": "a264e433f1c121047a14247d2f77c1360d89bd7f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11511-update-gearman-vat-values-9b0049.zip",
+                "reference": "848cb453dab15422c458c064bbcad08a5379fd1d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3873,7 +3873,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-05-15T12:06:09+00:00"
+            "time": "2020-06-30T12:36:07+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11995,12 +11995,19 @@
             "alias_normalized": "1.1.1.0",
             "version": "dev-CGIV-11511-update-gearman-vat-values",
             "package": "channelgrabber/tax"
+        },
+        {
+            "alias": "1.11.3",
+            "alias_normalized": "1.11.3.0",
+            "version": "dev-CGIV-11511-update-gearman-vat-values",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/tax": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
