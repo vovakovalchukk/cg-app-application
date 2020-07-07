@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "265ae99f685ad4b2f011918f571073b2",
+    "content-hash": "5731bca7b45d45d7da735a2f3b5cb9c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2588,7 +2588,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-06-03T09:35:53+00:00"
+            "time": "2020-06-04T13:30:10+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3900,12 +3900,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841"
+                "reference": "d5e01cbd55d6c4509fd62a7748af7fd874d14b20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-fde842.zip",
-                "reference": "2775eefd7dc82579ac41f9eb9a44241590047841",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-632202.zip",
+                "reference": "d5e01cbd55d6c4509fd62a7748af7fd874d14b20",
                 "shasum": null
             },
             "require": {
@@ -3957,7 +3957,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-06-30T16:42:36+00:00"
+            "time": "2020-07-07T11:29:33+00:00"
         },
         {
             "name": "channelgrabber/transaction",
