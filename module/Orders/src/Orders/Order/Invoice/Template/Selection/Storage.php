@@ -17,7 +17,7 @@ class Storage
     public function fetch(): Selection
     {
         $this->sessionManager->start();
-        $storage = $this->sessionManager->getStorage();
+        $storage = $this->sessionManager->getStorage()->toArray();
         $templateIds = $storage['orders']['template']['ids'] ?? [];
         $orderBy = $storage['orders']['template']['orderBy'] ?? null;
         return new Selection($templateIds, $orderBy);

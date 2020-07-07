@@ -5,9 +5,9 @@ import dateUtility from 'Common/Utils/date';
 import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
 import progressService from 'CommonSrc/js-vanilla/Common/progressService';
 
-const TemplateExportBulkAction = ({pdfExportOptions, pdfExportOrderBy}) => {
+const TemplateExportBulkAction = ({pdfExportOptions, pdfExportOrderBy, pdfExportSelectDefaultInvoice}) => {
     return (<ButtonSelectWithOptionGroups
-        optionGroups={buildOptionGroups(pdfExportOptions, pdfExportOrderBy)}
+        optionGroups={buildOptionGroups(pdfExportOptions, pdfExportOrderBy, pdfExportSelectDefaultInvoice)}
         ButtonTitle={() => (<span>Download</span>)}
         spriteClass={'sprite-download-pdf-22'}
         onButtonClick={requestTemplateExport}
@@ -87,21 +87,21 @@ const handleSuccess = (successEvent) =>{
     document.body.dispatchEvent(successEvent);
 };
 
-const buildOptionGroups = function(pdfExportOptions, pdfExportOrderBy) {
+const buildOptionGroups = function(pdfExportOptions, pdfExportOrderBy, pdfExportSelectDefaultInvoice) {
     let templateOptions = [];
     if (pdfExportOptions) {
         templateOptions = organiseOptionsByFavourite(pdfExportOptions);
-        templateOptions = appendDefaultInvoiceOption(templateOptions);
+        templateOptions = appendDefaultInvoiceOption(templateOptions, pdfExportSelectDefaultInvoice);
     }
 
     let groupByOptions = [
         {
-            name: 'By Order',
+            name: 'Group By Order',
             id: 'order',
             selected: pdfExportOrderBy == 'order'
         },
         {
-            name: 'By Template',
+            name: 'Group By Template',
             id: 'template',
             selected: pdfExportOrderBy == 'template'
         }
@@ -128,10 +128,11 @@ const organiseOptionsByFavourite = function(options) {
     });
 };
 
-const appendDefaultInvoiceOption = function(options) {
+const appendDefaultInvoiceOption = function(options, selectDefaultInvoice) {
     options.splice(0, 0, {
         id: 'defaultInvoice',
-        name: 'Default Invoice'
+        name: 'Default Invoice',
+        selected: selectDefaultInvoice
     });
     return options;
 };

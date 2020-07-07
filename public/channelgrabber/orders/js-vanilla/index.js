@@ -9,18 +9,19 @@ const ordersIndex = (function ordersIndex() {
     return {
         init: ({
                 pdfExportOptions,
-                pdfExportOrderBy
+                pdfExportOrderBy,
+                pdfExportSelectDefaultInvoice
             }) => {
             var orderPage = new showHideFilters();
             createToolTip();
             renderGiftMessageTemplate();
             setupDataTableListeners();
-            renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy);
+            renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy, pdfExportSelectDefaultInvoice);
             handleOrderTrackingSave();
         }
     };
 
-    function renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy) {
+    function renderBulkTemplateExport(pdfExportOptions, pdfExportOrderBy, pdfExportSelectDefaultInvoice) {
         let bulkActionBar = document.getElementById('bulk-actions');
         let templateExportMount = document.createElement("div");
         templateExportMount.id = 'bulk-template-export-mount';
@@ -29,6 +30,7 @@ const ordersIndex = (function ordersIndex() {
             <TemplateExportBulkAction
                 pdfExportOptions={pdfExportOptions}
                 pdfExportOrderBy={pdfExportOrderBy}
+                pdfExportSelectDefaultInvoice={pdfExportSelectDefaultInvoice}
             />,
             templateExportMount
         )

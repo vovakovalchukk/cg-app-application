@@ -37,6 +37,7 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Invoice\Settings as InvoiceSettings;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 // todo - likely will need to be removed during TAC-450
 
@@ -190,10 +191,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
-        $templateSelection = $this->templateSelectionStorage->fetch();
-        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions($templateSelection->getTemplateIds()));
-        $view->setVariable('pdfExportSelectDefaultInvoice', in_array(BulkActionsController::DEFAULT_INVOICE_ID, $templateSelection->getTemplateIds()));
-        $view->setVariable('pdfExportOrderBy', $templateSelection->getOrderBy());
+
+        $this->appendPdfExportOptions($view);
+
         return $view;
     }
 
@@ -206,6 +206,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
         return $view;
+    }
+
+    protected function appendPdfExportOptions(ViewModel $view): void
+    {
+        $templateSelection = $this->templateSelectionStorage->fetch();
+        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions($templateSelection->getTemplateIds()));
+        $view->setVariable('pdfExportSelectDefaultInvoice', in_array(BulkActionsController::DEFAULT_INVOICE_ID, $templateSelection->getTemplateIds()));
+        $view->setVariable('pdfExportOrderBy', $templateSelection->getOrderBy());
     }
 
     protected function getBulkActionsViewModel()
