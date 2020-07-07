@@ -9,6 +9,7 @@ class Stock implements FieldsInterface
         'SKU' => 'sku',
         'Product Name' => 'name',
         'Total Stock' => 'quantity',
+        'Available Stock' => 'available',
         'Cost Price' => 'costPrice',
         'Supplier' => 'supplier'
     ];

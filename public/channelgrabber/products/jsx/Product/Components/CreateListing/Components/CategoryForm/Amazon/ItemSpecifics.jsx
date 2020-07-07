@@ -149,13 +149,26 @@ class AmazonItemSpecifics extends React.Component {
         if (selectedProductType === undefined) {
             return null;
         }
+        let hiddenProductTypeField = <Field
+            name='ProductType'
+            value={selectedProductType.name}
+            productType={selectedProductType.name}
+            component={({input, productType}) => {
+                input.onChange(productType);
+                return null;
+            }}
+        />;
         let fields = [this.renderItemSpecifics(selectedProductType.children, selectedProductType.name)];
-        return <FormSection
-            name={productTypeItemSpecific.name}
-            component={this.renderFormSection}
-        >
-            {fields}
-        </FormSection>
+        return [
+            hiddenProductTypeField,
+            <FormSection
+                name={productTypeItemSpecific.name}
+                component={this.renderFormSection}
+            >
+                {fields}
+            </FormSection>
+        ];
+
     };
 
     retrieveSelectedProductType = (productTypeItemSpecific) => {
