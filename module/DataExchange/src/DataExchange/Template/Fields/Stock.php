@@ -9,7 +9,9 @@ class Stock implements FieldsInterface
         'SKU' => 'sku',
         'Product Name' => 'name',
         'Total Stock' => 'quantity',
-        'Cost Price' => 'costPrice'
+        'Available Stock' => 'available',
+        'Cost Price' => 'costPrice',
+        'Supplier' => 'supplier'
     ];
 
     public static function getFields(): array

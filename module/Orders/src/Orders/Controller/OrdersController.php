@@ -361,6 +361,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->localiseFilterData($filter);
 
         try {
+            if ($filter->getArchived() !== false) {
+                $filter->setUseCachedOrderIds(true);
+            }
             $orders = $this->orderService->getOrders($filter);
             $orders = $this->partialRefundService->addRefundLinesToOrders($orders);
             $this->mergeOrderDataWithJsonData(
