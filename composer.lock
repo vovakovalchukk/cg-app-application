@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5731bca7b45d45d7da735a2f3b5cb9c8",
+    "content-hash": "00c9b5e622200423c567ecdfd4fb9948",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -12121,8 +12121,8 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
+            "alias": "1.11.4",
+            "alias_normalized": "1.11.4.0",
             "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
             "package": "channelgrabber/template"
         }
