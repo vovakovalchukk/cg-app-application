@@ -10,6 +10,7 @@ class Order implements FieldsInterface
         'Order ID' => 'externalId',
         'Order Item ID' => 'item.externalId',
         'Sales Channel Name' => 'channel',
+        'Account Display Name' => 'accountDisplayName',
         'Purchase Date' => 'purchaseDate',
         'Payment Date' => 'paymentDate',
         'Printed Date' => 'printedDate',
