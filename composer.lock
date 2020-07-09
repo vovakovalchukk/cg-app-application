@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "00c9b5e622200423c567ecdfd4fb9948",
+    "content-hash": "9fe6e541c31d8b35763002ef9fab75aa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2507,16 +2507,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
+            "version": "1.55.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "494920dd3c14f71633106709b5043ab4dd0d92ce"
+                "reference": "cfc9b93521ad3fdeb5739925fd2466baef0c2afb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-347ae3.zip",
-                "reference": "494920dd3c14f71633106709b5043ab4dd0d92ce",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.55.0-a6bf19.zip",
+                "reference": "cfc9b93521ad3fdeb5739925fd2466baef0c2afb",
                 "shasum": null
             },
             "require": {
@@ -2588,7 +2588,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-06-04T13:30:10+00:00"
+            "time": "2020-07-09T12:53:57+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3896,16 +3896,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "d5e01cbd55d6c4509fd62a7748af7fd874d14b20"
+                "reference": "a0daa104ec10bdd70641256e33f57de5b580fad9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-622-generate-multiple-pdfs-grouped-by-order-632202.zip",
-                "reference": "d5e01cbd55d6c4509fd62a7748af7fd874d14b20",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.11.4-cc0eff.zip",
+                "reference": "a0daa104ec10bdd70641256e33f57de5b580fad9",
                 "shasum": null
             },
             "require": {
@@ -3957,7 +3957,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-07-07T11:29:33+00:00"
+            "time": "2020-07-09T12:56:55+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -12113,25 +12113,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.54.6",
-            "alias_normalized": "1.54.6.0",
-            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.11.4",
-            "alias_normalized": "1.11.4.0",
-            "version": "dev-TAC-622-generate-multiple-pdfs-grouped-by-order",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
