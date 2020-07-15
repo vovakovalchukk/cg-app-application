@@ -133,6 +133,16 @@ const MessageMeta = styled.div`
     margin-bottom: 1rem;
 `;
 
+const Attachments = styled.div`
+    display: block;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+`;
+
+const Attachment = styled.div`
+    display: block;
+`;
+
 const StyledSelect = styled.select`
     display: flex;
     max-width: 260px;
@@ -282,6 +292,18 @@ const MessageDetail = (props) => {
                                     body={message.body}
                                     styles={MinifyString(collapsibleCss)}
                                 />
+                                {message.attachments && message.attachments.length > 0 &&
+                                    <Attachments>
+                                        <strong>Attachments</strong>
+                                        {message.attachments.map(attachment => {
+                                            return (
+                                                <Attachment>
+                                                    <a href={attachment.url} target={"_blank"}>{attachment.name}</a>
+                                                </Attachment>
+                                            ) ;
+                                        })}
+                                    </Attachments>
+                                }
                             </Message>
                         )
                     })}

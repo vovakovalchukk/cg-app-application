@@ -26,7 +26,6 @@ trait FormatMessageDataTrait
         /** @var Attachment $attachment */
         foreach ($attachments as $attachment) {
             $data[] = [
-                'id' => $attachment->getId(),
                 'name' => $attachment->getName(),
                 'url' => $attachment->getUrl()
             ];

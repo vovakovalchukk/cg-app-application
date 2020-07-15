@@ -245,7 +245,7 @@ class Service
     {
         /** @var MessageCollection $messages */
         $messages = $thread->getMessages();
-        $filter = new AttachmentFilter('all', 1, [], $messages->getIds());
+        $filter = new AttachmentFilter('all', 1, [], array_values($messages->getIds()));
 
         try {
             return $this->attachmentService->fetchCollectionByFilter($filter);
