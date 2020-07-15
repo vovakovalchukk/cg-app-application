@@ -3,6 +3,12 @@ namespace Messages\Thread;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Communication\Message\Attachment\Collection as AttachmentCollection;
+use CG\Communication\Message\Attachment\Entity as Attachment;
+use CG\Communication\Message\Attachment\Filter as AttachmentFilter;
+use CG\Communication\Message\Attachment\Service as AttachmentService;
+use CG\Communication\Message\Collection as MessageCollection;
+use CG\Communication\Message\Entity as Message;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
@@ -61,6 +67,8 @@ class Service
     protected $url;
     /** @var FormatterFactory */
     protected $formatterFactory;
+    /** @var AttachmentService */
+    protected $attachmentService;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -89,7 +97,8 @@ class Service
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter,
         Url $url,
-        FormatterFactory $formatterFactory
+        FormatterFactory $formatterFactory,
+        AttachmentService $attachmentService
     ) {
         $this->threadService = $threadService;
         $this->userOuService = $userOuService;
@@ -101,6 +110,7 @@ class Service
         $this->dateFormatter = $dateFormatter;
         $this->url = $url;
         $this->formatterFactory = $formatterFactory;
+        $this->attachmentService = $attachmentService;
     }
 
     public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
@@ -178,13 +188,7 @@ class Service
     protected function formatThreadData(Thread $thread, bool $includeCounts = false): array
     {
         $threadData = $thread->toArray();
-        $messages = [];
-        foreach ($thread->getMessages() as $message) {
-            $messageData = $this->formatMessageData($message, $thread);
-            $messages[$message->getCreated()] = $messageData;
-        }
-        ksort($messages);
-        $threadData['messages'] = array_values($messages);
+        $threadData['messages'] = $this->formatMessagesData($thread);
 
         $account = $this->accountService->fetch($thread->getAccountId());
         $threadData['accountName'] = $account->getDisplayName();
@@ -220,6 +224,34 @@ class Service
         }
 
         return $threadData;
+    }
+
+    protected function formatMessagesData(Thread $thread): array
+    {
+        $messages = [];
+        $attachments = $this->fetchAttachmentsForThread($thread);
+        /** @var Message $message */
+        foreach ($thread->getMessages() as $message) {
+            /** @var AttachmentCollection $attachmentsForMessage */
+            $attachmentsForMessage = $attachments->getBy('messageId', $message->getId());
+            $messageData = $this->formatMessageData($message, $thread, $attachmentsForMessage);
+            $messages[$message->getCreated()] = $messageData;
+        }
+        ksort($messages);
+        return array_values($messages);
+    }
+
+    protected function fetchAttachmentsForThread(Thread $thread): AttachmentCollection
+    {
+        /** @var MessageCollection $messages */
+        $messages = $thread->getMessages();
+        $filter = new AttachmentFilter('all', 1, [], $messages->getIds());
+
+        try {
+            return $this->attachmentService->fetchCollectionByFilter($filter);
+        } catch (NotFound $exception) {
+            return new AttachmentCollection(Attachment::class, __FUNCTION__);
+        }
     }
 
     protected function getSearchField(Thread $thread): array
