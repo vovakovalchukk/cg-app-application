@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.1",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-11135-parcelforce-mulitpackages as 1.2.12",
+        "channelgrabber/courier": "~1.2.12",
         "channelgrabber/courieradapter": "~1.6.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.2",
