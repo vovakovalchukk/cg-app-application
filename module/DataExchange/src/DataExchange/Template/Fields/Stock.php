@@ -11,7 +11,14 @@ class Stock implements FieldsInterface
         'Total Stock' => 'quantity',
         'Available Stock' => 'available',
         'Cost Price' => 'costPrice',
-        'Supplier' => 'supplier'
+        'Supplier' => 'supplier',
+        'EAN' => 'ean',
+        'UPC' => 'upc',
+        'Brand' => 'brand',
+        'MPN' => 'mpn',
+        'ASIN' => 'asin',
+        'ISBN' => 'isbn',
+        'GTIN' => 'gtin'
     ];
 
     public static function getFields(): array
