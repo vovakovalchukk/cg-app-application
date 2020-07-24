@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fe6e541c31d8b35763002ef9fab75aa",
+    "content-hash": "c959e3aae70577dd0e1b31ceea64a564",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -963,16 +963,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.2.1",
+            "version": "dev-TAC-626-attachments-on-messages",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "6101751a93b4e3bbc9eb0989679ca3346805b38c"
+                "reference": "50d45290ac4320272944112674fda6101f30b113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.2.1-0e5aa9.zip",
-                "reference": "6101751a93b4e3bbc9eb0989679ca3346805b38c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-626-attachments-on-messages-d6b5e4.zip",
+                "reference": "50d45290ac4320272944112674fda6101f30b113",
                 "shasum": null
             },
             "require": {
@@ -996,7 +996,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-05-26T14:48:44+00:00"
+            "time": "2020-07-24T07:28:21+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -12113,9 +12113,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-TAC-626-attachments-on-messages",
+            "package": "channelgrabber/communication"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
