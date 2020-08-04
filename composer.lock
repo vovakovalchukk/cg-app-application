@@ -967,12 +967,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "50d45290ac4320272944112674fda6101f30b113"
+                "reference": "ba29a7a70374dcfb5003eff0c1be8712256ed9fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-626-attachments-on-messages-d6b5e4.zip",
-                "reference": "50d45290ac4320272944112674fda6101f30b113",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-TAC-626-attachments-on-messages-c1dc92.zip",
+                "reference": "ba29a7a70374dcfb5003eff0c1be8712256ed9fb",
                 "shasum": null
             },
             "require": {
@@ -996,7 +996,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-07-24T07:28:21+00:00"
+            "time": "2020-08-04T10:32:02+00:00"
         },
         {
             "name": "channelgrabber/constants",

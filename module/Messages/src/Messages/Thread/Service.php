@@ -118,6 +118,8 @@ class Service
         $ou = $this->userOuService->getRootOuByActiveUser();
 
         $threadFilter = new ThreadFilter();
+        /** @TODO: remove this! */
+        $threadFilter->setId(['27-32456ff4f9c8174d5b10e3b8916c606631ce0667']);
         $threadFilter->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
             ->setOrganisationUnitId([$ou->getId()])
             ->setPage($page)
@@ -229,29 +231,13 @@ class Service
     protected function formatMessagesData(Thread $thread): array
     {
         $messages = [];
-        $attachments = $this->fetchAttachmentsForThread($thread);
         /** @var Message $message */
         foreach ($thread->getMessages() as $message) {
-            /** @var AttachmentCollection $attachmentsForMessage */
-            $attachmentsForMessage = $attachments->getBy('messageId', $message->getId());
-            $messageData = $this->formatMessageData($message, $thread, $attachmentsForMessage);
+            $messageData = $this->formatMessageData($message, $thread);
             $messages[$message->getCreated()] = $messageData;
         }
         ksort($messages);
         return array_values($messages);
-    }
-
-    protected function fetchAttachmentsForThread(Thread $thread): AttachmentCollection
-    {
-        /** @var MessageCollection $messages */
-        $messages = $thread->getMessages();
-        $filter = new AttachmentFilter('all', 1, [], array_values($messages->getIds()));
-
-        try {
-            return $this->attachmentService->fetchCollectionByFilter($filter);
-        } catch (NotFound $exception) {
-            return new AttachmentCollection(Attachment::class, __FUNCTION__);
-        }
     }
 
     protected function getSearchField(Thread $thread): array
