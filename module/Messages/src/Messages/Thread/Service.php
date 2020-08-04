@@ -118,8 +118,6 @@ class Service
         $ou = $this->userOuService->getRootOuByActiveUser();
 
         $threadFilter = new ThreadFilter();
-        /** @TODO: remove this! */
-        $threadFilter->setId(['27-32456ff4f9c8174d5b10e3b8916c606631ce0667']);
         $threadFilter->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
             ->setOrganisationUnitId([$ou->getId()])
             ->setPage($page)
