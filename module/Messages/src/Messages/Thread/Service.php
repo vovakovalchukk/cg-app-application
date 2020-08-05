@@ -229,13 +229,29 @@ class Service
     protected function formatMessagesData(Thread $thread): array
     {
         $messages = [];
+        $attachments = $this->fetchAttachmentsForThread($thread);
         /** @var Message $message */
         foreach ($thread->getMessages() as $message) {
-            $messageData = $this->formatMessageData($message, $thread);
+            /** @var AttachmentCollection $attachmentsForMessage */
+            $attachmentsForMessage = $attachments->getBy('messageId', $message->getId());
+            $messageData = $this->formatMessageData($message, $thread, $attachmentsForMessage);
             $messages[$message->getCreated()] = $messageData;
         }
         ksort($messages);
         return array_values($messages);
+    }
+
+    protected function fetchAttachmentsForThread(Thread $thread): AttachmentCollection
+    {
+        /** @var MessageCollection $messages */
+        $messages = $thread->getMessages();
+        $filter = new AttachmentFilter('all', 1, [], array_values($messages->getIds()));
+
+        try {
+            return $this->attachmentService->fetchCollectionByFilter($filter);
+        } catch (NotFound $exception) {
+            return new AttachmentCollection(Attachment::class, __FUNCTION__);
+        }
     }
 
     protected function getSearchField(Thread $thread): array
