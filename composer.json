@@ -30,7 +30,7 @@
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
         "channelgrabber/clearbooks": "~1.12.3",
-        "channelgrabber/communication": "dev-TAC-626-attachments-on-messages as 1.2.2",
+        "channelgrabber/communication": "~1.2.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.2.12",
         "channelgrabber/courieradapter": "~1.6.1",
