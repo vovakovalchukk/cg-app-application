@@ -319,7 +319,7 @@ class EditorContainer extends React.Component {
         n.success(`Found ${skus.length} products, please wait while we populate the new Purchase Order...`, true, 3000);
 
         let filter = new ProductFilter;
-        filter.sku = skus;
+        filter.sku = skus.length > 500 ? skus.slice(0, 500) : skus;
         filter.limit = 500;
         filter.replaceVariationWithParent = true;
         filter.embedVariationsAsLinks = false;
