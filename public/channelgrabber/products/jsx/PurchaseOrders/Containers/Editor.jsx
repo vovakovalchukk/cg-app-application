@@ -2,6 +2,7 @@ import React from 'react';
 import EditorComponent from 'PurchaseOrders/Components/Editor';
 import ProductFilter from 'Product/Filter/Entity';
 import AjaxHandler from 'Product/Storage/Ajax';
+import { fromByteArray } from 'base64-js';
 
 var COMPLETE_STATUS = "Complete";
 var DEFAULT_PO_STATUS = "In Progress";
