@@ -9,6 +9,7 @@ import Validators from '../../../Validators';
     const TYPE_SELECT = "select";
     const TYPE_TEXT_SELECT = "textselect";
     const TYPE_CUSTOM = "custom";
+    const SEARCH_OPTION_CAP = 50;
 
     export default class extends React.Component {
         static defaultProps = {
@@ -433,7 +434,7 @@ import Validators from '../../../Validators';
         };
 
         isFilterable = (options) => {
-            return (options.length > 40 ? true : false);
+            return (options.length > SEARCH_OPTION_CAP ? true : false);
         };
 
         onOptionSelected = (input, selectedOptions) => {
