@@ -433,10 +433,7 @@ import Validators from '../../../Validators';
         };
 
         isFilterable = (options) => {
-            console.log("HELLO");
-            console.log(options.length);
             return (options.length > 40 ? true : false);
-
         };
 
         onOptionSelected = (input, selectedOptions) => {
