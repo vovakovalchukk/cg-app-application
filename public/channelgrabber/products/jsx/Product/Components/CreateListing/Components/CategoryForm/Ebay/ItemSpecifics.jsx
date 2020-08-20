@@ -433,8 +433,9 @@ import Validators from '../../../Validators';
         };
 
         isFilterable = (options) => {
-            console.log(options.length())
-            return (options.length() > 40 ? true : false);
+            console.log("HELLO");
+            console.log(options.length);
+            return (options.length > 40 ? true : false);
 
         };
 
