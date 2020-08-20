@@ -432,6 +432,12 @@ import Validators from '../../../Validators';
             });
         };
 
+        isFilerable = (options) => {
+            console.log(options.length())
+            return (options.length() > 40 ? true : false);
+
+        };
+
         onOptionSelected = (input, selectedOptions) => {
             if (selectedOptions instanceof Array) {
                 input.onChange(selectedOptions.map(option => option.value));
