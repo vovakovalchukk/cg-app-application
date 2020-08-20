@@ -434,7 +434,7 @@ import Validators from '../../../Validators';
         };
 
         isFilterable = (options) => {
-            return (options.length > SEARCH_OPTION_CAP ? true : false);
+            return (options.length > SEARCH_OPTION_CAP);
         };
 
         onOptionSelected = (input, selectedOptions) => {
