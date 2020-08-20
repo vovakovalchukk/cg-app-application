@@ -340,7 +340,7 @@ import Validators from '../../../Validators';
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
-                        filterable={options.length > 40 ? true : false}
+                        filterable={this.isFilterable(options)}
                         autoSelectFirst={false}
                         title={field.displayTitle}
                         options={options}
@@ -432,7 +432,7 @@ import Validators from '../../../Validators';
             });
         };
 
-        isFilerable = (options) => {
+        isFilterable = (options) => {
             console.log(options.length())
             return (options.length() > 40 ? true : false);
 
