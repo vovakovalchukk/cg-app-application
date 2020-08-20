@@ -340,7 +340,7 @@ import Validators from '../../../Validators';
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
-                        filterable={true}
+                        filterable={options.length > 40 ? true : false}
                         autoSelectFirst={false}
                         title={field.displayTitle}
                         options={options}
