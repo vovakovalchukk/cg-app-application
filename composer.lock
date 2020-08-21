@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f48d93fd0a8b9f3a84d162c72379092",
+    "content-hash": "e7d6d2a89b3d6667a01daa11ba000f95",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1416,16 +1416,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.8",
+            "version": "dev-TAC-629-mark-messages-as-read",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "930756fcd978fa63c2bcdd133262d8c4c6df6de7"
+                "reference": "05daaca0d140f084717abf9d5ea5853e98362ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.8-dc83c5.zip",
-                "reference": "930756fcd978fa63c2bcdd133262d8c4c6df6de7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-TAC-629-mark-messages-as-read-ea9801.zip",
+                "reference": "05daaca0d140f084717abf9d5ea5853e98362ca4",
                 "shasum": null
             },
             "require": {
@@ -1478,7 +1478,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-05-26T14:52:23+00:00"
+            "time": "2020-08-20T12:57:30+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -11095,6 +11095,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-11-27T05:48:46+00:00"
         },
         {
@@ -12113,10 +12114,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.21.9",
+            "alias_normalized": "1.21.9.0",
+            "version": "dev-TAC-629-mark-messages-as-read",
+            "package": "channelgrabber/ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
