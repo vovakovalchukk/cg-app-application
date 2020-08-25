@@ -2,6 +2,7 @@ import React from 'react';
 import EditorComponent from 'PurchaseOrders/Components/Editor';
 import ProductFilter from 'Product/Filter/Entity';
 import AjaxHandler from 'Product/Storage/Ajax';
+import { fromByteArray } from 'base64-js';
 
 var COMPLETE_STATUS = "Complete";
 var DEFAULT_PO_STATUS = "In Progress";
@@ -163,7 +164,8 @@ class EditorContainer extends React.Component {
             data: {id: this.state.purchaseOrderId},
             url: '/products/purchaseOrders/download',
             success: function (response) {
-                var uri = 'data:text/csv;charset=utf-8;base64,' + btoa(response);
+                var textEncoder = new TextEncoder();
+                var uri = 'data:text/csv;charset=utf-8;base64,' + fromByteArray(textEncoder.encode(response));
 
                 var downloadLink = document.createElement("a");
                 downloadLink.href = uri;
@@ -319,7 +321,7 @@ class EditorContainer extends React.Component {
         n.success(`Found ${skus.length} products, please wait while we populate the new Purchase Order...`, true, 3000);
 
         let filter = new ProductFilter;
-        filter.sku = skus;
+        filter.sku = skus.length > 500 ? skus.slice(0, 500) : skus;
         filter.limit = 500;
         filter.replaceVariationWithParent = true;
         filter.embedVariationsAsLinks = false;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7d6d2a89b3d6667a01daa11ba000f95",
+    "content-hash": "e80bffb0cb3d226a11ccef13a82bb593",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "05daaca0d140f084717abf9d5ea5853e98362ca4"
+                "reference": "358604fa45038c71699c0fdcc15e91e7fcd49bab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-TAC-629-mark-messages-as-read-ea9801.zip",
-                "reference": "05daaca0d140f084717abf9d5ea5853e98362ca4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-TAC-629-mark-messages-as-read-d1349d.zip",
+                "reference": "358604fa45038c71699c0fdcc15e91e7fcd49bab",
                 "shasum": null
             },
             "require": {
@@ -1478,7 +1478,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-08-20T12:57:30+00:00"
+            "time": "2020-08-21T10:58:47+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2507,16 +2507,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.55.2",
+            "version": "1.55.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5d9abd7f4a340cc8609a8bfc9b7b31100c1a0c5b"
+                "reference": "c46550fcf3c6b68b044aead9aaca31fcbf3ac034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.55.2-fbbc92.zip",
-                "reference": "5d9abd7f4a340cc8609a8bfc9b7b31100c1a0c5b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.55.3-b7d81d.zip",
+                "reference": "c46550fcf3c6b68b044aead9aaca31fcbf3ac034",
                 "shasum": null
             },
             "require": {
@@ -2588,7 +2588,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-08-11T10:46:01+00:00"
+            "time": "2020-08-25T09:41:35+00:00"
         },
         {
             "name": "channelgrabber/partner",

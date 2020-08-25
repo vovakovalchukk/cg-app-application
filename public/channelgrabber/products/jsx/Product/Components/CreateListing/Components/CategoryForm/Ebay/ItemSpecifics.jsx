@@ -9,6 +9,7 @@ import Validators from '../../../Validators';
     const TYPE_SELECT = "select";
     const TYPE_TEXT_SELECT = "textselect";
     const TYPE_CUSTOM = "custom";
+    const SEARCH_OPTION_CAP = 20;
 
     export default class extends React.Component {
         static defaultProps = {
@@ -340,6 +341,7 @@ import Validators from '../../../Validators';
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
+                        filterable={this.isFilterable(options)}
                         autoSelectFirst={false}
                         title={field.displayTitle}
                         options={options}
@@ -429,6 +431,10 @@ import Validators from '../../../Validators';
                     value: value
                 }
             });
+        };
+
+        isFilterable = (options) => {
+            return (options.length > SEARCH_OPTION_CAP);
         };
 
         onOptionSelected = (input, selectedOptions) => {
