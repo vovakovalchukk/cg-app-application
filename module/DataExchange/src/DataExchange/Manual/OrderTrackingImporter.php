@@ -4,9 +4,9 @@ namespace DataExchange\Manual;
 use CG\DataExchange\Manual;
 use CG\DataExchange\Manual\Gearman\Workload\RunManualExchange as RunManualExchangeWorkload;
 use CG\DataExchange\Manual\Mapper as ManualMapper;
+use CG\Order\Client\Tracking\FileStorage\StorageInterface as FileStorage;
 use CG\User\ActiveUserInterface;
 use GearmanClient;
-use CG\Order\Client\Tracking\FileStorage\StorageInterface as FileStorage;
 
 class OrderTrackingImporter
 {
