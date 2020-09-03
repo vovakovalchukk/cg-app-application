@@ -14,12 +14,10 @@ class Factory
     protected const ORDER_COUNT_DEFAULT = 0;
     protected const ORDERS_MESSAGE_DEFAULT = '%s order%s from %s';
     protected const ORDERS_MESSAGE_AMAZON = '%s recent order%s from %s';
-    protected const THREAD_CHANNEL_TO_ORDERS_MESSAGE = [
-        Thread::CHANNEL_AMAZON => self::ORDERS_MESSAGE_AMAZON,
-    ];
-    protected const THREAD_CHANNEL_TO_ORDER_SEARCH_FIELD = [
-        Thread::CHANNEL_EBAY => 'order.externalUsername',
-        Thread::CHANNEL_AMAZON => 'billing.emailAddress',
+    protected const SEARCH_FIELDS = [
+        'order.externalUsername',
+        'billing.emailAddress',
+        'shipping.emailAddress',
     ];
 
     /** @var AccountService */
@@ -75,19 +73,11 @@ class Factory
             [
                 'query' => [
                     'search' => $externalUsername,
-                    'searchField' => $this->getSearchField($thread),
+                    'searchField' => static::SEARCH_FIELDS,
                     'archived' => true,
                 ],
             ]
         );
-    }
-
-    protected function getSearchField(Thread $thread): array
-    {
-        if (isset(static::THREAD_CHANNEL_TO_ORDER_SEARCH_FIELD[$thread->getChannel()])) {
-            return [static::THREAD_CHANNEL_TO_ORDER_SEARCH_FIELD[$thread->getChannel()]];
-        }
-        return ['order.externalUsername'];
     }
 
     protected function fetchAccount(Thread $thread): Account
