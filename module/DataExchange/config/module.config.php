@@ -8,6 +8,7 @@ use DataExchange\Controller\IndexController;
 use DataExchange\Controller\OrderExportController;
 use DataExchange\Controller\OrderExportManualController;
 use DataExchange\Controller\OrderTrackingImportController;
+use DataExchange\Controller\OrderTrackingImportManualController;
 use DataExchange\Controller\StockExportController;
 use DataExchange\Controller\StockExportManualController;
 use DataExchange\Controller\StockImportController;
@@ -476,6 +477,17 @@ return [
                                     'route' => '/remove',
                                     'defaults' => [
                                         'action' => 'remove'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            OrderTrackingImportManualController::ROUTE_UPLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/upload',
+                                    'defaults' => [
+                                        'controller' => OrderTrackingImportManualController::class,
+                                        'action' => 'upload'
                                     ]
                                 ],
                                 'may_terminate' => true,

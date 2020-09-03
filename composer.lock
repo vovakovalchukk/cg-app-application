@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86b6070badd0a3ba148f5c87935084cd",
+    "content-hash": "f45c972804275d45c45aad1f8a016a92",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1147,16 +1147,16 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "5e9b22217f8f99421a28517f8e9e80899280dff8"
+                "reference": "9b2b5945eff0c65117c8704a4d61d89bc5ece047"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.2-cd4bc6.zip",
-                "reference": "5e9b22217f8f99421a28517f8e9e80899280dff8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.3-1ce39c.zip",
+                "reference": "9b2b5945eff0c65117c8704a4d61d89bc5ece047",
                 "shasum": null
             },
             "require": {
@@ -1167,7 +1167,7 @@
                 "channelgrabber/email-account": "^1.0.1",
                 "channelgrabber/file-storage": "^1.1.4",
                 "channelgrabber/ftp-account": "^1.0.1",
-                "channelgrabber/order": "^1.53.6",
+                "channelgrabber/order": "^1.55.4",
                 "channelgrabber/product": "^1.18.2",
                 "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/stock": "^1.17.6",
@@ -1190,7 +1190,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-04-28T14:36:41+00:00"
+            "time": "2020-09-03T12:37:16+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -2511,12 +2511,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8dbe747165a2a64fe7f5391de5676368036c7d51"
+                "reference": "3518e3d147ccca3b4f39907b900a325d31ed82a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10882-incorrect-order-counts-708b96.zip",
-                "reference": "8dbe747165a2a64fe7f5391de5676368036c7d51",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10882-incorrect-order-counts-90da71.zip",
+                "reference": "3518e3d147ccca3b4f39907b900a325d31ed82a8",
                 "shasum": null
             },
             "require": {
@@ -2588,7 +2588,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-09-02T09:20:42+00:00"
+            "time": "2020-09-03T12:46:31+00:00"
         },
         {
             "name": "channelgrabber/partner",

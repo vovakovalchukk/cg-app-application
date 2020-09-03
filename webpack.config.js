@@ -33,7 +33,7 @@ module.exports = {
         "data-exchange/js/DataExchange/Templates/OrderTracking/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/Templates/OrderTracking/Index.jsx",
         "data-exchange/js/DataExchange/EmailAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/EmailAccount/App.jsx",
         "data-exchange/js/DataExchange/FtpAccount/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/FtpAccount/App.jsx",
-        "data-exchange/js/DataExchange/OrderTrackingImport/App": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderTrackingImport/App.jsx",
+        "data-exchange/js/DataExchange/OrderTrackingImport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderTrackingImport/Index.jsx",
         "data-exchange/js/DataExchange/History/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/History/Index.jsx",
         "data-exchange/js/DataExchange/StockExport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/StockExport/Index.jsx",
         "data-exchange/js/DataExchange/OrderExport/Index": "./public/channelgrabber/data-exchange/jsx/DataExchange/OrderExport/Index.jsx",
