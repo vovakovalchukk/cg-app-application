@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "~1.55.3",
+        "channelgrabber/order": "dev-CGIV-10882-incorrect-order-counts as 1.56.0",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
