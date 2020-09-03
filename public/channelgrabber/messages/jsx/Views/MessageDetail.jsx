@@ -119,7 +119,7 @@ const Message = styled.li`
     margin-top: 1rem;
     border-top: 1px solid #dddddd;
     padding-top: 1rem;
-    
+
     &:first-child {
         margin-top: 0;
         border-top: none;
@@ -229,7 +229,7 @@ const MessageDetail = (props) => {
         if (thread.ordersCount === '?') {
             actions.fetchThreadOrderCountByThreadId(threadId);
         } else {
-            ordersButtonText = `${thread.ordersCount} orders from ${thread.name}`;
+            ordersButtonText = thread.ordersLinkText;
         }
     }
 
