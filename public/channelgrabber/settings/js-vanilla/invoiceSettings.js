@@ -10,7 +10,6 @@ define([
         EventCollator
 ){
         var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
-
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes, #itemVariationAttributes';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
@@ -55,6 +54,8 @@ define([
             var emailEditorSelector = '#' + emailEditorContentId;
             var emailSubjectEditorSelector = '#' + emailSubjectEditorId;
             var existingEmailTemplate = $(emailEditorSelector).html();
+            var emailSubjectContent = null;
+
             EventCollator.setTimeout(3000);
 
             var init = function ()
@@ -222,7 +223,7 @@ define([
                 if (response == 'Save') {
                     let saveData = Object.assign(buildSaveMappingBaseData($(editButton)), {
                         emailSubject: tinyMCE.get(emailSubjectEditorId).getContent(),
-                        emailTemplate: tinyMCE.get(emailEditorContentId).getContent()
+                        emailTemplate: emailSubjectContent
                     });
                     saveMappingCallback(saveData);
                 }
@@ -365,7 +366,12 @@ define([
                                 return {text: tag, onclick: addToEditor};
                             })
                         });
-
+                        editor.on('change', function(e) {
+                            emailSubjectContent = editor.getContent();
+                        });
+                        editor.on('init', function() {
+                            emailSubjectContent = editor.getContent();
+                        });
                     }
                 });
             }
