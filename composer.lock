@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdf769e3f44fa38b4183e7d103174881",
+    "content-hash": "9eab38780990624742570a5de456ab6c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -483,25 +483,27 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.1",
+            "version": "dev-CGIV-11623-bigcommerce-call-limit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b"
+                "reference": "364be8220a4a0bf18231a7befbe9bd924775ff92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.1-da6dfa.zip",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11623-bigcommerce-call-limit-0d1cde.zip",
+                "reference": "364be8220a4a0bf18231a7befbe9bd924775ff92"
             },
             "require": {
-                "channelgrabber/channel": "^1.38.0",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/gearman": "^1.8.3",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/order": "^1.43.10",
-                "channelgrabber/product": "^1.14.0",
-                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/predis": "dev-CGIV-11623-bigcommerce-call-limit as 1.1.15",
+                "channelgrabber/product": "^1.18.6",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1",
@@ -523,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2019-02-12T10:06:28+00:00"
+            "time": "2020-09-23T09:12:01+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -2770,16 +2772,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.1.14",
+            "version": "dev-CGIV-11623-bigcommerce-call-limit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "abc0658fb9354c77bbe78a88a9540f78feab39f9"
+                "reference": "180de2c1590dd24d73dcb6055fdabddc30b37175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.14-29dcf9.zip",
-                "reference": "abc0658fb9354c77bbe78a88a9540f78feab39f9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-dev-CGIV-11623-bigcommerce-call-limit-c3994c.zip",
+                "reference": "180de2c1590dd24d73dcb6055fdabddc30b37175"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -2798,7 +2800,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2020-03-11T10:52:09+00:00"
+            "time": "2020-09-21T12:29:35+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -11990,10 +11992,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.6",
+            "alias_normalized": "1.4.6.0",
+            "version": "dev-CGIV-11623-bigcommerce-call-limit",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.1.15",
+            "alias_normalized": "1.1.15.0",
+            "version": "dev-CGIV-11623-bigcommerce-call-limit",
+            "package": "channelgrabber/predis"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/predis": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
