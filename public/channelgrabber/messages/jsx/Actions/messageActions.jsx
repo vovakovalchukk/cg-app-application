@@ -30,7 +30,7 @@ const messageActions = {
             let response = await fetchThreadOrderCountByThreadId(params);
             dispatch({
                 type: 'THREAD_ORDER_COUNT_FETCH_SUCCESS',
-                payload: response.counts.orders,
+                payload: response,
             })
         };
     },

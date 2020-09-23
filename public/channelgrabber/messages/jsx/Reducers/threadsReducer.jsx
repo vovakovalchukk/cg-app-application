@@ -44,7 +44,8 @@ const threadsReducer = reducerCreator(initialState, {
 
         let thread = threads.byId[threads.viewing];
 
-        thread.ordersCount = action.payload;
+        thread.ordersCount = action.payload.counts.orders;
+        thread.ordersLinkText = action.payload.linkText;
 
         let newState = {...state, ...threads};
 
