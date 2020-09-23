@@ -487,12 +487,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "364be8220a4a0bf18231a7befbe9bd924775ff92"
+                "reference": "79798f1062dd7a1022016dba54dfffbcedc6cba2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11623-bigcommerce-call-limit-0d1cde.zip",
-                "reference": "364be8220a4a0bf18231a7befbe9bd924775ff92"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11623-bigcommerce-call-limit-862140.zip",
+                "reference": "79798f1062dd7a1022016dba54dfffbcedc6cba2"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -525,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-09-23T09:12:01+00:00"
+            "time": "2020-09-23T09:33:46+00:00"
         },
         {
             "name": "channelgrabber/billing",
