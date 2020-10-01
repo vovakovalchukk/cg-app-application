@@ -3,6 +3,7 @@ namespace Messages\Controller;
 
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Messages\Thread\OrdersInformation\LinkTextBuilder;
 use Messages\Thread\Service as ThreadService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -87,12 +88,15 @@ class ThreadJsonController extends AbstractActionController
         $counts = [
             'orders' => 0,
         ];
+        $linkText = LinkTextBuilder::LINK_TEXT_PLACEHOLDER;
 
         $threadId = $this->params('threadId');
         if ($threadId) {
-            $counts['orders'] = $this->threadService->getOrderCountForId($threadId);
+            $ordersInformation = $this->threadService->getOrdersInformationForId($threadId);
+            $counts['orders'] = $ordersInformation->getCount();
+            $linkText = $ordersInformation->getLinkText();
         }
 
-        return $this->jsonModelFactory->newInstance(['counts' => $counts]);
+        return $this->jsonModelFactory->newInstance(['counts' => $counts, 'linkText' => $linkText]);
     }
 }

@@ -67,7 +67,7 @@ class AmazonController extends ChannelControllerAbstract implements
         $accountEntity = $this->getAccountCreationService()->connectAccount(
             $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
             $this->params()->fromQuery('accountId'),
-            array_merge($this->params()->fromPost(), $this->params()->fromRoute())
+            array_merge($this->params()->fromPost(), $this->params()->fromRoute(), $this->params()->fromQuery())
         );
 
         try {

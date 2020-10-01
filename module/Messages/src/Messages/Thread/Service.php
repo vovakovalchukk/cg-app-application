@@ -1,8 +1,6 @@
 <?php
 namespace Messages\Thread;
 
-use CG\Account\Client\Service as AccountService;
-use CG\Account\Shared\Entity as Account;
 use CG\Communication\Message\Attachment\Collection as AttachmentCollection;
 use CG\Communication\Message\Attachment\Entity as Attachment;
 use CG\Communication\Message\Attachment\Filter as AttachmentFilter;
@@ -27,7 +25,7 @@ use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
 use Messages\Message\FormatMessageDataTrait;
 use Messages\Thread\Formatter\Factory as FormatterFactory;
-use Orders\Module as OrdersModule;
+use Messages\Thread\OrdersInformation\Factory as OrdersInformationFactory;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 use Zend\View\Helper\Url;
 
@@ -42,10 +40,6 @@ class Service
     protected const ASSIGNEE_ASSIGNED = 'assigned';
     protected const ASSIGNEE_UNASSIGNED = 'unassigned';
     protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
-    protected const CHANNEL_TO_ORDER_SEARCH_FIELD_MAP = [
-        Thread::CHANNEL_EBAY => 'order.externalUsername',
-        Thread::CHANNEL_AMAZON => 'billing.emailAddress',
-    ];
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -53,8 +47,6 @@ class Service
     protected $userOuService;
     /** @var UserService $userService */
     protected $userService;
-    /** @var AccountService $accountService */
-    protected $accountService;
     /** @var CustomerCountService $customerCountService */
     protected $customerCountService;
     /** @var ThreadResolveFactory $threadResolveFactory */
@@ -69,6 +61,8 @@ class Service
     protected $formatterFactory;
     /** @var AttachmentService */
     protected $attachmentService;
+    /** @var OrdersInformationFactory */
+    protected $ordersInformationFactory;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -91,19 +85,18 @@ class Service
         ThreadService $threadService,
         UserOuService $userOuService,
         UserService $userService,
-        AccountService $accountService,
         CustomerCountService $customerCountService,
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter,
         Url $url,
         FormatterFactory $formatterFactory,
-        AttachmentService $attachmentService
+        AttachmentService $attachmentService,
+        OrdersInformationFactory $ordersInformationFactory
     ) {
         $this->threadService = $threadService;
         $this->userOuService = $userOuService;
         $this->userService = $userService;
-        $this->accountService = $accountService;
         $this->customerCountService = $customerCountService;
         $this->threadResolveFactory = $threadResolveFactory;
         $this->intercomEventService = $intercomEventService;
@@ -111,6 +104,7 @@ class Service
         $this->url = $url;
         $this->formatterFactory = $formatterFactory;
         $this->attachmentService = $attachmentService;
+        $this->ordersInformationFactory = $ordersInformationFactory;
     }
 
     public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
@@ -190,27 +184,20 @@ class Service
         $threadData = $thread->toArray();
         $threadData['messages'] = $this->formatMessagesData($thread);
 
-        $account = $this->accountService->fetch($thread->getAccountId());
-        $threadData['accountName'] = $account->getDisplayName();
-        $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
+        $ordersInformation = $this->ordersInformationFactory->fromThread($thread);
+        $threadData['accountName'] = $ordersInformation->getAccountName();
 
         $dateFormatter = $this->dateFormatter;
         $threadData['createdFuzzy'] = (new StdlibDateTime($threadData['created']))->fuzzyFormat();
         $threadData['created'] = $dateFormatter($threadData['created']);
         $threadData['updatedFuzzy'] = (new StdlibDateTime($threadData['updated']))->fuzzyFormat();
         $threadData['updated'] = $dateFormatter($threadData['updated']);
-        $threadData['ordersLink'] = call_user_func(
-            $this->url,
-            OrdersModule::ROUTE,
-            [],
-            [
-                'query' => ['search' => $externalUsername, 'searchField' => $this->getSearchField($thread)]
-            ]
-        );
+        $threadData['ordersLink'] = $ordersInformation->getOrdersUrl();
+        $threadData['ordersLinkText'] = $ordersInformation->getLinkText();
 
         $threadData['ordersCount'] = '?';
         if ($includeCounts) {
-            $threadData['ordersCount'] = $this->getOrderCount($thread);
+            $threadData['ordersCount'] = $ordersInformation->getCount();
         }
 
         $threadData['assignedUserName'] = '';
@@ -254,25 +241,9 @@ class Service
         }
     }
 
-    protected function getSearchField(Thread $thread): array
+    public function getOrdersInformationForId(string $threadId): OrdersInformation
     {
-        if (isset(static::CHANNEL_TO_ORDER_SEARCH_FIELD_MAP[$thread->getChannel()])) {
-            return [static::CHANNEL_TO_ORDER_SEARCH_FIELD_MAP[$thread->getChannel()]];
-        }
-        return ['order.externalUsername'];
-    }
-
-    public function getOrderCountForId(string $id): int
-    {
-        $thread = $this->threadService->fetch($id);
-        return $this->getOrderCount($thread);
-    }
-
-    protected function getOrderCount(Thread $thread): int
-    {
-        $account = $this->accountService->fetch($thread->getAccountId());
-        $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
-        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $externalUsername);
+        return $this->ordersInformationFactory->fromThread($this->threadService->fetch($threadId), true);
     }
 
     protected function sortThreadCollection(ThreadCollection $threads): ThreadCollection
@@ -452,18 +423,5 @@ class Service
     protected function getDateFormatter()
     {
         return $this->dateFormatter;
-    }
-
-    protected function attemptToRemoveAdditionalDataFromExternalUsername(Thread $thread, Account $account): string
-    {
-        $externalUsername = $thread->getExternalUsername();
-
-        if ($account->getChannel() !== 'amazon') {
-            return $externalUsername;
-        }
-
-        $externalUsername = preg_replace('/(\+[A-z0-9]+)/', '', $externalUsername);
-
-        return $externalUsername;
     }
 }
