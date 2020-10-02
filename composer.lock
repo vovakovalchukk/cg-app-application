@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d0b495a3b15ce075d064001a578dc0f",
+    "content-hash": "362531a33e82d1bcefde7d9786c3612e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -963,16 +963,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "dev-CGIV-11585-ebay-mark-all-messages-read",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "054c035c184c71c36f394d801185802f67172c98"
+                "reference": "c2e5824ae8f760965c1358136e76324f5dc755da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-CGIV-11585-ebay-mark-all-messages-read-8b6918.zip",
-                "reference": "054c035c184c71c36f394d801185802f67172c98",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.2.3-ee39f7.zip",
+                "reference": "c2e5824ae8f760965c1358136e76324f5dc755da",
                 "shasum": null
             },
             "require": {
@@ -996,7 +996,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-09-07T10:49:22+00:00"
+            "time": "2020-10-02T12:37:59+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -1416,23 +1416,23 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-11585-ebay-mark-all-messages-read",
+            "version": "1.21.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b4bf4d4eb2280af7f248ee5c46fe7126eae4cc77"
+                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11585-ebay-mark-all-messages-read-1655eb.zip",
-                "reference": "b4bf4d4eb2280af7f248ee5c46fe7126eae4cc77",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.16-df0ce3.zip",
+                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
                 "channelgrabber/channel": "^1.44.4",
-                "channelgrabber/communication": "dev-CGIV-11585-ebay-mark-all-messages-read as 1.2.3",
+                "channelgrabber/communication": "^1.2.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.8.0",
@@ -1478,7 +1478,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-10-01T14:01:04+00:00"
+            "time": "2020-10-02T12:41:26+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -12114,25 +12114,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
-            "version": "dev-CGIV-11585-ebay-mark-all-messages-read",
-            "package": "channelgrabber/communication"
-        },
-        {
-            "alias": "1.21.16",
-            "alias_normalized": "1.21.16.0",
-            "version": "dev-CGIV-11585-ebay-mark-all-messages-read",
-            "package": "channelgrabber/ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
