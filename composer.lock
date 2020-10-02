@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33bf108b08cdaa61ad2feaa6ecff0a4e",
+    "content-hash": "3dfa2b7561b2b49790ea58e207d9f6b5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3817,7 +3817,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9bdf574b5d3561867fd0781ae9f373a718af3727"
+                "reference": "9b05149936013b926a2776cbf52b80284fb11695"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11641-variation-attr-column-84fd16.zip",
+                "reference": "9b05149936013b926a2776cbf52b80284fb11695"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3868,7 +3873,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-07-09T12:56:55+00:00"
+            "time": "2020-10-02T15:51:24+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10536,7 +10541,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11997,8 +12003,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
