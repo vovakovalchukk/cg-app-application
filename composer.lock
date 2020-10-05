@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85d08bdd09338b9f8aee75ac54356a0a",
+    "content-hash": "52919f03454c7765355f8be0f26c9a6a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -953,16 +953,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "2af7d8353c828a5cf0876bee177751718d07a1ee"
+                "reference": "c2e5824ae8f760965c1358136e76324f5dc755da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.2.2-078ed2.zip",
-                "reference": "2af7d8353c828a5cf0876bee177751718d07a1ee"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.2.3-ee39f7.zip",
+                "reference": "c2e5824ae8f760965c1358136e76324f5dc755da"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -985,7 +985,7 @@
                     "CG\\Communication\\Test\\": "tests"
                 }
             },
-            "time": "2020-08-06T12:40:00+00:00"
+            "time": "2020-10-02T12:37:59+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -1394,22 +1394,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.13",
+            "version": "1.21.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1229e06da0adbf2d977a31f9b262b6326bcbea3a"
+                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.13-92cfa3.zip",
-                "reference": "1229e06da0adbf2d977a31f9b262b6326bcbea3a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.16-df0ce3.zip",
+                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
                 "channelgrabber/channel": "^1.44.4",
-                "channelgrabber/communication": "^1.2.1",
+                "channelgrabber/communication": "^1.2.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.8.0",
@@ -1455,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-08-26T08:15:47+00:00"
+            "time": "2020-10-02T12:41:26+00:00"
         },
         {
             "name": "channelgrabber/ekm",
