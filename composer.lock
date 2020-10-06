@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "362531a33e82d1bcefde7d9786c3612e",
+    "content-hash": "b6c6311bad577dfef8175e7bc569a801",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -486,26 +486,28 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.1",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b"
+                "reference": "6952957a4d985ca67e38427929103909d495eb63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.1-da6dfa.zip",
-                "reference": "f2bc1f8c9350ffa2d82fe9f705efff25260d625b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.6-00e334.zip",
+                "reference": "6952957a4d985ca67e38427929103909d495eb63",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.38.0",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/gearman": "^1.8.3",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/order": "^1.43.10",
-                "channelgrabber/product": "^1.14.0",
-                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/predis": "^1.1.17",
+                "channelgrabber/product": "^1.18.6",
+                "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1",
@@ -527,7 +529,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2019-02-12T10:06:28+00:00"
+            "time": "2020-10-06T14:19:28+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -2826,16 +2828,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.1.14",
+            "version": "1.1.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "abc0658fb9354c77bbe78a88a9540f78feab39f9"
+                "reference": "b497ee03a9dee9ca81dcc30caa00ef93dd77aad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.14-29dcf9.zip",
-                "reference": "abc0658fb9354c77bbe78a88a9540f78feab39f9",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.17-e4fff4.zip",
+                "reference": "b497ee03a9dee9ca81dcc30caa00ef93dd77aad8",
                 "shasum": null
             },
             "require": {
@@ -2855,7 +2857,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2020-03-11T10:52:09+00:00"
+            "time": "2020-10-06T14:03:46+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
