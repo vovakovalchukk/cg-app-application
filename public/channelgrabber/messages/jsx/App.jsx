@@ -154,7 +154,7 @@ const App = (props) => {
                 if(date_a < date_b) return -1;
                 return 0;
             });
-            if (typeof (threadMessages[0].body) == 'undefined') {
+            if (threadMessages === undefined || threadMessages.length == 0) {
                 thread.lastMessage = '';
             } else {
                 thread.lastMessage = threadMessages[0].body.replace(/(<script(\s|\S)*?<\/script>)|(<style(\s|\S)*?<\/style>)|(<!--(\s|\S)*?-->)|(<\/?(\s|\S)*?>)/g, '').replace(/\s+/g, ' ').substring(0, characterLimit);
