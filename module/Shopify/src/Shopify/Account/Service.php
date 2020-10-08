@@ -113,6 +113,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         }
 
         $this->session['oauth'][$shopHost] = ['accountId' => $accountId, 'nonce' => $nonce];
+        $this->logDebugDump($this->session->getArrayCopy(), 'Session contents on redirection to Shopify', [], 'ShopifyAccountConnection::OutboundSession');
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);
     }
 
@@ -146,6 +147,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         }
 
         $shop = $parameters['shop'];
+        $this->logDebugDump($this->session->getArrayCopy(), 'Session contents on redirection from Shopify', [], 'ShopifyAccountConnection::InboundSession');
         if (!isset($this->session['oauth'][$shop]) || !is_array($this->session['oauth'][$shop])) {
             throw new InvalidArgumentException(sprintf('OAuth response for unknown shop \"%s\"', $shop));
         }
@@ -266,4 +268,4 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         $this->shopifyAccountCreator = $shopifyAccountCreator;
         return $this;
     }
-} 
+}
