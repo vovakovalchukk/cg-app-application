@@ -3,7 +3,7 @@
     height: 41px;
 }
 .save-template-inner {
-    width: Calc(100% - 503px);
+    width: Calc(100% - 559px);
     z-index: 999;
     background-color: $color-red;
     color: $color-white;
@@ -25,4 +25,7 @@
         margin:7px 8px 5px 0px;
         border: none!important;
     }
+}
+.sidebar-right {
+    width: 310px;
 }
