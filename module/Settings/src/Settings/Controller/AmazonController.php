@@ -14,6 +14,8 @@ use CG\Channel\Type as ChannelType;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -26,8 +28,15 @@ use Zend\View\Model\ViewModel;
 
 class AmazonController extends ChannelControllerAbstract implements
     AccountActiveToggledInterface,
-    AddChannelSpecificVariablesToViewInterface
+    AddChannelSpecificVariablesToViewInterface,
+    LoggerAwareInterface
 {
+    use LogTrait;
+
+    const LOG_CODE = 'AccountAmazonController';
+    const LOG_MESSAGE_PARTNER_SUCCESS_REDIRECT = 'Redirecting the OU %s to the partner\'s success redirection URL: %s';
+    const LOG_MESSAGE_REDIRECT_TO_ACCOUNT = 'Redirecting the OU %s to the newly created Amazon account management URL: %s';
+
     /** @var AccountAddressGenerator $accountAddressGenerator */
     protected $accountAddressGenerator;
     /** @var Cryptor $cryptor */
@@ -64,17 +73,22 @@ class AmazonController extends ChannelControllerAbstract implements
 
     public function saveAction()
     {
+        $ouId = $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId();
         $accountEntity = $this->getAccountCreationService()->connectAccount(
-            $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
+            $ouId,
             $this->params()->fromQuery('accountId'),
             array_merge($this->params()->fromPost(), $this->params()->fromRoute(), $this->params()->fromQuery())
         );
 
         try {
             $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+            $this->logDebug(static::LOG_MESSAGE_PARTNER_SUCCESS_REDIRECT, [$ouId, $url], static::LOG_CODE, ['ouId' => $ouId]);
         } catch (NotFound $exception) {
             $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
             $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+            $this->logDebug(static::LOG_MESSAGE_REDIRECT_TO_ACCOUNT, [$ouId, $url], static::LOG_CODE, ['ouId' => $ouId]);
+        } catch (\Throwable $exception) {
+            $this->logErrorException($exception, $exception->getMessage(), [], static::LOG_CODE);
         }
 
         $this->plugin('redirect')->toUrl($url);
