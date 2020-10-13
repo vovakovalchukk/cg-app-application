@@ -303,8 +303,6 @@ class AuthoriseService implements LoggerAwareInterface
         try {
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
             $this->loginService->loginUser($user);
-            // Make sure the user in only logged in orders app and not in SSO
-            $this->ssoClient->logoutOnSsoService();
 
             $session = $this->sessionManager->getStorage();
             $session[PermissionService::PARTNER_MANAGED_LOGIN] = [
@@ -312,7 +310,7 @@ class AuthoriseService implements LoggerAwareInterface
                 static::SESSION_KEY_ACCOUNT_REQUEST_ID => $accountRequest->getId()
             ];
         } catch (\Throwable $e) {
-            $this->logWarningException($e);
+            $this->logWarningException($e, $e->getMessage(), [], static::LOG_CODE);
             $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_LOGIN_FAILED);
         }
     }

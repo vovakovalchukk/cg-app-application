@@ -87,6 +87,12 @@ define([
             "displayText": "Variation Attributes",
             "optionText": "Variation Attributes",
             "cellPlaceholder": `Size: Small`
+        },
+        {
+            "id": "variationAttributesInternal",
+            "displayText": "Variation Attributes",
+            "optionText": "Variation Attributes - Internal",
+            "cellPlaceholder": `Size: Small`
         }
     ];
     const allTableTotals = [

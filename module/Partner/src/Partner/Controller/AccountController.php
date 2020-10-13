@@ -51,7 +51,6 @@ class AccountController extends AbstractJsonController
             $this->logErrorException($e);
             return $this->buildErrorResponse('Invalid request');
         }
-
     }
 
     protected function buildAccountConnectionViewModel(
