@@ -6,6 +6,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Amazon\Region\Service as AmazonRegionService;
 use CG\Ebay\Site\Map as EbaySiteMap;
+use CG\Ebay\Order\Marketplace\Handler as OrderMarketplaceHandler;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Client\Service as MarketplaceService;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
@@ -48,6 +49,8 @@ class Mappings
     protected $organisationUnitService;
     /** @var AmazonRegionService $amazonRegionService */
     protected $amazonRegionService;
+    /** @var OrderMarketplaceHandler $orderMarketplaceHandler */
+    protected $orderMarketplaceHandler;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -58,7 +61,8 @@ class Mappings
         InvoiceMappingMapper $invoiceMappingMapper,
         AccountService $accountService,
         OrganisationUnitService $organisationUnitService,
-        AmazonRegionService $amazonRegionService
+        AmazonRegionService $amazonRegionService,
+        OrderMarketplaceHandler $orderMarketplaceHandler
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->helper = $helper;
@@ -69,6 +73,7 @@ class Mappings
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
         $this->amazonRegionService = $amazonRegionService;
+        $this->orderMarketplaceHandler = $orderMarketplaceHandler;
     }
 
     public function saveInvoiceMappingFromPostData(array $postData)
@@ -199,6 +204,12 @@ class Mappings
             $accountSites = [];
             if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
                 $accountSites = $accountSiteMap[$accountId];
+            }
+            if ($account->getChannel() == 'ebay') {
+                $accountSites = array_unique(array_merge(
+                    $accountSites,
+                    $this->orderMarketplaceHandler->getMarketplaceList($account)
+                ));
             }
             if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
                 $accountSites = array_unique(array_merge(
