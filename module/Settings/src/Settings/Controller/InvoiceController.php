@@ -532,6 +532,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setTemplate('elements/checkbox.mustache');
     }
 
+    protected function getInvoiceSettingsAdditionalShippingLabelsCheckboxView(InvoiceSettingsEntity $invoiceSettings): ViewModel
+    {
+        return $this->viewModelFactory
+            ->newInstance(
+                [
+                    'id' => 'additionalShippingLabels',
+                    'name' => 'additionalShippingLabels',
+                    'selected' => $invoiceSettings->getItemVariationAttributes(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
     protected function getInvoiceSettingsEmailSendAsView(InvoiceSettingsEntity $invoiceSettings)
     {
         return $this->viewModelFactory
