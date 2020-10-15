@@ -1398,12 +1398,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1575cd93b96b345f2c717cd50bcf6067c8f9c933"
+                "reference": "d462b6fe56237c3fbefe457941a1472ff6544d72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-9547-ebay-invoice-mapping-3c6203.zip",
-                "reference": "1575cd93b96b345f2c717cd50bcf6067c8f9c933"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-9547-ebay-invoice-mapping-1efbce.zip",
+                "reference": "d462b6fe56237c3fbefe457941a1472ff6544d72"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1455,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-10-14T16:15:06+00:00"
+            "time": "2020-10-15T10:20:08+00:00"
         },
         {
             "name": "channelgrabber/ekm",
