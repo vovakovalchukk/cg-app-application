@@ -79,7 +79,7 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sagepay": "~1.1.26",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "~1.9.0",
+        "channelgrabber/settings": "dev-CGIV-11664-invoice-multilabels as 1.9.1",
         "channelgrabber/shipstation": "~1.1.1",
         "channelgrabber/shopify": "~1.6.0",
         "channelgrabber/sso": "~1.2.8",

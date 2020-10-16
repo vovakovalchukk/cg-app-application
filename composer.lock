@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8aca4a8e3500091e76b3304b21c5ba6",
+    "content-hash": "c11c4b408100bdbc69f90f021930cadd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3309,16 +3309,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.9.0",
+            "version": "dev-CGIV-11664-invoice-multilabels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "c1746eabfd7e1eb84b40e8734984cc3bcc1350be"
+                "reference": "076e2c3b6f08e73eeba7d32194a3e310bc7e3ce4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.0-b3b2c7.zip",
-                "reference": "c1746eabfd7e1eb84b40e8734984cc3bcc1350be"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-CGIV-11664-invoice-multilabels-ec264d.zip",
+                "reference": "076e2c3b6f08e73eeba7d32194a3e310bc7e3ce4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3341,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-03-12T10:03:37+00:00"
+            "time": "2020-10-16T13:12:22+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -11992,10 +11992,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.1",
+            "alias_normalized": "1.9.1.0",
+            "version": "dev-CGIV-11664-invoice-multilabels",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
