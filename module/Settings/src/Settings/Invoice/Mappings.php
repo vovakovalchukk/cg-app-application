@@ -180,21 +180,7 @@ class Mappings
      */
     protected function getInvoiceMappingsForAccounts(Accounts $accounts)
     {
-        $invoiceMappings = [];
-
-        try {
-            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
-                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
-            );
-
-            /** @var InvoiceMapping $existingMapping */
-            foreach ($existingMappings as $existingMapping) {
-                $invoiceMappings[$existingMapping->getId()] = $existingMapping;
-            }
-        } catch (NotFound $exception) {
-            // No previous invoice mappings
-        }
-
+        $invoiceMappings = $this->fetchInvoiceMappings($accounts);
         $accountSiteMap = $this->getAccountSiteMap($accounts);
 
         /** @var Account $account */
@@ -362,5 +348,27 @@ class Mappings
     public function getDatatable()
     {
         return $this->datatable;
+    }
+
+    /**
+     * @param Accounts $accounts
+     * @return array
+     */
+    protected function fetchInvoiceMappings(Accounts $accounts): array
+    {
+        $invoiceMappings = [];
+        try {
+            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
+                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
+            );
+
+            /** @var InvoiceMapping $existingMapping */
+            foreach ($existingMappings as $existingMapping) {
+                $invoiceMappings[$existingMapping->getId()] = $existingMapping;
+            }
+        } catch (NotFound $exception) {
+            // No previous invoice mappings
+        }
+        return $invoiceMappings;
     }
 }
