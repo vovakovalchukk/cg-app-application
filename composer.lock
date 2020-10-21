@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a14ec8fd1837f42f8ddb78d55e08ccd5",
+    "content-hash": "5f0e0337c58cc68894de30ebdc12775f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,22 +373,22 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.37.0",
+            "version": "1.37.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2d0e5e68261f1a4a0c0468315b9ceb817e4b970e"
+                "reference": "8f94f0529b74fe51851b0eb08b58da4f3f3495e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.37.0-0cb0a8.zip",
-                "reference": "2d0e5e68261f1a4a0c0468315b9ceb817e4b970e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.37.11-c883d0.zip",
+                "reference": "8f94f0529b74fe51851b0eb08b58da4f3f3495e3"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "~1.44.4",
+                "channelgrabber/channel": "^1.44.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-05-22T12:29:00+00:00"
+            "time": "2020-08-12T07:43:53+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -761,16 +761,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.44.11",
+            "version": "1.45.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b23efdc14be2aff78ef5521063d32437eafe2512"
+                "reference": "f554b02870bc276e43323b246cf18e62d797a528"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.44.11-6ae41c.zip",
-                "reference": "b23efdc14be2aff78ef5521063d32437eafe2512"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.3-bbc804.zip",
+                "reference": "f554b02870bc276e43323b246cf18e62d797a528"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -838,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-06-24T12:10:19+00:00"
+            "time": "2020-10-15T14:07:06+00:00"
         },
         {
             "name": "channelgrabber/cilex",
