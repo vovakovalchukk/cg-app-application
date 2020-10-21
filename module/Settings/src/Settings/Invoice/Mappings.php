@@ -358,11 +358,7 @@ class Mappings
      */
     protected function getAccountSiteMapForAccount(array $accountSiteMap, int $accountId): array
     {
-        $accountSites = [];
-        if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
-            $accountSites = $accountSiteMap[$accountId];
-        }
-        return $accountSites;
+        return $accountSiteMap[$accountId] ?? [];
     }
 
     /**
