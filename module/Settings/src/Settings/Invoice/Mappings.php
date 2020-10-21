@@ -52,6 +52,16 @@ class Mappings
     /** @var OrderMarketplaceHandler $orderMarketplaceHandler */
     protected $orderMarketplaceHandler;
 
+    protected $invoiceMappingMethodMap = [
+        'ebay' => [
+            'addMarketplaceListForEbayAccount',
+            'addGspCountriesForEbayAccount'
+        ],
+        'amazon' => [
+            'addFbaCountriesForAmazonAccount'
+        ]
+    ];
+
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         Helper $helper,
@@ -186,29 +196,12 @@ class Mappings
         /** @var Account $account */
         foreach ($accounts as $account) {
             $accountId = $account->getId();
+            $accountSites = $this->getAccountSiteMapForAccount($accountSiteMap, $accountId);
 
-            $accountSites = [];
-            if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
-                $accountSites = $accountSiteMap[$accountId];
+            foreach (($this->invoiceMappingMethodMap[$account->getChannel()] ?? []) as $method) {
+                $accountSites = $this->$method($account, $accountSites);
             }
-            if ($account->getChannel() == 'ebay') {
-                $accountSites = array_unique(array_merge(
-                    $accountSites,
-                    $this->orderMarketplaceHandler->getMarketplaceList($account)
-                ));
-            }
-            if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
-                $accountSites = array_unique(array_merge(
-                    $accountSites,
-                    array_keys(EbaySiteMap::getSiteIdByCountryCode())
-                ));
-            }
-            if ($account->getChannel() == 'amazon' && $account->getExternalData()['fbaOrderImport']){
-                $accountSites = array_unique(array_merge(
-                    $accountSites,
-                    array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
-                ));
-            }
+
             sort($accountSites);
 
             if (empty($accountSites)) {
@@ -370,5 +363,66 @@ class Mappings
             // No previous invoice mappings
         }
         return $invoiceMappings;
+    }
+
+    /**
+     * @param array $accountSiteMap
+     * @param int $accountId
+     * @return array
+     */
+    protected function getAccountSiteMapForAccount(array $accountSiteMap, int $accountId): array
+    {
+        $accountSites = [];
+        if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
+            $accountSites = $accountSiteMap[$accountId];
+        }
+        return $accountSites;
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addMarketplaceListForEbayAccount(Account $account, array $accountSites): array
+    {
+        return array_unique(array_merge(
+            $accountSites,
+            $this->orderMarketplaceHandler->getMarketplaceList($account)
+        ));
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addGspCountriesForEbayAccount(Account $account, array $accountSites): array
+    {
+        if (!$account->getExternalData()['globalShippingProgram']) {
+            return $accountSites;
+        }
+
+        return array_unique(array_merge(
+            $accountSites,
+            array_keys(EbaySiteMap::getSiteIdByCountryCode())
+        ));
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addFbaCountriesForAmazonAccount(Account $account, array $accountSites): array
+    {
+        if (!$account->getExternalData()['fbaOrderImport']) {
+            return $accountSites;
+        }
+
+        return array_unique(array_merge(
+            $accountSites,
+            array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
+        ));
     }
 }
