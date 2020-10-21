@@ -204,21 +204,7 @@ class Mappings
 
             sort($accountSites);
 
-            if (empty($accountSites)) {
-                $accountSites[] = null;
-            }
-
-            foreach ($accountSites as $site) {
-                $invoiceMapping = $this->invoiceMappingMapper->fromArray([
-                    'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-                    'accountId' => $account->getId(),
-                    'site' => $site,
-                ]);
-
-                if (!isset($invoiceMappings[$invoiceMapping->getId()])) {
-                    $invoiceMappings[$invoiceMapping->getId()] = $invoiceMapping;
-                }
-            }
+            $invoiceMappings = $this->mapSitesToInvoiceMapping($accountSites, $account, $invoiceMappings);
         }
 
         return array_values($invoiceMappings);
@@ -424,5 +410,31 @@ class Mappings
             $accountSites,
             array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
         ));
+    }
+
+    /**
+     * @param array $accountSites
+     * @param Account $account
+     * @param array $invoiceMappings
+     * @return array
+     */
+    protected function mapSitesToInvoiceMapping(array $accountSites, Account $account, array $invoiceMappings): array
+    {
+        if (empty($accountSites)) {
+            $accountSites[] = null;
+        }
+
+        foreach ($accountSites as $site) {
+            $invoiceMapping = $this->invoiceMappingMapper->fromArray([
+                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                'accountId' => $account->getId(),
+                'site' => $site,
+            ]);
+
+            if (!isset($invoiceMappings[$invoiceMapping->getId()])) {
+                $invoiceMappings[$invoiceMapping->getId()] = $invoiceMapping;
+            }
+        }
+        return $invoiceMappings;
     }
 }
