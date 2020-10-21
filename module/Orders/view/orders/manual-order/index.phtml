@@ -30,7 +30,7 @@ require(
 
     var utilities = {
         ou: new OuUtils({ ouList: JSON.parse('<?= str_replace("'", "\\'", $tradingCompanies); ?>') }),
-        carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
+        carrier: new CarrierUtils({ carriersList: JSON.parse('<?= str_replace("'", "\\'", $carriersJson); ?>') }),
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' }),
         orderItems: JSON.parse('<?= str_replace("'", "\\'", $orderItems); ?>'),
