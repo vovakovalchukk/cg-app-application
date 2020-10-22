@@ -3819,7 +3819,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "e995dd93f004f3c0fc40afc875b0efb9fe75697b"
+                "reference": "af65f37b37e95a933d81cc8b1693d8ad678712d4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
