@@ -2463,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9ba0bfba1e1edae31bf9a088f9f2257e15fe6099"
+                "reference": "b621a23886f6eda2c3590c10bcb5b5472b1afebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-a0cc63.zip",
-                "reference": "9ba0bfba1e1edae31bf9a088f9f2257e15fe6099"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-49f34e.zip",
+                "reference": "b621a23886f6eda2c3590c10bcb5b5472b1afebb"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-10-21T16:40:44+00:00"
+            "time": "2020-10-22T10:26:28+00:00"
         },
         {
             "name": "channelgrabber/partner",
