@@ -148,7 +148,7 @@ class AuthoriseService implements LoggerAwareInterface
         return $partner->getAccountSuccessRedirectUrl();
     }
 
-    protected function fetchAccountRequestFromSession(): AccountRequest
+    public function fetchAccountRequestIdFromSession(): int
     {
         $session = $this->sessionManager->getStorage();
 
@@ -160,9 +160,7 @@ class AuthoriseService implements LoggerAwareInterface
             )) {
             throw new NotFound('The account request ID could not be found in the session data');
         }
-
-        $accountRequestId = $session[PermissionService::PARTNER_MANAGED_LOGIN][static::SESSION_KEY_ACCOUNT_REQUEST_ID];
-        return $this->accountRequestService->fetch($accountRequestId);
+        return $session[PermissionService::PARTNER_MANAGED_LOGIN][static::SESSION_KEY_ACCOUNT_REQUEST_ID];
     }
 
     protected function validateAccountRequest(AccountRequest $request, Partner $partner): void
