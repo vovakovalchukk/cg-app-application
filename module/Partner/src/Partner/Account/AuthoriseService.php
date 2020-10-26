@@ -135,9 +135,9 @@ class AuthoriseService implements LoggerAwareInterface
         return $partner;
     }
 
-    public function fetchPartnerSuccessRedirectUrlFromSession(Account $account): string
+    public function fetchPartnerSuccessRedirectUrl(Account $account, int $accountRequestId): string
     {
-        $accountRequest = $this->fetchAccountRequestFromSession();
+        $accountRequest = $this->accountRequestService->fetch($accountRequestId);
         $this->markAccountRequestAsSuccessful($accountRequest, $account);
 
         /** @var Partner $partner */
