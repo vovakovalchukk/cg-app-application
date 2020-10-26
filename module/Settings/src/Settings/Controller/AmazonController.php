@@ -81,7 +81,7 @@ class AmazonController extends ChannelControllerAbstract implements
         );
 
         try {
-            $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+            $url = $this->fetchPartnerSuccessRedirectUrl($accountEntity);
             $this->logDebug(static::LOG_MESSAGE_PARTNER_SUCCESS_REDIRECT, [$ouId, $url], static::LOG_CODE, ['ouId' => $ouId]);
         } catch (NotFound $exception) {
             $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
