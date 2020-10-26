@@ -4,11 +4,13 @@ namespace Partner\Controller;
 use Application\Controller\AbstractJsonController;
 use CG\Account\Request\Entity as AccountRequest;
 use CG\Partner\Entity as Partner;
+use CG_Permission\Service as PermissionService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Partner\Account\AuthoriseService;
 use Partner\Account\InvalidRequestException;
 use Partner\Account\InvalidTokenException;
+use Zend\Http\Header\SetCookie;
 use Zend\View\Model\ViewModel;
 
 class AccountController extends AbstractJsonController
@@ -40,7 +42,7 @@ class AccountController extends AbstractJsonController
             $accountRequest = $this->authoriseService->fetchAccountRequestForToken($token);
             $partner = $this->authoriseService->fetchPartner($accountRequest->getPartnerId(), $token);
             $redirectUrl = $this->authoriseService->connectAccount($accountRequest, $partner, $token, $signature, $uri);
-
+            $this->setAccountRequestCookie($accountRequest);
             return $this->buildAccountConnectionViewModel($accountRequest, $partner, $redirectUrl);
         } catch (InvalidTokenException $e) {
             return $this->buildErrorResponse('Invalid request');
@@ -51,6 +53,12 @@ class AccountController extends AbstractJsonController
             $this->logErrorException($e);
             return $this->buildErrorResponse('Invalid request');
         }
+    }
+
+    protected function setAccountRequestCookie(AccountRequest $accountRequest): void
+    {
+        $cookie = new SetCookie(PermissionService::PARTNER_MANAGED_LOGIN, $accountRequest->getId(), time() + 15 * 60);
+        $this->getResponse()->getHeaders()->addHeader($cookie);
     }
 
     protected function buildAccountConnectionViewModel(
