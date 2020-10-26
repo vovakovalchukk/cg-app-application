@@ -2,11 +2,14 @@
 namespace Settings\Controller;
 
 use CG\Account\CreationServiceAbstract as AccountCreationService;
+use CG\Account\Shared\Entity as Account;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
+use CG_Permission\Service as PermissionService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Partner\Account\AuthoriseService as PartnerAuthoriseService;
@@ -74,6 +77,25 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     protected function getActiveUserRootOrganisationUnit(): OrganisationUnit
     {
         return $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+    }
+
+    protected function fetchPartnerSuccessRedirectUrl(Account $account): string
+    {
+        try {
+            $accountRequestId = $this->partnerAuthoriseService->fetchAccountRequestIdFromSession();
+        } catch (NotFound $e) {
+            $accountRequestId = $this->getPartnerAccountRequestIdFromCookie();
+        }
+        return $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrl($account, $accountRequestId);
+    }
+
+    protected function getPartnerAccountRequestIdFromCookie(): int
+    {
+        $cookie = $this->getRequest()->getCookie();
+        if ($cookie->offsetExists(PermissionService::PARTNER_MANAGED_LOGIN)) {
+            return $cookie->offsetGet(PermissionService::PARTNER_MANAGED_LOGIN);
+        }
+        throw new NotFound('Partner account request ID not found in cookie');
     }
 
     /**
