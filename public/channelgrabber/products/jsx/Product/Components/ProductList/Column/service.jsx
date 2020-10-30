@@ -63,7 +63,7 @@ let detailsColumns = [
     },
     {
         key: 'dimensions',
-        width: 280,
+        width: 220,
         headerText: 'Dimensions',
         fixed: false,
         align: 'center'
@@ -79,7 +79,7 @@ let detailsColumns = [
     {
         key: 'ean',
         type: 'barcode',
-        width: 150,
+        width: 140,
         headerText: 'EAN',
         fixed: false,
         align: 'center'
@@ -87,7 +87,7 @@ let detailsColumns = [
     {
         key: 'upc',
         type: 'barcode',
-        width: 150,
+        width: 140,
         headerText: 'UPC',
         fixed: false,
         align: 'center'
@@ -95,7 +95,7 @@ let detailsColumns = [
     {
         key: 'mpn',
         type: 'barcode',
-        width: 150,
+        width: 140,
         headerText: 'MPN',
         fixed: false,
         align: 'center'
@@ -103,8 +103,16 @@ let detailsColumns = [
     {
         key: 'isbn',
         type: 'barcode',
-        width: 150,
+        width: 140,
         headerText: 'ISBN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'hsTariffNumber',
+        type: 'barcode',
+        width: 140,
+        headerText: 'HS Tariff Number',
         fixed: false,
         align: 'center'
     },
