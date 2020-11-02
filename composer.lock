@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "887cf4e3d0ca0ab9360a20b49019dfed",
+    "content-hash": "4ddbc51c1fc881718cbd53f2c655b407",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1394,16 +1394,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.16",
+            "version": "1.21.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3"
+                "reference": "9bf53e0e55d98748c5c6ae57731186ed0f5792a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.16-df0ce3.zip",
-                "reference": "8bb26d46ebec563a03c7fac9fdd2f322052e62f3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.17-2087a4.zip",
+                "reference": "9bf53e0e55d98748c5c6ae57731186ed0f5792a3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1455,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-10-02T12:41:26+00:00"
+            "time": "2020-10-26T09:55:16+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3821,6 +3821,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "af65f37b37e95a933d81cc8b1693d8ad678712d4"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11664-invoice-multilabels-8c3c68.zip",
+                "reference": "af65f37b37e95a933d81cc8b1693d8ad678712d4"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.6.0",
@@ -3870,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-10-12T12:33:37+00:00"
+            "time": "2020-10-22T16:23:32+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -12014,8 +12019,8 @@
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

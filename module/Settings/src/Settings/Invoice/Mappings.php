@@ -6,6 +6,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Amazon\Region\Service as AmazonRegionService;
 use CG\Ebay\Site\Map as EbaySiteMap;
+use CG\Ebay\Order\Marketplace\Handler as OrderMarketplaceHandler;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Client\Service as MarketplaceService;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
@@ -48,6 +49,18 @@ class Mappings
     protected $organisationUnitService;
     /** @var AmazonRegionService $amazonRegionService */
     protected $amazonRegionService;
+    /** @var OrderMarketplaceHandler $orderMarketplaceHandler */
+    protected $orderMarketplaceHandler;
+
+    protected $invoiceMappingMethodMap = [
+        'ebay' => [
+            'addMarketplaceListForEbayAccount',
+            'addGspCountriesForEbayAccount'
+        ],
+        'amazon' => [
+            'addFbaCountriesForAmazonAccount'
+        ]
+    ];
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -58,7 +71,8 @@ class Mappings
         InvoiceMappingMapper $invoiceMappingMapper,
         AccountService $accountService,
         OrganisationUnitService $organisationUnitService,
-        AmazonRegionService $amazonRegionService
+        AmazonRegionService $amazonRegionService,
+        OrderMarketplaceHandler $orderMarketplaceHandler
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->helper = $helper;
@@ -69,6 +83,7 @@ class Mappings
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
         $this->amazonRegionService = $amazonRegionService;
+        $this->orderMarketplaceHandler = $orderMarketplaceHandler;
     }
 
     public function saveInvoiceMappingFromPostData(array $postData)
@@ -175,60 +190,21 @@ class Mappings
      */
     protected function getInvoiceMappingsForAccounts(Accounts $accounts)
     {
-        $invoiceMappings = [];
-
-        try {
-            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
-                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
-            );
-
-            /** @var InvoiceMapping $existingMapping */
-            foreach ($existingMappings as $existingMapping) {
-                $invoiceMappings[$existingMapping->getId()] = $existingMapping;
-            }
-        } catch (NotFound $exception) {
-            // No previous invoice mappings
-        }
-
+        $invoiceMappings = $this->fetchInvoiceMappings($accounts);
         $accountSiteMap = $this->getAccountSiteMap($accounts);
 
         /** @var Account $account */
         foreach ($accounts as $account) {
             $accountId = $account->getId();
+            $accountSites = $this->getAccountSiteMapForAccount($accountSiteMap, $accountId);
 
-            $accountSites = [];
-            if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
-                $accountSites = $accountSiteMap[$accountId];
+            foreach (($this->invoiceMappingMethodMap[$account->getChannel()] ?? []) as $method) {
+                $accountSites = $this->$method($account, $accountSites);
             }
-            if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
-                $accountSites = array_unique(array_merge(
-                    $accountSites,
-                    array_keys(EbaySiteMap::getSiteIdByCountryCode())
-                ));
-            }
-            if ($account->getChannel() == 'amazon' && $account->getExternalData()['fbaOrderImport']){
-                $accountSites = array_unique(array_merge(
-                    $accountSites,
-                    array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
-                ));
-            }
+
             sort($accountSites);
 
-            if (empty($accountSites)) {
-                $accountSites[] = null;
-            }
-
-            foreach ($accountSites as $site) {
-                $invoiceMapping = $this->invoiceMappingMapper->fromArray([
-                    'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-                    'accountId' => $account->getId(),
-                    'site' => $site,
-                ]);
-
-                if (!isset($invoiceMappings[$invoiceMapping->getId()])) {
-                    $invoiceMappings[$invoiceMapping->getId()] = $invoiceMapping;
-                }
-            }
+            $invoiceMappings = $this->mapSitesToInvoiceMapping($accountSites, $account, $invoiceMappings);
         }
 
         return array_values($invoiceMappings);
@@ -351,5 +327,110 @@ class Mappings
     public function getDatatable()
     {
         return $this->datatable;
+    }
+
+    /**
+     * @param Accounts $accounts
+     * @return array
+     */
+    protected function fetchInvoiceMappings(Accounts $accounts): array
+    {
+        $invoiceMappings = [];
+        try {
+            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
+                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
+            );
+
+            /** @var InvoiceMapping $existingMapping */
+            foreach ($existingMappings as $existingMapping) {
+                $invoiceMappings[$existingMapping->getId()] = $existingMapping;
+            }
+        } catch (NotFound $exception) {
+            // No previous invoice mappings
+        }
+        return $invoiceMappings;
+    }
+
+    /**
+     * @param array $accountSiteMap
+     * @param int $accountId
+     * @return array
+     */
+    protected function getAccountSiteMapForAccount(array $accountSiteMap, int $accountId): array
+    {
+        return $accountSiteMap[$accountId] ?? [];
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addMarketplaceListForEbayAccount(Account $account, array $accountSites): array
+    {
+        return array_unique(array_merge(
+            $accountSites,
+            $this->orderMarketplaceHandler->getMarketplaceList($account)
+        ));
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addGspCountriesForEbayAccount(Account $account, array $accountSites): array
+    {
+        if (!$account->getExternalData()['globalShippingProgram']) {
+            return $accountSites;
+        }
+
+        return array_unique(array_merge(
+            $accountSites,
+            array_keys(EbaySiteMap::getSiteIdByCountryCode())
+        ));
+    }
+
+    /**
+     * @param Account $account
+     * @param array $accountSites
+     * @return array
+     */
+    protected function addFbaCountriesForAmazonAccount(Account $account, array $accountSites): array
+    {
+        if (!$account->getExternalData()['fbaOrderImport']) {
+            return $accountSites;
+        }
+
+        return array_unique(array_merge(
+            $accountSites,
+            array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
+        ));
+    }
+
+    /**
+     * @param array $accountSites
+     * @param Account $account
+     * @param array $invoiceMappings
+     * @return array
+     */
+    protected function mapSitesToInvoiceMapping(array $accountSites, Account $account, array $invoiceMappings): array
+    {
+        if (empty($accountSites)) {
+            $accountSites[] = null;
+        }
+
+        foreach ($accountSites as $site) {
+            $invoiceMapping = $this->invoiceMappingMapper->fromArray([
+                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                'accountId' => $account->getId(),
+                'site' => $site,
+            ]);
+
+            if (!isset($invoiceMappings[$invoiceMapping->getId()])) {
+                $invoiceMappings[$invoiceMapping->getId()] = $invoiceMapping;
+            }
+        }
+        return $invoiceMappings;
     }
 }

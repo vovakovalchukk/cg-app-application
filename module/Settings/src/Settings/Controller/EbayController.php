@@ -30,7 +30,7 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
         );
 
         try {
-            $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+            $url = $this->fetchPartnerSuccessRedirectUrl($accountEntity);
         } catch (NotFound $e) {
             $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
             $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
