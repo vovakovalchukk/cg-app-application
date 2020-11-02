@@ -3819,12 +3819,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "af65f37b37e95a933d81cc8b1693d8ad678712d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11664-invoice-multilabels-8c3c68.zip",
-                "reference": "af65f37b37e95a933d81cc8b1693d8ad678712d4"
+                "reference": "0b9e07994f14411fb2b2adc50ddebcc0d31c7160"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -12019,8 +12014,8 @@
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
