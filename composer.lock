@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ddbc51c1fc881718cbd53f2c655b407",
+    "content-hash": "4a2af4c513ffc88afaa943064aea4ef5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3819,7 +3819,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "0b9e07994f14411fb2b2adc50ddebcc0d31c7160"
+                "reference": "55e13ecc38f390e46bbc14f199b9fac5fe726e7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11664-invoice-multilabels-b62c5f.zip",
+                "reference": "55e13ecc38f390e46bbc14f199b9fac5fe726e7f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3830,9 +3835,9 @@
                 "channelgrabber/image": "^1.2.11",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.47.13",
+                "channelgrabber/order": "dev-CGIV-11664-invoice-multilabels as 1.56.1",
                 "channelgrabber/product": "^1.18.6",
-                "channelgrabber/settings": "^1.6.5",
+                "channelgrabber/settings": "dev-CGIV-11664-invoice-multilabels as 1.9.1",
                 "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/user": "^1.26.8",
                 "ext-gd": "*",
@@ -3870,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-10-22T16:23:32+00:00"
+            "time": "2020-11-03T14:44:55+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -12001,8 +12006,8 @@
             "package": "channelgrabber/settings"
         },
         {
-            "alias": "1.11.6",
-            "alias_normalized": "1.11.6.0",
+            "alias": "1.12.0",
+            "alias_normalized": "1.12.0.0",
             "version": "dev-CGIV-11664-invoice-multilabels",
             "package": "channelgrabber/template"
         }
@@ -12014,8 +12019,8 @@
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
