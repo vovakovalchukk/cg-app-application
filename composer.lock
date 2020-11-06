@@ -5202,12 +5202,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "010889759e30e2ed403b930e032bdfea6d2d447d"
+                "reference": "3df3c844345b6aa882d6c78e86aebe314a323c3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-dev-CGIV-11689-bigcommerce-link-4185fc.zip",
-                "reference": "010889759e30e2ed403b930e032bdfea6d2d447d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-dev-CGIV-11689-bigcommerce-link-484a11.zip",
+                "reference": "3df3c844345b6aa882d6c78e86aebe314a323c3c"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -5235,7 +5235,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-11-05T12:47:51+00:00"
+            "time": "2020-11-06T12:32:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
