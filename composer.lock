@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4fbd04c26610da8ec743f82a90d071e",
+    "content-hash": "d3210760bce7de7f052e0e9fdad43142",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1018,10 +1018,15 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-origin/CGIV-11700-dpd-multipackage-consignment-issue",
+            "version": "dev-CGIV-11700-dpd-multipackage-consignment-issue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
+                "reference": "8e02b66889285fc3c6d7d6cb8f0d175e089bc3c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11700-dpd-multipackage-consignment-issue-8626b6.zip",
                 "reference": "8e02b66889285fc3c6d7d6cb8f0d175e089bc3c3"
             },
             "require": {
@@ -11991,7 +11996,7 @@
         {
             "alias": "1.2.13",
             "alias_normalized": "1.2.13.0",
-            "version": "dev-origin/CGIV-11700-dpd-multipackage-consignment-issue",
+            "version": "dev-CGIV-11700-dpd-multipackage-consignment-issue",
             "package": "channelgrabber/courier"
         }
     ],

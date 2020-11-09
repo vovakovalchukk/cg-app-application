@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-origin/CGIV-11700-dpd-multipackage-consignment-issue as 1.2.13",
+        "channelgrabber/courier": "dev-CGIV-11700-dpd-multipackage-consignment-issue as 1.2.13",
         "channelgrabber/courieradapter": "~1.6.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
