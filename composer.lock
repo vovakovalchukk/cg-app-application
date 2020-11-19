@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b41ecf2d585534b565b3e2c1fc5fc4f3",
+    "content-hash": "9f2007f78729e8d3d552cec31d4c5eae",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -483,16 +483,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.6",
+            "version": "dev-CGIV-11689-bigcommerce-link",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "6952957a4d985ca67e38427929103909d495eb63"
+                "reference": "27370ac73f2153a3d2160790e833ef196a17d32a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.6-00e334.zip",
-                "reference": "6952957a4d985ca67e38427929103909d495eb63"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11689-bigcommerce-link-69db3b.zip",
+                "reference": "27370ac73f2153a3d2160790e833ef196a17d32a"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -525,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-10-06T14:19:28+00:00"
+            "time": "2020-11-19T16:39:20+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -11994,6 +11994,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.7",
+            "alias_normalized": "1.4.7.0",
+            "version": "dev-CGIV-11689-bigcommerce-link",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
             "alias": "1.4.4",
             "alias_normalized": "1.4.4.0",
             "version": "dev-CGIV-11689-bigcommerce-link",
@@ -12002,6 +12008,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-ssoclient": 20,
         "phpish/link_header": 20,
