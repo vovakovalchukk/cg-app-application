@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f2007f78729e8d3d552cec31d4c5eae",
+    "content-hash": "399ce230f286e8039ee1f78af0fec794",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -483,16 +483,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-11689-bigcommerce-link",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "27370ac73f2153a3d2160790e833ef196a17d32a"
+                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11689-bigcommerce-link-69db3b.zip",
-                "reference": "27370ac73f2153a3d2160790e833ef196a17d32a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.7-146eca.zip",
+                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -525,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-11-19T16:39:20+00:00"
+            "time": "2020-11-20T10:20:03+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -5198,16 +5198,16 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "dev-CGIV-11689-bigcommerce-link",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "3df3c844345b6aa882d6c78e86aebe314a323c3c"
+                "reference": "1e56dd9fa9247d73a8c1ed29e71e69ec6139ed67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-dev-CGIV-11689-bigcommerce-link-484a11.zip",
-                "reference": "3df3c844345b6aa882d6c78e86aebe314a323c3c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-1.4.4-b11780.zip",
+                "reference": "1e56dd9fa9247d73a8c1ed29e71e69ec6139ed67"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -5235,7 +5235,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-11-06T12:32:23+00:00"
+            "time": "2020-11-20T10:16:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -11992,25 +11992,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.7",
-            "alias_normalized": "1.4.7.0",
-            "version": "dev-CGIV-11689-bigcommerce-link",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.4.4",
-            "alias_normalized": "1.4.4.0",
-            "version": "dev-CGIV-11689-bigcommerce-link",
-            "package": "channelgrabber/zf2-ssoclient"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-ssoclient": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
