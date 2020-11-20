@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a2af4c513ffc88afaa943064aea4ef5",
+    "content-hash": "6e0ecb83b62649dba3aaa289a7479f23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -483,16 +483,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.6",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "6952957a4d985ca67e38427929103909d495eb63"
+                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.6-00e334.zip",
-                "reference": "6952957a4d985ca67e38427929103909d495eb63"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.7-146eca.zip",
+                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -525,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-10-06T14:19:28+00:00"
+            "time": "2020-11-20T10:20:03+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -691,16 +691,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.17.2",
+            "version": "1.17.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "fc326e94483ff1deb2147da17eff7eed8437a458"
+                "reference": "255efec4ac8a13efe674bfe23509412078284c28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.17.2-c67dab.zip",
-                "reference": "fc326e94483ff1deb2147da17eff7eed8437a458"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.17.9-33743a.zip",
+                "reference": "255efec4ac8a13efe674bfe23509412078284c28"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.14",
@@ -757,7 +757,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2020-04-06T07:56:07+00:00"
+            "time": "2020-11-06T09:58:24+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -2463,17 +2463,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b621a23886f6eda2c3590c10bcb5b5472b1afebb"
+                "reference": "70361204efc73b056b6be85b6d6317c121fe1d14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-49f34e.zip",
-                "reference": "b621a23886f6eda2c3590c10bcb5b5472b1afebb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-231012.zip",
+                "reference": "70361204efc73b056b6be85b6d6317c121fe1d14"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "^1.17.2",
+                "channelgrabber/cglib": "^1.17.9",
                 "channelgrabber/channel": "^1.43.10",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-10-22T10:26:28+00:00"
+            "time": "2020-11-20T13:05:21+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3313,12 +3313,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "076e2c3b6f08e73eeba7d32194a3e310bc7e3ce4"
+                "reference": "92aac594b83709ff0a36d878c8f86ffa76e918a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-CGIV-11664-invoice-multilabels-ec264d.zip",
-                "reference": "076e2c3b6f08e73eeba7d32194a3e310bc7e3ce4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-CGIV-11664-invoice-multilabels-91c183.zip",
+                "reference": "92aac594b83709ff0a36d878c8f86ffa76e918a0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3341,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-10-16T13:12:22+00:00"
+            "time": "2020-11-20T13:02:45+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3819,12 +3819,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "55e13ecc38f390e46bbc14f199b9fac5fe726e7f"
+                "reference": "a19821c945e17260b5f7ddd96493bbac98745717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11664-invoice-multilabels-b62c5f.zip",
-                "reference": "55e13ecc38f390e46bbc14f199b9fac5fe726e7f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11664-invoice-multilabels-df5915.zip",
+                "reference": "a19821c945e17260b5f7ddd96493bbac98745717"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3835,7 +3835,7 @@
                 "channelgrabber/image": "^1.2.11",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-11664-invoice-multilabels as 1.56.1",
+                "channelgrabber/order": "dev-CGIV-11664-invoice-multilabels as 1.56.2",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/settings": "dev-CGIV-11664-invoice-multilabels as 1.9.1",
                 "channelgrabber/stdlib": "^2.16.11",
@@ -3875,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-11-03T14:44:55+00:00"
+            "time": "2020-11-20T16:49:36+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5198,16 +5198,16 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.3",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "3b199ae6832f3cd02ab65840fefdc93bd3863f86"
+                "reference": "1e56dd9fa9247d73a8c1ed29e71e69ec6139ed67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-1.4.3-56e8da.zip",
-                "reference": "3b199ae6832f3cd02ab65840fefdc93bd3863f86"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-ssoclient/channelgrabber-zf2-ssoclient-1.4.4-b11780.zip",
+                "reference": "1e56dd9fa9247d73a8c1ed29e71e69ec6139ed67"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -5235,7 +5235,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-30T11:57:37+00:00"
+            "time": "2020-11-20T10:16:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -11994,8 +11994,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.56.1",
-            "alias_normalized": "1.56.1.0",
+            "alias": "1.56.2",
+            "alias_normalized": "1.56.2.0",
             "version": "dev-CGIV-11664-invoice-multilabels",
             "package": "channelgrabber/order"
         },
