@@ -89,7 +89,7 @@
         "channelgrabber/stripe": "~1.0.2",
         "channelgrabber/supplier": "~1.0.1",
         "channelgrabber/tax": "~1.1.1",
-        "channelgrabber/template": "dev-CGIV-11311-invoice-components-only as 1.11.6",
+        "channelgrabber/template": "~1.11.6",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.4",
         "channelgrabber/user": "~1.28.0",
