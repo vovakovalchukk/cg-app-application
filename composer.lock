@@ -3315,6 +3315,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
                 "reference": "67b39c104a09735ae71b8caea7e1439e0250d1b7"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-CGIV-11742-order-auto-archive-d71ebc.zip",
+                "reference": "67b39c104a09735ae71b8caea7e1439e0250d1b7"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/di": "^2.2.0",
@@ -3336,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-03-12T10:03:37+00:00"
+            "time": "2020-12-01T13:44:05+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -10538,7 +10543,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11999,8 +12005,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
