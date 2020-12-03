@@ -2463,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "61c5e85537e9676df328a9c64a682b048a601e7f"
+                "reference": "d9003d38240ecd74b9e5d5bb2a132c753601ebee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-b6784f.zip",
-                "reference": "61c5e85537e9676df328a9c64a682b048a601e7f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11664-invoice-multilabels-7b140f.zip",
+                "reference": "d9003d38240ecd74b9e5d5bb2a132c753601ebee"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2524,6 +2524,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-11732-convert-busy-queues-to-dynamic": "1.56.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2539,7 +2544,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-12-02T14:59:04+00:00"
+            "time": "2020-12-02T15:03:07+00:00"
         },
         {
             "name": "channelgrabber/partner",
