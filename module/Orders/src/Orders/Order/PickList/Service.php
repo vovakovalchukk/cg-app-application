@@ -185,6 +185,7 @@ class Service implements LoggerAwareInterface
             $filter->setPage(1);
             $filter->setSku($skus);
             $filter->setOrganisationUnitId([$organisationUnitId]);
+            $filter->setEmbeddedDataToReturn([Product::EMBEDDED_DATA_TYPE_NONE]);
 
             return $this->productService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
