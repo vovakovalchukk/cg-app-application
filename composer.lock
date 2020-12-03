@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "58e12daf5f60b7e5711e2775fd2a07fa97b82bde"
+                "reference": "ac194af92463a169abe1080f8813b5b4881f374c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11750-update-test-pack-send-to-address-3ecc5e.zip",
-                "reference": "58e12daf5f60b7e5711e2775fd2a07fa97b82bde"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11750-update-test-pack-send-to-address-509ef3.zip",
+                "reference": "ac194af92463a169abe1080f8813b5b4881f374c"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-03T12:44:26+00:00"
+            "time": "2020-12-03T12:52:03+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
