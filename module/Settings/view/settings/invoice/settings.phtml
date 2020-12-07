@@ -85,6 +85,12 @@ $(document).ready(function() {
                     <?= $itemVariationAttributesCheckbox ?>
                 </div>
             </label>
+            <label>
+                <span class="inputbox-label">Show additional shipping labels:</span>
+                <div class="checkbox-holder">
+                    <?= $additionalShippingLabelsCheckbox ?>
+                </div>
+            </label>
             <div class="emailInvoiceFields">
 
                 <div id="emailInvoiceNotification" class="relative-notifications <?php if ($emailSendAs && $emailVerified) { echo 'hidden'; } ?>">

@@ -11,11 +11,12 @@ define([
 ){
         var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes, #itemVariationAttributes';
+            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes, #itemVariationAttributes, #additionalShippingLabels';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var itemVariationAttributesSettingsSelector = container + ' .invoiceDefaultSettings #itemVariationAttributes';
+            var additionalShippingLabelsSettingsSelector = container + ' .invoiceDefaultSettings #additionalShippingLabels';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
 
@@ -511,6 +512,7 @@ define([
                     'productImages': getProductImages(),
                     'itemBarcodes': getItemBarcodes(),
                     'itemVariationAttributes': getItemVariationAttributes(),
+                    'additionalShippingLabels': getAdditionalShippingLabels(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
                 };
@@ -593,6 +595,11 @@ define([
             var getItemVariationAttributes = function()
             {
                 return $(itemVariationAttributesSettingsSelector).is(':checked');
+            };
+
+            var getAdditionalShippingLabels = function()
+            {
+                return $(additionalShippingLabelsSettingsSelector).is(':checked');
             };
 
             var getTradingCompanies = function()
