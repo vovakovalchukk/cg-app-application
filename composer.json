@@ -20,7 +20,7 @@
     },
     "require": {
         "alcaeus/mongo-php-adapter": "~1.0.6",
-        "channelgrabber/amazon": "~1.37.0",
+        "channelgrabber/amazon": "dev-CGIV-11763-amazon-sfp-label-hotfix as 1.38.1",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.4.7",
         "channelgrabber/billing": "~1.21.0",
