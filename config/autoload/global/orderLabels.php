@@ -1,4 +1,5 @@
 <?php
+use CG\Template\Renderer\Pdf\AdditionalLabels as AdditionalLabelsRenderer;
 use CG\Template\Renderer\Pdf\Label as LabelRenderer;
 use CG\Template\Renderer\Pdf\Label\Repository;
 use CG\Template\Renderer\Pdf\Label\Storage\Redis;
@@ -8,6 +9,11 @@ return [
     'di' => [
         'instance' => [
             LabelRenderer::class => [
+                'parameters' => [
+                    'labelPdfStorage' => Repository::class,
+                ],
+            ],
+            AdditionalLabelsRenderer::class => [
                 'parameters' => [
                     'labelPdfStorage' => Repository::class,
                 ],

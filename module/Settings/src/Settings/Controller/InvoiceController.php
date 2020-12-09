@@ -236,6 +236,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
             ->addChild($this->getInvoiceSettingsItemVariationAttributesCheckboxView($invoiceSettings), 'itemVariationAttributesCheckbox')
+            ->addChild($this->getInvoiceSettingsAdditionalShippingLabelsCheckboxView($invoiceSettings), 'additionalShippingLabelsCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
@@ -527,6 +528,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'itemVariationAttributes',
                     'name' => 'itemVariationAttributes',
                     'selected' => $invoiceSettings->getItemVariationAttributes(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsAdditionalShippingLabelsCheckboxView(InvoiceSettingsEntity $invoiceSettings): ViewModel
+    {
+        return $this->viewModelFactory
+            ->newInstance(
+                [
+                    'id' => 'additionalShippingLabels',
+                    'name' => 'additionalShippingLabels',
+                    'selected' => $invoiceSettings->getAdditionalShippingLabels(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');
