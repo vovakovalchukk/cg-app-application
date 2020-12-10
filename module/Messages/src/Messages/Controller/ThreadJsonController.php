@@ -47,9 +47,7 @@ class ThreadJsonController extends AbstractActionController
         $page = $this->params()->fromPost('page');
         $sortDescending = filter_var($this->params()->fromPost('sortDescending', true), FILTER_VALIDATE_BOOLEAN);
 
-        // Temporary disable messages entirely!
-        // $threadsData = $this->threadService->fetchThreadDataForFilters($filters, $page, $sortDescending);
-        $threadsData = [];
+        $threadsData = $this->threadService->fetchThreadDataForFilters($filters, $page, $sortDescending);
 
         return $view->setVariable('threads', $threadsData);
     }
