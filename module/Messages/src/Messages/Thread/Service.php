@@ -33,7 +33,7 @@ class Service
 {
     use FormatMessageDataTrait;
 
-    protected const DEFAULT_LIMIT = 100;
+    protected const DEFAULT_LIMIT = 50;
     protected const KEY_HAS_NEW = 'messages-has-new-user:';
     protected const TTL_HAS_NEW = 300;
     protected const ASSIGNEE_ACTIVE_USER = 'active-user';
