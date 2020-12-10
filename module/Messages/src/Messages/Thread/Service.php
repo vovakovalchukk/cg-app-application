@@ -206,9 +206,10 @@ class Service
             $threadData['assignedUserName'] = $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
         }
 
-        if ($formatter = ($this->formatterFactory)($thread)) {
-            $threadData = $formatter($threadData, $thread);
-        }
+        // Temporary disable this so that we don't fetch any listing data from cg_app
+//        if ($formatter = ($this->formatterFactory)($thread)) {
+//            $threadData = $formatter($threadData, $thread);
+//        }
 
         return $threadData;
     }
