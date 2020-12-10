@@ -2,10 +2,6 @@
 namespace Messages\Thread;
 
 use CG\Communication\Message\Attachment\Collection as AttachmentCollection;
-use CG\Communication\Message\Attachment\Entity as Attachment;
-use CG\Communication\Message\Attachment\Filter as AttachmentFilter;
-use CG\Communication\Message\Attachment\Service as AttachmentService;
-use CG\Communication\Message\Collection as MessageCollection;
 use CG\Communication\Message\Entity as Message;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
@@ -23,6 +19,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
+use Messages\Message\Attachment\Service as AttachmentService;
 use Messages\Message\FormatMessageDataTrait;
 use Messages\Thread\Formatter\Factory as FormatterFactory;
 use Messages\Thread\OrdersInformation\Factory as OrdersInformationFactory;
@@ -146,7 +143,8 @@ class Service
         try {
             $threads = $this->threadService->fetchCollectionByFilter($threadFilter);
             $sortedThreads = $this->sortThreadCollection($threads);
-            return $this->convertThreadCollectionToArray($sortedThreads);
+            $attachments = $this->attachmentService->fetchAttachmentsForThreads($threads);
+            return $this->convertThreadCollectionToArray($sortedThreads, $attachments);
         } catch (Notfound $e) {
             return [];
         }
@@ -170,19 +168,24 @@ class Service
         return $this;
     }
 
-    protected function convertThreadCollectionToArray(ThreadCollection $threads): array
-    {
+    protected function convertThreadCollectionToArray(
+        ThreadCollection $threads,
+        AttachmentCollection $attachments
+    ): array {
         $threadsData = [];
         foreach ($threads as $thread) {
-            $threadsData[] = $this->formatThreadData($thread);
+            $threadsData[] = $this->formatThreadData($thread, $attachments);
         }
         return $threadsData;
     }
 
-    protected function formatThreadData(Thread $thread, bool $includeCounts = false): array
-    {
+    protected function formatThreadData(
+        Thread $thread,
+        AttachmentCollection $attachments,
+        bool $includeCounts = false
+    ): array {
         $threadData = $thread->toArray();
-        $threadData['messages'] = $this->formatMessagesData($thread);
+        $threadData['messages'] = $this->formatMessagesData($thread, $attachments);
 
         $ordersInformation = $this->ordersInformationFactory->fromThread($thread);
         $threadData['accountName'] = $ordersInformation->getAccountName();
@@ -213,10 +216,9 @@ class Service
         return $threadData;
     }
 
-    protected function formatMessagesData(Thread $thread): array
+    protected function formatMessagesData(Thread $thread, AttachmentCollection $attachments): array
     {
         $messages = [];
-        $attachments = $this->fetchAttachmentsForThread($thread);
         /** @var Message $message */
         foreach ($thread->getMessages() as $message) {
             /** @var AttachmentCollection $attachmentsForMessage */
@@ -226,19 +228,6 @@ class Service
         }
         ksort($messages);
         return array_values($messages);
-    }
-
-    protected function fetchAttachmentsForThread(Thread $thread): AttachmentCollection
-    {
-        /** @var MessageCollection $messages */
-        $messages = $thread->getMessages();
-        $filter = new AttachmentFilter('all', 1, [], array_values($messages->getIds()));
-
-        try {
-            return $this->attachmentService->fetchCollectionByFilter($filter);
-        } catch (NotFound $exception) {
-            return new AttachmentCollection(Attachment::class, __FUNCTION__);
-        }
     }
 
     public function getOrdersInformationForId(string $threadId): OrdersInformation
@@ -291,8 +280,10 @@ class Service
 
     public function fetchThreadDataForId(string $id): array
     {
+        /** @var Thread $thread */
         $thread = $this->threadService->fetch($id);
-        return $this->formatThreadData($thread);
+        $attachments = $this->attachmentService->fetchAttachmentsForThread($thread);
+        return $this->formatThreadData($thread, $attachments);
     }
 
     public function updateThreadAndReturnData(string $id, $assignedUserId = false, ?string $status = null): array
@@ -307,7 +298,9 @@ class Service
         } catch (NotModified $e) {
             // NoOp
         }
-        return $this->formatThreadData($thread);
+
+        $attachments = $this->attachmentService->fetchAttachmentsForThread($thread);
+        return $this->formatThreadData($thread, $attachments);
     }
 
     protected function updateThreadAssignedUserId(Thread $thread, $assignedUserId): Service
