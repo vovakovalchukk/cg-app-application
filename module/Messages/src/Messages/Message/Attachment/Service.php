@@ -28,12 +28,6 @@ class Service
         return $this->fetchAttachments($filter);
     }
 
-    public function fetchAttachmentsForThread(Thread $thread): AttachmentCollection
-    {
-        $threads = new ThreadCollection(Thread::class, __FUNCTION__);
-        return $this->fetchAttachmentsForThreads($threads);
-    }
-
     protected function buildMessageIdsFromThreads(ThreadCollection $threads): array
     {
         $messageIds = [];
