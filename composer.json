@@ -99,7 +99,7 @@
         "channelgrabber/woocommerce": "~1.6.1",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-access": "~1.1.0",
-        "channelgrabber/zf2-amazon": "~1.1.8",
+        "channelgrabber/zf2-amazon": "dev-CGIV-11723-redirect-to-new-guide-domain as 1.1.9",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-billing": "~1.2.10",
         "channelgrabber/zf2-channel": "~1.0.6",
