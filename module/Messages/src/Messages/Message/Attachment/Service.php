@@ -33,7 +33,7 @@ class Service
         $messageIds = [];
         /** @var Thread $thread */
         foreach ($threads as $thread) {
-            array_merge($messageIds, $thread->getMessages()->getIds());
+            $messageIds = array_merge($messageIds, $thread->getMessages()->getIds());
         }
         return array_unique(array_values($messageIds));
     }
@@ -49,8 +49,11 @@ class Service
     protected function fetchAttachments(AttachmentFilter $filter): AttachmentCollection
     {
         $attachments = new AttachmentCollection(Attachment::class, __FUNCTION__);
-        $page = 0;
+        if (empty($filter->getMessageId())) {
+            return $attachments;
+        }
 
+        $page = 0;
         do {
             $filter->setPage(++$page);
             try {
