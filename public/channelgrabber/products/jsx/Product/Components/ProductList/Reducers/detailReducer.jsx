@@ -37,6 +37,9 @@ let initialState = {
     },
     hsTariffNumber: {
         byProductId: {}
+    },
+    countryOfManufacture: {
+        byProductId: {}
     }
 };
 
