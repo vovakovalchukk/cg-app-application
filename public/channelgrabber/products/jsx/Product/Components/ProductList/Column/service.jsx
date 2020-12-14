@@ -56,7 +56,7 @@ let coreColumns = [
 let detailsColumns = [
     {
         key: 'weight',
-        width: 80,
+        width: 70,
         headerText: 'Weight',
         fixed: false,
         align: 'center'
@@ -70,7 +70,7 @@ let detailsColumns = [
     },
     {
         key: 'cost',
-        width: 80,
+        width: 70,
         headerText: 'Cost Price',
         fixed: false,
         align: 'center',
@@ -79,7 +79,7 @@ let detailsColumns = [
     {
         key: 'ean',
         type: 'barcode',
-        width: 140,
+        width: 135,
         headerText: 'EAN',
         fixed: false,
         align: 'center'
@@ -87,7 +87,7 @@ let detailsColumns = [
     {
         key: 'upc',
         type: 'barcode',
-        width: 140,
+        width: 135,
         headerText: 'UPC',
         fixed: false,
         align: 'center'
@@ -95,7 +95,7 @@ let detailsColumns = [
     {
         key: 'mpn',
         type: 'barcode',
-        width: 140,
+        width: 135,
         headerText: 'MPN',
         fixed: false,
         align: 'center'
@@ -103,7 +103,7 @@ let detailsColumns = [
     {
         key: 'isbn',
         type: 'barcode',
-        width: 140,
+        width: 135,
         headerText: 'ISBN',
         fixed: false,
         align: 'center'
@@ -111,7 +111,7 @@ let detailsColumns = [
     {
         key: 'hsTariffNumber',
         type: 'barcode',
-        width: 140,
+        width: 135,
         headerText: 'HS Tariff Number',
         fixed: false,
         align: 'center'
