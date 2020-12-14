@@ -70,7 +70,7 @@
         "channelgrabber/phinx": "~0.5.2",
         "channelgrabber/picklist": "~1.3.2",
         "channelgrabber/predis": "~1.1.17",
-        "channelgrabber/product": "dev-TAC-640-add-hs-code-on-products as 1.20.7",
+        "channelgrabber/product": "~1.20.7",
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.5",
         "channelgrabber/redis": "~1.0.2",
