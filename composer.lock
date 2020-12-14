@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "36686c5a7af23bbe0ab27b0624bde44f",
+    "content-hash": "050106af09e212265aa14df8d5543788",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2920,16 +2920,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-640-add-hs-code-on-products",
+            "version": "dev-TAC-638-bulk-export-import-HS-codes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "7bc615e4bd301ab51e131c9d72c3fc63eb41ca6c"
+                "reference": "9a85d96653ee19c7021c4e3624a13b46b2a03a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-640-add-hs-code-on-products-b001d5.zip",
-                "reference": "7bc615e4bd301ab51e131c9d72c3fc63eb41ca6c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-638-bulk-export-import-HS-codes-725494.zip",
+                "reference": "9a85d96653ee19c7021c4e3624a13b46b2a03a55",
                 "shasum": null
             },
             "require": {
@@ -2979,7 +2979,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-10-30T13:10:28+00:00"
+            "time": "2020-12-14T12:19:37+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12125,7 +12125,7 @@
         {
             "alias": "1.20.7",
             "alias_normalized": "1.20.7.0",
-            "version": "dev-TAC-640-add-hs-code-on-products",
+            "version": "dev-TAC-638-bulk-export-import-HS-codes",
             "package": "channelgrabber/product"
         }
     ],

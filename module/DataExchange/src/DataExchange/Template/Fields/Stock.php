@@ -18,7 +18,8 @@ class Stock implements FieldsInterface
         'MPN' => 'mpn',
         'ASIN' => 'asin',
         'ISBN' => 'isbn',
-        'GTIN' => 'gtin'
+        'GTIN' => 'gtin',
+        'HS Tariff Number' => 'hsTariffNumber'
     ];
 
     public static function getFields(): array
