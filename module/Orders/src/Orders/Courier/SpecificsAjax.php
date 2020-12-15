@@ -341,6 +341,8 @@ class SpecificsAjax
         $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth($locale), $item);
         $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight($locale), $item);
         $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength($locale), $item);
+        $data['harmonisedSystemCode'] = $productDetail->getHsTariffNumber();
+        $data['countryOfOrigin'] = $productDetail->getCountryOfManufacture();
 
         return $data;
     }
