@@ -56,14 +56,14 @@ let coreColumns = [
 let detailsColumns = [
     {
         key: 'weight',
-        width: 70,
+        width: 80,
         headerText: 'Weight',
         fixed: false,
         align: 'center'
     },
     {
         key: 'dimensions',
-        width: 200,
+        width: 220,
         headerText: 'Dimensions',
         fixed: false,
         align: 'center'
@@ -79,7 +79,7 @@ let detailsColumns = [
     {
         key: 'ean',
         type: 'barcode',
-        width: 130,
+        width: 135,
         headerText: 'EAN',
         fixed: false,
         align: 'center'
@@ -87,7 +87,7 @@ let detailsColumns = [
     {
         key: 'upc',
         type: 'barcode',
-        width: 130,
+        width: 135,
         headerText: 'UPC',
         fixed: false,
         align: 'center'
@@ -95,7 +95,7 @@ let detailsColumns = [
     {
         key: 'mpn',
         type: 'barcode',
-        width: 130,
+        width: 135,
         headerText: 'MPN',
         fixed: false,
         align: 'center'
@@ -103,24 +103,8 @@ let detailsColumns = [
     {
         key: 'isbn',
         type: 'barcode',
-        width: 130,
+        width: 135,
         headerText: 'ISBN',
-        fixed: false,
-        align: 'center'
-    },
-    {
-        key: 'hsTariffNumber',
-        type: 'barcode',
-        width: 130,
-        headerText: 'HS Tariff Number',
-        fixed: false,
-        align: 'center'
-    },
-    {
-        key: 'countryOfManufacture',
-        type: 'barcode',
-        width: 130,
-        headerText: 'Country Of Manufacture',
         fixed: false,
         align: 'center'
     },
@@ -138,6 +122,22 @@ let detailsColumns = [
         fixed: false,
         align: 'center'
     },
+    {
+        key: 'hsTariffNumber',
+        type: 'barcode',
+        width: 135,
+        headerText: 'HS Tariff Number',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        type: 'barcode',
+        key: 'countryOfManufacture',
+        width: 135,
+        headerText: 'Country Of Manufacture',
+        fixed: false,
+        align: 'center'
+    }
 ];
 
 let stockColumns = [
