@@ -119,8 +119,8 @@ let detailsColumns = [
     {
         key: 'countryOfManufacture',
         type: 'barcode',
-        width: 60,
-        headerText: 'Ctry Of Manufacture',
+        width: 130,
+        headerText: 'Country Of Manufacture',
         fixed: false,
         align: 'center'
     },
@@ -133,7 +133,7 @@ let detailsColumns = [
     },
     {
         key: 'supplier',
-        width: 140,
+        width: 150,
         headerText: 'Supplier',
         fixed: false,
         align: 'center'
