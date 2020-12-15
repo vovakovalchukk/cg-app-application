@@ -72,6 +72,7 @@ return [
                     'cost' => Module::PUBLIC_FOLDER . 'template/courier/columns/cost.mustache',
                     'insuranceOptions' => Module::PUBLIC_FOLDER . 'template/courier/columns/insuranceOptions.mustache',
                     'harmonisedSystemCode' => Module::PUBLIC_FOLDER . 'template/courier/columns/harmonisedSystemCode.mustache',
+                    'countryOfOrigin' => Module::PUBLIC_FOLDER . 'template/courier/columns/countryOfOrigin.mustache',
                 ],
             ],
         ],
