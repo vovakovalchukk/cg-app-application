@@ -1389,6 +1389,8 @@ return [
                 'CourierSpecificsCostColumn' => DataTable\Column::class,
                 'CourierSpecificsHarmonisedSystemCodeColumnView' => ViewModel::class,
                 'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
+                'CourierSpecificsCountryOfOriginColumnView' => ViewModel::class,
+                'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2706,7 +2708,23 @@ return [
                     'class' => 'harmonisedSystemCode-col',
                     'sortable' => false,
                     'order' => 115,
-                    'width' => '80px',
+                    'width' => '50px',
+                ],
+            ],
+            'CourierSpecificsCountryOfOriginColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Country of Origin'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCountryOfOriginColumn' => [
+                'parameters' => [
+                    'column' => 'countryOfOrigin',
+                    'viewModel' => 'CourierSpecificsCountryOfOriginColumnView',
+                    'class' => 'countryOfOrigin-col',
+                    'sortable' => false,
+                    'order' => 117,
+                    'width' => '30px',
                 ],
             ],
         ],
