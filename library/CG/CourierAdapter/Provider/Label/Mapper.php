@@ -7,6 +7,7 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
 use CG\Locale\Mass as LocaleMass;
@@ -121,6 +122,9 @@ class Mapper
         }
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
             $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
+        }
+        if (is_a($shipmentClass, EoriNumberInterface::class, true)) {
+            $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
         }
 
         return $caShipmentData;
