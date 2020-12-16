@@ -173,7 +173,7 @@ class Mapper
         return new CAPackageContent(
             $item->getItemName(),
             $itemData['harmonisedSystemCode'] ?? '',
-            'GB',
+            $itemData['countryOfOrigin'] ?? 'GB',
             $parcelItemQty,
             $itemUnitWeight,
             $item->getIndividualItemPrice(),

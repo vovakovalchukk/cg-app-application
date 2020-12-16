@@ -1,4 +1,4 @@
-{{#actionRow}}
-<input type="text" data-required="true" value="{{countryOfOrigin}}" name="orderData[{{orderId}}][countryOfOrigin]" id="courier-order-countryOfOrigin-{{orderId}}" class="inputbox courier-order-countryOfOrigin" />
-{{/actionRow}}
-{{^actionRow}}&nbsp;{{/actionRow}}
+{{#itemRow}}
+    <input type="text" data-required="true" value="{{countryOfOrigin}}" name="itemData[{{orderId}}][{{itemId}}][countryOfOrigin]" id="courier-order-countryOfOrigin-{{orderId}}-{{itemId}}" class="inputbox courier-order-countryOfOrigin" />
+{{/itemRow}}
+{{^itemRow}}&nbsp;{{/itemRow}}
