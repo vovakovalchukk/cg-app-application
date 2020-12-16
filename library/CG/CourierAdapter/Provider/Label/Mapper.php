@@ -122,6 +122,7 @@ class Mapper
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
             $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
         }
+        //@todo here add EORI NUMBER
 
         return $caShipmentData;
     }

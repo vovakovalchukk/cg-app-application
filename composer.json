@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.2.13",
+        "channelgrabber/courier": "dev-TAC-642-dpd-brexit-changes as 1.2.14",
         "channelgrabber/courieradapter": "dev-TAC-648-intersoft-brexit as 1.6.2",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",

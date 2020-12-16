@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c0ad5036796952d21fbc41001b743f0",
+    "content-hash": "48be9ef9450fef52550831ed84493725",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1018,16 +1018,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.2.13",
+            "version": "dev-TAC-642-dpd-brexit-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "35cee09472abd8fff654e160002d33888490e74c"
+                "reference": "3d3dd44705411cd7089c63f604c1729c37b85659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.13-c54e85.zip",
-                "reference": "35cee09472abd8fff654e160002d33888490e74c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-642-dpd-brexit-changes-e34b07.zip",
+                "reference": "3d3dd44705411cd7089c63f604c1729c37b85659"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-07T16:57:40+00:00"
+            "time": "2020-12-16T17:27:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11994,6 +11994,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.14",
+            "alias_normalized": "1.2.14.0",
+            "version": "dev-TAC-642-dpd-brexit-changes",
+            "package": "channelgrabber/courier"
+        },
+        {
             "alias": "1.6.2",
             "alias_normalized": "1.6.2.0",
             "version": "dev-TAC-648-intersoft-brexit",
@@ -12027,6 +12033,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "channelgrabber/user": 20,
