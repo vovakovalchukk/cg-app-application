@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbda2b0527f687681524bbe3414cf457",
+    "content-hash": "0c0ad5036796952d21fbc41001b743f0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1070,16 +1070,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.6.1",
+            "version": "dev-TAC-648-intersoft-brexit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "554a44a01e01bb4438f980409ed9348863b94ac8"
+                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.6.1-88e69b.zip",
-                "reference": "554a44a01e01bb4438f980409ed9348863b94ac8"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-648-intersoft-brexit-497684.zip",
+                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1103,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-10-24T15:08:11+00:00"
+            "time": "2020-12-16T15:59:33+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.56.4",
+            "version": "dev-TAC-648-intersoft-brexit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9c26f8d008cf05eef60070068fccd67f4322efdb"
+                "reference": "85b59c41e138530dbca37e1b3f3ef4d4c73b6b5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.56.4-068241.zip",
-                "reference": "9c26f8d008cf05eef60070068fccd67f4322efdb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-648-intersoft-brexit-f5a852.zip",
+                "reference": "85b59c41e138530dbca37e1b3f3ef4d4c73b6b5a"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2495,7 +2495,7 @@
                 "channelgrabber/opsgenie": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.16.7",
+                "channelgrabber/product": "^1.20.6",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.6.4",
@@ -2524,11 +2524,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-11732-convert-busy-queues-to-dynamic": "1.56.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2544,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-12-07T15:41:34+00:00"
+            "time": "2020-12-15T19:04:32+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11999,6 +11994,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.6.2",
+            "alias_normalized": "1.6.2.0",
+            "version": "dev-TAC-648-intersoft-brexit",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.56.8",
+            "alias_normalized": "1.56.8.0",
+            "version": "dev-TAC-648-intersoft-brexit",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.28.4",
             "alias_normalized": "1.28.4.0",
             "version": "dev-TAC-651-add-eori-numbers",
@@ -12020,6 +12027,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
