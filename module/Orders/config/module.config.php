@@ -1391,6 +1391,8 @@ return [
                 'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
                 'CourierSpecificsCountryOfOriginColumnView' => ViewModel::class,
                 'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
+                'CourierSpecificsEoriNumberColumnView' => ViewModel::class,
+                'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2722,6 +2724,23 @@ return [
                     'column' => 'countryOfOrigin',
                     'viewModel' => 'CourierSpecificsCountryOfOriginColumnView',
                     'class' => 'countryOfOrigin-col',
+                    'sortable' => false,
+                    'order' => 117,
+                    'width' => '30px',
+                ],
+            ],
+            'CourierSpecificsEoriNumberColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'EORI Number'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/eoriNumber.phtml',
+                ],
+            ],
+            'CourierSpecificsEoriNumberColumn' => [
+                'parameters' => [
+                    'column' => 'eoriNumber',
+                    'viewModel' => 'CourierSpecificsEoriNumberColumnView',
+                    'class' => 'eoriNumber-col',
                     'sortable' => false,
                     'order' => 117,
                     'width' => '30px',

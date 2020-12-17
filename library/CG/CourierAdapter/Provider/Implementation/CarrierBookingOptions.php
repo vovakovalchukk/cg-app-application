@@ -50,6 +50,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\PackageTypesInterface::class => 'packageType',
             ShipmentField\SaturdayDeliveryInterface::class => 'saturday',
             ShipmentField\SignatureRequiredInterface::class => 'signature',
+            ShipmentField\EoriNumberInterface::class => 'eoriNumber',
         ]
     ];
 
