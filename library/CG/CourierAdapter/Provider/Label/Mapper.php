@@ -123,13 +123,9 @@ class Mapper
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
             $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
         }
-<<<<<<< HEAD
-        //@todo here add EORI NUMBER
-=======
         if (is_a($shipmentClass, EoriNumberInterface::class, true)) {
             $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
         }
->>>>>>> TAC-648-intersoft-brexit
 
         return $caShipmentData;
     }
