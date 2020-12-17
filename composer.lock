@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "81c645422e7d966eeb7c808dfa09415adfec8835"
+                "reference": "40cf7d12f283b92d8708d374c4dcdace8dba7efa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-642-dpd-brexit-changes-d7fff4.zip",
-                "reference": "81c645422e7d966eeb7c808dfa09415adfec8835"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-642-dpd-brexit-changes-670523.zip",
+                "reference": "40cf7d12f283b92d8708d374c4dcdace8dba7efa"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-17T13:19:47+00:00"
+            "time": "2020-12-17T14:18:58+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1074,12 +1074,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe"
+                "reference": "8f27756889aef599460f674d25c7fe42aaf07213"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-648-intersoft-brexit-497684.zip",
-                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-648-intersoft-brexit-48221c.zip",
+                "reference": "8f27756889aef599460f674d25c7fe42aaf07213"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1103,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-16T15:59:33+00:00"
+            "time": "2020-12-17T14:16:57+00:00"
         },
         {
             "name": "channelgrabber/currency",
