@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "28287d114a86e8d7f89479e1bd6ac969e3ddf4bf"
+                "reference": "81c645422e7d966eeb7c808dfa09415adfec8835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-642-dpd-brexit-changes-0249eb.zip",
-                "reference": "28287d114a86e8d7f89479e1bd6ac969e3ddf4bf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-642-dpd-brexit-changes-d7fff4.zip",
+                "reference": "81c645422e7d966eeb7c808dfa09415adfec8835"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-17T12:08:22+00:00"
+            "time": "2020-12-17T13:19:47+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
