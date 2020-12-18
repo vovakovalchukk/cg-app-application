@@ -2713,6 +2713,22 @@ return [
                     'width' => '50px',
                 ],
             ],
+            'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'HS Code Description'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeDescriptionColumn' => [
+                'parameters' => [
+                    'column' => 'harmonisedSystemCodeDescription',
+                    'viewModel' => 'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView',
+                    'class' => 'harmonisedSystemCodeDescription-col',
+                    'sortable' => false,
+                    'order' => 117,
+                    'width' => '50px',
+                ],
+            ],
             'CourierSpecificsCountryOfOriginColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Country of Origin'],
@@ -2725,7 +2741,7 @@ return [
                     'viewModel' => 'CourierSpecificsCountryOfOriginColumnView',
                     'class' => 'countryOfOrigin-col',
                     'sortable' => false,
-                    'order' => 117,
+                    'order' => 119,
                     'width' => '30px',
                 ],
             ],
@@ -2742,7 +2758,7 @@ return [
                     'viewModel' => 'CourierSpecificsEoriNumberColumnView',
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
-                    'order' => 117,
+                    'order' => 121,
                     'width' => '30px',
                 ],
             ],
