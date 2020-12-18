@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00cb00e9088b30de819ff0b3d41b292c",
+    "content-hash": "e13829d7dbe1417160912571c0db1e79",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-648-intersoft-brexit",
+            "version": "dev-TAC-644-parcelforce-brexit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "85b59c41e138530dbca37e1b3f3ef4d4c73b6b5a"
+                "reference": "fb2458d7e1e648faccc732b659789df7fc1648b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-648-intersoft-brexit-f5a852.zip",
-                "reference": "85b59c41e138530dbca37e1b3f3ef4d4c73b6b5a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-644-parcelforce-brexit-4b68a5.zip",
+                "reference": "fb2458d7e1e648faccc732b659789df7fc1648b4"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-12-15T19:04:32+00:00"
+            "time": "2020-12-18T16:10:59+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12006,9 +12006,9 @@
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.56.5",
-            "alias_normalized": "1.56.5.0",
-            "version": "dev-TAC-648-intersoft-brexit",
+            "alias": "1.56.6",
+            "alias_normalized": "1.56.6.0",
+            "version": "dev-TAC-644-parcelforce-brexit",
             "package": "channelgrabber/order"
         }
     ],

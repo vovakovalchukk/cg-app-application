@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.1",
-        "channelgrabber/order": "dev-TAC-648-intersoft-brexit as 1.56.5",
+        "channelgrabber/order": "dev-TAC-644-parcelforce-brexit as 1.56.6",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
