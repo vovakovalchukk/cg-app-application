@@ -1389,6 +1389,8 @@ return [
                 'CourierSpecificsCostColumn' => DataTable\Column::class,
                 'CourierSpecificsHarmonisedSystemCodeColumnView' => ViewModel::class,
                 'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
+                'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView' => ViewModel::class,
+                'CourierSpecificsHarmonisedSystemCodeDescriptionColumn' => DataTable\Column::class,
                 'CourierSpecificsCountryOfOriginColumnView' => ViewModel::class,
                 'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
                 'CourierSpecificsEoriNumberColumnView' => ViewModel::class,

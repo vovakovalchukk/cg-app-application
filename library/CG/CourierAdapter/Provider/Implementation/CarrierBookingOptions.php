@@ -38,7 +38,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\WeightInterface::class => 'weight',
             PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
             PackageField\CountryOfOriginInterface::class => 'countryOfOrigin',
-            PackageField\HarmonisedSystemCodeDescriptionInterface => 'harmonisedSystemCodeDescription',
+            PackageField\HarmonisedSystemCodeDescriptionInterface::class => 'harmonisedSystemCodeDescription',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',

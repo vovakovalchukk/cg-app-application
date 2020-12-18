@@ -1024,6 +1024,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "292daa314be32082908460427aaaad20677972a3"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-644-parcelforce-brexit-34deb2.zip",
+                "reference": "292daa314be32082908460427aaaad20677972a3"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
                 "channelgrabber/locale": "^1.0.17",
@@ -1061,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-18T15:31:59+00:00"
+            "time": "2020-12-18T16:51:21+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1069,6 +1074,11 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
+                "reference": "d01eec4883c252a4d1fd4167695f2547bf97447a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-644-parcelforce-brexit-fc1638.zip",
                 "reference": "d01eec4883c252a4d1fd4167695f2547bf97447a"
             },
             "require": {
@@ -1093,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-18T15:38:35+00:00"
+            "time": "2020-12-18T16:52:07+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -12009,8 +12019,8 @@
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
