@@ -264,7 +264,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
             'cost' => $detailsEntity->getDisplayCost(),
             'supplierId' => $detailsEntity->getSupplierId(),
-            'hsTariffNumber' => $detailsEntity->getHsTariffNumber()
+            'hsTariffNumber' => $detailsEntity->getHsTariffNumber(),
+            'countryOfManufacture' => $detailsEntity->getCountryOfManufacture()
         ], $channelDetails);
     }
 
