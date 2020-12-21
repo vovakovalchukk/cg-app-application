@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "943df7b4f927d461f6e28af392637207",
+    "content-hash": "a3fd88a40e7e2973c3214b1a251d878d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2921,6 +2921,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
                 "reference": "c7b6e5aa015bd563380e6cc69c58c8b20b410639"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-638-bulk-export-import-HS-codes-075ec9.zip",
+                "reference": "c7b6e5aa015bd563380e6cc69c58c8b20b410639",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.42.13",
@@ -2968,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-12-18T11:38:02+00:00"
+            "time": "2020-12-21T12:44:01+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12123,8 +12129,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
