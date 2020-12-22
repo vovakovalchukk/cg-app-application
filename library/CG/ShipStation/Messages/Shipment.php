@@ -81,7 +81,7 @@ class Shipment
         }
         $customs = null;
         if ($carrierService->isInternational()) {
-            $customs = Customs::createFromOrder($order, $rootOu);
+            $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
         }
         $shipDate = new DateTime();
 
