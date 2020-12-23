@@ -1,8 +1,8 @@
-<?= $this->partial('value.phtml', compact('value')) ?>
-<?php $this->inlineScript()->captureStart() ?>
-    require(['<?= Orders\Module::PUBLIC_FOLDER ?>js/Courier/Specifics/Columns/EoriNumber.js'], function(EoriNumber)
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/EoriNumber.js'], function(EoriNumber)
     {
         var templatePath = "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache";
-        var insuranceOption = new EoriNumber(templatePath);
+        var packageType = new EoriNumber(templatePath);
     });
-<?php $this->inlineScript()->captureEnd() ?>
+</script>

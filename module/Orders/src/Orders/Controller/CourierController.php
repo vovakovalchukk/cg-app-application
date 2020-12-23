@@ -3,11 +3,14 @@ namespace Orders\Controller;
 
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter;
-use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Zend\Stdlib\Http\FileResponse;
@@ -21,13 +24,10 @@ use Orders\Courier\ShippingAccountsService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Orders\Courier\SpecificsPage as SpecificsPageService;
 use Orders\Module;
+use Orders\Module as OrdersModule;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
-use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
-use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
-use Orders\Module as OrdersModule;
 
 class CourierController extends AbstractActionController
 {
@@ -229,7 +229,7 @@ class CourierController extends AbstractActionController
             $orderServices[$orderId] = $serviceId;
         }
 
-        $courierAccounts = $this->specificsPageService->fetchAccountsById($courierIds);
+        $courierAccounts = $this->specificsPageService->fetchAccountsById(array_merge($courierIds, [$selectedCourierId]));
         if ($selectedCourierId) {
             $selectedCourier = $courierAccounts->getById($selectedCourierId);
         } else {
