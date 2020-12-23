@@ -38,6 +38,7 @@ class Create extends PostAbstract
     const MAX_ADDRESS_FIELDS_LEN = self::MAX_ADDRESS_FIELDS * self::MAX_LEN_DEFAULT;
     const MAX_LEN_HS_CODE = 10;
     const LEN_COUNTRY_CODE = 2;
+    const PRE_REGISTRATION_TYPE_EORI = 'EORI';
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -160,6 +161,7 @@ class Create extends PostAbstract
         $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
         $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
         $shipmentInformation = $this->addServiceOptions($shipmentInformation);
+        $shipmentInformation = $this->addCustomsInformation($shipmentInformation);
         $shipmentInformation = $this->addPackageInformation($shipmentInformation);
         $shipmentInformation = $this->addItemInformation($shipmentInformation);
         $shipmentInformation = $this->addShipmentOverview($shipmentInformation);
@@ -205,6 +207,14 @@ class Create extends PostAbstract
         foreach ($serviceEnhancementsArray as $serviceEnhancementCode) {
             $serviceEnhancements->addChild('serviceEnhancementCode', $serviceEnhancementCode);
         }
+        return $xml;
+    }
+
+    protected function addCustomsInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $customsInformationXml = $xml->addChild('customsInformation');
+        $customsInformationXml->addChild('preRegistrationNumber', $this->shipment->getEoriNumber());
+        $customsInformationXml->addChild('preRegistrationType', static::PRE_REGISTRATION_TYPE_EORI);
         return $xml;
     }
 
