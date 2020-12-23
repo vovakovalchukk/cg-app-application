@@ -27,7 +27,7 @@ class Generator
 
     public function __invoke(string $trackingNumber, Shipment $shipment): ?string
     {
-        $request = new DocumentsRequest($trackingNumber);
+        $request = new DocumentsRequest($trackingNumber, $shipment);
         /** @var DocumentsResponse $response */
         $response = $this->sendRequest($request, $shipment->getAccount());
         return $response->getDocumentImage();
