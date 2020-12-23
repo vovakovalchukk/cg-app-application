@@ -562,11 +562,13 @@ class SpecificsAjax
         $ou = $organisationUnits->getById($account->getOrganisationUnitId());
         /** @var OrganisationUnit $rootOu */
         $rootOu = $ou->getRootEntity();
-        return array_filter([
-            'gb' => $ou->getMetaData()->getEoriNumber() ?? $rootOu->getMetaData()->getEoriNumber(),
-            'ni' => $ou->getMetaData()->getEoriNumberNi() ?? $rootOu->getMetaData()->getEoriNumberNi(),
-            'eu' => $ou->getMetaData()->getEoriNumberEu() ?? $rootOu->getMetaData()->getEoriNumberEu()
-        ]);
+
+        $gb = $ou->getMetaData()->getEoriNumber() ?? $rootOu->getMetaData()->getEoriNumber();
+        $ni = $ou->getMetaData()->getEoriNumberNi() ?? $rootOu->getMetaData()->getEoriNumberNi();
+        $eu = $ou->getMetaData()->getEoriNumberEu() ?? $rootOu->getMetaData()->getEoriNumberEu();
+        $eoriNumbers = array_filter([$gb, $ni, $eu]);
+
+        return array_combine($eoriNumbers, $eoriNumbers);
     }
 
     protected function getCarrierServiceProvider(Account $account)
