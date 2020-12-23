@@ -1089,12 +1089,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe"
+                "reference": "bdbbc3cdb766b2f6882494253f6177ad483329bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-648-intersoft-brexit-497684.zip",
-                "reference": "ec054486aa8ba60366a6d18f9af7418114b5d8fe",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-648-intersoft-brexit-1b8ab1.zip",
+                "reference": "bdbbc3cdb766b2f6882494253f6177ad483329bd",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1119,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-16T15:59:33+00:00"
+            "time": "2020-12-23T14:52:52+00:00"
         },
         {
             "name": "channelgrabber/currency",
