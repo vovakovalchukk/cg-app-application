@@ -9,6 +9,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
@@ -214,6 +215,7 @@ class CourierController extends AbstractActionController
         $courierOrders = [];
         $orderCouriers = [];
         $orderServices = [];
+        $courierEoriNumbers = [];
         foreach ($orderIds as $orderId) {
             $courierId = $this->params()->fromPost('courier_'.$orderId);
             $serviceId = $this->params()->fromPost('service_'.$orderId);
@@ -229,7 +231,19 @@ class CourierController extends AbstractActionController
             $orderServices[$orderId] = $serviceId;
         }
 
-        $courierAccounts = $this->specificsPageService->fetchAccountsById($courierIds);
+        $courierAccounts = $this->specificsPageService->fetchAccountsById(array_merge($courierIds, [$selectedCourierId]));
+        $organisationUnits = $this->specificsPageService->fetchOrganisationUnitsForAccounts($courierAccounts);
+        /** @var Account $courierAccount */
+        foreach ($courierAccounts as $courierAccount) {
+            /** @var OrganisationUnit $correspondingOrganisationUnit */
+            $correspondingOrganisationUnit = $organisationUnits->getById($courierAccount->getOrganisationUnitId());
+            $ouMetadata = $correspondingOrganisationUnit->getMetaData();
+            $courierEoriNumbers[$courierAccount->getId()] = [
+                'eoriNumber' => $ouMetadata->getEoriNumber(),
+                'eoriNumberNi' => $ouMetadata->getEoriNumberNi(),
+                'eoriNumberEu' => $ouMetadata->getEoriNumberEu(),
+            ];
+        }
         if ($selectedCourierId) {
             $selectedCourier = $courierAccounts->getById($selectedCourierId);
         } else {
@@ -250,6 +264,7 @@ class CourierController extends AbstractActionController
             ->setVariable('orderServices', $orderServices)
             ->setVariable('navLinks', $navLinks)
             ->setVariable('selectedCourier', $selectedCourier)
+            ->setVariable('courierEoriNumbers', $courierEoriNumbers)
             ->addChild($this->getSpecificsBulkActionsButtons($courierAccounts, $selectedCourier), 'bulkActionsButtons')
             ->addChild($this->specificsTable, 'specificsTable')
             ->addChild($this->getSpecificsActionsButtons($selectedCourier), 'actionsButtons')
