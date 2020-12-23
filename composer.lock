@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a81ca4dc77c0eb7e0ced87affdd8d8d7",
+    "content-hash": "0c5f61a363e4d53ba7587f0447c45bb9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5366,16 +5366,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.27.4",
+            "version": "dev-TAC-648-intersoft-brexit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "21e9e9ce55c2076c002db3955ae93b0cb78132c7"
+                "reference": "02d24465226368520b8d1ba1f638b3dff59f771c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.4-45a538.zip",
-                "reference": "21e9e9ce55c2076c002db3955ae93b0cb78132c7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-648-intersoft-brexit-4d7c12.zip",
+                "reference": "02d24465226368520b8d1ba1f638b3dff59f771c",
                 "shasum": null
             },
             "require": {
@@ -5427,7 +5427,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-12-18T11:46:10+00:00"
+            "time": "2020-12-23T13:54:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -12012,6 +12012,12 @@
             "alias_normalized": "1.56.5.0",
             "version": "dev-TAC-648-intersoft-brexit",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.27.5",
+            "alias_normalized": "1.27.5.0",
+            "version": "dev-TAC-648-intersoft-brexit",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -12020,6 +12026,7 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

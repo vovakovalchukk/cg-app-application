@@ -95,7 +95,8 @@ CourierSpecificsDataTable.columnRenderers = {
     packageType: "addCustomSelectToPackageTypeColumn",
     addOns: "addCustomSelectToAddOnsColumn",
     deliveryExperience: "addCustomSelectToDeliveryExperienceColumn",
-    insuranceOptions: "addCustomSelectToInsuranceOptionsColumn"
+    insuranceOptions: "addCustomSelectToInsuranceOptionsColumn",
+    eoriNumber: "addCustomSelectToEoriNumberColumn"
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -286,6 +287,29 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
+
+CourierSpecificsDataTable.prototype.addCustomSelectToEoriNumberColumn = function(templateData, cgMustache)
+{
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.eoriNumbers);
+    this.fetchTemplate('select', cgMustache, function(template)
+    {
+        var data = {
+            id: 'courier-eori-number_' + templateData.orderId + '-' + templateData.parcelNumber,
+            name: 'parcelData[' + templateData.orderId + '][' + templateData.parcelNumber + '][eoriNumber]',
+            class: 'required courier-euri_number_' + templateData.orderId,
+            options: []
+        };
+        for (var value in optionsObject.options) {
+            data.options.push({
+                title: optionsObject.options[value].title,
+                value: value,
+                selected: (value == optionsObject.selected)
+            });
+        }
+        templateData.eoriNumberOptions = cgMustache.renderTemplate(template, data);
+    }, true);
+};
+
 
 CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(templateData, cgMustache)
 {
