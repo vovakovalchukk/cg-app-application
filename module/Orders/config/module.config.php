@@ -2647,7 +2647,7 @@ return [
                     'viewModel' => 'CourierSpecificsAddOnsColumnView',
                     'class' => 'add-ons-col',
                     'sortable' => false,
-                    'order' => 118,
+                    'order' => 119,
                 ],
             ],
             'CourierSpecificsDeliveryExperienceColumnView' => [
@@ -2742,8 +2742,7 @@ return [
                     'viewModel' => 'CourierSpecificsEoriNumberColumnView',
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
-                    'order' => 117,
-                    'width' => '30px',
+                    'order' => 118
                 ],
             ],
         ],
