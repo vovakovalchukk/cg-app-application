@@ -39,5 +39,10 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         return false;
     };
 
+    EoriNumber.prototype.renderNewOptions = function() {
+        // Never render new fields as no updates will be done here
+        return false;
+    }
+
     return EoriNumber;
 });
