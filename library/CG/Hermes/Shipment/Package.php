@@ -3,6 +3,7 @@ namespace CG\Hermes\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Package\ContentInterface;
+use CG\CourierAdapter\Package\SupportedField\CountryOfOriginInterface;
 use CG\CourierAdapter\Package\SupportedField\HarmonisedSystemCodeInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
@@ -15,7 +16,8 @@ class Package implements
     WeightInterface,
     DimensionsInterface,
     ContentsInterface,
-    HarmonisedSystemCodeInterface
+    HarmonisedSystemCodeInterface,
+    CountryOfOriginInterface
 {
     /** @var int */
     protected $number;
@@ -29,6 +31,8 @@ class Package implements
     protected $length;
     /** @var string */
     protected $harmonisedSystemCode;
+    /** @var string */
+    protected $countryOfOrigin;
 
     /** @var LabelInterface */
     protected $label;
@@ -169,5 +173,10 @@ class Package implements
     public function getHarmonisedSystemCode()
     {
         return $this->harmonisedSystemCode;
+    }
+
+    public function getCountryOfOrigin(): string
+    {
+        return $this->countryOfOrigin;
     }
 }
