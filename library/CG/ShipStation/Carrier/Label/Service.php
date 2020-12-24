@@ -96,6 +96,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         // If / when TECH-92 is done we'll be passed these objects instead of the arrays and so wont need these lines any more
         $ordersData = OrderDataCollection::fromArray($ordersData);
         $orderParcelsData = OrderParcelsDataCollection::fromArray($orderParcelsData);
+        $orderItemsData = OrderItemsDataCollection::fromArray($orderItemsData);
 
         /** @var AccountDeciderInterface $accountDecider */
         $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
@@ -108,6 +109,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $orders,
             $orderLabels,
             $ordersData,
+            $orderItemsData,
             $orderParcelsData,
             $rootOu,
             $user,
