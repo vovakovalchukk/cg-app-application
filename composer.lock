@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "272e4aeae797fd64f4fd9354af7d6122",
+    "content-hash": "b9a25df42e85d9fff69b748e39499ee9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1032,16 +1032,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-qa-brexit",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "dd04a8422068089f7f9e56082e1fe3212e7042b7"
+                "reference": "a5e810462a4bab1f3cc30ae91fb221079faebe5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-qa-brexit-270408.zip",
-                "reference": "dd04a8422068089f7f9e56082e1fe3212e7042b7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.3.0-df5590.zip",
+                "reference": "a5e810462a4bab1f3cc30ae91fb221079faebe5a",
                 "shasum": null
             },
             "require": {
@@ -1081,20 +1081,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-24T13:50:14+00:00"
+            "time": "2020-12-24T16:07:02+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-qa-brexit",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "7cc168c756735dccc7763fe3ec9ae089441232cd"
+                "reference": "8d6d9eee2ecca31969a144dcc779a68e949db1a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-qa-brexit-f56221.zip",
-                "reference": "7cc168c756735dccc7763fe3ec9ae089441232cd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.0-c9532a.zip",
+                "reference": "8d6d9eee2ecca31969a144dcc779a68e949db1a5",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1119,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-24T13:33:08+00:00"
+            "time": "2020-12-24T16:08:38+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2509,16 +2509,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-qa-brexit",
+            "version": "1.57.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7acbf6a2be7ed916f1cfa5e8be8768835cf75f1d"
+                "reference": "7218e0ce14bcf17ccbec7e14c6193ed59e39c254"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-qa-brexit-e4006f.zip",
-                "reference": "7acbf6a2be7ed916f1cfa5e8be8768835cf75f1d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.0-af4bc2.zip",
+                "reference": "7218e0ce14bcf17ccbec7e14c6193ed59e39c254",
                 "shasum": null
             },
             "require": {
@@ -2590,7 +2590,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-12-24T13:13:26+00:00"
+            "time": "2020-12-24T16:16:10+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -5486,16 +5486,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-648-intersoft-brexit",
+            "version": "1.27.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "02d24465226368520b8d1ba1f638b3dff59f771c"
+                "reference": "8e48af12d454f6df16309ad8b20d8660145880ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-648-intersoft-brexit-4d7c12.zip",
-                "reference": "02d24465226368520b8d1ba1f638b3dff59f771c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.5-5d0b77.zip",
+                "reference": "8e48af12d454f6df16309ad8b20d8660145880ea",
                 "shasum": null
             },
             "require": {
@@ -5547,7 +5547,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-12-23T13:54:08+00:00"
+            "time": "2020-12-24T16:07:31+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -12116,39 +12116,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.14",
-            "alias_normalized": "1.2.14.0",
-            "version": "dev-qa-brexit",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.7.0",
-            "alias_normalized": "1.7.0.0",
-            "version": "dev-qa-brexit",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.56.6",
-            "alias_normalized": "1.56.6.0",
-            "version": "dev-qa-brexit",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.27.5",
-            "alias_normalized": "1.27.5.0",
-            "version": "dev-TAC-648-intersoft-brexit",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
