@@ -260,7 +260,7 @@ class Create extends PostAbstract
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
                 $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
                 $itemInformation->addChild('itemCOO', $this->sanitiseItemCountryOfOrigin($packageContents->getOrigin()));
-                $itemInformation->addChild('itemNetWeight', $packageContents->getWeight() > 0 ? $packageContents : $totalWeight);
+                $itemInformation->addChild('itemNetWeight', $packageContents->getWeight() > 0 ? $packageContents->getWeight() : $totalWeight);
             }
         }
         return $xml;
