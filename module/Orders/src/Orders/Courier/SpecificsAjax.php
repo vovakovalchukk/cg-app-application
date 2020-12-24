@@ -557,6 +557,7 @@ class SpecificsAjax
     protected function getEoriNumbersForAccount(Account $account): array
     {
         $accounts = new AccountCollection(Account::class, __FUNCTION__);
+        $accounts->attach($account);
         $organisationUnits = $this->specificsPageService->fetchOrganisationUnitsForAccounts($accounts);
         /** @var OrganisationUnit $ou */
         $ou = $organisationUnits->getById($account->getOrganisationUnitId());
