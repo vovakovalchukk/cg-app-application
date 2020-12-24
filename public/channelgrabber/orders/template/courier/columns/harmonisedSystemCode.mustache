@@ -1,4 +1,4 @@
 {{#itemRow}}
-    <input type="text" data-required="true" value="{{harmonisedSystemCode}}" name="itemData[{{orderId}}][{{itemId}}][harmonisedSystemCode]" id="courier-order-harmonisedSystemCode-{{orderId}}-{{itemId}}" class="inputbox courier-order-harmonisedSystemCode" />
+    <input type="text" data-required="true" value="{{harmonisedSystemCode}}" {{#parcelRow}}name="parcelData[{{orderId}}][{{parcelNumber}}][harmonisedSystemCode]" id="courier-order-harmonisedSystemCode-{{orderId}}-{{parcelNumber}}"{{/parcelRow}}{{^parcelRow}}name="itemData[{{orderId}}][{{itemId}}][harmonisedSystemCode]" id="courier-order-harmonisedSystemCode-{{orderId}}-{{itemId}}"{{/parcelRow}} class="inputbox courier-order-harmonisedSystemCode" />
 {{/itemRow}}
 {{^itemRow}}&nbsp;{{/itemRow}}
