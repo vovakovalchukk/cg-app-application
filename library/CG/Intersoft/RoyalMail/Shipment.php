@@ -323,7 +323,7 @@ class Shipment implements
         return !static::isDomestic();
     }
 
-    public function getEoriNumber(): string
+    public function getEoriNumber(): ?string
     {
         return $this->eoriNumber;
     }

@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1a1eba1a40ea44667e63c25d746edf8020108cb8"
+                "reference": "37734ff1c1e02fce09e1c77eb4f955de17e9677e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-qa-brexit-f5f588.zip",
-                "reference": "1a1eba1a40ea44667e63c25d746edf8020108cb8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-qa-brexit-fe8f72.zip",
+                "reference": "37734ff1c1e02fce09e1c77eb4f955de17e9677e",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-18T17:25:10+00:00"
+            "time": "2020-12-24T13:32:27+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
