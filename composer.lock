@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "37734ff1c1e02fce09e1c77eb4f955de17e9677e"
+                "reference": "dd04a8422068089f7f9e56082e1fe3212e7042b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-qa-brexit-fe8f72.zip",
-                "reference": "37734ff1c1e02fce09e1c77eb4f955de17e9677e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-qa-brexit-270408.zip",
+                "reference": "dd04a8422068089f7f9e56082e1fe3212e7042b7",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2020-12-24T13:32:27+00:00"
+            "time": "2020-12-24T13:50:14+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1089,12 +1089,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "cb26823dde0e5d6aff6ab4c19d441877e285aac7"
+                "reference": "7cc168c756735dccc7763fe3ec9ae089441232cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-qa-brexit-5aa42e.zip",
-                "reference": "cb26823dde0e5d6aff6ab4c19d441877e285aac7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-qa-brexit-f56221.zip",
+                "reference": "7cc168c756735dccc7763fe3ec9ae089441232cd",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1119,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-24T11:10:59+00:00"
+            "time": "2020-12-24T13:33:08+00:00"
         },
         {
             "name": "channelgrabber/currency",
