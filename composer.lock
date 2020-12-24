@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e6d362cdabe952c5cf1da1840ead890",
+    "content-hash": "b0cca53a4935e60aa039462fe3987186",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1085,16 +1085,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-TAC-644-parcelforce-brexit",
+            "version": "dev-qa-brexit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "d01eec4883c252a4d1fd4167695f2547bf97447a"
+                "reference": "cb26823dde0e5d6aff6ab4c19d441877e285aac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-644-parcelforce-brexit-fc1638.zip",
-                "reference": "d01eec4883c252a4d1fd4167695f2547bf97447a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-qa-brexit-5aa42e.zip",
+                "reference": "cb26823dde0e5d6aff6ab4c19d441877e285aac7",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1119,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-18T16:52:07+00:00"
+            "time": "2020-12-24T11:10:59+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -12126,7 +12126,7 @@
         {
             "alias": "1.7.0",
             "alias_normalized": "1.7.0.0",
-            "version": "dev-TAC-644-parcelforce-brexit",
+            "version": "dev-qa-brexit",
             "package": "channelgrabber/courieradapter"
         },
         {

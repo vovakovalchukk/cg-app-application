@@ -33,7 +33,7 @@
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "dev-qa-brexit as 1.2.14",
-        "channelgrabber/courieradapter": "dev-TAC-644-parcelforce-brexit as 1.7.0",
+        "channelgrabber/courieradapter": "dev-qa-brexit as 1.7.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
         "channelgrabber/data-exchange-history": "~1.0.4",
