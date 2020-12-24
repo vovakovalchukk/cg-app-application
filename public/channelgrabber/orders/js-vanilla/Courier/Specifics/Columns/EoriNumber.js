@@ -13,7 +13,6 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     EoriNumber.SELECTOR_EORI_NUMBER_PREFIX = '.courier-eori-number_';
     EoriNumber.SELECTOR_EORI_NUMBER_CONTAINER = '.courier-eori-number-options';
-    EoriNumber.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
 
     EoriNumber.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
