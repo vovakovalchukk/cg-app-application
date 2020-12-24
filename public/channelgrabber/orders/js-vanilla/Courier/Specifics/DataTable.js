@@ -295,7 +295,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToEoriNumberColumn = function
     {
         var data = {
             id: 'courier-eori-number_' + templateData.orderId + '-' + templateData.parcelNumber,
-            name: 'parcelData[' + templateData.orderId + '][' + templateData.parcelNumber + '][eoriNumber]',
+            name: 'orderData[' + templateData.orderId + '][eoriNumber]',
             class: 'required courier-euri_number_' + templateData.orderId,
             options: []
         };
