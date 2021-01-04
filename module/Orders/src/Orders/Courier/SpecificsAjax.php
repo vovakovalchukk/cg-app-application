@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Courier;
 
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shipping\Service as AccountService;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
@@ -38,6 +39,7 @@ use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTimeZone;
+use Orders\Courier\SpecificsPage as SpecificsPageService;
 
 class SpecificsAjax
 {
@@ -65,6 +67,8 @@ class SpecificsAjax
     protected $courierService;
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
+    /** @var SpecificsPageService */
+    protected $specificsPageService;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
@@ -84,7 +88,8 @@ class SpecificsAjax
         CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ProductDetailService $productDetailService,
         Service $courierService,
-        ShippingLedgerService $shippingLedgerService
+        ShippingLedgerService $shippingLedgerService,
+        SpecificsPageService $specificsPageService
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
@@ -95,6 +100,7 @@ class SpecificsAjax
         $this->productDetailService = $productDetailService;
         $this->courierService = $courierService;
         $this->shippingLedgerService = $shippingLedgerService;
+        $this->specificsPageService = $specificsPageService;
     }
 
     public function getSpecificsListData(
@@ -125,8 +131,10 @@ class SpecificsAjax
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         $labels = $this->getOrderLabelsForOrders($orders);
         $carrierOptions = $this->courierService->getCarrierOptions($courierAccount);
+        $eoriNumbers = $this->getEoriNumbersForAccount($courierAccount);
         foreach ($orders as $order) {
             $orderData = $this->courierService->getCommonOrderListData($order, $rootOu);
+            $orderData['eoriNumbers'] = $eoriNumbers;
             unset($orderData['courier']);
             $orderLabel = null;
             $orderLabels = $labels->getBy('orderId', $order->getId());
@@ -331,16 +339,22 @@ class SpecificsAjax
             return array_merge($data, [
                 'width' => 0,
                 'height' => 0,
-                'length' => 0
+                'length' => 0,
+                'harmonisedSystemCode' => '',
+                'countryOfOrigin' => ''
             ]);
         }
 
+        $hsCode = $productDetail->getHsTariffNumber() && $productDetail->getHsTariffNumber() != '-' ? $productDetail->getHsTariffNumber() : '';
+        $countryOfOrigin = $productDetail->getCountryOfManufacture() && $productDetail->getCountryOfManufacture() != '-' ? $productDetail->getCountryOfManufacture() : '';
         $locale = $this->userOuService->getActiveUserContainer()->getLocale();
         // Always add all product details even if there's no option for them as sometimes they're used indirectly
         $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight($locale), $item);
         $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth($locale), $item);
         $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight($locale), $item);
         $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength($locale), $item);
+        $data['harmonisedSystemCode'] = $hsCode;
+        $data['countryOfOrigin'] = $countryOfOrigin;
 
         return $data;
     }
@@ -542,6 +556,24 @@ class SpecificsAjax
     {
         $rootOuId = $this->userOuService->getActiveUser()->getRootOuId();
         return $this->shippingLedgerService->fetch($rootOuId);
+    }
+
+    protected function getEoriNumbersForAccount(Account $account): array
+    {
+        $accounts = new AccountCollection(Account::class, __FUNCTION__);
+        $accounts->attach($account);
+        $organisationUnits = $this->specificsPageService->fetchOrganisationUnitsForAccounts($accounts);
+        /** @var OrganisationUnit $ou */
+        $ou = $organisationUnits->getById($account->getOrganisationUnitId());
+        /** @var OrganisationUnit $rootOu */
+        $rootOu = $ou->getRootEntity();
+
+        $gb = $ou->getMetaData()->getEoriNumber() ?? $rootOu->getMetaData()->getEoriNumber();
+        $ni = $ou->getMetaData()->getEoriNumberNi() ?? $rootOu->getMetaData()->getEoriNumberNi();
+        $eu = $ou->getMetaData()->getEoriNumberEu() ?? $rootOu->getMetaData()->getEoriNumberEu();
+        $eoriNumbers = array_filter([$gb, $ni, $eu]);
+
+        return array_combine($eoriNumbers, $eoriNumbers);
     }
 
     protected function getCarrierServiceProvider(Account $account)

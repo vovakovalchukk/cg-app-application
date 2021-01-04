@@ -37,6 +37,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
             PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
+            PackageField\CountryOfOriginInterface::class => 'countryOfOrigin',
+            PackageField\HarmonisedSystemCodeDescriptionInterface::class => 'harmonisedSystemCodeDescription',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',
@@ -49,6 +51,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\PackageTypesInterface::class => 'packageType',
             ShipmentField\SaturdayDeliveryInterface::class => 'saturday',
             ShipmentField\SignatureRequiredInterface::class => 'signature',
+            ShipmentField\EoriNumberInterface::class => 'eoriNumber',
         ]
     ];
 

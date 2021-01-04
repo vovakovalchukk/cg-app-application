@@ -1,6 +1,8 @@
 <?php
 namespace CG\ShipStation\Messages\Customs;
 
+use CG\Order\Shared\Courier\Label\OrderItemsData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
 use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
@@ -37,13 +39,15 @@ class Item
 
     public static function createFromOrderItem(
         OrderItem $orderItem,
+        ItemData $itemData,
         OrganisationUnit $ou
     ): self {
         return new self(
             $orderItem->getItemName(),
             $orderItem->getItemQuantity(),
             $orderItem->getIndividualItemPrice(),
-            $ou->getAddressCountryCode()
+            $itemData->getCountryOfOrigin() ?? $ou->getAddressCountryCode(),
+            $itemData->getHarmonisedSystemCode()
         );
     }
 

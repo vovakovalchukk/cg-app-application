@@ -7,6 +7,7 @@ class Content implements ContentInterface
 {
     protected $description;
     protected $hsCode;
+    protected $hsCodeDescription;
     protected $origin;
     protected $quantity;
     protected $weight;
@@ -22,6 +23,7 @@ class Content implements ContentInterface
     public function __construct(
         $description,
         $hsCode,
+        $hsCodeDescription,
         $origin,
         $quantity,
         $weight,
@@ -33,6 +35,7 @@ class Content implements ContentInterface
     ) {
         $this->setDescription($description)
             ->setHsCode($hsCode)
+            ->setHsCodeDescription($hsCodeDescription)
             ->setOrigin($origin)
             ->setQuantity($quantity)
             ->setWeight($weight)
@@ -51,6 +54,11 @@ class Content implements ContentInterface
     public function getHsCode()
     {
         return $this->hsCode;
+    }
+
+    public function getHsCodeDescription(): string
+    {
+        return $this->hsCodeDescription;
     }
 
     public function getOrigin()
@@ -87,6 +95,12 @@ class Content implements ContentInterface
     public function setHsCode($hsCode)
     {
         $this->hsCode = $hsCode;
+        return $this;
+    }
+
+    public function setHsCodeDescription(string $hsCodeDescription): Content
+    {
+        $this->hsCodeDescription = $hsCodeDescription;
         return $this;
     }
 

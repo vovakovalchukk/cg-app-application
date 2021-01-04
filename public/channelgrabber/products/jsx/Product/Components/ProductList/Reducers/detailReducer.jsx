@@ -34,6 +34,12 @@ let initialState = {
     },
     barcodeNotApplicable: {
         byProductId: {}
+    },
+    hsTariffNumber: {
+        byProductId: {}
+    },
+    countryOfManufacture: {
+        byProductId: {}
     }
 };
 

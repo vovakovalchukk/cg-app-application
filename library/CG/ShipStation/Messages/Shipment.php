@@ -3,6 +3,7 @@ namespace CG\ShipStation\Messages;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -64,6 +65,7 @@ class Shipment
     public static function createFromOrderAndData(
         Order $order,
         OrderData $orderData,
+        OrderItemsData $itemsData,
         OrderParcelsData $parcelsData,
         CarrierService $carrierService,
         Account $shipStationAccount,
@@ -79,7 +81,7 @@ class Shipment
         }
         $customs = null;
         if ($carrierService->isInternational()) {
-            $customs = Customs::createFromOrder($order, $rootOu);
+            $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
         }
         $shipDate = new DateTime();
 
