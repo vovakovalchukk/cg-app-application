@@ -50,6 +50,11 @@ class Booker
 
     protected function isDomesticShipment(Shipment $shipment): bool
     {
+        /*
+         * Even though we use domestic shipping methods for the Channel Islands,
+         * they require a customs declaration, so we only check for GB.
+         * See \CG\Intersoft\RoyalMail\DeliveryService::isCountryCodeDomestic
+         */
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
