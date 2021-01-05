@@ -133,7 +133,7 @@ class DeliveryService implements DeliveryServiceInterface
 
     protected function isCountryCodeDomestic(string $countryCode): bool
     {
-        return $this->isCountryCodeUkOrGb($countryCode) && $this->isCountryCodeChannelIslands($countryCode);
+        return $this->isCountryCodeUkOrGb($countryCode) || $this->isCountryCodeChannelIslands($countryCode);
     }
 
     protected function isCountryCodeUkOrGb(string $countryCode): bool
