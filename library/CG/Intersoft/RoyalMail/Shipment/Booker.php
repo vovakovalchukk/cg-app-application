@@ -89,11 +89,10 @@ class Booker
                 break;
             }
 
-            // We do not want to request a CN23 for US shipments as it is merged with the label by Intersoft already
-            if (!$this->isDomesticShipment($shipment) && !$this->isUsShipment($shipment)) {
-                $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
-                $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
-            }
+            // Here, we used to request a CN23 for international shipments, but not US ones,
+            // as Intersoft merged it with US labels. Turns out they always do it when it is required.
+            // We noticed because CN23 forms are now required for EU too.
+
             $package->setTrackingReference($rmPackage->getTrackingNumber());
             next($rmPackages);
         }
