@@ -20,7 +20,7 @@ class WeightCell extends React.Component {
     getValue = (row) => {
         let detailForId = this.props.detail['weight'].byProductId[row.id];
         if (!detailForId) {
-            return row.details['weight'];
+            return (typeof row.details === "undefined") ? "" : row.details['weight'];
         }
         if (typeof detailForId.valueEdited === "string") {
             return detailForId.valueEdited;

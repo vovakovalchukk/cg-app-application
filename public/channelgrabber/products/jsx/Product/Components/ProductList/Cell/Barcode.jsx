@@ -78,7 +78,9 @@ class BarcodeCell extends React.Component {
                 return byProductId.value;
             }
         }
-
+        if (typeof rowData.details === "undefined") {
+            return '';
+        }
         if (columnKey in rowData.details) {
             return rowData.details[columnKey] || '';
         }

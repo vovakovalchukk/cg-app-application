@@ -367,7 +367,17 @@ class ProductsJsonController extends AbstractActionController
             }
         }
 
-        if (!$productEntity->getStock() || count($productEntity->getVariations())) {
+        if (count($productEntity->getVariations())) {
+            return $product;
+        }
+
+        $product['details'] = $this->productService->fetchProductDetails(
+            $productEntity,
+            $rootOrganisationUnit->getLocale(),
+            $channelDetails[$productEntity->getId()] ?? []
+        );
+
+        if (!$productEntity->getStock()) {
             return $product;
         }
 
@@ -377,12 +387,6 @@ class ProductsJsonController extends AbstractActionController
                 ->getFromCollectionByLocationIds($stockEntity->getLocations(), $merchantLocationIds)
                 ->toArray()
         ]);
-
-        $product['details'] = $this->productService->fetchProductDetails(
-            $productEntity,
-            $rootOrganisationUnit->getLocale(),
-            $channelDetails[$productEntity->getId()] ?? []
-        );
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];

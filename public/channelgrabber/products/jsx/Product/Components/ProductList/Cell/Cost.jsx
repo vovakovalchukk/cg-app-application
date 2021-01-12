@@ -20,7 +20,7 @@ class CostCell extends React.Component {
     getValue = (row) => {
         let detailForId = this.props.detail['cost'].byProductId[row.id];
         if (!detailForId) {
-            return row.details['cost'];
+            return (typeof row.details === "undefined") ? "" : row.details['cost'];
         }
         if (typeof detailForId.valueEdited === "string") {
             return detailForId.valueEdited;
