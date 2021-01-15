@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f0d5cce254239501d1a14f5892f985f",
+    "content-hash": "8f27719e98c07ec26da8a3da45bea32b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3309,16 +3309,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121"
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.1-42bcff.zip",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.2-eefeca.zip",
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3341,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-12-07T15:44:05+00:00"
+            "time": "2021-01-15T15:28:41+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -5936,6 +5936,7 @@
                 "contextio",
                 "imap"
             ],
+            "abandoned": true,
             "time": "2017-06-21T20:47:04+00:00"
         },
         {
