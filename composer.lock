@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77f39592717a44b168d0025cf39f0e19",
+    "content-hash": "8c6f1605d496172481e8aa4be74d71ac",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3309,16 +3309,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-11742-order-auto-archive",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "657448037f0ece74a686a71680088c2d31bd9e67"
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-CGIV-11742-order-auto-archive-2a36b2.zip",
-                "reference": "657448037f0ece74a686a71680088c2d31bd9e67"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.2-eefeca.zip",
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3341,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-12-14T11:40:58+00:00"
+            "time": "2021-01-15T15:28:41+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -5936,6 +5936,7 @@
                 "contextio",
                 "imap"
             ],
+            "abandoned": true,
             "time": "2017-06-21T20:47:04+00:00"
         },
         {
@@ -11992,18 +11993,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.9.2",
-            "alias_normalized": "1.9.2.0",
-            "version": "dev-CGIV-11742-order-auto-archive",
-            "package": "channelgrabber/settings"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
