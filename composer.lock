@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8616be874e286072bddba3da7183671",
+    "content-hash": "6ad70a082fc3c0296bb91fa97c403278",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d1349d92f0716cebce7eb3daf4cc25d1c5316e37"
+                "reference": "59cdf3757e88231da9463862ec3a2a35241e7884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-633-amazon-sweden-01902a.zip",
-                "reference": "d1349d92f0716cebce7eb3daf4cc25d1c5316e37",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-633-amazon-sweden-1d2837.zip",
+                "reference": "59cdf3757e88231da9463862ec3a2a35241e7884",
                 "shasum": null
             },
             "require": {
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-01-11T11:44:13+00:00"
+            "time": "2021-01-19T12:29:08+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1032,16 +1032,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "07ec399cf472065f27f6d05cdfff8ccf550ca94c"
+                "reference": "093b7889b4617d0c53fb8abefc642cca0d3211a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.3.1-48d6ec.zip",
-                "reference": "07ec399cf472065f27f6d05cdfff8ccf550ca94c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.3.2-7449ac.zip",
+                "reference": "093b7889b4617d0c53fb8abefc642cca0d3211a6",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-01-06T15:24:03+00:00"
+            "time": "2021-01-18T16:55:43+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3380,16 +3380,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121"
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.1-42bcff.zip",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.2-eefeca.zip",
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288",
                 "shasum": null
             },
             "require": {
@@ -3413,7 +3413,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-12-07T15:44:05+00:00"
+            "time": "2021-01-15T15:28:41+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -6059,6 +6059,7 @@
                 "contextio",
                 "imap"
             ],
+            "abandoned": true,
             "time": "2017-06-21T20:47:04+00:00"
         },
         {
