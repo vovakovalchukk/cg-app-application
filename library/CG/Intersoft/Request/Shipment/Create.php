@@ -254,13 +254,18 @@ class Create extends PostAbstract
         /** @var Package $package */
         foreach ($packages as $package) {
             foreach ($package->getContents() as $packageContents) {
+                $packageWeight = $packageContents->getWeight();
+                if ($packageWeight == 0 && $totalWeight > 0 && $packageContents->getQuantity() > 0) {
+                    $packageWeight = $totalWeight/$packageContents->getQuantity();
+                }
+
                 $itemInformation = $xml->addChild('itemInformation');
                 $itemInformation->addChild('itemHsCode', $this->sanitiseString($packageContents->getHSCode(), static::MAX_LEN_HS_CODE));
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
                 $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
                 $itemInformation->addChild('itemCOO', $this->sanitiseItemCountryOfOrigin($packageContents->getOrigin()));
-                $itemInformation->addChild('itemNetWeight', $packageContents->getWeight() > 0 ? $packageContents->getWeight() : $totalWeight);
+                $itemInformation->addChild('itemNetWeight', $packageWeight);
             }
         }
         return $xml;

@@ -339,18 +339,22 @@ class SpecificsAjax
             return array_merge($data, [
                 'width' => 0,
                 'height' => 0,
-                'length' => 0
+                'length' => 0,
+                'harmonisedSystemCode' => '',
+                'countryOfOrigin' => ''
             ]);
         }
 
+        $hsCode = $productDetail->getHsTariffNumber() && $productDetail->getHsTariffNumber() != '-' ? $productDetail->getHsTariffNumber() : '';
+        $countryOfOrigin = $productDetail->getCountryOfManufacture() && $productDetail->getCountryOfManufacture() != '-' ? $productDetail->getCountryOfManufacture() : '';
         $locale = $this->userOuService->getActiveUserContainer()->getLocale();
         // Always add all product details even if there's no option for them as sometimes they're used indirectly
         $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight($locale), $item);
         $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth($locale), $item);
         $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight($locale), $item);
         $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength($locale), $item);
-        $data['harmonisedSystemCode'] = $productDetail->getHsTariffNumber();
-        $data['countryOfOrigin'] = $productDetail->getCountryOfManufacture();
+        $data['harmonisedSystemCode'] = $hsCode;
+        $data['countryOfOrigin'] = $countryOfOrigin;
 
         return $data;
     }
