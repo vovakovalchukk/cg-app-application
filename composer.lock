@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b8791fa1404b91c66bbe96a151c46ea",
+    "content-hash": "571828556c027bad742c6e40ec087a72",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2126,16 +2126,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "dffda2b611fab5cb98ee0d23e76823ea414168e2"
+                "reference": "6c4c24a1e6709e9a13d7a3667a7c74ff10260371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.4-68de60.zip",
-                "reference": "dffda2b611fab5cb98ee0d23e76823ea414168e2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.5-7a929a.zip",
+                "reference": "6c4c24a1e6709e9a13d7a3667a7c74ff10260371"
             },
             "require": {
                 "php": ">=7.1",
@@ -2158,7 +2158,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2020-08-14T11:36:37+00:00"
+            "time": "2021-01-25T09:55:35+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -11904,12 +11904,12 @@
             "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
