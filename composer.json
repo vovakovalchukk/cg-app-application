@@ -70,7 +70,7 @@
         "channelgrabber/phinx": "~0.5.2",
         "channelgrabber/picklist": "~1.3.2",
         "channelgrabber/predis": "~1.1.17",
-        "channelgrabber/product": "~1.20.9",
+        "channelgrabber/product": "dev-CGIV-11828-remove-cost-price as 1.20.11",
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.5",
         "channelgrabber/redis": "~1.0.2",
