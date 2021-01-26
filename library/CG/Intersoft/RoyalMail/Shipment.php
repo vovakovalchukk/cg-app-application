@@ -9,6 +9,7 @@ use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
+use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
@@ -28,7 +29,8 @@ class Shipment implements
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
-    SignatureRequiredInterface
+    SignatureRequiredInterface,
+    EoriNumberInterface
 {
     protected static $packageTypes = [
         'L' => 'Letter',
@@ -60,6 +62,8 @@ class Shipment implements
     protected $collectionAddress;
     /** @var LabelInterface[] */
     protected $labels;
+    /** @var string */
+    protected $eoriNumber;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -71,7 +75,8 @@ class Shipment implements
         array $packages = [],
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
-        ?bool $signatureRequired = null
+        ?bool $signatureRequired = null,
+        ?string $eoriNumber = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -83,6 +88,7 @@ class Shipment implements
         $this->packages = $packages;
         $this->signatureRequired = $signatureRequired;
         $this->insuranceOption = $insuranceOption;
+        $this->eoriNumber = $eoriNumber;
     }
 
     public static function fromArray(array $array): Shipment
@@ -97,7 +103,8 @@ class Shipment implements
             $array['packages'] ?? [],
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
-            $array['signatureRequired'] ?? null
+            $array['signatureRequired'] ?? null,
+            $array['eoriNumber'] ?? null
         );
     }
 
@@ -314,5 +321,10 @@ class Shipment implements
     public static function isInternational(): bool
     {
         return !static::isDomestic();
+    }
+
+    public function getEoriNumber(): ?string
+    {
+        return $this->eoriNumber;
     }
 }

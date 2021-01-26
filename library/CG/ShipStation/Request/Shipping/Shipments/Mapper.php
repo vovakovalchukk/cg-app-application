@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Messages\Shipment;
@@ -25,6 +26,7 @@ class Mapper
     public function createFromOrdersAndData(
         OrderCollection $orders,
         OrderDataCollection $ordersData,
+        OrderItemsDataCollection $orderItemsData,
         OrderParcelsDataCollection $orderParcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
@@ -36,10 +38,11 @@ class Mapper
         foreach ($orders as $order) {
             /** @var OrderData $orderData */
             $orderData = $ordersData->getById($order->getId());
+            $itemsData = $orderItemsData->getById($order->getId());
             $parcelsData = $orderParcelsData->getById($order->getId());
             $carrierService = $shippingServiceService->getCarrierService($orderData->getService());
             $shipments[] = Shipment::createFromOrderAndData(
-                $order, $orderData, $parcelsData, $carrierService, $shipStationAccount, $shippingAccount, $rootOu
+                $order, $orderData, $itemsData, $parcelsData, $carrierService, $shipStationAccount, $shippingAccount, $rootOu
             );
         }
 

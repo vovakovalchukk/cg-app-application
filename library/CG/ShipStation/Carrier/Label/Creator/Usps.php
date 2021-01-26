@@ -11,6 +11,7 @@ use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData as OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
@@ -76,6 +77,7 @@ class Usps extends Other
         OrderCollection $orders,
         OrderLabelCollection $orderLabels,
         OrderDataCollection $ordersData,
+        OrderItemsDataCollection $orderItemsData,
         OrderParcelsDataCollection $orderParcelsData,
         OrganisationUnit $rootOu,
         User $user,

@@ -7,6 +7,9 @@ use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\BookingOptions;
 use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
+use CG\OrganisationUnit\Collection as OrganisationUnits;
+use CG\OrganisationUnit\Filter as OrganisationUnitFilter;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -31,6 +34,8 @@ class SpecificsPage implements LoggerAwareInterface
     protected $courierService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     protected $bookOptionInterfaces = [
         'Create' => BookingOptions\CreateActionDescriptionInterface::class,
@@ -58,17 +63,32 @@ class SpecificsPage implements LoggerAwareInterface
         Di $di,
         AccountService $accountService,
         Service $courierService,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->di = $di;
         $this->accountService = $accountService;
         $this->courierService = $courierService;
         $this->activeUserContainer = $activeUserContainer;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function fetchAccountsById($accountIds): AccountCollection
     {
         return $this->accountService->fetchShippingAccounts($accountIds);
+    }
+
+    public function fetchOrganisationUnitsForAccounts(AccountCollection $accounts): OrganisationUnits
+    {
+        return $this->organisationUnitService->fetchCollectionByFilter(
+            (new OrganisationUnitFilter('all', 1))
+                ->setId(
+                    array_merge(
+                        $accounts->getArrayOf('organisationUnitId'),
+                        $accounts->getArrayOf('rootOrganisationUnitId')
+                    )
+                )
+        );
     }
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)

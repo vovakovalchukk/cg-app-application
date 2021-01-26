@@ -2,6 +2,7 @@
 namespace CG\ShipStation\Messages;
 
 use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsData;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -37,16 +38,18 @@ class Customs
 
     public static function createFromOrder(
         Order $order,
+        OrderItemsData $itemsData,
         OrganisationUnit $rootOu
     ): self {
-        $items = [];
+        $customsItems = [];
         foreach ($order->getItems() as $orderItem) {
-            $items[] = Item::createFromOrderItem($orderItem, $rootOu);
+            $itemData = $itemsData->getItems()->getById($orderItem->getId());
+            $customsItems[] = Item::createFromOrderItem($orderItem, $itemData, $rootOu);
         }
         return new self(
             static::CONTENTS_MERCH,
             static::NON_DELIVERY_RETURN,
-            ...$items
+            ...$customsItems
         );
     }
 

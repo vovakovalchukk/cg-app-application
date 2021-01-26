@@ -79,6 +79,10 @@ const MessageList = (props) => {
             return;
         }
 
+        if (!filterInState.ajaxFilterProperty || !filterInState.ajaxFilterValue) {
+            return;
+        }
+
         // fire the ajax request corresponding to react-router parameter on view load.
         filterObjectForAjax[filterInState.ajaxFilterProperty] = filterInState.ajaxFilterValue;
 

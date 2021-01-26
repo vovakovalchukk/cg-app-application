@@ -7,6 +7,7 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Locale\CountryNameByCode;
 use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locking\Failure as LockingFailure;
@@ -101,6 +102,16 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         'width'  => 'processDimensionForProductDetails',
         'height' => 'processDimensionForProductDetails',
         'length' => 'processDimensionForProductDetails',
+        'harmonisedSystemCode' => null, // no processing necessary
+        'countryOfOrigin' => 'processCountryOfOriginForProductDetails',
+    ];
+    protected const FIELD_TO_SETTER_MAP = [
+        'harmonisedSystemCode' => 'setHsTariffNumber',
+        'countryOfOrigin' => 'setCountryOfManufacture',
+    ];
+    protected const DATA_FIELD_TO_PRODUCT_DETAIL_FIELD_MAP = [
+        'harmonisedSystemCode' => 'hsTariffNumber',
+        'countryOfOrigin' => 'countryOfManufacture',
     ];
 
     public function __construct(
@@ -238,7 +249,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                 $value = $this->sanitizeSku($value);
             }
 
-            $setter = 'set' . ucfirst($field);
+            $setter = static::FIELD_TO_SETTER_MAP[$field] ?? ('set' . ucfirst($field));
             $productDetail->$setter($value);
             $changes = true;
         }
@@ -273,7 +284,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                 continue;
             }
             $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount) : $productDetailData[$field]);
-            $data[$field] = $value;
+            $data[static::DATA_FIELD_TO_PRODUCT_DETAIL_FIELD_MAP[$field] ?? $field] = $value;
         }
         $productDetail = $this->productDetailMapper->fromArray($data);
         $hal = $this->productDetailService->save($productDetail);
@@ -294,6 +305,19 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         }
         $displayUnit = LocaleLength::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
         return ProductDetail::convertLength($value, $displayUnit, ProductDetail::UNIT_LENGTH);
+    }
+
+    protected function processCountryOfOriginForProductDetails($value, Item $item, $parcelCount)
+    {
+        // check against iso codes, if not valid try and match via name
+        if (CountryNameByCode::isValidCountryCode($value)) {
+            return $value;
+        }
+        try {
+            return CountryNameByCode::getCountryCodeFromName($value);
+        } catch (\UnexpectedValueException $e) {
+            return null;
+        }
     }
 
     protected function createOrderLabelForOrder(
