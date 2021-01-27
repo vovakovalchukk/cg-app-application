@@ -111,7 +111,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
             <label>
                 <span class="inputbox-label"><?= $this->translate('Shipping Service'); ?></span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox" id="trackingShippingService" type="text" name="trackingShippingService" value="<?= ($tracking && !empty($tracking->getShippingService())) ? $tracking->getShippingService() : ($this->shippingMethod) ? $this->shippingMethod : ""; ?>">
+                    <input class="inputbox" id="trackingShippingService" type="text" name="trackingShippingService" value="<?= $trackingShippingService; ?>">
                 </div>
             </label>
         <?php endif; ?>
