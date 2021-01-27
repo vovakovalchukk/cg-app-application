@@ -242,7 +242,9 @@ class OrderDetailsController extends AbstractActionController
         } catch (NotFound $e) {
             $view->setVariable('trackings', []);
             $view->addChild($this->getCarrierSelect($order), 'carrierSelect');
-            $view->setVariable('tracking', $order->getFirstTracking());
+            $orderTracking = $order->getFirstTracking();
+            $view->setVariable('tracking', $orderTracking);
+            $view->setVariable('trackingShippingService', ($orderTracking && !empty($orderTracking->getShippingService())) ? $orderTracking->getShippingService() : $order->getShippingMethod());
         }
 
         return $view;
