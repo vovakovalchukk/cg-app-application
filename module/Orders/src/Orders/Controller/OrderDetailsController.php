@@ -10,6 +10,7 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
+use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -242,12 +243,20 @@ class OrderDetailsController extends AbstractActionController
         } catch (NotFound $e) {
             $view->setVariable('trackings', []);
             $view->addChild($this->getCarrierSelect($order), 'carrierSelect');
-            $orderTracking = $order->getFirstTracking();
-            $view->setVariable('tracking', $orderTracking);
-            $view->setVariable('trackingShippingService', ($orderTracking && !empty($orderTracking->getShippingService())) ? $orderTracking->getShippingService() : $order->getShippingMethod());
+            $view->setVariable('tracking', $order->getFirstTracking());
+            $view->setVariable('trackingShippingService', $this->determineOrderTrackingShippingService($order));
         }
 
         return $view;
+    }
+
+    protected function determineOrderTrackingShippingService(Order $order): string
+    {
+        $orderTracking = $order->getFirstTracking();
+        if (($orderTracking instanceof OrderTracking) && !empty($orderTracking->getShippingService())) {
+            return $orderTracking->getShippingService();
+        }
+        return $order->getShippingMethod();
     }
 
     protected function getPrintLabelButton(Order $order)
