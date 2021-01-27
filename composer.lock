@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92ea3d1dbb012eb65ad5d2c5bcfb1db9",
+    "content-hash": "be37b502d32c38166824c24291bd2d81",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.38.1",
+            "version": "1.39.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "12b29ffda097e06e4db3fd1113140a156ed517e5"
+                "reference": "21b6ee2888ce8806cadda091a952a99e08df2779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.38.1-c50012.zip",
-                "reference": "12b29ffda097e06e4db3fd1113140a156ed517e5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.1-95e972.zip",
+                "reference": "21b6ee2888ce8806cadda091a952a99e08df2779"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2020-12-09T12:44:05+00:00"
+            "time": "2021-01-20T14:38:53+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7d0f86c934b628b5f80647a480be0d5fbbd552db"
+                "reference": "f30631ca9312b6bff99253e1dcb968193726b591"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11809-parcelforce-weight-issue-cc0590.zip",
-                "reference": "7d0f86c934b628b5f80647a480be0d5fbbd552db"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11809-parcelforce-weight-issue-c2d784.zip",
+                "reference": "f30631ca9312b6bff99253e1dcb968193726b591"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-01-15T14:37:45+00:00"
+            "time": "2021-01-27T10:43:51+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2126,16 +2126,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "dffda2b611fab5cb98ee0d23e76823ea414168e2"
+                "reference": "6c4c24a1e6709e9a13d7a3667a7c74ff10260371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.4-68de60.zip",
-                "reference": "dffda2b611fab5cb98ee0d23e76823ea414168e2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.5-7a929a.zip",
+                "reference": "6c4c24a1e6709e9a13d7a3667a7c74ff10260371"
             },
             "require": {
                 "php": ">=7.1",
@@ -2158,7 +2158,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2020-08-14T11:36:37+00:00"
+            "time": "2021-01-25T09:55:35+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -3309,16 +3309,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121"
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.1-42bcff.zip",
-                "reference": "55d95602bd0fd334cd02601d6d82bc5e2617f121"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.9.2-eefeca.zip",
+                "reference": "008e335501b674bcd5c4bc9cb878796530fe6288"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3341,7 +3341,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2020-12-07T15:44:05+00:00"
+            "time": "2021-01-15T15:28:41+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -11904,12 +11904,12 @@
             "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
@@ -11995,8 +11995,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.3.2",
-            "alias_normalized": "1.3.2.0",
+            "alias": "1.3.4",
+            "alias_normalized": "1.3.4.0",
             "version": "dev-CGIV-11809-parcelforce-weight-issue",
             "package": "channelgrabber/courier"
         }
