@@ -133,18 +133,7 @@ class DeliveryService implements DeliveryServiceInterface
 
     protected function isCountryCodeDomestic(string $countryCode): bool
     {
-        return $this->isCountryCodeUkOrGb($countryCode) || $this->isCountryCodeChannelIslands($countryCode);
-    }
-
-    protected function isCountryCodeUkOrGb(string $countryCode): bool
-    {
-        return ($countryCode == 'GB' || $countryCode == 'UK');
-    }
-
-    protected function isCountryCodeChannelIslands(string $countryCode): bool
-    {
-        /* Jersey and Guernsey use domestic shipping methods */
-        return ($countryCode == 'JE' || $countryCode == 'GG');
+        return DomesticCountries::countrySupportsDomesticShipping($countryCode);
     }
 
     protected function isInternationalServiceType(string $isoAlpha2CountryCode): bool

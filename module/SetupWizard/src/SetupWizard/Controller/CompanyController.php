@@ -64,9 +64,9 @@ class CompanyController extends AbstractActionController
     protected function getCountryForLocale(): string
     {
         $locale = $this->activeUserContainer->getLocale();
-        if ($locale === UserLocale::LOCALE_UK) {
-            return CountryNameByCode::getCountryNameFromCode('GB');
+        if ($locale === UserLocale::LOCALE_US) {
+            return CountryNameByCode::getCountryNameFromCode('US');
         }
-        return CountryNameByCode::getCountryNameFromCode('US');
+        return CountryNameByCode::getCountryNameFromCode('GB');
     }
 }
