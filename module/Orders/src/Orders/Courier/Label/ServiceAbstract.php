@@ -184,9 +184,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu
     ) {
-        $this->logDebug(__METHOD__, [], 'MYTEST');
-
-
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
@@ -208,15 +205,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
             $items = $order->getItems();
-
-            $this->logDebugDump($itemsData, 'itemsData', [], 'MYTEST');
-            $this->logDebugDump($parcelData, 'parcelData', [], 'MYTEST');
-
             foreach ($items as $item) {
                 $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
-
-//                $this->logDebugDump($itemsData->getItems()->getById($item->getId())->toArray(), 'itemData', [], 'MYTEST');
-
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
@@ -246,11 +236,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         $attempt = 1
     ) {
         $changes = false;
-
-        $this->logDebugDump($productDetailData, 'productDetailData', [], 'MYTEST');
-        $this->logDebugDump($this->productDetailFields, 'productDetailFields', [], 'MYTEST');
-
-
         foreach ($this->productDetailFields as $field => $callback) {
             if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
@@ -269,7 +254,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $changes = true;
         }
         if (!$changes) {
-            $this->logDebug('No changes', [], 'MYTEST');
             return;
         }
         try {
