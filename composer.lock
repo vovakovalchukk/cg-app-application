@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56d6ec8ec19c9bed407a7e202f0f4203",
+    "content-hash": "66ee0b9586191a607378cf9883f99efc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1018,16 +1018,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.3.2",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "093b7889b4617d0c53fb8abefc642cca0d3211a6"
+                "reference": "6e107ddd38e91d568ab2b9bbeb38af29c8fd633f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.3.2-7449ac.zip",
-                "reference": "093b7889b4617d0c53fb8abefc642cca0d3211a6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.3.4-531f60.zip",
+                "reference": "6e107ddd38e91d568ab2b9bbeb38af29c8fd633f"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-01-18T16:55:43+00:00"
+            "time": "2021-01-27T13:14:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.57.0",
+            "version": "1.57.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7218e0ce14bcf17ccbec7e14c6193ed59e39c254"
+                "reference": "f93641427070993d9c749e8d1b6fca333e2f44a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.0-af4bc2.zip",
-                "reference": "7218e0ce14bcf17ccbec7e14c6193ed59e39c254"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.2-4afc35.zip",
+                "reference": "f93641427070993d9c749e8d1b6fca333e2f44a8"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2020-12-24T16:16:10+00:00"
+            "time": "2021-02-01T13:36:09+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2729,16 +2729,16 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "db48c0d3641d31e23af98fb8aa309774503934fb"
+                "reference": "1979c677b08a7c516cdf925e9c722f7b34c1be69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.2-c9a497.zip",
-                "reference": "db48c0d3641d31e23af98fb8aa309774503934fb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.3-723b51.zip",
+                "reference": "1979c677b08a7c516cdf925e9c722f7b34c1be69"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2768,7 +2768,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-03-05T09:31:25+00:00"
+            "time": "2021-01-27T15:41:50+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -11995,8 +11995,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.10",
-            "alias_normalized": "1.20.10.0",
+            "alias": "1.20.11",
+            "alias_normalized": "1.20.11.0",
             "version": "dev-CGIV-11828-remove-cost-price",
             "package": "channelgrabber/product"
         }

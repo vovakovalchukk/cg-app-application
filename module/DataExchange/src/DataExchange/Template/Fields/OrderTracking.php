@@ -8,7 +8,8 @@ class OrderTracking implements FieldsInterface
     const FIELDS = [
         'CG Order ID' => 'orderId',
         'Tracking number' => 'number',
-        'Carrier' => 'carrier'
+        'Carrier' => 'carrier',
+        'Shipping Service' => 'shippingService',
     ];
 
     public static function getFields(): array
