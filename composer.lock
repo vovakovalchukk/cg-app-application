@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80c35c483d85096028cc8697be61d6be",
+    "content-hash": "157ec2ee258107e7852703a49f27e559",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3819,7 +3819,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8e19b8afd13a292384518779f1020c7ca55d8b25"
+                "reference": "35fe9e3dfe5f9cdd03a3374ec7772f452177309d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11778-cn23-not-printing-correctly-a478b8.zip",
+                "reference": "35fe9e3dfe5f9cdd03a3374ec7772f452177309d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3870,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2020-12-07T15:52:18+00:00"
+            "time": "2021-02-04T15:28:59+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -12001,8 +12006,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
