@@ -196,19 +196,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $suitableOrders->attach($order);
         }
 
-//        $this->logDebugDump($orderParcelsData, 'ORDER PARCEL DATA', [], 'MYTEST');
-//        $this->logDebugDump($ordersItemsData, 'ORDER ITEM DATA', [], 'MYTEST');
-
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
             /** @var OrderParcelsData $parcelsData */
             $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
-
-//            if ($orderParcelsData->containsId($order->getId())) {
-//                $this->logDebugDump($orderParcelsData->getById($order->getId()), 'ORDER PARCEL DATA', [], 'MYTEST');
-//            }
-
-//            $this->logDebugDump($parcelsData, 'Pracels DATA', [], 'MYTEST');
 
             /** @var OrderParcelsData $parcelsData */
             $parcelCount = count($parcelsData->getParcels());
@@ -216,8 +207,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
-
-//            $this->logDebugDump($itemsData, 'Items DATA', [], 'MYTEST');
 
             $items = $order->getItems();
             foreach ($items as $item) {
@@ -260,11 +249,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         if (!isset($productDetailData['weight']) || is_null($productDetailData['weight'])) {
             $productDetailData['weight'] = $parcelData ? $parcelData->toArray()['weight'] : null;
         }
-
-//        if ($parcelCount <= 1) {
-//            return $productDetailData;
-//        }
-
         if (!isset($productDetailData['width']) || is_null($productDetailData['width'])) {
             $productDetailData['width'] = $parcelData ? $parcelData->toArray()['width'] : null;
         }
