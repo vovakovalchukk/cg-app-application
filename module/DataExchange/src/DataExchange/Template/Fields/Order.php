@@ -27,6 +27,7 @@ class Order implements FieldsInterface
         'SKU' => 'item.itemSku',
         'Line Discount' => 'item.individualItemDiscountPrice',
         'Line VAT' => 'item.itemTaxPercentage',
+        'Line VAT Value' => 'item.lineTaxString',
         'EAN' => 'productDetail.ean',
         'UPC' => 'productDetail.upc',
         'Brand' => 'productDetail.brand',
