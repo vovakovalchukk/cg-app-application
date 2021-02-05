@@ -184,8 +184,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu
     ) {
-        $this->logDebug(__METHOD__, [], 'MYTEST');
-
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
@@ -200,29 +198,16 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         foreach ($suitableOrders as $order) {
             /** @var OrderParcelsData $parcelsData */
             $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
-
             /** @var OrderParcelsData $parcelsData */
             $parcelCount = count($parcelsData->getParcels());
             /** @var ParcelData $parcelData */
             $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
-
             $items = $order->getItems();
             foreach ($items as $item) {
                 $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
                 $productDetailData = $this->copyDimensionsAndWeightToProductDetailData($productDetailData, $parcelData, $parcelCount);
-
-                if ($itemsData && $itemsData->getItems()->containsId($item->getId())) {
-                    $this->logDebugDump($itemsData->getItems()->getById($item->getId())->toArray(), 'Items DATA', [], 'MYTEST');
-                }
-
-                if ($parcelData) {
-                    $this->logDebugDump($parcelData->toArray(), 'Pracel DATA', [], 'MYTEST');
-                }
-
-                $this->logDebugDump($productDetailData, 'productDetailData', [], 'MYTEST');
-
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
