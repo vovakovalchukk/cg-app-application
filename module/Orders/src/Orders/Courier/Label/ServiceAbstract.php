@@ -184,6 +184,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu
     ) {
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
@@ -194,19 +196,44 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $suitableOrders->attach($order);
         }
 
+//        $this->logDebugDump($orderParcelsData, 'ORDER PARCEL DATA', [], 'MYTEST');
+//        $this->logDebugDump($ordersItemsData, 'ORDER ITEM DATA', [], 'MYTEST');
+
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
             /** @var OrderParcelsData $parcelsData */
             $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
+
+//            if ($orderParcelsData->containsId($order->getId())) {
+//                $this->logDebugDump($orderParcelsData->getById($order->getId()), 'ORDER PARCEL DATA', [], 'MYTEST');
+//            }
+
+//            $this->logDebugDump($parcelsData, 'Pracels DATA', [], 'MYTEST');
+
             /** @var OrderParcelsData $parcelsData */
             $parcelCount = count($parcelsData->getParcels());
             /** @var ParcelData $parcelData */
             $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
+
+//            $this->logDebugDump($itemsData, 'Items DATA', [], 'MYTEST');
+
             $items = $order->getItems();
             foreach ($items as $item) {
                 $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
+                $productDetailData = $this->copyDimensionsAndWeightToProductDetailData($productDetailData, $parcelData, $parcelCount);
+
+                if ($itemsData && $itemsData->getItems()->containsId($item->getId())) {
+                    $this->logDebugDump($itemsData->getItems()->getById($item->getId())->toArray(), 'Items DATA', [], 'MYTEST');
+                }
+
+                if ($parcelData) {
+                    $this->logDebugDump($parcelData->toArray(), 'Pracel DATA', [], 'MYTEST');
+                }
+
+                $this->logDebugDump($productDetailData, 'productDetailData', [], 'MYTEST');
+
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
@@ -226,6 +253,29 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                 }
             }
         }
+    }
+
+    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ParcelData $parcelData, $parcelCount): array
+    {
+        if (!isset($productDetailData['weight']) || is_null($productDetailData['weight'])) {
+            $productDetailData['weight'] = $parcelData ? $parcelData->toArray()['weight'] : null;
+        }
+
+//        if ($parcelCount <= 1) {
+//            return $productDetailData;
+//        }
+
+        if (!isset($productDetailData['width']) || is_null($productDetailData['width'])) {
+            $productDetailData['width'] = $parcelData ? $parcelData->toArray()['width'] : null;
+        }
+        if (!isset($productDetailData['width']) || is_null($productDetailData['width'])) {
+            $productDetailData['height'] = $parcelData ? $parcelData->toArray()['height'] : null;
+        }
+        if (!isset($productDetailData['width']) || is_null($productDetailData['width'])) {
+            $productDetailData['length'] = $parcelData ? $parcelData->toArray()['length'] : null;
+        }
+
+        return $productDetailData;
     }
 
     protected function updateProductDetailFromInputData(
