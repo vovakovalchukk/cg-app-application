@@ -43,9 +43,9 @@ const FormattingService = {
     formatCgFieldOptions: function(cgFieldOptions) {
         let options = [];
         for (let key in cgFieldOptions) {
-            var title = key;
-            var name = key;
-            var value = cgFieldOptions[key];
+            let title = key;
+            let name = key;
+            let value = cgFieldOptions[key];
             if (typeof cgFieldOptions[key] === 'object' && cgFieldOptions[key] !== null) {
                 name = cgFieldOptions[key].displayName;
                 value = cgFieldOptions[key].field;
