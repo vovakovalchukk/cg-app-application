@@ -237,10 +237,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         if (!isset($productDetailData['width']) || empty($productDetailData['width'])) {
             $productDetailData['width'] = $parcelData ? $parcelData->toArray()['width'] : null;
         }
-        if (!isset($productDetailData['width']) || empty($productDetailData['width'])) {
+        if (!isset($productDetailData['height']) || empty($productDetailData['height'])) {
             $productDetailData['height'] = $parcelData ? $parcelData->toArray()['height'] : null;
         }
-        if (!isset($productDetailData['width']) || empty($productDetailData['width'])) {
+        if (!isset($productDetailData['length']) || empty($productDetailData['length'])) {
             $productDetailData['length'] = $parcelData ? $parcelData->toArray()['length'] : null;
         }
 
