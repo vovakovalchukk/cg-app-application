@@ -13,9 +13,8 @@ define([
     AllPagesDisplay.prototype.initDisplayOnAllPagesListener = function(inspector, element) {
         const selector = '#' + inspector.getAllPagesDisplayCheckboxId();
         const checkboxNode = $(selector);
-        checkboxNode.off('change').on('change', event => {
-            const value = event.target.value === 'on';
-            inspector.setDisplayOnAllPages(element, value);
+        checkboxNode.off('change').on('change', () => {
+            inspector.setDisplayOnAllPages(element, checkboxNode.is(":checked"));
         });
         return this;
     };
