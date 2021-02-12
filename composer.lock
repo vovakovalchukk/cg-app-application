@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcb94a371b6d85733af0e319ef32ffbe",
+    "content-hash": "d0f14e77d20e921bdcc909adc2dc2fe6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4939,16 +4939,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "2f4797b1221f83cdab914cd9d80bd22d6740fb26"
+                "reference": "3cf5c68cbc051a5c94fb7da963a3a244b4a9775f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.7.0-8a164a.zip",
-                "reference": "2f4797b1221f83cdab914cd9d80bd22d6740fb26",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.7.1-7f4cbe.zip",
+                "reference": "3cf5c68cbc051a5c94fb7da963a3a244b4a9775f",
                 "shasum": null
             },
             "require": {
@@ -4994,7 +4994,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2020-01-17T14:48:29+00:00"
+            "time": "2021-02-12T15:31:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -5128,16 +5128,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.21",
+            "version": "1.6.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "355b780c54ac9a7aa1a5a166ae99462664fd3f57"
+                "reference": "d2a5bb3e3b4174b36b8083acb6cf555e7b5890da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.21-88534a.zip",
-                "reference": "355b780c54ac9a7aa1a5a166ae99462664fd3f57",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.22-824992.zip",
+                "reference": "d2a5bb3e3b4174b36b8083acb6cf555e7b5890da",
                 "shasum": null
             },
             "require": {
@@ -5177,7 +5177,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2020-12-17T09:59:31+00:00"
+            "time": "2021-02-12T15:23:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -5486,16 +5486,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.27.5",
+            "version": "1.27.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8e48af12d454f6df16309ad8b20d8660145880ea"
+                "reference": "aa2f8547482e6f583f55909b3d5de2ad3925468e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.5-5d0b77.zip",
-                "reference": "8e48af12d454f6df16309ad8b20d8660145880ea",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.6-2fdc3a.zip",
+                "reference": "aa2f8547482e6f583f55909b3d5de2ad3925468e",
                 "shasum": null
             },
             "require": {
@@ -5547,7 +5547,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2020-12-24T16:07:31+00:00"
+            "time": "2021-02-12T15:23:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -12028,12 +12028,12 @@
             "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozarts/assert.git",
+                "url": "https://github.com/webmozart/assert.git",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
