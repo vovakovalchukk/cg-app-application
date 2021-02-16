@@ -182,6 +182,8 @@ use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
 
 use CG\Email\Smtp;
 
+use Zend\Captcha\ReCaptcha as ReCaptcha;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -646,6 +648,17 @@ $config = array(
                     ]
                 ]
             ],
+
+
+            ReCaptcha::class =>  [
+                'parameters' => [
+                    'options' => [
+                        'pubKey' => '6LdDo1oaAAAAAGPdqiUwIu5K304QGEPtQeC-xDmZ',
+                        'privKey' => '6LdDo1oaAAAAADFajK5SEEhwWwhghOyW7lBQaw-p'
+                    ]
+                ]
+            ],
+
         ),
     ),
     'view_manager' => [
