@@ -207,6 +207,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $items = $order->getItems();
             foreach ($items as $item) {
                 $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
+                $productDetailData = $this->copyDimensionsAndWeightToProductDetailData($productDetailData, $parcelData);
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
@@ -226,6 +227,24 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                 }
             }
         }
+    }
+
+    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ParcelData $parcelData): array
+    {
+        if (!isset($productDetailData['weight']) || empty($productDetailData['weight'])) {
+            $productDetailData['weight'] = $parcelData ? $parcelData->toArray()['weight'] : null;
+        }
+        if (!isset($productDetailData['width']) || empty($productDetailData['width'])) {
+            $productDetailData['width'] = $parcelData ? $parcelData->toArray()['width'] : null;
+        }
+        if (!isset($productDetailData['height']) || empty($productDetailData['height'])) {
+            $productDetailData['height'] = $parcelData ? $parcelData->toArray()['height'] : null;
+        }
+        if (!isset($productDetailData['length']) || empty($productDetailData['length'])) {
+            $productDetailData['length'] = $parcelData ? $parcelData->toArray()['length'] : null;
+        }
+
+        return $productDetailData;
     }
 
     protected function updateProductDetailFromInputData(
