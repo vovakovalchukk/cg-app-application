@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75a9d019e5ba81f06b77e7bfdeaa60fb",
+    "content-hash": "a0b317104d86f010ea42991d3270633a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5019,7 +5019,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7cebee373b7888b5116260baa26b01859b52bc8b"
+                "reference": "4576dc21ff8a48a79a086e07a58295a85afbaf42"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5364,12 +5364,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "52c9beef041f10985bfdb3e2ff5909149461eace"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-11693-registration-for-captcha-7e256b.zip",
-                "reference": "52c9beef041f10985bfdb3e2ff5909149461eace"
+                "reference": "aa1c4e7801505d3bbe253820ab7fa5f2c0be754c"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
