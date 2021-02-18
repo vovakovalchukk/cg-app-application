@@ -5019,7 +5019,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "4576dc21ff8a48a79a086e07a58295a85afbaf42"
+                "reference": "8f816914b3eb000f738626ef474d0ef5d59711a5"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5364,7 +5364,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "aa1c4e7801505d3bbe253820ab7fa5f2c0be754c"
+                "reference": "3c17dd26657068ecba094f19bfa9fd3d3facc178"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
