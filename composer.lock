@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0b317104d86f010ea42991d3270633a",
+    "content-hash": "176597562dd4608c226ff62c9d578b8e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5019,7 +5019,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "8f816914b3eb000f738626ef474d0ef5d59711a5"
+                "reference": "8b1b48fa436f4e4efdc3105ac7895bbdc79993fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-CGIV-11693-registration-for-captcha-7b7933.zip",
+                "reference": "8b1b48fa436f4e4efdc3105ac7895bbdc79993fd"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5031,7 +5036,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "channelgrabber/zf2-v4-ui": "^1.27.3",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-11693-registration-for-captcha as 1.27.7",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1",
@@ -5058,7 +5063,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2021-02-12T15:23:15+00:00"
+            "time": "2021-02-18T15:42:17+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -5364,7 +5369,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3c17dd26657068ecba094f19bfa9fd3d3facc178"
+                "reference": "8c6cbac74e547d28c6448c03a69bad180478d57e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-11693-registration-for-captcha-78f103.zip",
+                "reference": "8c6cbac74e547d28c6448c03a69bad180478d57e"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5415,7 +5425,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2021-02-16T14:09:57+00:00"
+            "time": "2021-02-18T15:16:16+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9489,50 +9499,6 @@
             "time": "2020-02-10T10:57:06+00:00"
         },
         {
-            "name": "zendframework/zendservice-recaptcha",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/ZendService_ReCaptcha.git",
-                "reference": "4324cca8502d9f47b3b43a18acdd3fdbeb965536"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendService_ReCaptcha/zipball/4324cca8502d9f47b3b43a18acdd3fdbeb965536",
-                "reference": "4324cca8502d9f47b3b43a18acdd3fdbeb965536",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-http": ">=2.0.0",
-                "zendframework/zend-uri": ">=2.0.0",
-                "zendframework/zend-version": ">=2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ZendService": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "OOP wrapper for the ReCaptcha web service",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "recaptcha",
-                "zf2"
-            ],
-            "abandoned": "laminas/laminas-recaptcha",
-            "time": "2012-09-24T15:18:29+00:00"
-        },
-        {
             "name": "zendframework/zendxml",
             "version": "1.0.2",
             "source": {
@@ -12047,8 +12013,8 @@
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

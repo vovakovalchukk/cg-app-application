@@ -133,8 +133,7 @@
         "phpish/link_header": "@dev",
         "psr/log": "^1.0",
         "realityking/hash_equals": "@dev",
-        "zendframework/zendframework": "2.3.*",
-        "zendframework/zendservice-recaptcha": "~2.0.0"
+        "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {
         "phpspec/phpspec": "2.0.*@dev",

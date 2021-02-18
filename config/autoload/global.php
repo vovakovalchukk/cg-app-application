@@ -182,8 +182,6 @@ use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
 
 use CG\Email\Smtp;
 
-use Zend\Captcha\ReCaptcha as ReCaptcha;
-
 $config = array(
     'di' => array(
         'instance' => array(
