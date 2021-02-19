@@ -27,7 +27,7 @@ define([
             borderWidth: 1,
             borderColour: 'black',
             errorBorder: false,
-            allPagesDisplay: false
+            displayOnAllPages: false
         };
 
         var baseInspectableAttributes = [];
@@ -171,12 +171,12 @@ define([
 
         this.setDisplayOnAllPages = function(desiredValue, populating)
         {
-            this.set('allPagesDisplay', desiredValue, populating);
+            this.set('displayOnAllPages', desiredValue, populating);
             return this;
         };
 
         this.getDisplayOnAllPages = function() {
-            return this.get('allPagesDisplay');
+            return this.get('displayOnAllPages');
         };
 
         this.setErrorBorder = function(value, populating) {
@@ -249,7 +249,7 @@ define([
         {
             return maxHeight;
         };
-        
+
         this.setMinWidth = function(newMinWidth, publish)
         {
             minWidth = newMinWidth;
@@ -258,7 +258,7 @@ define([
             }
             return this;
         };
-        
+
         this.setMinHeight = function(newMinHeight)
         {
             minHeight = newMinHeight;
@@ -374,7 +374,7 @@ define([
         this.setX(data.x, populating);
         this.setY(data.y, populating);
         this.setBorderWidth(data.borderWidth, populating);
-        this.setDisplayOnAllPages(data.allPagesDisplay, populating)
+        this.setDisplayOnAllPages(data.displayOnAllPages, populating)
     };
 
     return ElementAbstract;
