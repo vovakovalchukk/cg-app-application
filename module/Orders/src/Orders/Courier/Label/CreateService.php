@@ -20,6 +20,7 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 
 class CreateService extends ServiceAbstract
 {
@@ -153,25 +154,38 @@ class CreateService extends ServiceAbstract
     ) {
         // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
         // into one row). In the latter case we end up with parcelData but not itemData. We'll rectify that if we can.
+        // Additionally, Brexit-related fields like HS Code and Country of Origin are always submitted at the item-level,
+        // and are not collapsed to the parcel level like weight. This means we can have itemData at this point but
+        // without the weight set on it, so we need to update the item weight from the parcel weight.
         foreach ($orders as $order) {
-            if ($ordersItemsData->containsId($order->getId())) {
-                continue;
-            }
             /** @var OrderParcelsData $parcelsData */
             $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
             if (count($order->getItems()) > 1 || !$parcelsData || count($parcelsData->getParcels()) > 1) {
                 continue;
             }
-            $items = $order->getItems();
-            $items->rewind();
-            $item = $items->current();
-
-            $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
-            $itemsData = new ItemDataCollection();
-            $itemsData->attach($itemData);
-            $orderItemsData = new OrderItemsData($order->getId(), $itemsData);
-            $ordersItemsData->attach($orderItemsData);
+            if (!$ordersItemsData->containsId($order->getId())) {
+                $ordersItemsData->attach($this->createNewOrderItemsData($parcelsData, $order->getItems()->getFirst()));
+                continue;
+            }
+            $this->updateExistingItemData($ordersItemsData->getById($order->getId()), $parcelsData);
         }
         return $ordersItemsData;
+    }
+
+    protected function updateExistingItemData(OrderItemsData $orderItemsData, OrderParcelsData $parcelsData)
+    {
+        /** @var ParcelData $parcelData */
+        $parcelData = $parcelsData->getParcels()->getFirst();
+        /** @var ItemData $itemData */
+        $itemData = $orderItemsData->getItems()->getFirst();
+        $itemData->setWeight($parcelData->getWeight());
+    }
+
+    protected function createNewOrderItemsData(OrderParcelsData $parcelsData, Item $item): OrderItemsData
+    {
+        $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
+        $itemsData = new ItemDataCollection();
+        $itemsData->attach($itemData);
+        return new OrderItemsData($item->getOrderId(), $itemsData);
     }
 }
