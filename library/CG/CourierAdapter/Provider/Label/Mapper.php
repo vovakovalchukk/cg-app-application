@@ -10,6 +10,7 @@ use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
+use CG\CourierAdapter\Shipment\SupportedField\TermsOfDeliveryInterface;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\Length as LocaleLength;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -125,6 +126,9 @@ class Mapper
         }
         if (is_a($shipmentClass, EoriNumberInterface::class, true)) {
             $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
+        }
+        if (is_a($shipmentClass, TermsOfDeliveryInterface::class, true)) {
+            $caShipmentData['termsOfDelivery'] = $orderData['termsOfDelivery'] ?? '';
         }
 
         return $caShipmentData;
