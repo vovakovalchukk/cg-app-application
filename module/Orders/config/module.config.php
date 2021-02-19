@@ -2777,7 +2777,7 @@ return [
                     'column' => 'termsOfDelivery',
                     'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
                     'class' => 'termsOfDelivery-col',
-                    'sortable' => true,
+                    'sortable' => false,
                     'order' => 121,
                     'width' => '45px',
                 ],
