@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e76f27953b9f8fa2154b77278896afb",
+    "content-hash": "3577e30ac2453792ec11761697eca1e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1024,6 +1024,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "41531ab2d27e8f65814601a8ffeed895807a4c9e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11886-geopost-terms-of-delivery-beec15.zip",
+                "reference": "41531ab2d27e8f65814601a8ffeed895807a4c9e"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
                 "channelgrabber/locale": "^1.0.17",
@@ -1061,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-01-27T13:14:50+00:00"
+            "time": "2021-02-19T11:10:01+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1069,6 +1074,11 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
+                "reference": "4de0511126f72fced335162e132fdfb8350c34ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-11886-geopost-terms-of-delivery-fc462c.zip",
                 "reference": "4de0511126f72fced335162e132fdfb8350c34ff"
             },
             "require": {
@@ -1093,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2020-12-24T16:08:38+00:00"
+            "time": "2021-02-19T11:10:37+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -10534,7 +10544,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11893,12 +11904,12 @@
             "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
@@ -12002,8 +12013,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
