@@ -1395,6 +1395,8 @@ return [
                 'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
                 'CourierSpecificsEoriNumberColumnView' => ViewModel::class,
                 'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
+                'CourierSpecificsTermsOfDeliveryColumnView' => ViewModel::class,
+                'CourierSpecificsTermsOfDeliveryColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2761,6 +2763,22 @@ return [
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
                     'order' => 121,
+                    'width' => '30px',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Terms of Delivery'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumn' => [
+                'parameters' => [
+                    'column' => 'termsOfDelivery',
+                    'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
+                    'class' => 'termsOfDelivery-col',
+                    'sortable' => false,
+                    'order' => 123,
                     'width' => '30px',
                 ],
             ],
