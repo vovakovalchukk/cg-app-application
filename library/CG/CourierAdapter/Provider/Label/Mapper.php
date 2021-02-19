@@ -128,7 +128,7 @@ class Mapper
             $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
         }
         if (is_a($shipmentClass, TermsOfDeliveryInterface::class, true)) {
-            $caShipmentData['termsOfDelivery'] = $orderData['termsOfDelivery'] ?? '';
+            $caShipmentData['termsOfDelivery'] = (bool)$orderData['termsOfDelivery'];
         }
 
         return $caShipmentData;

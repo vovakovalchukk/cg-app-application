@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "41531ab2d27e8f65814601a8ffeed895807a4c9e"
+                "reference": "87ffebbb9f9011ae10d6bb5b8f573b3d586fe4da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11886-geopost-terms-of-delivery-beec15.zip",
-                "reference": "41531ab2d27e8f65814601a8ffeed895807a4c9e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11886-geopost-terms-of-delivery-ac0fc8.zip",
+                "reference": "87ffebbb9f9011ae10d6bb5b8f573b3d586fe4da"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-02-19T11:10:01+00:00"
+            "time": "2021-02-19T16:00:08+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
