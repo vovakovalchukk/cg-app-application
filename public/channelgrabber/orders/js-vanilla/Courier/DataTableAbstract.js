@@ -58,6 +58,7 @@ function CourierDataTableAbstract(dataTable, orderIds, templateMap)
     var init = function()
     {
         this.alternateOrderRowColours()
+            .addBulkActionRows()
             .addGroupRows();
     }
     init.call(this);
@@ -117,6 +118,30 @@ CourierDataTableAbstract.prototype.alternateOrderRowColours = function()
         }
         var className = orderParity+'-order-row';
         $(nRow).addClass(className);
+    });
+    return this;
+};
+
+CourierDataTableAbstract.prototype.addBulkActionRows = function()
+{
+    var self = this;
+    this.getDataTable().on('fnDrawCallback', function(event, settings)
+    {
+        console.log(settings.aoData);
+
+        t.row.add();
+
+        for (var index in settings.aoData) {
+            var oData = settings.aoData[index];
+            var aData = oData._aData;
+            var nRow = oData.nTr;
+            var rowGroup = self.getRowGroup();
+            if (!aData.group || !aData.orderRow || aData.group == rowGroup) {
+                continue;
+            }
+            $(nRow).before('<tr class="courier-bulk-action-row"><td colspan="' + $(nRow).find('td').length + '">HELLO WORLD</td></tr>');
+            self.setRowGroup(aData.group);
+        }
     });
     return this;
 };

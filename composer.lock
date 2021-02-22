@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3577e30ac2453792ec11761697eca1e9",
+    "content-hash": "586a69cf0ad298fff50f5b9a99f31643",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.57.2",
+            "version": "dev-CGIV-11886-geopost-terms-of-delivery",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f93641427070993d9c749e8d1b6fca333e2f44a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.2-4afc35.zip",
-                "reference": "f93641427070993d9c749e8d1b6fca333e2f44a8"
+                "reference": "7f1a3a4a6a7e39caffa07662b0924d58b2b8669d"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -12005,6 +12000,12 @@
             "alias_normalized": "1.7.1.0",
             "version": "dev-CGIV-11886-geopost-terms-of-delivery",
             "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.57.3",
+            "alias_normalized": "1.57.3.0",
+            "version": "dev-CGIV-11886-geopost-terms-of-delivery",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -12012,9 +12013,10 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
