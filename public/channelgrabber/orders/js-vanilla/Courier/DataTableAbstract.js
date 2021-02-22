@@ -127,21 +127,62 @@ CourierDataTableAbstract.prototype.addBulkActionRows = function()
     var self = this;
     this.getDataTable().on('fnDrawCallback', function(event, settings)
     {
-        console.log(settings.aoData);
+        // console.log(settings);
 
-        t.row.add();
+        var oData = settings.aoData[0];
+        var nRow = oData.nTr;
 
-        for (var index in settings.aoData) {
-            var oData = settings.aoData[index];
-            var aData = oData._aData;
-            var nRow = oData.nTr;
-            var rowGroup = self.getRowGroup();
-            if (!aData.group || !aData.orderRow || aData.group == rowGroup) {
-                continue;
-            }
-            $(nRow).before('<tr class="courier-bulk-action-row"><td colspan="' + $(nRow).find('td').length + '">HELLO WORLD</td></tr>');
-            self.setRowGroup(aData.group);
+        var columns = settings.aoColumns;
+
+        // console.log(columns);
+
+        // var tr = '<tr class="courier-bulk-action-row">';
+        var tr = document.createElement('tr');
+        $(tr).addClass('courier-bulk-action-row');
+
+        for (var index in settings.aoColumns) {
+
+            var td = document.createElement('td');
+            $(td).addClass(settings.aoColumns[index].nTh.getAttribute('class'));
+
+            $(tr).append($(td));
+            // var td = '<td></td>';
+            // td.
+            //tr += '<td></td>';
+            // var classes = settings.aoColumns[index].nTh.getAttribute('class')
+
+            console.log(settings.aoColumns[index].nTh.getAttribute('class'));
         }
+
+        // <td colSpan="' + $(nRow).find('td').length + '">HELLO WORLD</td>
+
+        // var tr = '<tr class="courier-bulk-action-row">';
+
+        // var t = $(nRow).find('thead').find('tr.row').children();
+
+        // console.log(t);
+
+        // tr += '</tr>';
+
+        // console.log(self.columns());
+
+
+
+
+        $(nRow).before(tr);
+        // t.row.add();
+
+        // for (var index in settings.aoData) {
+        //     var oData = settings.aoData[index];
+        //     var aData = oData._aData;
+        //     var nRow = oData.nTr;
+        //     var rowGroup = self.getRowGroup();
+        //     if (!aData.group || !aData.orderRow || aData.group == rowGroup) {
+        //         continue;
+        //     }
+        //     $(nRow).before('<tr class="courier-bulk-action-row"><td colspan="' + $(nRow).find('td').length + '">HELLO WORLD</td></tr>');
+        //     self.setRowGroup(aData.group);
+        // }
     });
     return this;
 };
