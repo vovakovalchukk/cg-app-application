@@ -144,8 +144,6 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
     var self = this;
     this.getDataTable().on('renderColumn', function(event, cgmustache, template, column, data)
     {
-        console.log(column);
-
         if (!CourierSpecificsDataTable.columnRenderers.hasOwnProperty(column.mData)) {
             return;
         }
