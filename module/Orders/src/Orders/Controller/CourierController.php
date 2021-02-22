@@ -354,6 +354,9 @@ class CourierController extends AbstractActionController
                 'value' => 'N/A'
             ];
         }
+        if (isset($options['termsOfDelivery'])) {
+            $viewConfig['termsOfDelivery'] = true;
+        }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);

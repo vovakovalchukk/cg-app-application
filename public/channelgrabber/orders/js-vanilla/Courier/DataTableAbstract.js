@@ -4,6 +4,10 @@ function CourierDataTableAbstract(dataTable, orderIds, templateMap)
     var rowGroup = null;
     var templates = {};
 
+    var bulkActionMap = {
+        termsOfDelivery: "doThis"
+    };
+
     this.getDataTable = function()
     {
         return dataTable;
@@ -38,11 +42,15 @@ function CourierDataTableAbstract(dataTable, orderIds, templateMap)
 
     this.getTemplateMap = function()
     {
+        console.log('MAP');
+        console.log(templateMap);
         return templateMap;
     };
 
     this.getTemplate = function(type)
     {
+        console.log('TEMP');
+        console.log(templates);
         if (templates.hasOwnProperty(type)) {
             return templates[type];
         }
@@ -132,7 +140,8 @@ CourierDataTableAbstract.prototype.addBulkActionRows = function()
         var oData = settings.aoData[0];
         var nRow = oData.nTr;
 
-        var columns = settings.aoColumns;
+
+        // var columns = settings.aoColumns;
 
         // console.log(columns);
 
@@ -151,7 +160,7 @@ CourierDataTableAbstract.prototype.addBulkActionRows = function()
             //tr += '<td></td>';
             // var classes = settings.aoColumns[index].nTh.getAttribute('class')
 
-            console.log(settings.aoColumns[index].nTh.getAttribute('class'));
+            console.log(settings.aoColumns[index].templateId);
         }
 
         // <td colSpan="' + $(nRow).find('td').length + '">HELLO WORLD</td>
