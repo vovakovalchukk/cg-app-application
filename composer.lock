@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "87ffebbb9f9011ae10d6bb5b8f573b3d586fe4da"
+                "reference": "322922ea5cf728115e12935e752417c7bb1bd319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11886-geopost-terms-of-delivery-ac0fc8.zip",
-                "reference": "87ffebbb9f9011ae10d6bb5b8f573b3d586fe4da"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11886-geopost-terms-of-delivery-47eb62.zip",
+                "reference": "322922ea5cf728115e12935e752417c7bb1bd319"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-02-19T16:00:08+00:00"
+            "time": "2021-02-23T12:12:26+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1074,12 +1074,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "4de0511126f72fced335162e132fdfb8350c34ff"
+                "reference": "7546cf3e0ba9bbd6f935fd407a1f1e3f8770a78d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-11886-geopost-terms-of-delivery-fc462c.zip",
-                "reference": "4de0511126f72fced335162e132fdfb8350c34ff"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-11886-geopost-terms-of-delivery-2b9278.zip",
+                "reference": "7546cf3e0ba9bbd6f935fd407a1f1e3f8770a78d"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1103,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-02-19T11:10:37+00:00"
+            "time": "2021-02-23T12:07:54+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -5369,12 +5369,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4a8271ca7913a2e10424cf75c32421227cc822c1"
+                "reference": "89e5c5ea7864dd6fdd42860b29a32779decc58c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-11886-geopost-terms-of-delivery-172ca1.zip",
-                "reference": "4a8271ca7913a2e10424cf75c32421227cc822c1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-11886-geopost-terms-of-delivery-250044.zip",
+                "reference": "89e5c5ea7864dd6fdd42860b29a32779decc58c0"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5425,7 +5425,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2021-02-23T10:45:39+00:00"
+            "time": "2021-02-23T12:05:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

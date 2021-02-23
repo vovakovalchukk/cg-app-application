@@ -314,10 +314,6 @@ class Service implements LoggerAwareInterface
      */
     public function getCarrierOptions(Account $account, $serviceCode = null)
     {
-        $this->logDebug(get_class($this->getCarrierOptionsProvider($account)), [], 'MYTEST');
-
-        $this->logDebugDump($this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode), 'OPTIONS', [], 'MYTEST');
-
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
