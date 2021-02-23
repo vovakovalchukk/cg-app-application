@@ -2769,7 +2769,8 @@ return [
             'CourierSpecificsTermsOfDeliveryColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Terms of Delivery'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/termsOfDelivery.phtml',
                 ],
             ],
             'CourierSpecificsTermsOfDeliveryColumn' => [
