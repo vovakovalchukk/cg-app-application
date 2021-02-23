@@ -2,7 +2,7 @@ define([''], function()
 {
     function TermsOfDelivery()
     {
-        var init = function()
+        const init = function()
         {
             this.listenForTODChanges();
         };
@@ -14,7 +14,7 @@ define([''], function()
 
     TermsOfDelivery.prototype.listenForTODChanges = function()
     {
-        var self = this;
+        const self = this;
         $(document).on('change', TermsOfDelivery.SELECTOR_BULK_ACTION_TOD_CHECKBOX_ID, function()
         {
             if (this.checked) {

@@ -2586,7 +2586,7 @@ return [
                     'class' => 'deliveryInstructions-col',
                     'sortable' => false,
                     'order' => 150,
-                    'width' => '120px',
+                    'width' => '150px',
                 ],
             ],
             'CourierSpecificsCostColumnView' => [
@@ -2763,7 +2763,7 @@ return [
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
                     'order' => 123,
-                    'width' => '30px',
+                    'width' => '70px',
                 ],
             ],
             'CourierSpecificsTermsOfDeliveryColumnView' => [
