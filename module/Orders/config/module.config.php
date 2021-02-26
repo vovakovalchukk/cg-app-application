@@ -2555,6 +2555,7 @@ return [
                     'class' => 'insuranceOptions-col',
                     'sortable' => false,
                     'order' => 140,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [
@@ -2571,6 +2572,7 @@ return [
                     'sortable' => false,
                     'order' => 140,
                     'defaultContent' => '',
+                    'width' => '60px',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
@@ -2746,7 +2748,7 @@ return [
                     'class' => 'countryOfOrigin-col',
                     'sortable' => false,
                     'order' => 119,
-                    'width' => '30px',
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsEoriNumberColumnView' => [
@@ -2763,7 +2765,7 @@ return [
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
                     'order' => 123,
-                    'width' => '70px',
+                    'width' => '130px',
                 ],
             ],
             'CourierSpecificsTermsOfDeliveryColumnView' => [
