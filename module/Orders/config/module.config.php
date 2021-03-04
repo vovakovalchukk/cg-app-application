@@ -1395,6 +1395,8 @@ return [
                 'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
                 'CourierSpecificsEoriNumberColumnView' => ViewModel::class,
                 'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
+                'CourierSpecificsTermsOfDeliveryColumnView' => ViewModel::class,
+                'CourierSpecificsTermsOfDeliveryColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2553,6 +2555,7 @@ return [
                     'class' => 'insuranceOptions-col',
                     'sortable' => false,
                     'order' => 140,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [
@@ -2569,6 +2572,7 @@ return [
                     'sortable' => false,
                     'order' => 140,
                     'defaultContent' => '',
+                    'width' => '60px',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
@@ -2744,7 +2748,7 @@ return [
                     'class' => 'countryOfOrigin-col',
                     'sortable' => false,
                     'order' => 119,
-                    'width' => '30px',
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsEoriNumberColumnView' => [
@@ -2760,8 +2764,25 @@ return [
                     'viewModel' => 'CourierSpecificsEoriNumberColumnView',
                     'class' => 'eoriNumber-col',
                     'sortable' => false,
+                    'order' => 123,
+                    'width' => '130px',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Terms of Delivery'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/termsOfDelivery.phtml',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumn' => [
+                'parameters' => [
+                    'column' => 'termsOfDelivery',
+                    'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
+                    'class' => 'termsOfDelivery-col',
+                    'sortable' => false,
                     'order' => 121,
-                    'width' => '30px',
+                    'width' => '45px',
                 ],
             ],
         ],

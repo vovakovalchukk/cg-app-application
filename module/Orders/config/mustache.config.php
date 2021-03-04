@@ -75,6 +75,7 @@ return [
                     'harmonisedSystemCodeDescription' => Module::PUBLIC_FOLDER . 'template/courier/columns/harmonisedSystemCodeDescription.mustache',
                     'countryOfOrigin' => Module::PUBLIC_FOLDER . 'template/courier/columns/countryOfOrigin.mustache',
                     'eoriNumber' => Module::PUBLIC_FOLDER . 'template/courier/columns/eoriNumber.mustache',
+                    'termsOfDelivery' => Module::PUBLIC_FOLDER . 'template/courier/columns/termsOfDelivery.mustache',
                 ],
             ],
         ],
