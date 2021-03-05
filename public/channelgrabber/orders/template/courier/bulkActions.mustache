@@ -5,3 +5,12 @@
     <span class="total-cost-label">Total Cost:&nbsp;</span><span class="currency hidden">{{currencySymbol}}</span><span class="order-total-label-cost">{{value}}</span>
 </div>
 {{/totalLabelCost}}
+
+{{#termsOfDelivery}}
+<div class="courier-terms-of-delivery pull-right">
+    <span class="courier-terms-of-delivery-label">Terms Of Delivery:</span>
+    <div class="courier-terms-of-delivery-checkbox-warpper">
+        <input type="checkbox" id="courier-terms-of-delivery-checkbox" class="courier-terms-of-delivery-checkbox" name="bulk-terms-of-delivery">
+    </div>
+</div>
+{{/termsOfDelivery}}
