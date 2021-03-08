@@ -2788,12 +2788,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "439fdc6160e00a3b7a79a0c79e98bcf033e83329"
+                "reference": "af631036e84d4c927a92c60eaf758afcd9041935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-CGIV-11846-picking-list-dropped-characters-547abf.zip",
-                "reference": "439fdc6160e00a3b7a79a0c79e98bcf033e83329",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-CGIV-11846-picking-list-dropped-characters-4a7b8f.zip",
+                "reference": "af631036e84d4c927a92c60eaf758afcd9041935",
                 "shasum": null
             },
             "require": {
@@ -2824,7 +2824,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-03-03T16:53:13+00:00"
+            "time": "2021-03-08T14:04:07+00:00"
         },
         {
             "name": "channelgrabber/predis",
