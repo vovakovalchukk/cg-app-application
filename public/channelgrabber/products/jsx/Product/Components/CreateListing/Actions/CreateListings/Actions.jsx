@@ -26,19 +26,19 @@ import ResponseActions from './ResponseActions';
         for (let id in values.identifiers) {
             let identifier = values.identifiers[id];
             let dimension = values.dimensions[id];
-
+            let sku = values.skus[id];
+            let imageId = values.images[sku];
             let variationObject = Object.assign(
                 identifier,
                 dimension,
+                imageId,
                 {
-                    sku: values.skus[id],
+                    sku: sku,
                     productAccountDetail: formatProductAccountDetailsPrices(values.prices[id])
                 }
             );
-
             variations.push(variationObject);
         }
-
         return variations;
     };
 
