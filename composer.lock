@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5713d26688d3b4c40eb9ec1fb850908e",
+    "content-hash": "4814736c13e4cf714e8c8684d12f8b61",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2784,16 +2784,16 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "dev-CGIV-11846-picking-list-dropped-characters",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "af631036e84d4c927a92c60eaf758afcd9041935"
+                "reference": "19fd98ca4b33e22d6ac88ac39a265b659cee57f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-CGIV-11846-picking-list-dropped-characters-4a7b8f.zip",
-                "reference": "af631036e84d4c927a92c60eaf758afcd9041935",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.3.4-93e324.zip",
+                "reference": "19fd98ca4b33e22d6ac88ac39a265b659cee57f3",
                 "shasum": null
             },
             "require": {
@@ -2824,7 +2824,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-03-08T14:04:07+00:00"
+            "time": "2021-03-11T15:06:24+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -12118,18 +12118,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.4",
-            "alias_normalized": "1.3.4.0",
-            "version": "dev-CGIV-11846-picking-list-dropped-characters",
-            "package": "channelgrabber/picklist"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/picklist": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
