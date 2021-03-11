@@ -10,14 +10,14 @@ return [
         'setup-navigation' => [
             'Steps' => [
                 'pages' => [
-                    'messages' => [
-                        'label' => 'Add Payment Method',
-                        'title' => 'Add Payment Method',
-                        'route' => Module::ROUTE . '/' . PaymentController::ROUTE_PAYMENT,
-                        'order' => 20,
-                        'sprite' => 'sprite-card-circle-25-white',
-                        'link' => false,
-                    ],
+//                    'payment' => [
+//                        'label' => 'Add Payment Method',
+//                        'title' => 'Add Payment Method',
+//                        'route' => Module::ROUTE . '/' . PaymentController::ROUTE_PAYMENT,
+//                        'order' => 20,
+//                        'sprite' => 'sprite-card-circle-25-white',
+//                        'link' => false,
+//                    ],
                 ],
             ],
         ],
