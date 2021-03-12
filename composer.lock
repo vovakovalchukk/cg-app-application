@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "72adcd8cd618f7eb2a2effbeef54405e",
+    "content-hash": "ff740ceffecfb5e14f36091aae90d30b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3456,16 +3456,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-11861-update-api-version",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "14e8a46ecd416a96ffe64486da8c80261b0289fd"
+                "reference": "f5f6825f4dfeb94b9021000090a2b40a3938ad32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-dev-CGIV-11861-update-api-version-a2c91b.zip",
-                "reference": "14e8a46ecd416a96ffe64486da8c80261b0289fd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.6.2-af2e86.zip",
+                "reference": "f5f6825f4dfeb94b9021000090a2b40a3938ad32",
                 "shasum": null
             },
             "require": {
@@ -3500,7 +3500,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2021-03-11T12:00:07+00:00"
+            "time": "2021-03-12T16:18:25+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -12118,18 +12118,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.2",
-            "alias_normalized": "1.6.2.0",
-            "version": "dev-CGIV-11861-update-api-version",
-            "package": "channelgrabber/shopify"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/shopify": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
