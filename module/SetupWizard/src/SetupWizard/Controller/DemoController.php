@@ -46,7 +46,8 @@ class DemoController extends AbstractActionController implements LoggerAwareInte
             ->setTemplate('setup-wizard/demo/index')
             ->setVariable('locale', $locale)
             ->setVariable('phoneNumber', PhoneNumber::getForLocale($locale))
-            ->setVariable('demoLink', DemoLink::getForLocale($locale));
+            // we now only return the default demo link to prevent out-of-hours demo bookings
+            ->setVariable('demoLink', DemoLink::DEFAULT);
     }
 
     protected function getFooter(): ViewModel
