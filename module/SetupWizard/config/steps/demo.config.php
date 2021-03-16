@@ -13,7 +13,7 @@ return [
                         'label' => 'Demonstration',
                         'title' => 'Demonstration',
                         'route' => Module::ROUTE . '/' . DemoController::ROUTE_DEMO,
-                        'order' => 15,
+                        'order' => 20,
                         'sprite' => 'sprite-card-circle-25-white',
                         'link' => false,
                     ],
@@ -35,9 +35,6 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => [
-
-                        ],
                     ],
                 ],
             ],
