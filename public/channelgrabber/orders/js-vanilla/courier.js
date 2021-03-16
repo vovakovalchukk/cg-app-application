@@ -20,7 +20,7 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
         this.saveFilterOnly();
 
         var postData = this.getDataToSubmit();
-        if (postData.orders.length) {
+        if (orders.length) {
             postData['referrer'] = window.location.pathname;
             $('<a href="' + url + '" />').cgPjax('post', postData);
         }
