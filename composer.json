@@ -62,7 +62,7 @@
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
-        "channelgrabber/netdespatch": "~1.6.2",
+        "channelgrabber/netdespatch": "dev-CGIV-11928-ukmail-collection-date as 1.6.3",
         "channelgrabber/order": "~1.57.3",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
