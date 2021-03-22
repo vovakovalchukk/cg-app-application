@@ -2463,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ea98e2ea50ac5d041285d0e31c529693dd46837c"
+                "reference": "e12e779bbc2102448b312d513333616f36c1654a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11954-add-payment-method-to-de-55db0c.zip",
-                "reference": "ea98e2ea50ac5d041285d0e31c529693dd46837c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11954-add-payment-method-to-de-c37091.zip",
+                "reference": "e12e779bbc2102448b312d513333616f36c1654a"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-03-19T17:10:43+00:00"
+            "time": "2021-03-22T12:21:38+00:00"
         },
         {
             "name": "channelgrabber/partner",
