@@ -169,7 +169,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         foreach ($package->getContents() as $packageContent) {
             $content = $contents->addChild('content');
             $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
-            $content->addChild('countryOfManufacture', 'GB');
+            $content->addChild('countryOfManufacture', $packageContent->getOrigin());
             $content->addChild('itemQuantity', $packageContent->getQuantity());
             $content->addChild('itemWeight', $this->convertValueToMinorUnits($packageContent->getWeight()));
             $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue() * $packageContent->getQuantity()));
@@ -189,8 +189,12 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         if ($this->deliveryService->getSpecificDay()) {
             $this->addSpecificDayToServicesNode($servicesNode, $this->deliveryService->getSpecificDay());
         }
-        $servicesNode->addChild('nextDay', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
-        $servicesNode->addChild('signature', $this->sanitiseBoolean($this->shipment->isSignatureRequired()));
+        if ($this->deliveryService->isNextDay()) {
+            $servicesNode->addChild('nextDay', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
+        }
+        if ($this->shipment->isSignatureRequired()) {
+            $servicesNode->addChild('signature', $this->sanitiseBoolean($this->shipment->isSignatureRequired()));
+        }
     }
 
     protected function addSpecificDayToServicesNode(SimpleXMLElement $servicesNode, int $specificDay): void

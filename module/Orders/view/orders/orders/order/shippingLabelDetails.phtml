@@ -107,6 +107,14 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                 <div class="sprite-alert-tri-28-black" title="There was a problem sending the tracking number to the channel" style="float: left; margin-left: 20px;"></div>
             <?php endif; ?>
         </label>
+        <?php if (!isset($this->labels)) : ?>
+            <label>
+                <span class="inputbox-label"><?= $this->translate('Shipping Service'); ?></span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox" id="trackingShippingService" type="text" name="trackingShippingService" value="<?= $trackingShippingService; ?>">
+                </div>
+            </label>
+        <?php endif; ?>
         <input type="hidden" value="<?= ($tracking) ? $tracking->getStoredETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <div class="order-inputbox-holder">

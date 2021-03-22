@@ -7,8 +7,10 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
+use CG\CourierAdapter\Shipment\SupportedField\TermsOfDeliveryInterface;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\Length as LocaleLength;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -122,6 +124,12 @@ class Mapper
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
             $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
         }
+        if (is_a($shipmentClass, EoriNumberInterface::class, true)) {
+            $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
+        }
+        if (is_a($shipmentClass, TermsOfDeliveryInterface::class, true)) {
+            $caShipmentData['termsOfDelivery'] = (bool)$orderData['termsOfDelivery'];
+        }
 
         return $caShipmentData;
     }
@@ -173,7 +181,8 @@ class Mapper
         return new CAPackageContent(
             $item->getItemName(),
             $itemData['harmonisedSystemCode'] ?? '',
-            'GB',
+            $itemData['harmonisedSystemCodeDescription'] ?? '',
+            $itemData['countryOfOrigin'] ?? 'GB',
             $parcelItemQty,
             $itemUnitWeight,
             $item->getIndividualItemPrice(),

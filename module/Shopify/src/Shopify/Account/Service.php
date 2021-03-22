@@ -104,7 +104,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 
     public function getLinkJson($shopHost, $accountId = null)
     {
-        $shopHost = $this->parseShopHost($shopHost);
+        $shopHost = $this->parseShopHost(strtolower($shopHost));
         $client = $this->clientFactory->createClientForShop($shopHost);
         $redirectUrl = $client->getOauthLink($nonce, Client::getRequiredScopes(), $this->getProcessUrl($accountId));
 

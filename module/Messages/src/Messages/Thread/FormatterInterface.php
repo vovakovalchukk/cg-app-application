@@ -1,12 +1,12 @@
 <?php
 namespace Messages\Thread;
 
-use CG\Communication\Thread\Entity as Thread;
+use CG\Communication\Thread\Collection as ThreadCollection;
 
 interface FormatterInterface
 {
     /**
-     * @return array $threadData with any amendments made to it
+     * @return array that contains the overridden fields for each thread ID in the thread collection
      */
-    public function __invoke(array $threadData, Thread $thread): array;
+    public function __invoke(ThreadCollection $threads): array;
 }

@@ -12,7 +12,7 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
         var element = this.getElement();
         var url = element.data("url");
         var orders = this.getOrders();
-        if (!orders) {
+        if (!orders || !orders.length) {
             return;
         }
 
@@ -20,10 +20,8 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
         this.saveFilterOnly();
 
         var postData = this.getDataToSubmit();
-        if (postData.orders.length) {
-            postData['referrer'] = window.location.pathname;
-            $('<a href="' + url + '" />').cgPjax('post', postData);
-        }
+        postData['referrer'] = window.location.pathname;
+        $('<a href="' + url + '" />').cgPjax('post', postData);
     };
 
     return Courier;
