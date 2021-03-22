@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "110cfe6390884e5d80b3f9defb58c708",
+    "content-hash": "52ac46e9a5967d331124ec01a0250fd7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.57.3",
+            "version": "dev-CGIV-11954-add-payment-method-to-de",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "320f10ddff239bded3e6b6ce2b4b4cdc78a3a6f2"
+                "reference": "ea98e2ea50ac5d041285d0e31c529693dd46837c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.3-ef8a99.zip",
-                "reference": "320f10ddff239bded3e6b6ce2b4b4cdc78a3a6f2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11954-add-payment-method-to-de-55db0c.zip",
+                "reference": "ea98e2ea50ac5d041285d0e31c529693dd46837c"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-03-02T11:58:47+00:00"
+            "time": "2021-03-19T17:10:43+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11994,10 +11994,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.57.4",
+            "alias_normalized": "1.57.4.0",
+            "version": "dev-CGIV-11954-add-payment-method-to-de",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
