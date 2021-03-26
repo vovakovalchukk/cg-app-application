@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31aeb41175d4862a2068262af43e5686",
+    "content-hash": "3644bf08a90c357ffb7c199fd98e05fb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2126,16 +2126,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-11868-update-vat-rules",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "b4c2df5e45ecc4a69f6fc7c0ead5206bb7a10dff"
+                "reference": "a6d9b3e9309614c657dc7636f92a2d93fc07d046"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-dev-CGIV-11868-update-vat-rules-21db4f.zip",
-                "reference": "b4c2df5e45ecc4a69f6fc7c0ead5206bb7a10dff"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.6-70906e.zip",
+                "reference": "a6d9b3e9309614c657dc7636f92a2d93fc07d046"
             },
             "require": {
                 "php": ">=7.1",
@@ -2158,7 +2158,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2021-03-19T12:58:07+00:00"
+            "time": "2021-03-26T09:51:38+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-11868-update-vat-rules",
+            "version": "1.57.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "63af1c141a4696416ad012081ffc26848d4f3f78"
+                "reference": "38d3d7adbc28cb0ead3f92d2682cab0a81459bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11868-update-vat-rules-ebbf4e.zip",
-                "reference": "63af1c141a4696416ad012081ffc26848d4f3f78"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.4-9a696a.zip",
+                "reference": "38d3d7adbc28cb0ead3f92d2682cab0a81459bef"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2487,7 +2487,7 @@
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.11",
-                "channelgrabber/locale": "dev-CGIV-11868-update-vat-rules as 1.2.6",
+                "channelgrabber/locale": "^1.2.6",
                 "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
@@ -2506,7 +2506,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "dev-CGIV-11868-update-vat-rules as 1.28.5",
+                "channelgrabber/user": "^1.28.5",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2524,11 +2524,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-11868-update-vat-rules": "1.57.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -2544,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-03-19T13:17:41+00:00"
+            "time": "2021-03-26T10:43:21+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3991,16 +3986,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-11868-update-vat-rules",
+            "version": "1.28.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "4575c999fd6c0b840145da1b2a1cb4ea41ba1cad"
+                "reference": "419db564c93a175af89f91ee7dabaccc97a7196f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-dev-CGIV-11868-update-vat-rules-6797e5.zip",
-                "reference": "4575c999fd6c0b840145da1b2a1cb4ea41ba1cad"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.28.5-3d2be6.zip",
+                "reference": "419db564c93a175af89f91ee7dabaccc97a7196f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4044,7 +4039,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2021-03-19T13:00:37+00:00"
+            "time": "2021-03-26T10:16:58+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -11999,32 +11994,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.6",
-            "alias_normalized": "1.2.6.0",
-            "version": "dev-CGIV-11868-update-vat-rules",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.57.4",
-            "alias_normalized": "1.57.4.0",
-            "version": "dev-CGIV-11868-update-vat-rules",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.28.5",
-            "alias_normalized": "1.28.5.0",
-            "version": "dev-CGIV-11868-update-vat-rules",
-            "package": "channelgrabber/user"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/user": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
