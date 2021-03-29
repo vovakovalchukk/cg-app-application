@@ -11,6 +11,8 @@ use CG\Locale\CountryCode;
 
 class DeliveryService implements DeliveryServiceInterface
 {
+    protected const COUNTRY_CODE_GB = 'GB';
+
     /** @var string */
     protected $reference;
     /** @var string */
@@ -103,7 +105,7 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
-        if ($isoAlpha2CountryCode == 'GB') {
+        if ($isoAlpha2CountryCode == static::COUNTRY_CODE_GB) {
             return true;
         }
 
