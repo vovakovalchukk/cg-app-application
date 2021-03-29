@@ -103,6 +103,10 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
+        if ($isoAlpha2CountryCode == 'GB') {
+            return true;
+        }
+
         // For now we're only supporting EU countries.
         // If we decide to support other countries we'll have to do work to get the required HS Codes from the user.
         // See comments on TAC-172.
