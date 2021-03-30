@@ -11,6 +11,8 @@ use CG\Locale\CountryCode;
 
 class DeliveryService implements DeliveryServiceInterface
 {
+    protected const COUNTRY_CODE_GB = 'GB';
+
     /** @var string */
     protected $reference;
     /** @var string */
@@ -103,6 +105,10 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
+        if ($isoAlpha2CountryCode == static::COUNTRY_CODE_GB) {
+            return true;
+        }
+
         // For now we're only supporting EU countries.
         // If we decide to support other countries we'll have to do work to get the required HS Codes from the user.
         // See comments on TAC-172.
