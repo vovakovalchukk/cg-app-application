@@ -2417,6 +2417,810 @@ return [
                                 ],
                                 'serviceAddOns' => [],
                             ],
+
+                            [
+                                'serviceOffering' => 'PPJ2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEC',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DED',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEM',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEG',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEE',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEI',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEJ',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEK',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITR',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITEN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITES',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPC',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPD',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDH',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDJ',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDK',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDM',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDQ',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDC',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDE',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDF',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDG',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'PSA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MTV',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
                         ]
                     ]
                 ]
