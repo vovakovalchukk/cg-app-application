@@ -2415,7 +2415,6 @@ return [
                                 ],
                                 'serviceAddOns' => [],
                             ],
-
                             [
                                 'serviceOffering' => 'PPJ2',
                                 'serviceTypes' => [
