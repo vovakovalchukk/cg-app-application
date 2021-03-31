@@ -2801,7 +2801,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDJ',
@@ -2812,7 +2814,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDK',
@@ -2823,7 +2827,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDM',
@@ -2834,7 +2840,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDN',
@@ -2845,7 +2853,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDQ',
@@ -2856,7 +2866,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDA',
@@ -2867,7 +2879,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDB',
@@ -2878,7 +2892,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDC',
@@ -2889,7 +2905,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDE',
@@ -2900,7 +2918,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDF',
@@ -2911,7 +2931,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'SDG',
@@ -2922,7 +2944,9 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
-                                'serviceAddOns' => [],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
                             ],
                             [
                                 'serviceOffering' => 'WP1',
