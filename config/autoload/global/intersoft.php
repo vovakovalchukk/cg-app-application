@@ -2929,9 +2929,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2940,9 +2940,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2951,9 +2951,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2962,9 +2962,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2973,9 +2973,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2984,9 +2984,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -2995,9 +2995,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3006,9 +3006,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3017,9 +3017,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3028,9 +3028,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3039,9 +3039,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3050,9 +3050,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3061,9 +3061,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3072,9 +3072,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3083,9 +3083,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3094,9 +3094,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3105,9 +3105,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3116,9 +3116,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3127,9 +3127,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'G'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3138,9 +3138,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3149,9 +3149,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3160,9 +3160,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3171,9 +3171,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G', 'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3182,9 +3182,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G', 'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3193,9 +3193,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3204,9 +3204,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'P', 'G', 'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -3215,9 +3215,9 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
-                                    'N'
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
