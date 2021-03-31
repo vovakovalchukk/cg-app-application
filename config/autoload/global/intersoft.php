@@ -572,8 +572,6 @@ return [
                             'WW6' => [
                                 'displayName' => 'International Business Mail Mixd Zero Sort Economy Machine'
                             ],
-
-
                             'PPJ2' => [
                                 'displayName' => 'Parcelpost Flat Rate (Annual) (48)'
                             ],
