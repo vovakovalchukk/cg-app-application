@@ -233,7 +233,11 @@ class Service implements LoggerAwareInterface
 
     protected function fetchImages(int ...$ids): Images
     {
-        return $this->imageService->fetchCollectionByPaginationAndFilters((new ImageFilter('all', 1))->setId(array_unique($ids)));
+        try {
+            return $this->imageService->fetchCollectionByPaginationAndFilters((new ImageFilter('all', 1))->setId(array_unique($ids)));
+        } catch (NotFound $e) {
+            return new Images(Image::class, __METHOD__);
+        }
     }
 
     protected function attachImageToProduct(Product $product, Images $images): void
