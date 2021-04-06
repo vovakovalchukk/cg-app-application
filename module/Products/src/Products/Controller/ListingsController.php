@@ -1,6 +1,7 @@
 <?php
 namespace Products\Controller;
 
+use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UsageCheck\Exception\Exceeded as UsageExceeded;
@@ -25,6 +26,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
     const FILTER_TYPE = 'listingsImport';
 
     protected $viewModelFactory;
+    /** @var ListingService */
     protected $listingService;
     protected $bulkActionsService;
     protected $listingList;
@@ -55,7 +57,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
     {
         $view = $this->getViewModelFactory()->newInstance();
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
-        $this->amendBulkActionsForUsage($bulkActions);
+        $this->amendBulkActions($bulkActions);
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/listings/bulk-actions/index');
         $bulkAction->addChild($this->getRefreshButtonView(), 'refreshButton');
         $bulkActions->addChild(
@@ -71,25 +73,21 @@ class ListingsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function amendBulkActionsForUsage(BulkActions $bulkActions)
+    protected function amendBulkActions(BulkActions $bulkActions)
     {
-        try {
-            $this->accessUsageExceededService->checkUsage();
-        } catch (UsageExceeded $e) {
-            $actions = $bulkActions->getActions();
-            foreach ($actions as $action) {
-                $action->setEnabled(false);
-            }
+        if (!$this->usageExceeded() && $this->listingService->listingImportPermitted()) {
+            return;
         }
-        return $this;
+        $actions = $bulkActions->getActions();
+        foreach ($actions as $action) {
+            $action->setEnabled(false);
+        }
     }
 
     protected function getRefreshButtonView()
     {
-        try {
-            $this->accessUsageExceededService->checkUsage();
-            $disabled = false;
-        } catch (UsageExceeded $e) {
+        $disabled = false;
+        if ($this->usageExceeded() || !$this->listingService->listingImportPermitted()) {
             $disabled = true;
         }
         $refresh = $this->getViewModelFactory()->newInstance([
@@ -119,6 +117,16 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $filterValues = $this->getFilterService()->getPersistentFilter();
         $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
+    }
+
+    protected function usageExceeded(): bool
+    {
+        try {
+            $this->accessUsageExceededService->checkUsage();
+            return false;
+        } catch (UsageExceeded $e) {
+            return true;
+        }
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
