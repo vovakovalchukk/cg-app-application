@@ -309,7 +309,7 @@ class Service implements LoggerAwareInterface
 
     public function listingImportPermitted(): bool
     {
-        return $this->listingImportPermissionService->listingImportPermitted(
+        return !$this->listingImportPermissionService->listingImportBlacklisted(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
         );
     }
