@@ -275,15 +275,6 @@ return [
                             'MTS' => [
                                 'displayName' => 'International Business Parcels Zone Sort Plus Economoy'
                             ],
-                            'MUU' => [
-                                'displayName' => 'Intlernational Business Parcels Boxable Max Sort Priority'
-                            ],
-                            'MUV' => [
-                                'displayName' => 'International Buiness Prcls Boxable Max Sort Standard'
-                            ],
-                            'MUW' => [
-                                'displayName' => 'International Business Parcels Boxable Max Sort Economy'
-                            ],
                             'MUA' => [
                                 'displayName' => 'INTL BUS PARCELS BOXABLE ZERO SORT PRI'
                             ],
@@ -343,6 +334,15 @@ return [
                             ],
                             'MUT' => [
                                 'displayName' => 'INTL BUS MAIL SIGNED ZERO SORT XTRA COMP'
+                            ],
+                            'MUU' => [
+                                'displayName' => 'Intlernational Business Parcels Boxable Max Sort Priority'
+                            ],
+                            'MUV' => [
+                                'displayName' => 'International Buiness Prcls Boxable Max Sort Standard'
+                            ],
+                            'MUW' => [
+                                'displayName' => 'International Business Parcels Boxable Max Sort Economy'
                             ],
                             'OLA' => [
                                 'displayName' => 'International Standard On Account'
@@ -571,7 +571,226 @@ return [
                             ],
                             'WW6' => [
                                 'displayName' => 'International Business Mail Mixd Zero Sort Economy Machine'
-                            ]
+                            ],
+                            'PPJ2' => [
+                                'displayName' => 'Parcelpost Flat Rate (Annual) (48)'
+                            ],
+                            'DEA' => [
+                                'displayName' => 'DE Import Std 24 Parcel'
+                            ],
+                            'DEB' => [
+                                'displayName' => 'DE Import Std 24 Parcel'
+                            ],
+                            'DEC' => [
+                                'displayName' => 'DE Import Std 24 LLTR'
+                            ],
+                            'DED' => [
+                                'displayName' => 'DE Import Std 48 LLTR'
+                            ],
+                            'DEM' => [
+                                'displayName' => 'DE Import to EU Max Sort Parcel'
+                            ],
+                            'DEG' => [
+                                'displayName' => 'DE Import to EU Max Sort LLTR'
+                            ],
+                            'DEE' => [
+                                'displayName' => 'DE Import to EU Tracked & Signed LLTR'
+                            ],
+                            'DEI' => [
+                                'displayName' => 'DE Import to EU Tracked Parcel'
+                            ],
+                            'DEJ' => [
+                                'displayName' => 'DE Import to EU Tracked & Signed Parcel'
+                            ],
+                            'DEK' => [
+                                'displayName' => 'DE Import to EU Tracked LLTR'
+                            ],
+                            'ITR' => [
+                                'displayName' => 'DE Import to EU Signed Parcel'
+                            ],
+                            'ITLS' => [
+                                'displayName' => 'Import DE Tracked 48 Parcels (TPL) - Signature'
+                            ],
+                            'ITLN' => [
+                                'displayName' => 'Import DE Tracked 48 Parcels (TPL) - Non Signature'
+                            ],
+                            'ITMS' => [
+                                'displayName' => 'Import DE tracked 24 Parcels (TPM) - Signature'
+                            ],
+                            'ITMN' => [
+                                'displayName' => 'Import DE Tracked 24 Parcels (TPM) - No Signature'
+                            ],
+                            'ITCN' => [
+                                'displayName' => 'Import DE Tracked 24 (LBT) (HV) - No signature'
+                            ],
+                            'ITCS' => [
+                                'displayName' => 'Import DE Tracked 24(LBT) (HV) - With signature'
+                            ],
+                            'ITDN' => [
+                                'displayName' => 'Import DE Tracked 48(LBT) (HV) - Non Signature'
+                            ],
+                            'ITDS' => [
+                                'displayName' => 'Import DE Tracked 48 (LBT)(HV) - With Signature'
+                            ],
+                            'ITEN' => [
+                                'displayName' => 'Import DE Tracked 48(LBT) - Non signature'
+                            ],
+                            'ITES' => [
+                                'displayName' => 'Import DE Tracked 48 (LBT) - Signature'
+                            ],
+                            'ITFN' => [
+                                'displayName' => 'Import DE Tracked 24 (LBT) - Non Signature'
+                            ],
+                            'ITFS' => [
+                                'displayName' => 'Import DE Tracked 24 (LBT) - With Signature'
+                            ],
+                            'ITSN' => [
+                                'displayName' => 'Import DE Tracked 48 - No Signature'
+                            ],
+                            'ITSS' => [
+                                'displayName' => 'Import DE Tracked 48 - With signature'
+                            ],
+                            'ITNN' => [
+                                'displayName' => 'Import DE Tracked 24 - Non Signature'
+                            ],
+                            'ITNS' => [
+                                'displayName' => 'Import DE Tracked 24 - With Signature'
+                            ],
+                            'ITA' => [
+                                'displayName' => 'Import DE Tracked Returns 24'
+                            ],
+                            'ITB' => [
+                                'displayName' => 'Import DE Tracked Returns 48'
+                            ],
+                            'TPC' => [
+                                'displayName' => 'Royal Mail Tracked 24 - With Signature (AGE)'
+                            ],
+                            'TPD' => [
+                                'displayName' => 'Royal Mail Tracked 48 - With Signature (AGE)'
+                            ],
+                            'TPA' => [
+                                'displayName' => 'Royal Mail Tracked 24 (HV) - With Signature (AGE)'
+                            ],
+                            'TPB' => [
+                                'displayName' => 'Royal Mail Tracked 48 (HV) - With Signature (AGE)'
+                            ],
+                            'SDH' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (AGE)'
+                            ],
+                            'SDJ' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (IAGE) (£1000)'
+                            ],
+                            'SDK' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (AGE) (£2500)'
+                            ],
+                            'SDM' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£750)'
+                            ],
+                            'SDN' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£1000)'
+                            ],
+                            'SDQ' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£2500)'
+                            ],
+                            'SDA' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£750)'
+                            ],
+                            'SDB' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£1000)'
+                            ],
+                            'SDC' => [
+                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£2500)'
+                            ],
+                            'SDE' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£750)'
+                            ],
+                            'SDF' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£1000)'
+                            ],
+                            'SDG' => [
+                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£2500)'
+                            ],
+                            'WP1' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT PRIORITY'
+                            ],
+                            'WP3' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT ECONOMY'
+                            ],
+                            'WP4' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT PRI MCH'
+                            ],
+                            'WP6' => [
+                                'displayName' => 'INTL BUS MAIL LTTR ZERO SRT ECONOMY MCH'
+                            ],
+                            'IP1' => [
+                                'displayName' => 'INTL BUS MAIL LTR ZONE SORT PRI'
+                            ],
+                            'IP3' => [
+                                'displayName' => 'INTL BUS MAIL LTR ZONE SORT ECONOMY'
+                            ],
+                            'IP4' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS ZONE SORT PRI MCH'
+                            ],
+                            'IP6' => [
+                                'displayName' => 'INTL BUS MAIL LTR ZONE SRT ECONOMY MCH'
+                            ],
+                            'DP1' => [
+                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT HI VOL PRI'
+                            ],
+                            'DP3' => [
+                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT HI VOL ECON'
+                            ],
+                            'DP4' => [
+                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT LO VOL PRI'
+                            ],
+                            'DP6' => [
+                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT LO VOL ECON'
+                            ],
+                            'PSA' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT STANDARD'
+                            ],
+                            'BP1' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT RES PRI'
+                            ],
+                            'BP2' => [
+                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT RES STD'
+                            ],
+                            'BP3' => [
+                                'displayName' => 'INTL BUS MAIL LTR MAX SORT RES ECONOMY'
+                            ],
+                            'BG1' => [
+                                'displayName' => 'INTL BUS MAIL LRG LTR MAX SORT RES PRI'
+                            ],
+                            'BG2' => [
+                                'displayName' => 'INTL BUS MAIL LRG LTR MAX SORT RES STD'
+                            ],
+                            'BG3' => [
+                                'displayName' => 'INTL BUS MAIL L LTR MAX SORT RES ECONOMY'
+                            ],
+                            'BE1' => [
+                                'displayName' => 'INTL BUS PARCELS MAX SORT RESIDUE PRI'
+                            ],
+                            'BE2' => [
+                                'displayName' => 'INTL BUS PARCELS MAX SORT RESIDUE STD'
+                            ],
+                            'BE3' => [
+                                'displayName' => 'INTL BUS PARCELS MAX SRT RESIDUE ECONOMY'
+                            ],
+                            'TC1' => [
+                                'displayName' => 'QM/10 Option 2 over 500g'
+                            ],
+                            'TC2' => [
+                                'displayName' => 'QM/10 Option 2 Mixed Mail'
+                            ],
+                            'DW1' => [
+                                'displayName' => 'INTL BUS PARCELS BESPOKE POSTAL'
+                            ],
+                            'DW2' => [
+                                'displayName' => 'CUSTOMER NESTED MAXSORT'
+                            ],
+                            'MTV' => [
+                                'displayName' => 'INTL BUS PRCLS TRK&SGN DDP'
+                            ],
                         ],
                         'serviceTypes' => [
                             '1' => [
@@ -2193,6 +2412,833 @@ return [
                                 'shipmentClass' => InternationalNotApplicableShipment::class,
                                 'serviceFormats' => [
                                     'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'PPJ2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEC',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DED',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEM',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEG',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEE',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => ['12'],
+                            ],
+                            [
+                                'serviceOffering' => 'DEI',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEJ',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => ['12'],
+                            ],
+                            [
+                                'serviceOffering' => 'DEK',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITR',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITEN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITES',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPC',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPD',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPA',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPB',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDH',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDJ',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDK',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDM',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDN',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDQ',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDA',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDB',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDC',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDE',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDF',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDG',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'WP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'PSA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MTV',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],
