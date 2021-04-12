@@ -278,6 +278,7 @@ return [
                                 'packageType' => 'packageType',
                                 'addOns' => 'addOns',
                                 'deliveryInstructions' => 'deliveryInstructions',
+                                'collectionDate' => 'collectionDate',
                             ],
                             'shippingServices' => [
                                 // These aren't the final codes, see UKMailTariffCodeMapper

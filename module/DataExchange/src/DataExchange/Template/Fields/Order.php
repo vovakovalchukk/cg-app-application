@@ -13,6 +13,7 @@ class Order implements FieldsInterface
         'Account Display Name' => 'accountDisplayName',
         'Purchase Date' => 'purchaseDate',
         'Payment Date' => 'paymentDate',
+        'Payment Method' => 'paymentMethod',
         'Printed Date' => 'printedDate',
         'Dispatch Date' => 'dispatchDate',
         'Invoice Date' => 'invoiceDate',
