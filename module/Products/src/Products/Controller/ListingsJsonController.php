@@ -261,7 +261,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     protected function checkAvailability()
     {
         $this->accessUsageExceededService->checkUsage();
-        if (!$this->listingService->listingImportPermitted()) {
+        if (!$this->listingService->listingImportBlacklisted()) {
             throw new \Exception("Not permitted");
         }
     }

@@ -75,7 +75,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActions(BulkActions $bulkActions)
     {
-        if (!$this->usageExceeded() && $this->listingService->listingImportPermitted()) {
+        if (!$this->usageExceeded() && $this->listingService->listingImportBlacklisted()) {
             return;
         }
         $actions = $bulkActions->getActions();
@@ -87,7 +87,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected function getRefreshButtonView()
     {
         $disabled = false;
-        if ($this->usageExceeded() || !$this->listingService->listingImportPermitted()) {
+        if ($this->usageExceeded() || !$this->listingService->listingImportBlacklisted()) {
             $disabled = true;
         }
         $refresh = $this->getViewModelFactory()->newInstance([

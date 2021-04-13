@@ -111,7 +111,7 @@ class Service implements LoggerAwareInterface
 
     public function refresh(array $accountIds = [])
     {
-        if (!$this->listingImportPermitted()) {
+        if (!$this->listingImportBlacklisted()) {
             return;
         }
         $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
@@ -307,9 +307,9 @@ class Service implements LoggerAwareInterface
         $this->intercomEventService->save($event);
     }
 
-    public function listingImportPermitted(): bool
+    public function listingImportBlacklisted(): bool
     {
-        return !$this->listingImportPermissionService->listingImportBlacklisted(
+        return $this->listingImportPermissionService->listingImportBlacklisted(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
         );
     }
