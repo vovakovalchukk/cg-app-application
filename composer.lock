@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "750338c2640b32b519a30754be81d4ce",
+    "content-hash": "23330034be3be7a78d119dcf185f7b72",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,23 +374,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.39.4",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d01e9ec0e00783737c37d20c5da17c9f9556c44f"
+                "reference": "09304aec320837f3146b04faff62f2304c4486d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.4-b06a69.zip",
-                "reference": "d01e9ec0e00783737c37d20c5da17c9f9556c44f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11710-blacklist-listing-imports-44204f.zip",
+                "reference": "09304aec320837f3146b04faff62f2304c4486d5",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.44.4",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-02-12T13:58:41+00:00"
+            "time": "2021-04-13T10:34:44+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -486,20 +486,20 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.7",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
+                "reference": "dfff3ed2c18e2d96da4c696436e0ce59abac12ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.7-146eca.zip",
-                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11710-blacklist-listing-imports-054bd1.zip",
+                "reference": "dfff3ed2c18e2d96da4c696436e0ce59abac12ec",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.8.3",
                 "channelgrabber/listing": "^1.16.2",
@@ -529,7 +529,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-11-20T10:20:03+00:00"
+            "time": "2021-04-13T11:29:18+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -769,16 +769,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.3",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528"
+                "reference": "2cd1de719482ca85c2791ccca9a3f0d69a5d477b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.3-bbc804.zip",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11710-blacklist-listing-imports-ef22d3.zip",
+                "reference": "2cd1de719482ca85c2791ccca9a3f0d69a5d477b",
                 "shasum": null
             },
             "require": {
@@ -847,7 +847,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-10-15T14:07:06+00:00"
+            "time": "2021-04-13T10:10:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1418,22 +1418,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.17",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "9bf53e0e55d98748c5c6ae57731186ed0f5792a3"
+                "reference": "9c682e0ba543da8b741546f5057312831437cdc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.17-2087a4.zip",
-                "reference": "9bf53e0e55d98748c5c6ae57731186ed0f5792a3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11710-blacklist-listing-imports-3fe671.zip",
+                "reference": "9c682e0ba543da8b741546f5057312831437cdc1",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
-                "channelgrabber/channel": "^1.44.4",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/communication": "^1.2.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1448,7 +1448,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": ">=1.3.4",
-                "channelgrabber/tax": "^1.0.0",
+                "channelgrabber/tax": "^1.1.2",
                 "channelgrabber/template": "^1.6.11",
                 "channelgrabber/user": "^1.19.4",
                 "ext-gearman": ">=1.1.0",
@@ -1480,26 +1480,26 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-10-26T09:55:16+00:00"
+            "time": "2021-04-13T11:37:11+00:00"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.18.11",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "9de394c669c5668ccb88e4c6992961fe308da1cd"
+                "reference": "45db77c0b708ffb911f77f06d880d0bdba13d1ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.11-f23903.zip",
-                "reference": "9de394c669c5668ccb88e4c6992961fe308da1cd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-CGIV-11710-blacklist-listing-imports-5119ad.zip",
+                "reference": "45db77c0b708ffb911f77f06d880d0bdba13d1ce",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.43.13",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.2",
@@ -1542,7 +1542,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2021-03-09T14:16:13+00:00"
+            "time": "2021-04-13T11:55:09+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -1687,21 +1687,21 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.2.5",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "e1041416e902772d9b34d128c2966517456b44ee"
+                "reference": "214f633345c570bf666a948d4742d798c091893d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.5-6efb9b.zip",
-                "reference": "e1041416e902772d9b34d128c2966517456b44ee",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-CGIV-11710-blacklist-listing-imports-d83c12.zip",
+                "reference": "214f633345c570bf666a948d4742d798c091893d",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/gearman": "^1.5.0",
@@ -1727,7 +1727,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-10-30T11:48:31+00:00"
+            "time": "2021-04-13T14:56:25+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -3456,20 +3456,20 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.6.2",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "f5f6825f4dfeb94b9021000090a2b40a3938ad32"
+                "reference": "8cc08dcccbf3ccf1f5bdd5337aa916a44233e387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-1.6.2-af2e86.zip",
-                "reference": "f5f6825f4dfeb94b9021000090a2b40a3938ad32",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-dev-CGIV-11710-blacklist-listing-imports-31a247.zip",
+                "reference": "8cc08dcccbf3ccf1f5bdd5337aa916a44233e387",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.44.11",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/listing": "^1.16.2",
@@ -3486,7 +3486,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.0",
-                "phpunit/phpunit": "~4.6.6"
+                "phpunit/phpunit": "^6.3"
             },
             "type": "library",
             "autoload": {
@@ -3500,7 +3500,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2021-03-12T16:18:25+00:00"
+            "time": "2021-04-13T14:07:38+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3859,16 +3859,16 @@
         },
         {
             "name": "channelgrabber/tax",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "b06f2f7d75ab9b318a0ae3f62762cc43ade759d2"
+                "reference": "318433dae67b1eed2c19a91531c2d4f4114b006b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/tax/channelgrabber-tax-1.1.1-e49e68.zip",
-                "reference": "b06f2f7d75ab9b318a0ae3f62762cc43ade759d2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/tax/channelgrabber-tax-1.1.2-9992b1.zip",
+                "reference": "318433dae67b1eed2c19a91531c2d4f4114b006b",
                 "shasum": null
             },
             "require": {
@@ -3894,7 +3894,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2020-06-30T16:36:42+00:00"
+            "time": "2021-01-27T10:33:30+00:00"
         },
         {
             "name": "channelgrabber/template",
@@ -4214,20 +4214,20 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.4",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c"
+                "reference": "9563485a35d9b250ee575c467c62658ef51dbb90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.4-d23fe6.zip",
-                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-CGIV-11710-blacklist-listing-imports-132292.zip",
+                "reference": "9563485a35d9b250ee575c467c62658ef51dbb90",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/http": "^1.3.33",
                 "channelgrabber/stdlib": "^2.16.5",
@@ -4247,7 +4247,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-01-30T11:52:56+00:00"
+            "time": "2021-04-13T14:43:06+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4357,25 +4357,26 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.6.4",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "ad5c0fd6f5335a53308faf58b43583712530f606"
+                "reference": "a837b4b71286d9138b828afdc19e0157f96c0bdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.6.4-b90d29.zip",
-                "reference": "ad5c0fd6f5335a53308faf58b43583712530f606",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-dev-CGIV-11710-blacklist-listing-imports-6d6a4e.zip",
+                "reference": "a837b4b71286d9138b828afdc19e0157f96c0bdf",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-CGIV-11710-blacklist-listing-imports as 1.45.4",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/gearman": "^1.2.19",
+                "channelgrabber/gearman": "^1.8.1",
                 "channelgrabber/http": "^1.2.0",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
+                "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -4402,7 +4403,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2019-03-06T16:02:41+00:00"
+            "time": "2021-04-13T15:18:12+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -12118,10 +12119,74 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.39.5",
+            "alias_normalized": "1.39.5.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.4.8",
+            "alias_normalized": "1.4.8.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.45.4",
+            "alias_normalized": "1.45.4.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.21.19",
+            "alias_normalized": "1.21.19.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.19.1",
+            "alias_normalized": "1.19.1.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/ekm"
+        },
+        {
+            "alias": "1.2.5",
+            "alias_normalized": "1.2.5.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/etsy"
+        },
+        {
+            "alias": "1.6.3",
+            "alias_normalized": "1.6.3.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/shopify"
+        },
+        {
+            "alias": "1.1.5",
+            "alias_normalized": "1.1.5.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/walmart"
+        },
+        {
+            "alias": "1.10.2",
+            "alias_normalized": "1.10.2.0",
+            "version": "dev-CGIV-11710-blacklist-listing-imports",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/bigcommerce": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
+        "channelgrabber/etsy": 20,
+        "channelgrabber/shopify": 20,
+        "channelgrabber/walmart": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
