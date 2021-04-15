@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "750338c2640b32b519a30754be81d4ce",
+    "content-hash": "9a18b4482543bc352e240ccbeba81ea1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1085,16 +1085,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.7.1",
+            "version": "dev-CGIV-11859-royal-mail-intersoft-shipping-charge",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "b97375d973ff85ef5f5d29c7f7f1b32fe224663b"
+                "reference": "704ab28f584f7106e7cdd5b91d845bc0e580e4f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.1-a23993.zip",
-                "reference": "b97375d973ff85ef5f5d29c7f7f1b32fe224663b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-11859-royal-mail-intersoft-shipping-charge-19207a.zip",
+                "reference": "704ab28f584f7106e7cdd5b91d845bc0e580e4f0",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1119,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-03-02T12:04:44+00:00"
+            "time": "2021-04-15T13:09:26+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -12118,10 +12118,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.7.2",
+            "alias_normalized": "1.7.2.0",
+            "version": "dev-CGIV-11859-royal-mail-intersoft-shipping-charge",
+            "package": "channelgrabber/courieradapter"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

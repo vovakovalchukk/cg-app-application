@@ -33,7 +33,7 @@
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.4.0",
-        "channelgrabber/courieradapter": "~1.7.1",
+        "channelgrabber/courieradapter": "dev-CGIV-11859-royal-mail-intersoft-shipping-charge as 1.7.2",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
         "channelgrabber/data-exchange-history": "~1.0.4",
