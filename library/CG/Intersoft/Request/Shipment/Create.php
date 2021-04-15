@@ -215,6 +215,7 @@ class Create extends PostAbstract
         $customsInformationXml = $xml->addChild('customsInformation');
         $customsInformationXml->addChild('preRegistrationNumber', $this->shipment->getEoriNumber());
         $customsInformationXml->addChild('preRegistrationType', static::PRE_REGISTRATION_TYPE_EORI);
+        $customsInformationXml->addChild('shippingCharges', number_format($this->shipment->getShippingCharges(), 2));
         return $xml;
     }
 
