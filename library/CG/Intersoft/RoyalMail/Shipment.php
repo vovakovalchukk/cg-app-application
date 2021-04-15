@@ -64,6 +64,8 @@ class Shipment implements
     protected $labels;
     /** @var string */
     protected $eoriNumber;
+    /** @var float|null */
+    protected $shippingCharges;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -76,7 +78,8 @@ class Shipment implements
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         ?bool $signatureRequired = null,
-        ?string $eoriNumber = null
+        ?string $eoriNumber = null,
+        ?float $shippingCharges = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -89,6 +92,7 @@ class Shipment implements
         $this->signatureRequired = $signatureRequired;
         $this->insuranceOption = $insuranceOption;
         $this->eoriNumber = $eoriNumber;
+        $this->shippingCharges = $shippingCharges;
     }
 
     public static function fromArray(array $array): Shipment
@@ -104,7 +108,8 @@ class Shipment implements
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['signatureRequired'] ?? null,
-            $array['eoriNumber'] ?? null
+            $array['eoriNumber'] ?? null,
+            $array['shippingAmount'] ?? null
         );
     }
 
@@ -326,5 +331,10 @@ class Shipment implements
     public function getEoriNumber(): ?string
     {
         return $this->eoriNumber;
+    }
+
+    public function getShippingCharges(): ?float
+    {
+        return $this->shippingCharges;
     }
 }
