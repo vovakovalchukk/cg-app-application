@@ -146,7 +146,20 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                    ]
+                    ],
+                    'Auth Test' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/auth/test',
+                            'defaults' => [
+                                'controller' => AccountController::class,
+                                'action' => 'authTest',
+                                'sidebar' => false,
+                                'subHeader' => false,
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                 ]
             ]
         ],

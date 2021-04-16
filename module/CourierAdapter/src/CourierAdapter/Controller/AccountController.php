@@ -17,6 +17,8 @@ use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationSe
 use CG\CourierAdapter\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -32,9 +34,10 @@ use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class AccountController extends AbstractActionController
+class AccountController extends AbstractActionController implements LoggerAwareInterface
 {
     use PrepareAdapterImplementationFieldsTrait;
+    use LogTrait;
 
     const ROUTE = 'Account';
     const ROUTE_SAVE = 'Save';
@@ -334,7 +337,12 @@ class AccountController extends AbstractActionController
 
     public function authFailureAction()
     {
-        $this->redirect()->toRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+        return $this->redirect()->toRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+    }
+
+    public function authTestAction()
+    {
+        return $this->authFailureAction();
     }
 
     public function downloadTestPackFileAction()
