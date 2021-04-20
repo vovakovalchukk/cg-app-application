@@ -143,6 +143,8 @@ class Mapper
             'customerReference' => $order->getExternalId(),
             'account' => $this->caAccountMapper->fromOHAccount($account),
             'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($order),
+            'shippingAmount' => $order->getShippingPrice(),
+            'currencyCode' => $order->getCurrencyCode(),
         ];
     }
 
