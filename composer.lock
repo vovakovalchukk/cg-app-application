@@ -379,6 +379,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
                 "reference": "7be6b513eaa45a0720e5579da5d312aabbc62d28"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11923-amazon-fba-parcel-data-cf00df.zip",
+                "reference": "7be6b513eaa45a0720e5579da5d312aabbc62d28"
+            },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
