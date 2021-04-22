@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07fa12c8a2e887d853ecea3b3755f9b7",
+    "content-hash": "80cfcf975637355fe90dd92bb7200240",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4262,24 +4262,25 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.6.4",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "ad5c0fd6f5335a53308faf58b43583712530f606"
+                "reference": "6c381f960d500ae1a747c897d34eba9c85f157fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.6.4-b90d29.zip",
-                "reference": "ad5c0fd6f5335a53308faf58b43583712530f606"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.2-c7d805.zip",
+                "reference": "6c381f960d500ae1a747c897d34eba9c85f157fb"
             },
             "require": {
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "^1.42.15",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/gearman": "^1.2.19",
+                "channelgrabber/gearman": "^1.8.1",
                 "channelgrabber/http": "^1.2.0",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
+                "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -4306,7 +4307,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2019-03-06T16:02:41+00:00"
+            "time": "2021-04-21T15:24:59+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
