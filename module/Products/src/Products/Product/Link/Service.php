@@ -98,7 +98,7 @@ class Service implements LoggerAwareInterface
 
     public function getProductLinksByProductId($ouId, $skusToFetchLinkedProductsFor, ProductLinkCollection $productLinks)
     {
-        $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor, [Product::EMBEDDED_DATA_TYPE_NONE]);
+        $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
         $productsForLinks = $this->fetchProductsForLinks($ouId, $productLinks);
         $parentProducts = $this->fetchParentProductsForVariations($ouId, $productsForLinks);
         $images = $this->fetchImages(
@@ -106,6 +106,9 @@ class Service implements LoggerAwareInterface
             ...$this->getPrimaryImageIds($productsForLinks),
             ...$this->getPrimaryImageIds($parentProducts)
         );
+        $this->attachImagesToProducts($productsForSkus, $images);
+        $this->attachImagesToProducts($productsForLinks, $images);
+        $this->attachImagesToProducts($parentProducts, $images);
         $productLinksByProductId = [];
         /** @var Product $product */
         foreach ($productsForSkus as $product) {
@@ -181,7 +184,7 @@ class Service implements LoggerAwareInterface
                     $productLinkProductSkus[] = $stockSku;
                 }
             }
-            return $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus, [Product::EMBEDDED_DATA_TYPE_NONE]);
+            return $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
 
         } catch(NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__);
@@ -202,7 +205,7 @@ class Service implements LoggerAwareInterface
             return new ProductCollection(Product::class, __FUNCTION__);
         }
 
-        return $this->productService->fetchCollectionByOUAndId([$ouId], $idsToFetch, [Product::EMBEDDED_DATA_TYPE_NONE]);
+        return $this->productService->fetchCollectionByOUAndId([$ouId], $idsToFetch, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
     }
 
     protected function getPrimaryImageIds(ProductCollection $productCollection): \Generator
@@ -227,7 +230,6 @@ class Service implements LoggerAwareInterface
         if (is_array($firstImageId) && isset($firstImageId['id'])) {
             return $firstImageId['id'];
         }
-        $this->logDebugDump([$firstImageId, $imageIds], 'Bad first image ID', [], 'Oliver');
         throw new NotFound();
     }
 
@@ -240,8 +242,22 @@ class Service implements LoggerAwareInterface
         }
     }
 
+    protected function attachImagesToProducts(ProductCollection $products, Images $images): void
+    {
+        /** @var Product $product */
+        foreach ($products as $product) {
+            $this->attachImageToProduct($product, $images);
+        }
+    }
+
     protected function attachImageToProduct(Product $product, Images $images): void
     {
+        if ($product->isParent() && $product->getVariations() instanceof ProductCollection) {
+            $this->attachImagesToProducts($product->getVariations(), $images);
+        }
+        if ($product->getImages() instanceof Images && $product->getImages()->count() > 0) {
+            return;
+        }
         try {
             $primaryImage = $images->getById($this->getPrimaryImageId($product));
         } catch (NotFound $e) {
