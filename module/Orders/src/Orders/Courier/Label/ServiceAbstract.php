@@ -229,8 +229,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         }
     }
 
-    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ParcelData $parcelData): array
+    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ?ParcelData $parcelData): array
     {
+        if (is_null($parcelData)) {
+            return $productDetailData;
+        }
+
         if (!isset($productDetailData['weight']) || empty($productDetailData['weight'])) {
             $productDetailData['weight'] = $parcelData ? $parcelData->toArray()['weight'] : null;
         }
