@@ -1022,12 +1022,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "a768220e484838f396a23e0bf0ead0151dc0dbf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11821-parcelforce-escape-string-5e8006.zip",
-                "reference": "a768220e484838f396a23e0bf0ead0151dc0dbf7"
+                "reference": "457002c080891ff4c7d0debe03d54e807488c6c9"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
@@ -12008,8 +12003,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
