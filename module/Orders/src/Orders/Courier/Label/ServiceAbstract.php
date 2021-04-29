@@ -144,6 +144,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function getOrdersByIds(array $orderIds)
     {
+        if (empty($orderIds)) {
+            $this->logWarning('Attempted to fetch all orders', [], static::LOG_CODE);
+            throw new NoOrdersSelectedException();
+        }
         $filter = (new OrderFilter())
             ->setLimit('all')
             ->setPage(1)
