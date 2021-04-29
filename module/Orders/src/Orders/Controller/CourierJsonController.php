@@ -14,6 +14,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\DispatchService as LabelDispatchService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
+use Orders\Courier\Label\NoOrdersSelectedException;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Label\RatesService;
 use Orders\Courier\Manifest\Service as ManifestService;
@@ -242,6 +243,8 @@ class CourierJsonController extends AbstractActionController
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         } catch (InsufficientBalanceException $e) {
             return $this->handleLabelCreationInsufficientBalance($e, $ordersData);
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
     }
 
@@ -446,6 +449,8 @@ class CourierJsonController extends AbstractActionController
             throw new \RuntimeException(
                 'Failed to cancel shipping order(s), please try again', $e->getCode(), $e
             );
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
     }
 
@@ -462,16 +467,22 @@ class CourierJsonController extends AbstractActionController
             throw new \RuntimeException(
                 'Failed to dispatch shipping order(s), please try again', $e->getCode(), $e
             );
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
     }
 
     public function readyCheckAction()
     {
-        $orderIds = $this->params()->fromPost('order');
-        $readyOrderIds = $this->labelReadyService->checkForOrders($orderIds);
-        return $this->jsonModelFactory->newInstance([
-            'readyOrders' => $readyOrderIds,
-        ]);
+        try {
+            $orderIds = $this->params()->fromPost('order');
+            $readyOrderIds = $this->labelReadyService->checkForOrders($orderIds);
+            return $this->jsonModelFactory->newInstance([
+                'readyOrders' => $readyOrderIds,
+            ]);
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
+        }
     }
 
     public function manifestAccountsAction()
@@ -583,6 +594,8 @@ class CourierJsonController extends AbstractActionController
         } catch (ValidationMessagesException $e) {
             $errors = $this->convertValidationMessagesExceptionToArray($e);
             return $this->jsonModelFactory->newInstance(['rates' => [], 'errors' => $errors]);
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
     }
 
@@ -598,5 +611,10 @@ class CourierJsonController extends AbstractActionController
     {
         $shippingLedger = $this->specificsAjaxService->getShippingLedgerForActiveUser();
         return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
+    }
+
+    protected function redirectWhenNoOrdersSelected()
+    {
+        return $this->redirect()->toRoute('Orders');
     }
 }

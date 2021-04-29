@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9c888a5d164359e0d25be99a3c88add",
+    "content-hash": "b27f7717003bd99de6003d570ed0de6a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1018,16 +1018,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d18fa720c9aa3f7ee491f42a91715fae83df2b65"
+                "reference": "3378665c2d0510703b738721aa26c82ad189df14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.0-cf2c2e.zip",
-                "reference": "d18fa720c9aa3f7ee491f42a91715fae83df2b65"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.1-e13cf5.zip",
+                "reference": "3378665c2d0510703b738721aa26c82ad189df14"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-03-02T12:11:43+00:00"
+            "time": "2021-04-28T13:43:34+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3819,12 +3819,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a94673500c326cb04b6b61beb248da7490e57ccf"
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11964-pdf-template-overlay-image-1fcca0.zip",
-                "reference": "a94673500c326cb04b6b61beb248da7490e57ccf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11964-pdf-template-overlay-image-dee062.zip",
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3875,7 +3875,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-04-26T15:29:40+00:00"
+            "time": "2021-04-29T13:50:53+00:00"
         },
         {
             "name": "channelgrabber/transaction",
