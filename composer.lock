@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b27f7717003bd99de6003d570ed0de6a",
+    "content-hash": "8093d701748c7990bc5c9bd79aa7bddc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3815,7 +3815,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11964-pdf-template-overlay-image",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -3823,7 +3823,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11964-pdf-template-overlay-image-dee062.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.3-dee062.zip",
                 "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
             },
             "require": {
@@ -11995,18 +11995,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.12.3",
-            "alias_normalized": "1.12.3.0",
-            "version": "dev-CGIV-11964-pdf-template-overlay-image",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
