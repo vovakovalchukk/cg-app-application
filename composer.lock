@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a1e81238fa8ed75630cb7dbd790a1c",
+    "content-hash": "aad3aa28e2caf801c445b7c4498b2bd6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "225ab8ebedf91e5ae67ce18aca0a78f8a68430c5"
+                "reference": "7120a2171e7253b0d8560b58cddb414a7b9e24eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-7344ca.zip",
-                "reference": "225ab8ebedf91e5ae67ce18aca0a78f8a68430c5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-7bf54c.zip",
+                "reference": "7120a2171e7253b0d8560b58cddb414a7b9e24eb",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-04-27T08:42:18+00:00"
+            "time": "2021-05-04T12:50:25+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.12",
+            "version": "1.20.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "5162102f9a310eaad2d539f6ac78dd5252e32874"
+                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.12-c76c59.zip",
-                "reference": "5162102f9a310eaad2d539f6ac78dd5252e32874",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.11-8f5a05.zip",
+                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-02-09T12:22:54+00:00"
+            "time": "2021-02-03T11:55:10+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3898,16 +3898,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.12.2",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "66721baed2a444c84354f643a9feea3957271a1b"
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.2-82012c.zip",
-                "reference": "66721baed2a444c84354f643a9feea3957271a1b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.3-dee062.zip",
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7",
                 "shasum": null
             },
             "require": {
@@ -3959,7 +3959,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-03-16T09:58:22+00:00"
+            "time": "2021-04-29T13:50:53+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -12121,8 +12121,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
+            "alias": "1.4.2",
+            "alias_normalized": "1.4.2.0",
             "version": "dev-CGIV-11958-hermes-temporary-oauth-route",
             "package": "channelgrabber/courier"
         }
