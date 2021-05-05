@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7120a2171e7253b0d8560b58cddb414a7b9e24eb"
+                "reference": "ac6bdda2f011c1623b1adf7eeda125026cd1f298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-7bf54c.zip",
-                "reference": "7120a2171e7253b0d8560b58cddb414a7b9e24eb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-192459.zip",
+                "reference": "ac6bdda2f011c1623b1adf7eeda125026cd1f298",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-05-04T12:50:25+00:00"
+            "time": "2021-05-05T11:22:52+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
