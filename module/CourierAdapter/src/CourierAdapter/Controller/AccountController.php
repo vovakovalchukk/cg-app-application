@@ -319,7 +319,10 @@ class AccountController extends AbstractActionController implements LoggerAwareI
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $params = $this->params()->fromPost();
+        $params = array_merge(
+            $this->params()->fromPost(),
+            $this->params()->fromQuery()
+        );
 
         $params['channel'] = $channelName;
         if ($accountId) {
