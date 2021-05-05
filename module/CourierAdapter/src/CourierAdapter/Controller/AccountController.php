@@ -331,10 +331,9 @@ class AccountController extends AbstractActionController implements LoggerAwareI
 
         try {
             $url = $this->connectAccountAndGetRedirectUrl($params);
-            $this->redirect()->toUrl($url);
+            return $this->redirect()->toUrl($url);
         } catch (InvalidCredentialsException $e) {
-            $this->redirect()->toRoute(CAAccountSetup::ROUTE . '/' . CAAccountSetup::ROUTE_AUTH_FAILURE, ['channel' => $channelName]);
-            return;
+            return $this->redirect()->toRoute(CAAccountSetup::ROUTE . '/' . CAAccountSetup::ROUTE_AUTH_FAILURE, ['channel' => $channelName]);
         }
     }
 
