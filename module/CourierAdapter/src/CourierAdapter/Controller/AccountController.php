@@ -342,11 +342,6 @@ class AccountController extends AbstractActionController implements LoggerAwareI
         return $this->redirect()->toRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
     }
 
-    public function authTestAction()
-    {
-        return $this->authSuccessAction();
-    }
-
     public function downloadTestPackFileAction()
     {
         $accountId = $this->params()->fromQuery('accountId');
