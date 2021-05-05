@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0eea5de94f38d19e8101293c6267af4f",
+    "content-hash": "d6ab1a08bebc9b1a5b5f7a3d2dd683d1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4123,16 +4123,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "dev-CGIV-11973-api-action-order-maps",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "50de6f53ed0cf38ec332b5429362f9557bb96725"
+                "reference": "503aff492bbaebbed092b278d08ad001bc68b1a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-CGIV-11973-api-action-order-maps-f65961.zip",
-                "reference": "50de6f53ed0cf38ec332b5429362f9557bb96725"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.5-eb6343.zip",
+                "reference": "503aff492bbaebbed092b278d08ad001bc68b1a3"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -4155,7 +4155,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2021-04-27T13:54:18+00:00"
+            "time": "2021-05-05T14:26:02+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4262,16 +4262,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-11973-api-action-order-maps",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "c2a4a8bd4930dc984d78ce05c5e696e8abb6c6b5"
+                "reference": "97e54e5398bf772742758b81712af74621feb59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-dev-CGIV-11973-api-action-order-maps-8fc409.zip",
-                "reference": "c2a4a8bd4930dc984d78ce05c5e696e8abb6c6b5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.3-7aa26d.zip",
+                "reference": "97e54e5398bf772742758b81712af74621feb59a"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.15",
@@ -4307,7 +4307,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2021-04-27T13:54:01+00:00"
+            "time": "2021-05-05T14:19:39+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -11995,25 +11995,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
-            "version": "dev-CGIV-11973-api-action-order-maps",
-            "package": "channelgrabber/walmart"
-        },
-        {
-            "alias": "1.10.3",
-            "alias_normalized": "1.10.3.0",
-            "version": "dev-CGIV-11973-api-action-order-maps",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/walmart": 20,
-        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
