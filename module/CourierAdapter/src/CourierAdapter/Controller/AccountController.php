@@ -344,7 +344,7 @@ class AccountController extends AbstractActionController implements LoggerAwareI
 
     public function authTestAction()
     {
-        return $this->authFailureAction();
+        return $this->authSuccessAction();
     }
 
     public function downloadTestPackFileAction()
