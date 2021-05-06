@@ -17,6 +17,7 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Courier\Label\ExportService as LabelExportService;
+use Orders\Courier\Label\NoOrdersSelectedException;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
@@ -520,6 +521,8 @@ class CourierController extends AbstractActionController
             throw new \RuntimeException(
                 'Failed to export shipping order(s), please try again', $exception->getCode(), $exception
             );
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
 
         return new FileResponse(
@@ -531,9 +534,13 @@ class CourierController extends AbstractActionController
 
     public function printLabelAction()
     {
-        $orderIds = $this->params()->fromPost('order', []);
-        $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
-        return new FileResponse(static::LABEL_MIME_TYPE, date('Y-m-d hi').' Labels.pdf', $pdfData);
+        try {
+            $orderIds = $this->params()->fromPost('order', []);
+            $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
+            return new FileResponse(static::LABEL_MIME_TYPE, date('Y-m-d hi').' Labels.pdf', $pdfData);
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
+        }
     }
 
     public function printManifestAction()
@@ -541,5 +548,10 @@ class CourierController extends AbstractActionController
         $manifestId = $this->params()->fromRoute('manifestId');
         $pdfData = $this->manifestService->getManifestPdfForAccountManifest($manifestId);
         return new FileResponse(static::MANIFEST_MIME_TYPE, date('Y-m-d hi').' Manifest.pdf', $pdfData);
+    }
+
+    protected function redirectWhenNoOrdersSelected()
+    {
+        return $this->redirect()->toRoute('Orders');
     }
 }

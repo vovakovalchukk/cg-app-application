@@ -150,7 +150,7 @@ class Create extends PostAbstract
             )
         );
         $destination->addChild('destinationPhoneNumber', $this->getDeliveryPhoneNumber());
-
+        $destination->addChild('destinationEmailAddress', $deliveryAddress->getEmailAddress());
         return $xml;
     }
 

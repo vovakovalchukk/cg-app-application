@@ -121,15 +121,6 @@ class RatesService extends ServiceAbstract
         }
     }
 
-    protected function getOrdersByIds(array $orderIds)
-    {
-        $filter = (new OrderFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrderIds($orderIds);
-        return $this->orderService->fetchLinkedCollectionByFilter($filter);
-    }
-
     protected function fetchRatesFromProvider(
         OrderCollection $orders,
         OrderDataCollection $ordersData,
