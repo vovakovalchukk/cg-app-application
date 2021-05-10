@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84a33d0b5a07965ceea7e7d8860e89d5",
+    "content-hash": "6d917cbd69d1cf5677fdc62c79d75e84",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -769,16 +769,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.3",
+            "version": "1.45.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528"
+                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.3-bbc804.zip",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.4-f06278.zip",
+                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c",
                 "shasum": null
             },
             "require": {
@@ -847,7 +847,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-10-15T14:07:06+00:00"
+            "time": "2021-05-10T09:56:32+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1032,16 +1032,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-11821-parcelforce-escape-string",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "90b3d58044430c7c3279fda0fd9a7f736e4848c1"
+                "reference": "b7912ff8fd54080417f4b59799093ef30a74a009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11821-parcelforce-escape-string-51b294.zip",
-                "reference": "90b3d58044430c7c3279fda0fd9a7f736e4848c1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.2-fcd26f.zip",
+                "reference": "b7912ff8fd54080417f4b59799093ef30a74a009",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-05-04T11:13:00+00:00"
+            "time": "2021-05-10T13:32:08+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.11",
+            "version": "1.20.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70"
+                "reference": "5162102f9a310eaad2d539f6ac78dd5252e32874"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.11-8f5a05.zip",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.12-c76c59.zip",
+                "reference": "5162102f9a310eaad2d539f6ac78dd5252e32874",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-02-03T11:55:10+00:00"
+            "time": "2021-02-09T12:22:54+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12119,18 +12119,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
-            "version": "dev-CGIV-11821-parcelforce-escape-string",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
