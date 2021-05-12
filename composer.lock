@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aad3aa28e2caf801c445b7c4498b2bd6",
+    "content-hash": "2413a8838ad623c8cb6bed2e0684eed6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -769,16 +769,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.3",
+            "version": "1.45.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528"
+                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.3-bbc804.zip",
-                "reference": "f554b02870bc276e43323b246cf18e62d797a528",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.4-f06278.zip",
+                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c",
                 "shasum": null
             },
             "require": {
@@ -847,7 +847,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2020-10-15T14:07:06+00:00"
+            "time": "2021-05-10T09:56:32+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1036,12 +1036,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ac6bdda2f011c1623b1adf7eeda125026cd1f298"
+                "reference": "8fd524335bcb60add75fefba8ddf2e9f96938647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-192459.zip",
-                "reference": "ac6bdda2f011c1623b1adf7eeda125026cd1f298",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11958-hermes-temporary-oauth-route-76e31d.zip",
+                "reference": "8fd524335bcb60add75fefba8ddf2e9f96938647",
                 "shasum": null
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-05-05T11:22:52+00:00"
+            "time": "2021-05-12T09:33:14+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.11",
+            "version": "1.20.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70"
+                "reference": "0ce395fa64518c5029cc2dc7552b2122b6b4d9fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.11-8f5a05.zip",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.13-fdaffd.zip",
+                "reference": "0ce395fa64518c5029cc2dc7552b2122b6b4d9fc",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-02-03T11:55:10+00:00"
+            "time": "2021-05-11T13:48:17+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4214,16 +4214,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c"
+                "reference": "503aff492bbaebbed092b278d08ad001bc68b1a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.4-d23fe6.zip",
-                "reference": "66084a634221d73df6ca4b8650cfe6c5bab52a9c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.5-eb6343.zip",
+                "reference": "503aff492bbaebbed092b278d08ad001bc68b1a3",
                 "shasum": null
             },
             "require": {
@@ -4247,7 +4247,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2020-01-30T11:52:56+00:00"
+            "time": "2021-05-05T14:26:02+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4357,16 +4357,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.10.2",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "6c381f960d500ae1a747c897d34eba9c85f157fb"
+                "reference": "97e54e5398bf772742758b81712af74621feb59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.2-c7d805.zip",
-                "reference": "6c381f960d500ae1a747c897d34eba9c85f157fb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.3-7aa26d.zip",
+                "reference": "97e54e5398bf772742758b81712af74621feb59a",
                 "shasum": null
             },
             "require": {
@@ -4403,7 +4403,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2021-04-21T15:24:59+00:00"
+            "time": "2021-05-05T14:19:39+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -12121,8 +12121,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
+            "alias": "1.4.3",
+            "alias_normalized": "1.4.3.0",
             "version": "dev-CGIV-11958-hermes-temporary-oauth-route",
             "package": "channelgrabber/courier"
         }
