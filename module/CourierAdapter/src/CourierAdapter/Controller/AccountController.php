@@ -345,8 +345,8 @@ class AccountController extends AbstractActionController implements LoggerAwareI
     public function authTestAction()
     {
         $this->logDebugDump($this->params()->fromQuery(), 'Query params', [], 'Oliver');
-        $this->redirect()->toRoute(CAAccountSetup::ROUTE . '/' . CAAccountSetup::ROUTE_AUTH_SUCCESS, ['channel' => 'myhermes-ca'], $this->params()->fromQuery());
-        return $this->authSuccessAction();
+        return $this->redirect()->toRoute(CAAccountSetup::ROUTE . '/' . CAAccountSetup::ROUTE_AUTH_SUCCESS, ['channel' => 'myhermes-ca'], $this->params()->fromQuery());
+        //return $this->authSuccessAction();
     }
 
     public function downloadTestPackFileAction()
