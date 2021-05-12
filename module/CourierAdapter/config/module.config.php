@@ -153,7 +153,7 @@ return [
                             'route' => '/auth/test',
                             'defaults' => [
                                 'controller' => AccountController::class,
-                                'action' => 'authSuccess',
+                                'action' => 'authTest',
                                 'sidebar' => false,
                                 'subHeader' => false,
                             ],
