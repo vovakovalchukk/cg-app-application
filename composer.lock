@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13395e8b15f45e683d90684f804752fa",
+    "content-hash": "822e207adf133ab942b4f2d44bc57fa1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -767,6 +767,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "c841f0caf46e0259f5d3a6a7df23634dd085492b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11999-ebay-item-conditions-4c0d47.zip",
+                "reference": "c841f0caf46e0259f5d3a6a7df23634dd085492b"
+            },
             "require": {
                 "channelgrabber/access": "^1.1.2",
                 "channelgrabber/billing": "^1.19.7",
@@ -833,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-05-10T09:56:32+00:00"
+            "time": "2021-05-19T09:45:33+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1395,6 +1400,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "184956676364098cd1c75310150efba9a5ab6c30"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11999-ebay-item-conditions-afca5c.zip",
+                "reference": "184956676364098cd1c75310150efba9a5ab6c30"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
@@ -1413,7 +1423,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.16.11",
                 "channelgrabber/stock": ">=1.3.4",
-                "channelgrabber/tax": "^1.0.0",
+                "channelgrabber/tax": "^1.1.2",
                 "channelgrabber/template": "^1.6.11",
                 "channelgrabber/user": "^1.19.4",
                 "ext-gearman": ">=1.1.0",
@@ -1445,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2020-10-26T09:55:16+00:00"
+            "time": "2021-05-19T09:46:33+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3767,16 +3777,16 @@
         },
         {
             "name": "channelgrabber/tax",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "b06f2f7d75ab9b318a0ae3f62762cc43ade759d2"
+                "reference": "318433dae67b1eed2c19a91531c2d4f4114b006b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/tax/channelgrabber-tax-1.1.1-e49e68.zip",
-                "reference": "b06f2f7d75ab9b318a0ae3f62762cc43ade759d2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/tax/channelgrabber-tax-1.1.2-9992b1.zip",
+                "reference": "318433dae67b1eed2c19a91531c2d4f4114b006b"
             },
             "require": {
                 "channelgrabber/di": "^2.1.1",
@@ -3801,7 +3811,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2020-06-30T16:36:42+00:00"
+            "time": "2021-01-27T10:33:30+00:00"
         },
         {
             "name": "channelgrabber/template",
@@ -11993,8 +12003,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.21.18",
-            "alias_normalized": "1.21.18.0",
+            "alias": "1.21.20",
+            "alias_normalized": "1.21.20.0",
             "version": "dev-CGIV-11999-ebay-item-conditions",
             "package": "channelgrabber/ebay"
         }
@@ -12005,8 +12015,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
