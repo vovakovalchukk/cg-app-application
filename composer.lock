@@ -761,16 +761,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.4",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.4-f06278.zip",
-                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
+                "reference": "db8edd368fb534d7cb1e0401793aa762e7651eea"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -11995,13 +11990,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.45.5",
+            "alias_normalized": "1.45.5.0",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
