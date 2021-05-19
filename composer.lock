@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "822e207adf133ab942b4f2d44bc57fa1",
+    "content-hash": "494ba5eafd106a95e3e72158f1fec30d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.39.5",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2b0e42cbf2be0b671957883d0e7af2f07d5766d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.5-6685f5.zip",
-                "reference": "2b0e42cbf2be0b671957883d0e7af2f07d5766d9"
+                "reference": "0ed50c3f9d9005acfe4b65c423bae69e97770cef"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -483,16 +478,11 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.4.7",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-1.4.7-146eca.zip",
-                "reference": "bf09ed2482985f376b5e7065b348d79796cc182c"
+                "reference": "698a567ae957372ce65b14d8c041f0420ca0eccd"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.11",
@@ -765,12 +755,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c841f0caf46e0259f5d3a6a7df23634dd085492b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11999-ebay-item-conditions-4c0d47.zip",
-                "reference": "c841f0caf46e0259f5d3a6a7df23634dd085492b"
+                "reference": "fa81a6c176a6ebf5a3f0f97841f169eb26a14af9"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -1398,12 +1383,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "184956676364098cd1c75310150efba9a5ab6c30"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11999-ebay-item-conditions-afca5c.zip",
-                "reference": "184956676364098cd1c75310150efba9a5ab6c30"
+                "reference": "d56047897edda1bbf337be1620fb207919d005e5"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1459,16 +1439,11 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.18.11",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "9de394c669c5668ccb88e4c6992961fe308da1cd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.18.11-f23903.zip",
-                "reference": "9de394c669c5668ccb88e4c6992961fe308da1cd"
+                "reference": "464e0fa145df961696b2e6aa82eb9840049c7321"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -11997,6 +11972,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.39.7",
+            "alias_normalized": "1.39.7.0",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.4.8",
+            "alias_normalized": "1.4.8.0",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
             "alias": "1.46.0",
             "alias_normalized": "1.46.0.0",
             "version": "dev-CGIV-11999-ebay-item-conditions",
@@ -12007,16 +11994,25 @@
             "alias_normalized": "1.21.20.0",
             "version": "dev-CGIV-11999-ebay-item-conditions",
             "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.19.1",
+            "alias_normalized": "1.19.1.0",
+            "version": "dev-CGIV-11999-ebay-item-conditions",
+            "package": "channelgrabber/ekm"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
