@@ -377,13 +377,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0ed50c3f9d9005acfe4b65c423bae69e97770cef"
+                "reference": "8e58e88bdc02947b3710f11fdd6345160b6468df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11999-ebay-item-conditions-1768d6.zip",
+                "reference": "8e58e88bdc02947b3710f11fdd6345160b6468df"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.44.4",
+                "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.46.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -431,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-04-22T11:41:40+00:00"
+            "time": "2021-05-19T13:24:30+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -482,10 +487,15 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "698a567ae957372ce65b14d8c041f0420ca0eccd"
+                "reference": "8a28a2c6a996c2f4bb76fd57c88e5fcb435a6080"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-CGIV-11999-ebay-item-conditions-4049a8.zip",
+                "reference": "8a28a2c6a996c2f4bb76fd57c88e5fcb435a6080"
             },
             "require": {
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.46.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.8.3",
                 "channelgrabber/listing": "^1.16.2",
@@ -515,7 +525,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2020-11-20T10:20:03+00:00"
+            "time": "2021-05-19T15:06:29+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -757,6 +767,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "fa81a6c176a6ebf5a3f0f97841f169eb26a14af9"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11999-ebay-item-conditions-3831aa.zip",
+                "reference": "fa81a6c176a6ebf5a3f0f97841f169eb26a14af9"
+            },
             "require": {
                 "channelgrabber/access": "^1.1.2",
                 "channelgrabber/billing": "^1.19.7",
@@ -823,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-05-19T09:45:33+00:00"
+            "time": "2021-05-19T13:17:27+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1383,12 +1398,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "d56047897edda1bbf337be1620fb207919d005e5"
+                "reference": "c699b98cf93f1873c7d3bc29a63cd5b21207c030"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11999-ebay-item-conditions-030800.zip",
+                "reference": "c699b98cf93f1873c7d3bc29a63cd5b21207c030"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
-                "channelgrabber/channel": "^1.44.4",
+                "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.46.0",
                 "channelgrabber/communication": "^1.2.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1435,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2021-05-19T09:46:33+00:00"
+            "time": "2021-05-19T14:48:45+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1443,12 +1463,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "464e0fa145df961696b2e6aa82eb9840049c7321"
+                "reference": "ddbaba182220b0aba307d8f051308015dc870593"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-dev-CGIV-11999-ebay-item-conditions-240ce5.zip",
+                "reference": "ddbaba182220b0aba307d8f051308015dc870593"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.43.13",
+                "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.46.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.2",
@@ -1491,7 +1516,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2021-03-09T14:16:13+00:00"
+            "time": "2021-05-19T15:12:36+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -12011,8 +12036,8 @@
         "channelgrabber/ebay": 20,
         "channelgrabber/ekm": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
