@@ -1024,6 +1024,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "3f28e2fe67ccf12002354b96e702e9361fbdbd3f"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11924-dpd-order-value-3e9428.zip",
+                "reference": "3f28e2fe67ccf12002354b96e702e9361fbdbd3f"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
                 "channelgrabber/locale": "^1.0.17",
@@ -1061,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-05-17T09:16:13+00:00"
+            "time": "2021-05-20T12:02:29+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12003,8 +12008,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
