@@ -26,7 +26,7 @@
         "channelgrabber/billing": "~1.21.0",
         "channelgrabber/cache": "~2.8.0",
         "channelgrabber/cglib": "~1.17.1",
-        "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.46.0",
+        "channelgrabber/channel": "dev-CGIV-11999-ebay-item-conditions as 1.45.5",
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
         "channelgrabber/clearbooks": "~1.12.3",

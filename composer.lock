@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "494ba5eafd106a95e3e72158f1fec30d",
+    "content-hash": "fa1d9b9197da96c8880d7822023479bd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -765,12 +765,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "fa81a6c176a6ebf5a3f0f97841f169eb26a14af9"
+                "reference": "a6808202e9ef1cf1a8bc46da68fb24f845af316c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11999-ebay-item-conditions-3831aa.zip",
-                "reference": "fa81a6c176a6ebf5a3f0f97841f169eb26a14af9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11999-ebay-item-conditions-31ad5e.zip",
+                "reference": "a6808202e9ef1cf1a8bc46da68fb24f845af316c"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -838,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-05-19T13:17:27+00:00"
+            "time": "2021-05-21T13:28:44+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -12009,8 +12009,8 @@
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.46.0",
-            "alias_normalized": "1.46.0.0",
+            "alias": "1.45.5",
+            "alias_normalized": "1.45.5.0",
             "version": "dev-CGIV-11999-ebay-item-conditions",
             "package": "channelgrabber/channel"
         },
