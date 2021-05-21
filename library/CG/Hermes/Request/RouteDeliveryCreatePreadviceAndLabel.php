@@ -28,7 +28,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const MAX_HS_CODE_LENGTH = 10;
     const WEIGHT_UNIT = 'g';
     const DIMENSION_UNIT = 'cm';
-    const DEFAULT_VALUE = 100;
+    protected const DEFAULT_PACKAGE_VALUE = 0.01;
     const DUTY_UNPAID_FLAG = 'U';
     const COUNTRY_CODE_NETHERLANDS = 'NL';
     const NETHERLANDS_ADDRESS_1_REGEX = '/(?:\d+[a-z]*)$/';
@@ -248,6 +248,11 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         foreach ($package->getContents() as $content) {
             $value += $content->getUnitValue() * $content->getQuantity();
         }
+
+        if ($value == 0) {
+            $value = static::DEFAULT_PACKAGE_VALUE;
+        }
+
         // Value must be in pence / cents
         return $this->convertValueToMinorUnits($value);
     }
