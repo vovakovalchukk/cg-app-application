@@ -235,6 +235,9 @@ class Service implements LoggerAwareInterface
 
     protected function fetchImages(int ...$ids): Images
     {
+        if (empty($ids)) {
+            return new Images(Image::class, __METHOD__);
+        }
         try {
             return $this->imageService->fetchCollectionByPaginationAndFilters((new ImageFilter('all', 1))->setId(array_unique($ids)));
         } catch (NotFound $e) {
