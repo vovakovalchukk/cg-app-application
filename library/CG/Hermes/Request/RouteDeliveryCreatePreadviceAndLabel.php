@@ -172,7 +172,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             $content->addChild('countryOfManufacture', $packageContent->getOrigin());
             $content->addChild('itemQuantity', $packageContent->getQuantity());
             $content->addChild('itemWeight', $this->convertWeight($packageContent->getWeight()));
-            $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue() * $packageContent->getQuantity()));
+            $content->addChild('value', $this->calculateValueOfPackageContent($packageContent));
             $content->addChild('skuCode', $this->sanitiseString($packageContent->getSku(), static::MAX_SKU_LEN));
 
             if ($packageContent->getHsCode() && strlen($packageContent->getHsCode()) > 0) {
@@ -255,6 +255,17 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
         // Value must be in pence / cents
         return $this->convertValueToMinorUnits($value);
+    }
+
+    protected function calculateValueOfPackageContent(PackageContent $packageContent): float
+    {
+        $value = $packageContent->getUnitValue() * $packageContent->getQuantity();
+        if ($value == 0) {
+            $value = static::DEFAULT_PACKAGE_VALUE;
+        }
+
+        // Value must be in pence / cents
+        $this->convertValueToMinorUnits($value);
     }
 
     protected function convertValueToMinorUnits(float $value): float
