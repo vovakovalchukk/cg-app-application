@@ -2,6 +2,7 @@
 namespace CG\Hermes\Request;
 
 use CG\CourierAdapter\AddressInterface;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Hermes\DeliveryService;
 use CG\Hermes\RequestInterface;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
@@ -257,15 +258,15 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         return $this->convertValueToMinorUnits($value);
     }
 
-    protected function calculateValueOfPackageContent(PackageContent $packageContent): float
+    protected function calculateValueOfPackageContent(Content $content): float
     {
-        $value = $packageContent->getUnitValue() * $packageContent->getQuantity();
+        $value = $content->getUnitValue() * $content->getQuantity();
         if ($value == 0) {
             $value = static::DEFAULT_PACKAGE_VALUE;
         }
 
         // Value must be in pence / cents
-        $this->convertValueToMinorUnits($value);
+        return $this->convertValueToMinorUnits($value);
     }
 
     protected function convertValueToMinorUnits(float $value): float
