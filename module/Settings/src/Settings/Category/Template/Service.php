@@ -37,7 +37,8 @@ class Service implements LoggerAwareInterface
     public const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
 
     protected const LOG_CODE = 'SettingsCategoryTemplateService';
-    protected const LOG_MSG = '';
+    protected const LOG_MSG_LISTING_EXCEPTION = 'Exception during fetching categories for account %d';
+    protected const LOG_MSG_NOTFOUND_EXCEPTION = 'NotFound Exception during fetching accounts for OU %d';
 
     /** @var  AccountService */
     protected $accountService;
@@ -80,6 +81,7 @@ class Service implements LoggerAwareInterface
         try {
             $accounts = $this->fetchActiveAccountsForOu($ou);
         } catch (NotFound $e) {
+            $this->logDebugException($e, static::LOG_MSG_NOTFOUND_EXCEPTION, [$ou->getId()], static::LOG_CODE);
             return [];
         }
 
@@ -105,6 +107,7 @@ class Service implements LoggerAwareInterface
         try {
             $accounts = $this->fetchActiveAccountsForOu($ou);
         } catch (NotFound $e) {
+            $this->logDebugException($e, static::LOG_MSG_NOTFOUND_EXCEPTION, [$ou->getId()], static::LOG_CODE);
             return [];
         }
 
@@ -130,6 +133,7 @@ class Service implements LoggerAwareInterface
             $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
             return $defaultSettings['categories'] ?? [];
         } catch (ListingException $e) {
+            $this->logDebugException($e, static::LOG_MSG_LISTING_EXCEPTION, [$account->getId()], static::LOG_CODE);
             return [];
         }
     }
