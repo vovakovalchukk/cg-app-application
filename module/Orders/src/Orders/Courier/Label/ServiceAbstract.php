@@ -227,7 +227,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                     }
                 } else {
                     $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
-                    $productDetail = $this->createProductDetailFromInputData($productDetailData, $item, $parcelCount, $rootOu);
+                    $productDetail = $this->createProductDetailFromInputData($productDetailData, $item, $parcelCount, $rootOu, $itemCount);
                     $productDetails->attach($productDetail);
                 }
             }
@@ -302,7 +302,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         array $productDetailData,
         Item $item,
         $parcelCount,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        int $itemCount
     ) {
         $data = [
             'sku' => $item->getItemSku(),
