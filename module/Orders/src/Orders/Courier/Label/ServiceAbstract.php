@@ -312,7 +312,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
             }
-            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount) : $productDetailData[$field]);
+            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount, $itemCount) : $productDetailData[$field]);
             $data[static::DATA_FIELD_TO_PRODUCT_DETAIL_FIELD_MAP[$field] ?? $field] = $value;
         }
         $productDetail = $this->productDetailMapper->fromArray($data);
