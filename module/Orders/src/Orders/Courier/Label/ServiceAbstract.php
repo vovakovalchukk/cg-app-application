@@ -144,6 +144,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function getOrdersByIds(array $orderIds)
     {
+        if (empty($orderIds)) {
+            $this->logWarning('Attempted to fetch all orders', [], static::LOG_CODE);
+            throw new NoOrdersSelectedException();
+        }
         $filter = (new OrderFilter())
             ->setLimit('all')
             ->setPage(1)
@@ -205,6 +209,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
             $items = $order->getItems();
+            $itemCount = count($order->getItems());
             foreach ($items as $item) {
                 $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
                 $productDetailData = $this->copyDimensionsAndWeightToProductDetailData($productDetailData, $parcelData);
@@ -214,7 +219,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                     $itemProductDetail = $itemProductDetails->current();
                     $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
                     try {
-                        $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount);
+                        $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount, $itemCount);
                     } catch (\Exception $e) {
                         // We can live without product details, don't fail for this
                         $this->logException($e, 'error', __NAMESPACE__);
@@ -229,8 +234,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         }
     }
 
-    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ParcelData $parcelData): array
+    protected function copyDimensionsAndWeightToProductDetailData(array $productDetailData, ?ParcelData $parcelData): array
     {
+        if (is_null($parcelData)) {
+            return $productDetailData;
+        }
+
         if (!isset($productDetailData['weight']) || empty($productDetailData['weight'])) {
             $productDetailData['weight'] = $parcelData ? $parcelData->toArray()['weight'] : null;
         }
@@ -252,6 +261,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         array $productDetailData,
         Item $item,
         $parcelCount,
+        int $itemCount,
         $attempt = 1
     ) {
         $changes = false;
@@ -259,7 +269,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
             }
-            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount) : $productDetailData[$field]);
+            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount, $itemCount) : $productDetailData[$field]);
             if ($value === null) {
                 continue;
             }
@@ -284,7 +294,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
                 throw $e;
             }
             $productDetail = $this->productDetailService->fetch($productDetail->getId());
-            return $this->updateProductDetailFromInputData($productDetail, $productDetailData, $item, $parcelCount, ++$attempt);
+            return $this->updateProductDetailFromInputData($productDetail, $productDetailData, $item, $parcelCount, $itemCount, ++$attempt);
         }
     }
 
@@ -310,23 +320,23 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $this->productDetailMapper->fromHal($hal);
     }
 
-    protected function processWeightForProductDetails($value, Item $item, $parcelCount)
+    protected function processWeightForProductDetails($value, Item $item, $parcelCount, int $itemCount)
     {
         $displayUnit = LocaleMass::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
         return ProductDetail::convertMass($value / $item->getItemQuantity(), $displayUnit, ProductDetail::UNIT_MASS);
     }
 
-    protected function processDimensionForProductDetails($value, Item $item, $parcelCount)
+    protected function processDimensionForProductDetails($value, Item $item, $parcelCount, int $itemCount)
     {
         // Impossible to tell how to divide up dimensions
-        if ($item->getItemQuantity() > 1 || $parcelCount > 1) {
+        if ($item->getItemQuantity() > 1 || $parcelCount > 1 || $itemCount > 1) {
             return null;
         }
         $displayUnit = LocaleLength::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
         return ProductDetail::convertLength($value, $displayUnit, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function processCountryOfOriginForProductDetails($value, Item $item, $parcelCount)
+    protected function processCountryOfOriginForProductDetails($value, Item $item, $parcelCount, int $itemCount)
     {
         // check against iso codes, if not valid try and match via name
         if (CountryNameByCode::isValidCountryCode($value)) {

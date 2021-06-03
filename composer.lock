@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "23330034be3be7a78d119dcf185f7b72",
+    "content-hash": "d5d30de65c41b35a35e45f817e514512",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "09304aec320837f3146b04faff62f2304c4486d5"
+                "reference": "88ff1fec74fd3f493cdd927580e68944b0f34606"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11710-blacklist-listing-imports-44204f.zip",
-                "reference": "09304aec320837f3146b04faff62f2304c4486d5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11710-blacklist-listing-imports-24c741.zip",
+                "reference": "88ff1fec74fd3f493cdd927580e68944b0f34606",
                 "shasum": null
             },
             "require": {
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-04-13T10:34:44+00:00"
+            "time": "2021-06-03T08:13:18+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -773,12 +773,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2cd1de719482ca85c2791ccca9a3f0d69a5d477b"
+                "reference": "0f6e14bb6f7001ee93a76547bb5dc08f0a06c776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11710-blacklist-listing-imports-ef22d3.zip",
-                "reference": "2cd1de719482ca85c2791ccca9a3f0d69a5d477b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-11710-blacklist-listing-imports-f17b23.zip",
+                "reference": "0f6e14bb6f7001ee93a76547bb5dc08f0a06c776",
                 "shasum": null
             },
             "require": {
@@ -833,6 +833,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-11710-blacklist-listing-imports": "1.45.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -847,7 +852,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-04-13T10:10:28+00:00"
+            "time": "2021-06-03T08:10:56+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1032,16 +1037,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.4.0",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d18fa720c9aa3f7ee491f42a91715fae83df2b65"
+                "reference": "bc9594e4c9f73d862b34aa3e47fe8954f7a8307b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.0-cf2c2e.zip",
-                "reference": "d18fa720c9aa3f7ee491f42a91715fae83df2b65",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.4-2369b3.zip",
+                "reference": "bc9594e4c9f73d862b34aa3e47fe8954f7a8307b",
                 "shasum": null
             },
             "require": {
@@ -1081,20 +1086,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-03-02T12:11:43+00:00"
+            "time": "2021-05-21T14:29:05+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.7.1",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "b97375d973ff85ef5f5d29c7f7f1b32fe224663b"
+                "reference": "3f89c0313a249a98f07a25907c6d52753c2f5fa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.1-a23993.zip",
-                "reference": "b97375d973ff85ef5f5d29c7f7f1b32fe224663b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.2-0321e2.zip",
+                "reference": "3f89c0313a249a98f07a25907c6d52753c2f5fa3",
                 "shasum": null
             },
             "require": {
@@ -1119,7 +1124,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-03-02T12:04:44+00:00"
+            "time": "2021-04-16T13:18:18+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1422,12 +1427,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "9c682e0ba543da8b741546f5057312831437cdc1"
+                "reference": "39e4d9a397607fd4de37ae13c1c7098adb5bbc42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11710-blacklist-listing-imports-3fe671.zip",
-                "reference": "9c682e0ba543da8b741546f5057312831437cdc1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11710-blacklist-listing-imports-72997b.zip",
+                "reference": "39e4d9a397607fd4de37ae13c1c7098adb5bbc42",
                 "shasum": null
             },
             "require": {
@@ -1480,7 +1485,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2021-04-13T11:37:11+00:00"
+            "time": "2021-06-03T08:14:49+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2915,16 +2920,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.11",
+            "version": "1.20.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70"
+                "reference": "0ce395fa64518c5029cc2dc7552b2122b6b4d9fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.11-8f5a05.zip",
-                "reference": "46e3156600a5c3ed2c3409e0b69c6c270336bc70",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.13-fdaffd.zip",
+                "reference": "0ce395fa64518c5029cc2dc7552b2122b6b4d9fc",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2979,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-02-03T11:55:10+00:00"
+            "time": "2021-05-11T13:48:17+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3898,16 +3903,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.12.2",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "66721baed2a444c84354f643a9feea3957271a1b"
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.2-82012c.zip",
-                "reference": "66721baed2a444c84354f643a9feea3957271a1b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.3-dee062.zip",
+                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7",
                 "shasum": null
             },
             "require": {
@@ -3959,7 +3964,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-03-16T09:58:22+00:00"
+            "time": "2021-04-29T13:50:53+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4218,12 +4223,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "9563485a35d9b250ee575c467c62658ef51dbb90"
+                "reference": "e0a55c8c2f4a03127306571ba516b0cdef32128c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-CGIV-11710-blacklist-listing-imports-132292.zip",
-                "reference": "9563485a35d9b250ee575c467c62658ef51dbb90",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-CGIV-11710-blacklist-listing-imports-7156a1.zip",
+                "reference": "e0a55c8c2f4a03127306571ba516b0cdef32128c",
                 "shasum": null
             },
             "require": {
@@ -4247,7 +4252,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2021-04-13T14:43:06+00:00"
+            "time": "2021-06-03T08:16:07+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4361,12 +4366,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "a837b4b71286d9138b828afdc19e0157f96c0bdf"
+                "reference": "78b607a53239d10dafcb4121616651643eda55f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-dev-CGIV-11710-blacklist-listing-imports-6d6a4e.zip",
-                "reference": "a837b4b71286d9138b828afdc19e0157f96c0bdf",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-dev-CGIV-11710-blacklist-listing-imports-1eb5d6.zip",
+                "reference": "78b607a53239d10dafcb4121616651643eda55f6",
                 "shasum": null
             },
             "require": {
@@ -4403,7 +4408,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2021-04-13T15:18:12+00:00"
+            "time": "2021-06-03T08:18:22+00:00"
         },
         {
             "name": "channelgrabber/zendesk",

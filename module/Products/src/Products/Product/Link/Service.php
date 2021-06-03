@@ -2,6 +2,10 @@
 
 namespace Products\Product\Link;
 
+use CG\Image\Service as ImageService;
+use CG\Image\Filter as ImageFilter;
+use CG\Image\Collection as Images;
+use CG\Image\Entity as Image;
 use CG\Product\Service\Service as ProductService;
 use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Mapper as ProductMapper;
@@ -25,6 +29,8 @@ class Service implements LoggerAwareInterface
     protected $productMapper;
     /** @var ProductLinkNodeService */
     protected $productLinkNodeService;
+    /** @var ImageService */
+    protected $imageService;
 
     const LOG_CODE = 'ProductLinkService';
     const LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK = 'Product with sku <%s> was not loaded, but it was required as a link by product with sku <%s>';
@@ -34,12 +40,14 @@ class Service implements LoggerAwareInterface
         ProductService $productService,
         ProductLinkService $productLinkService,
         ProductMapper $productMapper,
-        ProductLinkNodeService $productLinkNodeService
+        ProductLinkNodeService $productLinkNodeService,
+        ImageService $imageService
     ) {
         $this->productService = $productService;
         $this->productLinkService = $productLinkService;
         $this->productMapper = $productMapper;
         $this->productLinkNodeService = $productLinkNodeService;
+        $this->imageService = $imageService;
     }
 
     public function getSkusProductCantLinkTo($ouId, $skuOfProduct): array
@@ -90,10 +98,17 @@ class Service implements LoggerAwareInterface
 
     public function getProductLinksByProductId($ouId, $skusToFetchLinkedProductsFor, ProductLinkCollection $productLinks)
     {
-        $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor);
+        $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
         $productsForLinks = $this->fetchProductsForLinks($ouId, $productLinks);
         $parentProducts = $this->fetchParentProductsForVariations($ouId, $productsForLinks);
-
+        $images = $this->fetchImages(
+            ...$this->getPrimaryImageIds($productsForSkus),
+            ...$this->getPrimaryImageIds($productsForLinks),
+            ...$this->getPrimaryImageIds($parentProducts)
+        );
+        $this->attachImagesToProducts($productsForSkus, $images);
+        $this->attachImagesToProducts($productsForLinks, $images);
+        $this->attachImagesToProducts($parentProducts, $images);
         $productLinksByProductId = [];
         /** @var Product $product */
         foreach ($productsForSkus as $product) {
@@ -106,12 +121,12 @@ class Service implements LoggerAwareInterface
 
             foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
                 try {
-                    $productLinkProduct = $this->getProductForLinkSku($productsForLinks, $parentProducts, $stockSku);
+                    $productLinkProduct = $this->getProductForLinkSku($productsForLinks, $parentProducts, $stockSku, $images);
                 } catch (NotFound $exception) {
                     $this->logCriticalException($exception, static::LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK, [$stockSku, $productLink->getProductSku()], static::LOG_CODE);
                     continue;
                 }
-
+                $this->attachImageToProduct($productLinkProduct, $images);
                 if ($product->getParentProductId() == 0) {
                     $productLinksByProductId[$product->getId()][$product->getId()][] = [
                         'sku' => $stockSku,
@@ -169,7 +184,7 @@ class Service implements LoggerAwareInterface
                     $productLinkProductSkus[] = $stockSku;
                 }
             }
-            return $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus);
+            return $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
 
         } catch(NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__);
@@ -190,6 +205,72 @@ class Service implements LoggerAwareInterface
             return new ProductCollection(Product::class, __FUNCTION__);
         }
 
-        return $this->productService->fetchCollectionByOUAndId([$ouId], $idsToFetch);
+        return $this->productService->fetchCollectionByOUAndId([$ouId], $idsToFetch, [Product::EMBEDDED_DATA_TYPE_VARIATION]);
+    }
+
+    protected function getPrimaryImageIds(ProductCollection $productCollection): \Generator
+    {
+        /** @var Product $product */
+        foreach ($productCollection as $product) {
+            try {
+                yield $this->getPrimaryImageId($product);
+            } catch (NotFound $e) {
+                continue;
+            }
+        }
+    }
+
+    protected function getPrimaryImageId(Product $product): int
+    {
+        $imageIds = $product->getImageIds();
+        if (!is_array($imageIds) || empty($imageIds)) {
+            throw new NotFound();
+        }
+        $firstImageId = current($imageIds);
+        if (is_array($firstImageId) && isset($firstImageId['id'])) {
+            return $firstImageId['id'];
+        }
+        throw new NotFound();
+    }
+
+    protected function fetchImages(int ...$ids): Images
+    {
+        if (empty($ids)) {
+            return new Images(Image::class, __METHOD__);
+        }
+        try {
+            return $this->imageService->fetchCollectionByPaginationAndFilters((new ImageFilter('all', 1))->setId(array_unique($ids)));
+        } catch (NotFound $e) {
+            return new Images(Image::class, __METHOD__);
+        }
+    }
+
+    protected function attachImagesToProducts(ProductCollection $products, Images $images): void
+    {
+        /** @var Product $product */
+        foreach ($products as $product) {
+            $this->attachImageToProduct($product, $images);
+        }
+    }
+
+    protected function attachImageToProduct(Product $product, Images $images): void
+    {
+        if ($product->isParent() && $product->getVariations() instanceof ProductCollection) {
+            $this->attachImagesToProducts($product->getVariations(), $images);
+        }
+        if ($product->getImages() instanceof Images && $product->getImages()->count() > 0) {
+            return;
+        }
+        try {
+            $primaryImage = $images->getById($this->getPrimaryImageId($product));
+        } catch (NotFound $e) {
+            return;
+        }
+        if ($primaryImage === null) {
+            return;
+        }
+        $imagesToAttach = new Images(Image::class, __METHOD__);
+        $imagesToAttach->attach($primaryImage);
+        $product->setImages($imagesToAttach);
     }
 }

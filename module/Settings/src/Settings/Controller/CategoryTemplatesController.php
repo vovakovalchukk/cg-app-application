@@ -1,15 +1,22 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Category\Template\Service as CategoryTemplateService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class CategoryTemplatesController extends AbstractActionController
+class CategoryTemplatesController extends AbstractActionController implements LoggerAwareInterface
 {
-    const ROUTE_INDEX = 'Index';
+    use LogTrait;
+
+    public const ROUTE_INDEX = 'Index';
+
+    protected const LOG_CODE = 'CategoryTemplatesController';
+    protected const LOG_EXCEPTION_MSG = 'Exception when loading Accounts and Categories for OU %d';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -36,6 +43,7 @@ class CategoryTemplatesController extends AbstractActionController
             $categories = $this->categoryTemplateService->fetchCategoryRoots($ou);
         } catch (\Throwable $e) {
             $accounts = $categories = [];
+            $this->logDebugException($e, static::LOG_EXCEPTION_MSG, ['ou' => $ou], static::LOG_CODE);
         }
         $template = $this->newViewModel()
             ->setVariable('accounts', $accounts)
