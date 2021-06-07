@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92d982dd7e06788df710d122ea13cd62",
+    "content-hash": "254068f363c461c4c27a2cb6c431f0b2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4399,7 +4399,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "d83a7ea6e307ed865f0cb480f9b48b4a6fe9ab8b"
+                "reference": "bbc743b0e396327b8d24860c1a5592f125eccf97"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
