@@ -4401,6 +4401,11 @@
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
                 "reference": "bbc743b0e396327b8d24860c1a5592f125eccf97"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-12055-amazon-default-shipping-method-640ead.zip",
+                "reference": "bbc743b0e396327b8d24860c1a5592f125eccf97"
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.19.25",
@@ -4431,7 +4436,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2020-05-21T07:17:57+00:00"
+            "time": "2021-06-07T16:06:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -12003,8 +12008,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
