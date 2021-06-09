@@ -87,7 +87,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected function getRefreshButtonView()
     {
         $disabled = false;
-        if ($this->usageExceeded() || !$this->listingService->listingImportBlacklisted()) {
+        if ($this->usageExceeded() || $this->listingService->listingImportBlacklisted()) {
             $disabled = true;
         }
         $refresh = $this->getViewModelFactory()->newInstance([
