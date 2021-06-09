@@ -75,7 +75,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
 
     protected function amendBulkActions(BulkActions $bulkActions)
     {
-        if (!$this->usageExceeded() && $this->listingService->listingImportBlacklisted()) {
+        if (!$this->usageExceeded() && !$this->listingService->listingImportBlacklisted()) {
             return;
         }
         $actions = $bulkActions->getActions();
