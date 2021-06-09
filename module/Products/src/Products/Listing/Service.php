@@ -111,7 +111,7 @@ class Service implements LoggerAwareInterface
 
     public function refresh(array $accountIds = [])
     {
-        if (!$this->listingImportBlacklisted()) {
+        if ($this->listingImportBlacklisted()) {
             return;
         }
         $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
