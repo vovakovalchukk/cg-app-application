@@ -767,6 +767,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "bbb95c2738a24e0ba81024370f04e0877f8f490e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12055-amazon-default-shipping-method-670937.zip",
+                "reference": "bbb95c2738a24e0ba81024370f04e0877f8f490e"
+            },
             "require": {
                 "channelgrabber/access": "^1.1.2",
                 "channelgrabber/billing": "^1.19.7",
@@ -833,7 +838,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-05-10T09:56:32+00:00"
+            "time": "2021-06-08T15:16:51+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4394,17 +4399,22 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "2363e163bc8db7a4dc23faedc552235539214185"
+                "reference": "1bd099bcc4189c7b4e9b075147a59d4c33d65e82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-12055-amazon-default-shipping-method-5df15e.zip",
+                "reference": "1bd099bcc4189c7b4e9b075147a59d4c33d65e82"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
-                "channelgrabber/amazon": "^1.19.25",
-                "channelgrabber/channel": "^1.43.1",
+                "channelgrabber/amazon": "^1.39.0",
+                "channelgrabber/channel": "dev-CGIV-12055-amazon-default-shipping-method as 1.45.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.27",
+                "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/zf2-channel": ">=1.0.0",
                 "composer/composer": "@dev",
                 "zendframework/zend-config": "2.*",
@@ -4426,7 +4436,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2021-06-08T13:10:22+00:00"
+            "time": "2021-06-09T13:44:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -12005,8 +12015,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
