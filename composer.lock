@@ -4399,12 +4399,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "1bd099bcc4189c7b4e9b075147a59d4c33d65e82"
+                "reference": "3a0c9af8a5313a78cf156f116ea283f51a3b1623"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-12055-amazon-default-shipping-method-5df15e.zip",
-                "reference": "1bd099bcc4189c7b4e9b075147a59d4c33d65e82"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-12055-amazon-default-shipping-method-4125ca.zip",
+                "reference": "3a0c9af8a5313a78cf156f116ea283f51a3b1623"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -4436,7 +4436,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2021-06-09T13:44:26+00:00"
+            "time": "2021-06-10T10:21:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
