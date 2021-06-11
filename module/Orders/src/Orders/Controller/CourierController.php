@@ -360,6 +360,7 @@ class CourierController extends AbstractActionController
         }
         if (isset($options['collectionDate'])) {
             $viewConfig['collectionDate'] = true;
+            $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
         }
         if (isset($options['packageType'])) {
             $viewConfig['packageType'] = true;
