@@ -358,6 +358,12 @@ class CourierController extends AbstractActionController
         if (isset($options['termsOfDelivery'])) {
             $viewConfig['termsOfDelivery'] = true;
         }
+        if (isset($options['collectionDate'])) {
+            $viewConfig['collectionDate'] = true;
+        }
+        if (isset($options['packageType'])) {
+            $viewConfig['packageType'] = true;
+        }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
