@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ExpandIcon from 'Common/Components/ExpandIcon'
 import constants from 'Product/Components/ProductList/Config/constants';
 import loadingIndicatorFactory from 'element/loadingIndicator';
+import stateUtility from "../../stateUtility";
 
 const loadingIndicator = loadingIndicatorFactory.getIndicator();
 
@@ -19,9 +20,13 @@ const ExpandLink = styled.a`
 
 class ProductExpandHeader extends React.Component {
     static defaultProps = {};
+    static CONFIRMATION_POPUP_NAME = 'ExpandVariationsConfirmation';
+    static MAX_VARIATIONS_COUNT = 250;
+
     onClick = () => {
         this.props.actions.toggleExpandAll()
     };
+
     render() {
         let {expand} = this.props;
 
