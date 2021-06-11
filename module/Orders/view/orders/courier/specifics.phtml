@@ -18,10 +18,14 @@ $(document).ready(function()
     );
 
     require([
+        'react',
+        'react-dom',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/ItemParcelAssignment/Manager.js',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Balance.js'
     ], function(
+        React,
+        ReactDom,
         Service,
         ItemParcelAssignmentManager,
         Balance
