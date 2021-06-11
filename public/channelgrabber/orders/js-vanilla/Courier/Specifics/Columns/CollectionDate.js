@@ -9,8 +9,8 @@ define([''], function()
         init.call(this);
     }
 
-    CollectionDate.SELECTOR_BULK_ACTION_CD_INPUT_ID = '#bulk-courier-collection-date';
-    CollectionDate.SELECTOR_CD_CHECKBOX_CLASS = '#courier-order-collectionDate_{{.}}';
+    CollectionDate.SELECTOR_BULK_ACTION_CD_INPUT_ID = '#bulk-courier-collection-date-datepicker';
+    CollectionDate.SELECTOR_CD_INPUT = 'input[id^="courier-order-collectionDate_"]';
 
     CollectionDate.prototype.listenForCollectionDateChanges = function()
     {
@@ -25,7 +25,7 @@ define([''], function()
 
     CollectionDate.prototype.updateAllCollectionDatesInputs = function(value)
     {
-        $('input[id^="courier-order-collectionDate_"]').each(function () {
+        $(CollectionDate.SELECTOR_CD_INPUT).each(function () {
             $(this).val(value);
         });
         return this;
