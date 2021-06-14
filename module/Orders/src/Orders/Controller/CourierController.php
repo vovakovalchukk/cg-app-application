@@ -263,6 +263,8 @@ class CourierController extends AbstractActionController
 
         $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
 
+
+
         // For now the first order will suffice as USPS only cares about the account.
         // If this needs to be specific to the individual orders in the future, please update this as needed.
         $order = $this->orderService->fetch($courierOrders[$selectedCourier->getId()][0]);
@@ -363,6 +365,12 @@ class CourierController extends AbstractActionController
             $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
         }
         if (isset($options['packageType'])) {
+            $this->service->getCarrierOptionsProvider($selectedAccount)->getDataForCarrierOption(
+                $selectedAccount,
+                'packageType'
+            );
+
+
             $viewConfig['packageType'] = true;
         }
 

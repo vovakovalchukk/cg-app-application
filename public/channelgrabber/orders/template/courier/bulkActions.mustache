@@ -18,7 +18,15 @@
 {{#packageType}}
     <div class="courier-package-type pull-right">
         <span class="courier-package-type-label">Package Type</span>
-        <div id="courier-package-type-mount"></div>
+        <div id="courier-bulk-package-type">
+            <select id="courier-bulk-package-type-select">
+                {{#option}}
+                    <option {{#optionValue}}value="{{.}}"{{/optionValue}} selected="selected">{{optionName}}</option>
+                {{/option}}
+                {{^option}}
+                {{/option}}
+            </select>
+        </div>
     </div>
 {{/packageType}}
 

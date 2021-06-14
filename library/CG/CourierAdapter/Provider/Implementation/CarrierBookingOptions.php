@@ -16,9 +16,13 @@ use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class CarrierBookingOptions implements CarrierBookingOptionsInterface
+class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwareInterface
 {
+    use LogTrait;
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
@@ -166,8 +170,10 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             $service = $this->mapServiceFromListArrayRow($row);
             if ($service) {
                 $serviceOptions = $this->getCarrierBookingOptionsForService($account, $service, $courierInstance);
+                $this->logDebugDump($serviceOptions, 'Service', [], 'MYLOGS');
             } else {
                 $serviceOptions = $this->getCarrierBookingOptionsForAccount($account);
+                $this->logDebugDump($serviceOptions, 'Non-Service', [], 'MYLOGS');
             }
 
             foreach ($serviceOptions as $optionType) {
@@ -181,6 +187,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
                     $orderProductDetails = $this->getProductDetailsForOrder($productDetails, $order);
                 }
                 $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $order, $orderProductDetails, $courierInstance);
+
+                $this->logDebugDump($options, $optionType, [], 'MYLOGS');
+
                 if (!$options) {
                     continue;
                 }
@@ -226,6 +235,17 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
+        return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
+    }
+
+    public function getDataForCarrierOption(
+        AccountEntity $account,
+        string $option,
+        ?string $service = null,
+        ?OrderEntity $order = null,
+        ?OrganisationUnit $rootOu = null,
+        ?ProductDetailCollection $productDetails = null
+    ): array {
         return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
     }
 
