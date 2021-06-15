@@ -245,7 +245,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
         ?OrderEntity $order = null,
         ?OrganisationUnit $rootOu = null,
         ?ProductDetailCollection $productDetails = null
-    ): array {
+    ): ?array {
         return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
     }
 
@@ -282,6 +282,36 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
             $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
         }
         return $data;
+    }
+
+    public function getPackageTypesOptions(AccountEntity $account, string $serviceCode): array
+    {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        $deliveryServices = $courierInstance->fetchDeliveryServices();
+        $this->logDebugDump($deliveryServices, 'DElivery Services', [], 'MYTEST');
+
+        $packageTypesDomestic = [];
+        $packageTypesInternational = [];
+
+        foreach ($deliveryServices as $deliveryService) {
+            $shipmentClass = $deliveryService->getShipmentClass();
+            $packageType = $this->getDataForPackageTypesOption($shipmentClass);
+            if ($shipmentClass::isDomestic()) {
+                $packageTypesDomestic = array_merge($packageTypesDomestic, $packageType);
+                continue;
+            }
+
+            $packageTypesInternational = array_merge($packageTypesInternational, $packageType);
+        }
+
+        $packageTypes = [
+            'domestic' => $packageTypesDomestic,
+            'international' => $packageTypesInternational
+        ];
+
+        $this->logDebugDump($packageTypes, 'PackageType Final', [], 'MYTEST');
+
+        return $packageTypes;
     }
 
     protected function getDataForPackageTypesOption(

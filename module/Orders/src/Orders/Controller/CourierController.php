@@ -13,6 +13,8 @@ use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -30,8 +32,10 @@ use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class CourierController extends AbstractActionController
+class CourierController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE = 'Courier';
     const ROUTE_URI = '/courier';
     const ROUTE_REVIEW = 'Review';
@@ -365,13 +369,25 @@ class CourierController extends AbstractActionController
             $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
         }
         if (isset($options['packageType'])) {
-            $this->service->getCarrierOptionsProvider($selectedAccount)->getDataForCarrierOption(
-                $selectedAccount,
-                'packageType'
-            );
-
-
             $viewConfig['packageType'] = true;
+
+            $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
+//                ->getCarrierBookingOptionsForAccount($selectedAccount);
+
+
+                ->getPackageTypesOptions($selectedAccount, '');
+
+
+//                ->getDataForCarrierOption(
+//                $selectedAccount,
+//                'packageTypes',
+//                'empty'
+//            );
+
+            $this->logDebugDump($options, 'OPTIONS', [], 'MYTEST');
+            $this->logDebugDump($packageOptions, 'PACKAGE OPTIONS', [], 'MYTEST');
+
+
         }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {

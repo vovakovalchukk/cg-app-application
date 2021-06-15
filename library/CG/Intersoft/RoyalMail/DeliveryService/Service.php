@@ -4,9 +4,13 @@ namespace CG\Intersoft\RoyalMail\DeliveryService;
 use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\Exception\NotFound;
 use CG\Intersoft\RoyalMail\DeliveryService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     /** @var DeliveryServiceInterface[] */
     protected $deliveryServices;
     /** @var array */
@@ -58,6 +62,8 @@ class Service
 
     protected function buildServices(array $serviceConfig)
     {
+        $this->logDebugDump($serviceConfig, 'SERVICE CONFIG', [], 'MYTEST');
+
         foreach ($serviceConfig['serviceTypes'] as $type) {
             if ($this->serviceOfferingDoesNotExist($serviceConfig['serviceOffering'])) {
                 continue;
