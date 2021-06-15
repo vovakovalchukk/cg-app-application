@@ -7,6 +7,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         var init = function()
         {
             this.listenForServiceChanges();
+            this.listenForBulkActionChanges();
         };
         init.call(this);
     }
@@ -14,6 +15,12 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '.courier-package-type_';
     PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER = '.courier-package-type-options';
     PackageType.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
+
+    PackageType.SELECTOR_PACKAGE_TYPE_BULK_CONTAINER = '#courier-bulk-package-type-select';
+    PackageType.SELECTOR_PT_HIDDEN_INPUT = 'div[id^="courier-package-type_"] input[type=hidden]';
+    // PackageType.SELECTOR_CD_INPUT = 'input[id^="courier-package-type_"]';
+    PackageType.SELECTOR_PT_INPUT = 'div[id^="courier-package-type_"]';
+    // required courier-package-type_
 
     PackageType.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
@@ -41,6 +48,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         selected,
         container
     ) {
+        console.log("SELECTED "+selected);
+
         var optionsObject = {};
         if (options instanceof Array) {
             options.forEach(function (value) {
@@ -98,6 +107,35 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             return true;
         }
         return false;
+    };
+
+    PackageType.prototype.listenForBulkActionChanges = function()
+    {
+        const self = this;
+        $(document).on('change', PackageType.SELECTOR_PACKAGE_TYPE_BULK_CONTAINER, function()
+        {
+            self.updateAllPackageTypeInputs($(this).val());
+        });
+
+        return this;
+    };
+
+    PackageType.prototype.updateAllPackageTypeInputs = function(value)
+    {
+        const self = this;
+        $(PackageType.SELECTOR_PT_INPUT).each(function () {
+            // $(this).val(value);
+            console.log($(this));
+            console.log("EL NAME "+$(this).data('elementName'));
+            console.log("EL NAME MATCH "+$(this).data('elementName').match(/^parcelData\[(.+?)\]/));
+            var orderId = $(this).data('elementName').match(/^parcelData\[(.+?)\]/)[1];
+
+            $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val(value);
+
+            self.updateOptionsForOrder(orderId, 'CRL2');
+
+        });
+        return this;
     };
 
     return PackageType;

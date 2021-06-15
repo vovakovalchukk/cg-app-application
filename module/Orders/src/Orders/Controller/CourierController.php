@@ -394,7 +394,7 @@ class CourierController extends AbstractActionController implements LoggerAwareI
         $options = [];
         foreach ($packageTypeOptions as $key => $type) {
             $optionElements = [];
-            sort($type);
+//            sort($type);
             foreach ($type as $value => $name) {
                 $optionElements[] = [
                     'optionValue' => $value,

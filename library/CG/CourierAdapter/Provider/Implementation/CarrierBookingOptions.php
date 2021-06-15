@@ -238,17 +238,6 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
         return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
     }
 
-    public function getDataForCarrierOption(
-        AccountEntity $account,
-        string $option,
-        ?string $service = null,
-        ?OrderEntity $order = null,
-        ?OrganisationUnit $rootOu = null,
-        ?ProductDetailCollection $productDetails = null
-    ): ?array {
-        return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
-    }
-
     protected function getDataForDeliveryServiceOption(
         AccountEntity $account,
         ?string $serviceCode,
