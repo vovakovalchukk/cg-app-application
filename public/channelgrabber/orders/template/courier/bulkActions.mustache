@@ -20,11 +20,22 @@
         <span class="courier-package-type-label">Package Type</span>
         <div id="courier-bulk-package-type">
             <select id="courier-bulk-package-type-select">
-                {{#option}}
-                    <option {{#optionValue}}value="{{.}}"{{/optionValue}} selected="selected">{{optionName}}</option>
-                {{/option}}
-                {{^option}}
-                {{/option}}
+                {{#packageTypeOptions}}
+                    <option></option>
+                    <option disabled>Domestic</option>
+                    {{#domestic}}
+                        <option {{#optionValue}}value="{{.}}"{{/optionValue}}>{{optionName}}</option>
+                    {{/domestic}}
+                    {{^domestic}}
+                    {{/domestic}}
+                    <option disabled>---</option>
+                    <option disabled>International</option>
+                    {{#international}}
+                        <option {{#optionValue}}value="{{.}}"{{/optionValue}} >{{optionName}}</option>
+                    {{/international}}
+                    {{^international}}
+                    {{/international}}
+                {{/packageTypeOptions}}
             </select>
         </div>
     </div>

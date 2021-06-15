@@ -372,22 +372,12 @@ class CourierController extends AbstractActionController implements LoggerAwareI
             $viewConfig['packageType'] = true;
 
             $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
-//                ->getCarrierBookingOptionsForAccount($selectedAccount);
-
-
                 ->getPackageTypesOptions($selectedAccount, '');
-
-
-//                ->getDataForCarrierOption(
-//                $selectedAccount,
-//                'packageTypes',
-//                'empty'
-//            );
 
             $this->logDebugDump($options, 'OPTIONS', [], 'MYTEST');
             $this->logDebugDump($packageOptions, 'PACKAGE OPTIONS', [], 'MYTEST');
 
-
+            $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
         }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
@@ -397,6 +387,23 @@ class CourierController extends AbstractActionController implements LoggerAwareI
         $view = $this->viewModelFactory->newInstance($viewConfig);
         $view->setTemplate('courier/bulkActions.mustache');
         return $view;
+    }
+
+    protected function formatPackageTypeOptions(array $packageTypeOptions): array
+    {
+        $options = [];
+        foreach ($packageTypeOptions as $key => $type) {
+            $optionElements = [];
+            sort($type);
+            foreach ($type as $value => $name) {
+                $optionElements[] = [
+                    'optionValue' => $value,
+                    'optionName' => $name
+                ];
+            }
+            $options[$key] = $optionElements;
+        }
+        return $options;
     }
 
     protected function getNextCourierButtonConfig(AccountCollection $accounts, Account $selectedAccount)
