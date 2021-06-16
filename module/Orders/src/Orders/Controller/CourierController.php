@@ -371,13 +371,17 @@ class CourierController extends AbstractActionController implements LoggerAwareI
         if (isset($options['packageType'])) {
             $viewConfig['packageType'] = true;
 
-            $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
-                ->getCarrierPackageTypesOptions($selectedAccount);
+            try {
+                $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
+                    ->getCarrierPackageTypesOptions($selectedAccount);
+                $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
+            } catch (\Throwable $exception) {
+                $this->logDebugException($exception, 'Courier Bulk Package Options Loading Exception', [], 'CourierController');
+            }
 
             $this->logDebugDump($options, 'OPTIONS', [], 'MYTEST');
             $this->logDebugDump($packageOptions, 'PACKAGE OPTIONS', [], 'MYTEST');
 
-            $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
         }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {

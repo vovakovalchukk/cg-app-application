@@ -194,8 +194,14 @@ class SpecificsAjax
         $providerService = $this->getCarrierServiceProvider($courierAccount);
         $exportable = ($providerService instanceof CarrierServiceProviderExportInterface
             && $providerService->isExportAllowedForOrder($courierAccount, $order));
-        $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface
-            && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
+
+        try {
+            $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface
+                && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
+        } catch (\Throwable $exception) {
+            $cancellable = false;
+        }
+
         $dispatchable = ($order->getStatus() != OrderStatus::DISPATCHING)
             && OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING);
         $rateable = ($providerService instanceof CarrierServiceProviderFetchRatesInterface

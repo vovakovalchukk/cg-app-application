@@ -18,14 +18,10 @@ $(document).ready(function()
     );
 
     require([
-        'react',
-        'react-dom',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/ItemParcelAssignment/Manager.js',
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Balance.js'
     ], function(
-        React,
-        ReactDom,
         Service,
         ItemParcelAssignmentManager,
         Balance
@@ -38,26 +34,9 @@ $(document).ready(function()
         var balance = new Balance(<?=$this->selectedCourier->getRootOrganisationUnitId();?>, courierAccountId);
         var ipaManager = new ItemParcelAssignmentManager(ipaTemplateMap);
         var service = new Service($('#datatable'), courierAccountId, ipaManager, balance);
-
-        //const courierAjaxRoute = '<?//=$this->reviewAjaxRoute?>//';
-        //const servicesAjaxRoute = '<?//=$this->servicesAjaxRoute?>//';
-        // const service = new Service($('#datatable'));
-
-        //const mountNode = document.getElementById('courier-package-type-mount');
-        //var CourierRoot = new CourierSpecificsRoot({
-        //    mountNode,
-        //    courierAjaxRoute,
-        //    orderIds: <?//=json_encode($this->orderIds);?>
-        //});
-
-        //var templatePath = "<?//=CG_UI\Module::PUBLIC_FOLDER;?>//templates/elements/custom-select.mustache";
-        //var packageType = new BulkPackageType(templatePath);
-
-
     });
 });
 </script>
-
 <div id="main" class="courier-specifics <?=$this->selectedCourier->getChannel(); ?>">
     <span class="heading-large">
         <div style="float:left"><span class="logo-large <?=$this->selectedCourier->getChannel();?>"></span></div>
