@@ -54,6 +54,9 @@ class CourierController extends AbstractActionController implements LoggerAwareI
     const LABEL_MIME_TYPE = 'application/pdf';
     const MANIFEST_MIME_TYPE = 'application/pdf';
 
+    protected const LOG_CODE = 'CourierController';
+    protected const LOG_MSG_EXCEPTION = 'Courier Bulk Package Options Loading Exception';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var DataTable */
@@ -267,8 +270,6 @@ class CourierController extends AbstractActionController implements LoggerAwareI
 
         $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
 
-
-
         // For now the first order will suffice as USPS only cares about the account.
         // If this needs to be specific to the individual orders in the future, please update this as needed.
         $order = $this->orderService->fetch($courierOrders[$selectedCourier->getId()][0]);
@@ -376,12 +377,9 @@ class CourierController extends AbstractActionController implements LoggerAwareI
                     ->getCarrierPackageTypesOptions($selectedAccount);
                 $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
             } catch (\Throwable $exception) {
-                $this->logDebugException($exception, 'Courier Bulk Package Options Loading Exception', [], 'CourierController');
+                $viewConfig['packageType'] = false;
+                $this->logDebugException($exception, static::LOG_MSG_EXCEPTION, [], static::LOG_CODE);
             }
-
-            $this->logDebugDump($options, 'OPTIONS', [], 'MYTEST');
-            $this->logDebugDump($packageOptions, 'PACKAGE OPTIONS', [], 'MYTEST');
-
         }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {

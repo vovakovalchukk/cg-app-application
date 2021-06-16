@@ -16,13 +16,9 @@ use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 
-class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwareInterface
+class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
-    use LogTrait;
-
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
@@ -170,10 +166,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
             $service = $this->mapServiceFromListArrayRow($row);
             if ($service) {
                 $serviceOptions = $this->getCarrierBookingOptionsForService($account, $service, $courierInstance);
-                $this->logDebugDump($serviceOptions, 'Service', [], 'MYLOGS');
             } else {
                 $serviceOptions = $this->getCarrierBookingOptionsForAccount($account);
-                $this->logDebugDump($serviceOptions, 'Non-Service', [], 'MYLOGS');
             }
 
             foreach ($serviceOptions as $optionType) {
@@ -187,9 +181,6 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
                     $orderProductDetails = $this->getProductDetailsForOrder($productDetails, $order);
                 }
                 $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $order, $orderProductDetails, $courierInstance);
-
-                $this->logDebugDump($options, $optionType, [], 'MYLOGS');
-
                 if (!$options) {
                     continue;
                 }
@@ -277,11 +268,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
     {
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         $deliveryServices = $courierInstance->fetchDeliveryServices();
-        $this->logDebugDump($deliveryServices, 'DElivery Services', [], 'MYTEST');
 
-        $packageTypesDomestic = [];
-        $packageTypesInternational = [];
-
+        $packageTypesDomestic = $packageTypesInternational = [];
         foreach ($deliveryServices as $deliveryService) {
             $shipmentClass = $deliveryService->getShipmentClass();
             $packageType = $this->getDataForPackageTypesOption($shipmentClass);
@@ -293,14 +281,10 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
             $packageTypesInternational = array_merge($packageTypesInternational, $packageType);
         }
 
-        $packageTypes = [
+        return [
             'domestic' => $packageTypesDomestic,
             'international' => $packageTypesInternational
         ];
-
-        $this->logDebugDump($packageTypes, 'PackageType Final', [], 'MYTEST');
-
-        return $packageTypes;
     }
 
     protected function getDataForPackageTypesOption(
