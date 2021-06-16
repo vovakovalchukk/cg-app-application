@@ -18,9 +18,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     PackageType.SELECTOR_PACKAGE_TYPE_BULK_CONTAINER = '#courier-bulk-package-type-select';
     PackageType.SELECTOR_PT_HIDDEN_INPUT = 'div[id^="courier-package-type_"] input[type=hidden]';
-    // PackageType.SELECTOR_CD_INPUT = 'input[id^="courier-package-type_"]';
     PackageType.SELECTOR_PT_INPUT = 'div[id^="courier-package-type_"]';
-    // required courier-package-type_
     PackageType.SELECTOR_SERVICE_OPTION_PREFIX = '#courier-service-options-select-';
 
     PackageType.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
@@ -49,8 +47,6 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         selected,
         container
     ) {
-        console.log("SELECTED "+selected);
-
         var optionsObject = {};
         if (options instanceof Array) {
             options.forEach(function (value) {
@@ -115,7 +111,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         const self = this;
         $(document).on('change', PackageType.SELECTOR_PACKAGE_TYPE_BULK_CONTAINER, function()
         {
-            var isDomestic = $(this).find(':selected').attr('domestic');
+            let isDomestic = $(this).find(':selected').attr('domestic');
             self.updateAllPackageTypeInputs($(this).val(), isDomestic);
         });
 
@@ -126,38 +122,41 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     {
         const self = this;
         $(PackageType.SELECTOR_PT_INPUT).each(function () {
-            console.log($(this));
-            console.log("EL NAME "+$(this).data('elementName'));
-            console.log("EL NAME MATCH "+$(this).data('elementName').match(/^parcelData\[(.+?)\]/));
-            var orderId = $(this).data('elementName').match(/^parcelData\[(.+?)\]/)[1];
-
-            var isOrderDomestic = 0;
-            if ($('#courier-order-row_'+orderId+' .courier-buyer-shipping-country').html().match(/^[^\(]+/)[0].trim() == '') {
-                isOrderDomestic = 1;
-            }
-
-            var packageExists = false;
-            $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' li').each(function () {
-                console.log($(this).attr('data-value'));
-
-                if ($(this).attr('data-value') == value && isOrderDomestic == isDomestic) {
-                    console.log('PACKAGE EXISTS')
-                    packageExists = true;
-                    return;
-                }
-            });
-
-            console.log("FINAL "+packageExists);
+            let orderId = $(this).data('elementName').match(/^parcelData\[(.+?)\]/)[1];
+            let packageExists = self.getPackageExists(orderId, value, isDomestic);
 
             if (packageExists) {
-                var serviceCode = $(PackageType.SELECTOR_SERVICE_OPTION_PREFIX + orderId + ' input').val();
-
-
+                let serviceCode = $(PackageType.SELECTOR_SERVICE_OPTION_PREFIX + orderId + ' input').val();
                 $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val(value);
                 self.updateOptionsForOrder(orderId, serviceCode);
             }
         });
         return this;
+    };
+
+    PackageType.prototype.getIsOrderDomestic = function(orderId)
+    {
+        let isOrderDomestic = 0;
+        if ($('#courier-order-row_'+orderId+' .courier-buyer-shipping-country').html().match(/^[^\(]+/)[0].trim() == '') {
+            isOrderDomestic = 1;
+        }
+
+        return isOrderDomestic;
+    };
+
+    PackageType.prototype.getPackageExists = function(orderId, value, isDomestic)
+    {
+        const self = this;
+        let isOrderDomestic = self.getIsOrderDomestic(orderId);
+        let packageExists = false;
+        $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' li').each(function () {
+            if ($(this).attr('data-value') == value && isOrderDomestic == isDomestic) {
+                packageExists = true;
+                return;
+            }
+        });
+
+        return packageExists;
     };
 
     return PackageType;
