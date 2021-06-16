@@ -372,7 +372,7 @@ class CourierController extends AbstractActionController implements LoggerAwareI
             $viewConfig['packageType'] = true;
 
             $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
-                ->getPackageTypesOptions($selectedAccount, '');
+                ->getCarrierPackageTypesOptions($selectedAccount);
 
             $this->logDebugDump($options, 'OPTIONS', [], 'MYTEST');
             $this->logDebugDump($packageOptions, 'PACKAGE OPTIONS', [], 'MYTEST');

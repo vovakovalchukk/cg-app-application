@@ -273,7 +273,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface, LoggerAwa
         return $data;
     }
 
-    public function getPackageTypesOptions(AccountEntity $account, string $serviceCode): array
+    public function getCarrierPackageTypesOptions(AccountEntity $account): array
     {
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         $deliveryServices = $courierInstance->fetchDeliveryServices();

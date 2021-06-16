@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ef24491677eabd7e1ad33f2b72719eb",
+    "content-hash": "876d38a5db12e0ab0b5c3b7fc57afb76",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,16 +373,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.39.5",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2b0e42cbf2be0b671957883d0e7af2f07d5766d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.5-6685f5.zip",
-                "reference": "2b0e42cbf2be0b671957883d0e7af2f07d5766d9"
+                "reference": "1e119cdfcc2d956b7002e9e01e6c6d9659e42096"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -761,16 +756,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.4",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.4-f06278.zip",
-                "reference": "bd0b4226bdee8418e9d85df87bbc6c66312f7b4c"
+                "reference": "b14394dc937bb7e8be1ee525f34441c32bb3e849"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -2324,16 +2314,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.6.3",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "7e45cd3b3f2bfac154ac7562ec6555786ffab3ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.3-a0b0e5.zip",
-                "reference": "7e45cd3b3f2bfac154ac7562ec6555786ffab3ee"
+                "reference": "6c4edb3fa9e4888fc831df57f08fdededbf994b6"
             },
             "require": {
                 "channelgrabber/channel": "^1.43.0",
@@ -11992,6 +11977,24 @@
     ],
     "aliases": [
         {
+            "alias": "1.39.6",
+            "alias_normalized": "1.39.6.0",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.45.5",
+            "alias_normalized": "1.45.5.0",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.6.4",
+            "alias_normalized": "1.6.4.0",
+            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.27.9",
             "alias_normalized": "1.27.9.0",
             "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
@@ -12000,7 +12003,10 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
