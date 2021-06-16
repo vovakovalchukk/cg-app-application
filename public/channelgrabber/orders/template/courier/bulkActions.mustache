@@ -24,14 +24,14 @@
                     <option></option>
                     <option disabled>Domestic</option>
                     {{#domestic}}
-                        <option value="{{optionValue}}">{{optionName}}</option>
+                        <option value="{{optionValue}}" domestic="1">{{optionName}}</option>
                     {{/domestic}}
                     {{^domestic}}
                     {{/domestic}}
                     <option disabled>---</option>
                     <option disabled>International</option>
                     {{#international}}
-                        <option value="{{optionValue}}">{{optionName}}</option>
+                        <option value="{{optionValue}}" domestic="0">{{optionName}}</option>
                     {{/international}}
                     {{^international}}
                     {{/international}}

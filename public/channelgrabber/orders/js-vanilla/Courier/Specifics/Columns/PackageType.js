@@ -21,6 +21,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     // PackageType.SELECTOR_CD_INPUT = 'input[id^="courier-package-type_"]';
     PackageType.SELECTOR_PT_INPUT = 'div[id^="courier-package-type_"]';
     // required courier-package-type_
+    PackageType.SELECTOR_SERVICE_OPTION_PREFIX = '#courier-service-options-select-';
 
     PackageType.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
@@ -114,26 +115,47 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         const self = this;
         $(document).on('change', PackageType.SELECTOR_PACKAGE_TYPE_BULK_CONTAINER, function()
         {
-            self.updateAllPackageTypeInputs($(this).val());
+            var isDomestic = $(this).find(':selected').attr('domestic');
+            self.updateAllPackageTypeInputs($(this).val(), isDomestic);
         });
 
         return this;
     };
 
-    PackageType.prototype.updateAllPackageTypeInputs = function(value)
+    PackageType.prototype.updateAllPackageTypeInputs = function(value, isDomestic)
     {
         const self = this;
         $(PackageType.SELECTOR_PT_INPUT).each(function () {
-            // $(this).val(value);
             console.log($(this));
             console.log("EL NAME "+$(this).data('elementName'));
             console.log("EL NAME MATCH "+$(this).data('elementName').match(/^parcelData\[(.+?)\]/));
             var orderId = $(this).data('elementName').match(/^parcelData\[(.+?)\]/)[1];
 
-            $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val(value);
+            var isOrderDomestic = 0;
+            if ($('#courier-order-row_'+orderId+' .courier-buyer-shipping-country').html().match(/^[^\(]+/)[0].trim() == '') {
+                isOrderDomestic = 1;
+            }
 
-            self.updateOptionsForOrder(orderId, 'CRL2');
+            var packageExists = false;
+            $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' li').each(function () {
+                console.log($(this).attr('data-value'));
 
+                if ($(this).attr('data-value') == value && isOrderDomestic == isDomestic) {
+                    console.log('PACKAGE EXISTS')
+                    packageExists = true;
+                    return;
+                }
+            });
+
+            console.log("FINAL "+packageExists);
+
+            if (packageExists) {
+                var serviceCode = $(PackageType.SELECTOR_SERVICE_OPTION_PREFIX + orderId + ' input').val();
+
+
+                $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val(value);
+                self.updateOptionsForOrder(orderId, serviceCode);
+            }
         });
         return this;
     };
