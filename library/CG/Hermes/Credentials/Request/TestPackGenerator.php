@@ -9,6 +9,8 @@ use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
+//use CG\Hermes\Shipment\Package\Content;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Hermes\Shipment\Service as ShipmentService;
 use iio\libmergepdf\Merger as PDFMerger;
 
@@ -95,9 +97,27 @@ class TestPackGenerator
             $packageData = $packagesData[$count];
             $defaultPackageData['number'] = $count+1;
             $packageData = array_merge($defaultPackageData, $packageData);
+            $packageData['contents'][] = $this->mapContentDataToContent($packagesData);
             $packages[] = Package::fromArray($packageData);
         }
         return $packages;
+    }
+
+    protected function mapContentDataToContent(array $packagesData): Content
+    {
+        return new Content(
+            'Description',
+            '00000000',
+            'HS Code Description',
+            'GB',
+            1,
+            $packagesData[0]['weight'],
+            1,
+            'GBP',
+            'Test Product',
+            'Composition',
+            'TestSku'
+        );
     }
 
     protected function bookShipments(array $shipments): array
