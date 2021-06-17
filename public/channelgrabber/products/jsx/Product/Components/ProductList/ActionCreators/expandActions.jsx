@@ -27,7 +27,7 @@ let expandActions = (function() {
 
                         if (!haveFetchedAlready) {
                             const totalVariationsCount = stateUtility.getAllVariationsCount(state.products.visibleRows);
-                            if (!fromConfirmationPopup || totalVariationsCount < ProductExpandHeader.MAX_VARIATIONS_COUNT) {
+                            if (!fromConfirmationPopup && totalVariationsCount > ProductExpandHeader.MAX_VARIATIONS_COUNT) {
                                 window.triggerEvent('triggerPopup', {name: ProductExpandHeader.CONFIRMATION_POPUP_NAME});
                                 return;
                             }
