@@ -10,12 +10,16 @@ use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
 use CG\Hermes\Shipment\Package\Content as PackageContent;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use SimpleXMLElement;
 
-class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
+class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface, LoggerAwareInterface
 {
+    use LogTrait;
+
     protected const METHOD = 'POST';
     protected const URI = 'routeDeliveryCreatePreadviceAndLabel';
     protected const SOURCE_OF_REQUEST = 'CLIENTWS';
@@ -74,7 +78,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
         );
         $this->xml->addChild('clientId', $credentials['clientId']);
-        $this->xml->addChild('clientName', $credentials['clientName']);
+        $this->xml->addChild('clientName', $this->addCDataWrapping($credentials['clientName']));
         $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
         $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
         $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
@@ -92,6 +96,17 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         }
 
         return $this->xml;
+    }
+
+    protected function addCDataWrapping(?string $text): string
+    {
+
+        $this->logDebug('LOGGED TEXT IN '.$text, [], 'MYTEST');
+        $out =  str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $text);
+//        $out = sprintf("<![CDATA[%s]]>", $text);
+        $this->logDebug('LOGGED TEXT OUT '.$out, [], 'MYTEST');
+
+        return $out;
     }
 
     protected function addCustomerToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
