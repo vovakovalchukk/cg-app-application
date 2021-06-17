@@ -94,11 +94,6 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         return $this->xml;
     }
 
-    protected function escapeSpecialCharacters(?string $text): string
-    {
-        return str_replace(['&', '<', '>', '\'', '"'], ['&amp;', '&lt;', '&gt;', '&apos;', '&quot;'], $text);
-    }
-
     protected function addCustomerToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
@@ -215,6 +210,14 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $sendersAddressNode->addChild('addressLine2', $this->sanitiseString($sendersAddress->getLine2()));
         $sendersAddressNode->addChild('addressLine3', $this->sanitiseString($sendersAddress->getLine3()));
         $sendersAddressNode->addChild('addressLine4', $this->sanitiseString($sendersAddress->getLine4()));
+    }
+
+    protected function escapeSpecialCharacters(?string $string = null): string
+    {
+        if ($string === null) {
+            return '';
+        }
+        return str_replace(['&', '<', '>', '\'', '"'], ['&amp;', '&lt;', '&gt;', '&apos;', '&quot;'], $string);
     }
 
     protected function sanitiseString(?string $string = null, ?int $maxLength = null): string
