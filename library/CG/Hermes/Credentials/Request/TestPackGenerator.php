@@ -6,11 +6,10 @@ use CG\CourierAdapter\Account\CredentialRequest\TestPackFile;
 use CG\CourierAdapter\Address;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
-//use CG\Hermes\Shipment\Package\Content;
-use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Hermes\Shipment\Service as ShipmentService;
 use iio\libmergepdf\Merger as PDFMerger;
 
