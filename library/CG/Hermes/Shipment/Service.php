@@ -11,13 +11,9 @@ use CG\Hermes\Client\Factory as ClientFactory;
 use CG\Hermes\Request\RouteDeliveryCreatePreadviceAndLabel as Request;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
 use CG\Hermes\Shipment;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 
-class Service implements LoggerAwareInterface
+class Service
 {
-    use LogTrait;
-
     /** @var ClientFactory */
     protected $clientFactory;
 
@@ -29,13 +25,6 @@ class Service implements LoggerAwareInterface
     public function bookShipment(Shipment $shipment): Shipment
     {
         $request = $this->buildRequestFromShipment($shipment);
-
-        $this->logDebugDump($shipment, 'SHIPMENT', [], 'MYTEST');
-        $this->logDebugDump($request, 'REQUEST', [], 'MYTEST');
-        $this->logDebugDump($shipment->getAccount()->getCredentials(), 'CRED', [], 'MYTEST');
-
-
-
         $response = $this->sendRequest($request, $shipment->getAccount());
         return $this->updateShipmentFromResponse($shipment, $response);
     }
