@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3cd3fe7ac988f0be2197128d4ad1ffc",
+    "content-hash": "3c9cacecfec3ddf5e52af3a2609b5ec3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -765,7 +765,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7276af0b15e0b4303e01dc21547423d46d27ce10"
+                "reference": "84fa4bde38014d90a786c68eec5fac45d4f6cd11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12071-add-ioss-c6db4d.zip",
+                "reference": "84fa4bde38014d90a786c68eec5fac45d4f6cd11"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -838,7 +843,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-06-15T14:46:38+00:00"
+            "time": "2021-06-18T12:50:07+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1394,21 +1399,21 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.21.20",
+            "version": "dev-CGIV-12071-add-ioss",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "c855b251bb71c3d7cb0cf9a9f8f225a21d13058e"
+                "reference": "3ff5fd3937019e0bd3499115c4c37cbcba9a3054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.21.20-678599.zip",
-                "reference": "c855b251bb71c3d7cb0cf9a9f8f225a21d13058e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-12071-add-ioss-d0c7df.zip",
+                "reference": "3ff5fd3937019e0bd3499115c4c37cbcba9a3054"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.16.27",
-                "channelgrabber/channel": "^1.45.5",
+                "channelgrabber/channel": "dev-CGIV-12071-add-ioss as 1.45.7",
                 "channelgrabber/communication": "^1.2.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1455,7 +1460,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2021-06-11T12:35:18+00:00"
+            "time": "2021-06-18T13:00:00+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -12003,6 +12008,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.21.21",
+            "alias_normalized": "1.21.21.0",
+            "version": "dev-CGIV-12071-add-ioss",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.28.7",
             "alias_normalized": "1.28.7.0",
             "version": "dev-CGIV-12071-add-ioss",
@@ -12025,12 +12036,13 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
