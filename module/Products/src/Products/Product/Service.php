@@ -17,6 +17,7 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
@@ -192,8 +193,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setLimit($limit)
             ->setPage($page)
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
-        $products = $this->productService->fetchCollectionByFilter($productFilter);
-        return $products;
+
+        try {
+            $collection = new ProductCollection(Product::class, __FUNCTION__);
+            return $this->productService->fetchCollectionPaginated($productFilter, $collection);
+        } catch (\InvalidArgumentException $exception) {
+            return $this->productService->fetchCollectionByFilter($productFilter);
+        }
     }
 
     public function fetchProductById($id): Product

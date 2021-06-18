@@ -27,6 +27,11 @@ let stateUtility = function() {
             }
             return parentProductIds;
         },
+        getAllVariationsCount: (products) => {
+            return products.reduce((totalVariationsCount, product) => {
+                return totalVariationsCount + product.variationCount;
+            }, 0);
+        },
         getCellData: (products, columnKey, rowIndex) => {
             let row = products.visibleRows[rowIndex];
             let keyToCellDataMap = {
