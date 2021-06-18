@@ -5025,12 +5025,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "aae09f8f6f583f6f35607a96e90a24524228482b"
+                "reference": "ef430ee1b2236dbb8dfad22a2f7790b04c727638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-CGIV-12071-add-ioss-4ddaa0.zip",
-                "reference": "aae09f8f6f583f6f35607a96e90a24524228482b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-CGIV-12071-add-ioss-8f2acf.zip",
+                "reference": "ef430ee1b2236dbb8dfad22a2f7790b04c727638"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -5040,7 +5040,7 @@
                 "channelgrabber/locale": "^1.1.4",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.25.0",
+                "channelgrabber/user": "dev-CGIV-12071-add-ioss as 1.28.7",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "channelgrabber/zf2-v4-ui": "dev-CGIV-12071-add-ioss as 1.27.9",
                 "guzzle/guzzle": "~3.7",
@@ -5069,7 +5069,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2021-06-18T10:04:37+00:00"
+            "time": "2021-06-18T10:44:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
