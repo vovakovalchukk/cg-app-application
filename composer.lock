@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00db4e2a6691dbe7c566c1c2425d6912",
+    "content-hash": "d3cd3fe7ac988f0be2197128d4ad1ffc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -761,16 +761,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.45.6",
+            "version": "dev-CGIV-12071-add-ioss",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8bf10e359f758a54f5a273c05ac410b5c8e8dac3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.45.6-fd3b91.zip",
-                "reference": "8bf10e359f758a54f5a273c05ac410b5c8e8dac3"
+                "reference": "7276af0b15e0b4303e01dc21547423d46d27ce10"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -12002,6 +11997,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.45.7",
+            "alias_normalized": "1.45.7.0",
+            "version": "dev-CGIV-12071-add-ioss",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.28.7",
             "alias_normalized": "1.28.7.0",
             "version": "dev-CGIV-12071-add-ioss",
@@ -12022,13 +12023,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
