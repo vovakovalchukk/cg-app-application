@@ -10,6 +10,7 @@ define([''], function()
     }
 
     CollectionDate.SELECTOR_BULK_ACTION_CD_INPUT_ID = '#bulk-courier-collection-date-datepicker';
+    CollectionDate.SELECTOR_BULK_ACTION_CD_HIDDEN_INPUT_ID = '#bulk-courier-collection-date';
     CollectionDate.SELECTOR_CD_INPUT = 'input[id^="courier-order-collectionDate_"]';
 
     CollectionDate.prototype.listenForCollectionDateChanges = function()
@@ -17,7 +18,8 @@ define([''], function()
         const self = this;
         $(document).on('change', CollectionDate.SELECTOR_BULK_ACTION_CD_INPUT_ID, function()
         {
-            self.updateAllCollectionDatesInputs($(this).val());
+            let value = $(CollectionDate.SELECTOR_BULK_ACTION_CD_HIDDEN_INPUT_ID).val()
+            self.updateAllCollectionDatesInputs(value);
         });
 
         return this;
