@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd656924bfe5bb561a47ae0171cf4347",
+    "content-hash": "00db4e2a6691dbe7c566c1c2425d6912",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5021,16 +5021,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.23",
+            "version": "dev-CGIV-12071-add-ioss",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "9ae98e0fdc65eab1077a085fbf4705ec9bc13789"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.23-7dcc73.zip",
-                "reference": "9ae98e0fdc65eab1077a085fbf4705ec9bc13789"
+                "reference": "dafd0fd4d3f053f43f2139d7dfd3ef3afa4eca92"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -12003,6 +11998,12 @@
             "package": "channelgrabber/user"
         },
         {
+            "alias": "1.6.24",
+            "alias_normalized": "1.6.24.0",
+            "version": "dev-CGIV-12071-add-ioss",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
             "alias": "1.27.9",
             "alias_normalized": "1.27.9.0",
             "version": "dev-CGIV-12071-add-ioss",
@@ -12013,6 +12014,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
+        "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
