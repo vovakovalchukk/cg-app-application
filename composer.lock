@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f58b35457903a0060f0fa7422ca58228",
+    "content-hash": "03fd8b805fd282a22b1962f87227641a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,23 +374,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "version": "1.39.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0e79fae89a28e94187cbcb0770446aa1476d95ff"
+                "reference": "8216d285ce8cf5f5667f2587f582ffabd30490cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12061-collection-date-and-package-type-bulk-action-edffd5.zip",
-                "reference": "0e79fae89a28e94187cbcb0770446aa1476d95ff",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.10-b1d6ad.zip",
+                "reference": "8216d285ce8cf5f5667f2587f582ffabd30490cd",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-CGIV-12061-collection-date-and-package-type-bulk-action as 1.46.0",
+                "channelgrabber/channel": "^1.46.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -438,7 +438,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-06-16T13:56:33+00:00"
+            "time": "2021-06-21T10:52:37+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -769,16 +769,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "version": "1.46.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b14394dc937bb7e8be1ee525f34441c32bb3e849"
+                "reference": "556b530b4a4339730822c50ebb39857bd5a3a79c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12061-collection-date-and-package-type-bulk-action-421bc4.zip",
-                "reference": "b14394dc937bb7e8be1ee525f34441c32bb3e849",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.46.0-e577c9.zip",
+                "reference": "556b530b4a4339730822c50ebb39857bd5a3a79c",
                 "shasum": null
             },
             "require": {
@@ -852,7 +852,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-06-16T12:15:11+00:00"
+            "time": "2021-06-21T10:21:37+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2376,20 +2376,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "5fbb4f344dd5242ef15d4c4aa254bd66d981ed92"
+                "reference": "1fd28746544f9fd034d05595bdb85fd26498efb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-CGIV-12061-collection-date-and-package-type-bulk-action-632355.zip",
-                "reference": "5fbb4f344dd5242ef15d4c4aa254bd66d981ed92",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.4-0bc43c.zip",
+                "reference": "1fd28746544f9fd034d05595bdb85fd26498efb0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-12061-collection-date-and-package-type-bulk-action as 1.46.0",
+                "channelgrabber/channel": "^1.46.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -2426,7 +2426,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2021-06-16T14:16:28+00:00"
+            "time": "2021-06-21T11:04:00+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -5497,16 +5497,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
+            "version": "1.27.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "95781065d2403a16688d582804c0f3a9ce6ccb11"
+                "reference": "6ded3e1710a33fad36c19587c631731a01da2f2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-12061-collection-date-and-package-type-bulk-action-14c8e9.zip",
-                "reference": "95781065d2403a16688d582804c0f3a9ce6ccb11",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.9-288b2b.zip",
+                "reference": "6ded3e1710a33fad36c19587c631731a01da2f2e",
                 "shasum": null
             },
             "require": {
@@ -5558,7 +5558,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2021-06-16T11:58:08+00:00"
+            "time": "2021-06-21T10:38:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10681,7 +10681,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12129,39 +12130,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.39.9",
-            "alias_normalized": "1.39.9.0",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.46.0",
-            "alias_normalized": "1.46.0.0",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.27.9",
-            "alias_normalized": "1.27.9.0",
-            "version": "dev-CGIV-12061-collection-date-and-package-type-bulk-action",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
