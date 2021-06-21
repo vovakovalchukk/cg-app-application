@@ -165,17 +165,6 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $this->addContentsToParcelNode($contents, $package);
     }
 
-    protected function determineDeliveredDuty(): string
-    {
-        $shipment = $this->shipment;
-
-        if (method_exists($shipment, 'isDeliveredDutyPaid') && $shipment->isDeliveredDutyPaid()) {
-            return static::DUTY_PAID_FLAG;
-        }
-
-        return static::DUTY_UNPAID_FLAG;
-    }
-
     protected function addContentsToParcelNode(SimpleXMLElement $contents, Package $package)
     {
         /** @var PackageContent $packageContent */
@@ -285,6 +274,16 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     {
         // MOST currencies have 2dp but a few don't. If we ever deal in those for this courier then this will need to change.
         return $value * 100;
+    }
+
+    protected function determineDeliveredDuty(): string
+    {
+        $shipment = $this->shipment;
+        if (method_exists($shipment, 'isDeliveredDutyPaid') && $shipment->isDeliveredDutyPaid()) {
+            return static::DUTY_PAID_FLAG;
+        }
+
+        return static::DUTY_UNPAID_FLAG;
     }
 
     public function getResponseClass(): string
