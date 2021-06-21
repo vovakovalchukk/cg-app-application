@@ -1397,6 +1397,8 @@ return [
                 'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
                 'CourierSpecificsTermsOfDeliveryColumnView' => ViewModel::class,
                 'CourierSpecificsTermsOfDeliveryColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveredDutyColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveredDutyColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2781,6 +2783,22 @@ return [
                     'column' => 'termsOfDelivery',
                     'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
                     'class' => 'termsOfDelivery-col',
+                    'sortable' => false,
+                    'order' => 121,
+                    'width' => '45px',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Is Delivered Duty Paid'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyColumn' => [
+                'parameters' => [
+                    'column' => 'deliveredDuty',
+                    'viewModel' => 'CourierSpecificsDeliveredDutyColumnView',
+                    'class' => 'deliveredDuty-col',
                     'sortable' => false,
                     'order' => 121,
                     'width' => '45px',
