@@ -74,7 +74,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServices()
     {
-        $this->deliveryServiceService->getDeliveryServices();
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**

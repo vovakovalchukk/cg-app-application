@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c98f3b959e28eea21a40f41ba6b0409",
+    "content-hash": "8f29603791f9e8958515b13f582fb555",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -373,22 +373,22 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.39.7",
+            "version": "1.39.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "5da5e3a1c02c9bf30165691f56160f728efdf3a0"
+                "reference": "8216d285ce8cf5f5667f2587f582ffabd30490cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.7-a19405.zip",
-                "reference": "5da5e3a1c02c9bf30165691f56160f728efdf3a0"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.39.10-b1d6ad.zip",
+                "reference": "8216d285ce8cf5f5667f2587f582ffabd30490cd"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.45.5",
+                "channelgrabber/channel": "^1.46.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-06-11T12:14:00+00:00"
+            "time": "2021-06-21T10:52:37+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -765,12 +765,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "76271d27007c5e25503526dfcd97779aaf40d477"
+                "reference": "311864f74cf5c30c36eba584d277eaee75a6f08c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12071-add-ioss-c66270.zip",
-                "reference": "76271d27007c5e25503526dfcd97779aaf40d477"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12071-add-ioss-b6ccff.zip",
+                "reference": "311864f74cf5c30c36eba584d277eaee75a6f08c"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -843,7 +843,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-06-18T13:50:04+00:00"
+            "time": "2021-06-21T14:11:08+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2329,19 +2329,19 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "7e45cd3b3f2bfac154ac7562ec6555786ffab3ee"
+                "reference": "1fd28746544f9fd034d05595bdb85fd26498efb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.3-a0b0e5.zip",
-                "reference": "7e45cd3b3f2bfac154ac7562ec6555786ffab3ee"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.6.4-0bc43c.zip",
+                "reference": "1fd28746544f9fd034d05595bdb85fd26498efb0"
             },
             "require": {
-                "channelgrabber/channel": "^1.43.0",
+                "channelgrabber/channel": "^1.46.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -2378,7 +2378,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2021-04-07T12:54:21+00:00"
+            "time": "2021-06-21T11:04:00+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -5380,12 +5380,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "de5ac80d68056c05a924098aa5c51b25ba91d7ec"
+                "reference": "4bcbe8d74a60e2ba457f936205101d2b8138f353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-12071-add-ioss-47f2fc.zip",
-                "reference": "de5ac80d68056c05a924098aa5c51b25ba91d7ec"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-12071-add-ioss-573794.zip",
+                "reference": "4bcbe8d74a60e2ba457f936205101d2b8138f353"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5436,7 +5436,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2021-06-18T09:53:06+00:00"
+            "time": "2021-06-21T14:16:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11645,6 +11645,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -12007,8 +12008,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.45.7",
-            "alias_normalized": "1.45.7.0",
+            "alias": "1.46.1",
+            "alias_normalized": "1.46.1.0",
             "version": "dev-CGIV-12071-add-ioss",
             "package": "channelgrabber/channel"
         },
@@ -12031,8 +12032,8 @@
             "package": "channelgrabber/zf2-register"
         },
         {
-            "alias": "1.27.9",
-            "alias_normalized": "1.27.9.0",
+            "alias": "1.27.10",
+            "alias_normalized": "1.27.10.0",
             "version": "dev-CGIV-12071-add-ioss",
             "package": "channelgrabber/zf2-v4-ui"
         }

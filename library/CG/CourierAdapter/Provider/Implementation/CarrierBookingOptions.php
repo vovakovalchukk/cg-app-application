@@ -264,6 +264,29 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
+    public function getCarrierPackageTypesOptions(AccountEntity $account): array
+    {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        $deliveryServices = $courierInstance->fetchDeliveryServices();
+
+        $packageTypesDomestic = $packageTypesInternational = [];
+        foreach ($deliveryServices as $deliveryService) {
+            $shipmentClass = $deliveryService->getShipmentClass();
+            $packageType = $this->getDataForPackageTypesOption($shipmentClass);
+            if ($shipmentClass::isDomestic()) {
+                $packageTypesDomestic = array_merge($packageTypesDomestic, $packageType);
+                continue;
+            }
+
+            $packageTypesInternational = array_merge($packageTypesInternational, $packageType);
+        }
+
+        return [
+            'domestic' => $packageTypesDomestic,
+            'international' => $packageTypesInternational
+        ];
+    }
+
     protected function getDataForPackageTypesOption(
         string $shipmentClass,
         OrderEntity $order = null,
