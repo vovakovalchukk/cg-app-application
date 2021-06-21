@@ -7,6 +7,7 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
@@ -129,6 +130,9 @@ class Mapper
         }
         if (is_a($shipmentClass, TermsOfDeliveryInterface::class, true)) {
             $caShipmentData['termsOfDelivery'] = (bool)$orderData['termsOfDelivery'];
+        }
+        if (is_a($shipmentClass, DeliveredDutyInterface::class, true)) {
+            $caShipmentData['deliveredDuty'] = (bool)$orderData['deliveredDuty'];
         }
 
         return $caShipmentData;
