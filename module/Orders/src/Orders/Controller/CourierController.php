@@ -13,6 +13,8 @@ use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -30,8 +32,10 @@ use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class CourierController extends AbstractActionController
+class CourierController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE = 'Courier';
     const ROUTE_URI = '/courier';
     const ROUTE_REVIEW = 'Review';
@@ -49,6 +53,9 @@ class CourierController extends AbstractActionController
 
     const LABEL_MIME_TYPE = 'application/pdf';
     const MANIFEST_MIME_TYPE = 'application/pdf';
+
+    protected const LOG_CODE = 'CourierController';
+    protected const LOG_MSG_EXCEPTION = 'Courier Bulk Package Options Loading Exception';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -358,6 +365,22 @@ class CourierController extends AbstractActionController
         if (isset($options['termsOfDelivery'])) {
             $viewConfig['termsOfDelivery'] = true;
         }
+        if (isset($options['collectionDate'])) {
+            $viewConfig['collectionDate'] = true;
+            $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
+        }
+        if (isset($options['packageType'])) {
+            $viewConfig['packageType'] = true;
+
+            try {
+                $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
+                    ->getCarrierPackageTypesOptions($selectedAccount);
+                $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
+            } catch (\Throwable $exception) {
+                $viewConfig['packageType'] = false;
+                $this->logDebugException($exception, static::LOG_MSG_EXCEPTION, [], static::LOG_CODE);
+            }
+        }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
@@ -366,6 +389,22 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance($viewConfig);
         $view->setTemplate('courier/bulkActions.mustache');
         return $view;
+    }
+
+    protected function formatPackageTypeOptions(array $packageTypeOptions): array
+    {
+        $options = [];
+        foreach ($packageTypeOptions as $key => $type) {
+            $optionElements = [];
+            foreach ($type as $value => $name) {
+                $optionElements[] = [
+                    'optionValue' => $value,
+                    'optionName' => $name
+                ];
+            }
+            $options[$key] = $optionElements;
+        }
+        return $options;
     }
 
     protected function getNextCourierButtonConfig(AccountCollection $accounts, Account $selectedAccount)
