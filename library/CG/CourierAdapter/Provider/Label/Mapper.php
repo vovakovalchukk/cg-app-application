@@ -132,7 +132,7 @@ class Mapper
             $caShipmentData['termsOfDelivery'] = (bool)$orderData['termsOfDelivery'];
         }
         if (is_a($shipmentClass, DeliveredDutyInterface::class, true)) {
-            $caShipmentData['deliveredDuty'] = (bool)$orderData['deliveredDuty'];
+            $caShipmentData['deliveredDutyPaid'] = (bool)$orderData['deliveredDutyPaid'];
         }
 
         return $caShipmentData;

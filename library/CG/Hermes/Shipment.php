@@ -84,7 +84,7 @@ class Shipment implements
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
             $array['signatureRequired'] ?? null,
-            $array['deliveredDuty'] ?? null
+            $array['deliveredDutyPaid'] ?? null
         );
     }
 

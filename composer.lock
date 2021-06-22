@@ -2468,12 +2468,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a5eb9c813ddfe45bc755cf514d20a6e2a0ce6d9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12040-hermes-ddp-e45dc9.zip",
-                "reference": "a5eb9c813ddfe45bc755cf514d20a6e2a0ce6d9d"
+                "reference": "0716e77e70d42697556f7617507bc7446473e5be"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -12026,8 +12021,8 @@
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

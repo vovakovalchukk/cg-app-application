@@ -76,7 +76,7 @@ return [
                     'countryOfOrigin' => Module::PUBLIC_FOLDER . 'template/courier/columns/countryOfOrigin.mustache',
                     'eoriNumber' => Module::PUBLIC_FOLDER . 'template/courier/columns/eoriNumber.mustache',
                     'termsOfDelivery' => Module::PUBLIC_FOLDER . 'template/courier/columns/termsOfDelivery.mustache',
-                    'deliveredDuty' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveredDuty.mustache',
+                    'deliveredDutyPaid' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveredDutyPaid.mustache',
                 ],
             ],
         ],
