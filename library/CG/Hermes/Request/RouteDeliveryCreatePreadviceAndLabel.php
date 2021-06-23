@@ -75,7 +75,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
         );
         $this->xml->addChild('clientId', $credentials['clientId']);
-        $this->xml->addChild('clientName', $credentials['clientName']);
+        $this->xml->addChild('clientName', $this->escapeSpecialCharacters($credentials['clientName']));
         $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
         $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
         $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
@@ -211,6 +211,14 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $sendersAddressNode->addChild('addressLine2', $this->sanitiseString($sendersAddress->getLine2()));
         $sendersAddressNode->addChild('addressLine3', $this->sanitiseString($sendersAddress->getLine3()));
         $sendersAddressNode->addChild('addressLine4', $this->sanitiseString($sendersAddress->getLine4()));
+    }
+
+    protected function escapeSpecialCharacters(?string $string = null): string
+    {
+        if ($string === null) {
+            return '';
+        }
+        return str_replace(['&', '<', '>', '\'', '"'], ['&amp;', '&lt;', '&gt;', '&apos;', '&quot;'], $string);
     }
 
     protected function sanitiseString(?string $string = null, ?int $maxLength = null): string
