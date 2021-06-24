@@ -1027,12 +1027,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "8f007beebc51b1aeea35270ac94925d32eb7cbf2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12017-ioss-number-for-geopost-8122e3.zip",
-                "reference": "8f007beebc51b1aeea35270ac94925d32eb7cbf2"
+                "reference": "9906cf141fbbb2b9bea1682a0e7dd42958998576"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
@@ -12032,8 +12027,8 @@
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
