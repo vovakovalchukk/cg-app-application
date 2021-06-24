@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "05db21e4718e25fe85a5d44b29358077",
+    "content-hash": "5915078cba487b23fc5d98ff92cd2d73",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1090,16 +1090,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-12040-hermes-ddp",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "072e4802ee1c99b0a4b7810df081ee0c065b6867"
+                "reference": "a1e72626cb9f3983d01510d1c1d8f7d860b3b9f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-12040-hermes-ddp-005435.zip",
-                "reference": "072e4802ee1c99b0a4b7810df081ee0c065b6867",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.3-dc1150.zip",
+                "reference": "a1e72626cb9f3983d01510d1c1d8f7d860b3b9f5",
                 "shasum": null
             },
             "require": {
@@ -1124,7 +1124,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-06-21T12:52:52+00:00"
+            "time": "2021-06-24T11:52:36+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2514,16 +2514,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-12040-hermes-ddp",
+            "version": "1.57.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7d95d6cba83398188ec8ecb241b8a17b7acb744c"
+                "reference": "5a9cf0d0529fa18fd256c7f7a4a512cd349e4884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12040-hermes-ddp-152bbc.zip",
-                "reference": "7d95d6cba83398188ec8ecb241b8a17b7acb744c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.6-eb5657.zip",
+                "reference": "5a9cf0d0529fa18fd256c7f7a4a512cd349e4884",
                 "shasum": null
             },
             "require": {
@@ -2595,7 +2595,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-22T08:59:24+00:00"
+            "time": "2021-06-24T11:59:20+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -10681,7 +10681,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11769,6 +11770,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -12129,25 +12131,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.7.3",
-            "alias_normalized": "1.7.3.0",
-            "version": "dev-CGIV-12040-hermes-ddp",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.57.6",
-            "alias_normalized": "1.57.6.0",
-            "version": "dev-CGIV-12040-hermes-ddp",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
