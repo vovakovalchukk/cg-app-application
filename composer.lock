@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a9b749fe7da27b70db381068dfcbc4a",
+    "content-hash": "de4d0276fafd4b6845b17bbe587f4e3b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1075,16 +1075,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.7.2",
+            "version": "dev-CGIV-12085-add-ioss-number-to-order-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "3f89c0313a249a98f07a25907c6d52753c2f5fa3"
+                "reference": "4f9604800a8c26b61385c8d23a2e1fa033f3e581"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.2-0321e2.zip",
-                "reference": "3f89c0313a249a98f07a25907c6d52753c2f5fa3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-12085-add-ioss-number-to-order-data-5a7184.zip",
+                "reference": "4f9604800a8c26b61385c8d23a2e1fa033f3e581"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1108,7 +1108,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-04-16T13:18:18+00:00"
+            "time": "2021-06-24T11:49:24+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2464,16 +2464,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.57.5",
+            "version": "dev-CGIV-12082-save-order-ioss-number",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e4ed1beec0c8d9a465bd3d415fb2fdc6a7a0c444"
+                "reference": "3bdeeb6624eb8fbb653abdd663a7fd869f8ba6a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.57.5-7124f8.zip",
-                "reference": "e4ed1beec0c8d9a465bd3d415fb2fdc6a7a0c444"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12082-save-order-ioss-number-fa91d8.zip",
+                "reference": "3bdeeb6624eb8fbb653abdd663a7fd869f8ba6a6"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2544,7 +2544,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-04-12T09:43:59+00:00"
+            "time": "2021-06-23T15:26:58+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11645,7 +11645,6 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -12006,10 +12005,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.7.3",
+            "alias_normalized": "1.7.3.0",
+            "version": "dev-CGIV-12085-add-ioss-number-to-order-data",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.58.0",
+            "alias_normalized": "1.58.0.0",
+            "version": "dev-CGIV-12082-save-order-ioss-number",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
