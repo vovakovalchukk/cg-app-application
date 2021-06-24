@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b685c7bd3a15b7e84f834cb06d2aa5ed",
+    "content-hash": "67f6be76b318b1692b9a6cf763a4e466",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,16 +1023,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.4.4",
+            "version": "dev-CGIV-12017-ioss-number-for-geopost",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "bc9594e4c9f73d862b34aa3e47fe8954f7a8307b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.4-2369b3.zip",
-                "reference": "bc9594e4c9f73d862b34aa3e47fe8954f7a8307b"
+                "reference": "8f007beebc51b1aeea35270ac94925d32eb7cbf2"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
@@ -12007,6 +12002,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.5",
+            "alias_normalized": "1.4.5.0",
+            "version": "dev-CGIV-12017-ioss-number-for-geopost",
+            "package": "channelgrabber/courier"
+        },
+        {
             "alias": "1.7.4",
             "alias_normalized": "1.7.4.0",
             "version": "dev-CGIV-12085-add-ioss-number-to-order-data",
@@ -12022,11 +12023,12 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
