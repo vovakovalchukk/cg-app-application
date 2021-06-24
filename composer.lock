@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de4d0276fafd4b6845b17bbe587f4e3b",
+    "content-hash": "b685c7bd3a15b7e84f834cb06d2aa5ed",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1079,12 +1079,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "4f9604800a8c26b61385c8d23a2e1fa033f3e581"
+                "reference": "a5be0b2771955f6c4808e59131e393f4f1b3a3ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-12085-add-ioss-number-to-order-data-5a7184.zip",
-                "reference": "4f9604800a8c26b61385c8d23a2e1fa033f3e581"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-12085-add-ioss-number-to-order-data-c2a973.zip",
+                "reference": "a5be0b2771955f6c4808e59131e393f4f1b3a3ec"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1108,7 +1108,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-06-24T11:49:24+00:00"
+            "time": "2021-06-24T12:43:26+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2468,12 +2468,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3bdeeb6624eb8fbb653abdd663a7fd869f8ba6a6"
+                "reference": "c646412fb6fd5436fdfa7b84aa7c59890c62af63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12082-save-order-ioss-number-fa91d8.zip",
-                "reference": "3bdeeb6624eb8fbb653abdd663a7fd869f8ba6a6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12082-save-order-ioss-number-3ef83a.zip",
+                "reference": "c646412fb6fd5436fdfa7b84aa7c59890c62af63"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2544,7 +2544,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-23T15:26:58+00:00"
+            "time": "2021-06-24T12:47:17+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12007,8 +12007,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.7.3",
-            "alias_normalized": "1.7.3.0",
+            "alias": "1.7.4",
+            "alias_normalized": "1.7.4.0",
             "version": "dev-CGIV-12085-add-ioss-number-to-order-data",
             "package": "channelgrabber/courieradapter"
         },

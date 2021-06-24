@@ -31,6 +31,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     protected const DIMENSION_UNIT = 'cm';
     protected const DEFAULT_PACKAGE_VALUE = 0.01;
     protected const DUTY_UNPAID_FLAG = 'U';
+    protected const DUTY_PAID_FLAG = 'P';
     protected const COUNTRY_CODE_NETHERLANDS = 'NL';
     protected const NETHERLANDS_ADDRESS_1_REGEX = '/(?:\d+[a-z]*)$/';
 
@@ -152,7 +153,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('combinedDimension', 0);
         $parcelNode->addChild('volume', 0);
         $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
-        $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
+        $parcelNode->addChild('dutyPaid', $this->determineDeliveredDuty());
         $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
         $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
         $parcelNode->addChild('description', $this->getPackageDescription($package));
@@ -281,6 +282,16 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     {
         // MOST currencies have 2dp but a few don't. If we ever deal in those for this courier then this will need to change.
         return $value * 100;
+    }
+
+    protected function determineDeliveredDuty(): string
+    {
+        $shipment = $this->shipment;
+        if (method_exists($shipment, 'isDeliveredDutyPaid') && $shipment->isDeliveredDutyPaid()) {
+            return static::DUTY_PAID_FLAG;
+        }
+
+        return static::DUTY_UNPAID_FLAG;
     }
 
     public function getResponseClass(): string
