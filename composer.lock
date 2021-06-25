@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67f6be76b318b1692b9a6cf763a4e466",
+    "content-hash": "c70547612348e2b06941169a7ee61da0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2464,16 +2464,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-12082-save-order-ioss-number",
+            "version": "1.58.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7e23336d62ccd87e749868f1e95f4686dae547cc"
+                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12082-save-order-ioss-number-40b829.zip",
-                "reference": "7e23336d62ccd87e749868f1e95f4686dae547cc"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.58.0-6984f5.zip",
+                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2544,7 +2544,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-24T13:47:41+00:00"
+            "time": "2021-06-25T08:34:02+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12017,12 +12017,6 @@
             "alias_normalized": "1.7.4.0",
             "version": "dev-CGIV-12085-add-ioss-number-to-order-data",
             "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.58.0",
-            "alias_normalized": "1.58.0.0",
-            "version": "dev-CGIV-12082-save-order-ioss-number",
-            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -12030,7 +12024,6 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
