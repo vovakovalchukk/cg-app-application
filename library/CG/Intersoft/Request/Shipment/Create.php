@@ -111,6 +111,8 @@ class Create extends PostAbstract
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
+        $shipper->addChild('shipperVatNumber', $this->shipment->getShippersVatNumber());
+        $shipper->addChild('shipperEoriNumber', $this->shipment->getEoriNumber());
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
         $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
