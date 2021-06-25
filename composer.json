@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.4",
-        "channelgrabber/order": "dev-CGIV-12082-save-order-ioss-number as 1.58.0",
+        "channelgrabber/order": "~1.58.0",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
