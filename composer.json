@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.4.4",
+        "channelgrabber/courier": "dev-CGIV-12081-add-ioss-number-for-parcelforce as 1.4.5",
         "channelgrabber/courieradapter": "dev-CGIV-12085-add-ioss-number-to-order-data as 1.7.4",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
