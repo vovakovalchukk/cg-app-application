@@ -1027,12 +1027,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "9906cf141fbbb2b9bea1682a0e7dd42958998576"
+                "reference": "311cc6227030e8deed92d8ebb75afb2e234bdbc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12017-ioss-number-for-geopost-b7b1e7.zip",
-                "reference": "9906cf141fbbb2b9bea1682a0e7dd42958998576"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12017-ioss-number-for-geopost-cc075f.zip",
+                "reference": "311cc6227030e8deed92d8ebb75afb2e234bdbc1"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
@@ -1071,7 +1071,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-06-24T16:16:53+00:00"
+            "time": "2021-06-25T10:02:15+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
