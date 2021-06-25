@@ -64,6 +64,12 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return $bookingOptionProvider->getOptionsDataForOption($option, $order, $account, $service, $rootOu, $productDetails);
     }
 
+    public function getCarrierPackageTypesOptions(AccountEntity $account): array
+    {
+        // Not required but need to satisfy interface
+        return [];
+    }
+
     public function isProvidedAccount(AccountEntity $account)
     {
         return $this->service->isProvidedAccount($account);

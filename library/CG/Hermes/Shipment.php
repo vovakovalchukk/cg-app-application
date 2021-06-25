@@ -6,6 +6,7 @@ use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
+use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
@@ -21,7 +22,8 @@ class Shipment implements
     DeliveryInstructionsInterface,
     CollectionDateInterface,
     PackagesInterface,
-    SignatureRequiredInterface
+    SignatureRequiredInterface,
+    DeliveredDutyInterface
 {
     /** @var string */
     protected $customerReference;
@@ -41,8 +43,10 @@ class Shipment implements
     protected $signatureRequired;
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
-     /** @var string */
-     protected $courierReference;
+    /** @var string */
+    protected $courierReference;
+    /** @var bool */
+    protected $isDeliveredDutyPaid;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -53,7 +57,8 @@ class Shipment implements
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         array $packages = [],
-        ?bool $signatureRequired = null
+        ?bool $signatureRequired = null,
+        ?bool $isDeliveredDutyPaid = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -64,6 +69,7 @@ class Shipment implements
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
         $this->signatureRequired = $signatureRequired;
+        $this->isDeliveredDutyPaid = $isDeliveredDutyPaid;
     }
 
     public static function fromArray(array $array): Shipment
@@ -77,7 +83,8 @@ class Shipment implements
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
-            $array['signatureRequired'] ?? null
+            $array['signatureRequired'] ?? null,
+            $array['deliveredDutyPaid'] ?? null
         );
     }
 
@@ -224,5 +231,10 @@ class Shipment implements
     {
         $this->courierReference = $courierReference;
         return $this;
+    }
+
+    public function isDeliveredDutyPaid(): bool
+    {
+        return $this->isDeliveredDutyPaid;
     }
 }

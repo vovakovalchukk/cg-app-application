@@ -53,6 +53,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\SignatureRequiredInterface::class => 'signature',
             ShipmentField\EoriNumberInterface::class => 'eoriNumber',
             ShipmentField\TermsOfDeliveryInterface::class => 'termsOfDelivery',
+            ShipmentField\DeliveredDutyInterface::class => 'deliveredDutyPaid',
         ]
     ];
 
@@ -262,6 +263,29 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
         }
         return $data;
+    }
+
+    public function getCarrierPackageTypesOptions(AccountEntity $account): array
+    {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        $deliveryServices = $courierInstance->fetchDeliveryServices();
+
+        $packageTypesDomestic = $packageTypesInternational = [];
+        foreach ($deliveryServices as $deliveryService) {
+            $shipmentClass = $deliveryService->getShipmentClass();
+            $packageType = $this->getDataForPackageTypesOption($shipmentClass);
+            if ($shipmentClass::isDomestic()) {
+                $packageTypesDomestic = array_merge($packageTypesDomestic, $packageType);
+                continue;
+            }
+
+            $packageTypesInternational = array_merge($packageTypesInternational, $packageType);
+        }
+
+        return [
+            'domestic' => $packageTypesDomestic,
+            'international' => $packageTypesInternational
+        ];
     }
 
     protected function getDataForPackageTypesOption(
