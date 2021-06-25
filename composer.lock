@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "140b9ab1b1d72c744512d3757944ef95",
+    "content-hash": "63f4d67e060458aa54fc73b6a8ffac53",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1027,7 +1027,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "2f3027c919466107463fa964e93b65e0020f5a59"
+                "reference": "5845f9a0ac94a19ed529f0051ba1a4cd97408bef"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.1",
