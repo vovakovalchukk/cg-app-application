@@ -92,6 +92,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
                 $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
         }
 
+        $this->xml->addChild('eoriNumber', $this->shipment->getEoriNumber());
+        $this->xml->addChild('iossNumber', $this->shipment->getIossNumber());
+
         return $this->xml;
     }
 
