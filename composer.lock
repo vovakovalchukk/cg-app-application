@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63f4d67e060458aa54fc73b6a8ffac53",
+    "content-hash": "18638f96677c271b0eaa5f1e64918cc7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1027,12 +1027,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "6f4c589066fe903c5e317da5ffc9cf3c231412de"
+                "reference": "c29608116126eeaedbc14a704c6bb72d5a02b64d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12081-add-ioss-number-for-parcelforce-d14e40.zip",
-                "reference": "6f4c589066fe903c5e317da5ffc9cf3c231412de"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12081-add-ioss-number-for-parcelforce-175574.zip",
+                "reference": "c29608116126eeaedbc14a704c6bb72d5a02b64d"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-12085-add-ioss-number-to-order-data as 1.7.4",
@@ -1071,7 +1071,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-06-25T15:38:08+00:00"
+            "time": "2021-06-29T14:42:47+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2862,16 +2862,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.15",
+            "version": "1.20.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "9a386474ed6741ed2a39ef83116c64b2caa2421e"
+                "reference": "42432eaf14bf85d6107357493882fbf8965c5954"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.15-e774b0.zip",
-                "reference": "9a386474ed6741ed2a39ef83116c64b2caa2421e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.16-55e5b9.zip",
+                "reference": "42432eaf14bf85d6107357493882fbf8965c5954"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2910,11 +2910,6 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-12052-fix-fetching-all-variations": "1.20.15-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Product\\": "src"
@@ -2925,7 +2920,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-06-18T12:02:29+00:00"
+            "time": "2021-06-28T13:57:02+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
