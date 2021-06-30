@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89508acf992ba4451eae77193692f554",
+    "content-hash": "7ce5919afcb7118ccb89788abf24f4b8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1027,12 +1027,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "bf2aed571180bc8ecfab1d93a6bceebb5003d6bd"
+                "reference": "dd61197f05de09e89427a9055a0fffa7dd7f91b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12081-add-ioss-number-for-parcelforce-991a0a.zip",
-                "reference": "bf2aed571180bc8ecfab1d93a6bceebb5003d6bd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12081-add-ioss-number-for-parcelforce-276668.zip",
+                "reference": "dd61197f05de09e89427a9055a0fffa7dd7f91b0"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1071,7 +1071,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-06-30T09:31:06+00:00"
+            "time": "2021-06-30T10:29:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12002,8 +12002,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.5",
-            "alias_normalized": "1.4.5.0",
+            "alias": "1.4.6",
+            "alias_normalized": "1.4.6.0",
             "version": "dev-CGIV-12081-add-ioss-number-for-parcelforce",
             "package": "channelgrabber/courier"
         }
