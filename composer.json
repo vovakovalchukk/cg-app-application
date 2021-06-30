@@ -33,7 +33,7 @@
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "dev-CGIV-12017-ioss-number-for-geopost as 1.4.5",
-        "channelgrabber/courieradapter": "dev-CGIV-12085-add-ioss-number-to-order-data as 1.7.4",
+        "channelgrabber/courieradapter": "~1.7.4",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
         "channelgrabber/data-exchange-history": "~1.0.4",
