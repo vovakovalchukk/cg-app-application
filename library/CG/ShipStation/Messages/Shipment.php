@@ -86,7 +86,7 @@ class Shipment
         $customs = $taxIdentifiers = null;
         if ($carrierService->isInternational()) {
             $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
-            $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $itemsData, $rootOu);
+            $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $orderData, $rootOu);
         }
         $shipDate = new DateTime();
 
