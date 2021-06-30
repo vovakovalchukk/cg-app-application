@@ -39,6 +39,7 @@ class Create extends PostAbstract
     const MAX_LEN_HS_CODE = 10;
     const LEN_COUNTRY_CODE = 2;
     const PRE_REGISTRATION_TYPE_EORI = 'EORI';
+    const PRE_REGISTRATION_TYPE_IOSS = 'IOSS';
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -110,6 +111,8 @@ class Create extends PostAbstract
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
+        $shipper->addChild('shipperVatNumber', $this->shipment->getShippersVatNumber());
+        $shipper->addChild('shipperEoriNumber', $this->shipment->getEoriNumber());
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
         $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
@@ -213,8 +216,8 @@ class Create extends PostAbstract
     protected function addCustomsInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
         $customsInformationXml = $xml->addChild('customsInformation');
-        $customsInformationXml->addChild('preRegistrationNumber', $this->shipment->getEoriNumber());
-        $customsInformationXml->addChild('preRegistrationType', static::PRE_REGISTRATION_TYPE_EORI);
+        $customsInformationXml->addChild('preRegistrationNumber', $this->shipment->getIossNumber());
+        $customsInformationXml->addChild('preRegistrationType', static::PRE_REGISTRATION_TYPE_IOSS);
         $customsInformationXml->addChild('shippingCharges', number_format($this->shipment->getShippingCharges(), 2));
         return $xml;
     }
