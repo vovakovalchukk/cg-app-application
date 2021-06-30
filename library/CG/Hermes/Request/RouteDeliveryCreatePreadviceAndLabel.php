@@ -92,6 +92,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
                 $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
         }
 
+        $this->xml->addChild('eoriNumber', $this->shipment->getEoriNumber());
+        $this->xml->addChild('iossNumber', $this->shipment->getIossNumber());
+
         return $this->xml;
     }
 
@@ -170,7 +173,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         /** @var PackageContent $packageContent */
         foreach ($package->getContents() as $packageContent) {
             $content = $contents->addChild('content');
-            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
+            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . " " . $packageContent->getDescription(),static::MAX_DESC_LEN));
             $content->addChild('countryOfManufacture', $packageContent->getOrigin());
             $content->addChild('itemQuantity', $packageContent->getQuantity());
             $content->addChild('itemWeight', $this->convertWeight($packageContent->getWeight()));

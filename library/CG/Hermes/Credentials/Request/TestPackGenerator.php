@@ -63,6 +63,11 @@ class TestPackGenerator
             $shipmentData['deliveryAddress'] = $this->mapDataToAddress($shipmentData['deliveryAddress']);
             $shipmentData['deliveryService'] = $this->deliveryServiceService->getDeliveryServiceByReference($shipmentData['deliveryService']);
             $shipmentData['packages'] = $this->mapPackagesDataToPackages($shipmentData['packages']);
+
+            $shipmentData['deliveredDutyPaid'] = true;
+            $shipmentData['eoriNumber'] = 'GB123456789012';
+            $shipmentData['iossNumber'] = 'IOSS123456789012';
+
             $shipmentData = array_merge($defaultShipmentData, $shipmentData);
             $shipments[] = Shipment::fromArray($shipmentData);
         }
