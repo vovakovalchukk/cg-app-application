@@ -31,6 +31,8 @@ class Shipment
     protected $confirmation;
     /** @var Customs|null */
     protected $customs;
+    /** @var TaxIdentifiers|null */
+    protected $taxIdentifiers;
     /** @var bool */
     protected $validateAddress;
     /** @var DateTime */
@@ -46,6 +48,7 @@ class Shipment
         string $externalShipmentId,
         ?string $confirmation,
         ?Customs $customs,
+        ?TaxIdentifiers $taxIdentifiers,
         ?bool $validateAddress,
         ?DateTime $shipDate,
         Package ...$packages
@@ -57,6 +60,7 @@ class Shipment
         $this->externalShipmentId = $externalShipmentId;
         $this->confirmation = $confirmation;
         $this->customs = $customs;
+        $this->taxIdentifiers = $taxIdentifiers;
         $this->validateAddress = (bool)$validateAddress;
         $this->shipDate = $shipDate;
         $this->packages = $packages;
@@ -79,9 +83,10 @@ class Shipment
         foreach ($parcelsData->getParcels() as $parcelData) {
             $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
         }
-        $customs = null;
+        $customs = $taxIdentifiers = null;
         if ($carrierService->isInternational()) {
             $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
+            $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $itemsData, $rootOu);
         }
         $shipDate = new DateTime();
 
@@ -93,6 +98,7 @@ class Shipment
             static::getUniqueIdForOrder($order),
             $confirmation,
             $customs,
+            $taxIdentifiers,
             false,
             $shipDate,
             ...$packages
@@ -125,6 +131,9 @@ class Shipment
         }
         if ($this->getCustoms()) {
             $array['customs'] = $this->getCustoms()->toArray();
+        }
+        if ($this->getTaxIdentifiers()) {
+            $array['tax_identifiers'] = $this->getTaxIdentifiers()->toArray();
         }
         if (!$this->isValidateAddress()) {
             $array['validate_address'] = 'no_validation';
@@ -218,6 +227,17 @@ class Shipment
     public function setCustoms(?Customs $customs): Shipment
     {
         $this->customs = $customs;
+        return $this;
+    }
+
+    public function getTaxIdentifiers(): ?TaxIdentifiers
+    {
+        return $this->taxIdentifiers;
+    }
+
+    public function setTaxIdentifiers(?TaxIdentifiers $taxIdentifiers): Shipment
+    {
+        $this->taxIdentifiers = $taxIdentifiers;
         return $this;
     }
 
