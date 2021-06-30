@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cfe15130ff182835ae9ae4c6791f89e",
+    "content-hash": "845e70b8314467dc14ce0185b09e5e4e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,7 +1023,7 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-12017-ioss-number-for-geopost",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
@@ -1031,7 +1031,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12017-ioss-number-for-geopost-680855.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.5-680855.zip",
                 "reference": "91818409108d1f54abd6d5b4217572c7b2c243a4"
             },
             "require": {
@@ -12000,18 +12000,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.5",
-            "alias_normalized": "1.4.5.0",
-            "version": "dev-CGIV-12017-ioss-number-for-geopost",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
