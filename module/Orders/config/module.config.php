@@ -1397,6 +1397,8 @@ return [
                 'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
                 'CourierSpecificsTermsOfDeliveryColumnView' => ViewModel::class,
                 'CourierSpecificsTermsOfDeliveryColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveredDutyPaidColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveredDutyPaidColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2377,7 +2379,8 @@ return [
             'CourierSpecificsCollectionDateColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Collection'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/collectionDate.phtml',
                 ],
             ],
             'CourierSpecificsCollectionDateColumn' => [
@@ -2780,6 +2783,22 @@ return [
                     'column' => 'termsOfDelivery',
                     'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
                     'class' => 'termsOfDelivery-col',
+                    'sortable' => false,
+                    'order' => 121,
+                    'width' => '45px',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyPaidColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Is Delivered Duty Paid'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyPaidColumn' => [
+                'parameters' => [
+                    'column' => 'deliveredDutyPaid',
+                    'viewModel' => 'CourierSpecificsDeliveredDutyPaidColumnView',
+                    'class' => 'deliveredDutyPaid-col',
                     'sortable' => false,
                     'order' => 121,
                     'width' => '45px',

@@ -31,6 +31,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     protected const DIMENSION_UNIT = 'cm';
     protected const DEFAULT_PACKAGE_VALUE = 0.01;
     protected const DUTY_UNPAID_FLAG = 'U';
+    protected const DUTY_PAID_FLAG = 'P';
     protected const COUNTRY_CODE_NETHERLANDS = 'NL';
     protected const NETHERLANDS_ADDRESS_1_REGEX = '/(?:\d+[a-z]*)$/';
 
@@ -74,7 +75,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
         );
         $this->xml->addChild('clientId', $credentials['clientId']);
-        $this->xml->addChild('clientName', $credentials['clientName']);
+        $this->xml->addChild('clientName', $this->escapeSpecialCharacters($credentials['clientName']));
         $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
         $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
         $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
@@ -90,6 +91,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             $deliveryRoutingRequestEntryNode->addChild('countryOfOrigin',
                 $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
         }
+
+        $this->xml->addChild('eoriNumber', $this->shipment->getEoriNumber());
+        $this->xml->addChild('iossNumber', $this->shipment->getIossNumber());
 
         return $this->xml;
     }
@@ -152,7 +156,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('combinedDimension', 0);
         $parcelNode->addChild('volume', 0);
         $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
-        $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
+        $parcelNode->addChild('dutyPaid', $this->determineDeliveredDuty());
         $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
         $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
         $parcelNode->addChild('description', $this->getPackageDescription($package));
@@ -169,7 +173,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         /** @var PackageContent $packageContent */
         foreach ($package->getContents() as $packageContent) {
             $content = $contents->addChild('content');
-            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
+            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . " " . $packageContent->getDescription(),static::MAX_DESC_LEN));
             $content->addChild('countryOfManufacture', $packageContent->getOrigin());
             $content->addChild('itemQuantity', $packageContent->getQuantity());
             $content->addChild('itemWeight', $this->convertWeight($packageContent->getWeight()));
@@ -210,6 +214,14 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $sendersAddressNode->addChild('addressLine2', $this->sanitiseString($sendersAddress->getLine2()));
         $sendersAddressNode->addChild('addressLine3', $this->sanitiseString($sendersAddress->getLine3()));
         $sendersAddressNode->addChild('addressLine4', $this->sanitiseString($sendersAddress->getLine4()));
+    }
+
+    protected function escapeSpecialCharacters(?string $string = null): string
+    {
+        if ($string === null) {
+            return '';
+        }
+        return str_replace(['&', '<', '>', '\'', '"'], ['&amp;', '&lt;', '&gt;', '&apos;', '&quot;'], $string);
     }
 
     protected function sanitiseString(?string $string = null, ?int $maxLength = null): string
@@ -273,6 +285,16 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     {
         // MOST currencies have 2dp but a few don't. If we ever deal in those for this courier then this will need to change.
         return $value * 100;
+    }
+
+    protected function determineDeliveredDuty(): string
+    {
+        $shipment = $this->shipment;
+        if (method_exists($shipment, 'isDeliveredDutyPaid') && $shipment->isDeliveredDutyPaid()) {
+            return static::DUTY_PAID_FLAG;
+        }
+
+        return static::DUTY_UNPAID_FLAG;
     }
 
     public function getResponseClass(): string

@@ -10,8 +10,10 @@ use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
+use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
@@ -30,7 +32,9 @@ class Shipment implements
     PackagesInterface,
     PackageTypesInterface,
     SignatureRequiredInterface,
-    EoriNumberInterface
+    EoriNumberInterface,
+    ShippersVatInterface,
+    IossNumberInterface
 {
     protected static $packageTypes = [
         'L' => 'Letter',
@@ -62,10 +66,14 @@ class Shipment implements
     protected $collectionAddress;
     /** @var LabelInterface[] */
     protected $labels;
-    /** @var string */
+    /** @var ?string */
     protected $eoriNumber;
     /** @var float|null */
     protected $shippingCharges;
+    /** @var string */
+    protected $shippersVatNumber;
+    /** @var ?string */
+    protected $iossNumber;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -79,7 +87,9 @@ class Shipment implements
         ?DateTime $collectionDate = null,
         ?bool $signatureRequired = null,
         ?string $eoriNumber = null,
-        ?float $shippingCharges = null
+        ?float $shippingCharges = null,
+        ?string $shippersVatNumber = null,
+        ?string $iossNumber = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -93,6 +103,8 @@ class Shipment implements
         $this->insuranceOption = $insuranceOption;
         $this->eoriNumber = $eoriNumber;
         $this->shippingCharges = $shippingCharges;
+        $this->shippersVatNumber = $shippersVatNumber;
+        $this->iossNumber = $iossNumber;
     }
 
     public static function fromArray(array $array): Shipment
@@ -109,7 +121,9 @@ class Shipment implements
             $array['collectionDateTime'] ?? null,
             $array['signatureRequired'] ?? null,
             $array['eoriNumber'] ?? null,
-            $array['shippingAmount'] ?? null
+            $array['shippingAmount'] ?? null,
+            $array['shippersVatNumber'] ?? null,
+            $array['iossNumber'] ?? null
         );
     }
 
@@ -336,5 +350,15 @@ class Shipment implements
     public function getShippingCharges(): ?float
     {
         return $this->shippingCharges;
+    }
+
+    public function getShippersVatNumber(): string
+    {
+        return (string)$this->shippersVatNumber;
+    }
+
+    public function getIossNumber(): ?string
+    {
+        return $this->iossNumber;
     }
 }

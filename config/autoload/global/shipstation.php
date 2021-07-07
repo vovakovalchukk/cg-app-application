@@ -601,6 +601,7 @@ return [
                         'length' => 'length',
                         'harmonisedSystemCode' => 'harmonisedSystemCode',
                         'countryOfOrigin' => 'countryOfOrigin',
+                        'eoriNumber' => 'eoriNumber',
                     ]
                 ]
             ],

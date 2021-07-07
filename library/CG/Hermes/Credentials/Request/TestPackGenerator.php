@@ -6,6 +6,7 @@ use CG\CourierAdapter\Account\CredentialRequest\TestPackFile;
 use CG\CourierAdapter\Address;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
@@ -62,6 +63,11 @@ class TestPackGenerator
             $shipmentData['deliveryAddress'] = $this->mapDataToAddress($shipmentData['deliveryAddress']);
             $shipmentData['deliveryService'] = $this->deliveryServiceService->getDeliveryServiceByReference($shipmentData['deliveryService']);
             $shipmentData['packages'] = $this->mapPackagesDataToPackages($shipmentData['packages']);
+
+            $shipmentData['deliveredDutyPaid'] = true;
+            $shipmentData['eoriNumber'] = 'GB123456789012';
+            $shipmentData['iossNumber'] = 'IOSS123456789012';
+
             $shipmentData = array_merge($defaultShipmentData, $shipmentData);
             $shipments[] = Shipment::fromArray($shipmentData);
         }
@@ -95,9 +101,27 @@ class TestPackGenerator
             $packageData = $packagesData[$count];
             $defaultPackageData['number'] = $count+1;
             $packageData = array_merge($defaultPackageData, $packageData);
+            $packageData['contents'][] = $this->mapContentDataToContent($packagesData);
             $packages[] = Package::fromArray($packageData);
         }
         return $packages;
+    }
+
+    protected function mapContentDataToContent(array $packagesData): Content
+    {
+        return new Content(
+            'Description',
+            '00000000',
+            'HS Code Description',
+            'GB',
+            1,
+            $packagesData[0]['weight'],
+            1,
+            'GBP',
+            'Test Product',
+            'Composition',
+            'TestSku'
+        );
     }
 
     protected function bookShipments(array $shipments): array

@@ -14,3 +14,37 @@
     </div>
 </div>
 {{/termsOfDelivery}}
+
+{{#packageType}}
+    <div class="courier-package-type pull-right">
+        <span class="courier-package-type-label">Package Type</span>
+        <div id="courier-bulk-package-type">
+            <select id="courier-bulk-package-type-select">
+                {{#packageTypeOptions}}
+                    <option></option>
+                    <option disabled>Domestic</option>
+                    {{#domestic}}
+                        <option value="{{optionValue}}" domestic="1">{{optionName}}</option>
+                    {{/domestic}}
+                    {{^domestic}}
+                    {{/domestic}}
+                    <option disabled>---</option>
+                    <option disabled>International</option>
+                    {{#international}}
+                        <option value="{{optionValue}}" domestic="0">{{optionName}}</option>
+                    {{/international}}
+                    {{^international}}
+                    {{/international}}
+                {{/packageTypeOptions}}
+            </select>
+        </div>
+    </div>
+{{/packageType}}
+
+{{#collectionDate}}
+    <div class="courier-collection-date pull-right">
+        <span class="courier-collection-date-label">Collection Date</span>
+        <input type="text" class="inputbox datepicker" placeholder="DD/MM/YYYY" value="{{collectionDateDate}}" data-cgtype="Date" id="bulk-courier-collection-date-datepicker">
+        <input type="hidden" value="{{collectionDateDate}}" name="bulk-courier-collection-date" id="bulk-courier-collection-date">
+    </div>
+{{/collectionDate}}
