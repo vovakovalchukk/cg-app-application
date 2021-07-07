@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83d34b1d7b9d29ac12d096485fa78e64",
+    "content-hash": "e535807cb0c84be12e7e1dd0558d6712",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1027,7 +1027,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c5b68d1d051846247c7a0ed7fea70e302859d982"
+                "reference": "c419a3720c374b3b73e6458104bc5895143718d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12013-parcelforce-custom-declaration-0cf248.zip",
+                "reference": "c419a3720c374b3b73e6458104bc5895143718d4"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1066,7 +1071,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-06-30T14:31:58+00:00"
+            "time": "2021-07-07T13:17:10+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10546,7 +10551,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12007,8 +12013,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
