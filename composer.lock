@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c54fab699abc7eb405f741b39e201cf",
+    "content-hash": "f4c7023a656b7f5ef905bda5fa2dbe96",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -377,12 +377,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ba64e84d9afa254723ba162334ea6624a35b7ca2"
+                "reference": "9d49f4fdc7b6ac9b2fb5009a475ca4dc196a29c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11999-ebay-item-conditions-e6aee8.zip",
-                "reference": "ba64e84d9afa254723ba162334ea6624a35b7ca2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-11999-ebay-item-conditions-4cf9d4.zip",
+                "reference": "9d49f4fdc7b6ac9b2fb5009a475ca4dc196a29c8"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -436,7 +436,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-07-07T14:52:53+00:00"
+            "time": "2021-07-08T12:17:12+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1398,12 +1398,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0bb31817822b069f5867d2e06029c2ad18b7d181"
+                "reference": "1bc4d0f332056beff0792108970c6a7e253efe4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11999-ebay-item-conditions-2cbf95.zip",
-                "reference": "0bb31817822b069f5867d2e06029c2ad18b7d181"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-dev-CGIV-11999-ebay-item-conditions-b6493b.zip",
+                "reference": "1bc4d0f332056beff0792108970c6a7e253efe4f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1455,7 +1455,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2021-07-07T15:09:04+00:00"
+            "time": "2021-07-08T12:38:44+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -4262,21 +4262,21 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.10.4",
+            "version": "1.10.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "19d0559e73b94b71cf7a7e0f55c756759a3da175"
+                "reference": "d4cfd4e6324ef8be48457c113bcb6ef9fc01fb19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.4-fcba70.zip",
-                "reference": "19d0559e73b94b71cf7a7e0f55c756759a3da175"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/woocommerce/channelgrabber-woocommerce-1.10.6-b54db0.zip",
+                "reference": "d4cfd4e6324ef8be48457c113bcb6ef9fc01fb19"
             },
             "require": {
                 "channelgrabber/channel": "^1.45.5",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/gearman": "^1.8.1",
+                "channelgrabber/gearman": "^1.10.0",
                 "channelgrabber/http": "^1.2.0",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
@@ -4307,7 +4307,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2021-06-11T13:16:17+00:00"
+            "time": "2021-07-07T09:56:51+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
