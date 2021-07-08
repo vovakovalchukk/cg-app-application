@@ -407,10 +407,35 @@ class Create extends PostAbstract
         if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
             return '00000000000';
         }
+        $phoneNumber = $this->removeCharactersFromBeginningAndEnd($phoneNumber);
+
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
-        return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+        return $phoneNumber;
+    }
+
+    protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
+    {
+        $number = str_split($phoneNumber);
+        foreach ($number as $key => $item) {
+            if(is_numeric($item) || $item === '+'){
+                break;
+            } else {
+                unset($number[$key]);
+            }
+        }
+
+        $number = array_reverse($number);
+        foreach ($number as $key => $item) {
+            if(is_numeric($item)){
+                break;
+            } else {
+                unset($number[$key]);
+            }
+        }
+
+        return implode(array_reverse($number));
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string
