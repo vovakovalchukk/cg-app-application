@@ -417,25 +417,12 @@ class Create extends PostAbstract
 
     protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
     {
-        $number = str_split($phoneNumber);
-        foreach ($number as $key => $item) {
-            if(is_numeric($item) || $item === '+'){
-                break;
-            } else {
-                unset($number[$key]);
-            }
+        preg_match('([\+]?[0-9]{1}.*[0-9]{1})', $phoneNumber, $matches);
+        if (isset($matches[0])) {
+            return $matches[0];
         }
 
-        $number = array_reverse($number);
-        foreach ($number as $key => $item) {
-            if(is_numeric($item)){
-                break;
-            } else {
-                unset($number[$key]);
-            }
-        }
-
-        return implode(array_reverse($number));
+        return `00000000000`;
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string
