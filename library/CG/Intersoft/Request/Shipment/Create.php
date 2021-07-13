@@ -40,6 +40,7 @@ class Create extends PostAbstract
     const LEN_COUNTRY_CODE = 2;
     const PRE_REGISTRATION_TYPE_EORI = 'EORI';
     const PRE_REGISTRATION_TYPE_IOSS = 'IOSS';
+    const DEFAULT_PHONE_NUMBER = '00000000000';
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -405,12 +406,24 @@ class Create extends PostAbstract
         $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
         $phoneNumberLength = strlen($phoneNumber);
         if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
-            return '00000000000';
+            return static::DEFAULT_PHONE_NUMBER;
         }
+        $phoneNumber = $this->removeCharactersFromBeginningAndEnd($phoneNumber);
+
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
-        return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+        return $phoneNumber;
+    }
+
+    protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
+    {
+        preg_match('([\+]?[0-9]{1}.*[0-9]{1})', $phoneNumber, $matches);
+        if (isset($matches[0])) {
+            return $matches[0];
+        }
+
+        return static::DEFAULT_PHONE_NUMBER;
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string
