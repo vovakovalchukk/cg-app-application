@@ -96,23 +96,22 @@ return [
                             ],
                             [
                                 'serviceCode' => '48',
-                                'displayName' => 'Parcels 48 Hr - deliver to neighbour - signature',
+                                'displayName' => 'Parcels 48Hr - deliver to neighbour - signature',
                                 'domestic' => true,
                             ],
                             [
                                 'serviceCode' => '72',
-                                'displayName' => 'Parcels 48 Hr + - leave safe - non signature',
+                                'displayName' => 'Parcels 48Hr + - leave safe - non signature',
                                 'domestic' => true,
                             ],
-
                             [
                                 'serviceCode' => '97',
-                                'displayName' => 'Pallets 24 Hr - deliver to doorstep only - signature',
+                                'displayName' => 'Pallets 24Hr - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
                             [
                                 'serviceCode' => '98',
-                                'displayName' => 'Pallets 48 Hr - deliver to doorstep only - signature',
+                                'displayName' => 'Pallets 48Hr - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
                             [
@@ -135,6 +134,162 @@ return [
                                 'displayName' => 'DHL Parcel Connect - deliver to doorstep only - signature',
                                 'domestic' => false,
                             ],
+
+
+                            [
+                                'serviceCode' => '40',
+                                'displayName' => 'Bagit Small 1kg Next Day - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '240',
+                                'displayName' => 'Bagit Small 1kg Next Day - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '230',
+                                'displayName' => 'Bagit Small 1kg Next Day - leave safe - non signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '41',
+                                'displayName' => 'Bagit Small 1kg Next Day 12:00 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '241',
+                                'displayName' => 'Bagit Small 1kg Next Day 12:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '231',
+                                'displayName' => 'Bagit Small 1kg Next Day 12:00 - leave safe - non signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '49',
+                                'displayName' => 'Bagit Small 1kg Next Day 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '242',
+                                'displayName' => 'Bagit Small 1kg Next Day 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '232',
+                                'displayName' => 'Bagit Small 1kg Next Day 10:30 - leave safe - non signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '42',
+                                'displayName' => 'Bagit Small 1kg Next Day 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '43',
+                                'displayName' => 'Bagit Small 1kg Saturday - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '245',
+                                'displayName' => 'Bagit Small 1kg Saturday - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '235',
+                                'displayName' => 'Bagit Small 1kg Saturday - leave safe - non signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '46',
+                                'displayName' => 'Bagit Small 1kg Saturday 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '246',
+                                'displayName' => 'Bagit Small 1kg Saturday 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '236',
+                                'displayName' => 'Bagit Small 1kg Saturday 10:30 - leave safe - non signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '44',
+                                'displayName' => 'Bagit Small 1kg Saturday 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+
+
+
+                            [
+                                'serviceCode' => '30',
+                                'displayName' => 'Bagit Medium 2kg Next Day - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '250',
+                                'displayName' => 'Bagit Medium 2kg Next Day - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '31',
+                                'displayName' => 'Bagit Medium 2kg Next Day 12:00 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '251',
+                                'displayName' => 'Bagit Medium 2kg Next Day 12:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '39',
+                                'displayName' => 'Bagit Medium 2kg Next Day 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '252',
+                                'displayName' => 'Bagit Medium 2kg Next Day 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '32',
+                                'displayName' => 'Bagit Medium 2kg Next Day 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '33',
+                                'displayName' => 'Bagit Medium 2kg Saturday - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '255',
+                                'displayName' => 'Bagit Medium 2kg Saturday - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '36',
+                                'displayName' => 'Bagit Medium 2kg Saturday 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '256',
+                                'displayName' => 'Bagit Medium 2kg Saturday 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '34',
+                                'displayName' => 'Bagit Medium 2kg Saturday 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
                         ],
                     ],
                 ],
