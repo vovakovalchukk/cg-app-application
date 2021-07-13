@@ -101,55 +101,42 @@ return [
                             ],
                             [
                                 'serviceCode' => '72',
-                                'displayName' => 'Parcels 48 Hr - leave safe - non signature',
-                                'domestic' => true,
-                            ],
-                            [
-                                'serviceCode' => '72',
-                                'displayName' => 'Parcels 48 Hr - leave safe - non signature',
+                                'displayName' => 'Parcels 48 Hr + - leave safe - non signature',
                                 'domestic' => true,
                             ],
 
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
+                                'serviceCode' => '97',
+                                'displayName' => 'Pallets 24 Hr - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
+                                'serviceCode' => '98',
+                                'displayName' => 'Pallets 48 Hr - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
-                                'domestic' => true,
+                                'serviceCode' => '101',
+                                'displayName' => 'Worldwide Air - deliver to doorstep only - signature',
+                                'domestic' => false,
                             ],
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
-                                'domestic' => true,
+                                'serviceCode' => '102',
+                                'displayName' => 'DHL Parcel International - deliver to doorstep only - signature',
+                                'domestic' => false,
                             ],
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
-                                'domestic' => true,
+                                'serviceCode' => '204',
+                                'displayName' => 'International Road Economy - deliver to doorstep only - signature',
+                                'domestic' => false,
                             ],
                             [
-                                'serviceCode' => '',
-                                'displayName' => '',
-                                'domestic' => true,
+                                'serviceCode' => '206',
+                                'displayName' => 'DHL Parcel Connect - deliver to doorstep only - signature',
+                                'domestic' => false,
                             ],
-                            [
-                                'serviceCode' => '',
-                                'displayName' => '',
-                                'domestic' => true,
-                            ],
-
-
-
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ],
         ],
