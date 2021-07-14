@@ -134,8 +134,6 @@ return [
                                 'displayName' => 'DHL Parcel Connect - deliver to doorstep only - signature',
                                 'domestic' => false,
                             ],
-
-
                             [
                                 'serviceCode' => '40',
                                 'displayName' => 'Bagit Small 1kg Next Day - deliver to neighbour - signature',
@@ -223,10 +221,6 @@ return [
                                 'displayName' => 'Bagit Small 1kg Saturday 09:00 - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
-
-
-
-
                             [
                                 'serviceCode' => '30',
                                 'displayName' => 'Bagit Medium 2kg Next Day - deliver to neighbour - signature',
@@ -257,7 +251,6 @@ return [
                                 'displayName' => 'Bagit Medium 2kg Next Day 10:30 - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
-
                             [
                                 'serviceCode' => '32',
                                 'displayName' => 'Bagit Medium 2kg Next Day 09:00 - deliver to doorstep only - signature',
@@ -289,7 +282,130 @@ return [
                                 'displayName' => 'Bagit Medium 2kg Saturday 09:00 - deliver to doorstep only - signature',
                                 'domestic' => true,
                             ],
+                            [
+                                'serviceCode' => '20',
+                                'displayName' => 'Bagit Large 5kg Next Day - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '260',
+                                'displayName' => 'Bagit Large 5kg Next Day - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '21',
+                                'displayName' => 'Bagit Large 5kg Next Day 12:00 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '261',
+                                'displayName' => 'Bagit Large 5kg Next Day 12:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '29',
+                                'displayName' => 'Bagit Large 5kg Next Day 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '262',
+                                'displayName' => 'Bagit Large 5kg Next Day 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
 
+                            [
+                                'serviceCode' => '22',
+                                'displayName' => 'Bagit Large 5kg Next Day 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '23',
+                                'displayName' => 'Bagit Large 5kg Saturday - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '265',
+                                'displayName' => 'Bagit Large 5kg Saturday - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '26',
+                                'displayName' => 'Bagit Large 5kg Saturday 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '266',
+                                'displayName' => 'Bagit Large 5kg Saturday 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '24',
+                                'displayName' => 'Bagit Large 5kg Saturday 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '10',
+                                'displayName' => 'Bagit XL 10kg Next Day - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '270',
+                                'displayName' => 'Bagit XL 10kg Next Day - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '11',
+                                'displayName' => 'Bagit XL 10kg Next Day 12:00 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '271',
+                                'displayName' => 'Bagit XL 10kg Next Day 12:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '19',
+                                'displayName' => 'Bagit XL 10kg Next Day 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '272',
+                                'displayName' => 'Bagit XL 10kg Next Day 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '12',
+                                'displayName' => 'Bagit XL 10kg Next Day 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+
+                            [
+                                'serviceCode' => '13',
+                                'displayName' => 'Bagit XL 10kg Saturday - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '275',
+                                'displayName' => 'Bagit XL 10kg Saturday - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '16',
+                                'displayName' => 'Bagit XL 10kg Saturday 10:30 - deliver to neighbour - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '276',
+                                'displayName' => 'Bagit XL 10kg Saturday 10:30 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
+                            [
+                                'serviceCode' => '14',
+                                'displayName' => 'Bagit XL 10kg Saturday 09:00 - deliver to doorstep only - signature',
+                                'domestic' => true,
+                            ],
                         ],
                     ],
                 ],
