@@ -14,16 +14,27 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use Psr\Log\LoggerInterface;
 use CG\UkMail\Credentials\FormFactory as CredentialsFormFactory;
+use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface
 {
     public const FEATURE_FLAG = 'UK Mail DHL Parcel UK';
 
-    protected $credentialsFormFactory;
+    protected const COUNTRY_CODE_GB = 'GB';
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory)
-    {
+    /** @var LoggerInterface */
+    protected $logger;
+    /** @var CredentialsFormFactory */
+    protected $credentialsFormFactory;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
+
+    public function __construct(
+        CredentialsFormFactory $credentialsFormFactory,
+        DeliveryServiceService $deliveryServiceService
+    ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->deliveryServiceService = $deliveryServiceService;
     }
 
     public function bookShipment(ShipmentInterface $shipment)
@@ -38,27 +49,31 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     public function fetchDeliveryServices()
     {
-        // TODO: Implement fetchDeliveryServices() method.
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     public function fetchDeliveryServiceByReference($reference)
     {
-        // TODO: Implement fetchDeliveryServiceByReference() method.
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // TODO: Implement fetchDeliveryServicesForAccount() method.
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // TODO: Implement fetchDeliveryServicesForAccountAndCountry() method.
+        return $this->deliveryServiceService->getDeliveryServicesForCountry();
     }
 
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // TODO: Implement fetchDeliveryServicesForShipment() method.
+        if ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() != static::COUNTRY_CODE_GB) {
+            return $this->deliveryServiceService->getDeliveryServicesForCountry();
+        }
+
+        return $this->deliveryServiceService->getDomesticDeliveryServices();
     }
 
     public function generateManifest(Account $account)
@@ -73,7 +88,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     public function setLogger(LoggerInterface $logger)
     {
-        // TODO: Implement setLogger() method.
+        $this->logger = $logger;
     }
 
     public function updateShipment(ShipmentInterface $shipment)

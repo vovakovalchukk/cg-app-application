@@ -2,9 +2,7 @@
 namespace CG\UkMail;
 
 use CG\CourierAdapter\DeliveryServiceInterface;
-use CG\CourierAdapter\OperationFailed;
 use CG\CourierAdapter\ShipmentInterface;
-use CG\CourierAdapter\UserError;
 
 class DeliveryService implements DeliveryServiceInterface
 {
@@ -20,6 +18,15 @@ class DeliveryService implements DeliveryServiceInterface
         $this->reference = $reference;
         $this->displayName = $displayName;
         $this->domestic = $domestic;
+    }
+
+    public static function fromArray(array $array): DeliveryService
+    {
+        return new static(
+            $array['reference'],
+            $array['displayName'],
+            $array['domestic']
+        );
     }
 
     public function getDisplayName()
@@ -51,5 +58,10 @@ class DeliveryService implements DeliveryServiceInterface
     {
         $shipmentDetails['deliveryService'] = $this;
         return Shipment::fromArray($shipmentDetails);
+    }
+
+    public function isDomesticService(): bool
+    {
+        return $this->domestic;
     }
 }
