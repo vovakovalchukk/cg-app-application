@@ -5,58 +5,157 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\PackageInterface;
+use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
+use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
+use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\ShipmentInterface;
+use CG\UkMail\Shipment\Package;
 
-class Shipment implements ShipmentInterface
+class Shipment implements
+    ShipmentInterface,
+    CollectionAddressInterface,
+    DeliveryInstructionsInterface,
+    CollectionDateInterface,
+    PackagesInterface
 {
+    /** @var DeliveryServiceInterface */
+    protected $deliveryService;
+    /** @var string */
+    protected $customerReference;
+    /** @var Account */
+    protected $account;
+    /** @var AddressInterface */
+    protected $deliveryAddress;
+    /** @var string */
+    protected $courierReference;
+    /** @var AddressInterface */
+    protected $collectionAddress;
+    /** @var string */
+    protected $deliveryInstructions;
+    /** @var DateTime */
+    protected $collectionDate;
+    /** @var PackageInterface[] */
+    protected $packages;
+
+    public function __construct(
+        DeliveryServiceInterface $deliveryService,
+        string $customerReference,
+        Account $account,
+        AddressInterface $deliveryAddress,
+        ?AddressInterface $collectionAddress = null,
+        ?string $deliveryInstructions = null,
+        ?DateTime $collectionDate = null,
+        array $packages = []
+    ) {
+        $this->deliveryService = $deliveryService;
+        $this->customerReference = $customerReference;
+        $this->account = $account;
+        $this->deliveryAddress = $deliveryAddress;
+        $this->collectionAddress = $collectionAddress;
+        $this->deliveryInstructions = $deliveryInstructions;
+        $this->collectionDate = $collectionDate;
+        $this->packages = $packages;
+    }
 
     public static function fromArray(array $array): Shipment
     {
-        return new static();
+        return new static(
+            $array['deliveryService'],
+            $array['customerReference'],
+            $array['account'],
+            $array['deliveryAddress'],
+            $array['collectionAddress'] ?? null,
+            $array['deliveryInstructions'] ?? null,
+            $array['collectionDateTime'] ?? null,
+            $array['packages'] ?? []
+        );
     }
 
     public function isCancellable()
     {
-        // TODO: Implement isCancellable() method.
+        return true;
     }
 
     public function isAmendable()
     {
-        // TODO: Implement isAmendable() method.
+        return false;
     }
 
     public function getCustomerReference()
     {
-        // TODO: Implement getCustomerReference() method.
+        return $this->customerReference;
     }
 
     public function getCourierReference()
     {
-        // TODO: Implement getCourierReference() method.
+        return $this->courierReference;
     }
 
     public function getAccount()
     {
-        // TODO: Implement getAccount() method.
+        return $this->account;
     }
 
     public function getDeliveryAddress()
     {
-        // TODO: Implement getDeliveryAddress() method.
+        return $this->deliveryAddress;
     }
 
     public function getDeliveryService()
     {
-        // TODO: Implement getDeliveryService() method.
+        return $this->deliveryService;
     }
 
     public function getLabels()
     {
-        // TODO: Implement getLabels() method.
+        $labels = [];
+        foreach ($this->packages as $package) {
+            if (!$package->getLabel()) {
+                continue;
+            }
+            $labels[] = $package->getLabel();
+        }
+        return $labels;
     }
 
     public function getTrackingReferences()
     {
-        // TODO: Implement getTrackingReferences() method.
+        $references = [];
+        foreach ($this->packages as $package) {
+            $references[] = $package->getTrackingReference();
+        }
+        return $references;
+    }
+
+    public function getCollectionAddress()
+    {
+        return $this->collectionAddress;
+    }
+
+    public function getCollectionDate()
+    {
+        return $this->collectionDate;
+    }
+
+    public function getDeliveryInstructions()
+    {
+        return $this->deliveryInstructions;
+    }
+
+    public function getPackages()
+    {
+        return $this->packages;
+    }
+
+    public static function getPackageClass()
+    {
+        return Package::class;
+    }
+
+    public static function createPackage(array $packageDetails)
+    {
+        return Package::fromArray($packageDetails);
     }
 }
