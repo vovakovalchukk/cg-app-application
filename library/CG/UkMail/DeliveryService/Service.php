@@ -6,8 +6,13 @@ use CG\UkMail\DeliveryService;
 
 class Service
 {
+    protected const COUNTRY_CODE_GB = 'GB';
+
     /** @var DeliveryServiceInterface[] */
     protected $deliveryServices;
+
+    protected $domesticServices = [];
+    protected $internationalServices = [];
 
     public function __construct(array $servicesConfig = [])
     {
@@ -30,32 +35,13 @@ class Service
         return $this->deliveryServices[$reference];
     }
 
-    public function getDeliveryServicesForCountry(): array
+    public function getDeliveryServicesForCountry(string $countryCode): array
     {
-        $allServices = $this->getDeliveryServices();
-        $countryServices = [];
-        /** @var DeliveryService $deliveryService */
-        foreach ($allServices as $deliveryService) {
-            if ($deliveryService->isDomesticService()) {
-                continue;
-            }
-            $countryServices[$deliveryService->getReference()] = $deliveryService;
+        if ($countryCode == static::COUNTRY_CODE_GB) {
+            return $this->domesticServices;
         }
-        return $countryServices;
-    }
 
-    public function getDomesticDeliveryServices(): array
-    {
-        $allServices = $this->getDeliveryServices();
-        $domesticServices = [];
-        /** @var DeliveryService $deliveryService */
-        foreach ($allServices as $deliveryService) {
-            if (!$deliveryService->isDomesticService()) {
-                continue;
-            }
-            $domesticServices[$deliveryService->getReference()] = $deliveryService;
-        }
-        return $domesticServices;
+        return $this->internationalServices;
     }
 
     protected function buildServices(array $servicesConfig)
@@ -66,6 +52,13 @@ class Service
             $config['displayName'] = $service['displayName'];
             $config['domestic'] = $service['domestic'];
             $this->deliveryServices[$config['reference']] = DeliveryService::fromArray($config);
+
+            if ($this->deliveryServices[$config['reference']]->isDomesticService()) {
+                $this->domesticServices[$config['reference']] = $this->deliveryServices[$config['reference']];
+                continue;
+            }
+
+            $this->internationalServices[$config['reference']] = $this->deliveryServices[$config['reference']];
         }
     }
 }

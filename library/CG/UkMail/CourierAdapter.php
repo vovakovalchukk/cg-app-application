@@ -12,9 +12,9 @@ use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterfac
 use CG\CourierAdapter\Manifest\ManifestInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
-use Psr\Log\LoggerInterface;
 use CG\UkMail\Credentials\FormFactory as CredentialsFormFactory;
 use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
+use Psr\Log\LoggerInterface;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface
 {
@@ -64,16 +64,14 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        return $this->deliveryServiceService->getDeliveryServicesForCountry();
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        if ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() != static::COUNTRY_CODE_GB) {
-            return $this->deliveryServiceService->getDeliveryServicesForCountry();
-        }
-
-        return $this->deliveryServiceService->getDomesticDeliveryServices();
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     public function generateManifest(Account $account)
