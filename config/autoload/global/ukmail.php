@@ -1,10 +1,16 @@
 <?php
 
+use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
 
 return [
     'di' => [
         'instance' => [
+            AuthenticateService::class => [
+                'parameters' => [
+                    'predisClient' => 'reliable_redis'
+                ],
+            ],
             DeliveryServiceService::class => [
                 'parameters' => [
                     'servicesConfig' => [

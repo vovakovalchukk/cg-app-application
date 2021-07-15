@@ -17,6 +17,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\UkMail\Request\Rest\Authenticate;
 use CG\UkMail\Response\AbstractRestResponse;
+use CG\UkMail\Authenticate\Service as AuthenticateService;
 
 /** @var Di $di */
 return [
@@ -193,19 +194,26 @@ return [
 
             $caAccount = $caAccountMapper->fromOHAccount($account);
 
-            print_r($caAccount);
+//            print_r($caAccount);
 
-            $authRequest = new Authenticate(
-                $caAccount->getCredentials()['apiKey'],
-                $caAccount->getCredentials()['username'],
-                $caAccount->getCredentials()['password']
-            );
+//            $authRequest = new Authenticate(
+//                $caAccount->getCredentials()['apiKey'],
+//                $caAccount->getCredentials()['username'],
+//                $caAccount->getCredentials()['password']
+//            );
+//
+//            $client = $clientFactory($caAccount, $authRequest);
+//
+//            $resposne = $client->sendRequest($authRequest);
+//
+//            print_r($resposne);
 
-            $client = $clientFactory($caAccount, $authRequest);
+            /** @var AuthenticateService $authenticateService */
+            $authenticateService = $di->newInstance(AuthenticateService::class);
 
-            $resposne = $client->sendRequest($authRequest);
+            $token = $authenticateService->getAuthenticationToken($caAccount);
 
-            print_r($resposne);
+            echo "TOKEN ".$token."\n";
 
         },
         'arguments' => [

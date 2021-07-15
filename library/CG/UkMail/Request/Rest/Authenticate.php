@@ -27,14 +27,10 @@ class Authenticate extends AbstractRequest implements RequestInterface
     public function getOptions(array $defaultOptions = []): array
     {
         $options = parent::getOptions($defaultOptions);
-        $ret = [
+        return [
             'headers' => array_merge($options['headers'] ?? [], $this->getHeaders()),
             'query' => array_merge($options['query'] ?? [], $this->getQuery())
         ];
-
-        print_r($ret);
-
-        return $ret;
     }
 
     public function getResponseClass(): string

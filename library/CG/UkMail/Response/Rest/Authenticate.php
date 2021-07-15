@@ -20,8 +20,6 @@ class Authenticate extends AbstractRestResponse implements ResponseInterface
 
     public static function createResponse($response): ResponseInterface
     {
-        print_r($response);
-
         $body = $response[0];
         $authenticationToken = $body['authenticationToken'];
 

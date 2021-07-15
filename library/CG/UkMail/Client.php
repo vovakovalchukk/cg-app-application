@@ -8,14 +8,10 @@ use CG\Stdlib\Log\LogTrait;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\BadResponseException as GuzzleBadResponseException;
 use GuzzleHttp\Exception\RequestException as ClientRequestException;
-use GuzzleHttp\Message\Request as ClientRequest;
-use GuzzleHttp\Message\Response as ClientResponse;
 use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
 use CG\UkMail\Response\ResponseInterface;
 use CG\UkMail\Request\RequestInterface;
-use CG\UkMail\Response\AbstractRestResponse;
-use CG\UkMail\Response\AbstractSoapResponse;
 
 class Client implements LoggerAwareInterface
 {
