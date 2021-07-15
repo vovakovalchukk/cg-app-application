@@ -12,6 +12,12 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use CG\User\UserInterface;
+use CG\Account\Client\Service as AccountService;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\UkMail\Request\Rest\Authenticate;
+use CG\UkMail\Response\AbstractRestResponse;
+
 /** @var Di $di */
 return [
     'adhoc:migrateRoyalMailClickAndDrop' => [
@@ -103,5 +109,108 @@ return [
             ],
         ],
         'options' => [],
+    ],
+
+
+    'adhoc:testUkMail' => [
+        'description' => '',
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
+
+            $organisationUnitId = 2;
+            $di->instanceManager()->addSharedInstance(
+                new class($organisationUnitId) implements ActiveUserInterface
+                {
+                    /** @var int */
+                    protected $organisationUnitId;
+                    /** @var ?User */
+                    protected $activeUser;
+
+                    public function __construct(int $organisationUnitId)
+                    {
+                        $this->organisationUnitId = $organisationUnitId;
+                    }
+
+                    public function getActiveUser()
+                    {
+                        return $this->activeUser;
+                    }
+
+                    public function setActiveUser(UserInterface $activeUser)
+                    {
+                        $this->activeUser = $activeUser;
+                        return $this;
+                    }
+
+                    public function getActiveUserRootOrganisationUnitId()
+                    {
+                        return $this->getCompanyId();
+                    }
+
+                    public function isAdmin()
+                    {
+                        return false;
+                    }
+
+                    public function getCompanyId()
+                    {
+                        return $this->getCompanyId();
+                    }
+
+                    public function getLocale(): string
+                    {
+                        return 'gb_UK';
+                    }
+
+                    public function setLocale(string $locale)
+                    {
+                        // TODO: Implement setLocale() method.
+                    }
+
+                    public function getTimezone(): string
+                    {
+                        return 'Europe/London';
+                    }
+
+                    public function setTimezone(string $timezone)
+                    {
+                        // TODO: Implement setTimezone() method.
+                    }
+                },
+                ActiveUserInterface::class
+            );
+
+            /** @var \CG\Account\Client\Service $accountService */
+            $accountService = $di->newInstance(AccountService::class);
+
+            $account = $accountService->fetch(20);
+
+//            print_r($account);
+
+            /** @var \CG\UkMail\Client\Factory $clientFactory */
+            $clientFactory = $di->newInstance(CG\UkMail\Client\Factory::class);
+            /** @var CAAccountMapper $caAccountMapper */
+            $caAccountMapper = $di->get(CAAccountMapper::class);
+
+            $caAccount = $caAccountMapper->fromOHAccount($account);
+
+            print_r($caAccount);
+
+            $authRequest = new Authenticate(
+                $caAccount->getCredentials()['apiKey'],
+                $caAccount->getCredentials()['username'],
+                $caAccount->getCredentials()['password']
+            );
+
+            $client = $clientFactory($caAccount, $authRequest);
+
+            $resposne = $client->sendRequest($authRequest);
+
+            print_r($resposne);
+
+        },
+        'arguments' => [
+        ],
+        'options' => [],
     ]
+
 ];
