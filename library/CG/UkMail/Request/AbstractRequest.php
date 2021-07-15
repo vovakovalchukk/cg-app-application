@@ -15,6 +15,8 @@ abstract class AbstractRequest
 
     public function getOptions(array $defaultOptions = []): array
     {
+
+
         return $defaultOptions;
     }
 }

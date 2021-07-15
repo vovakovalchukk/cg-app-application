@@ -8,6 +8,8 @@ class Authenticate extends AbstractRestResponse implements ResponseInterface
 {
     public static function createResponse($response)
     {
+        print_r($response);
+
         // TODO: Implement createFromArray() method.
     }
 }

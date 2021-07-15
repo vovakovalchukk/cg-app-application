@@ -6,12 +6,17 @@ use CG\UkMail\Response\Rest\Authenticate as Response;
 
 class Authenticate extends AbstractRequest implements RequestInterface
 {
-    protected const METHOD = 'GET';
     protected const URI = 'gateway/SSOAuthenticationAPI/1.0/ssoAuth/users/authenticate';
 
-    public function getMethod(): string
+    protected $apiKey;
+    protected $username;
+    protected $password;
+
+    public function __construct(string $apiKey, string $username, string $password)
     {
-        return static::METHOD;
+        $this->apiKey = $apiKey;
+        $this->username = $username;
+        $this->password = $password;
     }
 
     public function getUri(): string
@@ -22,12 +27,9 @@ class Authenticate extends AbstractRequest implements RequestInterface
     public function getOptions(array $defaultOptions = []): array
     {
         $options = parent::getOptions($defaultOptions);
-
         $options['headers'] = $this->getHeaders();
         $options['query'] = $this->getQuery();
-
         return $options;
-
     }
 
     public function getResponseClass(): string
@@ -37,13 +39,50 @@ class Authenticate extends AbstractRequest implements RequestInterface
 
     protected function getHeaders(): array
     {
-        return [];
+        return [
+            'Accept' => 'application/json',
+            'x-api-key' => $this->apiKey
+        ];
     }
 
     protected function getQuery(): array
     {
         return [
-
+            'username' => $this->username,
+            'password' => $this->password
         ];
+    }
+
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): Authenticate
+    {
+        $this->apiKey = $apiKey;
+        return $this;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): Authenticate
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): Authenticate
+    {
+        $this->password = $password;
+        return $this;
     }
 }

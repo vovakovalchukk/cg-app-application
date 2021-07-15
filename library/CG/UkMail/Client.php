@@ -59,18 +59,18 @@ class Client implements LoggerAwareInterface
         );
     }
 
-    protected function getRequestHeaders(RequestInterface $request): array
-    {
-        $defaultOptions = [
-            'headers' => ['Accept' => 'application/json'],
-        ];
-
+//    protected function getRequestHeaders(RequestInterface $request): array
+//    {
+//        $defaultOptions = [
+//            'headers' => ['Accept' => 'application/json'],
+//        ];
+//
 //        $credentials = $this->account->getCredentials();
 //        return [
 //            'Content-Type' => 'text/xml',
 //            'Authorization' => 'Basic ' . base64_encode($credentials['username'].':'.$credentials['password']),
 //        ];
-    }
+//    }
 
     protected function buildResponse(RequestInterface $request, GuzzleResponse $response): ResponseInterface
     {
