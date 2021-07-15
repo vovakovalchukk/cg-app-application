@@ -5,7 +5,7 @@ abstract class AbstractPostRequest extends AbstractRequest
 {
     protected const METHOD = 'POST';
 
-    public function getMethod()
+    public function getMethod(): string
     {
         return static::METHOD;
     }

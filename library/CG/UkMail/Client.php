@@ -51,20 +51,25 @@ class Client implements LoggerAwareInterface
         return $this->guzzleClient->createRequest(
             $request->getMethod(),
             $request->getUri(),
-            [
-                'headers' => $this->getRequestHeaders(),
-                'body' => $request->asXML()
-            ]
+            $request->getOptions()
+//            [
+//                'headers' => $this->getRequestHeaders(),
+//                'body' => $request->asXML()
+//            ]
         );
     }
 
-    protected function getRequestHeaders(): array
+    protected function getRequestHeaders(RequestInterface $request): array
     {
-        $credentials = $this->account->getCredentials();
-        return [
-            'Content-Type' => 'text/xml',
-            'Authorization' => 'Basic ' . base64_encode($credentials['username'].':'.$credentials['password']),
+        $defaultOptions = [
+            'headers' => ['Accept' => 'application/json'],
         ];
+
+//        $credentials = $this->account->getCredentials();
+//        return [
+//            'Content-Type' => 'text/xml',
+//            'Authorization' => 'Basic ' . base64_encode($credentials['username'].':'.$credentials['password']),
+//        ];
     }
 
     protected function buildResponse(RequestInterface $request, GuzzleResponse $response): ResponseInterface
