@@ -9,7 +9,10 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\BadResponseException as GuzzleBadResponseException;
 use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
-use CG\UkMail\Response\Rest\ResponseInterface;
+use CG\UkMail\Response\ResponseInterface;
+use CG\UkMail\Request\RequestInterface;
+use CG\UkMail\Response\AbstractRestResponse;
+use CG\UkMail\Response\AbstractSoapResponse;
 
 class Client implements LoggerAwareInterface
 {
@@ -67,10 +70,20 @@ class Client implements LoggerAwareInterface
     protected function buildResponse(RequestInterface $request, GuzzleResponse $response): ResponseInterface
     {
         try {
-            $responseBody = $response->json();
             /** @var ResponseInterface $responseClass */
             $responseClass = $request->getResponseClass();
-            return $responseClass::createFromArray($responseBody);
+
+            if ($responseClass instanceof AbstractRestResponse) {
+                $responseBody = $response->json();
+                return $responseClass::createResponse($responseBody);
+            }
+
+            if ($responseClass instanceof AbstractSoapResponse) {
+                $responseBody = $response->getBody(true);
+                return $responseClass::createResponse($responseBody);
+            }
+
+            throw new \RuntimeException('Incorrect Response Class '.get_class($responseClass));
         } catch (\Exception $e) {
             throw new StorageException('Invalid API response', $e->getCode(), $e);
         }

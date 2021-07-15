@@ -1,10 +1,9 @@
 <?php
-namespace CG\UkMail;
+namespace CG\UkMail\Request;
 
 interface RequestInterface
 {
     public function getMethod(): string;
     public function getUri(): string;
-    public function asJson(): string;
     public function getResponseClass(): string;
 }

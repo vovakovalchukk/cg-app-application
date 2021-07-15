@@ -1,12 +1,12 @@
 <?php
 namespace CG\UkMail\Response\Rest;
 
-use CG\UkMail\ResponseInterface;
+use CG\UkMail\Response\AbstractRestResponse;
+use CG\UkMail\Response\ResponseInterface;
 
-class Authenticate implements ResponseInterface
+class Authenticate extends AbstractRestResponse implements ResponseInterface
 {
-
-    public static function createFromArray(array $response)
+    public static function createResponse($response)
     {
         // TODO: Implement createFromArray() method.
     }
