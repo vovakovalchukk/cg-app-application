@@ -16,6 +16,7 @@ use CG\User\UserInterface;
 use CG\Account\Client\Service as AccountService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\UkMail\Request\Rest\Authenticate;
+use CG\UkMail\Request\Rest\Collection as CollectionRequest;
 use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 
@@ -214,6 +215,23 @@ return [
             $token = $authenticateService->getAuthenticationToken($caAccount);
 
             echo "TOKEN ".$token."\n";
+
+            $collectionRequest = new CollectionRequest(
+                $caAccount->getCredentials()['apiKey'],
+                $caAccount->getCredentials()['username'],
+                $token,
+                $collectionDate,
+                $closedForLunch,
+                $earliestTime,
+                $latestTime,
+                $specialInstructions
+            );
+
+            $client = $clientFactory($caAccount, $collectionRequest);
+
+            $resposne = $client->sendRequest($collectionRequest);
+
+            print_r($resposne);
 
         },
         'arguments' => [
