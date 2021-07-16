@@ -2,6 +2,7 @@
 namespace CG\UkMail;
 
 use CG\CourierAdapter\Account;
+use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
@@ -16,7 +17,7 @@ use CG\UkMail\Credentials\FormFactory as CredentialsFormFactory;
 use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
 use Psr\Log\LoggerInterface;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface, ConfigInterface
 {
     public const FEATURE_FLAG = 'UK Mail DHL Parcel UK';
 
@@ -45,6 +46,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function cancelShipment(ShipmentInterface $shipment)
     {
         // TODO: Implement cancelShipment() method.
+    }
+
+    public function updateShipment(ShipmentInterface $shipment)
+    {
+        // TODO: Implement updateShipment() method.
     }
 
     public function fetchDeliveryServices()
@@ -81,16 +87,16 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     public function getCredentialsForm()
     {
-        return ($this->credentialsFormFactory)();
+        return $this->credentialsFormFactory->getCredentialsForm();
+    }
+
+    public function getConfigForm()
+    {
+        return $this->credentialsFormFactory->getConfigForm();
     }
 
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-    }
-
-    public function updateShipment(ShipmentInterface $shipment)
-    {
-        // TODO: Implement updateShipment() method.
     }
 }

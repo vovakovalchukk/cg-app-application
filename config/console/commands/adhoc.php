@@ -195,7 +195,7 @@ return [
 
             $caAccount = $caAccountMapper->fromOHAccount($account);
 
-//            print_r($caAccount);
+            print_r($caAccount);
 
 //            $authRequest = new Authenticate(
 //                $caAccount->getCredentials()['apiKey'],
@@ -220,11 +220,12 @@ return [
                 $caAccount->getCredentials()['apiKey'],
                 $caAccount->getCredentials()['username'],
                 $token,
-                $collectionDate,
-                $closedForLunch,
-                $earliestTime,
-                $latestTime,
-                $specialInstructions
+                $caAccount->getCredentials()['accountNumber'],
+                (new DateTime())->setDate(2021,07, 19)->format('Y-m-d'),
+                $caAccount->getConfig()['closedForLunch'] ?? false,
+                $caAccount->getConfig()['earliestTime'] ?? '09:00',
+                $caAccount->getConfig()['latestTime'] ?? '17:00',
+                $caAccount->getConfig()['specialInstructions'] ?? ''
             );
 
             $client = $clientFactory($caAccount, $collectionRequest);

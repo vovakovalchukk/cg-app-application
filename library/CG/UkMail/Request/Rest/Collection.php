@@ -31,6 +31,7 @@ class Collection extends AbstractPostRequest implements RequestInterface
         string $apiKey,
         string $username,
         string $authenticationToken,
+        string $accountNumber,
         string $collectionDate,
         bool $closedForLunch,
         string $earliestTime,
@@ -40,6 +41,7 @@ class Collection extends AbstractPostRequest implements RequestInterface
         $this->apiKey = $apiKey;
         $this->username = $username;
         $this->authenticationToken = $authenticationToken;
+        $this->accountNumber = $accountNumber;
         $this->collectionDate = $collectionDate;
         $this->closedForLunch = $closedForLunch;
         $this->earliestTime = $earliestTime;
