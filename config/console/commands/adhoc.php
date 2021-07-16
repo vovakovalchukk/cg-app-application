@@ -216,23 +216,25 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-            $collectionRequest = new CollectionRequest(
-                $caAccount->getCredentials()['apiKey'],
-                $caAccount->getCredentials()['username'],
-                $token,
-                $caAccount->getCredentials()['accountNumber'],
-                (new DateTime())->setDate(2021,07, 19)->format('Y-m-d'),
-                $caAccount->getConfig()['closedForLunch'] ?? false,
-                $caAccount->getConfig()['earliestTime'] ?? '09:00',
-                $caAccount->getConfig()['latestTime'] ?? '17:00',
-                $caAccount->getConfig()['specialInstructions'] ?? ''
-            );
+//            $collectionRequest = new CollectionRequest(
+//                $caAccount->getCredentials()['apiKey'],
+//                $caAccount->getCredentials()['username'],
+//                $token,
+//                $caAccount->getCredentials()['accountNumber'],
+//                (new DateTime())->setDate(2021,07, 19)->format('Y-m-d'),
+//                $caAccount->getConfig()['closedForLunch'] ?? false,
+//                $caAccount->getConfig()['earliestTime'] ?? '09:00',
+//                $caAccount->getConfig()['latestTime'] ?? '17:00',
+//                $caAccount->getConfig()['specialInstructions'] ?? ''
+//            );
+//
+//            $client = $clientFactory($caAccount, $collectionRequest);
+//
+//            $resposne = $client->sendRequest($collectionRequest);
+//
+//            print_r($resposne);
 
-            $client = $clientFactory($caAccount, $collectionRequest);
-
-            $resposne = $client->sendRequest($collectionRequest);
-
-            print_r($resposne);
+            print_r((new \DateTime())->add(new \DateInterval('P1D')));
 
         },
         'arguments' => [
