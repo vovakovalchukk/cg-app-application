@@ -11,7 +11,10 @@ abstract class AbstractRequest
         return static::METHOD;
     }
 
-    abstract public function getUri(): string;
+    public function getUri(): string
+    {
+        return static::URI;
+    }
 
     public function getOptions(array $defaultOptions = []): array
     {

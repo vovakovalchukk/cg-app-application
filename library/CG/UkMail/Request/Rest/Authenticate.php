@@ -19,11 +19,6 @@ class Authenticate extends AbstractRequest implements RequestInterface
         $this->password = $password;
     }
 
-    public function getUri(): string
-    {
-        return static::URI;
-    }
-
     public function getOptions(array $defaultOptions = []): array
     {
         $options = parent::getOptions($defaultOptions);

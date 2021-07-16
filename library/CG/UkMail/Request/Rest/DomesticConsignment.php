@@ -2,11 +2,11 @@
 namespace CG\UkMail\Request\Rest;
 
 use CG\UkMail\Request\AbstractPostRequest;
-use CG\UkMail\Response\Rest\Collection as Response;
+use CG\UkMail\Response\Rest\DomesticConsignment as Response;
 
-class Collection extends AbstractPostRequest implements RequestInterface
+class DomesticConsignment extends AbstractPostRequest implements RequestInterface
 {
-    protected const URI = 'v1/collection/collectionrequests';
+    protected const URI = 'gateway/DomesticConsignment/1.0/DomesticConsignment';
 
     /** @var string */
     protected $apiKey;
@@ -17,36 +17,51 @@ class Collection extends AbstractPostRequest implements RequestInterface
     /** @var string */
     protected $accountNumber;
     /** @var string */
-    protected $collectionDate;
+    protected $collectionJobNumber;
+
+    //@todo address for delivery and recipient
+    /** @var Address[] */
+    protected $deliveryDetails;
+    /** @var string */
+    protected $serviceKey;
+    /** @var int */
+    protected $items;
+    /** @var int */
+    protected $totalWeight;
+    /** @var string */
+    protected $customerReference;
+    /** @var string */
+    protected $alternativeReference;
+
+    //@todo parcel object
+    /** @var Parcel[] */
+    protected $parcels;
+    /** @var int */
+    protected $extendedCoverUnits;
     /** @var bool */
-    protected $closedForLunch;
+    protected $exchangeOnDelivery;
+    /** @var bool */
+    protected $bookin;
+    /** @var bool */
+    protected $inBoxReturn;
+    //@todo not required
+    /** @var InBoxReturnDetail */
+    protected $inboxReturnDetail;
     /** @var string */
-    protected $earliestTime;
-    /** @var string */
-    protected $latestTime;
-    /** @var string */
-    protected $specialInstructions;
+    protected $labelFormat;
 
     public function __construct(
         string $apiKey,
         string $username,
         string $authenticationToken,
         string $accountNumber,
-        string $collectionDate,
-        bool $closedForLunch,
-        string $earliestTime,
-        string $latestTime,
-        string $specialInstructions
+        string $collectionJobNumber
     ) {
         $this->apiKey = $apiKey;
         $this->username = $username;
         $this->authenticationToken = $authenticationToken;
         $this->accountNumber = $accountNumber;
-        $this->collectionDate = $collectionDate;
-        $this->closedForLunch = $closedForLunch;
-        $this->earliestTime = $earliestTime;
-        $this->latestTime = $latestTime;
-        $this->specialInstructions = $specialInstructions;
+        $this->collectionJobNumber = $collectionJobNumber;
     }
 
     protected function getBody(): array
@@ -55,17 +70,29 @@ class Collection extends AbstractPostRequest implements RequestInterface
             'userName' => $this->getUsername(),
             'authenticationToken' => $this->getAuthenticationToken(),
             'accountNumber' => $this->getAccountNumber(),
-            'collectionDate' => $this->getCollectionDate(),
-            'closedForLunch' => $this->isClosedForLunch(),
-            'earliestTime' => $this->getEarliestTime(),
-            'latestTime' => $this->getLatestTime(),
-            'specialInstructions' => $this->getSpecialInstructions(),
+            'collectionInfo' => [
+                'collectionJobNumber' => '',
+            ],
+            'delivery' => '', //address->toArray()
+            'serviceKey' => '',
+            'items' => '',
+            'totalWeight' => '', //weight in whole Kg
+            'customerReference' => '',
+//            'alternativeReference' => null
+            'parcels' => '', //parcels->toArray();
+//            'extendedCoverUnits' => 0,
+            'recipient' => '', //address->toArray()
+//            'exchangeOnDelivery' => '',
+//            'bookin' => '',
+//            'inBoxReturn' => '',
+//            'inboxReturnDetail' => '',
+            'labelFormat' => '',
         ];
     }
 
     public function getResponseClass(): string
     {
-        return Response::class;
+        // TODO: Implement getResponseClass() method.
     }
 
     protected function getHeaders(): array
@@ -126,61 +153,6 @@ class Collection extends AbstractPostRequest implements RequestInterface
     public function setAccountNumber(string $accountNumber): Collection
     {
         $this->accountNumber = $accountNumber;
-        return $this;
-    }
-
-    public function getCollectionDate(): string
-    {
-        return $this->collectionDate;
-    }
-
-    public function setCollectionDate(string $collectionDate): Collection
-    {
-        $this->collectionDate = $collectionDate;
-        return $this;
-    }
-
-    public function isClosedForLunch(): bool
-    {
-        return $this->closedForLunch;
-    }
-
-    public function setClosedForLunch(bool $closedForLunch): Collection
-    {
-        $this->closedForLunch = $closedForLunch;
-        return $this;
-    }
-
-    public function getEarliestTime(): string
-    {
-        return $this->earliestTime;
-    }
-
-    public function setEarliestTime(string $earliestTime): Collection
-    {
-        $this->earliestTime = $earliestTime;
-        return $this;
-    }
-
-    public function getLatestTime(): string
-    {
-        return $this->latestTime;
-    }
-
-    public function setLatestTime(string $latestTime): Collection
-    {
-        $this->latestTime = $latestTime;
-        return $this;
-    }
-
-    public function getSpecialInstructions(): string
-    {
-        return $this->specialInstructions;
-    }
-
-    public function setSpecialInstructions(string $specialInstructions): Collection
-    {
-        $this->specialInstructions = $specialInstructions;
         return $this;
     }
 }

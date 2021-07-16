@@ -19,6 +19,7 @@ use CG\UkMail\Request\Rest\Authenticate;
 use CG\UkMail\Request\Rest\Collection as CollectionRequest;
 use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
+use CG\UkMail\Collection\Service as CollectionService;
 
 /** @var Di $di */
 return [
@@ -234,7 +235,15 @@ return [
 //
 //            print_r($resposne);
 
-            print_r((new \DateTime())->add(new \DateInterval('P1D')));
+//            print_r((new \DateTime())->add(new \DateInterval('P1D')));
+
+
+            /** @var CollectionService $collectionService */
+            $collectionService = $di->newInstance(CollectionService::class);
+
+            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, (new \DateTime())->setDate(2021, 7, 19));
+
+            echo "COLLECTION JOB NUMBER ".$collectionJobNumber."\n";
 
         },
         'arguments' => [
