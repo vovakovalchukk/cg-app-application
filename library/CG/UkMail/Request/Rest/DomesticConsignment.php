@@ -1,6 +1,8 @@
 <?php
 namespace CG\UkMail\Request\Rest;
 
+use CG\UkMail\DomesticConsignment\DeliveryInformation;
+use CG\UkMail\DomesticConsignment\Parcel;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as Response;
 
@@ -18,9 +20,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $accountNumber;
     /** @var string */
     protected $collectionJobNumber;
-
-    //@todo address for delivery and recipient
-    /** @var Address[] */
+    /** @var DeliveryInformation */
     protected $deliveryDetails;
     /** @var string */
     protected $serviceKey;
@@ -28,16 +28,15 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $items;
     /** @var int */
     protected $totalWeight;
-    /** @var string */
+    /** @var string|null */
     protected $customerReference;
-    /** @var string */
+    /** @var string|null */
     protected $alternativeReference;
-
-    //@todo parcel object
     /** @var Parcel[] */
     protected $parcels;
-    /** @var int */
+    /** @var int|null */
     protected $extendedCoverUnits;
+    protected $recipient;
     /** @var bool */
     protected $exchangeOnDelivery;
     /** @var bool */
@@ -55,32 +54,47 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         string $username,
         string $authenticationToken,
         string $accountNumber,
-        string $collectionJobNumber
+        string $collectionJobNumber,
+        DeliveryInformation $deliveryDetails,
+        string $serviceKey,
+        int $items,
+        int $totalWeight,
+        ?string $customerReference,
+        ?string $alternativeReference,
+        ?array $parcels,
+        ?int $extendedCoverUnits
     ) {
         $this->apiKey = $apiKey;
         $this->username = $username;
         $this->authenticationToken = $authenticationToken;
         $this->accountNumber = $accountNumber;
         $this->collectionJobNumber = $collectionJobNumber;
+        $this->deliveryDetails = $deliveryDetails;
+        $this->serviceKey = $serviceKey;
+        $this->items = $items;
+        $this->totalWeight = $totalWeight;
+        $this->customerReference = $customerReference;
+        $this->alternativeReference = $alternativeReference;
+        $this->parcels = $parcels;
+        $this->extendedCoverUnits = $extendedCoverUnits;
     }
 
     protected function getBody(): array
     {
-        return [
+        $body = [
             'userName' => $this->getUsername(),
             'authenticationToken' => $this->getAuthenticationToken(),
             'accountNumber' => $this->getAccountNumber(),
             'collectionInfo' => [
-                'collectionJobNumber' => '',
+                'collectionJobNumber' => $this->getCollectionJobNumber(),
             ],
-            'delivery' => '', //address->toArray()
-            'serviceKey' => '',
-            'items' => '',
-            'totalWeight' => '', //weight in whole Kg
-            'customerReference' => '',
-//            'alternativeReference' => null
-            'parcels' => '', //parcels->toArray();
-//            'extendedCoverUnits' => 0,
+            'delivery' => $this->getDeliveryDetails()->toArray(),
+            'serviceKey' => $this->getServiceKey(),
+            'items' => $this->getItems(),
+            'totalWeight' => $this->getTotalWeight(), //weight in whole Kg
+            'customerReference' => $this->getCustomerReference(),
+            'alternativeReference' => $this->getAlternativeReference(),
+            'extendedCoverUnits' => $this->getExtendedCoverUnits(),
             'recipient' => '', //address->toArray()
 //            'exchangeOnDelivery' => '',
 //            'bookin' => '',
@@ -88,6 +102,17 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
 //            'inboxReturnDetail' => '',
             'labelFormat' => '',
         ];
+
+        $parcels = $this->getParcels();
+        if (isset($parcels) && is_array($parcels)) {
+            $body['parcels'] = null;
+            /** @var Parcel $parcel */
+            foreach ($parcels as $parcel) {
+                $body['parcels'][] = $parcel->toArray();
+            }
+        }
+
+        return $body;
     }
 
     public function getResponseClass(): string
@@ -155,4 +180,112 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         $this->accountNumber = $accountNumber;
         return $this;
     }
+
+    public function getCollectionJobNumber(): string
+    {
+        return $this->collectionJobNumber;
+    }
+
+    public function setCollectionJobNumber(string $collectionJobNumber): DomesticConsignment
+    {
+        $this->collectionJobNumber = $collectionJobNumber;
+        return $this;
+    }
+
+    public function getDeliveryDetails(): DeliveryInformation
+    {
+        return $this->deliveryDetails;
+    }
+
+    public function setDeliveryDetails(DeliveryInformation $deliveryDetails): DomesticConsignment
+    {
+        $this->deliveryDetails = $deliveryDetails;
+        return $this;
+    }
+
+    public function getServiceKey(): string
+    {
+        return $this->serviceKey;
+    }
+
+    public function setServiceKey(string $serviceKey): DomesticConsignment
+    {
+        $this->serviceKey = $serviceKey;
+        return $this;
+    }
+
+    public function getItems(): int
+    {
+        return $this->items;
+    }
+
+    public function setItems(int $items): DomesticConsignment
+    {
+        $this->items = $items;
+        return $this;
+    }
+
+    public function getTotalWeight(): int
+    {
+        return $this->totalWeight;
+    }
+
+    public function setTotalWeight(int $totalWeight): DomesticConsignment
+    {
+        $this->totalWeight = $totalWeight;
+        return $this;
+    }
+
+    public function getCustomerReference(): ?string
+    {
+        return $this->customerReference;
+    }
+
+    public function setCustomerReference(?string $customerReference): DomesticConsignment
+    {
+        $this->customerReference = $customerReference;
+        return $this;
+    }
+
+    public function getAlternativeReference(): ?string
+    {
+        return $this->alternativeReference;
+    }
+
+    public function setAlternativeReference(?string $alternativeReference): DomesticConsignment
+    {
+        $this->alternativeReference = $alternativeReference;
+        return $this;
+    }
+
+    /**
+     * @return Parcel[]
+     */
+    public function getParcels(): ?array
+    {
+        return $this->parcels;
+    }
+
+    /**
+     * @param Parcel[] $parcels
+     * @return DomesticConsignment
+     */
+    public function setParcels(?array $parcels): DomesticConsignment
+    {
+        $this->parcels = $parcels;
+        return $this;
+    }
+
+    public function getExtendedCoverUnits(): ?int
+    {
+        return $this->extendedCoverUnits;
+    }
+
+    public function setExtendedCoverUnits(?int $extendedCoverUnits): DomesticConsignment
+    {
+        $this->extendedCoverUnits = $extendedCoverUnits;
+        return $this;
+    }
+
+
 }
