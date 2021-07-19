@@ -104,6 +104,9 @@ class Shipment implements
         return $this->deliveryAddress;
     }
 
+    /**
+     * @return DeliveryServiceInterface
+     */
     public function getDeliveryService()
     {
         return $this->deliveryService;
