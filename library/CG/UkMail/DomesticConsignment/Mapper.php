@@ -11,6 +11,7 @@ use CG\UkMail\Shipment\Package;
 use PhpUnitsOfMeasure\AbstractPhysicalQuantity;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use CG\CourierAdapter\Address as CAAddress;
+use CG\Locale\CountryNameByAlpha3Code;
 
 class Mapper
 {
@@ -18,6 +19,7 @@ class Mapper
     protected const LABEL_FORMAT_PNG6x4 = 'PNG6x4';
     protected const CONTACT_NUMBER_TYPE_PHONE = 'phone';
     protected const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
+    protected const ADDRESS_TYPE_DOORSTEP = 'doorstep';
 
     public function createDomesticConsignmentRequest(
         CourierAdapterAccount $account,
@@ -36,7 +38,7 @@ class Mapper
             $authToken,
             $account->getCredentials()['accountNumber'],
             $collectionJobNumber,
-            $deliveryDetails,
+            $this->getDeliveryDetails($shipment->getDeliveryAddress()),
             $shipment->getDeliveryService()->getReference(),
             count($packages),
             $this->getTotalWeight($packages),
@@ -53,8 +55,10 @@ class Mapper
         );
     }
 
-    protected function getDeliveryDetails(CAAddress $address)
+    protected function getDeliveryDetails(CAAddress $address): DeliveryInformation
     {
+        $deliveryAddresses[] = $this->getDeliveryAddress($address);
+
         return new DeliveryInformation(
             $this->getContactName($address),
             $address->getPhoneNumber(),
@@ -79,8 +83,8 @@ class Mapper
             $address->determineCityFromAddressLines(),
             $address->determineRegionFromAddressLines(),
             $address->getPostCode(),
-            $countryCode,
-            $addressType
+            CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode()),
+            static::ADDRESS_TYPE_DOORSTEP
         );
     }
 

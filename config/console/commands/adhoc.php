@@ -20,6 +20,7 @@ use CG\UkMail\Request\Rest\Collection as CollectionRequest;
 use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
+use CG\Locale\CountryNameByAlpha3Code;
 
 /** @var Di $di */
 return [
@@ -249,6 +250,24 @@ return [
         'arguments' => [
         ],
         'options' => [],
+    ],
+
+
+    'adhoc:testCountry' => [
+        'description' => '',
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
+
+            $res = CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code('');
+
+            print_r($res);
+            echo "\n";
+
+
+        },
+        'arguments' => [
+        ],
+        'options' => [],
     ]
+
 
 ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2de1ee7108ebd7f30ea51474e72d230e",
+    "content-hash": "d9c6bf5754c5b57b516b7e3cad12d1b1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2131,16 +2131,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.2.6",
+            "version": "dev-CGIV-11760-uk-mail-integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "a6d9b3e9309614c657dc7636f92a2d93fc07d046"
+                "reference": "9515218b46f62d263d5499f061c21b667198ef0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-1.2.6-70906e.zip",
-                "reference": "a6d9b3e9309614c657dc7636f92a2d93fc07d046"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/locale/channelgrabber-locale-dev-CGIV-11760-uk-mail-integration-af1edf.zip",
+                "reference": "9515218b46f62d263d5499f061c21b667198ef0f"
             },
             "require": {
                 "php": ">=7.1",
@@ -2163,7 +2163,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2021-03-26T09:51:38+00:00"
+            "time": "2021-07-19T15:54:53+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -12002,6 +12002,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.7",
+            "alias_normalized": "1.2.7.0",
+            "version": "dev-CGIV-11760-uk-mail-integration",
+            "package": "channelgrabber/locale"
+        },
+        {
             "alias": "1.27.11",
             "alias_normalized": "1.27.11.0",
             "version": "dev-CGIV-11760-uk-mail-integration",
@@ -12011,6 +12017,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
