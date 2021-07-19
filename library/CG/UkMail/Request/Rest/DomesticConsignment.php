@@ -3,6 +3,8 @@ namespace CG\UkMail\Request\Rest;
 
 use CG\UkMail\DomesticConsignment\DeliveryInformation;
 use CG\UkMail\DomesticConsignment\Parcel;
+use CG\UkMail\DomesticConsignment\Recipient;
+use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as Response;
 
@@ -36,16 +38,17 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $parcels;
     /** @var int|null */
     protected $extendedCoverUnits;
+    /** @var Recipient */
     protected $recipient;
-    /** @var bool */
+    /** @var bool|null */
     protected $exchangeOnDelivery;
-    /** @var bool */
+    /** @var bool|null */
     protected $bookin;
-    /** @var bool */
+    /** @var bool|null */
     protected $inBoxReturn;
     //@todo not required
-    /** @var InBoxReturnDetail */
-    protected $inboxReturnDetail;
+    /** @var InBoxReturnDetail|null */
+    protected $inBoxReturnDetail;
     /** @var string */
     protected $labelFormat;
 
@@ -62,7 +65,13 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         ?string $customerReference,
         ?string $alternativeReference,
         ?array $parcels,
-        ?int $extendedCoverUnits
+        ?int $extendedCoverUnits,
+        Recipient $recipient,
+        ?bool $exchangeOnDelivery,
+        ?bool $bookin,
+        ?bool $inBoxReturn,
+        ?InBoxReturnDetail $inBoxReturnDetail,
+        string $labelFormat
     ) {
         $this->apiKey = $apiKey;
         $this->username = $username;
@@ -77,6 +86,12 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         $this->alternativeReference = $alternativeReference;
         $this->parcels = $parcels;
         $this->extendedCoverUnits = $extendedCoverUnits;
+        $this->recipient = $recipient;
+        $this->exchangeOnDelivery = $exchangeOnDelivery;
+        $this->bookin = $bookin;
+        $this->inBoxReturn = $inBoxReturn;
+        $this->inBoxReturnDetail = $inBoxReturnDetail;
+        $this->labelFormat = $labelFormat;
     }
 
     protected function getBody(): array
@@ -95,12 +110,12 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
             'customerReference' => $this->getCustomerReference(),
             'alternativeReference' => $this->getAlternativeReference(),
             'extendedCoverUnits' => $this->getExtendedCoverUnits(),
-            'recipient' => '', //address->toArray()
-//            'exchangeOnDelivery' => '',
-//            'bookin' => '',
-//            'inBoxReturn' => '',
-//            'inboxReturnDetail' => '',
-            'labelFormat' => '',
+            'recipient' => $this->getRecipient()->toArray(),
+            'exchangeOnDelivery' => $this->isExchangeOnDelivery(),
+            'bookin' => $this->isBookin(),
+            'inBoxReturn' => $this->isInBoxReturn(),
+            'inboxReturnDetail' => $this->getInBoxReturnDetail() != null ? $this->getInBoxReturnDetail()->toArray() : null,
+            'labelFormat' => $this->getLabelFormat(),
         ];
 
         $parcels = $this->getParcels();
@@ -287,5 +302,69 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         return $this;
     }
 
+    public function getRecipient(): Recipient
+    {
+        return $this->recipient;
+    }
 
+    public function setRecipient(Recipient $recipient): DomesticConsignment
+    {
+        $this->recipient = $recipient;
+        return $this;
+    }
+
+    public function isExchangeOnDelivery(): ?bool
+    {
+        return $this->exchangeOnDelivery;
+    }
+
+    public function setExchangeOnDelivery(?bool $exchangeOnDelivery): DomesticConsignment
+    {
+        $this->exchangeOnDelivery = $exchangeOnDelivery;
+        return $this;
+    }
+
+    public function isBookin(): ?bool
+    {
+        return $this->bookin;
+    }
+
+    public function setBookin(?bool $bookin): DomesticConsignment
+    {
+        $this->bookin = $bookin;
+        return $this;
+    }
+
+    public function isInBoxReturn(): ?bool
+    {
+        return $this->inBoxReturn;
+    }
+
+    public function setInBoxReturn(?bool $inBoxReturn): DomesticConsignment
+    {
+        $this->inBoxReturn = $inBoxReturn;
+        return $this;
+    }
+
+    public function getInBoxReturnDetail(): ?InBoxReturnDetail
+    {
+        return $this->inBoxReturnDetail;
+    }
+
+    public function setInBoxReturnDetail(?InBoxReturnDetail $inBoxReturnDetail): DomesticConsignment
+    {
+        $this->inBoxReturnDetail = $inBoxReturnDetail;
+        return $this;
+    }
+
+    public function getLabelFormat(): string
+    {
+        return $this->labelFormat;
+    }
+
+    public function setLabelFormat(string $labelFormat): DomesticConsignment
+    {
+        $this->labelFormat = $labelFormat;
+        return $this;
+    }
 }
