@@ -132,7 +132,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
 
     public function getResponseClass(): string
     {
-        // TODO: Implement getResponseClass() method.
+        return Response::class;
     }
 
     protected function getHeaders(): array

@@ -12,6 +12,7 @@ use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\UkMail\Shipment\Package;
+use \DateTime;
 
 class Shipment implements
     ShipmentInterface,
