@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed2bd5be23c3297ea3b0d8cc95404d5a",
+    "content-hash": "dafc555ac6727299424762be5e9ef26e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.16",
+            "version": "dev-CGIV-11718-fba-skus-appearing-when-non-existing-on-products-page",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "42432eaf14bf85d6107357493882fbf8965c5954"
+                "reference": "3a644a98b41271e7e9779f3926dc568d4902087e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.16-55e5b9.zip",
-                "reference": "42432eaf14bf85d6107357493882fbf8965c5954",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11718-fba-skus-appearing-when-non-existing-on-products-page-30f0e1.zip",
+                "reference": "3a644a98b41271e7e9779f3926dc568d4902087e",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-06-28T13:57:02+00:00"
+            "time": "2021-07-19T08:31:12+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -10671,7 +10671,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12119,10 +12120,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.20.17",
+            "alias_normalized": "1.20.17.0",
+            "version": "dev-CGIV-11718-fba-skus-appearing-when-non-existing-on-products-page",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
