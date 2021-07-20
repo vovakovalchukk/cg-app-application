@@ -405,15 +405,32 @@ class Create extends PostAbstract
         // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
         $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
         $phoneNumberLength = strlen($phoneNumber);
+
         if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
             return static::DEFAULT_PHONE_NUMBER;
         }
+
+        return $this->sanitisePhoneNumber($phoneNumber, $phoneNumberLength);
+    }
+
+    protected function sanitisePhoneNumber(string $phoneNumber, int $phoneNumberLength): string
+    {
         $phoneNumber = $this->removeCharactersFromBeginningAndEnd($phoneNumber);
+        $phoneNumber = $this->removeSpecialCharactersFromNumber($phoneNumber);
 
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
+
         return $phoneNumber;
+    }
+
+    protected function removeSpecialCharactersFromNumber(string $phoneNumber): string
+    {
+        // add to the array below, the characters you'd like to remove from string
+        $specialCharacters = ['/'];
+
+        return str_replace($specialCharacters, '', $phoneNumber);
     }
 
     protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
