@@ -270,6 +270,8 @@ return [
 
             $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
 
+            print_r($domesticConsignmentResponse);
+
         },
         'arguments' => [
         ],
