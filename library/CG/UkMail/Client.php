@@ -41,7 +41,7 @@ class Client implements LoggerAwareInterface
         } catch (GuzzleBadResponseException $exception) {
             $this->logRequest($guzzleRequest, ($exception instanceof ClientRequestException ? $exception->getResponse() : null));
             $this->logException($exception, 'log:error', __NAMESPACE__);
-            throw new StorageException('Hermes API error', $exception->getCode(), $exception);
+            throw new StorageException('UK Mail API error', $exception->getCode(), $exception);
         }
     }
 

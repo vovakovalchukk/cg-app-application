@@ -15,6 +15,7 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\UkMail\Credentials\FormFactory as CredentialsFormFactory;
 use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
+use CG\UkMail\Shipment\Service as ShipmentService;
 use Psr\Log\LoggerInterface;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface, ConfigInterface
@@ -29,20 +30,22 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     protected $credentialsFormFactory;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
+    /** @var ShipmentService */
+    protected $shipmentService;
 
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
-        DeliveryServiceService $deliveryServiceService
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentService $shipmentService
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentService = $shipmentService;
     }
 
     public function bookShipment(ShipmentInterface $shipment)
     {
-        $this->logger->debug(print_r($shipment,1));
-
-        // TODO: Implement bookShipment() method.
+        return $this->shipmentService->bookShipment($shipment);
     }
 
     public function cancelShipment(ShipmentInterface $shipment)
