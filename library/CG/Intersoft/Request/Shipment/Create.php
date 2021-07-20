@@ -427,10 +427,9 @@ class Create extends PostAbstract
 
     protected function removeSpecialCharactersFromNumber(string $phoneNumber): string
     {
-        // add to the array below, the characters you'd like to remove from string
-        $specialCharacters = ['/'];
+        $whiteListedCharacters = ' 0-9-+\/';
 
-        return str_replace($specialCharacters, '', $phoneNumber);
+        return preg_replace('/[^' . $whiteListedCharacters . ']/', '', $phoneNumber);
     }
 
     protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
