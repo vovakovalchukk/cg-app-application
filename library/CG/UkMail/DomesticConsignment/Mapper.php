@@ -2,51 +2,52 @@
 namespace CG\UkMail\DomesticConsignment;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
+use CG\CourierAdapter\Address as CAAddress;
+use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\UkMail\Request\Rest\DomesticConsignment;
+use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
 use CG\UkMail\Shipment;
 use CG\UkMail\Shipment\Package;
-use PhpUnitsOfMeasure\AbstractPhysicalQuantity;
+use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
-use CG\CourierAdapter\Address as CAAddress;
-use CG\Locale\CountryNameByAlpha3Code;
 
 class Mapper
 {
     protected const WEIGHT_UNIT = 'kg';
+    protected const DIMENSION_UNIT = 'cm';
     protected const LABEL_FORMAT_PNG6x4 = 'PNG6x4';
     protected const CONTACT_NUMBER_TYPE_PHONE = 'phone';
     protected const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
     protected const ADDRESS_TYPE_DOORSTEP = 'doorstep';
+    protected const ADDRESS_TYPE_RESIDENTIAL = 'residential';
+    protected const PRE_DELIVERY_NOTIFICATION_EMAIL = 'email';
 
     public function createDomesticConsignmentRequest(
-        CourierAdapterAccount $account,
         Shipment $shipment,
         string $authToken,
         string $collectionJobNumber
-
-    ) {
-
+    ): DomesticConsignmentRequest {
+        $account = $shipment->getAccount();
         $packages = $shipment->getPackages();
+        $deliveryAddress = $shipment->getDeliveryAddress();
 
-
-        return new DomesticConsignment(
+        return new DomesticConsignmentRequest(
             $account->getCredentials()['apiKey'],
             $account->getCredentials()['username'],
             $authToken,
             $account->getCredentials()['accountNumber'],
             $collectionJobNumber,
-            $this->getDeliveryDetails($shipment->getDeliveryAddress()),
+            $this->getDeliveryDetails($deliveryAddress),
             $shipment->getDeliveryService()->getReference(),
             count($packages),
             $this->getTotalWeight($packages),
             $shipment->getCustomerReference(),
             null,
-            $parcels,
+            $this->getParcels($packages),
             null,
-            $recipient,
+            $this->getRecipient($deliveryAddress),
             false,
             false,
             false,
@@ -73,7 +74,7 @@ class Mapper
         return $address->getFirstName().' '.$address->getLastName();
     }
 
-    protected function getDeliveryAddress(CAAddress $address): Address
+    protected function getDeliveryAddress(CAAddress $address, bool $isRecipientAddress = false): Address
     {
         return new Address(
             $address->getCompanyName(),
@@ -84,7 +85,7 @@ class Mapper
             $address->determineRegionFromAddressLines(),
             $address->getPostCode(),
             CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode()),
-            static::ADDRESS_TYPE_DOORSTEP
+            $isRecipientAddress ? static::ADDRESS_TYPE_RESIDENTIAL : static::ADDRESS_TYPE_DOORSTEP
         );
     }
 
@@ -96,15 +97,48 @@ class Mapper
     protected function getTotalWeight(array $packages): int
     {
         $totalWeight = 0;
-
         foreach ($packages as $package) {
             $totalWeight += $this->convertWeight($package->getWeight());
         }
-        return celi($totalWeight);
+        return ceil($totalWeight);
     }
 
     protected function convertWeight(float $weight): float
     {
         return (new Mass($weight, ProductDetail::UNIT_MASS))->toUnit(static::WEIGHT_UNIT);
+    }
+
+    protected function convertDimension(float $dimension): float
+    {
+        return (new Length($dimension, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSION_UNIT);
+    }
+
+    /**
+     * @param Package[] $packages
+     * @return array
+     */
+    protected function getParcels(array $packages): array
+    {
+        $parcels = [];
+        foreach ($packages as $package) {
+            $parcels[] = new Parcel(
+                $this->convertDimension($package->getLength()),
+                $this->convertDimension($package->getWidth()),
+                $this->convertDimension($package->getHeight())
+            );
+        }
+
+        return $parcels;
+    }
+
+    protected function getRecipient(CAAddress $address): Recipient
+    {
+        return new Recipient(
+            $this->getContactName($address),
+            $address->getEmailAddress(),
+            $address->getPhoneNumber(),
+            $this->getDeliveryAddress($address, true),
+            static::PRE_DELIVERY_NOTIFICATION_EMAIL
+        );
     }
 }

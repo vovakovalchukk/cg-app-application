@@ -21,6 +21,12 @@ use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
 use CG\Locale\CountryNameByAlpha3Code;
+use CG\UkMail\DomesticConsignment\Service as DomesticConsignmentService;
+use CG\UkMail\Shipment as UkMailShipment;
+use CG\UkMail\DeliveryService as UkMailDeliveryService;
+use CG\CourierAdapter\Address as CAAddress;
+use CG\UkMail\Shipment\Package as UkMailPackage;
+use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
 
 /** @var Di $di */
 return [
@@ -199,18 +205,6 @@ return [
 
             print_r($caAccount);
 
-//            $authRequest = new Authenticate(
-//                $caAccount->getCredentials()['apiKey'],
-//                $caAccount->getCredentials()['username'],
-//                $caAccount->getCredentials()['password']
-//            );
-//
-//            $client = $clientFactory($caAccount, $authRequest);
-//
-//            $resposne = $client->sendRequest($authRequest);
-//
-//            print_r($resposne);
-
             /** @var AuthenticateService $authenticateService */
             $authenticateService = $di->newInstance(AuthenticateService::class);
 
@@ -218,33 +212,63 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-//            $collectionRequest = new CollectionRequest(
-//                $caAccount->getCredentials()['apiKey'],
-//                $caAccount->getCredentials()['username'],
-//                $token,
-//                $caAccount->getCredentials()['accountNumber'],
-//                (new DateTime())->setDate(2021,07, 19)->format('Y-m-d'),
-//                $caAccount->getConfig()['closedForLunch'] ?? false,
-//                $caAccount->getConfig()['earliestTime'] ?? '09:00',
-//                $caAccount->getConfig()['latestTime'] ?? '17:00',
-//                $caAccount->getConfig()['specialInstructions'] ?? ''
-//            );
-//
-//            $client = $clientFactory($caAccount, $collectionRequest);
-//
-//            $resposne = $client->sendRequest($collectionRequest);
-//
-//            print_r($resposne);
-
-//            print_r((new \DateTime())->add(new \DateInterval('P1D')));
-
+            $collectionDate = (new \DateTime())->setDate(2021, 7, 21);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
 
-            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, (new \DateTime())->setDate(2021, 7, 19));
+            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, $collectionDate);
 
             echo "COLLECTION JOB NUMBER ".$collectionJobNumber."\n";
+
+            /** @var DomesticConsignmentService $domesticConsignmentService */
+            $domesticConsignmentService = $di->newInstance(DomesticConsignmentService::class);
+
+            $deliveryService = new UkMailDeliveryService(
+                220,
+                'Parcels Next Day - deliver to neighbour - signature',
+                1
+            );
+
+            $deliveryAddress = new CAAddress(
+                '',
+                'Dominik',
+                'Gajewski',
+                '83 Bellott Street',
+                '',
+                '',
+                'Manchester',
+                'Greater Manchester',
+                'M8 0AZ',
+                'United Kingdom',
+                'GB',
+                'dominikgajewski1@gmail.com',
+                '07874619071'
+            );
+
+            $contents[] = new CAContent(
+                'Testing Chili Con Carne',
+                '56000000',
+                '',
+                'GB', 1, 1.5, 10, 'GBP',
+                'Testing Chili Con Carne',
+                '',
+                'cgiv-9628-chili-con-carne'
+            );
+            $packages[] = new UkMailPackage(1, 1.5, 0.22, 0.22, 0.22, $contents);
+
+            $shipment = new UkMailShipment(
+                $deliveryService,
+                36,
+                $caAccount,
+                $deliveryAddress,
+                null,
+                null,
+                $collectionDate,
+                $packages
+            );
+
+            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
 
         },
         'arguments' => [
