@@ -20,8 +20,12 @@ class FormFactory
             "label" => "Password"
         ]))->setAttribute('required', true));
 
-        $form->add((new Element("accountNumber", [
-            "label" => "Account Number"
+        $form->add((new Element("domesticAccountNumber", [
+            "label" => "Domestic Account Number"
+        ]))->setAttribute('required', true));
+
+        $form->add((new Element("intlAccountNumber", [
+            "label" => "International Account Number"
         ]))->setAttribute('required', true));
 
         $form->add((new Element("apiKey", [

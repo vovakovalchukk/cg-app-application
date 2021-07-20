@@ -37,7 +37,7 @@ class Mapper
             $account->getCredentials()['apiKey'],
             $account->getCredentials()['username'],
             $authToken,
-            $account->getCredentials()['accountNumber'],
+            $account->getCredentials()['domesticAccountNumber'],
             $collectionJobNumber,
             $this->getDeliveryDetails($deliveryAddress),
             $shipment->getDeliveryService()->getReference(),

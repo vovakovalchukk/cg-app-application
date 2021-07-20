@@ -21,7 +21,10 @@ class Service implements LoggerAwareInterface
     protected const DEFAULT_EARLIEST_TIME = '09:00';
     protected const DEFAULT_LATEST_TIME = '17:00';
 
-    protected const COLLECTION_JOB_KEY = 'CGUkMailCollectionJobNumber:%d:%s';
+    protected const COLLECTION_TYPE_DOMESTIC = 'D';
+    protected const COLLECTION_TYPE_INTERNATIONAL = 'I';
+
+    protected const COLLECTION_JOB_KEY = 'CGUkMailCollectionJobNumber:%d:%s:%s';
     protected const COLLECTION_JOB_TTL = 604800; //7 days
 
     /** @var PredisClient */
@@ -37,41 +40,55 @@ class Service implements LoggerAwareInterface
         $this->clientFactory = $clientFactory;
     }
 
-    public function getCollectionJobNumber(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate): string
-    {
+    public function getCollectionJobNumber(
+        CourierAdapterAccount $account,
+        string $authToken,
+        \DateTime $collectionDate,
+        bool $isDomestic = true
+    ): string {
+        $type = $this->getType($isDomestic);
         $date = $collectionDate->format('Ymd');
-        if (isset($this->collectionJobNumbers[$account->getId()][$date])) {
-            return $this->collectionJobNumbers[$account->getId()][$date];
+        if (isset($this->collectionJobNumbers[$account->getId()][$date][$type])) {
+            return $this->collectionJobNumbers[$account->getId()][$date][$type];
         }
 
-        if (($collectionJobNumber = $this->fetchCollectionJobNumber($account, $collectionDate)) != null) {
+        if (($collectionJobNumber = $this->fetchCollectionJobNumber($account, $collectionDate, $isDomestic)) != null) {
             $this->logDebug(static::LOG_FETCHING_COLLECTION_JOB_MSG, [$collectionJobNumber, $account->getId()], static::LOG_CODE);
-            $this->collectionJobNumbers[$account->getId()][$date] = $collectionJobNumber;
+            $this->collectionJobNumbers[$account->getId()][$date][$type] = $collectionJobNumber;
             return $collectionJobNumber;
         }
 
-        $collectionResponse = $this->requestCollection($account, $authToken, $collectionDate);
+        $collectionResponse = $this->requestCollection($account, $authToken, $collectionDate, $isDomestic);
 
-        $this->saveCollectionJobNumber($account, $collectionDate, $collectionResponse->getCollectionJobNumber());
-        $this->collectionJobNumbers[$account->getId()][$date] = $collectionResponse->getCollectionJobNumber();
+        $this->saveCollectionJobNumber($account, $collectionDate, $collectionResponse->getCollectionJobNumber(), $isDomestic);
+        $this->collectionJobNumbers[$account->getId()][$date][$type] = $collectionResponse->getCollectionJobNumber();
         return $collectionResponse->getCollectionJobNumber();
     }
 
-    protected function requestCollection(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate): CollectionResponse
-    {
+    protected function requestCollection(
+        CourierAdapterAccount $account,
+        string $authToken,
+        \DateTime $collectionDate,
+        bool $isDomestic
+    ): CollectionResponse {
         $this->logDebug(static::LOG_FETCHING_COLLECTION_JOB_API_MSG, [$account->getId()], static::LOG_CODE);
-        $collectionRequest = $this->createCollectionRequest($account, $authToken, $collectionDate);
+        $collectionRequest = $this->createCollectionRequest($account, $authToken, $collectionDate, $isDomestic);
         $client = ($this->clientFactory)($account, $collectionRequest);
         return $client->sendRequest($collectionRequest);
     }
 
-    protected function createCollectionRequest(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate): CollectionRequest
+    protected function createCollectionRequest(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate, bool $isDomestic): CollectionRequest
     {
+        $accountNumber = $account->getCredentials()['domesticAccountNumber'];
+        if (!$isDomestic) {
+            $accountNumber = $account->getCredentials()['intlAccountNumber'];
+        }
+
         return new CollectionRequest(
             $account->getCredentials()['apiKey'],
             $account->getCredentials()['username'],
             $authToken,
-            $account->getCredentials()['accountNumber'],
+            $accountNumber,
             $collectionDate->format('Y-m-d'),
             $account->getConfig()['closedForLunch'] ?? false,
             $account->getConfig()['earliestTime'] ?? static::DEFAULT_EARLIEST_TIME,
@@ -80,23 +97,37 @@ class Service implements LoggerAwareInterface
         );
     }
 
-    protected function fetchCollectionJobNumber(CourierAdapterAccount $account, \DateTime $collectionDate): ?string
+    protected function fetchCollectionJobNumber(CourierAdapterAccount $account, \DateTime $collectionDate, bool $isDomestic): ?string
     {
-        return $this->predisClient->get($this->getKey($account, $collectionDate));
+        return $this->predisClient->get($this->getKey($account, $collectionDate, $isDomestic));
     }
 
-    protected function saveCollectionJobNumber(CourierAdapterAccount $account, \DateTime $collectionDate, string $collectionJobNumber): void
-    {
+    protected function saveCollectionJobNumber(
+        CourierAdapterAccount $account,
+        \DateTime $collectionDate,
+        string $collectionJobNumber,
+        bool $isDomestic
+    ): void {
         $this->logDebug(static::LOG_SAVING_COLLECTION_JOB_MSG, [$collectionJobNumber, $account->getId()], static::LOG_CODE);
         $this->predisClient->setex(
-            $this->getKey($account, $collectionDate),
+            $this->getKey($account, $collectionDate, $isDomestic),
             static::COLLECTION_JOB_TTL,
             $collectionJobNumber
         );
     }
 
-    protected function getKey(CourierAdapterAccount $account, \DateTime $collectionDate): string
+    protected function getKey(CourierAdapterAccount $account, \DateTime $collectionDate, bool $isDomestic): string
     {
-        return sprintf(static::COLLECTION_JOB_KEY, $account->getId(), $collectionDate->format('Ymd'));
+        $type = $this->getType($isDomestic);
+        return sprintf(static::COLLECTION_JOB_KEY, $account->getId(), $type, $collectionDate->format('Ymd'));
+    }
+
+    protected function getType(bool $isDomestic): string
+    {
+        $type = static::COLLECTION_TYPE_DOMESTIC;
+        if (!$isDomestic) {
+            $type = static::COLLECTION_TYPE_INTERNATIONAL;
+        }
+        return $type;
     }
 }

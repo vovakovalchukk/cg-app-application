@@ -3,18 +3,6 @@ namespace CG\UkMail\Authenticate;
 
 class Account
 {
-//[accountNumber] => I090559
-//[status] => ExemptFromStop
-//[type] => Domestic
-//[companyName] => FUNKY CHALK LIMITED
-//[tradingAddress] => FUNKY CHALK LIMITED, FUNKY CHALK LIMITED, SPRING VALLEY MILLS, STANNINGLEY, LS28 6DW, WEST YORKSHIRE
-//[region] => England
-//[postcode] => LS28 6DW
-//[contactNumber] => 0113 2558877
-//[VATNumber] => GB123456789
-//[customerRefAlias] => Customer Reference
-//[alternativeRefAlias] => Alternative Reference
-
     /** @var string */
     protected $accountNumber;
     /** @var string */

@@ -217,7 +217,7 @@ return [
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
 
-            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, $collectionDate);
+            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, $collectionDate, true);
 
             echo "COLLECTION JOB NUMBER ".$collectionJobNumber."\n";
 
