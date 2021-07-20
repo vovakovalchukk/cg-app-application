@@ -41,8 +41,26 @@ class Client implements LoggerAwareInterface
         } catch (GuzzleBadResponseException $exception) {
             $this->logRequest($guzzleRequest, ($exception instanceof ClientRequestException ? $exception->getResponse() : null));
             $this->logException($exception, 'log:error', __NAMESPACE__);
-            throw new StorageException('UK Mail API error', $exception->getCode(), $exception);
+
+            $errorMessages = $exception->getResponse()->json();
+            $error = $this->handleErrorMessages($errorMessages);
+            throw new StorageException("UK Mail API error ".$error, $exception->getCode(), $exception);
         }
+    }
+
+    protected function handleErrorMessages(array $errorMessages): string
+    {
+        $error = '';
+        foreach ($errorMessages as $errorFieldName => $errorMessage) {
+            if (is_array($errorMessage)) {
+                $subError = $this->handleErrorMessages($errorMessage);
+                $error .= ucfirst($errorFieldName) . ":  ".$subError . "  ";
+                continue;
+            }
+            $error .= ucfirst($errorFieldName) . ": " . $errorMessage . "  ";
+        }
+
+        return $error;
     }
 
     protected function logRequest(GuzzleRequest $request, GuzzleResponse $response = null)

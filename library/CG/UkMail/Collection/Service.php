@@ -2,6 +2,7 @@
 namespace CG\UkMail\Collection;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
+use CG\CourierAdapter\Exception\UserError;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UkMail\Client\Factory as ClientFactory;
@@ -73,8 +74,17 @@ class Service implements LoggerAwareInterface
     ): CollectionResponse {
         $this->logDebug(static::LOG_FETCHING_COLLECTION_JOB_API_MSG, [$account->getId()], static::LOG_CODE);
         $collectionRequest = $this->createCollectionRequest($account, $authToken, $collectionDate, $isDomestic);
-        $client = ($this->clientFactory)($account, $collectionRequest);
-        return $client->sendRequest($collectionRequest);
+        try {
+            $client = ($this->clientFactory)($account, $collectionRequest);
+            return $client->sendRequest($collectionRequest);
+        }  catch (\Exception $exception) {
+            throw new UserError($exception->getMessage());
+        }
+    }
+
+    protected function handleError(\Exception $exception)
+    {
+
     }
 
     protected function createCollectionRequest(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate, bool $isDomestic): CollectionRequest

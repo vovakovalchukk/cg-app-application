@@ -212,7 +212,7 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-            $collectionDate = (new \DateTime())->setDate(2021, 7, 21);
+            $collectionDate = (new \DateTime())->setDate(2021, 7, 24);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
@@ -268,9 +268,9 @@ return [
                 $packages
             );
 
-            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
-
-            print_r($domesticConsignmentResponse);
+//            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
+//
+//            print_r($domesticConsignmentResponse);
 
         },
         'arguments' => [

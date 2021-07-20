@@ -1,12 +1,13 @@
 <?php
 namespace CG\UkMail\DomesticConsignment;
 
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
+use CG\CourierAdapter\Exception\UserError;
+use CG\UkMail\Client\Factory as ClientFactory;
 use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as DomesticConsignmentResponse;
 use CG\UkMail\Shipment;
-use CG\UkMail\Client\Factory as ClientFactory;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
 class Service implements LoggerAwareInterface
 {
@@ -41,7 +42,11 @@ class Service implements LoggerAwareInterface
     ): DomesticConsignmentResponse {
         $this->logDebug(static::LOG_REQUESTING_LABEL_MSG, [$shipment->getAccount()->getId(), $shipment->getCustomerReference()], static::LOG_CODE);
         $domesticConsignmentRequest = $this->createDomesticConsignmentRequest($shipment, $authToken, $collectionJobNumber);
-        $client = ($this->clientFactory)($shipment->getAccount(), $domesticConsignmentRequest);
-        return $client->sendRequest($domesticConsignmentRequest);
+        try {
+            $client = ($this->clientFactory)($shipment->getAccount(), $domesticConsignmentRequest);
+            return $client->sendRequest($domesticConsignmentRequest);
+        } catch (\Exception $exception) {
+            throw new UserError($exception->getMessage());
+        }
     }
 }

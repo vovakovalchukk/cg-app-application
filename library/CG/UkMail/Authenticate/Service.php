@@ -2,6 +2,7 @@
 namespace CG\UkMail\Authenticate;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
+use CG\CourierAdapter\Exception\UserError;
 use CG\UkMail\Client\Factory as ClientFactory;
 use CG\UkMail\Request\Rest\Authenticate as AuthenticateRequest;
 use CG\UkMail\Response\Rest\Authenticate as AuthenticateResponse;
@@ -58,8 +59,12 @@ class Service implements LoggerAwareInterface
     {
         $this->logDebug(static::LOG_FETCHING_TOKEN_API_MSG, [$account->getId()], static::LOG_CODE);
         $authRequest = $this->createAuthenticateRequest($account);
-        $client = ($this->clientFactory)($account, $authRequest);
-        return $client->sendRequest($authRequest);
+        try {
+            $client = ($this->clientFactory)($account, $authRequest);
+            return $client->sendRequest($authRequest);
+        } catch (\Exception $exception) {
+            throw new UserError($exception->getMessage());
+        }
     }
 
     protected function createAuthenticateRequest(CourierAdapterAccount $account): AuthenticateRequest
