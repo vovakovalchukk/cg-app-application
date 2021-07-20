@@ -17,7 +17,8 @@ class Mapper
 {
     protected const WEIGHT_UNIT = 'kg';
     protected const DIMENSION_UNIT = 'cm';
-    protected const LABEL_FORMAT_PNG6x4 = 'PNG6x4';
+    protected const LABEL_FORMAT_PNG = 'PNG6x4';
+    protected const LABEL_FORMAT_PDF = 'PDF200dpi6x4';
     protected const CONTACT_NUMBER_TYPE_PHONE = 'phone';
     protected const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
     protected const ADDRESS_TYPE_DOORSTEP = 'doorstep';
@@ -52,7 +53,7 @@ class Mapper
             false,
             false,
             null,
-            static::LABEL_FORMAT_PNG6x4
+            static::LABEL_FORMAT_PDF
         );
     }
 

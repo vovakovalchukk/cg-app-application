@@ -94,6 +94,12 @@ class Shipment implements
         return $this->courierReference;
     }
 
+    public function setCourierReference(string $courierReference): Shipment
+    {
+        $this->courierReference = $courierReference;
+        return $this;
+    }
+
     public function getAccount()
     {
         return $this->account;

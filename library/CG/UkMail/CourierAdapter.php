@@ -51,6 +51,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function cancelShipment(ShipmentInterface $shipment)
     {
         // TODO: Implement cancelShipment() method.
+        return true;
     }
 
     public function updateShipment(ShipmentInterface $shipment)
