@@ -15,14 +15,14 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
+    public const ADDRESS_TYPE_RESIDENTIAL = 'residential';
+    public const ADDRESS_TYPE_DOORSTEP = 'doorstep';
     protected const WEIGHT_UNIT = 'kg';
     protected const DIMENSION_UNIT = 'cm';
     protected const LABEL_FORMAT_PNG = 'PNG6x4';
     protected const LABEL_FORMAT_PDF = 'PDF200dpi6x4';
     protected const CONTACT_NUMBER_TYPE_PHONE = 'phone';
     protected const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
-    protected const ADDRESS_TYPE_DOORSTEP = 'doorstep';
-    protected const ADDRESS_TYPE_RESIDENTIAL = 'residential';
     protected const PRE_DELIVERY_NOTIFICATION_EMAIL = 'email';
 
     public function createDomesticConsignmentRequest(

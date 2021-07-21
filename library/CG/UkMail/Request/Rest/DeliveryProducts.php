@@ -14,13 +14,39 @@ class DeliveryProducts extends AbstractRequest implements RequestInterface
     protected $countryCode;
     /** @var float */
     protected $weight;
+    /** @var int */
     protected $length;
+    /** @var int */
     protected $width;
+    /** @var int */
+    protected $height;
+    /** @var string */
+    protected $recipientAddressType;
+    /** @var string */
+    protected $recipientPostcode;
+    /** @var bool */
+    protected $doorstepOnly;
 
-
-    public function __construct(string $apiKey)
-    {
+    public function __construct(
+        string $apiKey,
+        string $countryCode,
+        float $weight,
+        int $length,
+        int $width,
+        int $height,
+        string $recipientAddressType,
+        string $recipientPostcode,
+        bool $doorstepOnly
+    ) {
         $this->apiKey = $apiKey;
+        $this->countryCode = $countryCode;
+        $this->weight = $weight;
+        $this->length = $length;
+        $this->width = $width;
+        $this->height = $height;
+        $this->recipientAddressType = $recipientAddressType;
+        $this->recipientPostcode = $recipientPostcode;
+        $this->doorstepOnly = $doorstepOnly;
     }
 
     public function getOptions(array $defaultOptions = []): array
@@ -34,7 +60,7 @@ class DeliveryProducts extends AbstractRequest implements RequestInterface
 
     public function getResponseClass(): string
     {
-        // TODO: Implement getResponseClass() method.
+        return Response::class;
     }
 
     protected function getHeaders(): array
@@ -48,6 +74,14 @@ class DeliveryProducts extends AbstractRequest implements RequestInterface
     protected function getQuery(): array
     {
         return [
+            'countryCode' => $this->getCountryCode(),
+            'weight' => $this->getWeight(),
+            'length' => $this->getLength(),
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'recipientAddressType' => $this->getRecipientAddressType(),
+            'recipientPostcode' => $this->getRecipientPostcode(),
+            'doorstepOnly' => $this->isDoorstepOnly(),
         ];
     }
 
@@ -59,6 +93,94 @@ class DeliveryProducts extends AbstractRequest implements RequestInterface
     public function setApiKey(string $apiKey): DeliveryProducts
     {
         $this->apiKey = $apiKey;
+        return $this;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function setCountryCode(string $countryCode): DeliveryProducts
+    {
+        $this->countryCode = $countryCode;
+        return $this;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(float $weight): DeliveryProducts
+    {
+        $this->weight = $weight;
+        return $this;
+    }
+
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    public function setLength(int $length): DeliveryProducts
+    {
+        $this->length = $length;
+        return $this;
+    }
+
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
+
+    public function setWidth(int $width): DeliveryProducts
+    {
+        $this->width = $width;
+        return $this;
+    }
+
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
+
+    public function setHeight(int $height): DeliveryProducts
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    public function getRecipientAddressType(): string
+    {
+        return $this->recipientAddressType;
+    }
+
+    public function setRecipientAddressType(string $recipientAddressType): DeliveryProducts
+    {
+        $this->recipientAddressType = $recipientAddressType;
+        return $this;
+    }
+
+    public function getRecipientPostcode(): string
+    {
+        return $this->recipientPostcode;
+    }
+
+    public function setRecipientPostcode(string $recipientPostcode): DeliveryProducts
+    {
+        $this->recipientPostcode = $recipientPostcode;
+        return $this;
+    }
+
+    public function isDoorstepOnly(): bool
+    {
+        return $this->doorstepOnly;
+    }
+
+    public function setDoorstepOnly(bool $doorstepOnly): DeliveryProducts
+    {
+        $this->doorstepOnly = $doorstepOnly;
         return $this;
     }
 }
