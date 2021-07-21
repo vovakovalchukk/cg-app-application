@@ -8,6 +8,7 @@ use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
+use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\ShipmentInterface;
@@ -19,7 +20,8 @@ class Shipment implements
     CollectionAddressInterface,
     DeliveryInstructionsInterface,
     CollectionDateInterface,
-    PackagesInterface
+    PackagesInterface,
+    DeliveredDutyInterface
 {
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
@@ -39,6 +41,8 @@ class Shipment implements
     protected $collectionDate;
     /** @var PackageInterface[] */
     protected $packages;
+    /** @var bool */
+    protected $isDeliveredDutyPaid;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -48,7 +52,8 @@ class Shipment implements
         ?AddressInterface $collectionAddress = null,
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
-        array $packages = []
+        array $packages = [],
+        ?bool $isDeliveredDutyPaid = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -58,6 +63,7 @@ class Shipment implements
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
+        $this->isDeliveredDutyPaid = $isDeliveredDutyPaid;
     }
 
     public static function fromArray(array $array): Shipment
@@ -70,7 +76,8 @@ class Shipment implements
             $array['collectionAddress'] ?? null,
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
-            $array['packages'] ?? []
+            $array['packages'] ?? [],
+            $array['deliveredDutyPaid'] ?? null
         );
     }
 
@@ -167,5 +174,10 @@ class Shipment implements
     public static function createPackage(array $packageDetails)
     {
         return Package::fromArray($packageDetails);
+    }
+
+    public function isDeliveredDutyPaid(): bool
+    {
+        return $this->isDeliveredDutyPaid;
     }
 }
