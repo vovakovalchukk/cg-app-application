@@ -415,31 +415,21 @@ class Create extends PostAbstract
 
     protected function sanitisePhoneNumber(string $phoneNumber, int $phoneNumberLength): string
     {
-        $phoneNumber = $this->removeCharactersFromBeginningAndEnd($phoneNumber);
-        $phoneNumber = $this->removeSpecialCharactersFromNumber($phoneNumber);
+        // all white spaces from end and beginning are removed
+        $phoneNumber = trim($phoneNumber);
+
+        // all other characters but digits, minus, plus and forward slash are removed
+        $whiteListedCharacters = '/[^ 0-9-+\/]/';
+        $phoneNumber = preg_replace($whiteListedCharacters, '', $phoneNumber);
+
+        // plus sign is removed from everywhere except if it's first character
+        $phoneNumber = substr($phoneNumber, 0,1) . str_replace('+', '', substr($phoneNumber, 1, strlen($phoneNumber)));
 
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
 
         return $phoneNumber;
-    }
-
-    protected function removeSpecialCharactersFromNumber(string $phoneNumber): string
-    {
-        $whiteListedCharacters = ' 0-9-+\/';
-
-        return preg_replace('/[^' . $whiteListedCharacters . ']/', '', $phoneNumber);
-    }
-
-    protected function removeCharactersFromBeginningAndEnd(string $phoneNumber): string
-    {
-        preg_match('([\+]?[0-9]{1}.*[0-9]{1})', $phoneNumber, $matches);
-        if (isset($matches[0])) {
-            return $matches[0];
-        }
-
-        return static::DEFAULT_PHONE_NUMBER;
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string
