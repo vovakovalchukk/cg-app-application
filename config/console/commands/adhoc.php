@@ -27,6 +27,7 @@ use CG\UkMail\DeliveryService as UkMailDeliveryService;
 use CG\CourierAdapter\Address as CAAddress;
 use CG\UkMail\Shipment\Package as UkMailPackage;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
+use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
 
 /** @var Di $di */
 return [
@@ -212,7 +213,7 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-            $collectionDate = (new \DateTime())->setDate(2021, 7, 24);
+            $collectionDate = (new \DateTime())->setDate(2021, 7, 22);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
@@ -246,6 +247,38 @@ return [
                 '07874619071'
             );
 
+            $deliveryAddressIntl = new CAAddress(
+                '',
+                'Dominik',
+                'Gajewski',
+                'Puzaka 2/35',
+                '',
+                '',
+                'Krakow',
+                '',
+                '31-303',
+                'Poland',
+                'PL',
+                'dominikgajewski1@gmail.com',
+                '07874619071'
+            );
+
+            $deliveryAddressIntl2 = new CAAddress(
+                '',
+                'Dominik',
+                'Gajewski',
+                'Am Borsigturm 44',
+                '',
+                '',
+                'Dinslaken',
+                'Nordrhein-Westfalen',
+                '46535',
+                'Germany',
+                'DE',
+                'dominikgajewski1@gmail.com',
+                '07874619071'
+            );
+
             $contents[] = new CAContent(
                 'Testing Chili Con Carne',
                 '56000000',
@@ -261,7 +294,7 @@ return [
                 $deliveryService,
                 36,
                 $caAccount,
-                $deliveryAddress,
+                $deliveryAddressIntl2,
                 null,
                 null,
                 $collectionDate,
@@ -271,6 +304,14 @@ return [
 //            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
 //
 //            print_r($domesticConsignmentResponse);
+
+            /** @var DeliveryProductsService $deliveryProductsService */
+            $deliveryProductsService = $di->newInstance(DeliveryProductsService::class);
+
+            echo "DeliveryProducts\n";
+
+            $deliveryProductsResponse = $deliveryProductsService->getDeliveryProducts($shipment);
+            print_r($deliveryProductsResponse);
 
 
 

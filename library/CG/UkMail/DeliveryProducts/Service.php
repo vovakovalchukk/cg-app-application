@@ -18,18 +18,19 @@ class Service implements LoggerAwareInterface
 
     /** @var ClientFactory */
     protected $clientFactory;
+    /** @var Mapper */
+    protected $mapper;
 
-    public function __construct(ClientFactory $clientFactory)
+    public function __construct(ClientFactory $clientFactory, Mapper $mapper)
     {
         $this->clientFactory = $clientFactory;
+        $this->mapper = $mapper;
     }
 
-    public function getDeliveryProducts(
-        Shipment $shipment,
-        string $authToken
-    ):DeliveryProductsResponse  {
+    public function getDeliveryProducts(Shipment $shipment):DeliveryProductsResponse
+    {
         $this->logDebug(static::LOG_REQUESTING_LABEL_MSG, [$shipment->getAccount()->getId(), $shipment->getCustomerReference()], static::LOG_CODE);
-        $deliveryProductsRequest = $this->createDeliveryProductsRequest($shipment, $authToken);
+        $deliveryProductsRequest = $this->createDeliveryProductsRequest($shipment);
         try {
             $client = ($this->clientFactory)($shipment->getAccount(), $deliveryProductsRequest);
             return $client->sendRequest($deliveryProductsRequest);
@@ -38,11 +39,9 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function createDeliveryProductsRequest(
-        Shipment $shipment,
-        string $authToken
-    ):DeliveryProductsRequest {
-
+    protected function createDeliveryProductsRequest(Shipment $shipment):DeliveryProductsRequest
+    {
+        return $this->mapper->createDeliveryProductsRequest($shipment);
     }
 
 }

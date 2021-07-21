@@ -81,7 +81,7 @@ class DeliveryProducts extends AbstractRequest implements RequestInterface
             'height' => $this->getHeight(),
             'recipientAddressType' => $this->getRecipientAddressType(),
             'recipientPostcode' => $this->getRecipientPostcode(),
-            'doorstepOnly' => $this->isDoorstepOnly(),
+            'doorstepOnly' => $this->isDoorstepOnly() ? 'true' : 'false',
         ];
     }
 
