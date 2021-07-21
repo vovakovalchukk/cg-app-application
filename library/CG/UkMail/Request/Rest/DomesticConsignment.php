@@ -22,6 +22,8 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $accountNumber;
     /** @var string */
     protected $collectionJobNumber;
+    /** @var \DateTime */
+    protected $collectionDate;
     /** @var DeliveryInformation */
     protected $deliveryDetails;
     /** @var string */
@@ -58,6 +60,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         string $authenticationToken,
         string $accountNumber,
         string $collectionJobNumber,
+        \DateTime $collectionDate,
         DeliveryInformation $deliveryDetails,
         string $serviceKey,
         int $items,
@@ -78,6 +81,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         $this->authenticationToken = $authenticationToken;
         $this->accountNumber = $accountNumber;
         $this->collectionJobNumber = $collectionJobNumber;
+        $this->collectionDate = $collectionDate;
         $this->deliveryDetails = $deliveryDetails;
         $this->serviceKey = $serviceKey;
         $this->items = $items;
@@ -102,6 +106,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
             'accountNumber' => $this->getAccountNumber(),
             'collectionInfo' => [
                 'collectionJobNumber' => $this->getCollectionJobNumber(),
+                'collectionDate' => $this->getCollectionDate()->format('Y-m-d'),
             ],
             'delivery' => $this->getDeliveryDetails()->toArray(),
             'serviceKey' => $this->getServiceKey(),
@@ -204,6 +209,17 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     public function setCollectionJobNumber(string $collectionJobNumber): DomesticConsignment
     {
         $this->collectionJobNumber = $collectionJobNumber;
+        return $this;
+    }
+
+    public function getCollectionDate(): \DateTime
+    {
+        return $this->collectionDate;
+    }
+
+    public function setCollectionDate(\DateTime $collectionDate): DomesticConsignment
+    {
+        $this->collectionDate = $collectionDate;
         return $this;
     }
 

@@ -27,6 +27,20 @@ class Service implements LoggerAwareInterface
         $this->mapper = $mapper;
     }
 
+    public function checkIntlServiceAvailabilityForShipment(Shipment $shipment): ?DeliveryProduct
+    {
+        $deliveryProducts = $this->getDeliveryProducts($shipment);
+
+        /** @var DeliveryProduct $deliveryProduct */
+        foreach ($deliveryProducts as $deliveryProduct) {
+            if ($deliveryProduct->getProductCode() == $shipment->getDeliveryService()->getReference()) {
+                return $deliveryProduct;
+            }
+        }
+
+        return null;
+    }
+
     public function getDeliveryProducts(Shipment $shipment):DeliveryProductsResponse
     {
         $this->logDebug(static::LOG_REQUESTING_LABEL_MSG, [$shipment->getAccount()->getId(), $shipment->getCustomerReference()], static::LOG_CODE);

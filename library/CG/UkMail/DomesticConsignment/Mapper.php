@@ -40,6 +40,7 @@ class Mapper
             $authToken,
             $account->getCredentials()['domesticAccountNumber'],
             $collectionJobNumber,
+            $shipment->getCollectionDate(),
             $this->getDeliveryDetails($deliveryAddress),
             $shipment->getDeliveryService()->getReference(),
             count($packages),
