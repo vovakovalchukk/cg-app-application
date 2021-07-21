@@ -10,7 +10,7 @@ use CG\UkMail\Response\Rest\DomesticConsignment as Response;
 
 class DomesticConsignment extends AbstractPostRequest implements RequestInterface
 {
-    protected const URI = 'gateway/DomesticConsignment/1.0/DomesticConsignment';
+    protected const URI = 'gateway/DomesticConsignment/2.0/DomesticConsignment';
 
     /** @var string */
     protected $apiKey;
@@ -48,7 +48,6 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $bookin;
     /** @var bool|null */
     protected $inBoxReturn;
-    //@todo not required
     /** @var InBoxReturnDetail|null */
     protected $inBoxReturnDetail;
     /** @var string */
@@ -162,7 +161,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         return $this->apiKey;
     }
 
-    public function setApiKey(string $apiKey): Collection
+    public function setApiKey(string $apiKey): DomesticConsignment
     {
         $this->apiKey = $apiKey;
         return $this;
@@ -173,7 +172,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         return $this->username;
     }
 
-    public function setUsername(string $username): Collection
+    public function setUsername(string $username): DomesticConsignment
     {
         $this->username = $username;
         return $this;
@@ -184,7 +183,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         return $this->authenticationToken;
     }
 
-    public function setAuthenticationToken(string $authenticationToken): Collection
+    public function setAuthenticationToken(string $authenticationToken): DomesticConsignment
     {
         $this->authenticationToken = $authenticationToken;
         return $this;
@@ -195,7 +194,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         return $this->accountNumber;
     }
 
-    public function setAccountNumber(string $accountNumber): Collection
+    public function setAccountNumber(string $accountNumber): DomesticConsignment
     {
         $this->accountNumber = $accountNumber;
         return $this;
