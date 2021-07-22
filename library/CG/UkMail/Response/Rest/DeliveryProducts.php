@@ -36,4 +36,12 @@ class DeliveryProducts extends AbstractRestResponse implements ResponseInterface
 
         return new static($deliveryProducts);
     }
+
+    /**
+     * @return DeliveryProduct[]
+     */
+    public function getDeliveryProducts(): array
+    {
+        return $this->deliveryProducts;
+    }
 }

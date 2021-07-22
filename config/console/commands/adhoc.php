@@ -29,6 +29,7 @@ use CG\UkMail\Shipment\Package as UkMailPackage;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
+use CG\UkMail\InternationalConsignment\Service as InternationalConsignmentService;
 
 /** @var Di $di */
 return [
@@ -227,9 +228,9 @@ return [
             $domesticConsignmentService = $di->newInstance(DomesticConsignmentService::class);
 
             $deliveryService = new UkMailDeliveryService(
-                1,
+                101,
                 'Parcels Next Day - deliver to neighbour - signature',
-                1
+                0
             );
 
             $deliveryAddress = new CAAddress(
@@ -295,26 +296,29 @@ return [
                 $deliveryService,
                 36,
                 $caAccount,
-                $deliveryAddress,
+                $deliveryAddressIntl2,
                 null,
                 null,
                 $collectionDate,
                 $packages,
-                true
+                true,
+                'GB1234567891',
+                'I1234567'
             );
 
-            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
-
-            print_r($domesticConsignmentResponse);
+//            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
+//
+//            print_r($domesticConsignmentResponse);
 
             /** @var DeliveryProductsService $deliveryProductsService */
             $deliveryProductsService = $di->newInstance(DeliveryProductsService::class);
 
-//            echo "DeliveryProducts\n";
+            echo "DeliveryProducts\n";
 
 //            $deliveryProductsResponse = $deliveryProductsService->getDeliveryProducts($shipment);
 //            print_r($deliveryProductsResponse);
 
+            $deliveryProduct = $deliveryProductsService->checkIntlServiceAvailabilityForShipment($shipment);
 
 //            /** @var CustomsDeclarationService $customsDeclarationService */
 //            $customsDeclarationService = $di->newInstance(CustomsDeclarationService::class);
@@ -322,6 +326,23 @@ return [
 //            $customsDeclaration = $customsDeclarationService->getCustomsDeclaration($shipment, 'full');
 //
 //            print_r($customsDeclaration);
+
+            print_r($deliveryProduct);
+            if (!isset($deliveryProduct)) {
+                echo "NO DELIVERY PRODUCT\n";
+                return;
+            }
+
+            /** @var InternationalConsignmentService $internationalConsignmentService */
+            $internationalConsignmentService = $di->newInstance(InternationalConsignmentService::class);
+
+            $internationalConsignmentResponse = $internationalConsignmentService->requestDomesticConsignment(
+                $shipment, $token, $collectionJobNumber, $deliveryProduct->getCustomsDeclaration()
+            );
+
+            print_r($internationalConsignmentResponse);
+
+
 
 
 

@@ -1,6 +1,8 @@
 <?php
 namespace CG\UkMail\CustomsDeclaration\Declaration;
 
+use CG\Locale\CountryNameByAlpha3Code;
+
 class Article
 {
     /** @var string */
@@ -71,6 +73,6 @@ class Article
 
     public function getCountryOfManufacture(): string
     {
-        return $this->countryOfManufacture;
+        return CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($this->countryOfManufacture);
     }
 }
