@@ -7,7 +7,7 @@ use CG\UkMail\InternationalConsignment\Parcel;
 use CG\UkMail\InternationalConsignment\Recipient;
 use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
-use CG\UkMail\Response\Rest\DomesticConsignment as Response;
+use CG\UkMail\Response\Rest\InternationalConsignment as Response;
 
 class InternationalConsignment extends AbstractPostRequest implements RequestInterface
 {

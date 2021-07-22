@@ -1,5 +1,5 @@
 <?php
-namespace CG\UkMail\DomesticConsignment;
+namespace CG\UkMail\Consignment;
 
 class Label
 {

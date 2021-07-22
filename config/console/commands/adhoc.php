@@ -283,7 +283,7 @@ return [
 
             $contents[] = new CAContent(
                 'Testing Chili Con Carne',
-                '56000000',
+                '56081911',
                 '',
                 'GB', 1, 1.5, 10, 'GBP',
                 'Testing Chili Con Carne',
@@ -301,9 +301,9 @@ return [
                 null,
                 $collectionDate,
                 $packages,
-                true,
+                false,
                 'GB1234567891',
-                'I1234567',
+                'IM1234567891',
                 '36'
             );
 

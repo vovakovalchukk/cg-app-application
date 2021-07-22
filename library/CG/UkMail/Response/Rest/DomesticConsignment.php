@@ -1,8 +1,8 @@
 <?php
 namespace CG\UkMail\Response\Rest;
 
-use CG\UkMail\DomesticConsignment\Identifier;
-use CG\UkMail\DomesticConsignment\Label;
+use CG\UkMail\Consignment\Identifier;
+use CG\UkMail\Consignment\Label;
 use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Response\ResponseInterface;
 
