@@ -11,6 +11,7 @@ use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\InvoiceNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\ShipmentInterface;
@@ -25,7 +26,8 @@ class Shipment implements
     PackagesInterface,
     DeliveredDutyInterface,
     IossNumberInterface,
-    EoriNumberInterface
+    EoriNumberInterface,
+    InvoiceNumberInterface
 {
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
@@ -51,6 +53,8 @@ class Shipment implements
     protected $eoriNumber;
     /** @var string|null */
     protected $iossNumber;
+    /** @var string|null */
+    protected $invoiceNumber;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -63,7 +67,8 @@ class Shipment implements
         array $packages = [],
         ?bool $isDeliveredDutyPaid = null,
         ?string $eoriNumber = null,
-        ?string $iossNumber = null
+        ?string $iossNumber = null,
+        ?string $invoiceNumber = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -76,6 +81,7 @@ class Shipment implements
         $this->isDeliveredDutyPaid = $isDeliveredDutyPaid;
         $this->eoriNumber = $eoriNumber;
         $this->iossNumber = $iossNumber;
+        $this->invoiceNumber = $invoiceNumber;
     }
 
     public static function fromArray(array $array): Shipment
@@ -91,7 +97,8 @@ class Shipment implements
             $array['packages'] ?? [],
             $array['deliveredDutyPaid'] ?? null,
             $array['eoriNumber'] ?? null,
-            $array['iossNumber'] ?? null
+            $array['iossNumber'] ?? null,
+            $array['invoiceNumber'] ?? null
         );
     }
 
@@ -214,6 +221,17 @@ class Shipment implements
     public function setIossNumber(?string $iossNumber): Shipment
     {
         $this->iossNumber = $iossNumber;
+        return $this;
+    }
+
+    public function getInvoiceNumber(): ?string
+    {
+        return $this->invoiceNumber;
+    }
+
+    public function setInvoiceNumber(?string $invoiceNumber): Shipment
+    {
+        $this->invoiceNumber = $invoiceNumber;
         return $this;
     }
 }

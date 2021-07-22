@@ -303,7 +303,8 @@ return [
                 $packages,
                 true,
                 'GB1234567891',
-                'I1234567'
+                'I1234567',
+                '36'
             );
 
 //            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);

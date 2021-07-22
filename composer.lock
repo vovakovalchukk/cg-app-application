@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8be1694fa4cf8727702689eee648dec",
+    "content-hash": "35066efca0e9a1f4688b4136b0ca51f8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1070,16 +1070,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.7.4",
+            "version": "dev-CGIV-11760-uk-mail-integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "bb2c0dd6df4a7c6a2a70e4e01aeef14fd8d1a4d6"
+                "reference": "10d19491eb7eff1352586c73d3a83f78d91e6976"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.4-7b0077.zip",
-                "reference": "bb2c0dd6df4a7c6a2a70e4e01aeef14fd8d1a4d6"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-11760-uk-mail-integration-af72ba.zip",
+                "reference": "10d19491eb7eff1352586c73d3a83f78d91e6976"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1103,7 +1103,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-06-29T15:48:51+00:00"
+            "time": "2021-07-22T12:44:33+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2459,16 +2459,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.58.0",
+            "version": "dev-CGIV-11760-uk-mail-integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54"
+                "reference": "7e3227a09e2964a285850a25f16d17f9521e2eed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.58.0-6984f5.zip",
-                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11760-uk-mail-integration-bffe28.zip",
+                "reference": "7e3227a09e2964a285850a25f16d17f9521e2eed"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2506,7 +2506,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "^1.28.5",
+                "channelgrabber/user": "^1.28.7",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-25T08:34:02+00:00"
+            "time": "2021-07-22T12:28:30+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11997,10 +11997,22 @@
     ],
     "aliases": [
         {
+            "alias": "1.7.5",
+            "alias_normalized": "1.7.5.0",
+            "version": "dev-CGIV-11760-uk-mail-integration",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
             "alias": "1.2.7",
             "alias_normalized": "1.2.7.0",
             "version": "dev-CGIV-11760-uk-mail-integration",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.59.0",
+            "alias_normalized": "1.59.0.0",
+            "version": "dev-CGIV-11760-uk-mail-integration",
+            "package": "channelgrabber/order"
         },
         {
             "alias": "1.27.11",
@@ -12012,7 +12024,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
