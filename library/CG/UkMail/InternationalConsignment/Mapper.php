@@ -1,12 +1,13 @@
 <?php
-namespace CG\UkMail\DomesticConsignment;
+namespace CG\UkMail\InternationalConsignment;
 
+use CG\UkMail\DomesticConsignment\Mapper as DomesticConsignmentMapper;
 use CG\CourierAdapter\Address as CAAddress;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
-use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
+use CG\UkMail\Request\Rest\InternationalConsignment as InternationalConsignmentRequest;
 use CG\UkMail\Shipment;
 use CG\UkMail\Shipment\Package;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
@@ -14,18 +15,6 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
-    public const ADDRESS_TYPE_RESIDENTIAL = 'residential';
-    public const ADDRESS_TYPE_DOORSTEP = 'doorstep';
-    public const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
-    public const CONTACT_NUMBER_TYPE_PHONE = 'phone';
-    public const WEIGHT_UNIT = 'kg';
-    public const DIMENSION_UNIT = 'cm';
-    public const LABEL_FORMAT_PNG = 'PNG6x4';
-    public const LABEL_FORMAT_PDF = 'PDF200dpi6x4';
-    protected const PRE_DELIVERY_NOTIFICATION_EMAIL = 'email';
-
-    protected const NI_POSTCODE_PATTERN = '/^BT[0-9]{1,2}[\s]*([\d][A-Za-z]{2})$/';
-
     /** @var CustomsDeclarationService */
     protected $customsDeclarationService;
 
@@ -34,37 +23,37 @@ class Mapper
         $this->customsDeclarationService = $customsDeclarationService;
     }
 
-    public function createDomesticConsignmentRequest(
+    public function createInternationalConsignmentRequest(
         Shipment $shipment,
         string $authToken,
-        string $collectionJobNumber
-    ): DomesticConsignmentRequest {
+        string $collectionJobNumber,
+        string $customsDeclarationType
+    ): InternationalConsignmentRequest {
         $account = $shipment->getAccount();
         $packages = $shipment->getPackages();
         $deliveryAddress = $shipment->getDeliveryAddress();
 
-        return new DomesticConsignmentRequest(
+        return new InternationalConsignmentRequest(
             $account->getCredentials()['apiKey'],
             $account->getCredentials()['username'],
             $authToken,
-            $account->getCredentials()['domesticAccountNumber'],
+            $account->getCredentials()['intlAccountNumber'],
             $collectionJobNumber,
             $shipment->getCollectionDate(),
             $this->getDeliveryDetails($deliveryAddress),
             $shipment->getDeliveryService()->getReference(),
             count($packages),
-            $this->getTotalWeight($packages),
             $shipment->getCustomerReference(),
             null,
             $this->getParcels($packages),
+            false,
+            $shipment->getIossNumber() ?? null,
+            $this->getCustomsDeclaration($shipment, $customsDeclarationType),
+            $this->getRecipient($deliveryAddress, $shipment->getEoriNumber()),
+            false,
             null,
-            $this->getRecipient($deliveryAddress),
             false,
-            false,
-            false,
-            null,
-            static::LABEL_FORMAT_PDF,
-            $this->getCustomsDeclaration($shipment)
+            DomesticConsignmentMapper::LABEL_FORMAT_PDF
         );
     }
 
@@ -75,7 +64,7 @@ class Mapper
         return new DeliveryInformation(
             $this->getContactName($address),
             $address->getPhoneNumber(),
-            static::CONTACT_NUMBER_TYPE_MOBILE,
+            DomesticConsignmentMapper::CONTACT_NUMBER_TYPE_MOBILE,
             $address->getEmailAddress(),
             $deliveryAddresses
         );
@@ -97,32 +86,18 @@ class Mapper
             $address->determineRegionFromAddressLines(),
             $address->getPostCode(),
             CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode()),
-            $isRecipientAddress ? static::ADDRESS_TYPE_RESIDENTIAL : static::ADDRESS_TYPE_DOORSTEP
+            $isRecipientAddress ? DomesticConsignmentMapper::ADDRESS_TYPE_RESIDENTIAL : DomesticConsignmentMapper::ADDRESS_TYPE_DOORSTEP
         );
-    }
-
-    /**
-     * Consignment Total weight in whole Kg. Min 1, max 999
-     * @param Package[] $packages
-     * @return int
-     */
-    protected function getTotalWeight(array $packages): int
-    {
-        $totalWeight = 0;
-        foreach ($packages as $package) {
-            $totalWeight += $this->convertWeight($package->getWeight());
-        }
-        return ceil($totalWeight);
     }
 
     protected function convertWeight(float $weight): float
     {
-        return (new Mass($weight, ProductDetail::UNIT_MASS))->toUnit(static::WEIGHT_UNIT);
+        return (new Mass($weight, ProductDetail::UNIT_MASS))->toUnit(DomesticConsignmentMapper::WEIGHT_UNIT);
     }
 
     protected function convertDimension(float $dimension): float
     {
-        return (new Length($dimension, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSION_UNIT);
+        return (new Length($dimension, ProductDetail::UNIT_LENGTH))->toUnit(DomesticConsignmentMapper::DIMENSION_UNIT);
     }
 
     /**
@@ -136,47 +111,27 @@ class Mapper
             $parcels[] = new Parcel(
                 $this->convertDimension($package->getLength()),
                 $this->convertDimension($package->getWidth()),
-                $this->convertDimension($package->getHeight())
+                $this->convertDimension($package->getHeight()),
+                number_format($this->convertWeight($package->getWeight()),2)
             );
         }
 
         return $parcels;
     }
 
-    protected function getRecipient(CAAddress $address): Recipient
+    protected function getRecipient(CAAddress $address, string $eoriNumber): Recipient
     {
         return new Recipient(
             $this->getContactName($address),
             $address->getEmailAddress(),
             $address->getPhoneNumber(),
-            $this->getDeliveryAddress($address, true),
-            static::PRE_DELIVERY_NOTIFICATION_EMAIL
+            $eoriNumber,
+            $this->getDeliveryAddress($address, true)
         );
     }
 
-    protected function getCustomsDeclaration(Shipment $shipment): CustomsDeclarationInterface
+    protected function getCustomsDeclaration(Shipment $shipment, string $customsDeclarationType): CustomsDeclarationInterface
     {
-        $type = $this->determineTypeOfCustomsDeclaration($shipment);
-        return $this->customsDeclarationService->getCustomsDeclaration($shipment, $type);
-    }
-
-    protected function determineTypeOfCustomsDeclaration(Shipment $shipment): string
-    {
-        $type = CustomsDeclarationService::DECLARATION_TYPE_BASIC;
-        if ($this->isNiPostcode($shipment)) {
-            return CustomsDeclarationService::DECLARATION_TYPE_FULL;
-        }
-
-        return $type;
-    }
-
-    protected function isNiPostcode(Shipment $shipment): bool
-    {
-        $postcode = $shipment->getDeliveryAddress()->getPostCode();
-        if (preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode))) {
-            return true;
-        }
-
-        return false;
+        return $this->customsDeclarationService->getCustomsDeclaration($shipment, $customsDeclarationType);
     }
 }

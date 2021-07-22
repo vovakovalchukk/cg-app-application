@@ -1,9 +1,10 @@
 <?php
 namespace CG\UkMail\Request\Rest;
 
-use CG\UkMail\DomesticConsignment\DeliveryInformation;
+use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
+use CG\UkMail\InternationalConsignment\DeliveryInformation;
 use CG\UkMail\InternationalConsignment\Parcel;
-use CG\UkMail\DomesticConsignment\Recipient;
+use CG\UkMail\InternationalConsignment\Recipient;
 use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as Response;
@@ -36,19 +37,20 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
     protected $alternativeReference;
     /** @var Parcel[] */
     protected $parcels;
-    /** @var int|null */
-    protected $extendedCoverUnits;
+    /** @var bool */
+    protected $extendedCoverRequired;
+    /** @var string|null */
+    protected $iossNumber;
+    /** @var CustomsDeclarationInterface */
+    protected $customsDeclaration;
     /** @var Recipient */
     protected $recipient;
     /** @var bool|null */
-    protected $exchangeOnDelivery;
-    /** @var bool|null */
-    protected $bookin;
-    /** @var bool|null */
     protected $inBoxReturn;
-    //@todo not required
     /** @var InBoxReturnDetail|null */
     protected $inBoxReturnDetail;
+    /** @var bool */
+    protected $invoiceRequired;
     /** @var string */
     protected $labelFormat;
 
@@ -62,16 +64,16 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         DeliveryInformation $deliveryDetails,
         string $serviceKey,
         int $items,
-        int $totalWeight,
         ?string $customerReference,
         ?string $alternativeReference,
-        ?array $parcels,
-        ?int $extendedCoverUnits,
+        array $parcels,
+        bool $extendedCoverRequired,
+        ?string $iossNumber,
+        CustomsDeclarationInterface $customsDeclaration,
         Recipient $recipient,
-        ?bool $exchangeOnDelivery,
-        ?bool $bookin,
         ?bool $inBoxReturn,
         ?InBoxReturnDetail $inBoxReturnDetail,
+        bool $invoiceRequired,
         string $labelFormat
     ) {
         $this->apiKey = $apiKey;
@@ -83,16 +85,16 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         $this->deliveryDetails = $deliveryDetails;
         $this->serviceKey = $serviceKey;
         $this->items = $items;
-        $this->totalWeight = $totalWeight;
         $this->customerReference = $customerReference;
         $this->alternativeReference = $alternativeReference;
         $this->parcels = $parcels;
-        $this->extendedCoverUnits = $extendedCoverUnits;
+        $this->extendedCoverRequired = $extendedCoverRequired;
+        $this->iossNumber = $iossNumber;
+        $this->customsDeclaration = $customsDeclaration;
         $this->recipient = $recipient;
-        $this->exchangeOnDelivery = $exchangeOnDelivery;
-        $this->bookin = $bookin;
         $this->inBoxReturn = $inBoxReturn;
         $this->inBoxReturnDetail = $inBoxReturnDetail;
+        $this->invoiceRequired = $invoiceRequired;
         $this->labelFormat = $labelFormat;
     }
 
@@ -109,25 +111,21 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
             'delivery' => $this->getDeliveryDetails()->toArray(),
             'serviceKey' => $this->getServiceKey(),
             'items' => $this->getItems(),
-            'totalWeight' => $this->getTotalWeight(), //weight in whole Kg
             'customerReference' => $this->getCustomerReference(),
             'alternativeReference' => $this->getAlternativeReference(),
-            'extendedCoverUnits' => $this->getExtendedCoverUnits(),
+            'extendedCoverRequired' => $this->isExtendedCoverRequired(),
+            'IOSSNumber' => $this->getIossNumber(),
+            'customsDeclaration' => $this->getCustomsDeclaration()->toArray(),
             'recipient' => $this->getRecipient()->toArray(),
-            'exchangeOnDelivery' => $this->isExchangeOnDelivery(),
-            'bookin' => $this->isBookin(),
             'inBoxReturn' => $this->isInBoxReturn(),
             'inboxReturnDetail' => $this->getInBoxReturnDetail() != null ? $this->getInBoxReturnDetail()->toArray() : null,
+            'invoiceRequired' => $this->isInvoiceRequired(),
             'labelFormat' => $this->getLabelFormat(),
         ];
 
-        $parcels = $this->getParcels();
-        if (isset($parcels) && is_array($parcels)) {
-            $body['parcels'] = null;
-            /** @var Parcel $parcel */
-            foreach ($parcels as $parcel) {
-                $body['parcels'][] = $parcel->toArray();
-            }
+        /** @var Parcel $parcel */
+        foreach ($this->getParcels() as $parcel) {
+            $body['parcels'][] = $parcel->toArray();
         }
 
         return $body;
@@ -160,7 +158,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->apiKey;
     }
 
-    public function setApiKey(string $apiKey): Collection
+    public function setApiKey(string $apiKey): InternationalConsignment
     {
         $this->apiKey = $apiKey;
         return $this;
@@ -171,7 +169,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->username;
     }
 
-    public function setUsername(string $username): Collection
+    public function setUsername(string $username): InternationalConsignment
     {
         $this->username = $username;
         return $this;
@@ -182,7 +180,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->authenticationToken;
     }
 
-    public function setAuthenticationToken(string $authenticationToken): Collection
+    public function setAuthenticationToken(string $authenticationToken): InternationalConsignment
     {
         $this->authenticationToken = $authenticationToken;
         return $this;
@@ -193,7 +191,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->accountNumber;
     }
 
-    public function setAccountNumber(string $accountNumber): Collection
+    public function setAccountNumber(string $accountNumber): InternationalConsignment
     {
         $this->accountNumber = $accountNumber;
         return $this;
@@ -204,7 +202,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->collectionJobNumber;
     }
 
-    public function setCollectionJobNumber(string $collectionJobNumber): DomesticConsignment
+    public function setCollectionJobNumber(string $collectionJobNumber): InternationalConsignment
     {
         $this->collectionJobNumber = $collectionJobNumber;
         return $this;
@@ -215,7 +213,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->collectionDate;
     }
 
-    public function setCollectionDate(\DateTime $collectionDate): DomesticConsignment
+    public function setCollectionDate(\DateTime $collectionDate): InternationalConsignment
     {
         $this->collectionDate = $collectionDate;
         return $this;
@@ -226,7 +224,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->deliveryDetails;
     }
 
-    public function setDeliveryDetails(DeliveryInformation $deliveryDetails): DomesticConsignment
+    public function setDeliveryDetails(DeliveryInformation $deliveryDetails): InternationalConsignment
     {
         $this->deliveryDetails = $deliveryDetails;
         return $this;
@@ -237,7 +235,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->serviceKey;
     }
 
-    public function setServiceKey(string $serviceKey): DomesticConsignment
+    public function setServiceKey(string $serviceKey): InternationalConsignment
     {
         $this->serviceKey = $serviceKey;
         return $this;
@@ -248,20 +246,9 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->items;
     }
 
-    public function setItems(int $items): DomesticConsignment
+    public function setItems(int $items): InternationalConsignment
     {
         $this->items = $items;
-        return $this;
-    }
-
-    public function getTotalWeight(): int
-    {
-        return $this->totalWeight;
-    }
-
-    public function setTotalWeight(int $totalWeight): DomesticConsignment
-    {
-        $this->totalWeight = $totalWeight;
         return $this;
     }
 
@@ -270,7 +257,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->customerReference;
     }
 
-    public function setCustomerReference(?string $customerReference): DomesticConsignment
+    public function setCustomerReference(?string $customerReference): InternationalConsignment
     {
         $this->customerReference = $customerReference;
         return $this;
@@ -281,7 +268,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->alternativeReference;
     }
 
-    public function setAlternativeReference(?string $alternativeReference): DomesticConsignment
+    public function setAlternativeReference(?string $alternativeReference): InternationalConsignment
     {
         $this->alternativeReference = $alternativeReference;
         return $this;
@@ -290,7 +277,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
     /**
      * @return Parcel[]
      */
-    public function getParcels(): ?array
+    public function getParcels(): array
     {
         return $this->parcels;
     }
@@ -299,20 +286,42 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
      * @param Parcel[] $parcels
      * @return DomesticConsignment
      */
-    public function setParcels(?array $parcels): DomesticConsignment
+    public function setParcels(array $parcels): InternationalConsignment
     {
         $this->parcels = $parcels;
         return $this;
     }
 
-    public function getExtendedCoverUnits(): ?int
+    public function isExtendedCoverRequired(): bool
     {
-        return $this->extendedCoverUnits;
+        return $this->extendedCoverRequired;
     }
 
-    public function setExtendedCoverUnits(?int $extendedCoverUnits): DomesticConsignment
+    public function setExtendedCoverRequired(bool $extendedCoverRequired): InternationalConsignment
     {
-        $this->extendedCoverUnits = $extendedCoverUnits;
+        $this->extendedCoverRequired = $extendedCoverRequired;
+        return $this;
+    }
+
+    public function getIossNumber(): ?string
+    {
+        return $this->iossNumber;
+    }
+
+    public function setIossNumber(?string $iossNumber): InternationalConsignment
+    {
+        $this->iossNumber = $iossNumber;
+        return $this;
+    }
+
+    public function getCustomsDeclaration(): CustomsDeclarationInterface
+    {
+        return $this->customsDeclaration;
+    }
+
+    public function setCustomsDeclaration(CustomsDeclarationInterface $customsDeclaration): InternationalConsignment
+    {
+        $this->customsDeclaration = $customsDeclaration;
         return $this;
     }
 
@@ -324,28 +333,6 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
     public function setRecipient(Recipient $recipient): DomesticConsignment
     {
         $this->recipient = $recipient;
-        return $this;
-    }
-
-    public function isExchangeOnDelivery(): ?bool
-    {
-        return $this->exchangeOnDelivery;
-    }
-
-    public function setExchangeOnDelivery(?bool $exchangeOnDelivery): DomesticConsignment
-    {
-        $this->exchangeOnDelivery = $exchangeOnDelivery;
-        return $this;
-    }
-
-    public function isBookin(): ?bool
-    {
-        return $this->bookin;
-    }
-
-    public function setBookin(?bool $bookin): DomesticConsignment
-    {
-        $this->bookin = $bookin;
         return $this;
     }
 
@@ -368,6 +355,17 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
     public function setInBoxReturnDetail(?InBoxReturnDetail $inBoxReturnDetail): DomesticConsignment
     {
         $this->inBoxReturnDetail = $inBoxReturnDetail;
+        return $this;
+    }
+
+    public function isInvoiceRequired(): bool
+    {
+        return $this->invoiceRequired;
+    }
+
+    public function setInvoiceRequired(bool $invoiceRequired): InternationalConsignment
+    {
+        $this->invoiceRequired = $invoiceRequired;
         return $this;
     }
 

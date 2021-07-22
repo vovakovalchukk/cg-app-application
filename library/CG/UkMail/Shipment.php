@@ -10,6 +10,8 @@ use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
+use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\UkMail\Shipment\Package;
@@ -21,7 +23,9 @@ class Shipment implements
     DeliveryInstructionsInterface,
     CollectionDateInterface,
     PackagesInterface,
-    DeliveredDutyInterface
+    DeliveredDutyInterface,
+    IossNumberInterface,
+    EoriNumberInterface
 {
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
@@ -41,8 +45,12 @@ class Shipment implements
     protected $collectionDate;
     /** @var PackageInterface[] */
     protected $packages;
-    /** @var bool */
+    /** @var bool|null */
     protected $isDeliveredDutyPaid;
+    /** @var string|null */
+    protected $eoriNumber;
+    /** @var string|null */
+    protected $iossNumber;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -53,7 +61,9 @@ class Shipment implements
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         array $packages = [],
-        ?bool $isDeliveredDutyPaid = null
+        ?bool $isDeliveredDutyPaid = null,
+        ?string $eoriNumber = null,
+        ?string $iossNumber = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -64,6 +74,8 @@ class Shipment implements
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
         $this->isDeliveredDutyPaid = $isDeliveredDutyPaid;
+        $this->eoriNumber = $eoriNumber;
+        $this->iossNumber = $iossNumber;
     }
 
     public static function fromArray(array $array): Shipment
@@ -77,7 +89,9 @@ class Shipment implements
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
-            $array['deliveredDutyPaid'] ?? null
+            $array['deliveredDutyPaid'] ?? null,
+            $array['eoriNumber'] ?? null,
+            $array['iossNumber'] ?? null
         );
     }
 
@@ -179,5 +193,27 @@ class Shipment implements
     public function isDeliveredDutyPaid(): bool
     {
         return $this->isDeliveredDutyPaid;
+    }
+
+    public function getEoriNumber(): ?string
+    {
+        return $this->eoriNumber;
+    }
+
+    public function setEoriNumber(?string $eoriNumber): Shipment
+    {
+        $this->eoriNumber = $eoriNumber;
+        return $this;
+    }
+
+    public function getIossNumber(): ?string
+    {
+        return $this->iossNumber;
+    }
+
+    public function setIossNumber(?string $iossNumber): Shipment
+    {
+        $this->iossNumber = $iossNumber;
+        return $this;
     }
 }
