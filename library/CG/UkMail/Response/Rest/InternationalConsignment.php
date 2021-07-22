@@ -5,9 +5,10 @@ use CG\UkMail\Consignment\Document;
 use CG\UkMail\Consignment\Identifier;
 use CG\UkMail\Consignment\Label;
 use CG\UkMail\Response\AbstractRestResponse;
+use CG\UkMail\Response\ConsignmentInterface;
 use CG\UkMail\Response\ResponseInterface;
 
-class InternationalConsignment extends AbstractRestResponse implements ResponseInterface
+class InternationalConsignment extends AbstractRestResponse implements ResponseInterface, ConsignmentInterface
 {
     /** @var Identifier[] */
     protected $identifiers;

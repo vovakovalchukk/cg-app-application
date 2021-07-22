@@ -4,10 +4,12 @@ namespace CG\UkMail\Shipment;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
 use CG\UkMail\Consignment\Domestic\Service as DomesticConsignmentService;
+use CG\UkMail\Consignment\International\Service as InternationalConsignmentService;
+use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
+use CG\UkMail\Response\ConsignmentInterface;
 use CG\UkMail\Shipment;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\UkMail\Response\Rest\DomesticConsignment as DomesticConsignmentResponse;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\CourierAdapter\LabelInterface;
 
@@ -21,16 +23,23 @@ class Service implements LoggerAwareInterface
     protected $collectionService;
     /** @var DomesticConsignmentService */
     protected $domesticConsignmentService;
-
+    /** @var DeliveryProductsService  */
+    protected $deliveryProductsService;
+    /** @var InternationalConsignmentService  */
+    protected $internationalConsignmentService;
 
     public function __construct(
         AuthenticateService $authenticateService,
         CollectionService $collectionService,
-        DomesticConsignmentService $domesticConsignmentService
+        DomesticConsignmentService $domesticConsignmentService,
+        DeliveryProductsService $deliveryProductsService,
+        InternationalConsignmentService $internationalConsignmentService
     ) {
         $this->authenticateService = $authenticateService;
         $this->collectionService = $collectionService;
         $this->domesticConsignmentService = $domesticConsignmentService;
+        $this->deliveryProductsService = $deliveryProductsService;
+        $this->internationalConsignmentService = $internationalConsignmentService;
     }
 
     public function bookShipment(Shipment $shipment): Shipment
@@ -40,16 +49,20 @@ class Service implements LoggerAwareInterface
 
         $authToken = $this->authenticateService->getAuthenticationToken($account);
         $collectionJobNumber = $this->collectionService->getCollectionJobNumber($account, $authToken, $collectionDate);
-        $domesticConsignmentResponse = $this->domesticConsignmentService->requestDomesticConsignment($shipment, $authToken, $collectionJobNumber);
-        return $this->updateShipmentFromResponse($shipment, $domesticConsignmentResponse);
+        if ($shipment->getDeliveryService()->isDomesticService()) {
+            $response = $this->domesticConsignmentService->requestDomesticConsignment($shipment, $authToken, $collectionJobNumber);
+        } else {
+            $deliveryProduct = $this->deliveryProductsService->checkIntlServiceAvailabilityForShipment($shipment);
+            if (!isset($deliveryProduct)) {
+                throw new UserError('Selected shipping service is not supported for country or your account');
+            }
+            $response = $this->internationalConsignmentService->requestInternationalConsignment($shipment, $authToken, $collectionJobNumber, $deliveryProduct->getCustomsDeclaration());
+        }
+        return $this->updateShipmentFromResponse($shipment, $response);
     }
 
-    protected function updateShipmentFromResponse(Shipment $shipment, DomesticConsignmentResponse $response): Shipment
+    protected function updateShipmentFromResponse(Shipment $shipment, ConsignmentInterface $response): Shipment
     {
-//        if (!empty($response->getErrorMessages())) {
-//            throw new UserError(implode('; ', $response->getErrorMessages()));
-//        }
-
         $identifiers = $response->getIdentifiers();
 
         $courierReference = $identifiers[0] ? $identifiers[0]->getIdentifierValue() : '';
