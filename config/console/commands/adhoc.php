@@ -28,6 +28,7 @@ use CG\CourierAdapter\Address as CAAddress;
 use CG\UkMail\Shipment\Package as UkMailPackage;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
+use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 
 /** @var Di $di */
 return [
@@ -213,7 +214,7 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-            $collectionDate = (new \DateTime())->setDate(2021, 7, 22);
+            $collectionDate = (new \DateTime())->setDate(2021, 7, 23);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
@@ -226,7 +227,7 @@ return [
             $domesticConsignmentService = $di->newInstance(DomesticConsignmentService::class);
 
             $deliveryService = new UkMailDeliveryService(
-                220,
+                1,
                 'Parcels Next Day - deliver to neighbour - signature',
                 1
             );
@@ -294,24 +295,33 @@ return [
                 $deliveryService,
                 36,
                 $caAccount,
-                $deliveryAddressIntl2,
+                $deliveryAddress,
                 null,
                 null,
                 $collectionDate,
-                $packages
+                $packages,
+                true
             );
 
-//            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
-//
-//            print_r($domesticConsignmentResponse);
+            $domesticConsignmentResponse = $domesticConsignmentService->requestDomesticConsignment($shipment, $token, $collectionJobNumber);
+
+            print_r($domesticConsignmentResponse);
 
             /** @var DeliveryProductsService $deliveryProductsService */
             $deliveryProductsService = $di->newInstance(DeliveryProductsService::class);
 
-            echo "DeliveryProducts\n";
+//            echo "DeliveryProducts\n";
 
-            $deliveryProductsResponse = $deliveryProductsService->getDeliveryProducts($shipment);
-            print_r($deliveryProductsResponse);
+//            $deliveryProductsResponse = $deliveryProductsService->getDeliveryProducts($shipment);
+//            print_r($deliveryProductsResponse);
+
+
+//            /** @var CustomsDeclarationService $customsDeclarationService */
+//            $customsDeclarationService = $di->newInstance(CustomsDeclarationService::class);
+//
+//            $customsDeclaration = $customsDeclarationService->getCustomsDeclaration($shipment, 'full');
+//
+//            print_r($customsDeclaration);
 
 
 

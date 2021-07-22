@@ -5,6 +5,9 @@ use CG\UkMail\Shipment;
 
 class Service
 {
+    public const DECLARATION_TYPE_BASIC = 'basic';
+    public const DECLARATION_TYPE_FULL = 'full';
+
     /** @var Factory */
     protected $abstractFactory;
 

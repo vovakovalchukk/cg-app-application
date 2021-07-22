@@ -1,6 +1,7 @@
 <?php
 namespace CG\UkMail\Request\Rest;
 
+use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\DomesticConsignment\DeliveryInformation;
 use CG\UkMail\DomesticConsignment\Parcel;
 use CG\UkMail\DomesticConsignment\Recipient;
@@ -52,6 +53,8 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     protected $inBoxReturnDetail;
     /** @var string */
     protected $labelFormat;
+    /** @var CustomsDeclarationInterface */
+    protected $customsDeclaration;
 
     public function __construct(
         string $apiKey,
@@ -73,7 +76,8 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         ?bool $bookin,
         ?bool $inBoxReturn,
         ?InBoxReturnDetail $inBoxReturnDetail,
-        string $labelFormat
+        string $labelFormat,
+        CustomsDeclarationInterface $customsDeclaration
     ) {
         $this->apiKey = $apiKey;
         $this->username = $username;
@@ -95,6 +99,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
         $this->inBoxReturn = $inBoxReturn;
         $this->inBoxReturnDetail = $inBoxReturnDetail;
         $this->labelFormat = $labelFormat;
+        $this->customsDeclaration = $customsDeclaration;
     }
 
     protected function getBody(): array
@@ -120,6 +125,7 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
             'inBoxReturn' => $this->isInBoxReturn(),
             'inboxReturnDetail' => $this->getInBoxReturnDetail() != null ? $this->getInBoxReturnDetail()->toArray() : null,
             'labelFormat' => $this->getLabelFormat(),
+            'customsDeclaration' => $this->getCustomsDeclaration()->toArray()
         ];
 
         $parcels = $this->getParcels();
@@ -380,6 +386,17 @@ class DomesticConsignment extends AbstractPostRequest implements RequestInterfac
     public function setLabelFormat(string $labelFormat): DomesticConsignment
     {
         $this->labelFormat = $labelFormat;
+        return $this;
+    }
+
+    public function getCustomsDeclaration(): CustomsDeclarationInterface
+    {
+        return $this->customsDeclaration;
+    }
+
+    public function setCustomsDeclaration(CustomsDeclarationInterface $customsDeclaration): DomesticConsignment
+    {
+        $this->customsDeclaration = $customsDeclaration;
         return $this;
     }
 }

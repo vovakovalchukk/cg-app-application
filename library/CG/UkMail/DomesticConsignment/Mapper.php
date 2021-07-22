@@ -7,6 +7,8 @@ use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
+use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
 use CG\UkMail\Shipment;
 use CG\UkMail\Shipment\Package;
@@ -24,6 +26,16 @@ class Mapper
     protected const CONTACT_NUMBER_TYPE_PHONE = 'phone';
     protected const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
     protected const PRE_DELIVERY_NOTIFICATION_EMAIL = 'email';
+
+    protected const NI_POSTCODE_PATTERN = '/^BT[0-9]{1,2}[\s]*([\d][A-Za-z]{2})$/';
+
+    /** @var CustomsDeclarationService */
+    protected $customsDeclarationService;
+
+    public function __construct(CustomsDeclarationService $customsDeclarationService)
+    {
+        $this->customsDeclarationService = $customsDeclarationService;
+    }
 
     public function createDomesticConsignmentRequest(
         Shipment $shipment,
@@ -54,7 +66,8 @@ class Mapper
             false,
             false,
             null,
-            static::LABEL_FORMAT_PDF
+            static::LABEL_FORMAT_PDF,
+            $this->getCustomsDeclaration($shipment)
         );
     }
 
@@ -142,5 +155,31 @@ class Mapper
             $this->getDeliveryAddress($address, true),
             static::PRE_DELIVERY_NOTIFICATION_EMAIL
         );
+    }
+
+    protected function getCustomsDeclaration(Shipment $shipment): CustomsDeclarationInterface
+    {
+        $type = $this->determineTypeOfCustomsDeclaration($shipment);
+        return $this->customsDeclarationService->getCustomsDeclaration($shipment, $type);
+    }
+
+    protected function determineTypeOfCustomsDeclaration(Shipment $shipment): string
+    {
+        $type = CustomsDeclarationService::DECLARATION_TYPE_BASIC;
+        if ($this->isNiPostcode($shipment)) {
+            return CustomsDeclarationService::DECLARATION_TYPE_FULL;
+        }
+
+        return $type;
+    }
+
+    protected function isNiPostcode(Shipment $shipment): bool
+    {
+        $postcode = $shipment->getDeliveryAddress()->getPostCode();
+        if (preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode))) {
+            return true;
+        }
+
+        return false;
     }
 }
