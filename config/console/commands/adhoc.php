@@ -21,7 +21,7 @@ use CG\UkMail\Response\AbstractRestResponse;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
 use CG\Locale\CountryNameByAlpha3Code;
-use CG\UkMail\DomesticConsignment\Service as DomesticConsignmentService;
+use CG\UkMail\Consignment\Domestic\Service as DomesticConsignmentService;
 use CG\UkMail\Shipment as UkMailShipment;
 use CG\UkMail\DeliveryService as UkMailDeliveryService;
 use CG\CourierAdapter\Address as CAAddress;

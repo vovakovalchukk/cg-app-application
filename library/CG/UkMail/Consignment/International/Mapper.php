@@ -1,7 +1,7 @@
 <?php
 namespace CG\UkMail\Consignment\International;
 
-use CG\UkMail\DomesticConsignment\Mapper as DomesticConsignmentMapper;
+use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\CourierAdapter\Address as CAAddress;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;

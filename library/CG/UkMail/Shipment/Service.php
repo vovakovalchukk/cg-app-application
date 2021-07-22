@@ -3,7 +3,7 @@ namespace CG\UkMail\Shipment;
 
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
-use CG\UkMail\DomesticConsignment\Service as DomesticConsignmentService;
+use CG\UkMail\Consignment\Domestic\Service as DomesticConsignmentService;
 use CG\UkMail\Shipment;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;

@@ -2,10 +2,10 @@
 namespace CG\UkMail\Request\Rest;
 
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
-use CG\UkMail\DomesticConsignment\DeliveryInformation;
-use CG\UkMail\DomesticConsignment\Parcel;
-use CG\UkMail\DomesticConsignment\Recipient;
-use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
+use CG\UkMail\Consignment\Domestic\DeliveryInformation;
+use CG\UkMail\Consignment\Domestic\Parcel;
+use CG\UkMail\Consignment\Domestic\Recipient;
+use CG\UkMail\Consignment\Domestic\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as Response;
 

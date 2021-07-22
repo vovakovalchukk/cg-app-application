@@ -3,7 +3,7 @@ namespace CG\UkMail\DeliveryProducts;
 
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\UkMail\DomesticConsignment\Mapper as DomesticConsignmentMapper;
+use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\UkMail\Request\Rest\DeliveryProducts as DeliveryProductsRequest;
 use CG\UkMail\Shipment;
 use CG\UkMail\Shipment\Package as UkMailPackage;

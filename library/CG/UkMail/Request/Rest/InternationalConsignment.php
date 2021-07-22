@@ -5,7 +5,7 @@ use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\Consignment\International\DeliveryInformation;
 use CG\UkMail\Consignment\International\Parcel;
 use CG\UkMail\Consignment\International\Recipient;
-use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
+use CG\UkMail\Consignment\Domestic\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\InternationalConsignment as Response;
 

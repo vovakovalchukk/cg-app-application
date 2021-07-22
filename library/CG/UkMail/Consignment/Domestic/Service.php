@@ -1,5 +1,5 @@
 <?php
-namespace CG\UkMail\DomesticConsignment;
+namespace CG\UkMail\Consignment\Domestic;
 
 use CG\CourierAdapter\Exception\UserError;
 use CG\UkMail\Client\Factory as ClientFactory;
