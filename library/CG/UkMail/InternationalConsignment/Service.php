@@ -36,7 +36,7 @@ class Service implements LoggerAwareInterface
         return $this->mapper->createInternationalConsignmentRequest($shipment, $authToken, $collectionJobNumber, $customsDeclarationType);
     }
 
-    public function requestDomesticConsignment(
+    public function requestInternationalConsignment(
         Shipment $shipment,
         string $authToken,
         string $collectionJobNumber,

@@ -11,12 +11,12 @@ class InternationalConsignment extends AbstractRestResponse implements ResponseI
 {
     /** @var Identifier[] */
     protected $identifiers;
-    /** @var Document[] */
+    /** @var Document */
     protected $documents;
     /** @var Label[]  */
     protected $labels;
 
-    public function __construct(array $identifiers, array $documents, array $labels)
+    public function __construct(array $identifiers, Document $documents, array $labels)
     {
         $this->identifiers = $identifiers;
         $this->documents = $documents;
@@ -33,10 +33,7 @@ class InternationalConsignment extends AbstractRestResponse implements ResponseI
             );
         }
 
-        $documents = [];
-        foreach ($response['documents'] as $document) {
-            $documents[] = new Document($document);
-        }
+        $documents = new Document($response['documents']);
 
         $labels = [];
         foreach ($response['labels'] as $label) {

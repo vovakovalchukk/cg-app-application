@@ -337,7 +337,7 @@ return [
             /** @var InternationalConsignmentService $internationalConsignmentService */
             $internationalConsignmentService = $di->newInstance(InternationalConsignmentService::class);
 
-            $internationalConsignmentResponse = $internationalConsignmentService->requestDomesticConsignment(
+            $internationalConsignmentResponse = $internationalConsignmentService->requestInternationalConsignment(
                 $shipment, $token, $collectionJobNumber, $deliveryProduct->getCustomsDeclaration()
             );
 
