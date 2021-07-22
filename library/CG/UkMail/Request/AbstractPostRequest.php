@@ -17,7 +17,7 @@ abstract class AbstractPostRequest extends AbstractRequest
         return $options;
     }
 
-    abstract protected function getBody(): array;
+    abstract protected function getBody();
 
     protected function prepareRequestData(array $requestData): array
     {

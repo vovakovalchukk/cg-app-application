@@ -30,6 +30,7 @@ use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Consignment\International\Service as InternationalConsignmentService;
+use CG\UkMail\Consignment\Cancel\Service as CancelConsignmentService;
 
 /** @var Di $di */
 return [
@@ -314,12 +315,12 @@ return [
             /** @var DeliveryProductsService $deliveryProductsService */
             $deliveryProductsService = $di->newInstance(DeliveryProductsService::class);
 
-            echo "DeliveryProducts\n";
+//            echo "DeliveryProducts\n";
 
 //            $deliveryProductsResponse = $deliveryProductsService->getDeliveryProducts($shipment);
 //            print_r($deliveryProductsResponse);
 
-            $deliveryProduct = $deliveryProductsService->checkIntlServiceAvailabilityForShipment($shipment);
+//            $deliveryProduct = $deliveryProductsService->checkIntlServiceAvailabilityForShipment($shipment);
 
 //            /** @var CustomsDeclarationService $customsDeclarationService */
 //            $customsDeclarationService = $di->newInstance(CustomsDeclarationService::class);
@@ -328,20 +329,30 @@ return [
 //
 //            print_r($customsDeclaration);
 
-            print_r($deliveryProduct);
-            if (!isset($deliveryProduct)) {
-                echo "NO DELIVERY PRODUCT\n";
-                return;
-            }
+//            print_r($deliveryProduct);
+//            if (!isset($deliveryProduct)) {
+//                echo "NO DELIVERY PRODUCT\n";
+//                return;
+//            }
 
             /** @var InternationalConsignmentService $internationalConsignmentService */
             $internationalConsignmentService = $di->newInstance(InternationalConsignmentService::class);
 
-            $internationalConsignmentResponse = $internationalConsignmentService->requestInternationalConsignment(
-                $shipment, $token, $collectionJobNumber, $deliveryProduct->getCustomsDeclaration()
-            );
+//            $internationalConsignmentResponse = $internationalConsignmentService->requestInternationalConsignment(
+//                $shipment, $token, $collectionJobNumber, $deliveryProduct->getCustomsDeclaration()
+//            );
+//
+//            print_r($internationalConsignmentResponse);
 
-            print_r($internationalConsignmentResponse);
+            /** @var CancelConsignmentService $cancelConsignmentService */
+            $cancelConsignmentService = $di->newInstance(CancelConsignmentService::class);
+
+            $shipment->setCourierReference('71007520082969');
+
+            $res = $cancelConsignmentService->requestCancelConsignment($shipment, $token);
+            print_r($res);
+
+
 
 
 
