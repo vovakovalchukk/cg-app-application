@@ -2,9 +2,9 @@
 namespace CG\UkMail\Request\Rest;
 
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
-use CG\UkMail\InternationalConsignment\DeliveryInformation;
-use CG\UkMail\InternationalConsignment\Parcel;
-use CG\UkMail\InternationalConsignment\Recipient;
+use CG\UkMail\Consignment\International\DeliveryInformation;
+use CG\UkMail\Consignment\International\Parcel;
+use CG\UkMail\Consignment\International\Recipient;
 use CG\UkMail\DomesticConsignment\InBoxReturnDetail;
 use CG\UkMail\Request\AbstractPostRequest;
 use CG\UkMail\Response\Rest\InternationalConsignment as Response;
@@ -330,7 +330,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->recipient;
     }
 
-    public function setRecipient(Recipient $recipient): DomesticConsignment
+    public function setRecipient(Recipient $recipient): InternationalConsignment
     {
         $this->recipient = $recipient;
         return $this;
@@ -341,7 +341,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->inBoxReturn;
     }
 
-    public function setInBoxReturn(?bool $inBoxReturn): DomesticConsignment
+    public function setInBoxReturn(?bool $inBoxReturn): InternationalConsignment
     {
         $this->inBoxReturn = $inBoxReturn;
         return $this;
@@ -352,7 +352,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->inBoxReturnDetail;
     }
 
-    public function setInBoxReturnDetail(?InBoxReturnDetail $inBoxReturnDetail): DomesticConsignment
+    public function setInBoxReturnDetail(?InBoxReturnDetail $inBoxReturnDetail): InternationalConsignment
     {
         $this->inBoxReturnDetail = $inBoxReturnDetail;
         return $this;
@@ -374,7 +374,7 @@ class InternationalConsignment extends AbstractPostRequest implements RequestInt
         return $this->labelFormat;
     }
 
-    public function setLabelFormat(string $labelFormat): DomesticConsignment
+    public function setLabelFormat(string $labelFormat): InternationalConsignment
     {
         $this->labelFormat = $labelFormat;
         return $this;

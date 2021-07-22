@@ -29,7 +29,7 @@ use CG\UkMail\Shipment\Package as UkMailPackage;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAContent;
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
-use CG\UkMail\InternationalConsignment\Service as InternationalConsignmentService;
+use CG\UkMail\Consignment\International\Service as InternationalConsignmentService;
 
 /** @var Di $di */
 return [

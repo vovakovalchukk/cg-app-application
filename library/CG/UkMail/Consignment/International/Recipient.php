@@ -1,5 +1,5 @@
 <?php
-namespace CG\UkMail\InternationalConsignment;
+namespace CG\UkMail\Consignment\International;
 
 class Recipient
 {

@@ -1,5 +1,5 @@
 <?php
-namespace CG\UkMail\InternationalConsignment;
+namespace CG\UkMail\Consignment\International;
 
 use CG\UkMail\DomesticConsignment\Mapper as DomesticConsignmentMapper;
 use CG\CourierAdapter\Address as CAAddress;
