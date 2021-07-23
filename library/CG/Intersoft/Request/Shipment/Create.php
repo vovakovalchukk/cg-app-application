@@ -419,7 +419,7 @@ class Create extends PostAbstract
         $phoneNumber = trim($phoneNumber);
 
         // all other characters but digits, minus, plus and forward slash are removed
-        $whiteListedCharacters = '/[^ 0-9-+\/]/';
+        $whiteListedCharacters = '/[^ 0-9-+]/';
         $phoneNumber = preg_replace($whiteListedCharacters, '', $phoneNumber);
 
         // plus sign is removed from everywhere except if it's first character
