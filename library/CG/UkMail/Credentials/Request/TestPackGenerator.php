@@ -64,9 +64,8 @@ class TestPackGenerator
             $shipmentData['deliveryService'] = $this->deliveryServiceService->getDeliveryServiceByReference($shipmentData['deliveryService']);
             $shipmentData['packages'] = $this->mapPackagesDataToPackages($shipmentData['packages']);
 
-            $shipmentData['deliveredDutyPaid'] = true;
             $shipmentData['eoriNumber'] = 'GB123456789012';
-            $shipmentData['iossNumber'] = 'IOSS123456789012';
+            $shipmentData['iossNumber'] = 'IM1234567890';
 
             $shipmentData = array_merge($defaultShipmentData, $shipmentData);
             $shipments[] = Shipment::fromArray($shipmentData);
@@ -111,7 +110,7 @@ class TestPackGenerator
     {
         return new Content(
             'Description',
-            '00000000',
+            '56081911',
             'HS Code Description',
             'GB',
             1,

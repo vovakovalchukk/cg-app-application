@@ -3,6 +3,7 @@
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
 use CG\UkMail\DeliveryService\Service as DeliveryServiceService;
+use CG\UkMail\Credentials\Request\TestPackGenerator;
 
 return [
     'di' => [
@@ -426,13 +427,166 @@ return [
                 'parameters' => [
                     'shipmentsData' => [
                         [
-                            'customerReference' => 'HTEST25',
-                            'deliveryService' => 'Standard',
-                            'signatureRequired' => false,
+                            'customerReference' => 'TEST-S1.1',
+                            'deliveryService' => '1',
+                            'invoiceNumber' => '1',
+                            'deliveredDutyPaid' => true,
                             'deliveryAddress' => [
-                                'firstName' => 'Test', 'lastName' => 'Parcel -  Do not Deliver', 'line1' => '145 Alfreton Road', 'line2' => 'Little Eaton', 'line3' => 'Derby', 'line4' => '', 'line5' => '', 'postCode' => 'DE21 5AA', 'emailAddress' => 'it.integration@hermes-europe.co.uk'
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel -  Do not Deliver',
+                                'line1' => '145 Alfreton Road',
+                                'line2' => 'Little Eaton',
+                                'line3' => '',
+                                'line4' => 'Derby',
+                                'line5' => '',
+                                'postCode' => 'DE21 5AA',
+                                'emailAddress' => 'scenario11@example.com',
+                                'phoneNumber' => '1213456714'
                             ],
-                            'packages' => [['weight' => 0.95]]
+                            'packages' => [
+                                [
+                                    'weight' => 0.95,
+                                    'length' => 0.10,
+                                    'width' => 0.15,
+                                    'height' => 0.20
+                                ]
+                            ]
+                        ],
+                        [
+                            'customerReference' => 'TEST-S1.2',
+                            'deliveryService' => '48',
+                            'invoiceNumber' => '2',
+                            'deliveredDutyPaid' => true,
+                            'deliveryAddress' => [
+                                'firstName' => 'Jersey Post',
+                                'lastName' => '',
+                                'line1' => 'Postal Headquarters',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'JERSEY',
+                                'line5' => 'Channel Islands',
+                                'postCode' => 'JE1 1AA',
+                                'emailAddress' => 'scenario12@example.com',
+                                'phoneNumber' => '1213666714'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 1.45,
+                                    'length' => 0.14,
+                                    'width' => 0.19,
+                                    'height' => 0.24
+                                ]
+                            ]
+                        ],
+                        [
+                            'customerReference' => 'TEST-S1.3',
+                            'deliveryService' => '48',
+                            'invoiceNumber' => '3',
+                            'deliveredDutyPaid' => true,
+                            'deliveryAddress' => [
+                                'firstName' => 'Newtownards Retail',
+                                'lastName' => '',
+                                'line1' => '241 Newtownards Road',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Belfast',
+                                'line5' => '',
+                                'postCode' => 'BT4 1AF',
+                                'emailAddress' => 'scenario13@example.com',
+                                'phoneNumber' => '1213678714'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 1.25,
+                                    'length' => 0.14,
+                                    'width' => 0.45,
+                                    'height' => 0.45
+                                ]
+                            ]
+                        ],
+                        [
+                            'customerReference' => 'TEST-S2.1',
+                            'deliveryService' => '101',
+                            'invoiceNumber' => '4',
+                            'deliveredDutyPaid' => false,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel 4 - Do not Deliver',
+                                'line1' => 'Lietzenburger Strasse 20',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Bergisch Gladbach Bensberg',
+                                'line5' => 'Nordrhein-Westfalen',
+                                'postCode' => '51429',
+                                'country' => 'Germany',
+                                'ISOAlpha2CountryCode' => 'DE',
+                                'emailAddress' => 'scenario21@example.com',
+                                'phoneNumber' => '1213648722'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 2,
+                                    'length' => 0.50,
+                                    'width' => 0.60,
+                                    'height' => 0.45
+                                ]
+                            ]
+                        ],
+                        [
+                            'customerReference' => 'TEST-S2.2',
+                            'deliveryService' => '206',
+                            'invoiceNumber' => '5',
+                            'deliveredDutyPaid' => false,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel 5 - Do not Deliver',
+                                'line1' => 'Lietzenburger Strasse 20',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Bergisch Gladbach Bensberg',
+                                'line5' => 'Nordrhein-Westfalen',
+                                'postCode' => '51429',
+                                'country' => 'Germany',
+                                'ISOAlpha2CountryCode' => 'DE',
+                                'emailAddress' => 'scenario22@example.com',
+                                'phoneNumber' => '1247648722'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 4,
+                                    'length' => 0.75,
+                                    'width' => 0.60,
+                                    'height' => 0.45
+                                ]
+                            ]
+                        ],
+                        [
+                            'customerReference' => 'TEST-S2.3',
+                            'deliveryService' => '204',
+                            'invoiceNumber' => '6',
+                            'deliveredDutyPaid' => false,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel 6 - Do not Deliver',
+                                'line1' => 'Lietzenburger Strasse 20',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Bergisch Gladbach Bensberg',
+                                'line5' => 'Nordrhein-Westfalen',
+                                'postCode' => '51429',
+                                'country' => 'France',
+                                'ISOAlpha2CountryCode' => 'FR',
+                                'emailAddress' => 'scenario23@example.com',
+                                'phoneNumber' => '8513648722'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 2,
+                                    'length' => 0.75,
+                                    'width' => 0.40,
+                                    'height' => 0.55
+                                ]
+                            ]
                         ],
                     ]
                 ]
