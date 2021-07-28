@@ -1,8 +1,10 @@
 <?php
 namespace CG\UkMail\Shipment;
 
+use CG\CourierAdapter\Exception\UserError;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
+use CG\UkMail\Consignment\Cancel\Service as CancelConsignmentService;
 use CG\UkMail\Consignment\Domestic\Service as DomesticConsignmentService;
 use CG\UkMail\Consignment\International\Service as InternationalConsignmentService;
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
@@ -27,19 +29,23 @@ class Service implements LoggerAwareInterface
     protected $deliveryProductsService;
     /** @var InternationalConsignmentService  */
     protected $internationalConsignmentService;
+    /** @var CancelConsignmentService */
+    protected $cancelConsignmentService;
 
     public function __construct(
         AuthenticateService $authenticateService,
         CollectionService $collectionService,
         DomesticConsignmentService $domesticConsignmentService,
         DeliveryProductsService $deliveryProductsService,
-        InternationalConsignmentService $internationalConsignmentService
+        InternationalConsignmentService $internationalConsignmentService,
+        CancelConsignmentService $cancelConsignmentService
     ) {
         $this->authenticateService = $authenticateService;
         $this->collectionService = $collectionService;
         $this->domesticConsignmentService = $domesticConsignmentService;
         $this->deliveryProductsService = $deliveryProductsService;
         $this->internationalConsignmentService = $internationalConsignmentService;
+        $this->cancelConsignmentService = $cancelConsignmentService;
     }
 
     public function bookShipment(Shipment $shipment): Shipment
@@ -80,5 +86,23 @@ class Service implements LoggerAwareInterface
             next($identifier);
         }
         return $shipment;
+    }
+
+    public function cancelShipment(Shipment $shipment): bool
+    {
+        $account = $shipment->getAccount();
+
+        $authToken = $this->authenticateService->getAuthenticationToken($account);
+        $cancelConsignmentResponse = $this->cancelConsignmentService->requestCancelConsignment($shipment, $authToken);
+
+        if ($cancelConsignmentResponse->isError()) {
+            throw new UserError(
+                $cancelConsignmentResponse->getErrorCode()
+                . ': '.
+                $cancelConsignmentResponse->getErrorDescription()
+            );
+        }
+
+        return true;
     }
 }

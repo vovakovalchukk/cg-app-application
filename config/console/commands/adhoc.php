@@ -347,7 +347,7 @@ return [
             /** @var CancelConsignmentService $cancelConsignmentService */
             $cancelConsignmentService = $di->newInstance(CancelConsignmentService::class);
 
-            $shipment->setCourierReference('71007520082969');
+            $shipment->setCourierReference('41152170000025'); //41152170000024 //71007520082969
 
             $res = $cancelConsignmentService->requestCancelConsignment($shipment, $token);
             print_r($res);

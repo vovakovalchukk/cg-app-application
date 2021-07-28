@@ -8,6 +8,7 @@ class CancelConsignment extends AbstractPostRequest implements RequestInterface
 {
     protected const URI = 'Services/UKMConsignmentServices/UKMConsignmentService.svc?wsdl';
 
+    protected const SOAP_ACTION = 'http://www.UKMail.com/Services/IUKMConsignmentService/CancelConsignment';
     protected const ENVELOPE = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://www.UKMail.com/Services/Contracts/ServiceContracts" xmlns:dat="http://www.UKMail.com/Services/Contracts/DataContracts"></soapenv:Envelope>';
 
     /** @var string */
@@ -35,12 +36,7 @@ class CancelConsignment extends AbstractPostRequest implements RequestInterface
         $request->addChild('dat:Username', $this->getUsername(), 'http://www.UKMail.com/Services/Contracts/DataContracts');
         $request->addChild('dat:ConsignmentNumber', $this->getConsignmentNumber(), 'http://www.UKMail.com/Services/Contracts/DataContracts');
 
-        $req = $this->removeXmlDeclaration($xml->asXML());
-
-        print_r($req);
-//        die();
-
-        return $req;
+        return $this->removeXmlDeclaration($xml->asXML());
     }
 
     public function getResponseClass(): string
@@ -53,7 +49,7 @@ class CancelConsignment extends AbstractPostRequest implements RequestInterface
         return [
             'Content-Type' => 'text/xml',
             'Expect' => '',
-            'SOAPAction' => 'http://www.UKMail.com/Services/IUKMConsignmentService/CancelConsignment'
+            'SOAPAction' => static::SOAP_ACTION
         ];
     }
 
