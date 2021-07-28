@@ -12,6 +12,7 @@ use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
 use CG\UkMail\Response\ResponseInterface;
 use CG\UkMail\Request\RequestInterface;
+use CG\UkMail\Request\Soap\RequestInterface as SoapRequestInterface;
 
 class Client implements LoggerAwareInterface
 {
@@ -42,24 +43,44 @@ class Client implements LoggerAwareInterface
             $this->logRequest($guzzleRequest, ($exception instanceof ClientRequestException ? $exception->getResponse() : null));
             $this->logException($exception, 'log:error', __NAMESPACE__);
 
-            $errorMessages = $exception->getResponse()->json();
-            $error = $this->handleErrorMessages($errorMessages);
+            $error = $this->handleErrorMessages($exception, $request);
+
             throw new StorageException("UK Mail API error ".$error, $exception->getCode(), $exception);
         }
     }
 
-    protected function handleErrorMessages(array $errorMessages): string
+    protected function handleErrorMessages(GuzzleBadResponseException $exception, RequestInterface $request): string
+    {
+        if ($request instanceof SoapRequestInterface) {
+            $errorMessages = $exception->getResponse()->getBody();
+            return $this->handleXmlErrorMessages($errorMessages);
+        }
+
+        $errorMessages = $exception->getResponse()->json();
+        return $this->handleJsonErrorMessages($errorMessages);
+    }
+
+    protected function handleJsonErrorMessages(array $errorMessages): string
     {
         $error = '';
         foreach ($errorMessages as $errorFieldName => $errorMessage) {
             if (is_array($errorMessage)) {
-                $subError = $this->handleErrorMessages($errorMessage);
+                $subError = $this->handleJsonErrorMessages($errorMessage);
                 $error .= ucfirst($errorFieldName) . ":  ".$subError . "  ";
                 continue;
             }
             $error .= ucfirst($errorFieldName) . ": " . $errorMessage . "  ";
         }
 
+        return $error;
+    }
+
+    protected function handleXmlErrorMessages(string $errorMessages): string
+    {
+        $error = '';
+        if ($errorMessages != '') {
+            $error = $errorMessages;
+        }
         return $error;
     }
 

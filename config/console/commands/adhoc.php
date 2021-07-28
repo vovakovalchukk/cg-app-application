@@ -216,14 +216,14 @@ return [
 
             echo "TOKEN ".$token."\n";
 
-            $collectionDate = (new \DateTime())->setDate(2021, 7, 23);
+            $collectionDate = (new \DateTime())->setDate(2021, 7, 29);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
 
-            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, $collectionDate, true);
+//            $collectionJobNumber = $collectionService->getCollectionJobNumber($caAccount, $token, $collectionDate, true);
 
-            echo "COLLECTION JOB NUMBER ".$collectionJobNumber."\n";
+//            echo "COLLECTION JOB NUMBER ".$collectionJobNumber."\n";
 
             /** @var DomesticConsignmentService $domesticConsignmentService */
             $domesticConsignmentService = $di->newInstance(DomesticConsignmentService::class);

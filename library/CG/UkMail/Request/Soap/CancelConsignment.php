@@ -29,13 +29,18 @@ class CancelConsignment extends AbstractPostRequest implements RequestInterface
         $xml = new \SimpleXMLElement(static::ENVELOPE);
         $xml->addChild('soapenv:Header');
         $body = $xml->addChild('soapenv:Body');
-        $cancelConsignment = $body->addChild('ser:CancelConsignment');
+        $cancelConsignment = $body->addChild('ser:CancelConsignment', null, 'http://www.UKMail.com/Services/Contracts/ServiceContracts');
         $request = $cancelConsignment->addChild('ser:request');
-        $request->addChild('dat:AuthenticationToken', $this->getAuthenticationToken());
-        $request->addChild('dat:Username', $this->getUsername());
-        $request->addChild('dat:ConsignmentNumber', $this->getConsignmentNumber());
+        $request->addChild('dat:AuthenticationToken', $this->getAuthenticationToken(), 'http://www.UKMail.com/Services/Contracts/DataContracts');
+        $request->addChild('dat:Username', $this->getUsername(), 'http://www.UKMail.com/Services/Contracts/DataContracts');
+        $request->addChild('dat:ConsignmentNumber', $this->getConsignmentNumber(), 'http://www.UKMail.com/Services/Contracts/DataContracts');
 
-        return $this->removeXmlDeclaration($xml->asXML());
+        $req = $this->removeXmlDeclaration($xml->asXML());
+
+        print_r($req);
+//        die();
+
+        return $req;
     }
 
     public function getResponseClass(): string
@@ -47,7 +52,8 @@ class CancelConsignment extends AbstractPostRequest implements RequestInterface
     {
         return [
             'Content-Type' => 'text/xml',
-            'Expect' => ''
+            'Expect' => '',
+            'SOAPAction' => 'http://www.UKMail.com/Services/IUKMConsignmentService/CancelConsignment'
         ];
     }
 
