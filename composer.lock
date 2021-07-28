@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35066efca0e9a1f4688b4136b0ca51f8",
+    "content-hash": "625724a1487614c69f28ab320b86fdcb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2857,16 +2857,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.16",
+            "version": "1.20.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "42432eaf14bf85d6107357493882fbf8965c5954"
+                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.16-55e5b9.zip",
-                "reference": "42432eaf14bf85d6107357493882fbf8965c5954"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.17-947fa0.zip",
+                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2915,7 +2915,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-06-28T13:57:02+00:00"
+            "time": "2021-07-26T09:27:10+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
