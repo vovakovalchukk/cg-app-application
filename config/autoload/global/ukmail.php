@@ -422,6 +422,21 @@ return [
                     ],
                 ],
             ],
+            TestPackGenerator::class => [
+                'parameters' => [
+                    'shipmentsData' => [
+                        [
+                            'customerReference' => 'HTEST25',
+                            'deliveryService' => 'Standard',
+                            'signatureRequired' => false,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test', 'lastName' => 'Parcel -  Do not Deliver', 'line1' => '145 Alfreton Road', 'line2' => 'Little Eaton', 'line3' => 'Derby', 'line4' => '', 'line5' => '', 'postCode' => 'DE21 5AA', 'emailAddress' => 'it.integration@hermes-europe.co.uk'
+                            ],
+                            'packages' => [['weight' => 0.95]]
+                        ],
+                    ]
+                ]
+            ],
         ],
     ],
 ];
