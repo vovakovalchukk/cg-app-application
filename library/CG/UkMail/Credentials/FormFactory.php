@@ -58,13 +58,11 @@ class FormFactory
             (new Time("earliestTime", [
                 "label" => "Earliest Time the parcels will be ready for collection",
                 "format" => "H:i",
-                "min" => "09:00",
-                "max" => "16:30"
             ]))
                 ->setAttributes([
                     'value' => '09:00',
                     'class' => 'uk-mail-ca-time-inputbox',
-                    "min" => "09:00", //@todo min and max attributes are not set in html
+                    "min" => "09:00",
                     "max" => "16:30",
                 ])
         );
@@ -78,7 +76,7 @@ class FormFactory
                 ->setAttributes([
                     'value' => '17:00',
                     'class' => 'uk-mail-ca-time-inputbox',
-                    "min" => "09:30", //@todo min and max attributes are not set in html
+                    "min" => "09:30",
                     "max" => "17:00",
                 ])
 
