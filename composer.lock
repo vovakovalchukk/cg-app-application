@@ -2513,12 +2513,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "29347390691d127b4e5323d1c244624e152ea527"
+                "reference": "e4b05d2917d6d1b4b074ebc3d7ce344afbfff78d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12110-vat-0-vat-applied-to-isle-of-man-ac5e93.zip",
-                "reference": "29347390691d127b4e5323d1c244624e152ea527",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12110-vat-0-vat-applied-to-isle-of-man-ba3dd9.zip",
+                "reference": "e4b05d2917d6d1b4b074ebc3d7ce344afbfff78d",
                 "shasum": null
             },
             "require": {
@@ -2590,7 +2590,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-07-29T13:30:25+00:00"
+            "time": "2021-07-29T13:51:31+00:00"
         },
         {
             "name": "channelgrabber/partner",
