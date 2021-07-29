@@ -40,6 +40,7 @@ class Create extends PostAbstract
     const LEN_COUNTRY_CODE = 2;
     const PRE_REGISTRATION_TYPE_EORI = 'EORI';
     const PRE_REGISTRATION_TYPE_IOSS = 'IOSS';
+    const DEFAULT_PHONE_NUMBER = '00000000000';
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -404,13 +405,31 @@ class Create extends PostAbstract
         // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
         $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
         $phoneNumberLength = strlen($phoneNumber);
+
         if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
-            return '00000000000';
+            return static::DEFAULT_PHONE_NUMBER;
         }
+
+        return $this->sanitisePhoneNumber($phoneNumber, $phoneNumberLength);
+    }
+
+    protected function sanitisePhoneNumber(string $phoneNumber, int $phoneNumberLength): string
+    {
+        // all white spaces from end and beginning are removed
+        $phoneNumber = trim($phoneNumber);
+
+        // all other characters but digits, minus, plus and forward slash are removed
+        $whiteListedCharacters = '/[^ 0-9-+]/';
+        $phoneNumber = preg_replace($whiteListedCharacters, '', $phoneNumber);
+
+        // plus sign is removed from everywhere except if it's first character
+        $phoneNumber = substr($phoneNumber, 0,1) . str_replace('+', '', substr($phoneNumber, 1, strlen($phoneNumber)));
+
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
-        return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+
+        return $phoneNumber;
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string

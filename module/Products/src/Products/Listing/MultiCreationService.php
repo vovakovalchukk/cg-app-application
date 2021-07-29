@@ -769,8 +769,10 @@ class MultiCreationService implements LoggerAwareInterface
         // For now the only data that isn't persisted anywhere is the images
         $listingData = [
             'imageId' => $productData['imageId'] ?? null,
+            'condition' => $productData['condition'] ?? null,
             'processGuid' => $processGuid
         ];
+
         if (!$product->isParent()) {
             return $listingData;
         }
