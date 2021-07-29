@@ -277,12 +277,12 @@ return [
                 'Testing Chili Con Carne',
                 '56081911',
                 '',
-                'GB', 1, 1.5, 10, 'GBP',
+                'GB', 1, 4, 200, 'GBP',
                 'Testing Chili Con Carne',
                 '',
                 'cgiv-9628-chili-con-carne'
             );
-            $packages[] = new UkMailPackage(1, 1.5, 0.22, 0.22, 0.22, $contents);
+            $packages[] = new UkMailPackage(1, 4, 0.75, 0.60, 0.45, $contents);
 
             $shipment = new UkMailShipment(
                 $deliveryService,
@@ -293,8 +293,8 @@ return [
                 null,
                 $collectionDate,
                 $packages,
-                false,
-                'GB1234567891',
+                true,
+                'GB123456789101',
                 'IM1234567891',
                 '36'
             );
