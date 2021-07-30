@@ -26,7 +26,7 @@ class Service implements LoggerAwareInterface
     protected const COLLECTION_TYPE_INTERNATIONAL = 'I';
 
     protected const COLLECTION_JOB_KEY = 'CGUkMailCollectionJobNumber:%d:%s:%s';
-    protected const COLLECTION_JOB_TTL = 604800; //7 days
+    protected const COLLECTION_JOB_TTL = 300; //5 minutes
 
     /** @var PredisClient */
     protected $predisClient;
