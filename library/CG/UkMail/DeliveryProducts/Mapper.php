@@ -46,4 +46,21 @@ class Mapper
     {
         return ceil((new Length($dimension, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSION_UNIT));
     }
+
+    public function getDeliveryProductsService204(): DeliveryProduct
+    {
+        return new DeliveryProduct(
+            204,
+            'International Road Economy',
+            '2-4 days',
+            4,
+            2,
+            '',
+            6,
+            '',
+            [],
+            'full',
+            1
+        );
+    }
 }

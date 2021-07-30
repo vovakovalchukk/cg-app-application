@@ -209,7 +209,7 @@ return [
             $token = $authenticateService->getAuthenticationToken($caAccount);
             echo "TOKEN ".$token."\n";
 
-            $collectionDate = (new \DateTime())->setDate(2021, 7, 30);
+            $collectionDate = (new \DateTime())->setDate(2021, 8, 2);
 
             /** @var CollectionService $collectionService */
             $collectionService = $di->newInstance(CollectionService::class);
@@ -220,7 +220,7 @@ return [
             $domesticConsignmentService = $di->newInstance(DomesticConsignmentService::class);
 
             $deliveryService = new UkMailDeliveryService(
-                206,
+                204,
                 'Parcels Next Day - deliver to neighbour - signature',
                 0
             );
@@ -277,12 +277,12 @@ return [
                 'Testing Chili Con Carne',
                 '56081911',
                 '',
-                'GB', 1, 2, 100, 'GBP',
+                'GB', 1, 2, 200, 'GBP',
                 'Testing Chili Con Carne',
                 '',
                 'cgiv-9628-chili-con-carne'
             );
-            $packages[] = new UkMailPackage(1, 4, 0.20, 0.20, 0.20, $contents);
+            $packages[] = new UkMailPackage(1, 4, 0.75, 0.40, 0.55, $contents);
 
             $shipment = new UkMailShipment(
                 $deliveryService,

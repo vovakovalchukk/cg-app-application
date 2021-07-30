@@ -13,6 +13,8 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    protected const INTL_ROAD_ECONOMY_SERVICE = 204;
+
     protected const LOG_CODE = 'UkMailDeliveryProductsService';
     protected const LOG_REQUESTING_LABEL_MSG = 'Requesting UK Mail label for account %d order %s';
 
@@ -37,6 +39,10 @@ class Service implements LoggerAwareInterface
                 return $deliveryProduct;
             }
         }
+        
+        if ($shipment->getDeliveryService()->getReference() == static::INTL_ROAD_ECONOMY_SERVICE) {
+            return $this->getDeliveryProductsService204();
+        }
 
         return null;
     }
@@ -58,4 +64,12 @@ class Service implements LoggerAwareInterface
         return $this->mapper->createDeliveryProductsRequest($shipment);
     }
 
+    /**
+     * UkMail is not returning service 204 in DeliveryProductRequest as call is not yet optimised
+     * @return DeliveryProduct
+     */
+    protected function getDeliveryProductsService204(): DeliveryProduct
+    {
+        return $this->mapper->getDeliveryProductsService204();
+    }
 }

@@ -535,7 +535,6 @@ return [
                                 ]
                             ]
                         ],
-                        //@todo sent email to UkMail about scenario 2.2 and 2.3 why it is not working
                         [
                             'customerReference' => 'TEST-S2.2',
                             'deliveryService' => '206',
@@ -567,34 +566,37 @@ return [
                                 ]
                             ]
                         ],
-//                        [
-//                            'customerReference' => 'TEST-S2.3',
-//                            'deliveryService' => '204',
-//                            'invoiceNumber' => '6',
-//                            'deliveredDutyPaid' => false,
-//                            'deliveryAddress' => [
-//                                'firstName' => 'Test',
-//                                'lastName' => 'Parcel 6 - Do not Deliver',
-//                                'line1' => 'Lietzenburger Strasse 20',
-//                                'line2' => '',
-//                                'line3' => '',
-//                                'line4' => 'Bergisch Gladbach Bensberg',
-//                                'line5' => 'Nordrhein-Westfalen',
-//                                'postCode' => '51429',
-//                                'country' => 'France',
-//                                'ISOAlpha2CountryCode' => 'FR',
-//                                'emailAddress' => 'scenario23@example.com',
-//                                'phoneNumber' => '8513648722'
-//                            ],
-//                            'packages' => [
-//                                [
-//                                    'weight' => 2,
-//                                    'length' => 0.75,
-//                                    'width' => 0.40,
-//                                    'height' => 0.55
-//                                ]
-//                            ]
-//                        ],
+                        [
+                            'customerReference' => 'TEST-S2.3',
+                            'deliveryService' => '204',
+                            'invoiceNumber' => '6',
+                            'deliveredDutyPaid' => true,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel 6 - Do not Deliver',
+                                'line1' => 'Lietzenburger Strasse 20',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Bergisch Gladbach Bensberg',
+                                'line5' => 'Nordrhein-Westfalen',
+                                'postCode' => '51429',
+                                'country' => 'Germany',
+                                'ISOAlpha2CountryCode' => 'DE',
+                                'emailAddress' => 'scenario23@example.com',
+                                'phoneNumber' => '8513648722'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 2,
+                                    'length' => 0.75,
+                                    'width' => 0.40,
+                                    'height' => 0.55,
+                                    'contents' => [
+                                        ['unitValue' => 200]
+                                    ]
+                                ]
+                            ]
+                        ],
                     ]
                 ]
             ],
