@@ -15,6 +15,8 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
+    protected const ROAD_SERVICES = ['204', '206'];
+
     /** @var CustomsDeclarationService */
     protected $customsDeclarationService;
 
@@ -37,7 +39,7 @@ class Mapper
             $account->getCredentials()['apiKey'],
             $account->getCredentials()['username'],
             $authToken,
-            $account->getCredentials()['intlAccountNumber'],
+            $this->getAccountNumber($shipment),
             $collectionJobNumber,
             $shipment->getCollectionDate(),
             $this->getDeliveryDetails($deliveryAddress),
@@ -55,6 +57,16 @@ class Mapper
             false,
             DomesticConsignmentMapper::LABEL_FORMAT_PDF
         );
+    }
+
+    protected function getAccountNumber(Shipment $shipment): string
+    {
+        $account = $shipment->getAccount();
+        if (in_array($shipment->getDeliveryService()->getReference(), static::ROAD_SERVICES)) {
+            return $account->getCredentials()['intlAccountNumberRoad'];
+        }
+
+        return $account->getCredentials()['intlAccountNumberAir'];
     }
 
     protected function getDeliveryDetails(CAAddress $address): DeliveryInformation

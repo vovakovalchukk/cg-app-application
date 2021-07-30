@@ -86,7 +86,7 @@ class Service implements LoggerAwareInterface
     {
         $accountNumber = $account->getCredentials()['domesticAccountNumber'];
         if (!$isDomestic) {
-            $accountNumber = $account->getCredentials()['intlAccountNumber'];
+            $accountNumber = $account->getCredentials()['intlAccountNumberAir'];
         }
 
         return new CollectionRequest(

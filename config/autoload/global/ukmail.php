@@ -528,39 +528,45 @@ return [
                                     'weight' => 2,
                                     'length' => 0.50,
                                     'width' => 0.60,
-                                    'height' => 0.45
+                                    'height' => 0.45,
+                                    'contents' => [
+                                        ['unitValue' => 100]
+                                    ]
                                 ]
                             ]
                         ],
                         //@todo sent email to UkMail about scenario 2.2 and 2.3 why it is not working
-//                        [
-//                            'customerReference' => 'TEST-S2.2',
-//                            'deliveryService' => '206',
-//                            'invoiceNumber' => '5',
-//                            'deliveredDutyPaid' => false,
-//                            'deliveryAddress' => [
-//                                'firstName' => 'Test',
-//                                'lastName' => 'Parcel 5 - Do not Deliver',
-//                                'line1' => 'Lietzenburger Strasse 20',
-//                                'line2' => '',
-//                                'line3' => '',
-//                                'line4' => 'Bergisch Gladbach Bensberg',
-//                                'line5' => 'Nordrhein-Westfalen',
-//                                'postCode' => '51429',
-//                                'country' => 'Germany',
-//                                'ISOAlpha2CountryCode' => 'DE',
-//                                'emailAddress' => 'scenario22@example.com',
-//                                'phoneNumber' => '1247648722'
-//                            ],
-//                            'packages' => [
-//                                [
-//                                    'weight' => 4,
-//                                    'length' => 0.75,
-//                                    'width' => 0.60,
-//                                    'height' => 0.45
-//                                ]
-//                            ]
-//                        ],
+                        [
+                            'customerReference' => 'TEST-S2.2',
+                            'deliveryService' => '206',
+                            'invoiceNumber' => '5',
+                            'deliveredDutyPaid' => true,
+                            'deliveryAddress' => [
+                                'firstName' => 'Test',
+                                'lastName' => 'Parcel 5 - Do not Deliver',
+                                'line1' => 'Lietzenburger Strasse 20',
+                                'line2' => '',
+                                'line3' => '',
+                                'line4' => 'Bergisch Gladbach Bensberg',
+                                'line5' => 'Nordrhein-Westfalen',
+                                'postCode' => '51429',
+                                'country' => 'Germany',
+                                'ISOAlpha2CountryCode' => 'DE',
+                                'emailAddress' => 'scenario22@example.com',
+                                'phoneNumber' => '1247648722'
+                            ],
+                            'packages' => [
+                                [
+                                    'weight' => 2,
+                                    'length' => 0.20,
+                                    'width' => 0.20,
+                                    'height' => 0.20,
+                                    'contents' => [
+                                        ['unitValue' => 100]
+                                    ]
+                                ]
+                            ]
+                        ],
 //                        [
 //                            'customerReference' => 'TEST-S2.3',
 //                            'deliveryService' => '204',

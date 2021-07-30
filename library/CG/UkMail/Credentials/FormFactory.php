@@ -24,8 +24,12 @@ class FormFactory
             "label" => "Domestic Account Number"
         ]))->setAttribute('required', true));
 
-        $form->add((new Element("intlAccountNumber", [
-            "label" => "International Account Number"
+        $form->add((new Element("intlAccountNumberAir", [
+            "label" => "International Account Number (Air) (I5)"
+        ]))->setAttribute('required', true));
+
+        $form->add((new Element("intlAccountNumberRoad", [
+            "label" => "International Account Number (Road) (I8)"
         ]))->setAttribute('required', true));
 
         $form->add((new Element("apiKey", [

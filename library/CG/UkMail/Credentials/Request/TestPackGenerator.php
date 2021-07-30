@@ -57,7 +57,7 @@ class TestPackGenerator
 
     protected function mapDataToShipments(Account $account, AddressInterface $collectionAddress): array
     {
-        $defaultShipmentData = ['account' => $account, 'collectionAddress' => $collectionAddress, 'collectionDateTime' => new \DateTime()];
+        $defaultShipmentData = ['account' => $account, 'collectionAddress' => $collectionAddress, 'collectionDateTime' => $this->getNextDay()];
         $shipments = [];
         foreach ($this->shipmentsData as $shipmentData) {
             $shipmentData['deliveryAddress'] = $this->mapDataToAddress($shipmentData['deliveryAddress']);
@@ -70,7 +70,24 @@ class TestPackGenerator
             $shipmentData = array_merge($defaultShipmentData, $shipmentData);
             $shipments[] = Shipment::fromArray($shipmentData);
         }
+
         return $shipments;
+    }
+
+    protected function getNextDay(): \DateTime
+    {
+        $nextDay = new \DateTime('+1 day');
+        if ($this->isWeekend($nextDay)) {
+            return new \DateTime('next monday');
+        }
+
+        return $nextDay;
+    }
+
+    protected function isWeekend(\DateTime $nextDay): bool
+    {
+        $weekDay = $nextDay->format('w');
+        return ($weekDay == 0 || $weekDay == 6);
     }
 
     protected function mapDataToAddress(array $addressData): Address
@@ -100,6 +117,7 @@ class TestPackGenerator
             $packageData = $packagesData[$count];
             $defaultPackageData['number'] = $count+1;
             $packageData = array_merge($defaultPackageData, $packageData);
+            unset($packageData['contents']);
             $packageData['contents'][] = $this->mapContentDataToContent($packagesData);
             $packages[] = Package::fromArray($packageData);
         }
@@ -115,7 +133,7 @@ class TestPackGenerator
             'GB',
             1,
             $packagesData[0]['weight'],
-            1,
+            $packagesData[0]['contents'][0]['unitValue'] ?? 1,
             'GBP',
             'Test Product',
             'Composition',

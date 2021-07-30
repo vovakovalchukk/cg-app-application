@@ -277,12 +277,12 @@ return [
                 'Testing Chili Con Carne',
                 '56081911',
                 '',
-                'GB', 1, 4, 200, 'GBP',
+                'GB', 1, 2, 100, 'GBP',
                 'Testing Chili Con Carne',
                 '',
                 'cgiv-9628-chili-con-carne'
             );
-            $packages[] = new UkMailPackage(1, 4, 0.75, 0.60, 0.45, $contents);
+            $packages[] = new UkMailPackage(1, 4, 0.20, 0.20, 0.20, $contents);
 
             $shipment = new UkMailShipment(
                 $deliveryService,
@@ -359,10 +359,30 @@ return [
         'description' => '',
         'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
 
-            $res = CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code('');
+//            $res = CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code('');
+//
+//            print_r($res);
+//            echo "\n";
 
-            print_r($res);
+//            $nextDay = new \DateTime('+1 day');
+            $nextDay = new \DateTime('+8 days');
+            print_r($nextDay);
+
+            $weekDay = $nextDay->format('w');
+
+            print_r($weekDay);
+
+            $isWeekend =  ($weekDay == 0 || $weekDay == 6);
+
+            echo "\nIS WEEKEND\n";
+            print_r($isWeekend);
             echo "\n";
+
+            if ($isWeekend) {
+                $nextDay = new \DateTime('next monday');
+            }
+
+            print_r($nextDay);
 
 
         },
