@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ecfcb66cf223c05f9966e56d28daa2c",
+    "content-hash": "bf89c2fbd7ca15eeba99a78e0fdc56d6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2465,6 +2465,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "7b152542cf3dad22fb8ba0ec0dcabbe39bd10a60"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12183-vat-rules-for-eu-orders-330f68.zip",
+                "reference": "7b152542cf3dad22fb8ba0ec0dcabbe39bd10a60"
+            },
             "require": {
                 "channelgrabber/access": "^1.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -2501,7 +2506,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "^1.28.5",
+                "channelgrabber/user": "^1.28.7",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2534,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-25T08:34:02+00:00"
+            "time": "2021-08-03T15:22:22+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11992,8 +11997,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.58.1",
-            "alias_normalized": "1.58.1.0",
+            "alias": "1.58.2",
+            "alias_normalized": "1.58.2.0",
             "version": "dev-CGIV-12183-vat-rules-for-eu-orders",
             "package": "channelgrabber/order"
         }
@@ -12003,8 +12008,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
