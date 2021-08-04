@@ -216,13 +216,22 @@ class Service
             $threadData['ordersCount'] = $ordersInformation->getCount();
         }
 
-        $threadData['assignedUserName'] = '';
-        if ($threadData['assignedUserId']) {
-            $assignedUser = $this->userService->fetch($threadData['assignedUserId']);
-            $threadData['assignedUserName'] = $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
-        }
+        $threadData['assignedUserName'] = $this->setThreadAssignedUserName($threadData['assignedUserId']);
 
         return array_merge($threadData, $overrides);
+    }
+
+    protected function setThreadAssignedUserName($assignedUserId): string
+    {
+        if ($assignedUserId) {
+            try {
+                $assignedUser = $this->userService->fetch($assignedUserId);
+
+                return $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
+            } catch (NotFound $e) {}
+        }
+
+        return '';
     }
 
     protected function formatMessagesData(Thread $thread, AttachmentCollection $attachments): array
