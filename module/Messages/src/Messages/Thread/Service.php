@@ -16,6 +16,8 @@ use CG\Order\Shared\CustomerCounts\Service as CustomerCountService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
@@ -26,8 +28,9 @@ use Messages\Thread\OrdersInformation\Factory as OrdersInformationFactory;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 use Zend\View\Helper\Url;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
     use FormatMessageDataTrait;
 
     protected const DEFAULT_LIMIT = 100;
@@ -37,6 +40,9 @@ class Service
     protected const ASSIGNEE_ASSIGNED = 'assigned';
     protected const ASSIGNEE_UNASSIGNED = 'unassigned';
     protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
+    protected const LOG_CODE = 'MessageThreadService';
+    protected const LOG_MATCH_THREAD_TO_USER = 'Failed matching user with id %s to thread';
+
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -228,7 +234,9 @@ class Service
                 $assignedUser = $this->userService->fetch($assignedUserId);
 
                 return $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
-            } catch (NotFound $e) {}
+            } catch (NotFound $e) {
+                $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$assignedUserId], static::LOG_CODE);
+            }
         }
 
         return '';
