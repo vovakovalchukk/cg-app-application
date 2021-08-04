@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5dd324351cb6dc0f35b115cf5e55cf3",
+    "content-hash": "e011379cbb8c018d66a88c35141e43c5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2857,16 +2857,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-12150-data-exchange",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a0fb77319c07cdb70559feab455156f40b2a82f1"
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-12150-data-exchange-6c1580.zip",
-                "reference": "a0fb77319c07cdb70559feab455156f40b2a82f1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.18-a1b540.zip",
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2915,7 +2915,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-08-03T09:35:51+00:00"
+            "time": "2021-08-04T12:14:51+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11635,7 +11635,6 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -11996,18 +11995,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.18",
-            "alias_normalized": "1.20.18.0",
-            "version": "dev-CGIV-12150-data-exchange",
-            "package": "channelgrabber/product"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
