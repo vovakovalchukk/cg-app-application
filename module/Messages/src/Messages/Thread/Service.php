@@ -229,14 +229,16 @@ class Service implements LoggerAwareInterface
 
     protected function setThreadAssignedUserName($assignedUserId): string
     {
-        if ($assignedUserId) {
-            try {
-                $assignedUser = $this->userService->fetch($assignedUserId);
+        if (!$assignedUserId) {
+            return '';
+        }
 
-                return $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
-            } catch (NotFound $e) {
-                $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$assignedUserId], static::LOG_CODE);
-            }
+        try {
+            $assignedUser = $this->userService->fetch($assignedUserId);
+
+            return $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
+        } catch (NotFound $e) {
+            $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$assignedUserId], static::LOG_CODE);
         }
 
         return '';
