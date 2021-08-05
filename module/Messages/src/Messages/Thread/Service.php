@@ -25,6 +25,7 @@ use Messages\Message\Attachment\Service as AttachmentService;
 use Messages\Message\FormatMessageDataTrait;
 use Messages\Thread\Formatter\Service as FormatterService;
 use Messages\Thread\OrdersInformation\Factory as OrdersInformationFactory;
+use Predis\Client as PredisClient;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 use Zend\View\Helper\Url;
 
@@ -42,7 +43,7 @@ class Service implements LoggerAwareInterface
     protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
     protected const LOG_CODE = 'MessageThreadService';
     protected const LOG_MATCH_THREAD_TO_USER = 'Failed matching user with id %s to thread';
-
+    protected const CACHE_KEY = 'Messages:Thread';
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -66,6 +67,8 @@ class Service implements LoggerAwareInterface
     protected $ordersInformationFactory;
     /** @var FormatterService */
     protected $formatterService;
+    /** @var PredisClient */
+    protected $predisClient;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -95,7 +98,8 @@ class Service implements LoggerAwareInterface
         Url $url,
         AttachmentService $attachmentService,
         OrdersInformationFactory $ordersInformationFactory,
-        FormatterService $formatterService
+        FormatterService $formatterService,
+        PredisClient $predisClient
     ) {
         $this->threadService = $threadService;
         $this->userOuService = $userOuService;
@@ -108,6 +112,7 @@ class Service implements LoggerAwareInterface
         $this->attachmentService = $attachmentService;
         $this->ordersInformationFactory = $ordersInformationFactory;
         $this->formatterService = $formatterService;
+        $this->predisClient = $predisClient;
     }
 
     public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
@@ -227,21 +232,41 @@ class Service implements LoggerAwareInterface
         return array_merge($threadData, $overrides);
     }
 
-    protected function setThreadAssignedUserName($assignedUserId): string
+    protected function setThreadAssignedUserName(?int $assignedUserId): string
     {
         if (!$assignedUserId) {
             return '';
         }
 
-        try {
-            $assignedUser = $this->userService->fetch($assignedUserId);
+        return $this->setThreadAssignedUserNameFromStorage($assignedUserId);
+    }
 
-            return $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
-        } catch (NotFound $e) {
-            $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$assignedUserId], static::LOG_CODE);
+    protected function setThreadAssignedUserNameFromStorage(int $userId): string
+    {
+        if ($name = $this->getAssignedUserName($userId)) {
+            return $name;
         }
 
-        return '';
+        try {
+            $user = $this->userService->fetch($userId);
+            $name =  $user->getFirstName() . ' ' . $user->getLastName();
+            $this->setAssignedUserName($userId, $name);
+        } catch (NotFound $e) {
+            $name = '';
+            $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$userId], static::LOG_CODE);
+        }
+
+        return $name;
+    }
+
+    protected function setAssignedUserName(int $userId, string $name): void
+    {
+        $this->predisClient->hset(static::CACHE_KEY, $userId, $name);
+    }
+
+    protected function getAssignedUserName(int $userId): ?string
+    {
+        return $this->predisClient->hget(static::CACHE_KEY, $userId);
     }
 
     protected function formatMessagesData(Thread $thread, AttachmentCollection $attachments): array

@@ -180,6 +180,9 @@ use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Billing\Shipping\Ledger\Storage\Api as ShippingLedgerApi;
 use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
 
+// Messages
+use Messages\Thread\Service as MessagesThreadService;
+
 use CG\Email\Smtp;
 
 $config = array(
@@ -646,6 +649,11 @@ $config = array(
                     ]
                 ]
             ],
+            MessagesThreadService::class => [
+                'parameters' => [
+                    'predisClient' => 'reliable_redis'
+                ]
+            ]
         ),
     ),
     'view_manager' => [
