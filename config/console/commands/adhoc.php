@@ -103,5 +103,26 @@ return [
             ],
         ],
         'options' => [],
+    ],
+
+
+
+    'adhoc:test' => [
+        'description' => 'Creates a new RoyalMail Click & Drop account for any ou that has previously used the hard code version',
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
+            /** @var \CG\Intersoft\RoyalMail\DeliveryService\Service $service */
+            $service = $di->newInstance(CG\Intersoft\RoyalMail\DeliveryService\Service::class);
+
+
+            print_r($service->getDeliveryServices());
+
+
+        },
+        'arguments' => [
+        ],
+        'options' => [],
     ]
+
+
+
 ];

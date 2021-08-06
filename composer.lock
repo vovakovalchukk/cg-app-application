@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e011379cbb8c018d66a88c35141e43c5",
+    "content-hash": "3362899dcbe2ff7d3f3e351395e529ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1018,16 +1018,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.4.6",
+            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "3032f59a2e220501b491d681a4946ca930917ffb"
+                "reference": "778ac83adfd4e18a7e0401c33a68b24c7065221d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.6-b28a7a.zip",
-                "reference": "3032f59a2e220501b491d681a4946ca930917ffb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12111-royal-mail-shorter-service-methods-ecdb54.zip",
+                "reference": "778ac83adfd4e18a7e0401c33a68b24c7065221d"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-06-30T14:31:58+00:00"
+            "time": "2021-08-06T10:55:40+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11995,10 +11995,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.7",
+            "alias_normalized": "1.4.7.0",
+            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
