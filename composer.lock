@@ -1022,12 +1022,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "778ac83adfd4e18a7e0401c33a68b24c7065221d"
+                "reference": "385938bf9744b0800553a7e5f590ea55e09c618c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12111-royal-mail-shorter-service-methods-ecdb54.zip",
-                "reference": "778ac83adfd4e18a7e0401c33a68b24c7065221d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12111-royal-mail-shorter-service-methods-bf6d8a.zip",
+                "reference": "385938bf9744b0800553a7e5f590ea55e09c618c"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1066,7 +1066,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-08-06T10:55:40+00:00"
+            "time": "2021-08-06T13:47:48+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
