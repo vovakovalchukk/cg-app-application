@@ -43,7 +43,6 @@ class Service implements LoggerAwareInterface
     protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
     protected const LOG_CODE = 'MessageThreadService';
     protected const LOG_MATCH_THREAD_TO_USER = 'Failed matching user with id %s to thread';
-    protected const CACHE_KEY = 'Messages:Thread';
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -245,11 +244,10 @@ class Service implements LoggerAwareInterface
             $name =  $user->getFirstName() . ' ' . $user->getLastName();
             $this->cacheThreadUser($userId, $name);
         } catch (NotFound $e) {
-            $name = '';
             $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$userId], static::LOG_CODE);
-        }
 
-        return $name;
+            return '';
+        }
     }
 
     protected function cacheThreadUser($userId, $userName): void
