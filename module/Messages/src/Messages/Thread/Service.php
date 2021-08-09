@@ -67,8 +67,8 @@ class Service implements LoggerAwareInterface
     protected $ordersInformationFactory;
     /** @var FormatterService */
     protected $formatterService;
-    /** @var PredisClient */
-    protected $predisClient;
+    /** @var array */
+    protected $threadsUsers = [];
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -98,8 +98,7 @@ class Service implements LoggerAwareInterface
         Url $url,
         AttachmentService $attachmentService,
         OrdersInformationFactory $ordersInformationFactory,
-        FormatterService $formatterService,
-        PredisClient $predisClient
+        FormatterService $formatterService
     ) {
         $this->threadService = $threadService;
         $this->userOuService = $userOuService;
@@ -112,7 +111,6 @@ class Service implements LoggerAwareInterface
         $this->attachmentService = $attachmentService;
         $this->ordersInformationFactory = $ordersInformationFactory;
         $this->formatterService = $formatterService;
-        $this->predisClient = $predisClient;
     }
 
     public function fetchThreadDataForFilters(array $filters, ?int $page = 1, bool $sortDescending = true): array
@@ -232,25 +230,20 @@ class Service implements LoggerAwareInterface
         return array_merge($threadData, $overrides);
     }
 
-    protected function setThreadAssignedUserName(?int $assignedUserId): string
+    protected function getThreadAssignedUserName(int $userId): string
     {
         if (!$assignedUserId) {
             return '';
         }
 
-        return $this->setThreadAssignedUserNameFromStorage($assignedUserId);
-    }
-
-    protected function setThreadAssignedUserNameFromStorage(int $userId): string
-    {
-        if ($name = $this->getAssignedUserName($userId)) {
+        if ($name = $this->getCachedThreadUser($userId)) {
             return $name;
         }
 
         try {
             $user = $this->userService->fetch($userId);
             $name =  $user->getFirstName() . ' ' . $user->getLastName();
-            $this->setAssignedUserName($userId, $name);
+            $this->cacheThreadUser($userId, $name);
         } catch (NotFound $e) {
             $name = '';
             $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$userId], static::LOG_CODE);
@@ -259,14 +252,18 @@ class Service implements LoggerAwareInterface
         return $name;
     }
 
-    protected function setAssignedUserName(int $userId, string $name): void
+    protected function cacheThreadUser($userId, $userName): void
     {
-        $this->predisClient->hset(static::CACHE_KEY, $userId, $name);
+        $this->threadsUsers[$userId] = $userName;
     }
 
-    protected function getAssignedUserName(int $userId): ?string
+    protected function getCachedThreadUser($userId): ?string
     {
-        return $this->predisClient->hget(static::CACHE_KEY, $userId);
+        if (isset($this->threadsUsers[$userId])) {
+            return $this->threadsUsers[$userId];
+        }
+
+        return null;
     }
 
     protected function formatMessagesData(Thread $thread, AttachmentCollection $attachments): array
