@@ -224,7 +224,7 @@ class Service implements LoggerAwareInterface
             $threadData['ordersCount'] = $ordersInformation->getCount();
         }
 
-        $threadData['assignedUserName'] = $this->setThreadAssignedUserName($threadData['assignedUserId']);
+        $threadData['assignedUserName'] = $this->getThreadAssignedUserName($threadData['assignedUserId']);
 
         return array_merge($threadData, $overrides);
     }
@@ -243,9 +243,9 @@ class Service implements LoggerAwareInterface
             $user = $this->userService->fetch($userId);
             $name =  $user->getFirstName() . ' ' . $user->getLastName();
             $this->cacheThreadUser($userId, $name);
+            return $name;
         } catch (NotFound $e) {
             $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$userId], static::LOG_CODE);
-
             return '';
         }
     }
