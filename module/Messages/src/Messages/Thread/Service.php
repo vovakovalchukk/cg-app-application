@@ -229,9 +229,9 @@ class Service implements LoggerAwareInterface
         return array_merge($threadData, $overrides);
     }
 
-    protected function getThreadAssignedUserName(int $userId): string
+    protected function getThreadAssignedUserName(?int $userId): string
     {
-        if (!$assignedUserId) {
+        if (!$userId) {
             return '';
         }
 
