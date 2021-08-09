@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8fa161d8254bcbe279735d5b40e017c",
+    "content-hash": "dc10231f335292412e13ee70da17cf4d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2509,16 +2509,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.58.0",
+            "version": "1.58.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54"
+                "reference": "19b6e56db1e3abb0fe24f3d1ffc1862297b32129"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.58.0-6984f5.zip",
-                "reference": "19f25e805780eee66f4d9ee91d7b2d477f519e54",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.58.2-97624a.zip",
+                "reference": "19b6e56db1e3abb0fe24f3d1ffc1862297b32129",
                 "shasum": null
             },
             "require": {
@@ -2557,7 +2557,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "^1.28.5",
+                "channelgrabber/user": "^1.28.7",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2590,7 +2590,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-06-25T08:34:02+00:00"
+            "time": "2021-08-09T09:32:25+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.17",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143"
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.17-947fa0.zip",
-                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.18-a1b540.zip",
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7",
                 "shasum": null
             },
             "require": {
@@ -2974,7 +2974,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-07-26T09:27:10+00:00"
+            "time": "2021-08-04T12:14:51+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -10671,8 +10671,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
