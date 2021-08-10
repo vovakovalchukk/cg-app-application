@@ -164,7 +164,7 @@ class UpdateConsignmentAndParcelRange implements LoggerAwareInterface
     {
         $question = new Question(sprintf(static::PROMPT_PARCEL_NUMBER, $changes->getCurrentParcelRange()));
         $response = $this->questionHelper->ask($this->input, $this->output, $question);
-        if ($response === null) {
+        if (empty($response)) {
             return;
         }
         [$parcelStart, $parcelEnd] = explode(' ', $response, 2);
@@ -177,7 +177,7 @@ class UpdateConsignmentAndParcelRange implements LoggerAwareInterface
     {
         $question = new Question(sprintf(static::PROMPT_CONSIGNMENT_NUMBER, $changes->getCurrentConsignmentRange()));
         $response = $this->questionHelper->ask($this->input, $this->output, $question);
-        if ($response === null) {
+        if (empty($response)) {
             return;
         }
         [$consignmentStart, $consignmentEnd] = explode(' ', $response, 2);
@@ -188,7 +188,7 @@ class UpdateConsignmentAndParcelRange implements LoggerAwareInterface
 
     protected function confirmAndApplyChanges(Account $account, CourierAdapterCredentials $credentials, Changes $changes): void
     {
-        if ($changes->getNewConsignmentRange() != $changes->getCurrentConsignmentRange()) {
+        if ($changes->consignmentRangeChanged()) {
             $question = new ConfirmationQuestion(
                 sprintf(
                     static::PROMPT_CONFIRM_CHANGES,
@@ -211,7 +211,7 @@ class UpdateConsignmentAndParcelRange implements LoggerAwareInterface
                 $this->output->writeln(sprintf(static::PROMPT_REJECTED_CHANGES, static::PROMPT_TYPE_PARCEL));
             }
         }
-        if ($changes->getNewParcelRange() != $changes->getCurrentParcelRange()) {
+        if ($changes->parcelRangeChanged()) {
             $question = new ConfirmationQuestion(
                 sprintf(
                     static::PROMPT_CONFIRM_CHANGES,
