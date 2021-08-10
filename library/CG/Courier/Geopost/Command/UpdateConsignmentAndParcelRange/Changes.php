@@ -128,6 +128,22 @@ class Changes
         return $this->getRange($this->newConsignmentNumberStart, $this->newConsignmentNumberEnd);
     }
 
+    public function parcelRangeChanged(): bool
+    {
+        if ($this->newParcelNumberStart === null && $this->newParcelNumberEnd === null) {
+            return false;
+        }
+        return $this->getNewParcelRange() !== $this->getCurrentParcelRange();
+    }
+
+    public function consignmentRangeChanged(): bool
+    {
+        if ($this->newConsignmentNumberStart === null && $this->newConsignmentNumberEnd === null) {
+            return false;
+        }
+        return $this->getNewConsignmentRange() !== $this->getCurrentConsignmentRange();
+    }
+
     protected function getRange(?int $start, ?int $end): string
     {
         return $start . '-' . $end;
