@@ -14,8 +14,9 @@ use DateTime;
 
 class Shipment
 {
-    const EXTERNAL_ID_SEP = '|';
-    const SHIP_DATE_FORMAT = 'Y-m-d';
+    protected const EXTERNAL_ID_LEN_MAX = 35;
+    public const EXTERNAL_ID_SEP = '|';
+    public const SHIP_DATE_FORMAT = 'Y-m-d';
 
     /** @var string */
     protected $carrierId;
@@ -109,7 +110,7 @@ class Shipment
     {
         // We want to link shipments back to our Orders but the external ID must be unique
         // and we ocassionally create a label more than once for an order
-        return substr(uniqid($order->getId() . static::EXTERNAL_ID_SEP),0, 35);
+        return substr(uniqid($order->getId() . static::EXTERNAL_ID_SEP),0, static::EXTERNAL_ID_LEN_MAX);
     }
 
     public function toArray(): array
