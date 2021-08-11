@@ -109,7 +109,7 @@ class Shipment
     {
         // We want to link shipments back to our Orders but the external ID must be unique
         // and we ocassionally create a label more than once for an order
-        return uniqid($order->getId() . static::EXTERNAL_ID_SEP);
+        return substr(uniqid($order->getId() . static::EXTERNAL_ID_SEP),0, 35);
     }
 
     public function toArray(): array
