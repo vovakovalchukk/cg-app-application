@@ -377,12 +377,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "84f2d6221522efff3cad8cfefe16adc07430ee9c"
+                "reference": "ec20889b456382fdb640b15dbb3cb726b786fd25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12111-royal-mail-shorter-service-methods-18e62e.zip",
-                "reference": "84f2d6221522efff3cad8cfefe16adc07430ee9c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12111-royal-mail-shorter-service-methods-1c95e4.zip",
+                "reference": "ec20889b456382fdb640b15dbb3cb726b786fd25"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -437,7 +437,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-08-10T15:45:56+00:00"
+            "time": "2021-08-11T09:14:06+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
