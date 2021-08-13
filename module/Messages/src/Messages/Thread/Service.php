@@ -16,6 +16,8 @@ use CG\Order\Shared\CustomerCounts\Service as CustomerCountService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
@@ -23,11 +25,13 @@ use Messages\Message\Attachment\Service as AttachmentService;
 use Messages\Message\FormatMessageDataTrait;
 use Messages\Thread\Formatter\Service as FormatterService;
 use Messages\Thread\OrdersInformation\Factory as OrdersInformationFactory;
+use Predis\Client as PredisClient;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 use Zend\View\Helper\Url;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
     use FormatMessageDataTrait;
 
     protected const DEFAULT_LIMIT = 100;
@@ -37,6 +41,8 @@ class Service
     protected const ASSIGNEE_ASSIGNED = 'assigned';
     protected const ASSIGNEE_UNASSIGNED = 'unassigned';
     protected const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
+    protected const LOG_CODE = 'MessageThreadService';
+    protected const LOG_MATCH_THREAD_TO_USER = 'Failed matching user with id %s to thread';
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -60,6 +66,8 @@ class Service
     protected $ordersInformationFactory;
     /** @var FormatterService */
     protected $formatterService;
+    /** @var array */
+    protected $threadsUsers = [];
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -216,13 +224,44 @@ class Service
             $threadData['ordersCount'] = $ordersInformation->getCount();
         }
 
-        $threadData['assignedUserName'] = '';
-        if ($threadData['assignedUserId']) {
-            $assignedUser = $this->userService->fetch($threadData['assignedUserId']);
-            $threadData['assignedUserName'] = $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
-        }
+        $threadData['assignedUserName'] = $this->getThreadAssignedUserName($threadData['assignedUserId']);
 
         return array_merge($threadData, $overrides);
+    }
+
+    protected function getThreadAssignedUserName(?int $userId): string
+    {
+        if (!$userId) {
+            return '';
+        }
+
+        if ($name = $this->getCachedThreadUser($userId)) {
+            return $name;
+        }
+
+        try {
+            $user = $this->userService->fetch($userId);
+            $name =  $user->getFirstName() . ' ' . $user->getLastName();
+            $this->cacheThreadUser($userId, $name);
+            return $name;
+        } catch (NotFound $e) {
+            $this->logDebug(static::LOG_MATCH_THREAD_TO_USER, [$userId], static::LOG_CODE);
+            return '';
+        }
+    }
+
+    protected function cacheThreadUser($userId, $userName): void
+    {
+        $this->threadsUsers[$userId] = $userName;
+    }
+
+    protected function getCachedThreadUser($userId): ?string
+    {
+        if (isset($this->threadsUsers[$userId])) {
+            return $this->threadsUsers[$userId];
+        }
+
+        return null;
     }
 
     protected function formatMessagesData(Thread $thread, AttachmentCollection $attachments): array

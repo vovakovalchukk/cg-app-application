@@ -25,11 +25,9 @@ class TaxIdentifiers
         $taxIdentifiers = new static();
         if ($order->getIossNumber() !== null) {
             $taxIdentifiers->addTaxIdentifier(TaxIdentifier::createIossNumber($order, $rootOu));
-            return $taxIdentifiers;
         }
         if ($orderData->getEoriNumber() !== null) {
             $taxIdentifiers->addTaxIdentifier(TaxIdentifier::createEoriNumber($orderData, $rootOu));
-            return $taxIdentifiers;
         }
         return $taxIdentifiers;
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "625724a1487614c69f28ab320b86fdcb",
+    "content-hash": "84ec69fc7eef2ca712a385ac026a3fd9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2463,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7e3227a09e2964a285850a25f16d17f9521e2eed"
+                "reference": "76f23f6fe95e1ca15ffb2e2d78e70c821c7f0f1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11760-uk-mail-integration-bffe28.zip",
-                "reference": "7e3227a09e2964a285850a25f16d17f9521e2eed"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-11760-uk-mail-integration-9a129f.zip",
+                "reference": "76f23f6fe95e1ca15ffb2e2d78e70c821c7f0f1c"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2539,7 +2539,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-07-22T12:28:30+00:00"
+            "time": "2021-08-13T15:55:06+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2857,16 +2857,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.17",
+            "version": "1.20.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143"
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.17-947fa0.zip",
-                "reference": "c6878ccce121b43ab7aa67083af8db3437f37143"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.18-a1b540.zip",
+                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2915,7 +2915,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-07-26T09:27:10+00:00"
+            "time": "2021-08-04T12:14:51+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
