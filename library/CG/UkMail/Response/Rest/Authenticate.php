@@ -25,19 +25,7 @@ class Authenticate extends AbstractRestResponse implements ResponseInterface
 
         $accounts = [];
         foreach ($body['accounts'] as $account) {
-            $accounts[] = new Account(
-                $account['accountNumber'],
-                $account['status'],
-                $account['type'],
-                $account['companyName'],
-                $account['tradingAddress'],
-                $account['region'],
-                $account['postcode'],
-                $account['contactNumber'],
-                $account['VATNumber'],
-                $account['customerRefAlias'],
-                $account['alternativeRefAlias']
-            );
+            $accounts[] = Account::fromArray($account);
         }
 
         return new static($authenticationToken, $accounts);

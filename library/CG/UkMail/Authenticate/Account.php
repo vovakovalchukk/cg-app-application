@@ -27,17 +27,17 @@ class Account
     protected $alternativeRefAlias;
 
     public function __construct(
-        $accountNumber,
-        $status,
-        $type,
-        $companyName,
-        $tradingAddress,
-        $region,
-        $postcode,
-        $contactNumber,
-        $vatNumber,
-        $customerRefAlias,
-        $alternativeRefAlias
+        string $accountNumber,
+        string $status,
+        string $type,
+        string $companyName,
+        string $tradingAddress,
+        string $region,
+        string $postcode,
+        string $contactNumber,
+        string $vatNumber,
+        string $customerRefAlias,
+        string $alternativeRefAlias
     ) {
         $this->accountNumber = $accountNumber;
         $this->status = $status;
@@ -50,6 +50,23 @@ class Account
         $this->vatNumber = $vatNumber;
         $this->customerRefAlias = $customerRefAlias;
         $this->alternativeRefAlias = $alternativeRefAlias;
+    }
+
+    public static function fromArray(array $item): Account
+    {
+        return new static(
+            $item['accountNumber'],
+            $item['status'],
+            $item['type'],
+            $item['companyName'],
+            $item['tradingAddress'],
+            $item['region'],
+            $item['postcode'],
+            $item['contactNumber'],
+            $item['VATNumber'],
+            $item['customerRefAlias'],
+            $item['alternativeRefAlias']
+        );
     }
 
     public function getAccountNumber(): string
