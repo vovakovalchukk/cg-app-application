@@ -5,14 +5,14 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\UkMail\Request\RequestInterface;
+use CG\UkMail\Request\Soap\RequestInterface as SoapRequestInterface;
+use CG\UkMail\Response\ResponseInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\BadResponseException as GuzzleBadResponseException;
 use GuzzleHttp\Exception\RequestException as ClientRequestException;
-use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
-use CG\UkMail\Response\ResponseInterface;
-use CG\UkMail\Request\RequestInterface;
-use CG\UkMail\Request\Soap\RequestInterface as SoapRequestInterface;
+use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 
 class Client implements LoggerAwareInterface
 {
@@ -46,6 +46,9 @@ class Client implements LoggerAwareInterface
             $error = $this->handleErrorMessages($exception, $request);
 
             throw new StorageException("UK Mail API error ".$error, $exception->getCode(), $exception);
+        } catch (\Throwable $exception) {
+            $this->logErrorException("UK Mail API error", $exception, [], static::LOG_CODE);
+            throw new StorageException("UK Mail API unexpected error", 500, $exception);
         }
     }
 
@@ -104,12 +107,10 @@ class Client implements LoggerAwareInterface
             /** @var ResponseInterface $responseClass */
             $responseClass = $request->getResponseClass();
             if ($responseClass::isRestResponse()) {
-                $responseBody = $response->json();
-                return $responseClass::createResponse($responseBody);
+                return $responseClass::createResponse($response->json());
             }
 
-            $responseBody = $response->getBody(true);
-            return $responseClass::createResponse($responseBody);
+            return $responseClass::createResponse($response->getBody(true));
         } catch (\Exception $exception) {
             throw new StorageException('Invalid API response', $exception->getCode(), $exception);
         }

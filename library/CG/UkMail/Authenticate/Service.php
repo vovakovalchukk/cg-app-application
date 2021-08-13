@@ -3,11 +3,11 @@ namespace CG\UkMail\Authenticate;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\UserError;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\UkMail\Client\Factory as ClientFactory;
 use CG\UkMail\Request\Rest\Authenticate as AuthenticateRequest;
 use CG\UkMail\Response\Rest\Authenticate as AuthenticateResponse;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use Predis\Client as PredisClient;
 
 class Service implements LoggerAwareInterface
