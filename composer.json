@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.4.0",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.4",
-        "channelgrabber/order": "dev-CGIV-12110-vat-0-vat-applied-to-isle-of-man as 1.58.2",
+        "channelgrabber/order": "~1.58.4",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
