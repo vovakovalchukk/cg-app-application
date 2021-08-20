@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9233c3226979505f15ebb3a949029c1e",
+    "content-hash": "8dd34290ad3a632f8520b30413a19063",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -374,25 +374,25 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
+            "version": "1.40.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ec20889b456382fdb640b15dbb3cb726b786fd25"
+                "reference": "e53932e9c23a4d49600af626450f1333c456b8b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12111-royal-mail-shorter-service-methods-1c95e4.zip",
-                "reference": "ec20889b456382fdb640b15dbb3cb726b786fd25",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.40.0-975743.zip",
+                "reference": "e53932e9c23a4d49600af626450f1333c456b8b6",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-CGIV-12111-royal-mail-shorter-service-methods as 1.47.2",
+                "channelgrabber/channel": "^1.47.2",
                 "channelgrabber/communication": "^1.0.2",
-                "channelgrabber/courier": "dev-CGIV-12111-royal-mail-shorter-service-methods as 1.4.7",
+                "channelgrabber/courier": "^1.4.7",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/email-verification": "^1.0.0",
@@ -439,7 +439,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2021-08-11T09:14:06+00:00"
+            "time": "2021-08-20T09:58:01+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -770,16 +770,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
+            "version": "1.47.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "03b241268ba0e46e0c6d897782e2cce5719cf4d6"
+                "reference": "c7041a2870f9689395d45fd902e6cad2abc6711a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12111-royal-mail-shorter-service-methods-3fed78.zip",
-                "reference": "03b241268ba0e46e0c6d897782e2cce5719cf4d6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.47.2-39c24c.zip",
+                "reference": "c7041a2870f9689395d45fd902e6cad2abc6711a",
                 "shasum": null
             },
             "require": {
@@ -848,7 +848,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-08-10T14:38:40+00:00"
+            "time": "2021-08-20T09:50:15+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1033,16 +1033,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "385938bf9744b0800553a7e5f590ea55e09c618c"
+                "reference": "c334dc93b75c1ba5325e18e9c978b1851fb9848d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12111-royal-mail-shorter-service-methods-bf6d8a.zip",
-                "reference": "385938bf9744b0800553a7e5f590ea55e09c618c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.7-ffcce4.zip",
+                "reference": "c334dc93b75c1ba5325e18e9c978b1851fb9848d",
                 "shasum": null
             },
             "require": {
@@ -1082,7 +1082,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-08-06T13:47:48+00:00"
+            "time": "2021-08-20T09:52:53+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10672,8 +10672,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11761,7 +11760,6 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -12122,32 +12120,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.40.0",
-            "alias_normalized": "1.40.0.0",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.47.2",
-            "alias_normalized": "1.47.2.0",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.4.7",
-            "alias_normalized": "1.4.7.0",
-            "version": "dev-CGIV-12111-royal-mail-shorter-service-methods",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
