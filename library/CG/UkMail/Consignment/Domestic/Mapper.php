@@ -2,8 +2,10 @@
 namespace CG\UkMail\Consignment\Domestic;
 
 use CG\CourierAdapter\Address as CAAddress;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
@@ -55,7 +57,7 @@ class Mapper
             count($packages),
             $this->getTotalWeight($packages),
             $shipment->getCustomerReference(),
-            null,
+            $this->getAlternativeReference($shipment),
             $this->getParcels($packages),
             null,
             $this->getRecipient($deliveryAddress),
@@ -66,6 +68,24 @@ class Mapper
             static::LABEL_FORMAT_PDF,
             $this->getCustomsDeclaration($shipment)
         );
+    }
+
+    protected function getAlternativeReference(Shipment $shipment): string
+    {
+        $totalValue = 0;
+        $currencyCode = '';
+        $description = [];
+        /** @var Package $package */
+        foreach ($shipment->getPackages() as $package) {
+            /** @var Content $content */
+            foreach ($package->getContents() as $content) {
+                $totalValue += $content->getUnitValue();
+                $currencyCode = $content->getUnitCurrency();
+                $description[] = $content->getDescription();
+            }
+        }
+
+        return substr($totalValue . $currencyCode . ' - ' . implode('|', $description), 0, 20);
     }
 
     protected function getDeliveryDetails(CAAddress $address): DeliveryInformation
@@ -96,9 +116,18 @@ class Mapper
             $address->determineCityFromAddressLines(),
             $address->determineRegionFromAddressLines(),
             $address->getPostCode(),
-            CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode()),
+            $this->getCountryCode($address),
             $isRecipientAddress ? static::ADDRESS_TYPE_RESIDENTIAL : static::ADDRESS_TYPE_DOORSTEP
         );
+    }
+
+    protected function getCountryCode(CAAddress $address): string
+    {
+        try {
+            return CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode());
+        } catch (\Throwable $exception) {
+            throw new StorageException($exception->getMessage(), 400, $exception);
+        }
     }
 
     /**
@@ -162,12 +191,7 @@ class Mapper
 
     protected function determineTypeOfCustomsDeclaration(Shipment $shipment): string
     {
-        $type = CustomsDeclarationService::DECLARATION_TYPE_BASIC;
-        if ($this->isNiPostcode($shipment)) {
-            return CustomsDeclarationService::DECLARATION_TYPE_FULL;
-        }
-
-        return $type;
+        return $this->isNiPostcode($shipment) ? CustomsDeclarationService::DECLARATION_TYPE_FULL : CustomsDeclarationService::DECLARATION_TYPE_BASIC;
     }
 
     protected function isNiPostcode(Shipment $shipment): bool

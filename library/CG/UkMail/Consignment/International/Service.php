@@ -5,7 +5,6 @@ use CG\CourierAdapter\Exception\UserError;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UkMail\Client\Factory as ClientFactory;
-use CG\UkMail\Request\Rest\InternationalConsignment as InternationalConsignmentRequest;
 use CG\UkMail\Response\Rest\InternationalConsignment as InternationalConsignmentResponse;
 use CG\UkMail\Shipment;
 
@@ -27,15 +26,6 @@ class Service implements LoggerAwareInterface
         $this->mapper = $mapper;
     }
 
-    protected function createInternationalConsignmentRequest(
-        Shipment $shipment,
-        string $authToken,
-        string $collectionJobNumber,
-        string $customsDeclarationType
-    ): InternationalConsignmentRequest {
-        return $this->mapper->createInternationalConsignmentRequest($shipment, $authToken, $collectionJobNumber, $customsDeclarationType);
-    }
-
     public function requestInternationalConsignment(
         Shipment $shipment,
         string $authToken,
@@ -43,8 +33,8 @@ class Service implements LoggerAwareInterface
         string $customsDeclarationType
     ): InternationalConsignmentResponse {
         $this->logDebug(static::LOG_REQUESTING_LABEL_MSG, [$shipment->getAccount()->getId(), $shipment->getCustomerReference()], static::LOG_CODE);
-        $intlConsignmentRequest = $this->createInternationalConsignmentRequest($shipment, $authToken, $collectionJobNumber, $customsDeclarationType);
         try {
+            $intlConsignmentRequest = $this->mapper->createInternationalConsignmentRequest($shipment, $authToken, $collectionJobNumber, $customsDeclarationType);
             $client = ($this->clientFactory)($shipment->getAccount(), $intlConsignmentRequest);
             return $client->sendRequest($intlConsignmentRequest);
         } catch (\Exception $exception) {

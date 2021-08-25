@@ -2,8 +2,10 @@
 namespace CG\UkMail\Consignment\International;
 
 use CG\CourierAdapter\Address as CAAddress;
+use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
@@ -46,7 +48,7 @@ class Mapper
             $shipment->getDeliveryService()->getReference(),
             count($packages),
             $shipment->getCustomerReference(),
-            null,
+            $this->getAlternativeReference($shipment),
             $this->getParcels($packages),
             false,
             $shipment->getIossNumber() ?? null,
@@ -82,6 +84,24 @@ class Mapper
         );
     }
 
+    protected function getAlternativeReference(Shipment $shipment): string
+    {
+        $totalValue = 0;
+        $currencyCode = '';
+        $description = [];
+        /** @var Package $package */
+        foreach ($shipment->getPackages() as $package) {
+            /** @var Content $content */
+            foreach ($package->getContents() as $content) {
+                $totalValue += $content->getUnitValue();
+                $currencyCode = $content->getUnitCurrency();
+                $description[] = $content->getDescription();
+            }
+        }
+
+        return substr($totalValue . $currencyCode . ' - ' . implode('|', $description), 0, 20);
+    }
+
     protected function getContactName(CAAddress $address): string
     {
         return $address->getFirstName().' '.$address->getLastName();
@@ -97,9 +117,18 @@ class Mapper
             $address->determineCityFromAddressLines(),
             $address->determineRegionFromAddressLines(),
             $address->getPostCode(),
-            CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode()),
+            $this->getCountryCode($address),
             $isRecipientAddress ? DomesticConsignmentMapper::ADDRESS_TYPE_RESIDENTIAL : DomesticConsignmentMapper::ADDRESS_TYPE_DOORSTEP
         );
+    }
+
+    protected function getCountryCode(CAAddress $address): string
+    {
+        try {
+            return CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($address->getISOAlpha2CountryCode());
+        } catch (\Throwable $exception) {
+            throw new StorageException($exception->getMessage(), 400, $exception);
+        }
     }
 
     protected function convertWeight(float $weight): float
