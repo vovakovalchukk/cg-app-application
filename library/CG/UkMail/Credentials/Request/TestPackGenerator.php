@@ -15,7 +15,7 @@ use iio\libmergepdf\Merger as PDFMerger;
 
 class TestPackGenerator
 {
-    const DEFAULT_COUNTRY_CODE = 'GB';
+    protected const DEFAULT_COUNTRY_CODE = 'GB';
 
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;

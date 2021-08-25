@@ -2,6 +2,7 @@
 namespace CG\UkMail\CustomsDeclaration\Declaration;
 
 use CG\Locale\CountryNameByAlpha3Code;
+use CG\Stdlib\Exception\Storage as StorageException;
 
 class Article
 {
@@ -73,6 +74,10 @@ class Article
 
     public function getCountryOfManufacture(): string
     {
-        return CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($this->countryOfManufacture);
+        try {
+            return CountryNameByAlpha3Code::getCountryAlpha3CodeFromCountryAlpha2Code($this->countryOfManufacture);
+        } catch (\Throwable $exception) {
+            throw new StorageException($exception->getMessage(), 400, $exception);
+        }
     }
 }

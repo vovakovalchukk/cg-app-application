@@ -1,10 +1,10 @@
 <?php
 namespace CG\UkMail\Consignment\International;
 
-use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\CourierAdapter\Address as CAAddress;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Request\Rest\InternationalConsignment as InternationalConsignmentRequest;

@@ -2,12 +2,12 @@
 namespace CG\UkMail\Consignment\Domestic;
 
 use CG\CourierAdapter\Exception\UserError;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\UkMail\Client\Factory as ClientFactory;
 use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
 use CG\UkMail\Response\Rest\DomesticConsignment as DomesticConsignmentResponse;
 use CG\UkMail\Shipment;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 
 class Service implements LoggerAwareInterface
 {
