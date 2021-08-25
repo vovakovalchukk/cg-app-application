@@ -4,6 +4,7 @@ namespace CG\UkMail\DeliveryProducts;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
+use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Request\Rest\DeliveryProducts as DeliveryProductsRequest;
 use CG\UkMail\Shipment;
 use CG\UkMail\Shipment\Package as UkMailPackage;
@@ -59,7 +60,7 @@ class Mapper
             6,
             '',
             [],
-            'full',
+            CustomsDeclarationService::DECLARATION_TYPE_FULL,
             1
         );
     }

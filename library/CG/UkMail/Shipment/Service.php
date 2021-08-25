@@ -2,6 +2,10 @@
 namespace CG\UkMail\Shipment;
 
 use CG\CourierAdapter\Exception\UserError;
+use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\Provider\Implementation\Label;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\UkMail\Authenticate\Service as AuthenticateService;
 use CG\UkMail\Collection\Service as CollectionService;
 use CG\UkMail\Consignment\Cancel\Service as CancelConsignmentService;
@@ -10,10 +14,6 @@ use CG\UkMail\Consignment\International\Service as InternationalConsignmentServi
 use CG\UkMail\DeliveryProducts\Service as DeliveryProductsService;
 use CG\UkMail\Response\ConsignmentInterface;
 use CG\UkMail\Shipment;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG\CourierAdapter\Provider\Implementation\Label;
-use CG\CourierAdapter\LabelInterface;
 
 class Service implements LoggerAwareInterface
 {

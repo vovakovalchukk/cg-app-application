@@ -44,7 +44,7 @@ class Service
         return $this->internationalServices;
     }
 
-    protected function buildServices(array $servicesConfig)
+    protected function buildServices(array $servicesConfig): void
     {
         foreach ($servicesConfig['services'] as $service) {
             $config = [];
