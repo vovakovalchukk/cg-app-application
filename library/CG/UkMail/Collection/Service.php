@@ -82,7 +82,7 @@ class Service implements LoggerAwareInterface
         }
     }
 
-        protected function createCollectionRequest(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate, bool $isDomestic): CollectionRequest
+    protected function createCollectionRequest(CourierAdapterAccount $account, string $authToken, \DateTime $collectionDate, bool $isDomestic): CollectionRequest
     {
         $accountNumber = $account->getCredentials()['domesticAccountNumber'];
         if (!$isDomestic) {
