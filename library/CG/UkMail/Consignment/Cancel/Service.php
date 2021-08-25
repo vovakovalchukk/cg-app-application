@@ -27,15 +27,10 @@ class Service implements LoggerAwareInterface
         $this->mapper = $mapper;
     }
 
-    protected function createCancelConsignmentRequest(Shipment $shipment, string $authToken): CancelConsignmentRequest
-    {
-        return $this->mapper->createCancelConsignmentRequest($shipment, $authToken);
-    }
-
     public function requestCancelConsignment(Shipment $shipment, string $authToken): CancelConsignmentResponse
     {
         $this->logDebug(static::LOG_REQUESTING_CANCELLATION_MSG, [$shipment->getAccount()->getId(), $shipment->getCustomerReference()], static::LOG_CODE);
-        $cancelConsignmentRequest = $this->createCancelConsignmentRequest($shipment, $authToken);
+        $cancelConsignmentRequest = $this->mapper->createCancelConsignmentRequest($shipment, $authToken);
         try {
             $client = ($this->clientFactory)($shipment->getAccount(), $cancelConsignmentRequest);
             return $client->sendRequest($cancelConsignmentRequest);
