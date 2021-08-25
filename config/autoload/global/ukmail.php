@@ -433,7 +433,7 @@ return [
                             'deliveredDutyPaid' => true,
                             'deliveryAddress' => [
                                 'firstName' => 'Test',
-                                'lastName' => 'Parcel -  Do not Deliver',
+                                'lastName' => 'Parcel - Do not Deliver',
                                 'line1' => '145 Alfreton Road',
                                 'line2' => 'Little Eaton',
                                 'line3' => '',
