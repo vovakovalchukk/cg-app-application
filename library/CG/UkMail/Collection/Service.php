@@ -129,10 +129,6 @@ class Service implements LoggerAwareInterface
 
     protected function getType(bool $isDomestic): string
     {
-        $type = static::COLLECTION_TYPE_DOMESTIC;
-        if (!$isDomestic) {
-            $type = static::COLLECTION_TYPE_INTERNATIONAL;
-        }
-        return $type;
+        return $isDomestic ? static::COLLECTION_TYPE_DOMESTIC : static::COLLECTION_TYPE_INTERNATIONAL;
     }
 }
