@@ -15,6 +15,7 @@ use CG\Intersoft\RoyalMail\Shipment\International\LargeLetter as InternationalLa
 use CG\Intersoft\RoyalMail\Shipment\Domestic\LargeLetter as DomesticLargeLetterShipment;
 use CG\Intersoft\RoyalMail\Shipment\International\NotApplicableParcel as InternationalNotApplicableParcelShipment;
 use CG\Intersoft\RoyalMail\Shipment\Domestic\SpecialDeliveryNotApplicable as DomesticSpecialDeliveryNotApplicable;
+use CG\Courier\Intersoft\RoyalMail\DeliveryService\DisplayName as DeliveryServiceName;
 
 return [
     'di' => [
@@ -24,772 +25,772 @@ return [
                     'servicesConfig' => [
                         'serviceOfferings' => [
                             'BF1' => [
-                                'displayName' => 'HM Forces Mail'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF1
                             ],
                             'BF2' => [
-                                'displayName' => 'HM Forces Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF2
                             ],
                             'BF7' => [
-                                'displayName' => 'HM Forces Special Delivery (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF7
                             ],
                             'BF8' => [
-                                'displayName' => 'HM Forces Special Delivery (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF8
                             ],
                             'BF9' => [
-                                'displayName' => 'HM Forces Special Delivery (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF9
                             ],
                             'BPL1' => [
-                                'displayName' => 'Royal Mail 1st Class'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPL1
                             ],
                             'BPL2' => [
-                                'displayName' => 'Royal Mail 2nd Class'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPL2
                             ],
                             'BPR1' => [
-                                'displayName' => 'Royal Mail 1st Class Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPR1
                             ],
                             'BPR2' => [
-                                'displayName' => 'Royal Mail 2nd Class Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPR2
                             ],
                             'CRL1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_CRL1
                             ],
                             'CRL2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_CRL2
                             ],
                             'DE1' => [
-                                'displayName' => 'International Business Parcels Zero Sort High Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE1
                             ],
                             'DE3' => [
-                                'displayName' => 'International Business Parcels Zero Sort High Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE3
                             ],
                             'DE4' => [
-                                'displayName' => 'International Business Parcels Zero Srt Low Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE4
                             ],
                             'DE6' => [
-                                'displayName' => 'International Business Parcels Zero Sort Low Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE6
                             ],
                             'DG1' => [
-                                'displayName' => 'International Business Mail Large Letter Country Sort High Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG1
                             ],
                             'DG3' => [
-                                'displayName' => 'International Business Mail Large Letter Ctry Sort High Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG3
                             ],
                             'DG4' => [
-                                'displayName' => 'International Business Mail Large Letter Country Sort Low Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG4
                             ],
                             'DG6' => [
-                                'displayName' => 'International Business Mail Large Letter Ctry Sort Low Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG6
                             ],
                             'FS1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For Large Letter (Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS1
                             ],
                             'FS2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For Large Letter (Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS2
                             ],
                             'FS7' => [
-                                'displayName' => 'Royal Mail 24 (Presorted) (Large Letter)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS7
                             ],
                             'FS8' => [
-                                'displayName' => 'Royal Mail 48 (Presorted) (Large Letter)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS8
                             ],
                             'IE1' => [
-                                'displayName' => 'International Business Parcels Zone Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IE1
                             ],
                             'IE3' => [
-                                'displayName' => 'International Business Parcels Zone Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IE3
                             ],
                             'IG1' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG1
                             ],
                             'IG3' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG3
                             ],
                             'IG4' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG4
                             ],
                             'IG6' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG6
                             ],
                             'LA1' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA1
                             ],
                             'LA2' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA2
                             ],
                             'LA3' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA3
                             ],
                             'LA4' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£50)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA4
                             ],
                             'LA5' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA5
                             ],
                             'LA6' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA6
                             ],
                             'MB1' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT PRIORITY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB1
                             ],
                             'MB2' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT STANDARD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB2
                             ],
                             'MB3' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB3
                             ],
                             'MP0' => [
-                                'displayName' => 'International Business Parcels Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP0
                             ],
                             'MP1' => [
-                                'displayName' => 'International Business Parcels Tracked (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP1
                             ],
                             'MP4' => [
-                                'displayName' => 'International Business Parcels Tracked Extra Comp (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP4
                             ],
                             'MP5' => [
-                                'displayName' => 'International Business Parcels Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP5
                             ],
                             'MP6' => [
-                                'displayName' => 'International Business Parcels Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP6
                             ],
                             'MP7' => [
-                                'displayName' => 'International Business Parcels Tracked (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP7
                             ],
                             'MP8' => [
-                                'displayName' => 'International Business Parcels Tracked Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP8
                             ],
                             'MP9' => [
-                                'displayName' => 'International Business Parcels Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP9
                             ],
                             'MPB' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPB
                             ],
                             'MPF' => [
-                                'displayName' => 'International Business Parcel Tracked High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPF
                             ],
                             'MPG' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPG
                             ],
                             'MPH' => [
-                                'displayName' => 'International Business Parcel Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPH
                             ],
                             'MPI' => [
-                                'displayName' => 'International Business Parcel Tracked High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPI
                             ],
                             'MPJ' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPJ
                             ],
                             'MPK' => [
-                                'displayName' => 'International Business Parcel Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPK
                             ],
                             'MPL' => [
-                                'displayName' => 'International Business Mail Tracked High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPL
                             ],
                             'MPM' => [
-                                'displayName' => 'International Business Mail Tracked & Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPM
                             ],
                             'MPN' => [
-                                'displayName' => 'International Business Mail Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPN
                             ],
                             'MPO' => [
-                                'displayName' => 'International Business Mail Tracked High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPO
                             ],
                             'MPP' => [
-                                'displayName' => 'International Business Mail Tracked & Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPP
                             ],
                             'MPQ' => [
-                                'displayName' => 'International Business Mail Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPQ
                             ],
                             'MPR' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPR
                             ],
                             'MPT' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPT
                             ],
                             'MPU' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPU
                             ],
                             'MPV' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable Low Vol. Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPV
                             ],
                             'MPW' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable Low Vol. Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPW
                             ],
                             'MPX' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable High Vol. Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPX
                             ],
                             'MPY' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable High Vol. Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPY
                             ],
                             'MTA' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTA
                             ],
                             'MTB' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTB
                             ],
                             'MTC' => [
-                                'displayName' => 'International Business Mail Tracked & Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTC
                             ],
                             'MTD' => [
-                                'displayName' => 'International Business Mail Tracked & Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTD
                             ],
                             'MTE' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTE
                             ],
                             'MTF' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTF
                             ],
                             'MTG' => [
-                                'displayName' => 'International Business Mail Tracked & Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTG
                             ],
                             'MTH' => [
-                                'displayName' => 'International Business Mail Tracked & Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTH
                             ],
                             'MTI' => [
-                                'displayName' => 'International Business Mail Tracked (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTI
                             ],
                             'MTJ' => [
-                                'displayName' => 'International Business Mail Tracked Extra Comp (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTJ
                             ],
                             'MTK' => [
-                                'displayName' => 'International Business Mail Tracked (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTK
                             ],
                             'MTL' => [
-                                'displayName' => 'International Business Mail Tracked Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTL
                             ],
                             'MTM' => [
-                                'displayName' => 'International Business Mail Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTM
                             ],
                             'MTN' => [
-                                'displayName' => 'International Business Mail Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTN
                             ],
                             'MTO' => [
-                                'displayName' => 'International Business Mail Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTO
                             ],
                             'MTP' => [
-                                'displayName' => 'International Business Mail Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTP
                             ],
                             'MTQ' => [
-                                'displayName' => 'International Business Parcels Zone Sort Plus Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTQ
                             ],
                             'MTS' => [
-                                'displayName' => 'International Business Parcels Zone Sort Plus Economoy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTS
                             ],
                             'MUA' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZERO SORT PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUA
                             ],
                             'MUB' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZERO SORT ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUB
                             ],
                             'MUC' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZONE SORT PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUC
                             ],
                             'MUD' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZONE SORT ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUD
                             ],
                             'MUE' => [
-                                'displayName' => 'INTL BUS PRCL TRCKD BOX ZERO SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUE
                             ],
                             'MUF' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED BOX ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUF
                             ],
                             'MUG' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED BOX ZONE SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUG
                             ],
                             'MUH' => [
-                                'displayName' => 'INTL BUS PRCL TRCKD BOX ZONE SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUH
                             ],
                             'MUI' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUI
                             ],
                             'MUJ' => [
-                                'displayName' => 'INTL BUS PARCEL TRACKED ZERO SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUJ
                             ],
                             'MUK' => [
-                                'displayName' => 'INTL BUS PARCEL TRACKD & SIGNED ZERO SRT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUK
                             ],
                             'MUL' => [
-                                'displayName' => 'INT BUS PRCL TRCKD & SGND ZRO SRT XT CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUL
                             ],
                             'MUM' => [
-                                'displayName' => 'INTL BUS PARCELS SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUM
                             ],
                             'MUN' => [
-                                'displayName' => 'INTL BUS PARCEL SIGNED ZERO SORT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUN
                             ],
                             'MUO' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUO
                             ],
                             'MUP' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED ZERO SORT XTRA CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUP
                             ],
                             'MUQ' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED & SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUQ
                             ],
                             'MUR' => [
-                                'displayName' => 'INT BUS MAIL TRCKD & SGND ZRO SRT XT CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUR
                             ],
                             'MUS' => [
-                                'displayName' => 'INTL BUS MAIL SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUS
                             ],
                             'MUT' => [
-                                'displayName' => 'INTL BUS MAIL SIGNED ZERO SORT XTRA COMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUT
                             ],
                             'MUU' => [
-                                'displayName' => 'Intlernational Business Parcels Boxable Max Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUU
                             ],
                             'MUV' => [
-                                'displayName' => 'International Buiness Prcls Boxable Max Sort Standard'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUV
                             ],
                             'MUW' => [
-                                'displayName' => 'International Business Parcels Boxable Max Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUW
                             ],
                             'OLA' => [
-                                'displayName' => 'International Standard On Account'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OLA
                             ],
                             'OLS' => [
-                                'displayName' => 'International Economy On Account'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OLS
                             ],
                             'OSA' => [
-                                'displayName' => 'International Signed On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OSA
                             ],
                             'OSB' => [
-                                'displayName' => 'International Signed On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OSB
                             ],
                             'OTA' => [
-                                'displayName' => 'International Tracked On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTA
                             ],
                             'OTB' => [
-                                'displayName' => 'International Tracked On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTB
                             ],
                             'OTC' => [
-                                'displayName' => 'International Tracked & Signed On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTC
                             ],
                             'OTD' => [
-                                'displayName' => 'International Tracked & Signed On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTD
                             ],
                             'OZ1' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ1
                             ],
                             'OZ3' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ3
                             ],
                             'OZ4' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ4
                             ],
                             'OZ6' => [
-                                'displayName' => 'International Business Mail Mixed Zone Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ6
                             ],
                             'PK0' => [
-                                'displayName' => 'Royal Mail 48 (LL) Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK0
                             ],
                             'PK1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Sort8 - Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK1
                             ],
                             'PK2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Sort8 - Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK2
                             ],
                             'PK3' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Sort8 - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK3
                             ],
                             'PK4' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Sort8 - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK4
                             ],
                             'PK7' => [
-                                'displayName' => 'Royal Mail 24 (Presorted) (P)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK7
                             ],
                             'PK8' => [
-                                'displayName' => 'Royal Mail 48 (Presorted) (P)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK8
                             ],
                             'PK9' => [
-                                'displayName' => 'Royal Mail 24 (LL) Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK9
                             ],
                             'PKB' => [
-                                'displayName' => 'RM24 (Presorted) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKB
                             ],
                             'PKD' => [
-                                'displayName' => 'RM48 (Presorted) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKD
                             ],
                             'PKK' => [
-                                'displayName' => 'RM48 (Presorted) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKK
                             ],
                             'PKM' => [
-                                'displayName' => 'RM24 (Presorted)(LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKM
                             ],
                             'PPF' => [
-                                'displayName' => 'Royal Mail 24/48 Standard/Signed For (Packetpost- Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPF
                             ],
                             'PPJ' => [
-                                'displayName' => 'Parcelpost Flat Rate (Annual)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPJ
                             ],
                             'PPS' => [
-                                'displayName' => 'RM24 (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPS
                             ],
                             'PPT' => [
-                                'displayName' => 'RM48 (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPT
                             ],
                             'PS0' => [
-                                'displayName' => 'International Business Parcels Max Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS0
                             ],
                             'PS7' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS7
                             ],
                             'PS8' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS8
                             ],
                             'PS9' => [
-                                'displayName' => 'International Business Parcels Max Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS9
                             ],
                             'PSB' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Standard Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSB
                             ],
                             'PSC' => [
-                                'displayName' => 'International Business Parcels Max Sort Standard Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSC
                             ],
                             'RM0' => [
-                                'displayName' => 'Royal Mail 48 (Sort8)(P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM0
                             ],
                             'RM1' => [
-                                'displayName' => 'Royal Mail 24 (LL) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM1
                             ],
                             'RM2' => [
-                                'displayName' => 'Royal Mail 24 (P) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM2
                             ],
                             'RM3' => [
-                                'displayName' => 'Royal Mail 48 (LL) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM3
                             ],
                             'RM4' => [
-                                'displayName' => 'Royal Mail 48 (P) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM4
                             ],
                             'RM5' => [
-                                'displayName' => 'Royal Mail 24 (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM5
                             ],
                             'RM6' => [
-                                'displayName' => 'Royal Mail 48 (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM6
                             ],
                             'RM7' => [
-                                'displayName' => 'Royal Mail 24 (SORT8) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM7
                             ],
                             'RM8' => [
-                                'displayName' => 'Royal Mail 24 (SORT8) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM8
                             ],
                             'RM9' => [
-                                'displayName' => 'Royal Mail 48 (SORT8) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM9
                             ],
                             'SD1' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD1
                             ],
                             'SD2' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD2
                             ],
                             'SD3' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD3
                             ],
                             'SD4' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£50)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD4
                             ],
                             'SD5' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD5
                             ],
                             'SD6' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD6
                             ],
                             'STL1' => [
-                                'displayName' => 'Royal Mail 1st Class Standard/Signed For (Letters - Daily Rate service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_STL1
                             ],
                             'STL2' => [
-                                'displayName' => 'Royal Mail 2nd Class Standard/Signed For (Letters - Daily Rate service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_STL2
                             ],
                             'TPL' => [
-                                'displayName' => 'Tracked 48 High Volume Signature/ No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPL
                             ],
                             'TPM' => [
-                                'displayName' => 'Tracked 24 High Volume Signature/ No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPM
                             ],
                             'TPNN' => [
-                                'displayName' => 'Tracked 24 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPNN
                             ],
                             'TPNS' => [
-                                'displayName' => 'Tracked 24 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPNS
                             ],
                             'TPSN' => [
-                                'displayName' => 'Tracked 48 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPSN
                             ],
                             'TPSS' => [
-                                'displayName' => 'Tracked 48 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPSS
                             ],
                             'TRL' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 High Volume Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRL
                             ],
                             'TRM' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 High Volume No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRM
                             ],
                             'TRNN' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRNN
                             ],
                             'TRNS' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRNS
                             ],
                             'TRSN' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRSN
                             ],
                             'TRSS' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRSS
                             ],
                             'TSN' => [
-                                'displayName' => 'Tracked Returns 24'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TSN
                             ],
                             'TSS' => [
-                                'displayName' => 'Tracked Returns 48'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TSS
                             ],
                             'WE1' => [
-                                'displayName' => 'International Business Parcels Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WE1
                             ],
                             'WE3' => [
-                                'displayName' => 'International Business Parcels Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WE3
                             ],
                             'WG1' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG1
                             ],
                             'WG3' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG3
                             ],
                             'WG4' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG4
                             ],
                             'WG6' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG6
                             ],
                             'WW1' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW1
                             ],
                             'WW3' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW3
                             ],
                             'WW4' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW4
                             ],
                             'WW6' => [
-                                'displayName' => 'International Business Mail Mixd Zero Sort Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW6
                             ],
                             'PPJ2' => [
-                                'displayName' => 'Parcelpost Flat Rate (Annual) (48)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPJ2
                             ],
                             'DEA' => [
-                                'displayName' => 'DE Import Std 24 Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEA
                             ],
                             'DEB' => [
-                                'displayName' => 'DE Import Std 24 Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEB
                             ],
                             'DEC' => [
-                                'displayName' => 'DE Import Std 24 LLTR'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEC
                             ],
                             'DED' => [
-                                'displayName' => 'DE Import Std 48 LLTR'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DED
                             ],
                             'DEM' => [
-                                'displayName' => 'DE Import to EU Max Sort Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEM
                             ],
                             'DEG' => [
-                                'displayName' => 'DE Import to EU Max Sort LLTR'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEG
                             ],
                             'DEE' => [
-                                'displayName' => 'DE Import to EU Tracked & Signed LLTR'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEE
                             ],
                             'DEI' => [
-                                'displayName' => 'DE Import to EU Tracked Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEI
                             ],
                             'DEJ' => [
-                                'displayName' => 'DE Import to EU Tracked & Signed Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEJ
                             ],
                             'DEK' => [
-                                'displayName' => 'DE Import to EU Tracked LLTR'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEK
                             ],
                             'ITR' => [
-                                'displayName' => 'DE Import to EU Signed Parcel'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITR
                             ],
                             'ITLS' => [
-                                'displayName' => 'Import DE Tracked 48 Parcels (TPL) - Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITLS
                             ],
                             'ITLN' => [
-                                'displayName' => 'Import DE Tracked 48 Parcels (TPL) - Non Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITLN
                             ],
                             'ITMS' => [
-                                'displayName' => 'Import DE tracked 24 Parcels (TPM) - Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITMS
                             ],
                             'ITMN' => [
-                                'displayName' => 'Import DE Tracked 24 Parcels (TPM) - No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITMN
                             ],
                             'ITCN' => [
-                                'displayName' => 'Import DE Tracked 24 (LBT) (HV) - No signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITCN
                             ],
                             'ITCS' => [
-                                'displayName' => 'Import DE Tracked 24(LBT) (HV) - With signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITCS
                             ],
                             'ITDN' => [
-                                'displayName' => 'Import DE Tracked 48(LBT) (HV) - Non Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITDN
                             ],
                             'ITDS' => [
-                                'displayName' => 'Import DE Tracked 48 (LBT)(HV) - With Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITDS
                             ],
                             'ITEN' => [
-                                'displayName' => 'Import DE Tracked 48(LBT) - Non signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITEN
                             ],
                             'ITES' => [
-                                'displayName' => 'Import DE Tracked 48 (LBT) - Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITES
                             ],
                             'ITFN' => [
-                                'displayName' => 'Import DE Tracked 24 (LBT) - Non Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITFN
                             ],
                             'ITFS' => [
-                                'displayName' => 'Import DE Tracked 24 (LBT) - With Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITFS
                             ],
                             'ITSN' => [
-                                'displayName' => 'Import DE Tracked 48 - No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITSN
                             ],
                             'ITSS' => [
-                                'displayName' => 'Import DE Tracked 48 - With signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITSS
                             ],
                             'ITNN' => [
-                                'displayName' => 'Import DE Tracked 24 - Non Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITNN
                             ],
                             'ITNS' => [
-                                'displayName' => 'Import DE Tracked 24 - With Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITNS
                             ],
                             'ITA' => [
-                                'displayName' => 'Import DE Tracked Returns 24'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITA
                             ],
                             'ITB' => [
-                                'displayName' => 'Import DE Tracked Returns 48'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITB
                             ],
                             'TPC' => [
-                                'displayName' => 'Royal Mail Tracked 24 - With Signature (AGE)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPC
                             ],
                             'TPD' => [
-                                'displayName' => 'Royal Mail Tracked 48 - With Signature (AGE)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPD
                             ],
                             'TPA' => [
-                                'displayName' => 'Royal Mail Tracked 24 (HV) - With Signature (AGE)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPA
                             ],
                             'TPB' => [
-                                'displayName' => 'Royal Mail Tracked 48 (HV) - With Signature (AGE)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPB
                             ],
                             'SDH' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (AGE)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDH
                             ],
                             'SDJ' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (IAGE) (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDJ
                             ],
                             'SDK' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (AGE) (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDK
                             ],
                             'SDM' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£750)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDM
                             ],
                             'SDN' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDN
                             ],
                             'SDQ' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (AGE) (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDQ
                             ],
                             'SDA' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£750)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDA
                             ],
                             'SDB' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDB
                             ],
                             'SDC' => [
-                                'displayName' => 'SD GUARANTEED BY 1PM (ID) (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDC
                             ],
                             'SDE' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£750)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDE
                             ],
                             'SDF' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDF
                             ],
                             'SDG' => [
-                                'displayName' => 'SD GUARANTEED BY 9AM (ID) (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDG
                             ],
                             'WP1' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT PRIORITY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP1
                             ],
                             'WP3' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP3
                             ],
                             'WP4' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS ZERO SORT PRI MCH'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP4
                             ],
                             'WP6' => [
-                                'displayName' => 'INTL BUS MAIL LTTR ZERO SRT ECONOMY MCH'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP6
                             ],
                             'IP1' => [
-                                'displayName' => 'INTL BUS MAIL LTR ZONE SORT PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP1
                             ],
                             'IP3' => [
-                                'displayName' => 'INTL BUS MAIL LTR ZONE SORT ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP3
                             ],
                             'IP4' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS ZONE SORT PRI MCH'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP4
                             ],
                             'IP6' => [
-                                'displayName' => 'INTL BUS MAIL LTR ZONE SRT ECONOMY MCH'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP6
                             ],
                             'DP1' => [
-                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT HI VOL PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP1
                             ],
                             'DP3' => [
-                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT HI VOL ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP3
                             ],
                             'DP4' => [
-                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT LO VOL PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP4
                             ],
                             'DP6' => [
-                                'displayName' => 'INTL BUS MAIL LTR CTRY SORT LO VOL ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP6
                             ],
                             'PSA' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT STANDARD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSA
                             ],
                             'BP1' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT RES PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP1
                             ],
                             'BP2' => [
-                                'displayName' => 'INTL BUS MAIL LETTERS MAX SORT RES STD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP2
                             ],
                             'BP3' => [
-                                'displayName' => 'INTL BUS MAIL LTR MAX SORT RES ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP3
                             ],
                             'BG1' => [
-                                'displayName' => 'INTL BUS MAIL LRG LTR MAX SORT RES PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG1
                             ],
                             'BG2' => [
-                                'displayName' => 'INTL BUS MAIL LRG LTR MAX SORT RES STD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG2
                             ],
                             'BG3' => [
-                                'displayName' => 'INTL BUS MAIL L LTR MAX SORT RES ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG3
                             ],
                             'BE1' => [
-                                'displayName' => 'INTL BUS PARCELS MAX SORT RESIDUE PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE1
                             ],
                             'BE2' => [
-                                'displayName' => 'INTL BUS PARCELS MAX SORT RESIDUE STD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE2
                             ],
                             'BE3' => [
-                                'displayName' => 'INTL BUS PARCELS MAX SRT RESIDUE ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE3
                             ],
                             'TC1' => [
-                                'displayName' => 'QM/10 Option 2 over 500g'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TC1
                             ],
                             'TC2' => [
-                                'displayName' => 'QM/10 Option 2 Mixed Mail'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TC2
                             ],
                             'DW1' => [
-                                'displayName' => 'INTL BUS PARCELS BESPOKE POSTAL'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DW1
                             ],
                             'DW2' => [
-                                'displayName' => 'CUSTOMER NESTED MAXSORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DW2
                             ],
                             'MTV' => [
-                                'displayName' => 'INTL BUS PRCLS TRK&SGN DDP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTV
                             ],
                         ],
                         'serviceTypes' => [
