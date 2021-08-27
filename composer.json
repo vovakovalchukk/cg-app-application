@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.4.7",
+        "channelgrabber/courier": "dev-CGIV-11864-dpd-ireland-two-day-service as 1.4.8",
         "channelgrabber/courieradapter": "~1.7.4",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
