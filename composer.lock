@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dd34290ad3a632f8520b30413a19063",
+    "content-hash": "cd9184a17a30206fcb1ec3a068b15469",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,7 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "86720b8e47c4e1076d74e24a5ea478fa716ccdd7"
+                "reference": "a1dc55780599ff688f6cd9ff41ea5cb7f0d8c55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11864-dpd-ireland-two-day-service-53f917.zip",
+                "reference": "a1dc55780599ff688f6cd9ff41ea5cb7f0d8c55f"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-08-20T09:52:53+00:00"
+            "time": "2021-08-27T11:03:13+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10542,7 +10547,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12003,8 +12009,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
