@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27e973ae3015a27274af7febeb8a58c5",
+    "content-hash": "35fb003e8d4c9f6cae56a3c87ed3b4af",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3816,16 +3816,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-11916-additional-labels-mirrow-original-label-position",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "6fdf57b75d8ec545978eff202bff8c7fb01f20a1"
+                "reference": "39c11e6b0d8fb208115450b5c326e8ecd26985c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-11916-additional-labels-mirrow-original-label-position-6966dc.zip",
-                "reference": "6fdf57b75d8ec545978eff202bff8c7fb01f20a1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.4-58723d.zip",
+                "reference": "39c11e6b0d8fb208115450b5c326e8ecd26985c7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3876,7 +3876,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-08-12T13:02:20+00:00"
+            "time": "2021-09-01T13:11:31+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11996,18 +11996,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.12.4",
-            "alias_normalized": "1.12.4.0",
-            "version": "dev-CGIV-11916-additional-labels-mirrow-original-label-position",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
