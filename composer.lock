@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd9184a17a30206fcb1ec3a068b15469",
+    "content-hash": "35fb003e8d4c9f6cae56a3c87ed3b4af",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,16 +1019,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-11864-dpd-ireland-two-day-service",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "a1dc55780599ff688f6cd9ff41ea5cb7f0d8c55f"
+                "reference": "c334dc93b75c1ba5325e18e9c978b1851fb9848d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11864-dpd-ireland-two-day-service-53f917.zip",
-                "reference": "a1dc55780599ff688f6cd9ff41ea5cb7f0d8c55f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.7-ffcce4.zip",
+                "reference": "c334dc93b75c1ba5325e18e9c978b1851fb9848d"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-08-27T11:03:13+00:00"
+            "time": "2021-08-20T09:52:53+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3816,16 +3816,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.12.3",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
+                "reference": "39c11e6b0d8fb208115450b5c326e8ecd26985c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.3-dee062.zip",
-                "reference": "2e29167f3bd8a76fde784326fa9319f14c4580c7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.12.4-58723d.zip",
+                "reference": "39c11e6b0d8fb208115450b5c326e8ecd26985c7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3876,7 +3876,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-04-29T13:50:53+00:00"
+            "time": "2021-09-01T13:11:31+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11996,18 +11996,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.8",
-            "alias_normalized": "1.4.8.0",
-            "version": "dev-CGIV-11864-dpd-ireland-two-day-service",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
