@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f4aa2ffe45e6a05e8b51677cc1a376e",
+    "content-hash": "79b55c4a1bd6eb65ba8f685646eef44b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,16 +1019,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-11864-dpd-ireland-two-day-service",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b61dd15f150dc96b404df2d8c6bdabb7e624570c"
+                "reference": "d9ee58c8c44f42a3cd0f206b13c38308cd1c94e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11864-dpd-ireland-two-day-service-55eabf.zip",
-                "reference": "b61dd15f150dc96b404df2d8c6bdabb7e624570c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.8-091867.zip",
+                "reference": "d9ee58c8c44f42a3cd0f206b13c38308cd1c94e0"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-08-27T14:49:47+00:00"
+            "time": "2021-09-06T08:29:52+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11997,18 +11997,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.8",
-            "alias_normalized": "1.4.8.0",
-            "version": "dev-CGIV-11864-dpd-ireland-two-day-service",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
