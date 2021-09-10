@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79b55c4a1bd6eb65ba8f685646eef44b",
+    "content-hash": "ae0e2c7470bacffd3b7986e958fc72d8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,16 +1019,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.4.8",
+            "version": "dev-CGIV-12225-geopost-manifest-city-wrong-place",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d9ee58c8c44f42a3cd0f206b13c38308cd1c94e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.4.8-091867.zip",
-                "reference": "d9ee58c8c44f42a3cd0f206b13c38308cd1c94e0"
+                "reference": "aff4e8cb4d3c846cc42b6f87bd2f849525421291"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -11997,13 +11992,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.9",
+            "alias_normalized": "1.4.9.0",
+            "version": "dev-CGIV-12225-geopost-manifest-city-wrong-place",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
