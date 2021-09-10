@@ -1025,6 +1025,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "aff4e8cb4d3c846cc42b6f87bd2f849525421291"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12225-geopost-manifest-city-wrong-place-dd2002.zip",
+                "reference": "aff4e8cb4d3c846cc42b6f87bd2f849525421291"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
                 "channelgrabber/locale": "^1.0.17",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-09-06T08:29:52+00:00"
+            "time": "2021-09-10T10:01:38+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12005,8 +12010,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
