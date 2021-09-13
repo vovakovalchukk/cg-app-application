@@ -153,14 +153,11 @@ class Package
         if ($this->getPackageCode() !== null) {
             $array['package_code'] = $this->getPackageCode();
         }
-
         if ($this->getReference1() !== null) {
             $array['label_messages'] = [
                 'reference1' => $this->getReference1()
             ];
         }
-
-
         return $array;
     }
 
