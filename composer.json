@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.4.8",
+        "channelgrabber/courier": "~1.4.9",
         "channelgrabber/courieradapter": "dev-CGIV-11760-uk-mail-integration as 1.7.5",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.3",
