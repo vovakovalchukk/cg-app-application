@@ -70,7 +70,7 @@
         "channelgrabber/phinx": "~0.5.2",
         "channelgrabber/picklist": "~1.3.4",
         "channelgrabber/predis": "~1.1.17",
-        "channelgrabber/product": "dev-CGIV-11768-de-vat-fields as 1.20.19",
+        "channelgrabber/product": "dev-CGIV-11768-de-vat-fields as 1.21.0",
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.5",
         "channelgrabber/redis": "~1.0.2",
