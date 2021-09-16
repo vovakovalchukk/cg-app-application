@@ -6,7 +6,10 @@ use DataExchange\Template\FieldsInterface;
 
 class Stock implements FieldsInterface
 {
-    const FIELDS = [
+    protected const VAT_KEY = 'VAT ';
+    protected const VAT_VALUE = 'vat';
+
+    protected const FIELDS = [
         'SKU' => 'sku',
         'Product Name' => 'name',
         'Total Stock' => 'quantity',
@@ -38,11 +41,10 @@ class Stock implements FieldsInterface
     {
         $vatFields = [];
         foreach ($ou->getMemberState() as $memberState) {
-            $key = 'VAT '.$memberState;
-            $value = 'vat'.$memberState;
+            $key = static::VAT_KEY.$memberState;
+            $value = static::VAT_VALUE.$memberState;
             $vatFields[$key] = $value;
         }
-
         return $vatFields;
     }
 }
