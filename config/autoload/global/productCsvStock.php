@@ -1,8 +1,8 @@
 <?php
 
 use CG\Product\Csv\Stock\Mapper\Observer as StockMapperObserver;
-use CG\Product\Csv\Stock\Mapper\Subscribers\StaticFields;
-use CG\Product\Csv\Stock\Mapper\Subscribers\StockFields;
+use CG\Product\Csv\Stock\Mapper\Subscriber\StaticFields;
+use CG\Product\Csv\Stock\Mapper\Subscriber\StockFields;
 
 return [
     'di' => [
