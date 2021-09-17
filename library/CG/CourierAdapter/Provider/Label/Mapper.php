@@ -9,6 +9,7 @@ use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageConten
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
 use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\InvoiceNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
@@ -137,6 +138,9 @@ class Mapper
         }
         if (is_a($shipmentClass, IossNumberInterface::class, true)) {
             $caShipmentData['iossNumber'] = $order->getIossNumber();
+        }
+        if (is_a($shipmentClass, InvoiceNumberInterface::class, true)) {
+            $caShipmentData['invoiceNumber'] = $order->getInvoiceNumber();
         }
 
         return $caShipmentData;
