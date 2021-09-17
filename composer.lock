@@ -2864,6 +2864,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
                 "reference": "a27e415c1635c2735b6a4c3cd274844e578628de"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11768-de-vat-fields-0fb1a3.zip",
+                "reference": "a27e415c1635c2735b6a4c3cd274844e578628de"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.42.13",
@@ -2911,7 +2916,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-09-16T15:49:54+00:00"
+            "time": "2021-09-17T16:00:44+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12004,8 +12009,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
