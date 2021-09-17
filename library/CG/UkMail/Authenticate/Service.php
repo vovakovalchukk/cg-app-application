@@ -13,7 +13,7 @@ use Predis\Client as PredisClient;
 class Service implements LoggerAwareInterface
 {
     protected const TOKEN_KEY = 'CGUkMailAuthenticationToken::%d';
-    protected const TOKEN_TTL = 28800; //8 hours
+    protected const TOKEN_TTL = 900; //15 minutes
 
     protected const LOG_CODE = 'UkMailAuthenticateService';
     protected const LOG_FETCHING_TOKEN_MSG = 'Fetching UK Mail token %s for account %d from redis';
