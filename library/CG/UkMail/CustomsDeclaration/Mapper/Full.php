@@ -25,7 +25,7 @@ class Full implements MapperInterface
 
         return [
             'invoiceType' => MapperInterface::INVOICE_TYPE_PROFORMA,
-            'invoiceNumber' => $shipment->getInvoiceNumber(),
+            'invoiceNumber' => $shipment->getInvoiceNumber() ?? $shipment->getCustomerReference(),
             'invoiceDate' => $shipment->getCollectionDate(),
             'articles' => $articles,
             'totalArticles' => count($articles),
