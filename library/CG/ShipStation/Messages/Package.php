@@ -35,6 +35,8 @@ class Package
     protected $insuredValue;
     /** @var string|null */
     protected $insuredCurrency;
+    /** @var string|null */
+    protected $reference1;
 
     protected static $unitMap = [
         'g' => 'gram',
@@ -57,7 +59,8 @@ class Package
         ?string $dimensionsUnit,
         ?string $packageCode,
         ?float $insuredValue,
-        ?string $insuredCurrency
+        ?string $insuredCurrency,
+        ?string $reference1
     ) {
         $this->weight = $weight;
         $this->weightUnit = $weightUnit;
@@ -68,6 +71,7 @@ class Package
         $this->packageCode = $packageCode;
         $this->insuredValue = $insuredValue;
         $this->insuredCurrency = $insuredCurrency;
+        $this->reference1 = $reference1;
     }
 
     public static function build($decodedJson): Package
@@ -81,7 +85,8 @@ class Package
             $decodedJson->dimensions->unit ?? null,
             $decodedJson->package_code ?? null,
             $decodedJson->insured_value->amount ?? null,
-            $decodedJson->insured_value->currency ?? null
+            $decodedJson->insured_value->currency ?? null,
+            $decodedJson->label_messages->reference1 ?? null
         );
     }
 
@@ -89,7 +94,8 @@ class Package
         Order $order,
         OrderData $orderData,
         ParcelData $parcelData,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        ?string $reference
     ): Package {
         $insuranceAmount = 0;
         if ((float)$orderData->getInsuranceMonetary() > 0) {
@@ -115,7 +121,8 @@ class Package
             static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
             $parcelData->getPackageType(),
             $insuranceAmount,
-            $order->getCurrencyCode()
+            $order->getCurrencyCode(),
+            $reference
         );
     }
     
@@ -145,6 +152,11 @@ class Package
         }
         if ($this->getPackageCode() !== null) {
             $array['package_code'] = $this->getPackageCode();
+        }
+        if ($this->getReference1() !== null) {
+            $array['label_messages'] = [
+                'reference1' => $this->getReference1()
+            ];
         }
         return $array;
     }
@@ -245,6 +257,17 @@ class Package
     public function setInsuredCurrency(?string $insuredCurrency): self
     {
         $this->insuredCurrency = $insuredCurrency;
+        return $this;
+    }
+
+    public function getReference1(): ?string
+    {
+        return $this->reference1;
+    }
+
+    public function setReference1(?string $reference1): Package
+    {
+        $this->reference1 = $reference1;
         return $this;
     }
 }

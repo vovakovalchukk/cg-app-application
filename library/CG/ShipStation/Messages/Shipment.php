@@ -80,9 +80,12 @@ class Shipment
         $shipTo = ShipmentAddress::createFromOrder($order);
         $confirmation = $orderData->getSignature() ? 'signature' : null;
         $packages = [];
+
+        $reference = static::getUniqueIdForOrder($order);
+
         /** @var ParcelData $parcelData */
         foreach ($parcelsData->getParcels() as $parcelData) {
-            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
+            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu, $reference);
         }
         $customs = $taxIdentifiers = null;
         if ($carrierService->isInternational()) {
@@ -96,7 +99,7 @@ class Shipment
             $orderData->getService(),
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
-            static::getUniqueIdForOrder($order),
+            $reference,
             $confirmation,
             $customs,
             $taxIdentifiers,
