@@ -2862,12 +2862,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "5fc1abbfbbd19d03f4b75470b7c1812ffb2c0c65"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-11768-de-vat-fields-d1be1d.zip",
-                "reference": "5fc1abbfbbd19d03f4b75470b7c1812ffb2c0c65"
+                "reference": "9546359d4bc5e9ca490626e42ed13e545b6a232a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -12009,8 +12004,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
