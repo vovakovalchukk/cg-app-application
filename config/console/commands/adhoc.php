@@ -5,12 +5,17 @@ use CG\Di\Di;
 use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Product\Storage\Api as ProductApiStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use CG\User\UserInterface;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG\Listing\Storage\Api as ListingApiStorage;
 
 /** @var Di $di */
 return [
@@ -103,5 +108,101 @@ return [
             ],
         ],
         'options' => [],
+    ],
+
+
+    'adhoc:testChanges' => [
+        'description' => '',
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
+
+            $organisationUnitId = 2;
+
+//            $di->instanceManager()->addSharedInstance(
+//                new class($organisationUnitId) implements ActiveUserInterface
+//                {
+//                    /** @var int */
+//                    protected $organisationUnitId;
+//                    /** @var ?User */
+//                    protected $activeUser;
+//
+//                    public function __construct(int $organisationUnitId)
+//                    {
+//                        $this->organisationUnitId = $organisationUnitId;
+//                    }
+//
+//                    public function getActiveUser()
+//                    {
+//                        return $this->activeUser;
+//                    }
+//
+//                    public function setActiveUser(UserInterface $activeUser)
+//                    {
+//                        $this->activeUser = $activeUser;
+//                        return $this;
+//                    }
+//
+//                    public function getActiveUserRootOrganisationUnitId()
+//                    {
+//                        return $this->getCompanyId();
+//                    }
+//
+//                    public function isAdmin()
+//                    {
+//                        return false;
+//                    }
+//
+//                    public function getCompanyId()
+//                    {
+//                        return $this->getCompanyId();
+//                    }
+//
+//                    public function getLocale(): string
+//                    {
+//                        return 'gb_UK';
+//                    }
+//
+//                    public function setLocale(string $locale)
+//                    {
+//                        // TODO: Implement setLocale() method.
+//                    }
+//
+//                    public function getTimezone(): string
+//                    {
+//                        return 'Europe/London';
+//                    }
+//
+//                    public function setTimezone(string $timezone)
+//                    {
+//                        // TODO: Implement setTimezone() method.
+//                    }
+//                },
+//                ActiveUserInterface::class
+//            );
+//
+//            $ouService = $di->newInstance(CG\OrganisationUnit\Service::class, ['repository' => CG\OrganisationUnit\Storage\Api::class]);
+
+            /** @var \CG\Product\Client\Service $productService */
+            $productService = $di->newInstance(CG\Product\Client\Service::class,
+                [
+//                'repository' => ProductApiStorage::class,
+//                'stockStorage' => StockApiStorage::class,
+//                'listingStorage' => ListingApiStorage::class
+                ]
+            );
+
+            $productFilter = new CG\Product\Filter();
+            $productFilter->setId([1, 2, 3, 4]);
+
+            $products = $productService->fetchCollectionByFilter($productFilter);
+
+            print_r($products);
+
+        },
+        'arguments' => [
+
+        ],
+        'options' => [],
     ]
+
+
 ];
