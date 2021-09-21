@@ -103,24 +103,5 @@ return [
             ],
         ],
         'options' => [],
-    ],
-
-    'adhoc:test' => [
-        'description' => 'Creates a new RoyalMail Click & Drop account for any ou that has previously used the hard code version',
-        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            $request = new \CG\Courier\Parcelforce\Request\PrintDocument();
-
-            $request
-                ->setPassword('pass')
-                ->setUsername('user')
-                ->setDocumentType(1)
-                ->setShipmentNumber('112323')
-                ->setPrintFormat('PDF');
-
-            echo $request->toSimpleXmlElement()->asXML();
-        },
-        'arguments' => [
-        ],
-        'options' => [],
     ]
 ];
