@@ -2862,12 +2862,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "57e04fa40d7b953ba81e7c98360660ac5beab783"
+                "reference": "c9f118187f1137436839e08ef46ae5835cef72d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-12097-limit-returned-images-3606e2.zip",
-                "reference": "57e04fa40d7b953ba81e7c98360660ac5beab783"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-12097-limit-returned-images-381e24.zip",
+                "reference": "c9f118187f1137436839e08ef46ae5835cef72d7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2916,7 +2916,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-09-22T14:17:37+00:00"
+            "time": "2021-09-22T15:26:20+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
