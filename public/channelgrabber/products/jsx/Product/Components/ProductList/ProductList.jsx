@@ -12,7 +12,8 @@ import visibleRowService from 'Product/Components/ProductList/VisibleRow/service
 import BlockerModal from 'Common/Components/BlockerModal';
 import styleVars from 'Product/Components/ProductList/styleVars';
 import utility from 'Product/Components/ProductList/utility';
-
+import PopupComponent from "Common/Components/Popup";
+import ProductExpandHeader from "./Cell/Header/ProductExpand";
 "use strict";
 
 class ProductList extends React.Component {
@@ -263,6 +264,24 @@ class ProductList extends React.Component {
             />
         );
     }
+    renderExpandVariationsConfirmation() {
+        if (!this.isReadyToRenderTable() && !this.hasProducts()) {
+            return;
+        }
+
+        const totalVariationsCount = stateUtility.getAllVariationsCount(this.props.products.visibleRows);
+        return <div>
+            <PopupComponent
+                initiallyActive={false}
+                onYesButtonPressed={this.props.actions.toggleExpandAll.bind(this, [true])}
+                headerText={"Confirm"}
+                name={ProductExpandHeader.CONFIRMATION_POPUP_NAME}
+            >
+                <p>Do you want to expand all the variation for the products on this page?</p>
+                <p>There are {totalVariationsCount} variations to be loaded, this may take a while.</p>
+            </PopupComponent>
+        </div>
+    }
     render() {
         return (
             <div id='products-app'>
@@ -275,6 +294,7 @@ class ProductList extends React.Component {
                 </div>
                 <Tabs/>
                 {this.shouldRenderModal() ? this.renderBlockerModal() : ''}
+                {this.renderExpandVariationsConfirmation()}
                 <div
                     className='products-list__container'
                     ref={(productsListContainer) => this.productsListContainer = productsListContainer}

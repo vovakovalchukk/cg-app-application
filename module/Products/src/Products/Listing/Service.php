@@ -6,6 +6,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
 use CG\Channel\Listing\Download\Service as ListingDownloadService;
+use CG\Channel\Listing\Import\PermissionService as ListingImportPermissionService;
 use CG\Channel\ListingImportFactory;
 use CG\Channel\Type as ChannelType;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -71,6 +72,8 @@ class Service implements LoggerAwareInterface
     protected $listingDownloadService;
     /** @var MarketplaceService */
     protected $marketplaceService;
+    /** @var ListingImportPermissionService */
+    protected $listingImportPermissionService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -83,7 +86,8 @@ class Service implements LoggerAwareInterface
         DateFormatHelper $dateFormatHelper,
         UnimportedListingImportGenerator $unimportedListingImportGenerator,
         ListingDownloadService $listingDownloadService,
-        MarketplaceService $marketplaceService
+        MarketplaceService $marketplaceService,
+        ListingImportPermissionService $listingImportPermissionService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->userPreferenceService = $userPreferenceService;
@@ -96,6 +100,7 @@ class Service implements LoggerAwareInterface
         $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
         $this->listingDownloadService = $listingDownloadService;
         $this->marketplaceService = $marketplaceService;
+        $this->listingImportPermissionService = $listingImportPermissionService;
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -106,6 +111,9 @@ class Service implements LoggerAwareInterface
 
     public function refresh(array $accountIds = [])
     {
+        if ($this->listingImportBlacklisted()) {
+            return;
+        }
         $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
             ->setActive(static::ACTIVE)
             ->setType(static::DEFAULT_TYPE)
@@ -297,6 +305,13 @@ class Service implements LoggerAwareInterface
     {
         $event = new IntercomEvent(static::EVENT_LISTINGS_IMPORTED, $this->getActiveUser()->getId());
         $this->intercomEventService->save($event);
+    }
+
+    public function listingImportBlacklisted(): bool
+    {
+        return $this->listingImportPermissionService->listingImportBlacklisted(
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+        );
     }
 
     /**

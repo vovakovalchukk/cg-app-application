@@ -16,6 +16,7 @@ use CG\Courier\MyHermes\Courier as MyHermesCourier;
 use CG\Hermes\CourierAdapter as HermesCorporateCourier;
 use CG\RoyalMailApi\CourierAdapter as RoyalMailApiCourier;
 use CG\Intersoft\RoyalMail\CourierAdapter as RoyalMailIntersoftCourier;
+use CG\UkMail\CourierAdapter as UkMailCourier;
 
 return [
     'di' => [
@@ -95,6 +96,15 @@ return [
                             'courierFactory' => function(Di $di)
                             {
                                 return $di->get(RoyalMailIntersoftCourier::class);
+                            }
+                        ],
+                        [
+                            'channelName' => 'uk-mail-ca',
+                            'displayName' => 'UK Mail (DHL Parcel UK)',
+                            'featureFlag' => UkMailCourier::FEATURE_FLAG,
+                            'courierFactory' => function(Di $di)
+                            {
+                                return $di->get(UkMailCourier::class);
                             }
                         ],
                     ]

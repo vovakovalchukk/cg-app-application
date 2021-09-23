@@ -3,13 +3,21 @@ namespace CG\Intersoft\RoyalMail\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Package\ContentInterface as PackageContent;
+use CG\CourierAdapter\Package\SupportedField\CountryOfOriginInterface;
+use CG\CourierAdapter\Package\SupportedField\HarmonisedSystemCodeInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 
-class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
+class Package implements
+    PackageInterface,
+    WeightInterface,
+    DimensionsInterface,
+    ContentsInterface,
+    HarmonisedSystemCodeInterface,
+    CountryOfOriginInterface
 {
     /** @var int */
     protected $number;
@@ -32,6 +40,10 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $trackingReference;
     /** @var string|null */
     protected $rmShipmentNumber;
+    /** @var string|null */
+    protected $harmonisedSystemCode;
+    /** @var string|null */
+    protected $countryOfOrigin;
 
     public function __construct(
         int $number,
@@ -40,7 +52,9 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         float $width,
         float $length,
         PackageType $type,
-        array $contents = []
+        array $contents = [],
+        ?string $harmonisedSystemCode = null,
+        ?string $countryOfOrigin = null
     ) {
         $this->number = $number;
         $this->weight = $weight;
@@ -49,6 +63,8 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         $this->length = $length;
         $this->type = $type;
         $this->contents = $contents;
+        $this->harmonisedSystemCode = $harmonisedSystemCode;
+        $this->countryOfOrigin = $countryOfOrigin;
     }
 
     public static function fromArray(array $array): Package
@@ -161,5 +177,21 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     public function getTrackingReference()
     {
         return $this->trackingReference;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCountryOfOrigin(): ?string
+    {
+        return $this->countryOfOrigin;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHarmonisedSystemCode()
+    {
+        return $this->harmonisedSystemCode;
     }
 }

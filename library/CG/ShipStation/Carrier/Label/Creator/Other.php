@@ -10,6 +10,7 @@ use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -106,6 +107,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         OrderCollection $orders,
         OrderLabelCollection $orderLabels,
         OrderDataCollection $ordersData,
+        OrderItemsDataCollection $orderItemsData,
         OrderParcelsDataCollection $orderParcelsData,
         OrganisationUnit $rootOu,
         User $user,
@@ -118,7 +120,15 @@ class Other implements CreatorInterface, LoggerAwareInterface
 
         $shipmentBatches = [];
         foreach (collection_chunk($orders, static::ORDER_BATCH_SIZE) as $orderBatch) {
-            $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
+            $shipments = $this->createShipmentsForOrders(
+                $orderBatch,
+                $ordersData,
+                $orderItemsData,
+                $orderParcelsData,
+                $shipStationAccount,
+                $shippingAccount,
+                $rootOu
+            );
             $shipmentBatches[] = $shipments;
         }
 
@@ -155,6 +165,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected function createShipmentsForOrders(
         OrderCollection $orders,
         OrderDataCollection $ordersData,
+        OrderItemsDataCollection $orderItemsData,
         OrderParcelsDataCollection $orderParcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
@@ -163,7 +174,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         try {
             $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
             $request = $this->shipmentsRequestMapper->createFromOrdersAndData(
-                $orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu
+                $orders, $ordersData, $orderItemsData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu
             );
             return $this->shipStationClient->sendRequest($request, $shipStationAccount);
         } catch (InvalidStateException $e) {

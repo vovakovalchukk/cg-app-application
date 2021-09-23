@@ -13,6 +13,7 @@ class Order implements FieldsInterface
         'Account Display Name' => 'accountDisplayName',
         'Purchase Date' => 'purchaseDate',
         'Payment Date' => 'paymentDate',
+        'Payment Method' => 'paymentMethod',
         'Printed Date' => 'printedDate',
         'Dispatch Date' => 'dispatchDate',
         'Invoice Date' => 'invoiceDate',
@@ -26,7 +27,11 @@ class Order implements FieldsInterface
         'Line Total Price' => 'item.lineTotal',
         'SKU' => 'item.itemSku',
         'Line Discount' => 'item.individualItemDiscountPrice',
-        'Line VAT' => 'item.itemTaxPercentage',
+        'Line VAT' => [
+            'field' => 'item.itemTaxPercentage',
+            'displayName' => 'Line VAT Percentage'
+        ],
+        'Line VAT Value' => 'item.lineTaxString',
         'EAN' => 'productDetail.ean',
         'UPC' => 'productDetail.upc',
         'Brand' => 'productDetail.brand',

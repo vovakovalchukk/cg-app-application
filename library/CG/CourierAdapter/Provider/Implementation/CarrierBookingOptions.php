@@ -37,6 +37,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
             PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
+            PackageField\CountryOfOriginInterface::class => 'countryOfOrigin',
+            PackageField\HarmonisedSystemCodeDescriptionInterface::class => 'harmonisedSystemCodeDescription',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',
@@ -49,6 +51,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\PackageTypesInterface::class => 'packageType',
             ShipmentField\SaturdayDeliveryInterface::class => 'saturday',
             ShipmentField\SignatureRequiredInterface::class => 'signature',
+            ShipmentField\EoriNumberInterface::class => 'eoriNumber',
+            ShipmentField\TermsOfDeliveryInterface::class => 'termsOfDelivery',
+            ShipmentField\DeliveredDutyInterface::class => 'deliveredDutyPaid',
         ]
     ];
 
@@ -258,6 +263,29 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
         }
         return $data;
+    }
+
+    public function getCarrierPackageTypesOptions(AccountEntity $account): array
+    {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        $deliveryServices = $courierInstance->fetchDeliveryServices();
+
+        $packageTypesDomestic = $packageTypesInternational = [];
+        foreach ($deliveryServices as $deliveryService) {
+            $shipmentClass = $deliveryService->getShipmentClass();
+            $packageType = $this->getDataForPackageTypesOption($shipmentClass);
+            if ($shipmentClass::isDomestic()) {
+                $packageTypesDomestic = array_merge($packageTypesDomestic, $packageType);
+                continue;
+            }
+
+            $packageTypesInternational = array_merge($packageTypesInternational, $packageType);
+        }
+
+        return [
+            'domestic' => $packageTypesDomestic,
+            'international' => $packageTypesInternational
+        ];
     }
 
     protected function getDataForPackageTypesOption(

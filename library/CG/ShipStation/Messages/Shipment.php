@@ -3,6 +3,7 @@ namespace CG\ShipStation\Messages;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -13,8 +14,9 @@ use DateTime;
 
 class Shipment
 {
-    const EXTERNAL_ID_SEP = '|';
-    const SHIP_DATE_FORMAT = 'Y-m-d';
+    protected const EXTERNAL_ID_LEN_MAX = 35;
+    public const EXTERNAL_ID_SEP = '|';
+    public const SHIP_DATE_FORMAT = 'Y-m-d';
 
     /** @var string */
     protected $carrierId;
@@ -30,6 +32,8 @@ class Shipment
     protected $confirmation;
     /** @var Customs|null */
     protected $customs;
+    /** @var TaxIdentifiers|null */
+    protected $taxIdentifiers;
     /** @var bool */
     protected $validateAddress;
     /** @var DateTime */
@@ -45,6 +49,7 @@ class Shipment
         string $externalShipmentId,
         ?string $confirmation,
         ?Customs $customs,
+        ?TaxIdentifiers $taxIdentifiers,
         ?bool $validateAddress,
         ?DateTime $shipDate,
         Package ...$packages
@@ -56,6 +61,7 @@ class Shipment
         $this->externalShipmentId = $externalShipmentId;
         $this->confirmation = $confirmation;
         $this->customs = $customs;
+        $this->taxIdentifiers = $taxIdentifiers;
         $this->validateAddress = (bool)$validateAddress;
         $this->shipDate = $shipDate;
         $this->packages = $packages;
@@ -64,6 +70,7 @@ class Shipment
     public static function createFromOrderAndData(
         Order $order,
         OrderData $orderData,
+        OrderItemsData $itemsData,
         OrderParcelsData $parcelsData,
         CarrierService $carrierService,
         Account $shipStationAccount,
@@ -73,13 +80,17 @@ class Shipment
         $shipTo = ShipmentAddress::createFromOrder($order);
         $confirmation = $orderData->getSignature() ? 'signature' : null;
         $packages = [];
+
+        $reference = static::getUniqueIdForOrder($order);
+
         /** @var ParcelData $parcelData */
         foreach ($parcelsData->getParcels() as $parcelData) {
-            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
+            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu, $reference);
         }
-        $customs = null;
+        $customs = $taxIdentifiers = null;
         if ($carrierService->isInternational()) {
-            $customs = Customs::createFromOrder($order, $rootOu);
+            $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
+            $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $orderData, $rootOu);
         }
         $shipDate = new DateTime();
 
@@ -88,9 +99,10 @@ class Shipment
             $orderData->getService(),
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
-            static::getUniqueIdForOrder($order),
+            $reference,
             $confirmation,
             $customs,
+            $taxIdentifiers,
             false,
             $shipDate,
             ...$packages
@@ -101,7 +113,7 @@ class Shipment
     {
         // We want to link shipments back to our Orders but the external ID must be unique
         // and we ocassionally create a label more than once for an order
-        return uniqid($order->getId() . static::EXTERNAL_ID_SEP);
+        return substr(uniqid($order->getId() . static::EXTERNAL_ID_SEP),0, static::EXTERNAL_ID_LEN_MAX);
     }
 
     public function toArray(): array
@@ -123,6 +135,9 @@ class Shipment
         }
         if ($this->getCustoms()) {
             $array['customs'] = $this->getCustoms()->toArray();
+        }
+        if ($this->getTaxIdentifiers()) {
+            $array['tax_identifiers'] = $this->getTaxIdentifiers()->toArray();
         }
         if (!$this->isValidateAddress()) {
             $array['validate_address'] = 'no_validation';
@@ -216,6 +231,17 @@ class Shipment
     public function setCustoms(?Customs $customs): Shipment
     {
         $this->customs = $customs;
+        return $this;
+    }
+
+    public function getTaxIdentifiers(): ?TaxIdentifiers
+    {
+        return $this->taxIdentifiers;
+    }
+
+    public function setTaxIdentifiers(?TaxIdentifiers $taxIdentifiers): Shipment
+    {
+        $this->taxIdentifiers = $taxIdentifiers;
         return $this;
     }
 

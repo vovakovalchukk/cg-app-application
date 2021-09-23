@@ -31,7 +31,9 @@ class BarcodeNotApplicableCell extends React.Component {
                 return !!barcodeNotApplicable.value;
             }
         }
-
+        if (typeof rowData.details === "undefined") {
+            return '';
+        }
         if ('barcodeNotApplicable' in rowData.details) {
             return !!rowData.details['barcodeNotApplicable'];
         }

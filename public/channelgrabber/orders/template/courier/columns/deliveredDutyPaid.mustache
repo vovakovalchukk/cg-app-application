@@ -1,0 +1,11 @@
+{{#actionRow}}
+    <div class="courier-deliveredDutyPaid" style="display: inline-block;margin-bottom: 12px;">
+        <a class="std-checkbox">
+            <input type="checkbox" class="courier-order-deliveredDutyPaid" id="courier-order-deliveredDutyPaid-{{orderId}}" name="orderData[{{orderId}}][deliveredDutyPaid]" />
+            <label for="courier-order-deliveredDutyPaid-{{orderId}}">
+                <span class="checkbox_label"></span>
+            </label>
+        </a>
+    </div>
+{{/actionRow}}
+{{^actionRow}}&nbsp;{{/actionRow}}

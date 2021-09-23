@@ -7,8 +7,13 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\CourierAdapter\Shipment\SupportedField\DeliveredDutyInterface;
+use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\InvoiceNumberInterface;
+use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
+use CG\CourierAdapter\Shipment\SupportedField\TermsOfDeliveryInterface;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\Length as LocaleLength;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -122,6 +127,21 @@ class Mapper
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
             $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
         }
+        if (is_a($shipmentClass, EoriNumberInterface::class, true)) {
+            $caShipmentData['eoriNumber'] = $orderData['eoriNumber'] ?? '';
+        }
+        if (is_a($shipmentClass, TermsOfDeliveryInterface::class, true)) {
+            $caShipmentData['termsOfDelivery'] = (bool)$orderData['termsOfDelivery'];
+        }
+        if (is_a($shipmentClass, DeliveredDutyInterface::class, true)) {
+            $caShipmentData['deliveredDutyPaid'] = (bool)$orderData['deliveredDutyPaid'];
+        }
+        if (is_a($shipmentClass, IossNumberInterface::class, true)) {
+            $caShipmentData['iossNumber'] = $order->getIossNumber();
+        }
+        if (is_a($shipmentClass, InvoiceNumberInterface::class, true)) {
+            $caShipmentData['invoiceNumber'] = $order->getInvoiceNumber();
+        }
 
         return $caShipmentData;
     }
@@ -135,6 +155,8 @@ class Mapper
             'customerReference' => $order->getExternalId(),
             'account' => $this->caAccountMapper->fromOHAccount($account),
             'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($order),
+            'shippingAmount' => $order->getShippingPrice(),
+            'currencyCode' => $order->getCurrencyCode(),
         ];
     }
 
@@ -173,7 +195,8 @@ class Mapper
         return new CAPackageContent(
             $item->getItemName(),
             $itemData['harmonisedSystemCode'] ?? '',
-            'GB',
+            $itemData['harmonisedSystemCodeDescription'] ?? '',
+            $itemData['countryOfOrigin'] ?? 'GB',
             $parcelItemQty,
             $itemUnitWeight,
             $item->getIndividualItemPrice(),

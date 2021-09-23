@@ -97,7 +97,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         if ($tracking) {
             $this->getService()->remove($tracking);
         }
-        $this->getService()->createGearmanJob($this->fetchOrder()); 
+        $this->getService()->createGearmanJob($this->fetchOrder());
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', '');
         return $view;
@@ -117,6 +117,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
                 'timestamp' => date(StdlibDateTime::FORMAT),
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
                 'status' => Status::PENDING,
+                'shippingService' => $this->params()->fromPost('trackingShippingService'),
             ]
         );
         return $tracking;
@@ -126,6 +127,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     {
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
             ->setCarrier($this->params()->fromPost('carrier'))
+            ->setShippingService($this->params()->fromPost('trackingShippingService'))
             ->setStatus(Status::PENDING);
         return $tracking;
     }

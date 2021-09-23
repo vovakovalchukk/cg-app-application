@@ -157,7 +157,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function hideAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $view = $this->jsonModelFactory->newInstance();
 
@@ -174,7 +174,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function refreshAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $view = $this->jsonModelFactory->newInstance();
         $this->listingService->refresh(
@@ -185,7 +185,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function refreshDetailsAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $accounts = $this->listingService->getRefreshDetails(
             $this->params()->fromPost('accounts', [])
@@ -209,7 +209,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function createAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $status = new CreationStatus();
         try {
@@ -232,7 +232,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function importAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $view = $this->jsonModelFactory->newInstance();
         $listingIds = $this->params()->fromPost('listingIds');
@@ -247,7 +247,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
     public function importAllFilteredAction()
     {
-        $this->checkUsage();
+        $this->checkAvailability();
 
         $requestFilter = $this->params()->fromPost('filter', []);
         $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
@@ -258,9 +258,12 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         return $this->jsonModelFactory->newInstance(['import' => $success]);
     }
 
-    protected function checkUsage()
+    protected function checkAvailability()
     {
         $this->accessUsageExceededService->checkUsage();
+        if ($this->listingService->listingImportBlacklisted()) {
+            throw new \Exception("Not permitted");
+        }
     }
 
     protected function getOuEntity()

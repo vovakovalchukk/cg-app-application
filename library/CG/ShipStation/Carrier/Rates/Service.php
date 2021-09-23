@@ -6,6 +6,7 @@ use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as S
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates as OrderShippingRates;
 use CG\Http\StatusCode;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
@@ -66,10 +67,12 @@ class Service
             try {
                 $orderData = $ordersData->getById($order->getId());
                 /** @var OrderParcelsData $orderParcelsData */
+                $orderItemsData = $ordersItemsData->getById($order->getId());
                 $orderParcelsData = $ordersParcelsData->getById($order->getId());
                 $shipStationRates = $this->fetchRatesForOrderFromShipStation(
                     $order,
                     $orderData,
+                    $orderItemsData,
                     $orderParcelsData,
                     $shipStationAccount,
                     $shippingAccount,
@@ -95,6 +98,7 @@ class Service
     protected function fetchRatesForOrderFromShipStation(
         Order $order,
         OrderData $orderData,
+        OrderItemsData $itemsData,
         OrderParcelsData $parcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
@@ -105,6 +109,7 @@ class Service
         $shipment = Shipment::createFromOrderAndData(
             $order,
             $orderData,
+            $itemsData,
             $parcelsData,
             $carrierService,
             $shipStationAccount,

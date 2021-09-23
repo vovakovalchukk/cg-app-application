@@ -3,17 +3,23 @@ namespace Orders\Controller;
 
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter;
-use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Courier\Label\ExportService as LabelExportService;
+use Orders\Courier\Label\NoOrdersSelectedException;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
@@ -21,16 +27,15 @@ use Orders\Courier\ShippingAccountsService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Orders\Courier\SpecificsPage as SpecificsPageService;
 use Orders\Module;
+use Orders\Module as OrdersModule;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
-use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
-use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
-use Orders\Module as OrdersModule;
 
-class CourierController extends AbstractActionController
+class CourierController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE = 'Courier';
     const ROUTE_URI = '/courier';
     const ROUTE_REVIEW = 'Review';
@@ -48,6 +53,9 @@ class CourierController extends AbstractActionController
 
     const LABEL_MIME_TYPE = 'application/pdf';
     const MANIFEST_MIME_TYPE = 'application/pdf';
+
+    protected const LOG_CODE = 'CourierController';
+    protected const LOG_MSG_EXCEPTION = 'Courier Bulk Package Options Loading Exception';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -229,7 +237,7 @@ class CourierController extends AbstractActionController
             $orderServices[$orderId] = $serviceId;
         }
 
-        $courierAccounts = $this->specificsPageService->fetchAccountsById($courierIds);
+        $courierAccounts = $this->specificsPageService->fetchAccountsById(array_merge($courierIds, [$selectedCourierId]));
         if ($selectedCourierId) {
             $selectedCourier = $courierAccounts->getById($selectedCourierId);
         } else {
@@ -354,6 +362,25 @@ class CourierController extends AbstractActionController
                 'value' => 'N/A'
             ];
         }
+        if (isset($options['termsOfDelivery'])) {
+            $viewConfig['termsOfDelivery'] = true;
+        }
+        if (isset($options['collectionDate'])) {
+            $viewConfig['collectionDate'] = true;
+            $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
+        }
+        if (isset($options['packageType'])) {
+            $viewConfig['packageType'] = true;
+
+            try {
+                $packageOptions = $this->service->getCarrierOptionsProvider($selectedAccount)
+                    ->getCarrierPackageTypesOptions($selectedAccount);
+                $viewConfig['packageTypeOptions'] = $this->formatPackageTypeOptions($packageOptions);
+            } catch (\Throwable $exception) {
+                $viewConfig['packageType'] = false;
+                $this->logDebugException($exception, static::LOG_MSG_EXCEPTION, [], static::LOG_CODE);
+            }
+        }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
@@ -362,6 +389,22 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance($viewConfig);
         $view->setTemplate('courier/bulkActions.mustache');
         return $view;
+    }
+
+    protected function formatPackageTypeOptions(array $packageTypeOptions): array
+    {
+        $options = [];
+        foreach ($packageTypeOptions as $key => $type) {
+            $optionElements = [];
+            foreach ($type as $value => $name) {
+                $optionElements[] = [
+                    'optionValue' => $value,
+                    'optionName' => $name
+                ];
+            }
+            $options[$key] = $optionElements;
+        }
+        return $options;
     }
 
     protected function getNextCourierButtonConfig(AccountCollection $accounts, Account $selectedAccount)
@@ -517,6 +560,8 @@ class CourierController extends AbstractActionController
             throw new \RuntimeException(
                 'Failed to export shipping order(s), please try again', $exception->getCode(), $exception
             );
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
         }
 
         return new FileResponse(
@@ -528,9 +573,13 @@ class CourierController extends AbstractActionController
 
     public function printLabelAction()
     {
-        $orderIds = $this->params()->fromPost('order', []);
-        $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
-        return new FileResponse(static::LABEL_MIME_TYPE, date('Y-m-d hi').' Labels.pdf', $pdfData);
+        try {
+            $orderIds = $this->params()->fromPost('order', []);
+            $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
+            return new FileResponse(static::LABEL_MIME_TYPE, date('Y-m-d hi').' Labels.pdf', $pdfData);
+        } catch (NoOrdersSelectedException $e) {
+            return $this->redirectWhenNoOrdersSelected();
+        }
     }
 
     public function printManifestAction()
@@ -538,5 +587,10 @@ class CourierController extends AbstractActionController
         $manifestId = $this->params()->fromRoute('manifestId');
         $pdfData = $this->manifestService->getManifestPdfForAccountManifest($manifestId);
         return new FileResponse(static::MANIFEST_MIME_TYPE, date('Y-m-d hi').' Manifest.pdf', $pdfData);
+    }
+
+    protected function redirectWhenNoOrdersSelected()
+    {
+        return $this->redirect()->toRoute('Orders');
     }
 }

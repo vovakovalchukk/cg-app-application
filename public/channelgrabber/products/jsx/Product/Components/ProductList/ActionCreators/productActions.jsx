@@ -7,6 +7,7 @@ import nameActions from 'Product/Components/ProductList/ActionCreators/nameActio
 import stateUtility from 'Product/Components/ProductList/stateUtility'
 import stockActions from '../ActionCreators/stockActions';
 import supplierActions from "./supplierActions";
+import ProductExpandHeader from "../Cell/Header/ProductExpand";
 
 "use strict";
 
@@ -208,7 +209,12 @@ var actionCreators = (function() {
                 dispatch(productLinkActions.getLinkedProducts());
 
                 if (state.accounts.features.preFetchVariations) {
-                    dispatch(actionCreators.dispatchGetAllVariations());
+                    const variationsCount = stateUtility.getAllVariationsCount(data.products);
+                    if (variationsCount > ProductExpandHeader.MAX_VARIATIONS_COUNT) {
+                        console.warn('Cannot pre-fetch all variations for the visible products as they are too many (' + variationsCount + ')');
+                    } else {
+                        dispatch(actionCreators.dispatchGetAllVariations());
+                    }
                 }
 
                 dispatch(stockActions.storeLowStockThreshold(data.products));

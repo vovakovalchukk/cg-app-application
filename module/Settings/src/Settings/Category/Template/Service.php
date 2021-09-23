@@ -18,6 +18,8 @@ use CG\Product\Category\Template\Mapper as CategoryTemplateMapper;
 use CG\Product\Category\Template\Service as CategoryTemplateService;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Products\Listing\Channel\Service as ChannelService;
@@ -25,12 +27,18 @@ use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
 use Settings\Category\Template\Exception\NameAlreadyUsedException;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     /** We should increase this to 10 after the fetch code is re-factored, now it's too slow and it makes users wait too much for 10 maps */
-    const DEFAULT_TEMPLATE_LIMIT = 5;
-    const INDEX_NAME = 'OrganisationUnitIdName';
-    const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
+    public const DEFAULT_TEMPLATE_LIMIT = 5;
+    public const INDEX_NAME = 'OrganisationUnitIdName';
+    public const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
+
+    protected const LOG_CODE = 'SettingsCategoryTemplateService';
+    protected const LOG_MSG_LISTING_EXCEPTION = 'Exception during fetching categories for account %d';
+    protected const LOG_MSG_NOTFOUND_EXCEPTION = 'NotFound Exception during fetching accounts for OU %d';
 
     /** @var  AccountService */
     protected $accountService;
@@ -73,6 +81,7 @@ class Service
         try {
             $accounts = $this->fetchActiveAccountsForOu($ou);
         } catch (NotFound $e) {
+            $this->logDebugException($e, static::LOG_MSG_NOTFOUND_EXCEPTION, [$ou->getId()], static::LOG_CODE);
             return [];
         }
 
@@ -98,6 +107,7 @@ class Service
         try {
             $accounts = $this->fetchActiveAccountsForOu($ou);
         } catch (NotFound $e) {
+            $this->logDebugException($e, static::LOG_MSG_NOTFOUND_EXCEPTION, [$ou->getId()], static::LOG_CODE);
             return [];
         }
 
@@ -123,6 +133,7 @@ class Service
             $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
             return $defaultSettings['categories'] ?? [];
         } catch (ListingException $e) {
+            $this->logDebugException($e, static::LOG_MSG_LISTING_EXCEPTION, [$account->getId()], static::LOG_CODE);
             return [];
         }
     }

@@ -123,6 +123,12 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
         );
     }
 
+    public function getCarrierPackageTypesOptions(Account $account): array
+    {
+        // Not required but need to satisfy interface
+        return [];
+    }
+
     public function createLabelsForOrders(
         OrderCollection $orders,
         OrderLabelCollection $orderLabels,

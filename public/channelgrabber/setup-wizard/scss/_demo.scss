@@ -1,0 +1,26 @@
+#demo {
+  text-align: center;
+
+  .demo-info {
+    display: inline-block;
+
+    > div {
+      margin: 5px 0;
+    }
+
+    .demo-link > a {
+      display: inline-block;
+      border: 1px solid black;
+      border-radius: 15px;
+      background-color: $color-orange;
+      padding: 20px 40px;
+      font-weight: bold;
+      color: $color-white;
+    }
+
+    .callUs {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

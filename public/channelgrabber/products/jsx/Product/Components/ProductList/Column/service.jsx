@@ -63,14 +63,14 @@ let detailsColumns = [
     },
     {
         key: 'dimensions',
-        width: 280,
+        width: 220,
         headerText: 'Dimensions',
         fixed: false,
         align: 'center'
     },
     {
         key: 'cost',
-        width: 80,
+        width: 60,
         headerText: 'Cost Price',
         fixed: false,
         align: 'center',
@@ -79,7 +79,7 @@ let detailsColumns = [
     {
         key: 'ean',
         type: 'barcode',
-        width: 150,
+        width: 135,
         headerText: 'EAN',
         fixed: false,
         align: 'center'
@@ -87,7 +87,7 @@ let detailsColumns = [
     {
         key: 'upc',
         type: 'barcode',
-        width: 150,
+        width: 135,
         headerText: 'UPC',
         fixed: false,
         align: 'center'
@@ -95,7 +95,7 @@ let detailsColumns = [
     {
         key: 'mpn',
         type: 'barcode',
-        width: 150,
+        width: 135,
         headerText: 'MPN',
         fixed: false,
         align: 'center'
@@ -103,14 +103,14 @@ let detailsColumns = [
     {
         key: 'isbn',
         type: 'barcode',
-        width: 150,
+        width: 135,
         headerText: 'ISBN',
         fixed: false,
         align: 'center'
     },
     {
         key: 'barcodeNotApplicable',
-        width: 100,
+        width: 90,
         headerText: 'Barcode Not Applicable',
         fixed: false,
         align: 'center'
@@ -122,6 +122,22 @@ let detailsColumns = [
         fixed: false,
         align: 'center'
     },
+    {
+        key: 'hsTariffNumber',
+        type: 'barcode',
+        width: 135,
+        headerText: 'HS Tariff Number',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        type: 'barcode',
+        key: 'countryOfManufacture',
+        width: 135,
+        headerText: 'Country Of Manufacture',
+        fixed: false,
+        align: 'center'
+    }
 ];
 
 let stockColumns = [

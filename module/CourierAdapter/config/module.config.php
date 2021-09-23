@@ -146,7 +146,7 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                    ]
+                    ],
                 ]
             ]
         ],

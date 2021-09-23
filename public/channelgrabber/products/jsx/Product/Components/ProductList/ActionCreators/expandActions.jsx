@@ -1,5 +1,6 @@
 import productActions from "Product/Components/ProductList/ActionCreators/productActions"
 import stateUtility from "Product/Components/ProductList/stateUtility";
+import ProductExpandHeader from "../Cell/Header/ProductExpand";
 
 let expandActions = (function() {
     return {
@@ -11,7 +12,7 @@ let expandActions = (function() {
                 }
             }
         },
-        toggleExpandAll: () => {
+        toggleExpandAll: (fromConfirmationPopup) => {
             return async function(dispatch, getState) {
                 let expand = getState().expand;
 
@@ -25,6 +26,11 @@ let expandActions = (function() {
                         let haveFetchedAlready = checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds);
 
                         if (!haveFetchedAlready) {
+                            const totalVariationsCount = stateUtility.getAllVariationsCount(state.products.visibleRows);
+                            if (!fromConfirmationPopup && totalVariationsCount > ProductExpandHeader.MAX_VARIATIONS_COUNT) {
+                                window.triggerEvent('triggerPopup', {name: ProductExpandHeader.CONFIRMATION_POPUP_NAME});
+                                return;
+                            }
                             dispatch(expandActions.changeStatusExpandAll('loading'));
                         }
                         await dispatch(productActions.expandAllProducts(haveFetchedAlready));

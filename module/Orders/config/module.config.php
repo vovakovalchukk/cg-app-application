@@ -1389,6 +1389,16 @@ return [
                 'CourierSpecificsCostColumn' => DataTable\Column::class,
                 'CourierSpecificsHarmonisedSystemCodeColumnView' => ViewModel::class,
                 'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
+                'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView' => ViewModel::class,
+                'CourierSpecificsHarmonisedSystemCodeDescriptionColumn' => DataTable\Column::class,
+                'CourierSpecificsCountryOfOriginColumnView' => ViewModel::class,
+                'CourierSpecificsCountryOfOriginColumn' => DataTable\Column::class,
+                'CourierSpecificsEoriNumberColumnView' => ViewModel::class,
+                'CourierSpecificsEoriNumberColumn' => DataTable\Column::class,
+                'CourierSpecificsTermsOfDeliveryColumnView' => ViewModel::class,
+                'CourierSpecificsTermsOfDeliveryColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveredDutyPaidColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveredDutyPaidColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2369,7 +2379,8 @@ return [
             'CourierSpecificsCollectionDateColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Collection'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/collectionDate.phtml',
                 ],
             ],
             'CourierSpecificsCollectionDateColumn' => [
@@ -2547,6 +2558,7 @@ return [
                     'class' => 'insuranceOptions-col',
                     'sortable' => false,
                     'order' => 140,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [
@@ -2563,6 +2575,7 @@ return [
                     'sortable' => false,
                     'order' => 140,
                     'defaultContent' => '',
+                    'width' => '60px',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
@@ -2706,7 +2719,89 @@ return [
                     'class' => 'harmonisedSystemCode-col',
                     'sortable' => false,
                     'order' => 115,
-                    'width' => '80px',
+                    'width' => '50px',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'HS Code Description'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeDescriptionColumn' => [
+                'parameters' => [
+                    'column' => 'harmonisedSystemCodeDescription',
+                    'viewModel' => 'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView',
+                    'class' => 'harmonisedSystemCodeDescription-col',
+                    'sortable' => false,
+                    'order' => 117,
+                    'width' => '50px',
+                ],
+            ],
+            'CourierSpecificsCountryOfOriginColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Country of Origin'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCountryOfOriginColumn' => [
+                'parameters' => [
+                    'column' => 'countryOfOrigin',
+                    'viewModel' => 'CourierSpecificsCountryOfOriginColumnView',
+                    'class' => 'countryOfOrigin-col',
+                    'sortable' => false,
+                    'order' => 119,
+                    'width' => '50px',
+                ],
+            ],
+            'CourierSpecificsEoriNumberColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'EORI Number'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/eoriNumber.phtml',
+                ],
+            ],
+            'CourierSpecificsEoriNumberColumn' => [
+                'parameters' => [
+                    'column' => 'eoriNumber',
+                    'viewModel' => 'CourierSpecificsEoriNumberColumnView',
+                    'class' => 'eoriNumber-col',
+                    'sortable' => false,
+                    'order' => 123,
+                    'width' => '130px',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Terms of Delivery'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/termsOfDelivery.phtml',
+                ],
+            ],
+            'CourierSpecificsTermsOfDeliveryColumn' => [
+                'parameters' => [
+                    'column' => 'termsOfDelivery',
+                    'viewModel' => 'CourierSpecificsTermsOfDeliveryColumnView',
+                    'class' => 'termsOfDelivery-col',
+                    'sortable' => false,
+                    'order' => 121,
+                    'width' => '45px',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyPaidColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Is Delivered Duty Paid'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveredDutyPaidColumn' => [
+                'parameters' => [
+                    'column' => 'deliveredDutyPaid',
+                    'viewModel' => 'CourierSpecificsDeliveredDutyPaidColumnView',
+                    'class' => 'deliveredDutyPaid-col',
+                    'sortable' => false,
+                    'order' => 121,
+                    'width' => '45px',
                 ],
             ],
         ],

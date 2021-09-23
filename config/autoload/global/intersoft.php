@@ -15,6 +15,7 @@ use CG\Intersoft\RoyalMail\Shipment\International\LargeLetter as InternationalLa
 use CG\Intersoft\RoyalMail\Shipment\Domestic\LargeLetter as DomesticLargeLetterShipment;
 use CG\Intersoft\RoyalMail\Shipment\International\NotApplicableParcel as InternationalNotApplicableParcelShipment;
 use CG\Intersoft\RoyalMail\Shipment\Domestic\SpecialDeliveryNotApplicable as DomesticSpecialDeliveryNotApplicable;
+use CG\Courier\Intersoft\RoyalMail\DeliveryService\DisplayName as DeliveryServiceName;
 
 return [
     'di' => [
@@ -24,554 +25,773 @@ return [
                     'servicesConfig' => [
                         'serviceOfferings' => [
                             'BF1' => [
-                                'displayName' => 'HM Forces Mail'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF1
                             ],
                             'BF2' => [
-                                'displayName' => 'HM Forces Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF2
                             ],
                             'BF7' => [
-                                'displayName' => 'HM Forces Special Delivery (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF7
                             ],
                             'BF8' => [
-                                'displayName' => 'HM Forces Special Delivery (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF8
                             ],
                             'BF9' => [
-                                'displayName' => 'HM Forces Special Delivery (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BF9
                             ],
                             'BPL1' => [
-                                'displayName' => 'Royal Mail 1st Class'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPL1
                             ],
                             'BPL2' => [
-                                'displayName' => 'Royal Mail 2nd Class'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPL2
                             ],
                             'BPR1' => [
-                                'displayName' => 'Royal Mail 1st Class Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPR1
                             ],
                             'BPR2' => [
-                                'displayName' => 'Royal Mail 2nd Class Signed For'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BPR2
                             ],
                             'CRL1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_CRL1
                             ],
                             'CRL2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_CRL2
                             ],
                             'DE1' => [
-                                'displayName' => 'International Business Parcels Zero Sort High Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE1
                             ],
                             'DE3' => [
-                                'displayName' => 'International Business Parcels Zero Sort High Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE3
                             ],
                             'DE4' => [
-                                'displayName' => 'International Business Parcels Zero Srt Low Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE4
                             ],
                             'DE6' => [
-                                'displayName' => 'International Business Parcels Zero Sort Low Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DE6
                             ],
                             'DG1' => [
-                                'displayName' => 'International Business Mail Large Letter Country Sort High Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG1
                             ],
                             'DG3' => [
-                                'displayName' => 'International Business Mail Large Letter Ctry Sort High Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG3
                             ],
                             'DG4' => [
-                                'displayName' => 'International Business Mail Large Letter Country Sort Low Volume Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG4
                             ],
                             'DG6' => [
-                                'displayName' => 'International Business Mail Large Letter Ctry Sort Low Vol Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DG6
                             ],
                             'FS1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For Large Letter (Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS1
                             ],
                             'FS2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For Large Letter (Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS2
                             ],
                             'FS7' => [
-                                'displayName' => 'Royal Mail 24 (Presorted) (Large Letter)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS7
                             ],
                             'FS8' => [
-                                'displayName' => 'Royal Mail 48 (Presorted) (Large Letter)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_FS8
                             ],
                             'IE1' => [
-                                'displayName' => 'International Business Parcels Zone Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IE1
                             ],
                             'IE3' => [
-                                'displayName' => 'International Business Parcels Zone Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IE3
                             ],
                             'IG1' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG1
                             ],
                             'IG3' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG3
                             ],
                             'IG4' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG4
                             ],
                             'IG6' => [
-                                'displayName' => 'International Business Mail Large Letter Zone Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IG6
                             ],
                             'LA1' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA1
                             ],
                             'LA2' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA2
                             ],
                             'LA3' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM LA (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA3
                             ],
                             'LA4' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£50)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA4
                             ],
                             'LA5' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA5
                             ],
                             'LA6' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM LA (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_LA6
                             ],
                             'MB1' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT PRIORITY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB1
                             ],
                             'MB2' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT STANDARD'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB2
                             ],
                             'MB3' => [
-                                'displayName' => 'INTL BUS PARCELS PRINT DIRECT ECONOMY'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MB3
                             ],
                             'MP0' => [
-                                'displayName' => 'International Business Parcels Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP0
                             ],
                             'MP1' => [
-                                'displayName' => 'International Business Parcels Tracked (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP1
                             ],
                             'MP4' => [
-                                'displayName' => 'International Business Parcels Tracked Extra Comp (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP4
                             ],
                             'MP5' => [
-                                'displayName' => 'International Business Parcels Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP5
                             ],
                             'MP6' => [
-                                'displayName' => 'International Business Parcels Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP6
                             ],
                             'MP7' => [
-                                'displayName' => 'International Business Parcels Tracked (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP7
                             ],
                             'MP8' => [
-                                'displayName' => 'International Business Parcels Tracked Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP8
                             ],
                             'MP9' => [
-                                'displayName' => 'International Business Parcels Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MP9
                             ],
                             'MPB' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPB
                             ],
                             'MPF' => [
-                                'displayName' => 'International Business Parcel Tracked High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPF
                             ],
                             'MPG' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPG
                             ],
                             'MPH' => [
-                                'displayName' => 'International Business Parcel Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPH
                             ],
                             'MPI' => [
-                                'displayName' => 'International Business Parcel Tracked High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPI
                             ],
                             'MPJ' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPJ
                             ],
                             'MPK' => [
-                                'displayName' => 'International Business Parcel Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPK
                             ],
                             'MPL' => [
-                                'displayName' => 'International Business Mail Tracked High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPL
                             ],
                             'MPM' => [
-                                'displayName' => 'International Business Mail Tracked & Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPM
                             ],
                             'MPN' => [
-                                'displayName' => 'International Business Mail Signed High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPN
                             ],
                             'MPO' => [
-                                'displayName' => 'International Business Mail Tracked High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPO
                             ],
                             'MPP' => [
-                                'displayName' => 'International Business Mail Tracked & Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPP
                             ],
                             'MPQ' => [
-                                'displayName' => 'International Business Mail Signed High Vol. Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPQ
                             ],
                             'MPR' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPR
                             ],
                             'MPT' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable High Vol. (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPT
                             ],
                             'MPU' => [
-                                'displayName' => 'International Business Parcel Tracked Boxable Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPU
                             ],
                             'MPV' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable Low Vol. Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPV
                             ],
                             'MPW' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable Low Vol. Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPW
                             ],
                             'MPX' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable High Vol. Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPX
                             ],
                             'MPY' => [
-                                'displayName' => 'International Business Parcel Zero Sort Boxable High Vol. Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MPY
                             ],
                             'MTA' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTA
                             ],
                             'MTB' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTB
                             ],
                             'MTC' => [
-                                'displayName' => 'International Business Mail Tracked & Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTC
                             ],
                             'MTD' => [
-                                'displayName' => 'International Business Mail Tracked & Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTD
                             ],
                             'MTE' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTE
                             ],
                             'MTF' => [
-                                'displayName' => 'International Business Parcels Tracked & Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTF
                             ],
                             'MTG' => [
-                                'displayName' => 'International Business Mail Tracked & Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTG
                             ],
                             'MTH' => [
-                                'displayName' => 'International Business Mail Tracked & Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTH
                             ],
                             'MTI' => [
-                                'displayName' => 'International Business Mail Tracked (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTI
                             ],
                             'MTJ' => [
-                                'displayName' => 'International Business Mail Tracked Extra Comp (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTJ
                             ],
                             'MTK' => [
-                                'displayName' => 'International Business Mail Tracked (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTK
                             ],
                             'MTL' => [
-                                'displayName' => 'International Business Mail Tracked Extra Comp (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTL
                             ],
                             'MTM' => [
-                                'displayName' => 'International Business Mail Signed (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTM
                             ],
                             'MTN' => [
-                                'displayName' => 'International Business Mail Signed Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTN
                             ],
                             'MTO' => [
-                                'displayName' => 'International Business Mail Signed (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTO
                             ],
                             'MTP' => [
-                                'displayName' => 'International Business Mail Signed Extra Compensation (Country Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTP
                             ],
                             'MTQ' => [
-                                'displayName' => 'International Business Parcels Zone Sort Plus Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTQ
                             ],
                             'MTS' => [
-                                'displayName' => 'International Business Parcels Zone Sort Plus Economoy'
-                            ],
-                            'MUU' => [
-                                'displayName' => 'Intlernational Business Parcels Boxable Max Sort Priority'
-                            ],
-                            'MUV' => [
-                                'displayName' => 'International Buiness Prcls Boxable Max Sort Standard'
-                            ],
-                            'MUW' => [
-                                'displayName' => 'International Business Parcels Boxable Max Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTS
                             ],
                             'MUA' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZERO SORT PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUA
                             ],
                             'MUB' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZERO SORT ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUB
                             ],
                             'MUC' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZONE SORT PRI'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUC
                             ],
                             'MUD' => [
-                                'displayName' => 'INTL BUS PARCELS BOXABLE ZONE SORT ECON'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUD
                             ],
                             'MUE' => [
-                                'displayName' => 'INTL BUS PRCL TRCKD BOX ZERO SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUE
                             ],
                             'MUF' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED BOX ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUF
                             ],
                             'MUG' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED BOX ZONE SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUG
                             ],
                             'MUH' => [
-                                'displayName' => 'INTL BUS PRCL TRCKD BOX ZONE SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUH
                             ],
                             'MUI' => [
-                                'displayName' => 'INTL BUS PARCELS TRACKED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUI
                             ],
                             'MUJ' => [
-                                'displayName' => 'INTL BUS PARCEL TRACKED ZERO SRT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUJ
                             ],
                             'MUK' => [
-                                'displayName' => 'INTL BUS PARCEL TRACKD & SIGNED ZERO SRT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUK
                             ],
                             'MUL' => [
-                                'displayName' => 'INT BUS PRCL TRCKD & SGND ZRO SRT XT CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUL
                             ],
                             'MUM' => [
-                                'displayName' => 'INTL BUS PARCELS SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUM
                             ],
                             'MUN' => [
-                                'displayName' => 'INTL BUS PARCEL SIGNED ZERO SORT XTR CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUN
                             ],
                             'MUO' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUO
                             ],
                             'MUP' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED ZERO SORT XTRA CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUP
                             ],
                             'MUQ' => [
-                                'displayName' => 'INTL BUS MAIL TRACKED & SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUQ
                             ],
                             'MUR' => [
-                                'displayName' => 'INT BUS MAIL TRCKD & SGND ZRO SRT XT CMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUR
                             ],
                             'MUS' => [
-                                'displayName' => 'INTL BUS MAIL SIGNED ZERO SORT'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUS
                             ],
                             'MUT' => [
-                                'displayName' => 'INTL BUS MAIL SIGNED ZERO SORT XTRA COMP'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUT
+                            ],
+                            'MUU' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUU
+                            ],
+                            'MUV' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUV
+                            ],
+                            'MUW' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MUW
                             ],
                             'OLA' => [
-                                'displayName' => 'International Standard On Account'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OLA
                             ],
                             'OLS' => [
-                                'displayName' => 'International Economy On Account'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OLS
                             ],
                             'OSA' => [
-                                'displayName' => 'International Signed On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OSA
                             ],
                             'OSB' => [
-                                'displayName' => 'International Signed On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OSB
                             ],
                             'OTA' => [
-                                'displayName' => 'International Tracked On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTA
                             ],
                             'OTB' => [
-                                'displayName' => 'International Tracked On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTB
                             ],
                             'OTC' => [
-                                'displayName' => 'International Tracked & Signed On Account (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTC
                             ],
                             'OTD' => [
-                                'displayName' => 'International Tracked & Signed On Account Extra Compensation (Zonal Pricing)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OTD
                             ],
                             'OZ1' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ1
                             ],
                             'OZ3' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ3
                             ],
                             'OZ4' => [
-                                'displayName' => 'International Business Mail Mixed Zone Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ4
                             ],
                             'OZ6' => [
-                                'displayName' => 'International Business Mail Mixed Zone Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_OZ6
                             ],
                             'PK0' => [
-                                'displayName' => 'Royal Mail 48 (LL) Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK0
                             ],
                             'PK1' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Sort8 - Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK1
                             ],
                             'PK2' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Sort8 - Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK2
                             ],
                             'PK3' => [
-                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Sort8 - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK3
                             ],
                             'PK4' => [
-                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Sort8 - Daily Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK4
                             ],
                             'PK7' => [
-                                'displayName' => 'Royal Mail 24 (Presorted) (P)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK7
                             ],
                             'PK8' => [
-                                'displayName' => 'Royal Mail 48 (Presorted) (P)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK8
                             ],
                             'PK9' => [
-                                'displayName' => 'Royal Mail 24 (LL) Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PK9
                             ],
                             'PKB' => [
-                                'displayName' => 'RM24 (Presorted) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKB
                             ],
                             'PKD' => [
-                                'displayName' => 'RM48 (Presorted) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKD
                             ],
                             'PKK' => [
-                                'displayName' => 'RM48 (Presorted) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKK
                             ],
                             'PKM' => [
-                                'displayName' => 'RM24 (Presorted)(LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PKM
                             ],
                             'PPF' => [
-                                'displayName' => 'Royal Mail 24/48 Standard/Signed For (Packetpost- Flat Rate Service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPF
                             ],
                             'PPJ' => [
-                                'displayName' => 'Parcelpost Flat Rate (Annual)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPJ
                             ],
                             'PPS' => [
-                                'displayName' => 'RM24 (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPS
                             ],
                             'PPT' => [
-                                'displayName' => 'RM48 (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPT
                             ],
                             'PS0' => [
-                                'displayName' => 'International Business Parcels Max Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS0
                             ],
                             'PS7' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS7
                             ],
                             'PS8' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Economy Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS8
                             ],
                             'PS9' => [
-                                'displayName' => 'International Business Parcels Max Sort Priority Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PS9
                             ],
                             'PSB' => [
-                                'displayName' => 'International Business Mail Large Letter Max Sort Standard Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSB
                             ],
                             'PSC' => [
-                                'displayName' => 'International Business Parcels Max Sort Standard Service'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSC
                             ],
                             'RM0' => [
-                                'displayName' => 'Royal Mail 48 (Sort8)(P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM0
                             ],
                             'RM1' => [
-                                'displayName' => 'Royal Mail 24 (LL) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM1
                             ],
                             'RM2' => [
-                                'displayName' => 'Royal Mail 24 (P) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM2
                             ],
                             'RM3' => [
-                                'displayName' => 'Royal Mail 48 (LL) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM3
                             ],
                             'RM4' => [
-                                'displayName' => 'Royal Mail 48 (P) Daily Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM4
                             ],
                             'RM5' => [
-                                'displayName' => 'Royal Mail 24 (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM5
                             ],
                             'RM6' => [
-                                'displayName' => 'Royal Mail 48 (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM6
                             ],
                             'RM7' => [
-                                'displayName' => 'Royal Mail 24 (SORT8) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM7
                             ],
                             'RM8' => [
-                                'displayName' => 'Royal Mail 24 (SORT8) (P) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM8
                             ],
                             'RM9' => [
-                                'displayName' => 'Royal Mail 48 (SORT8) (LL) Annual Flat Rate'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_RM9
                             ],
                             'SD1' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD1
                             ],
                             'SD2' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD2
                             ],
                             'SD3' => [
-                                'displayName' => 'Special Delivery Guaranteed By 1PM (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD3
                             ],
                             'SD4' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£50)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD4
                             ],
                             'SD5' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£1000)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD5
                             ],
                             'SD6' => [
-                                'displayName' => 'Special Delivery Guaranteed By 9AM (£2500)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SD6
                             ],
                             'STL1' => [
-                                'displayName' => 'Royal Mail 1st Class Standard/Signed For (Letters - Daily Rate service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_STL1
                             ],
                             'STL2' => [
-                                'displayName' => 'Royal Mail 2nd Class Standard/Signed For (Letters - Daily Rate service)'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_STL2
                             ],
                             'TPL' => [
-                                'displayName' => 'Tracked 48 High Volume Signature/ No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPL
                             ],
                             'TPM' => [
-                                'displayName' => 'Tracked 24 High Volume Signature/ No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPM
                             ],
                             'TPNN' => [
-                                'displayName' => 'Tracked 24 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPNN
                             ],
                             'TPNS' => [
-                                'displayName' => 'Tracked 24 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPNS
                             ],
                             'TPSN' => [
-                                'displayName' => 'Tracked 48 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPSN
                             ],
                             'TPSS' => [
-                                'displayName' => 'Tracked 48 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPSS
                             ],
                             'TRL' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 High Volume Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRL
                             ],
                             'TRM' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 High Volume No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRM
                             ],
                             'TRNN' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRNN
                             ],
                             'TRNS' => [
-                                'displayName' => 'Tracked Letter-Boxable 24 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRNS
                             ],
                             'TRSN' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 No Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRSN
                             ],
                             'TRSS' => [
-                                'displayName' => 'Tracked Letter-Boxable 48 Signature'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TRSS
                             ],
                             'TSN' => [
-                                'displayName' => 'Tracked Returns 24'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TSN
                             ],
                             'TSS' => [
-                                'displayName' => 'Tracked Returns 48'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TSS
                             ],
                             'WE1' => [
-                                'displayName' => 'International Business Parcels Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WE1
                             ],
                             'WE3' => [
-                                'displayName' => 'International Business Parcels Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WE3
                             ],
                             'WG1' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG1
                             ],
                             'WG3' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG3
                             ],
                             'WG4' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG4
                             ],
                             'WG6' => [
-                                'displayName' => 'International Business Mail Large Letter Zero Srt Economy Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WG6
                             ],
                             'WW1' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Priority'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW1
                             ],
                             'WW3' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Economy'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW3
                             ],
                             'WW4' => [
-                                'displayName' => 'International Business Mail Mixed Zero Sort Priority Machine'
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW4
                             ],
                             'WW6' => [
-                                'displayName' => 'International Business Mail Mixd Zero Sort Economy Machine'
-                            ]
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WW6
+                            ],
+                            'PPJ2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PPJ2
+                            ],
+                            'DEA' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEA
+                            ],
+                            'DEB' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEB
+                            ],
+                            'DEC' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEC
+                            ],
+                            'DED' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DED
+                            ],
+                            'DEM' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEM
+                            ],
+                            'DEG' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEG
+                            ],
+                            'DEE' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEE
+                            ],
+                            'DEI' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEI
+                            ],
+                            'DEJ' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEJ
+                            ],
+                            'DEK' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DEK
+                            ],
+                            'ITR' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITR
+                            ],
+                            'ITLS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITLS
+                            ],
+                            'ITLN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITLN
+                            ],
+                            'ITMS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITMS
+                            ],
+                            'ITMN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITMN
+                            ],
+                            'ITCN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITCN
+                            ],
+                            'ITCS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITCS
+                            ],
+                            'ITDN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITDN
+                            ],
+                            'ITDS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITDS
+                            ],
+                            'ITEN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITEN
+                            ],
+                            'ITES' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITES
+                            ],
+                            'ITFN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITFN
+                            ],
+                            'ITFS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITFS
+                            ],
+                            'ITSN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITSN
+                            ],
+                            'ITSS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITSS
+                            ],
+                            'ITNN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITNN
+                            ],
+                            'ITNS' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITNS
+                            ],
+                            'ITA' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITA
+                            ],
+                            'ITB' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_ITB
+                            ],
+                            'TPC' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPC
+                            ],
+                            'TPD' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPD
+                            ],
+                            'TPA' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPA
+                            ],
+                            'TPB' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TPB
+                            ],
+                            'SDH' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDH
+                            ],
+                            'SDJ' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDJ
+                            ],
+                            'SDK' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDK
+                            ],
+                            'SDM' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDM
+                            ],
+                            'SDN' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDN
+                            ],
+                            'SDQ' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDQ
+                            ],
+                            'SDA' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDA
+                            ],
+                            'SDB' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDB
+                            ],
+                            'SDC' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDC
+                            ],
+                            'SDE' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDE
+                            ],
+                            'SDF' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDF
+                            ],
+                            'SDG' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_SDG
+                            ],
+                            'WP1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP1
+                            ],
+                            'WP3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP3
+                            ],
+                            'WP4' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP4
+                            ],
+                            'WP6' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_WP6
+                            ],
+                            'IP1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP1
+                            ],
+                            'IP3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP3
+                            ],
+                            'IP4' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP4
+                            ],
+                            'IP6' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_IP6
+                            ],
+                            'DP1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP1
+                            ],
+                            'DP3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP3
+                            ],
+                            'DP4' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP4
+                            ],
+                            'DP6' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DP6
+                            ],
+                            'PSA' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_PSA
+                            ],
+                            'BP1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP1
+                            ],
+                            'BP2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP2
+                            ],
+                            'BP3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BP3
+                            ],
+                            'BG1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG1
+                            ],
+                            'BG2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG2
+                            ],
+                            'BG3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BG3
+                            ],
+                            'BE1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE1
+                            ],
+                            'BE2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE2
+                            ],
+                            'BE3' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_BE3
+                            ],
+                            'TC1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TC1
+                            ],
+                            'TC2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_TC2
+                            ],
+                            'DW1' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DW1
+                            ],
+                            'DW2' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_DW2
+                            ],
+                            'MTV' => [
+                                'displayName' => DeliveryServiceName::INTERSOFT_ROYAL_MAIL_MTV
+                            ],
                         ],
                         'serviceTypes' => [
                             '1' => [
@@ -2193,6 +2413,833 @@ return [
                                 'shipmentClass' => InternationalNotApplicableShipment::class,
                                 'serviceFormats' => [
                                     'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'PPJ2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEC',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DED',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEM',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEG',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEE',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => ['12'],
+                            ],
+                            [
+                                'serviceOffering' => 'DEI',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DEJ',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => ['12'],
+                            ],
+                            [
+                                'serviceOffering' => 'DEK',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITR',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITLN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITMN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITCS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITDS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITEN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITES',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITFS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITSS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNN',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITNS',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'ITB',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPC',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPD',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPA',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TPB',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'SDH',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDJ',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDK',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDM',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDN',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDQ',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDA',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDB',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDC',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDE',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDF',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'SDG',
+                                'serviceTypes' => [
+                                    'D'
+                                ],
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '1','2','3','4','5','14','13','16','22','24'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'WP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'WP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DP6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'PSA',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BP3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'TC2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'P', 'G', 'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MTV',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
                                 ],
                                 'serviceAddOns' => [],
                             ],

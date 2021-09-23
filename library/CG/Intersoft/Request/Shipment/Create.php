@@ -7,6 +7,7 @@ use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SaturdayDeliveryInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\Email\Attachment\Simple;
+use CG\Locale\CountryNameByCode;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Intersoft\RoyalMail\Request\PostAbstract;
 use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
@@ -35,6 +36,11 @@ class Create extends PostAbstract
     const MIN_FINANCIAL_VALUE = 0.01;
     const MAX_ADDRESS_FIELDS = 3;
     const MAX_ADDRESS_FIELDS_LEN = self::MAX_ADDRESS_FIELDS * self::MAX_LEN_DEFAULT;
+    const MAX_LEN_HS_CODE = 10;
+    const LEN_COUNTRY_CODE = 2;
+    const PRE_REGISTRATION_TYPE_EORI = 'EORI';
+    const PRE_REGISTRATION_TYPE_IOSS = 'IOSS';
+    const DEFAULT_PHONE_NUMBER = '00000000000';
 
     const ENHANCEMENT_SIGNATURE = 6;
     const ENHANCEMENT_SATURDAY = 24;
@@ -106,6 +112,8 @@ class Create extends PostAbstract
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
+        $shipper->addChild('shipperVatNumber', $this->shipment->getShippersVatNumber());
+        $shipper->addChild('shipperEoriNumber', $this->shipment->getEoriNumber());
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
         $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
@@ -146,7 +154,7 @@ class Create extends PostAbstract
             )
         );
         $destination->addChild('destinationPhoneNumber', $this->getDeliveryPhoneNumber());
-
+        $destination->addChild('destinationEmailAddress', $deliveryAddress->getEmailAddress());
         return $xml;
     }
 
@@ -157,6 +165,7 @@ class Create extends PostAbstract
         $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
         $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
         $shipmentInformation = $this->addServiceOptions($shipmentInformation);
+        $shipmentInformation = $this->addCustomsInformation($shipmentInformation);
         $shipmentInformation = $this->addPackageInformation($shipmentInformation);
         $shipmentInformation = $this->addItemInformation($shipmentInformation);
         $shipmentInformation = $this->addShipmentOverview($shipmentInformation);
@@ -205,6 +214,15 @@ class Create extends PostAbstract
         return $xml;
     }
 
+    protected function addCustomsInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $customsInformationXml = $xml->addChild('customsInformation');
+        $customsInformationXml->addChild('preRegistrationNumber', $this->shipment->getIossNumber());
+        $customsInformationXml->addChild('preRegistrationType', static::PRE_REGISTRATION_TYPE_IOSS);
+        $customsInformationXml->addChild('shippingCharges', number_format($this->shipment->getShippingCharges(), 2));
+        return $xml;
+    }
+
     protected function addPackageInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
         $packages = $this->shipment->getPackages();
@@ -237,14 +255,22 @@ class Create extends PostAbstract
     protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
         $packages = $this->shipment->getPackages();
+        $totalWeight = count($packages) === 1 ? $this->getTotalPackageWeight() : 0;
         /** @var Package $package */
         foreach ($packages as $package) {
             foreach ($package->getContents() as $packageContents) {
+                $packageWeight = $packageContents->getWeight();
+                if ($packageWeight == 0 && $totalWeight > 0 && $packageContents->getQuantity() > 0) {
+                    $packageWeight = $totalWeight/$packageContents->getQuantity();
+                }
+
                 $itemInformation = $xml->addChild('itemInformation');
+                $itemInformation->addChild('itemHsCode', $this->sanitiseString($packageContents->getHSCode(), static::MAX_LEN_HS_CODE));
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
                 $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
-                $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
+                $itemInformation->addChild('itemCOO', $this->sanitiseItemCountryOfOrigin($packageContents->getOrigin()));
+                $itemInformation->addChild('itemNetWeight', $packageWeight);
             }
         }
         return $xml;
@@ -298,6 +324,22 @@ class Create extends PostAbstract
             return '';
         }
         return htmlspecialchars(mb_substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
+    }
+
+    protected function sanitiseItemCountryOfOrigin(string $itemCountryOfOrigin): string
+    {
+        return strtoupper($this->sanitiseString(
+            $this->verifyItemCountryOfOrigin($itemCountryOfOrigin),
+            static::LEN_COUNTRY_CODE
+        ));
+    }
+
+    protected function verifyItemCountryOfOrigin(string $itemCountryOfOrigin): string
+    {
+        if (CountryNameByCode::isValidCountryCode($itemCountryOfOrigin)) {
+            return $itemCountryOfOrigin;
+        }
+        return $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode();
     }
 
     protected function reformatDestinationAddressLines(AddressInterface $deliveryAddress): AddressInterface
@@ -363,13 +405,31 @@ class Create extends PostAbstract
         // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
         $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
         $phoneNumberLength = strlen($phoneNumber);
+
         if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
-            return '00000000000';
+            return static::DEFAULT_PHONE_NUMBER;
         }
+
+        return $this->sanitisePhoneNumber($phoneNumber, $phoneNumberLength);
+    }
+
+    protected function sanitisePhoneNumber(string $phoneNumber, int $phoneNumberLength): string
+    {
+        // all white spaces from end and beginning are removed
+        $phoneNumber = trim($phoneNumber);
+
+        // all other characters but digits, minus, plus and forward slash are removed
+        $whiteListedCharacters = '/[^ 0-9-+]/';
+        $phoneNumber = preg_replace($whiteListedCharacters, '', $phoneNumber);
+
+        // plus sign is removed from everywhere except if it's first character
+        $phoneNumber = substr($phoneNumber, 0,1) . str_replace('+', '', substr($phoneNumber, 1, strlen($phoneNumber)));
+
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
-        return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+
+        return $phoneNumber;
     }
 
     protected function shortenPhoneNumber(string $phoneNumber): string

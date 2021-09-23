@@ -599,6 +599,9 @@ return [
                         'height' => 'height',
                         'width' => 'width',
                         'length' => 'length',
+                        'harmonisedSystemCode' => 'harmonisedSystemCode',
+                        'countryOfOrigin' => 'countryOfOrigin',
+                        'eoriNumber' => 'eoriNumber',
                     ]
                 ]
             ],
