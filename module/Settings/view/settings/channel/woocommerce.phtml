@@ -31,7 +31,8 @@ if ($accountId) {
             <a href="https://guide.cloudcommercegroup.com/en/articles/882035-cg-connect-to-woocommerce" target="_blank">Need help?</a>
         </p>
         <div class="label">
-            <?= $this->translate('Your Website URL: <br>(example.com)') ?>:
+            <?= $this->translate('Your Website URL: <br>(example.com)')?>: -
+            <span><a href="javascript:void(0);" id="woocommerce-host-help-link">What is this?</a></span>
         </div>
         <div class="text-field">
             <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-host', 'name' => 'host']) ?>
@@ -60,6 +61,9 @@ if ($accountId) {
         </a>
     </div>
 </div>
+<div style="display:none" id="woocommerce-host-help">
+    <p><?=$this->translate('Make sure to remove "www." from the start of your Website URL. So, "www.example.com" should be entered as "example.com" instead.');?></p>
+</div>
 <?php $this->inlineScript()->captureStart(); ?>
     require.config({
         paths: {
@@ -70,3 +74,14 @@ if ($accountId) {
         domListener.init('<?= $this->url($savePageRoute, ['type' => Type::SALES]) ?>', <?= $accountId ?: 'undefined' ?>);
     });
 <?php $this->inlineScript()->captureEnd(); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        require(['popup/generic'], function(Popup){
+            var popup = new Popup($('#woocommerce-host-help').html(), '50%');
+            $('#woocommerce-host-help-link').click(function()
+            {
+                popup.show();
+            });
+        });
+    });
+</script>
