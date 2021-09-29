@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d594378f59aa7a53668ed0e067384d1",
+    "content-hash": "726ce6762cf892a71526399e4a1002bb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,7 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "a9639392faa69a78602548041e08b07dc57a848e"
+                "reference": "a6fa4ac200deb2b00d169ecaec56a8dd947d9c52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12245-revert-parcelforce-service-codes-ba9ec8.zip",
+                "reference": "a6fa4ac200deb2b00d169ecaec56a8dd947d9c52"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-09-22T09:36:36+00:00"
+            "time": "2021-09-29T13:12:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10542,7 +10547,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11992,8 +11998,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.11",
-            "alias_normalized": "1.4.11.0",
+            "alias": "1.5.0",
+            "alias_normalized": "1.5.0.0",
             "version": "dev-CGIV-12245-revert-parcelforce-service-codes",
             "package": "channelgrabber/courier"
         }
@@ -12003,8 +12009,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
