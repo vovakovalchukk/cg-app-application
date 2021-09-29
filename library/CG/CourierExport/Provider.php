@@ -16,8 +16,17 @@ use CG\Product\Detail\Collection as ProductDetailCollection;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use function CG\Stdlib\hyphenToFullyQualifiedClassname;
+use CG\Channel\Shipping\Provider\BookingOptions\CancelActionDescriptionInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\CancelAllActionDescriptionInterface;
 
-class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOptionsInterface, ServiceInterface, ExportInterface
+class Provider implements
+    ChannelsInterface,
+    ShippingOptionsInterface,
+    BookingOptionsInterface,
+    ServiceInterface,
+    ExportInterface,
+    CancelActionDescriptionInterface,
+    CancelAllActionDescriptionInterface
 {
     /** @var Factory */
     protected $factory;
@@ -166,5 +175,15 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
             $rootOu,
             $user
         );
+    }
+
+    public function getCancelActionDescription(Account $shippingAccount): string
+    {
+        return 'Cancel';
+    }
+
+    public function getCancelAllActionDescription(Account $shippingAccount): string
+    {
+        return 'Cancel all';
     }
 }
