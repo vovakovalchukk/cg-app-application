@@ -18,6 +18,7 @@ use CG\User\Entity as User;
 use function CG\Stdlib\hyphenToFullyQualifiedClassname;
 use CG\Channel\Shipping\Provider\BookingOptions\CancelActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CancelAllActionDescriptionInterface;
+use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 
 class Provider implements
     ChannelsInterface,
@@ -26,7 +27,8 @@ class Provider implements
     ServiceInterface,
     ExportInterface,
     CancelActionDescriptionInterface,
-    CancelAllActionDescriptionInterface
+    CancelAllActionDescriptionInterface,
+    CarrierServiceProviderCancelInterface
 {
     /** @var Factory */
     protected $factory;
@@ -179,11 +181,21 @@ class Provider implements
 
     public function getCancelActionDescription(Account $shippingAccount): string
     {
-        return 'Cancel';
+        return 'Cancel export';
     }
 
     public function getCancelAllActionDescription(Account $shippingAccount): string
     {
-        return 'Cancel all';
+        return 'Cancel all exports';
+    }
+
+    public function isCancellationAllowedForOrder(Account $account, Order $order)
+    {
+        return true;
+    }
+
+    public function cancelOrderLabels(OrderLabelCollection $orderLabels, OrderCollection $orders, Account $shippingAccount)
+    {
+        // TODO: Implement cancelOrderLabels() method.
     }
 }

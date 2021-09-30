@@ -1,7 +1,11 @@
 <?php
 namespace CG\CourierExport\RoyalMailClickDrop;
 
+use CG\Account\Shared\Entity as Account;
+use CG\CourierAdapter\Exception\OperationFailed;
+use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
+use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Item\Collection as OrderItems;
@@ -12,7 +16,7 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\Entity as User;
 
-class Exporter implements ExporterInterface
+class Exporter implements ExporterInterface, CancellingInterface
 {
     const COUNTRY_NAME_UK = 'United Kingdom';
 
@@ -205,5 +209,15 @@ class Exporter implements ExporterInterface
         }
 
         return 'n';
+    }
+
+    public function cancelShipment(ShipmentInterface $shipment)
+    {
+        // TODO: Implement cancelShipment() method.
+    }
+
+    public function updateShipment(ShipmentInterface $shipment)
+    {
+        // TODO: Implement updateShipment() method.
     }
 }
