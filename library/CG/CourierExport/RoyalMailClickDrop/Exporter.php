@@ -1,11 +1,9 @@
 <?php
 namespace CG\CourierExport\RoyalMailClickDrop;
 
-use CG\Account\Shared\Entity as Account;
-use CG\CourierAdapter\Exception\OperationFailed;
-use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\CourierAdapter\ShipmentInterface;
+use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Item\Collection as OrderItems;
@@ -213,11 +211,11 @@ class Exporter implements ExporterInterface, CancellingInterface
 
     public function cancelShipment(ShipmentInterface $shipment)
     {
-        // TODO: Implement cancelShipment() method.
+        // Not required but need to satisfy interface
     }
 
     public function updateShipment(ShipmentInterface $shipment)
     {
-        // TODO: Implement updateShipment() method.
+        // Not required but need to satisfy interface
     }
 }
