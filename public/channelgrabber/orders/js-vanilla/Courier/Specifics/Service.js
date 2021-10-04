@@ -247,7 +247,12 @@ define([
 
     Service.prototype.refresh = function()
     {
+        console.log('REFRESH');
+
         var inputData = this.getInputDataService().getInputData('#datatable td input', false);
+
+        console.log(inputData);
+
         // Using one() instead of on() as this data will change each time
         this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
         {
@@ -452,6 +457,7 @@ define([
 
     Service.prototype.exportAll = function(button)
     {
+        var self = this;
         if ($(button).hasClass('disabled')) {
             return;
         }
@@ -486,6 +492,10 @@ define([
 
     Service.prototype.sendExportRequest = function(data)
     {
+        console.log('sendExportRequest');
+        console.log(data);
+
+        var self = this;
         var formHtml = '<form method="POST" action="' + Service.URI_EXPORT + '">';
         for (var name in data) {
             if (!data.hasOwnProperty(name)) {
@@ -506,6 +516,14 @@ define([
         }
         formHtml += '</form>';
         $(formHtml).appendTo('body').submit().remove();
+        // self.refresh();
+
+        $('.courier-export-label-button').each(function(){
+            console.log($(this));
+            self.refresh();
+        });
+
+        // this.getDataTable().cgDataTable('redraw');
     };
 
     Service.prototype.processCreateLabelsResponse = function(response, button)
