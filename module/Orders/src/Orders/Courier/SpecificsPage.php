@@ -206,10 +206,14 @@ class SpecificsPage implements LoggerAwareInterface
 
     protected function getActionDescription(string $action, string $defaultDescription, Account $account): string
     {
+        $this->logDebug('action %s, defDESC %s', [$action, $defaultDescription], 'MYTEST');
         $provider = $this->courierService->getCarrierOptionsProvider($account);
         if (!($provider instanceof $this->bookOptionInterfaces[$action] ?? '')) {
+            $this->logDebug('action %s, defDESC %s, DEFAULT OPTION', [$action, $defaultDescription], 'MYTEST');
             return $defaultDescription;
         }
+        $this->logDebug(get_class($provider), [], 'MYTEST');
+        $this->logDebug('action %s, defDESC %s, NOT DEFAULT OPTION', [$action, $defaultDescription], 'MYTEST');
         return $provider->{'get' . $action . 'ActionDescription'}($account);
     }
 }

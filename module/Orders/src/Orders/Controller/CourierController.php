@@ -432,6 +432,9 @@ class CourierController extends AbstractActionController implements LoggerAwareI
 
     protected function getSpecificsActionsButtons(Account $selectedAccount)
     {
+        $this->logDebugDump($selectedAccount, 'SELECTED ACCOUNT in getSpecificsActionsButtons', [], 'MYTEST');
+
+
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [
                 [
