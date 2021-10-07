@@ -267,6 +267,7 @@ class ProductsJsonController extends AbstractActionController
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
             ->setEmbeddedDataToReturn($filterParams['embeddedDataToReturn'])
             ->setReturnNonEmptyNames($filterParams['returnNonEmptyNames'] ?? false)
+            ->setReturnOnlyFirstImage($filterParams['returnOnlyFirstImage'] ?? false)
             ->setLimit($limit)
             ->setPage($page);
 
