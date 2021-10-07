@@ -178,6 +178,7 @@ var actionCreators = (function() {
                 filter.setPage(pageNumber);
                 filter.setLimit(getState.customGetters.getPaginationLimit());
                 filter.setEmbedVariationsAsLinks(true);
+                filter.setReturnOnlyFirstImage(true);
 
                 if (searchTerm) {
                     filter.setEmbedVariationsAsLinks(false);

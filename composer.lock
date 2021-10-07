@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f90dbd010bb18bf1f15b36bea80a549",
+    "content-hash": "81d0ba9d8098d15e10ad10924dbc9bee",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,12 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "9c8c76a813983f88e4f9311bf0f730a68c616745"
+                "reference": "37e462d7ec527b6fa6ef7780532049db946302aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11965-parcelforce-special-characters-278ea2.zip",
-                "reference": "9c8c76a813983f88e4f9311bf0f730a68c616745"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-11965-parcelforce-special-characters-652e7d.zip",
+                "reference": "37e462d7ec527b6fa6ef7780532049db946302aa"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-09-28T12:16:00+00:00"
+            "time": "2021-10-07T10:58:09+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2858,16 +2858,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.18",
+            "version": "1.20.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
+                "reference": "edfa465b944b2d458580549f75da77408d0e5ddd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.18-a1b540.zip",
-                "reference": "ed7270523894aafc040e8c47fefcf6bf7b6a1fb7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.19-cd4dd0.zip",
+                "reference": "edfa465b944b2d458580549f75da77408d0e5ddd"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2916,7 +2916,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-08-04T12:14:51+00:00"
+            "time": "2021-10-07T10:15:18+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4396,16 +4396,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.9",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "7ed41badcbf4cb75f4ec6bdb1828d23cac247909"
+                "reference": "4b2ee5f967e8e66760a7ccbdec9541314aa7e034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.9-87d5c4.zip",
-                "reference": "7ed41badcbf4cb75f4ec6bdb1828d23cac247909"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.10-80d613.zip",
+                "reference": "4b2ee5f967e8e66760a7ccbdec9541314aa7e034"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -4437,7 +4437,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2021-06-15T14:51:08+00:00"
+            "time": "2021-10-04T11:21:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -11998,8 +11998,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.11",
-            "alias_normalized": "1.4.11.0",
+            "alias": "1.5.1",
+            "alias_normalized": "1.5.1.0",
             "version": "dev-CGIV-11965-parcelforce-special-characters",
             "package": "channelgrabber/courier"
         }
