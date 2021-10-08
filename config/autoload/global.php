@@ -182,6 +182,8 @@ use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
 
 use CG\Email\Smtp;
 
+use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -645,6 +647,11 @@ $config = array(
                         SsoModule::ROUTE_RETURN => SsoModule::ROUTE_RETURN
                     ]
                 ]
+            ],
+            ParcelforceCourier::class => [
+                'parameters' => [
+                    'predisClient' => 'reliable_redis',
+                ],
             ],
         ),
     ),

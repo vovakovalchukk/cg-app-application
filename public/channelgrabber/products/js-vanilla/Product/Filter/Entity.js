@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn, returnOnlyFirstImage)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -12,6 +12,7 @@ define([
         this.replaceVariationWithParent = replaceVariationWithParent;
         this.embedVariationsAsLinks = embedVariationsAsLinks;
         this.embeddedDataToReturn = embeddedDataToReturn;
+        this.returnOnlyFirstImage = returnOnlyFirstImage;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -84,6 +85,17 @@ define([
             this.embeddedDataToReturn = embeddedDataToReturn;
             return this;
         }
+
+        this.getReturnOnlyFirstImage = function()
+        {
+            return this.returnOnlyFirstImage;
+        }
+
+        this.setReturnOnlyFirstImage = function(returnOnlyFirstImage)
+        {
+            this.returnOnlyFirstImage = returnOnlyFirstImage;
+            return this;
+        }
     };
 
     Entity.prototype.toObject = function()
@@ -132,6 +144,10 @@ define([
         let embeddedDataToReturn = this.getEmbeddedDataToReturn();
         if (Array.isArray(embeddedDataToReturn) && embeddedDataToReturn !== []) {
             object['embeddedDataToReturn'] = embeddedDataToReturn;
+        }
+
+        if (typeof this.getReturnOnlyFirstImage() === 'boolean') {
+            object['returnOnlyFirstImage'] = this.getReturnOnlyFirstImage();
         }
 
         return object;
