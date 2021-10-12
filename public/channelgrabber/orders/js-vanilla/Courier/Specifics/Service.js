@@ -830,7 +830,7 @@ define([
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed', 'exported'], true, true);
         if (!data) {
             return;
         }
