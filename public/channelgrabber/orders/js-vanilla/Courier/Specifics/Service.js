@@ -24,35 +24,6 @@ define([
         var orderData;
         var labelCosts;
 
-        var numFetches;
-        // var intervalHandle;
-        var fetchDelay = {
-            1: 2000,
-            60: 4000, // 2 mins
-            120: 10000, // 5 mins
-            150: 30000 // 10 mins
-        };
-
-
-
-
-
-        // this.setEventHandler = function(intervalHandle)
-        // {
-        //     intervalHandle = newIntervalHandle;
-        //     return this;
-        // };
-
-
-
-
-
-
-
-
-
-
-
         this.getDataTable = function()
         {
             return dataTable;
@@ -486,10 +457,6 @@ define([
 
     Service.prototype.exportAll = function(button)
     {
-        // this.setNumFetches(0);
-        // var intervalHandle;
-
-        var self = this;
         if ($(button).hasClass('disabled')) {
             return;
         }
@@ -505,89 +472,21 @@ define([
         this.exportRefresh();
     };
 
-
-
     Service.prototype.exportRefresh = function ()
     {
         var self = this;
-        // let intervalHandle = this.getIntervalHandle();
-        // let numFetches = 1;
-        //
-        // var fetchDelay = {
-        //     1: 2000,
-        //     60: 4000, // 2 mins
-        //     120: 10000, // 5 mins
-        //     150: 30000 // 10 mins
-        // };
-        //
-        // numFetches++;
-
-        // let numFetches = this.getNumFetches();
-        // let fetchDelay = this.getFetchDelay(numFetches);
-
-        // if (fetchDelay) {
-        //     clearInterval(intervalHandle);
-        //     intervalHandle = setInterval(function () {}, 2000);
-
-
-        // var startTime = new Date().getTime();
-        // var interval = setInterval(function(){
-        //     if(new Date().getTime() - startTime > 10000){
-        //         clearInterval(interval);
-        //         return;
-        //     }
-        //     self.refresh();
-        // }, 2000);
-
         let i = 0;
+        let maxAttempts = 1;
 
         $(document).ajaxStop(function() {
-            if (i > 1) {
+            if (i > maxAttempts) {
                 return;
             }
             i++;
             console.log( "Triggered ajaxStop handler." );
             self.refresh();
         });
-
-
-
-
-        // this.setIntervalHandle(intervalHandle);
-        // }
-
     }
-
-    // Service.prototype.getIntervalHandle = function()
-    // {
-    //     return intervalHandle;
-    // };
-    //
-    // Service.prototype.setIntervalHandle = function(newIntervalHandle)
-    // {
-    //     intervalHandle = newIntervalHandle;
-    //     return this;
-    // };
-
-    // Service.prototype.getFetchDelay = function(index)
-    // {
-    //     return fetchDelay[index];
-    // };
-    //
-    // Service.prototype.setNumFetches = function(num)
-    // {
-    //     numFetches = num;
-    // }
-    //
-    // Service.prototype.incNumFetches = function()
-    // {
-    //     numFetches++;
-    // }
-    //
-    // Service.prototype.getNumFetches = function()
-    // {
-    //     return numFetches;
-    // }
 
     Service.prototype.sendCreateLabelsRequest = function(data, button)
     {
