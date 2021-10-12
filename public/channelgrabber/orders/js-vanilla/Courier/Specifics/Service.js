@@ -25,7 +25,7 @@ define([
         var labelCosts;
 
         var numFetches;
-        var intervalHandle;
+        // var intervalHandle;
         var fetchDelay = {
             1: 2000,
             60: 4000, // 2 mins
@@ -35,21 +35,7 @@ define([
 
 
 
-        Service.prototype.getIntervalHandle = function()
-        {
-            return intervalHandle;
-        };
 
-        Service.prototype.setIntervalHandle = function(newIntervalHandle)
-        {
-            intervalHandle = newIntervalHandle;
-            return this;
-        };
-
-        Service.prototype.getFetchDelay = function(index)
-        {
-            return fetchDelay[index];
-        };
 
         // this.setEventHandler = function(intervalHandle)
         // {
@@ -500,15 +486,8 @@ define([
 
     Service.prototype.exportAll = function(button)
     {
-        this.setNumFetches(0);
+        // this.setNumFetches(0);
         // var intervalHandle;
-        // var fetchDelay = {
-        //     1: 2000,
-        //     60: 4000, // 2 mins
-        //     120: 10000, // 5 mins
-        //     150: 30000 // 10 mins
-        // };
-
 
         var self = this;
         if ($(button).hasClass('disabled')) {
@@ -531,35 +510,84 @@ define([
     Service.prototype.exportRefresh = function ()
     {
         var self = this;
-        let intervalHandle = this.getIntervalHandle();
+        // let intervalHandle = this.getIntervalHandle();
+        // let numFetches = 1;
+        //
+        // var fetchDelay = {
+        //     1: 2000,
+        //     60: 4000, // 2 mins
+        //     120: 10000, // 5 mins
+        //     150: 30000 // 10 mins
+        // };
+        //
+        // numFetches++;
 
-        this.incNumFetches();
+        // let numFetches = this.getNumFetches();
+        // let fetchDelay = this.getFetchDelay(numFetches);
 
-        let numFetches = this.getNumFetches();
-        let fetchDelay = this.getFetchDelay(numFetches);
+        // if (fetchDelay) {
+        //     clearInterval(intervalHandle);
+        //     intervalHandle = setInterval(function () {}, 2000);
 
-        if (fetchDelay) {
-            clearInterval(intervalHandle);
-            intervalHandle = setInterval(self.exportRefresh, fetchDelay);
-            this.setIntervalHandle(intervalHandle);
-        }
-        self.refresh();
+
+        // var startTime = new Date().getTime();
+        // var interval = setInterval(function(){
+        //     if(new Date().getTime() - startTime > 10000){
+        //         clearInterval(interval);
+        //         return;
+        //     }
+        //     self.refresh();
+        // }, 2000);
+
+        let i = 0;
+
+        $(document).ajaxStop(function() {
+            if (i > 1) {
+                return;
+            }
+            i++;
+            console.log( "Triggered ajaxStop handler." );
+            self.refresh();
+        });
+
+
+
+
+        // this.setIntervalHandle(intervalHandle);
+        // }
+
     }
 
-    Service.prototype.setNumFetches = function(num)
-    {
-        numFetches = num;
-    }
+    // Service.prototype.getIntervalHandle = function()
+    // {
+    //     return intervalHandle;
+    // };
+    //
+    // Service.prototype.setIntervalHandle = function(newIntervalHandle)
+    // {
+    //     intervalHandle = newIntervalHandle;
+    //     return this;
+    // };
 
-    Service.prototype.incNumFetches = function()
-    {
-        numFetches++;
-    }
-
-    Service.prototype.getNumFetches = function()
-    {
-        return numFetches;
-    }
+    // Service.prototype.getFetchDelay = function(index)
+    // {
+    //     return fetchDelay[index];
+    // };
+    //
+    // Service.prototype.setNumFetches = function(num)
+    // {
+    //     numFetches = num;
+    // }
+    //
+    // Service.prototype.incNumFetches = function()
+    // {
+    //     numFetches++;
+    // }
+    //
+    // Service.prototype.getNumFetches = function()
+    // {
+    //     return numFetches;
+    // }
 
     Service.prototype.sendCreateLabelsRequest = function(data, button)
     {
