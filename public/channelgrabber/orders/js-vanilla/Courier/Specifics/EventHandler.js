@@ -174,7 +174,6 @@ define([], function()
             var button = this;
             service.exportAll(button);
         });
-        // service.refresh();
         return this;
     };
 

@@ -247,12 +247,7 @@ define([
 
     Service.prototype.refresh = function()
     {
-        console.log('REFRESH');
-
         var inputData = this.getInputDataService().getInputData('#datatable td input', false);
-
-        console.log(inputData);
-
         // Using one() instead of on() as this data will change each time
         this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
         {
@@ -468,13 +463,12 @@ define([
         $(EventHandler.SELECTOR_EXPORT_LABEL_BUTTON).addClass('disabled');
         this.getNotifications().notice('Exporting all', true);
         this.sendExportRequest(data);
-
         this.exportRefresh();
     };
 
     Service.prototype.exportRefresh = function ()
     {
-        var self = this;
+        let self = this;
         let i = 0;
         let maxAttempts = 1;
 
@@ -509,10 +503,7 @@ define([
 
     Service.prototype.sendExportRequest = function(data)
     {
-        console.log('sendExportRequest');
-        console.log(data);
-
-        var self = this;
+        let self = this;
         var formHtml = '<form method="POST" action="' + Service.URI_EXPORT + '">';
         for (var name in data) {
             if (!data.hasOwnProperty(name)) {
@@ -534,13 +525,6 @@ define([
         formHtml += '</form>';
         $(formHtml).appendTo('body').submit().remove();
         self.refresh();
-
-        // $('.courier-export-label-button').each(function(){
-        //     console.log($(this));
-        //     self.refresh();
-        // });
-
-        // this.getDataTable().cgDataTable('redraw');
     };
 
     Service.prototype.processCreateLabelsResponse = function(response, button)
