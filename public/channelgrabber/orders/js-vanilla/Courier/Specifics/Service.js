@@ -477,7 +477,6 @@ define([
                 return;
             }
             i++;
-            console.log( "Triggered ajaxStop handler." );
             self.refresh();
         });
     }
