@@ -9,6 +9,9 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Item
 {
+    protected const COUNTRY_CODE_GB = 'GB';
+    protected const CURRENCY_CODE_GBP = 'GBP';
+
     /** @var string */
     protected $description;
     /** @var int */
@@ -46,7 +49,7 @@ class Item
     ): self {
 
         $itemPrice = $orderItem->getIndividualItemPrice();
-        if ($order->getCurrencyCode() != 'GBP' &&  $ou->getAddressCountryCode() == 'GB') {
+        if ($order->getCurrencyCode() != static::CURRENCY_CODE_GBP &&  $ou->getAddressCountryCode() == static::COUNTRY_CODE_GB) {
             $itemPrice = number_format($orderItem->getIndividualItemPrice() / $order->getExchangeRate(),2);
         }
 
