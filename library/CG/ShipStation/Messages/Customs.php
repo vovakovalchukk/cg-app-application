@@ -44,7 +44,7 @@ class Customs
         $customsItems = [];
         foreach ($order->getItems() as $orderItem) {
             $itemData = $itemsData->getItems()->getById($orderItem->getId());
-            $customsItems[] = Item::createFromOrderItem($orderItem, $itemData, $rootOu);
+            $customsItems[] = Item::createFromOrderItem($orderItem, $itemData, $rootOu, $order);
         }
         return new self(
             static::CONTENTS_MERCH,
