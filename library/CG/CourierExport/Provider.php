@@ -3,8 +3,11 @@ namespace CG\CourierExport;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\CancelActionDescriptionInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\CancelAllActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\Channels\ShippingOptionsInterface;
 use CG\Channel\Shipping\Provider\ChannelsInterface;
+use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\Channel\Shipping\Provider\ServiceInterface;
@@ -17,7 +20,15 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use function CG\Stdlib\hyphenToFullyQualifiedClassname;
 
-class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOptionsInterface, ServiceInterface, ExportInterface
+class Provider implements
+    ChannelsInterface,
+    ShippingOptionsInterface,
+    BookingOptionsInterface,
+    ServiceInterface,
+    ExportInterface,
+    CancelActionDescriptionInterface,
+    CancelAllActionDescriptionInterface,
+    CarrierServiceProviderCancelInterface
 {
     /** @var Factory */
     protected $factory;
@@ -166,5 +177,25 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
             $rootOu,
             $user
         );
+    }
+
+    public function getCancelActionDescription(Account $shippingAccount): string
+    {
+        return 'Cancel export';
+    }
+
+    public function getCancelAllActionDescription(Account $shippingAccount): string
+    {
+        return 'Cancel all exports';
+    }
+
+    public function isCancellationAllowedForOrder(Account $account, Order $order)
+    {
+        return true;
+    }
+
+    public function cancelOrderLabels(OrderLabelCollection $orderLabels, OrderCollection $orders, Account $shippingAccount)
+    {
+        // Not required but need to satisfy interface
     }
 }
