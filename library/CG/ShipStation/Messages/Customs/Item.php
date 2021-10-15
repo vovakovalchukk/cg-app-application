@@ -6,10 +6,10 @@ use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
 use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Messages\Shipment;
 
 class Item
 {
-    protected const COUNTRY_CODE_GB = 'GB';
     protected const CURRENCY_CODE_GBP = 'GBP';
 
     /** @var string */
@@ -49,7 +49,7 @@ class Item
     ): self {
 
         $itemPrice = $orderItem->getIndividualItemPrice();
-        if ($order->getCurrencyCode() != static::CURRENCY_CODE_GBP &&  $ou->getAddressCountryCode() == static::COUNTRY_CODE_GB) {
+        if ($order->getCurrencyCode() != static::CURRENCY_CODE_GBP &&  $ou->getAddressCountryCode() == Shipment::COUNTRY_CODE_GB) {
             $itemPrice = number_format($orderItem->getIndividualItemPrice() / $order->getExchangeRate(),2);
         }
 

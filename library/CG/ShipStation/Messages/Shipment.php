@@ -15,6 +15,8 @@ use DateTime;
 class Shipment
 {
     protected const EXTERNAL_ID_LEN_MAX = 35;
+    protected const NI_POSTCODE_PATTERN = '/^BT[0-9]{1,2}[\s]*([\d][A-Za-z]{2})$/';
+    public const COUNTRY_CODE_GB = 'GB';
     public const EXTERNAL_ID_SEP = '|';
     public const SHIP_DATE_FORMAT = 'Y-m-d';
 
@@ -88,7 +90,7 @@ class Shipment
             $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu, $reference);
         }
         $customs = $taxIdentifiers = null;
-        if ($carrierService->isInternational()) {
+        if ($carrierService->isInternational() || static::isNiShipment($order)) {
             $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
             $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $orderData, $rootOu);
         }
@@ -146,6 +148,20 @@ class Shipment
             $array['ship_date'] = $this->getShipDate()->format(static::SHIP_DATE_FORMAT);
         }
         return $array;
+    }
+
+    protected static function isNiShipment(Order $order): bool
+    {
+        if ($order->getShippingAddressCountryCodeForCourier() != static::COUNTRY_CODE_GB) {
+            return false;
+        }
+
+        $postcode = $order->getShippingAddressPostcodeForCourier();
+        if (preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode))) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getCarrierId(): string
