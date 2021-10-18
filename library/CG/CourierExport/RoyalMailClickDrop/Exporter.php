@@ -2,6 +2,8 @@
 namespace CG\CourierExport\RoyalMailClickDrop;
 
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
+use CG\CourierAdapter\ShipmentInterface;
+use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Item\Collection as OrderItems;
@@ -12,7 +14,7 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\Entity as User;
 
-class Exporter implements ExporterInterface
+class Exporter implements ExporterInterface, CancellingInterface
 {
     const COUNTRY_NAME_UK = 'United Kingdom';
 
@@ -205,5 +207,15 @@ class Exporter implements ExporterInterface
         }
 
         return 'n';
+    }
+
+    public function cancelShipment(ShipmentInterface $shipment)
+    {
+        // Not required but need to satisfy interface
+    }
+
+    public function updateShipment(ShipmentInterface $shipment)
+    {
+        // Not required but need to satisfy interface
     }
 }

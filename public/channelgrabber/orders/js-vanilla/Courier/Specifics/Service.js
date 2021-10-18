@@ -463,7 +463,23 @@ define([
         $(EventHandler.SELECTOR_EXPORT_LABEL_BUTTON).addClass('disabled');
         this.getNotifications().notice('Exporting all', true);
         this.sendExportRequest(data);
+        this.exportRefresh();
     };
+
+    Service.prototype.exportRefresh = function ()
+    {
+        let self = this;
+        let i = 0;
+        let maxAttempts = 1;
+
+        $(document).ajaxStop(function() {
+            if (i > maxAttempts) {
+                return;
+            }
+            i++;
+            self.refresh();
+        });
+    }
 
     Service.prototype.sendCreateLabelsRequest = function(data, button)
     {
@@ -486,6 +502,7 @@ define([
 
     Service.prototype.sendExportRequest = function(data)
     {
+        let self = this;
         var formHtml = '<form method="POST" action="' + Service.URI_EXPORT + '">';
         for (var name in data) {
             if (!data.hasOwnProperty(name)) {
@@ -506,6 +523,7 @@ define([
         }
         formHtml += '</form>';
         $(formHtml).appendTo('body').submit().remove();
+        self.refresh();
     };
 
     Service.prototype.processCreateLabelsResponse = function(response, button)
@@ -795,7 +813,7 @@ define([
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed', 'exported'], true, true);
         if (!data) {
             return;
         }

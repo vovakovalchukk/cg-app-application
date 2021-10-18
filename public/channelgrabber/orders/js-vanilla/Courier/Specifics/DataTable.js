@@ -77,7 +77,7 @@ CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT = '.courier-label-cost';
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true, 'export': true, 'fetchrates': true},
-    'exported': {"export": true},
+    'exported': {"export": true, 'cancel': true},
     'not printed': {'print': true, 'cancel': true, 'dispatch': true},
     'printed': {'print': true, 'dispatch': true},
     'cancelled': {'create': true, 'fetchrates': true},

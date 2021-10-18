@@ -4,10 +4,14 @@ namespace CG\ShipStation\Messages\Customs;
 use CG\Order\Shared\Courier\Label\OrderItemsData;
 use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
 use CG\Order\Shared\Item\Entity as OrderItem;
+use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Item
 {
+    protected const COUNTRY_CODE_GB = 'GB';
+    protected const CURRENCY_CODE_GBP = 'GBP';
+
     /** @var string */
     protected $description;
     /** @var int */
@@ -40,12 +44,19 @@ class Item
     public static function createFromOrderItem(
         OrderItem $orderItem,
         ItemData $itemData,
-        OrganisationUnit $ou
+        OrganisationUnit $ou,
+        Order $order
     ): self {
+
+        $itemPrice = $orderItem->getIndividualItemPrice();
+        if ($order->getCurrencyCode() != static::CURRENCY_CODE_GBP &&  $ou->getAddressCountryCode() == static::COUNTRY_CODE_GB) {
+            $itemPrice = number_format($orderItem->getIndividualItemPrice() / $order->getExchangeRate(),2);
+        }
+
         return new self(
             $orderItem->getItemName(),
             $orderItem->getItemQuantity(),
-            $orderItem->getIndividualItemPrice(),
+            $itemPrice,
             $itemData->getCountryOfOrigin() ?? $ou->getAddressCountryCode(),
             $itemData->getHarmonisedSystemCode()
         );
