@@ -157,11 +157,7 @@ class Shipment
         }
 
         $postcode = $order->getShippingAddressPostcodeForCourier();
-        if (preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode))) {
-            return true;
-        }
-
-        return false;
+        return preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode));
     }
 
     public function getCarrierId(): string
