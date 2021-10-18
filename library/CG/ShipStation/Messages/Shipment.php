@@ -32,6 +32,8 @@ class Shipment
     protected $confirmation;
     /** @var Customs|null */
     protected $customs;
+    /** @var AdvancedOptions|null */
+    protected $advancedOptions;
     /** @var TaxIdentifiers|null */
     protected $taxIdentifiers;
     /** @var bool */
@@ -49,6 +51,7 @@ class Shipment
         string $externalShipmentId,
         ?string $confirmation,
         ?Customs $customs,
+        ?AdvancedOptions $advancedOptions,
         ?TaxIdentifiers $taxIdentifiers,
         ?bool $validateAddress,
         ?DateTime $shipDate,
@@ -61,6 +64,7 @@ class Shipment
         $this->externalShipmentId = $externalShipmentId;
         $this->confirmation = $confirmation;
         $this->customs = $customs;
+        $this->advancedOptions = $advancedOptions;
         $this->taxIdentifiers = $taxIdentifiers;
         $this->validateAddress = (bool)$validateAddress;
         $this->shipDate = $shipDate;
@@ -94,6 +98,8 @@ class Shipment
         }
         $shipDate = new DateTime();
 
+        $advancedOptions = AdvancedOptions::createFromOrder($orderData);
+
         return new static(
             $shippingAccount->getExternalId(),
             $orderData->getService(),
@@ -102,6 +108,7 @@ class Shipment
             $reference,
             $confirmation,
             $customs,
+            $advancedOptions,
             $taxIdentifiers,
             false,
             $shipDate,
@@ -135,6 +142,9 @@ class Shipment
         }
         if ($this->getCustoms()) {
             $array['customs'] = $this->getCustoms()->toArray();
+        }
+        if ($this->getAdvancedOptions()) {
+            $array['advanced_options'] = $this->getAdvancedOptions()->toArray();
         }
         if ($this->getTaxIdentifiers()) {
             $array['tax_identifiers'] = $this->getTaxIdentifiers()->toArray();
@@ -231,6 +241,17 @@ class Shipment
     public function setCustoms(?Customs $customs): Shipment
     {
         $this->customs = $customs;
+        return $this;
+    }
+
+    public function getAdvancedOptions(): ?AdvancedOptions
+    {
+        return $this->advancedOptions;
+    }
+
+    public function setAdvancedOptions(?AdvancedOptions $advancedOptions): Shipment
+    {
+        $this->advancedOptions = $advancedOptions;
         return $this;
     }
 
