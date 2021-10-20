@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef1cedd82dbcce956b5ed75590aa74ef",
+    "content-hash": "9491d200726988d225a2c380a8e08794",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1133,16 +1133,11 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "1.2.3",
+            "version": "dev-CGIV-12130-de-archived-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "9b2b5945eff0c65117c8704a4d61d89bc5ece047"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.3-1ce39c.zip",
-                "reference": "9b2b5945eff0c65117c8704a4d61d89bc5ece047"
+                "reference": "ea332929c6b081034bcf325e5ba83daeb774fead"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -11996,13 +11991,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
+            "version": "dev-CGIV-12130-de-archived-orders",
+            "package": "channelgrabber/data-exchange"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/data-exchange": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
