@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef1cedd82dbcce956b5ed75590aa74ef",
+    "content-hash": "cc4e8054e78a2f86b3b2897d94221b49",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2858,16 +2858,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.20.19",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "edfa465b944b2d458580549f75da77408d0e5ddd"
+                "reference": "f82df4484dc23ece611aff02791287a1855a16b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.20.19-cd4dd0.zip",
-                "reference": "edfa465b944b2d458580549f75da77408d0e5ddd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.21.0-f60e82.zip",
+                "reference": "f82df4484dc23ece611aff02791287a1855a16b3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2916,7 +2916,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-10-07T10:15:18+00:00"
+            "time": "2021-10-21T13:24:47+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11636,6 +11636,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {

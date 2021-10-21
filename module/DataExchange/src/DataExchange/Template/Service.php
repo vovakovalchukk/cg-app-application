@@ -5,33 +5,45 @@ use CG\DataExchangeTemplate\Entity as Template;
 use CG\DataExchangeTemplate\Filter as TemplateFilter;
 use CG\DataExchangeTemplate\Mapper as TemplateMapper;
 use CG\DataExchangeTemplate\Service as TemplateService;
+use CG\OrganisationUnit\Entity as Ou;
+use CG\OrganisationUnit\Service as OuService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    protected const LOG_CODE = 'TemplateService';
+    protected const LOG_OU_NOT_FOUND_MSG = 'OU %d has not been found';
+
     /** @var TemplateService */
     protected $templateService;
     /** @var TemplateMapper */
     protected $templateMapper;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var OuService */
+    protected $ouService;
 
     public function __construct(
         TemplateService $templateService,
         TemplateMapper $templateMapper,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        OuService $ouService
     ){
         $this->templateService = $templateService;
         $this->templateMapper = $templateMapper;
         $this->activeUserContainer = $activeUserContainer;
+        $this->ouService = $ouService;
     }
 
-    public function fetchAllTemplatesForActiveUser(string $type): array
+    public function fetchAllTemplatesForActiveUser(string $type, Ou $ou): array
     {
         try {
-            $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-            $filter = $this->buildTemplateFilter($ouId, $type);
+            $filter = $this->buildTemplateFilter($ou->getId(), $type);
             $templateCollection = $this->templateService->fetchCollectionByFilter($filter);
             $templatesArray = [];
             /** @var Template $template */
@@ -66,6 +78,17 @@ class Service
     {
         $template = $this->fetchTemplateByTypeAndId($type, $id);
         $this->templateService->remove($template);
+    }
+
+    public function fetchOrganisationUnit(): Ou
+    {
+        try {
+            $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            return $this->ouService->fetch($rootOuId);
+        } catch (NotFound $exception) {
+            $this->logAlertException($exception, static::LOG_OU_NOT_FOUND_MSG, [$rootOuId ?? 0], static::LOG_CODE);
+            throw $exception;
+        }
     }
 
     protected function fetchTemplateByTypeAndId(string $type, int $id): Template
