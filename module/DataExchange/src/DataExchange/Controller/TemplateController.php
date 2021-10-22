@@ -75,8 +75,10 @@ class TemplateController extends AbstractActionController implements LoggerAware
         $viewModel = $this->viewModelFactory->newInstance();
         $viewModel->setTemplate('data-exchange/' . $type . '/template.phtml');
 
-        $cgFieldOptions = FieldsFactory::fetchFieldsForType($type);
-        $templates = $this->templateService->fetchAllTemplatesForActiveUser($type);
+        $ou = $this->templateService->fetchOrganisationUnit();
+
+        $cgFieldOptions = FieldsFactory::fetchFieldsForType($type, $ou);
+        $templates = $this->templateService->fetchAllTemplatesForActiveUser($type, $ou);
 
         $viewModel->setVariables([
             'isHeaderBarVisible' => false,
