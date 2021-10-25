@@ -1,6 +1,7 @@
 <?php
 namespace DataExchange\Template\Fields;
 
+use CG\OrganisationUnit\Entity as Ou;
 use DataExchange\Template\FieldsInterface;
 
 class Order implements FieldsInterface
@@ -71,7 +72,7 @@ class Order implements FieldsInterface
         'Weight' => 'weightString'
     ];
 
-    public static function getFields(): array
+    public static function getFields(Ou $ou): array
     {
         return static::FIELDS;
     }

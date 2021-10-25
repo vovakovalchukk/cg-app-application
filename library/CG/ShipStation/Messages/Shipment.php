@@ -15,6 +15,8 @@ use DateTime;
 class Shipment
 {
     protected const EXTERNAL_ID_LEN_MAX = 35;
+    protected const NI_POSTCODE_PATTERN = '/^BT[0-9]{1,2}[\s]*([\d][A-Za-z]{2})$/';
+    public const COUNTRY_CODE_GB = 'GB';
     public const EXTERNAL_ID_SEP = '|';
     public const SHIP_DATE_FORMAT = 'Y-m-d';
 
@@ -32,6 +34,8 @@ class Shipment
     protected $confirmation;
     /** @var Customs|null */
     protected $customs;
+    /** @var AdvancedOptions|null */
+    protected $advancedOptions;
     /** @var TaxIdentifiers|null */
     protected $taxIdentifiers;
     /** @var bool */
@@ -49,6 +53,7 @@ class Shipment
         string $externalShipmentId,
         ?string $confirmation,
         ?Customs $customs,
+        ?AdvancedOptions $advancedOptions,
         ?TaxIdentifiers $taxIdentifiers,
         ?bool $validateAddress,
         ?DateTime $shipDate,
@@ -61,6 +66,7 @@ class Shipment
         $this->externalShipmentId = $externalShipmentId;
         $this->confirmation = $confirmation;
         $this->customs = $customs;
+        $this->advancedOptions = $advancedOptions;
         $this->taxIdentifiers = $taxIdentifiers;
         $this->validateAddress = (bool)$validateAddress;
         $this->shipDate = $shipDate;
@@ -88,11 +94,13 @@ class Shipment
             $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu, $reference);
         }
         $customs = $taxIdentifiers = null;
-        if ($carrierService->isInternational()) {
+        if ($carrierService->isInternational() || static::isNiShipment($order)) {
             $customs = Customs::createFromOrder($order, $itemsData, $rootOu);
             $taxIdentifiers = TaxIdentifiers::createFromOrder($order, $orderData, $rootOu);
         }
         $shipDate = new DateTime();
+
+        $advancedOptions = AdvancedOptions::createFromOrder($orderData);
 
         return new static(
             $shippingAccount->getExternalId(),
@@ -102,6 +110,7 @@ class Shipment
             $reference,
             $confirmation,
             $customs,
+            $advancedOptions,
             $taxIdentifiers,
             false,
             $shipDate,
@@ -136,6 +145,9 @@ class Shipment
         if ($this->getCustoms()) {
             $array['customs'] = $this->getCustoms()->toArray();
         }
+        if ($this->getAdvancedOptions()) {
+            $array['advanced_options'] = $this->getAdvancedOptions()->toArray();
+        }
         if ($this->getTaxIdentifiers()) {
             $array['tax_identifiers'] = $this->getTaxIdentifiers()->toArray();
         }
@@ -146,6 +158,16 @@ class Shipment
             $array['ship_date'] = $this->getShipDate()->format(static::SHIP_DATE_FORMAT);
         }
         return $array;
+    }
+
+    protected static function isNiShipment(Order $order): bool
+    {
+        if ($order->getShippingAddressCountryCodeForCourier() != static::COUNTRY_CODE_GB) {
+            return false;
+        }
+
+        $postcode = $order->getShippingAddressPostcodeForCourier();
+        return preg_match(static::NI_POSTCODE_PATTERN, strtoupper($postcode));
     }
 
     public function getCarrierId(): string
@@ -231,6 +253,17 @@ class Shipment
     public function setCustoms(?Customs $customs): Shipment
     {
         $this->customs = $customs;
+        return $this;
+    }
+
+    public function getAdvancedOptions(): ?AdvancedOptions
+    {
+        return $this->advancedOptions;
+    }
+
+    public function setAdvancedOptions(?AdvancedOptions $advancedOptions): Shipment
+    {
+        $this->advancedOptions = $advancedOptions;
         return $this;
     }
 

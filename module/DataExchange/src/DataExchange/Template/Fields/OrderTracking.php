@@ -1,6 +1,7 @@
 <?php
 namespace DataExchange\Template\Fields;
 
+use CG\OrganisationUnit\Entity as Ou;
 use DataExchange\Template\FieldsInterface;
 
 class OrderTracking implements FieldsInterface
@@ -12,7 +13,7 @@ class OrderTracking implements FieldsInterface
         'Shipping Service' => 'shippingService',
     ];
 
-    public static function getFields(): array
+    public static function getFields(Ou $ou): array
     {
         return static::FIELDS;
     }
