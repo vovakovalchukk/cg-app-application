@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c44070b0484e6181e3d0cb84151907",
+    "content-hash": "2a8622b56f9cd5b11d56fc2659d3bd44",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2510,16 +2510,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.59.0",
+            "version": "dev-CGIV-12247-use-eu-vat-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "257e7e12a54215b0d6408f336d61e0c19e313fdb"
+                "reference": "db55c23856f5afe80b856de175ca00e5641f6f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.0-83ea8d.zip",
-                "reference": "257e7e12a54215b0d6408f336d61e0c19e313fdb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12247-use-eu-vat-rates-0adf66.zip",
+                "reference": "db55c23856f5afe80b856de175ca00e5641f6f6b",
                 "shasum": null
             },
             "require": {
@@ -2558,7 +2558,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "^1.28.7",
+                "channelgrabber/user": "dev-CGIV-12247-use-eu-vat-rates as 1.28.8",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2591,7 +2591,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-09-17T12:54:52+00:00"
+            "time": "2021-10-28T15:10:18+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -4074,16 +4074,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.28.7",
+            "version": "dev-CGIV-12247-use-eu-vat-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "9a2d70bee9637f4442e382a0827e91b3e4b8ca80"
+                "reference": "db83138bf98de386c867f68e45105cd11ea513f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.28.7-3e709c.zip",
-                "reference": "9a2d70bee9637f4442e382a0827e91b3e4b8ca80",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-dev-CGIV-12247-use-eu-vat-rates-8d48d3.zip",
+                "reference": "db83138bf98de386c867f68e45105cd11ea513f4",
                 "shasum": null
             },
             "require": {
@@ -4105,6 +4105,7 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.3",
                 "php": ">=7.1",
+                "psr/container": "~1.0.0",
                 "zendframework/zend-db": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
                 "zendframework/zend-i18n": ">=2.2,<3.0",
@@ -4115,7 +4116,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "extra": {
@@ -4128,7 +4129,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2021-06-22T11:32:14+00:00"
+            "time": "2021-10-28T15:08:52+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -7903,6 +7904,55 @@
                 "psr-6"
             ],
             "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -12120,10 +12170,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.59.3",
+            "alias_normalized": "1.59.3.0",
+            "version": "dev-CGIV-12247-use-eu-vat-rates",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.28.8",
+            "alias_normalized": "1.28.8.0",
+            "version": "dev-CGIV-12247-use-eu-vat-rates",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/user": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
