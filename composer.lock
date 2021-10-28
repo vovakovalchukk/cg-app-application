@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "16a6e3a2988f194a58bdbd0b708a4080",
+    "content-hash": "27c44070b0484e6181e3d0cb84151907",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1150,16 +1150,16 @@
         },
         {
             "name": "channelgrabber/data-exchange",
-            "version": "dev-CGIV-12130-de-archived-orders",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-data-exchange.git",
-                "reference": "013b28bb8dc79f2dcb189caf5b8e6682a79c1a15"
+                "reference": "3f130ac9a757720883b2ea7c6e01a2c3876aa0ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-dev-CGIV-12130-de-archived-orders-427860.zip",
-                "reference": "013b28bb8dc79f2dcb189caf5b8e6682a79c1a15",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/data-exchange/channelgrabber-data-exchange-1.2.4-ab7dd7.zip",
+                "reference": "3f130ac9a757720883b2ea7c6e01a2c3876aa0ca",
                 "shasum": null
             },
             "require": {
@@ -1193,7 +1193,7 @@
                     "CG\\DataExchange\\Test\\": "tests/src/"
                 }
             },
-            "time": "2021-10-20T12:44:36+00:00"
+            "time": "2021-10-28T10:45:17+00:00"
         },
         {
             "name": "channelgrabber/data-exchange-history",
@@ -12120,18 +12120,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-12130-de-archived-orders",
-            "package": "channelgrabber/data-exchange"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/data-exchange": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

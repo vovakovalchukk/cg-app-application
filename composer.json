@@ -35,7 +35,7 @@
         "channelgrabber/courier": "~1.5.1",
         "channelgrabber/courieradapter": "~1.7.5",
         "channelgrabber/currency": "~1.0.2",
-        "channelgrabber/data-exchange": "dev-CGIV-12130-de-archived-orders as 1.2.4",
+        "channelgrabber/data-exchange": "~1.2.4",
         "channelgrabber/data-exchange-history": "~1.0.4",
         "channelgrabber/data-exchange-schedule": "~1.0.5",
         "channelgrabber/data-exchange-template": "~1.0.4",
