@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c44070b0484e6181e3d0cb84151907",
+    "content-hash": "8337701bf10181116572fd9eb145d8da",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2464,7 +2464,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2d718d23845c1fc0c677c449b88a0df04c82721e"
+                "reference": "2dcc0f47614138fe29fbdb6b72bdabf4340b10bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12129-dataexchange-filter-timezone-806fd6.zip",
+                "reference": "2dcc0f47614138fe29fbdb6b72bdabf4340b10bb"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2535,7 +2540,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-09-17T12:54:52+00:00"
+            "time": "2021-11-03T14:13:33+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -10542,7 +10547,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11630,6 +11636,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
@@ -11992,8 +11999,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.59.1",
-            "alias_normalized": "1.59.1.0",
+            "alias": "1.59.4",
+            "alias_normalized": "1.59.4.0",
             "version": "dev-CGIV-12129-dataexchange-filter-timezone",
             "package": "channelgrabber/order"
         }
@@ -12003,8 +12010,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
