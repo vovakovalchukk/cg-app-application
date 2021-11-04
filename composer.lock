@@ -2514,12 +2514,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b39c4c6140da39747b5ff49249a99211cec98fd1"
+                "reference": "3db116967aebb3b7a755830bf521ae3dcc10b730"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12247-use-eu-vat-rates-fa719c.zip",
-                "reference": "b39c4c6140da39747b5ff49249a99211cec98fd1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12247-use-eu-vat-rates-b103f8.zip",
+                "reference": "3db116967aebb3b7a755830bf521ae3dcc10b730",
                 "shasum": null
             },
             "require": {
@@ -2591,7 +2591,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-11-04T11:48:38+00:00"
+            "time": "2021-11-04T12:12:57+00:00"
         },
         {
             "name": "channelgrabber/partner",
