@@ -1,4 +1,4 @@
 {{#showWeight}}
-<input type="number" min="0" step="any" value="{{weight}}" placeholder="{{massUnit}}" {{#parcelRow}}name="parcelData[{{orderId}}][{{parcelNumber}}][weight]" id="courier-order-weight-{{orderId}}-{{parcelNumber}}"{{/parcelRow}}{{^parcelRow}}name="itemData[{{orderId}}][{{itemId}}][weight]"{{/parcelRow}} class="courier-item-weight courier-order-dimension inputbox number courier-order-weight required{{^parcelRow}} courier-item-weight_{{orderId}}{{/parcelRow}}" />
+<input type="number" min="0" step="any" value="{{weight}}" placeholder="{{massUnit}}" {{#parcelRow}}name="parcelData[{{orderId}}][{{parcelNumber}}][weight]" id="courier-order-weight-{{orderId}}-{{parcelNumber}}"{{/parcelRow}}{{^parcelRow}}name="itemData[{{orderId}}][{{itemId}}][weight]"{{/parcelRow}} class="courier-order-dimension inputbox number courier-order-weight required{{^parcelRow}} courier-item-weight courier-item-weight_{{orderId}}{{/parcelRow}}" />
 {{/showWeight}}
 {{^showWeight}}&nbsp;{{/showWeight}}

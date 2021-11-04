@@ -67,7 +67,11 @@
 .courier-order-height,
 .courier-order-width,
 .courier-order-length {
-    width: 40px !important;
+    width: 35px !important;
+}
+
+.courier-order-harmonisedSystemCode {
+    width: 60px;
 }
 
 .courier-order-countryOfOrigin {

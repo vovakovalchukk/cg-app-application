@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c44070b0484e6181e3d0cb84151907",
+    "content-hash": "ff20dfa8183bec93c8ac5e85cef1ebcf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5371,7 +5371,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "357bdc3eb5667093bdb29cc5fd9cc39e108a6b9b"
+                "reference": "d22228de17bb2ecf265e1b878fb1371ce8c522db"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
