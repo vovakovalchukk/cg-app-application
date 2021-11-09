@@ -179,7 +179,7 @@ class OrderDetailsController extends AbstractActionController
         $view->setVariable('order', $order);
         $view->setVariable('vatOu', $vatOu);
 
-        if ($order->getShippingOriginCountryCode() !== null) {
+        if (empty($order->getShippingOriginCountryCode())) {
             $taxOrigin = Origin::fromCountryAndPostcode($order->getShippingOriginCountryCode());
         } else {
             $taxOrigin = Origin::fromCountryAndPostcode($vatOu->getAddressCountryCode(), $vatOu->getAddressPostcode());
