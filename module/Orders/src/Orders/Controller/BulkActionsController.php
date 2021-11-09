@@ -941,11 +941,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 ->setId($ids);
 
             $templateCollection = $this->templateService->fetchCollectionByFilter($filter);
-            $this->attachDefaultTemplates($templateCollection, $ids);
-            return $templateCollection;
         } catch (NotFound $e) {
-            return new TemplateCollection(Template::class, 'empty');
+            $templateCollection = new TemplateCollection(Template::class, 'empty');
         }
+
+        $this->attachDefaultTemplates($templateCollection, $ids);
+        return $templateCollection;
     }
 
     protected function attachDefaultTemplates(TemplateCollection $collection, array $ids): void
