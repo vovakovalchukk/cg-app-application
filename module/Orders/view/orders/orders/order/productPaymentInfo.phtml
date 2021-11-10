@@ -35,7 +35,7 @@
         <td class="midcell"><strong><?= $this->translate('Subtotal'); ?>:</strong></td>
         <td class="rightcell" id="order-table-sub-total-value"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
     </tr>
-    <?php if ($vatOu->isVatRegistered()): ?>
+    <?php if ($vatOu->isVatRegistered() || $enforceEuVat): ?>
         <tr>
             <td class="leftcell">
                 <?php if ($order->getPaymentReference()): ?>

@@ -74,6 +74,9 @@ return [
                         'type' => Segment::class,
                         'options' => [
                             'route' => '/stock/ajax/:productSku',
+                            'constraints' => [
+                                'productSku' => '.+'
+                            ],
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'stockFetch'

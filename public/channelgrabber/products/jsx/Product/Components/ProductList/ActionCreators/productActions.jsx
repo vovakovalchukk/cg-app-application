@@ -94,7 +94,7 @@ var actionCreators = (function() {
     };
     const updateStockLevelsRequest = (productSku) => {
         return $.ajax({
-            url: '/products/stock/ajax/' + productSku,
+            url: '/products/stock/ajax/' + encodeURIComponent(productSku),
             type: 'GET'
         });
     };
@@ -232,7 +232,7 @@ var actionCreators = (function() {
                     let response = await updateStockLevelsRequest(productSku);
                     dispatch(updateStockLevelsRequestSuccess(response));
                 } catch (err) {
-                    console.error(error);
+                    console.error(err);
                 }
                 fetchingStockLevelsForSkus[productSku] = false;
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));

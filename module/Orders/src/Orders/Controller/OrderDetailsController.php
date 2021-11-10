@@ -10,6 +10,8 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
+use CG\Order\Shared\Tax\Destination;
+use CG\Order\Shared\Tax\Origin;
 use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -173,11 +175,19 @@ class OrderDetailsController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/productPaymentInfo');
 
-
+        $vatOu = $this->orderService->getVatOrganisationUnitForOrder($order);
         $view->setVariable('order', $order);
-        $view->setVariable('vatOu', $this->orderService->getVatOrganisationUnitForOrder($order));
+        $view->setVariable('vatOu', $vatOu);
 
-        if ($order->isEligibleForZeroRateVat()) {
+        if (empty($order->getShippingOriginCountryCode())) {
+            $taxOrigin = Origin::fromCountryAndPostcode($order->getShippingOriginCountryCode());
+        } else {
+            $taxOrigin = Origin::fromCountryAndPostcode($vatOu->getAddressCountryCode(), $vatOu->getAddressPostcode());
+        }
+        $taxDestination = Destination::fromCountryAndPostcode($order->getCalculatedShippingAddressCountryCode(), $order->getCalculatedShippingAddressPostcode());
+        $view->setVariable('enforceEuVat', $taxOrigin->isGB() && !$taxOrigin->isNI() && $taxDestination->isEU());
+
+        if ($order->isEligibleForZeroRateVat() && $taxOrigin->isNI() && $taxDestination->isEU()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
             $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
