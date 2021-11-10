@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a8622b56f9cd5b11d56fc2659d3bd44",
+    "content-hash": "351206f70ea172663cb93eb872dfa1bd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2510,16 +2510,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-12247-use-eu-vat-rates",
+            "version": "1.59.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8be698a26b14f4e2780a4903af03dac15d88696f"
+                "reference": "67e3de872f410631b671aea72e707d89315d77a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12247-use-eu-vat-rates-9af6b2.zip",
-                "reference": "8be698a26b14f4e2780a4903af03dac15d88696f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.4-b558fd.zip",
+                "reference": "67e3de872f410631b671aea72e707d89315d77a2",
                 "shasum": null
             },
             "require": {
@@ -2558,7 +2558,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "dev-CGIV-12247-use-eu-vat-rates as 1.28.8",
+                "channelgrabber/user": "^1.28.8",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2591,7 +2591,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-11-09T13:04:10+00:00"
+            "time": "2021-11-10T09:27:04+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -4074,16 +4074,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-12247-use-eu-vat-rates",
+            "version": "1.28.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "db83138bf98de386c867f68e45105cd11ea513f4"
+                "reference": "c2c2b7906849b02216ce75f5fcb860de0037bf95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-dev-CGIV-12247-use-eu-vat-rates-8d48d3.zip",
-                "reference": "db83138bf98de386c867f68e45105cd11ea513f4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.28.8-935260.zip",
+                "reference": "c2c2b7906849b02216ce75f5fcb860de0037bf95",
                 "shasum": null
             },
             "require": {
@@ -4129,7 +4129,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2021-10-28T15:08:52+00:00"
+            "time": "2021-11-10T09:21:35+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -12170,25 +12170,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.59.3",
-            "alias_normalized": "1.59.3.0",
-            "version": "dev-CGIV-12247-use-eu-vat-rates",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.28.8",
-            "alias_normalized": "1.28.8.0",
-            "version": "dev-CGIV-12247-use-eu-vat-rates",
-            "package": "channelgrabber/user"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/user": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
