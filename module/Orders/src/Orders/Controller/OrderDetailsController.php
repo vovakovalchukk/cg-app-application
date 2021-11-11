@@ -4,7 +4,6 @@ namespace Orders\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
-use CG\Locale\CountryNameByCode;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -18,6 +17,8 @@ use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -34,8 +35,12 @@ use UnexpectedValueException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class OrderDetailsController extends AbstractActionController
+class OrderDetailsController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    protected const LOG_CODE = 'OrderDetailsController';
+
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -196,7 +201,7 @@ class OrderDetailsController extends AbstractActionController
         }
         $view->setVariable('enforceEuVat', $enforceEuVat);
 
-        if ($taxOrigin->isNI() && $taxDestination->isEU() && $order->isEligibleForZeroRateVat()) {
+        if ($taxDestination && $taxDestination->isEU() && $taxOrigin->isNI() && $order->isEligibleForZeroRateVat()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
             $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
@@ -219,8 +224,9 @@ class OrderDetailsController extends AbstractActionController
     protected function getTaxDestination(Order $order): ?Destination
     {
         try {
-            Destination::fromOrder($order);
+            return Destination::fromOrder($order);
         } catch (UnexpectedValueException $e) {
+            $this->logDebugException($e, 'We cannot determine a valid country code for order %s (Country: %s, Country Code: %s), cannot enforce EU VAT or determine if zero-ratable', [$order->getId(), $order->getCalculatedShippingAddressCountry(), $order->getCalculatedShippingAddressCountryCode()], static::LOG_CODE, ['order' => $order->getId()]);
             return null;
         }
     }
