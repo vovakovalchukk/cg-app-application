@@ -187,7 +187,7 @@ class OrderDetailsController extends AbstractActionController
         $taxDestination = Destination::fromCountryAndPostcode($order->getCalculatedShippingAddressCountryCode(), $order->getCalculatedShippingAddressPostcode());
         $view->setVariable('enforceEuVat', $taxOrigin->isGB() && !$taxOrigin->isNI() && $taxDestination->isEU());
 
-        if ($order->isEligibleForZeroRateVat() && $taxOrigin->isNI() && $taxDestination->isEU()) {
+        if ($taxOrigin->isNI() && $taxDestination->isEU() && $order->isEligibleForZeroRateVat()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
             $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
