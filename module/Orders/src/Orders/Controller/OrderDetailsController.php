@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
+use CG\Locale\CountryNameByCode;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -14,6 +15,7 @@ use CG\Order\Shared\Tax\Destination;
 use CG\Order\Shared\Tax\Origin;
 use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -28,6 +30,7 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
+use UnexpectedValueException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -178,14 +181,20 @@ class OrderDetailsController extends AbstractActionController
         $vatOu = $this->orderService->getVatOrganisationUnitForOrder($order);
         $view->setVariable('order', $order);
         $view->setVariable('vatOu', $vatOu);
+        $view->addChild($this->orderService->getOrderItemTable($order), 'productPaymentTable');
 
-        if (empty($order->getShippingOriginCountryCode())) {
-            $taxOrigin = Origin::fromCountryAndPostcode($order->getShippingOriginCountryCode());
-        } else {
-            $taxOrigin = Origin::fromCountryAndPostcode($vatOu->getAddressCountryCode(), $vatOu->getAddressPostcode());
+        if ($order->getBillingAddress()->isRedacted() || $order->getShippingAddress()->isRedacted()) {
+            return $view;
         }
-        $taxDestination = Destination::fromCountryAndPostcode($order->getCalculatedShippingAddressCountryCode(), $order->getCalculatedShippingAddressPostcode());
-        $view->setVariable('enforceEuVat', $taxOrigin->isGB() && !$taxOrigin->isNI() && $taxDestination->isEU());
+
+        $taxOrigin = $this->getTaxOrigin($order, $vatOu);
+        $taxDestination = $this->getTaxDestination($order);
+        if (!$taxDestination) {
+            $enforceEuVat = false;
+        } else {
+            $enforceEuVat = $taxOrigin->isGB() && !$taxOrigin->isNI() && $taxDestination->isEU();
+        }
+        $view->setVariable('enforceEuVat', $enforceEuVat);
 
         if ($taxOrigin->isNI() && $taxDestination->isEU() && $order->isEligibleForZeroRateVat()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
@@ -196,9 +205,24 @@ class OrderDetailsController extends AbstractActionController
             $view->addChild($this->getRecipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
         }
 
-        $view->addChild($this->orderService->getOrderItemTable($order), 'productPaymentTable');
-
         return $view;
+    }
+
+    protected function getTaxOrigin(Order $order, OrganisationUnit $vatOu): Origin
+    {
+        if (!empty($order->getShippingOriginCountryCode())) {
+            return Origin::fromCountryAndPostcode($order->getShippingOriginCountryCode());
+        }
+        return Origin::fromCountryAndPostcode($vatOu->getAddressCountryCode(), $vatOu->getAddressPostcode());
+    }
+
+    protected function getTaxDestination(Order $order): ?Destination
+    {
+        try {
+            Destination::fromOrder($order);
+        } catch (UnexpectedValueException $e) {
+            return null;
+        }
     }
 
     protected function getZeroRatedCheckbox($isOrderZeroRated)
