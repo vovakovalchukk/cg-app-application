@@ -54,6 +54,8 @@ class CourierController extends AbstractActionController implements LoggerAwareI
     const LABEL_MIME_TYPE = 'application/pdf';
     const MANIFEST_MIME_TYPE = 'application/pdf';
 
+    protected const RM_INTERSOFT_CA = 'royal-mail-intersoft-ca';
+
     protected const LOG_CODE = 'CourierController';
     protected const LOG_MSG_EXCEPTION = 'Courier Bulk Package Options Loading Exception';
 
@@ -369,7 +371,7 @@ class CourierController extends AbstractActionController implements LoggerAwareI
             $viewConfig['collectionDate'] = true;
             $viewConfig['collectionDateDate'] = (new \DateTime())->format('d/m/Y');
         }
-        if (isset($options['packageType'])) {
+        if (isset($options['packageType']) && $selectedAccount->getChannel() == static::RM_INTERSOFT_CA) {
             $viewConfig['packageType'] = true;
 
             try {

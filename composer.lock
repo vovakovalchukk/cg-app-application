@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff20dfa8183bec93c8ac5e85cef1ebcf",
+    "content-hash": "028648e588030afd7671bd9b28b2d1dc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2460,16 +2460,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.59.0",
+            "version": "1.59.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "257e7e12a54215b0d6408f336d61e0c19e313fdb"
+                "reference": "f564c16503591d28488f83a602f6ceff043d15c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.0-83ea8d.zip",
-                "reference": "257e7e12a54215b0d6408f336d61e0c19e313fdb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.6-845614.zip",
+                "reference": "f564c16503591d28488f83a602f6ceff043d15c3"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2507,7 +2507,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.9.2",
                 "channelgrabber/transaction": "^1.3.0",
-                "channelgrabber/user": "^1.28.7",
+                "channelgrabber/user": "^1.28.9",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -2540,7 +2540,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-09-17T12:54:52+00:00"
+            "time": "2021-11-11T17:17:19+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3987,16 +3987,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.28.7",
+            "version": "1.28.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "9a2d70bee9637f4442e382a0827e91b3e4b8ca80"
+                "reference": "31e51c61655e6f34b85a8628b7f1dc19fe17d6f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.28.7-3e709c.zip",
-                "reference": "9a2d70bee9637f4442e382a0827e91b3e4b8ca80"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.28.9-946fcc.zip",
+                "reference": "31e51c61655e6f34b85a8628b7f1dc19fe17d6f1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4017,6 +4017,7 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.3",
                 "php": ">=7.1",
+                "psr/container": "~1.0.0",
                 "zendframework/zend-db": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
                 "zendframework/zend-i18n": ">=2.2,<3.0",
@@ -4027,7 +4028,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "extra": {
@@ -4040,7 +4041,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2021-06-22T11:32:14+00:00"
+            "time": "2021-11-11T17:14:12+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -7780,6 +7781,55 @@
                 "psr-6"
             ],
             "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-factory",

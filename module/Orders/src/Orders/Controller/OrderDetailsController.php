@@ -10,10 +10,15 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\PartialRefund\Service as PartialRefundService;
+use CG\Order\Shared\Tax\Destination;
+use CG\Order\Shared\Tax\Origin;
 use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_Access\UsageExceeded\Service as AccessUsageExceededService;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -26,11 +31,16 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
+use UnexpectedValueException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class OrderDetailsController extends AbstractActionController
+class OrderDetailsController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    protected const LOG_CODE = 'OrderDetailsController';
+
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -173,11 +183,25 @@ class OrderDetailsController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/productPaymentInfo');
 
-
+        $vatOu = $this->orderService->getVatOrganisationUnitForOrder($order);
         $view->setVariable('order', $order);
-        $view->setVariable('vatOu', $this->orderService->getVatOrganisationUnitForOrder($order));
+        $view->setVariable('vatOu', $vatOu);
+        $view->addChild($this->orderService->getOrderItemTable($order), 'productPaymentTable');
 
-        if ($order->isEligibleForZeroRateVat()) {
+        if ($order->getBillingAddress()->isRedacted() || $order->getShippingAddress()->isRedacted()) {
+            return $view;
+        }
+
+        $taxOrigin = $this->getTaxOrigin($order, $vatOu);
+        $taxDestination = $this->getTaxDestination($order);
+        if (!$taxDestination) {
+            $enforceEuVat = false;
+        } else {
+            $enforceEuVat = $taxOrigin->isGB() && !$taxOrigin->isNI() && $taxDestination->isEU();
+        }
+        $view->setVariable('enforceEuVat', $enforceEuVat);
+
+        if ($taxDestination && $taxDestination->isEU() && $taxOrigin->isNI() && $order->isEligibleForZeroRateVat()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
             $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
@@ -186,9 +210,25 @@ class OrderDetailsController extends AbstractActionController
             $view->addChild($this->getRecipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
         }
 
-        $view->addChild($this->orderService->getOrderItemTable($order), 'productPaymentTable');
-
         return $view;
+    }
+
+    protected function getTaxOrigin(Order $order, OrganisationUnit $vatOu): Origin
+    {
+        if (!empty($order->getShippingOriginCountryCode())) {
+            return Origin::fromCountryAndPostcode($order->getShippingOriginCountryCode());
+        }
+        return Origin::fromCountryAndPostcode($vatOu->getAddressCountryCode(), $vatOu->getAddressPostcode());
+    }
+
+    protected function getTaxDestination(Order $order): ?Destination
+    {
+        try {
+            return Destination::fromOrder($order);
+        } catch (UnexpectedValueException $e) {
+            $this->logDebugException($e, 'We cannot determine a valid country code for order %s (Country: %s, Country Code: %s), cannot enforce EU VAT or determine if zero-ratable', [$order->getId(), $order->getCalculatedShippingAddressCountry(), $order->getCalculatedShippingAddressCountryCode()], static::LOG_CODE, ['order' => $order->getId()]);
+            return null;
+        }
     }
 
     protected function getZeroRatedCheckbox($isOrderZeroRated)
