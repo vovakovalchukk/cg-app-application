@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.5.1",
+        "channelgrabber/courier": "dev-CGIV-12268-dhl-parcel-uk as 1.5.2",
         "channelgrabber/courieradapter": "~1.7.5",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.4",
