@@ -1025,6 +1025,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "6bc5a6b97950e4cabc9edf6e1cde9bafd53fdaf0"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12268-dhl-parcel-uk-344214.zip",
+                "reference": "6bc5a6b97950e4cabc9edf6e1cde9bafd53fdaf0"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
                 "channelgrabber/locale": "^1.0.17",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-10-07T14:12:29+00:00"
+            "time": "2021-11-12T14:13:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10592,7 +10597,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12053,8 +12059,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
