@@ -63,6 +63,18 @@
     }
 }
 
+.courier-shipping-method {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+
+.courier-item-image {
+    img {
+        width: 50px !important;
+    }
+}
+
 .courier-order-weight,
 .courier-order-height,
 .courier-order-width,
