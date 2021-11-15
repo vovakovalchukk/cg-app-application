@@ -2333,7 +2333,7 @@ return [
             'CourierSpecificsShippingMethodColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Shipping<br/>Method'],
-                    'template' => 'value.phtml',
+                    'template' => 'orders/courier/specifics/columns/shippingMethod.phtml',
                 ],
             ],
             'CourierSpecificsShippingMethodColumn' => [

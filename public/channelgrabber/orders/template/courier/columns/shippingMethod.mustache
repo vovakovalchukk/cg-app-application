@@ -1,6 +1,9 @@
 {{#orderRow}}
-<div class="courier-shipping-method">
+<div class="courier-shipping-method" id="courier-shipping-method-{{orderId}}" orderId="{{orderId}}">
     {{{shippingMethod}}}
+</div>
+<div class="courier-shipping-method-popup" id="courier-shipping-method-popup-{{orderId}}">
+    <span>{{{shippingMethod}}}</span>
 </div>
 {{/orderRow}}
 {{^orderRow}}&nbsp;{{/orderRow}}
