@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e311a04c8cbe26cf1c69ebc584b0eb8",
+    "content-hash": "ff86bb8e289d78246157956ed62fca56",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -762,16 +762,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.47.2",
+            "version": "dev-CGIV-12279-amazon-us-dispatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c7041a2870f9689395d45fd902e6cad2abc6711a"
+                "reference": "1c27c0ad5c43aee4c154a51838486a1e1142fbf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.47.2-39c24c.zip",
-                "reference": "c7041a2870f9689395d45fd902e6cad2abc6711a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12279-amazon-us-dispatch-033245.zip",
+                "reference": "1c27c0ad5c43aee4c154a51838486a1e1142fbf5"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -839,7 +839,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-08-20T09:50:15+00:00"
+            "time": "2021-11-23T12:30:51+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -12049,6 +12049,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.47.4",
+            "alias_normalized": "1.47.4.0",
+            "version": "dev-CGIV-12279-amazon-us-dispatch",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.1.11",
             "alias_normalized": "1.1.11.0",
             "version": "dev-CGIV-12279-amazon-us-dispatch",
@@ -12057,6 +12063,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
