@@ -63,7 +63,7 @@
         "channelgrabber/log": "~2.4.0",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.6.4",
-        "channelgrabber/order": "dev-CGIV-12129-dataexchange-filter-timezone as 1.59.7",
+        "channelgrabber/order": "~1.59.7",
         "channelgrabber/partner": "~1.1.0",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",
