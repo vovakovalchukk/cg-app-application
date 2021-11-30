@@ -2333,7 +2333,7 @@ return [
             'CourierSpecificsShippingMethodColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Shipping<br/>Method'],
-                    'template' => 'value.phtml',
+                    'template' => 'orders/courier/specifics/columns/shippingMethod.phtml',
                 ],
             ],
             'CourierSpecificsShippingMethodColumn' => [
@@ -2373,7 +2373,7 @@ return [
                     'class' => 'parcels-col',
                     'sortable' => false,
                     'order' => 40,
-                    'width' => '100px',
+                    'width' => '90px',
                 ],
             ],
             'CourierSpecificsCollectionDateColumnView' => [
@@ -2390,6 +2390,7 @@ return [
                     'class' => 'collectionDate-col',
                     'sortable' => false,
                     'order' => 50,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsCollectionTimeColumnView' => [
@@ -2420,6 +2421,7 @@ return [
                     'class' => 'itemImage-col',
                     'sortable' => false,
                     'order' => 60,
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsItemColumnView' => [
@@ -2466,6 +2468,7 @@ return [
                     'class' => 'weight-col',
                     'sortable' => false,
                     'order' => 80,
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsHeightColumnView' => [
@@ -2481,6 +2484,7 @@ return [
                     'class' => 'height-col',
                     'sortable' => false,
                     'order' => 90,
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsWidthColumnView' => [
@@ -2496,6 +2500,7 @@ return [
                     'class' => 'width-col',
                     'sortable' => false,
                     'order' => 100,
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsLengthColumnView' => [
@@ -2511,6 +2516,7 @@ return [
                     'class' => 'length-col',
                     'sortable' => false,
                     'order' => 110,
+                    'width' => '50px',
                 ],
             ],
             'CourierSpecificsInsuranceColumnView' => [
@@ -2719,7 +2725,7 @@ return [
                     'class' => 'harmonisedSystemCode-col',
                     'sortable' => false,
                     'order' => 115,
-                    'width' => '50px',
+                    'width' => '75px',
                 ],
             ],
             'CourierSpecificsHarmonisedSystemCodeDescriptionColumnView' => [

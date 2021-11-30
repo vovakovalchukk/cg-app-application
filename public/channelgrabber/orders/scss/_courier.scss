@@ -62,3 +62,53 @@
         }
     }
 }
+
+.courier-shipping-method {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+
+.courier-shipping-method-popup {
+    display: none;
+    background: #ffffff;
+    color: #222;
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    position: absolute;
+    z-index: 1000;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border: 1px #c2c2c2 solid;
+    border-radius: 5px;
+
+    span {
+        margin-left: 10px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+}
+
+.courier-item-image {
+    img {
+        width: 50px !important;
+    }
+}
+
+.courier-order-weight,
+.courier-order-height,
+.courier-order-width,
+.courier-order-length {
+    width: 35px !important;
+}
+
+.courier-order-harmonisedSystemCode {
+    width: 60px;
+}
+
+.courier-order-countryOfOrigin {
+    width: 30px;
+}
+

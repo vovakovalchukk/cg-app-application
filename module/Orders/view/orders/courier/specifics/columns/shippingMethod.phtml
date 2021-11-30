@@ -1,0 +1,7 @@
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/ShippingMethod.js'], function(ShippingMethod)
+    {
+        var shippingMethod = new ShippingMethod();
+    });
+</script>
