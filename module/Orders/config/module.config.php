@@ -2521,7 +2521,7 @@ return [
             ],
             'CourierSpecificsInsuranceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Insurance?'],
+                    'variables' => ['value' => 'Ins.?'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -2533,6 +2533,7 @@ return [
                     'sortable' => false,
                     'order' => 120,
                     'defaultContent' => '',
+                    'width' => '40px',
                 ],
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
@@ -2569,7 +2570,7 @@ return [
             ],
             'CourierSpecificsSignatureColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Signature?'],
+                    'variables' => ['value' => 'Sig.?'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -2581,7 +2582,7 @@ return [
                     'sortable' => false,
                     'order' => 140,
                     'defaultContent' => '',
-                    'width' => '60px',
+                    'width' => '40px',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
