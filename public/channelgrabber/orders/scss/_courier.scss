@@ -97,7 +97,9 @@
     }
 }
 
-.courier-order-weight,
+.courier-order-weight {
+    width: 50px !important;
+}
 .courier-order-height,
 .courier-order-width,
 .courier-order-length {

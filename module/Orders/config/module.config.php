@@ -2468,7 +2468,7 @@ return [
                     'class' => 'weight-col',
                     'sortable' => false,
                     'order' => 80,
-                    'width' => '50px',
+                    'width' => '65px',
                 ],
             ],
             'CourierSpecificsHeightColumnView' => [
