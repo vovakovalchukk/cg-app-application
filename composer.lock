@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72b9dfacd838da0cb37b1c45d9ba5ee2",
+    "content-hash": "caf51e8c06c589e204f7b1fc3901b45e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2460,16 +2460,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.59.7",
+            "version": "1.59.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5d7613d7a53839235607a9a3be09d7698ae1024c"
+                "reference": "e44318456c6b77a2da8640456a5422b49870d3f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.7-948b57.zip",
-                "reference": "5d7613d7a53839235607a9a3be09d7698ae1024c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.8-befec5.zip",
+                "reference": "e44318456c6b77a2da8640456a5422b49870d3f1"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2540,7 +2540,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-11-24T13:45:41+00:00"
+            "time": "2021-12-07T09:22:12+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -5368,16 +5368,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.27.12",
+            "version": "1.27.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7fcb582917b9ee662e15ba59fbb94d699b765c76"
+                "reference": "18a60d7be5d68eacf92576a4c17dff72648d5991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.12-0f6a60.zip",
-                "reference": "7fcb582917b9ee662e15ba59fbb94d699b765c76"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.27.13-86279c.zip",
+                "reference": "18a60d7be5d68eacf92576a4c17dff72648d5991"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -5428,7 +5428,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2021-11-17T14:09:08+00:00"
+            "time": "2021-12-08T11:49:28+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11686,7 +11686,6 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "abandoned": true,
             "time": "2015-07-28T20:34:47+00:00"
         },
         {
