@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "caf51e8c06c589e204f7b1fc3901b45e",
+    "content-hash": "28aa1b542b79063e7ae4576174767ca2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -762,16 +762,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-12279-amazon-us-dispatch",
+            "version": "1.47.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1c27c0ad5c43aee4c154a51838486a1e1142fbf5"
+                "reference": "261b6a52fa31e0535edc9fda63c15900bdf98c2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-CGIV-12279-amazon-us-dispatch-033245.zip",
-                "reference": "1c27c0ad5c43aee4c154a51838486a1e1142fbf5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.47.4-21720f.zip",
+                "reference": "261b6a52fa31e0535edc9fda63c15900bdf98c2d"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -839,7 +839,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-11-23T12:30:51+00:00"
+            "time": "2021-12-10T13:48:57+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4397,21 +4397,21 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-12279-amazon-us-dispatch",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "54df5dc61e2279835a5d3487d28ca4de3362c9e4"
+                "reference": "8a77fd8fbf4e9f295a942dbc4867ad76d329fa27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-CGIV-12279-amazon-us-dispatch-4ac562.zip",
-                "reference": "54df5dc61e2279835a5d3487d28ca4de3362c9e4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.11-df8a1f.zip",
+                "reference": "8a77fd8fbf4e9f295a942dbc4867ad76d329fa27"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.39.0",
-                "channelgrabber/channel": "dev-CGIV-12279-amazon-us-dispatch as 1.47.4",
+                "channelgrabber/channel": "^1.47.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
@@ -4438,7 +4438,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2021-11-23T13:55:35+00:00"
+            "time": "2021-12-10T14:07:51+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -12046,25 +12046,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.47.4",
-            "alias_normalized": "1.47.4.0",
-            "version": "dev-CGIV-12279-amazon-us-dispatch",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.1.11",
-            "alias_normalized": "1.1.11.0",
-            "version": "dev-CGIV-12279-amazon-us-dispatch",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
