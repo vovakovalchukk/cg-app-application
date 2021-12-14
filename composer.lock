@@ -1025,6 +1025,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "1c1212e644bb150db14c8d6779f8de0a24c2d30a"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12281-geopost-geogaz-in-s3-d95f80.zip",
+                "reference": "1c1212e644bb150db14c8d6779f8de0a24c2d30a"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
                 "channelgrabber/locale": "^1.0.17",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-11-15T16:22:28+00:00"
+            "time": "2021-12-14T17:19:32+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12054,8 +12059,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
