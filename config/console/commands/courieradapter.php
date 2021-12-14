@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use CG\Command\NullActiveUser;
 use Zend\Di\Di;
+use CG\Courier\Geopost\Command\ImportGeogaz;
 
 /** @var Di $di */
 return [
@@ -43,4 +44,17 @@ return [
             $command($output);
         },
     ],
+
+    'courieradapter:geogaz' => [
+        'description' => '',
+        'arguments' => [],
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di)
+        {
+            /** @var ImportGeogaz $command */
+            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new NullActiveUser()]);
+            $command = $di->get(ImportGeogaz::class);
+            $command();
+        },
+    ],
+
 ];
