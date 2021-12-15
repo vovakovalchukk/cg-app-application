@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28aa1b542b79063e7ae4576174767ca2",
+    "content-hash": "f487770c5e24c5bdf763bc86e9d62e9b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1071,16 +1071,11 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.7.5",
+            "version": "dev-CGIV-12291-reciver-eori",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "53c2668e30f31b376a9490fcd5b22896cb9f73e9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.5-fb3795.zip",
-                "reference": "53c2668e30f31b376a9490fcd5b22896cb9f73e9"
+                "reference": "3a28907a46b2d74b1dd66bb9ef8d0bc812c0e059"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -2460,16 +2455,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.59.8",
+            "version": "dev-CGIV-12291-reciver-eori",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e44318456c6b77a2da8640456a5422b49870d3f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.8-befec5.zip",
-                "reference": "e44318456c6b77a2da8640456a5422b49870d3f1"
+                "reference": "d213b70b431fcce1a6671c16fa74b0959d8081d7"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -12046,13 +12036,28 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.7.6",
+            "alias_normalized": "1.7.6.0",
+            "version": "dev-CGIV-12291-reciver-eori",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.59.9",
+            "alias_normalized": "1.59.9.0",
+            "version": "dev-CGIV-12291-reciver-eori",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

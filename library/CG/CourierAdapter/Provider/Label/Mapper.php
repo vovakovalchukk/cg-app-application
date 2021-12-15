@@ -12,6 +12,7 @@ use CG\CourierAdapter\Shipment\SupportedField\EoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\InvoiceNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\IossNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
+use CG\CourierAdapter\Shipment\SupportedField\ReceiversEoriNumberInterface;
 use CG\CourierAdapter\Shipment\SupportedField\ShippersVatInterface;
 use CG\CourierAdapter\Shipment\SupportedField\TermsOfDeliveryInterface;
 use CG\Locale\Mass as LocaleMass;
@@ -141,6 +142,9 @@ class Mapper
         }
         if (is_a($shipmentClass, InvoiceNumberInterface::class, true)) {
             $caShipmentData['invoiceNumber'] = $order->getInvoiceNumber();
+        }
+        if (is_a($shipmentClass, ReceiversEoriNumberInterface::class, true)) {
+            $caShipmentData['receiversEoriNumber'] = $orderData['receiversEoriNumber'];
         }
 
         return $caShipmentData;
