@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "800add50cf0250bd023fe62be56081d5",
+    "content-hash": "495e5f9e3627c982f52851177d0a4075",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1025,6 +1025,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "8ad9fe085794be7d2902235a305b5b6cfda728eb"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12281-geopost-geogaz-in-s3-f65719.zip",
+                "reference": "8ad9fe085794be7d2902235a305b5b6cfda728eb"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.4",
                 "channelgrabber/locale": "^1.0.17",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-12-14T17:19:32+00:00"
+            "time": "2021-12-15T12:35:25+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12043,8 +12048,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
             "version": "dev-CGIV-12281-geopost-geogaz-in-s3",
             "package": "channelgrabber/courier"
         }
@@ -12054,8 +12059,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
