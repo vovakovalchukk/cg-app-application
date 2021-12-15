@@ -186,7 +186,6 @@ use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
 use CG\FileStorage\S3\Adapter as S3GeopostGeogazDataAdapter;
 
-
 $config = array(
     'di' => array(
         'instance' => array(
