@@ -78,6 +78,7 @@ return [
                     'termsOfDelivery' => Module::PUBLIC_FOLDER . 'template/courier/columns/termsOfDelivery.mustache',
                     'deliveredDutyPaid' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveredDutyPaid.mustache',
                     'shippingMethod' => Module::PUBLIC_FOLDER . 'template/courier/columns/shippingMethod.mustache',
+                    'receiversEoriNumber' => Module::PUBLIC_FOLDER . 'template/courier/columns/receiversEoriNumber.mustache',
                 ],
             ],
         ],
