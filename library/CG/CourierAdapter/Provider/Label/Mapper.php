@@ -144,7 +144,7 @@ class Mapper
             $caShipmentData['invoiceNumber'] = $order->getInvoiceNumber();
         }
         if (is_a($shipmentClass, ReceiversEoriNumberInterface::class, true)) {
-            $caShipmentData['receiversEoriNumber'] = $orderData['receiversEoriNumber'];
+            $caShipmentData['receiversEoriNumber'] = $orderData['receiversEoriNumber'] ?? '';
         }
 
         return $caShipmentData;

@@ -54,7 +54,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\EoriNumberInterface::class => 'eoriNumber',
             ShipmentField\TermsOfDeliveryInterface::class => 'termsOfDelivery',
             ShipmentField\DeliveredDutyInterface::class => 'deliveredDutyPaid',
-            ShipmentField\ReceiversEoriNumberInterface::class => 'receiversEoriNumber'
+            ShipmentField\ReceiversEoriNumberInterface::class => 'receiversEoriNumber',
         ]
     ];
 

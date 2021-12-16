@@ -1023,12 +1023,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7471806ba76158d021f73f2879ffbe65a6f75951"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-946c9c.zip",
-                "reference": "7471806ba76158d021f73f2879ffbe65a6f75951"
+                "reference": "7391ad3c281daf26b252d6e3941ecc780f08d536"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-12291-reciver-eori as 1.7.6",
@@ -12073,8 +12068,8 @@
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
