@@ -1023,15 +1023,15 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "38a7698e7ae5463439b9cc9d43d022c5546b590d"
+                "reference": "7471806ba76158d021f73f2879ffbe65a6f75951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-b98cbf.zip",
-                "reference": "38a7698e7ae5463439b9cc9d43d022c5546b590d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-946c9c.zip",
+                "reference": "7471806ba76158d021f73f2879ffbe65a6f75951"
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.7.4",
+                "channelgrabber/courieradapter": "dev-CGIV-12291-reciver-eori as 1.7.6",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-12-15T17:01:03+00:00"
+            "time": "2021-12-16T12:25:11+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
