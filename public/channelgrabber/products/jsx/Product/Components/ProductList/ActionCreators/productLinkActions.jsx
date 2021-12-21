@@ -51,9 +51,7 @@ var actionCreators = (function() {
                 if (!productSkus) {
                     skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
                 } else {
-                    productSkus.forEach((product) => {
-                        skusToFindLinkedProductsFor.push(product.sku);
-                    });
+                    skusToFindLinkedProductsFor = productSkus
                 }
                 dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
 
