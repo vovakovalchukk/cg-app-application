@@ -34,7 +34,7 @@ require(
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' }),
         orderItems: JSON.parse('<?= str_replace("'", "\\'", $orderItems); ?>'),
-        shippingData: JSON.parse('<?= $shippingData ?>'),
+        shippingData: JSON.parse('<?= str_replace("'", "\\'", $shippingData); ?>'),
         discount: JSON.parse('<?= $discount ?>'),
     };
 
