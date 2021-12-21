@@ -77,7 +77,7 @@ class ProductList extends React.Component {
     };
     onProductLinkRefresh = (event) => {
         let sku = event.detail;
-        this.props.actions.getLinkedProducts([sku]);
+        this.props.actions.getLinkedProducts([sku.sku]);
     };
     onEditProductLink = (event) => {
         let {sku, productLinks} = event.detail;
