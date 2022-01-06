@@ -13,9 +13,9 @@ return [
         'description' => 'Import Geogaz data file to update version',
         'arguments' => [
         ],
-        'command' => function()
+        'command' => function() use ($di)
         {
-            $import = new ImportGeogaz();
+            $import = $di->get(ImportGeogaz::class);
             $import();
         },
     ],

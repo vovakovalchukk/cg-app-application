@@ -183,6 +183,8 @@ use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
 use CG\Email\Smtp;
 
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
+use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
+use CG\FileStorage\S3\Adapter as S3GeopostGeogazDataAdapter;
 
 $config = array(
     'di' => array(
@@ -652,6 +654,16 @@ $config = array(
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
                 ],
+            ],
+            S3GeopostGeogazDataAdapter::class => [
+                'parameter' => [
+                    'location' => function () { return GeopostImportGeogaz::BUCKET; }
+                ]
+            ],
+            GeopostImportGeogaz::class => [
+                'parameter' => [
+                    's3FileStorage' => S3GeopostGeogazDataAdapter::class,
+                ]
             ],
         ),
     ),
