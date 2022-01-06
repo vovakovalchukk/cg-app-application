@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dfea245567d20ff09449e86408f2927",
+    "content-hash": "fff857a9204377043d434049f430ecf4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1023,12 +1023,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7391ad3c281daf26b252d6e3941ecc780f08d536"
+                "reference": "36c159103eccc6cbf6b724182cfa4cb3139dab24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-64a698.zip",
-                "reference": "7391ad3c281daf26b252d6e3941ecc780f08d536"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-718c82.zip",
+                "reference": "36c159103eccc6cbf6b724182cfa4cb3139dab24"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-12291-reciver-eori as 1.7.6",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2021-12-16T16:00:57+00:00"
+            "time": "2022-01-06T12:46:33+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12048,8 +12048,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
             "version": "dev-CGIV-12291-reciver-eori",
             "package": "channelgrabber/courier"
         },
