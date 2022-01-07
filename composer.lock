@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fff857a9204377043d434049f430ecf4",
+    "content-hash": "ce4bed98c48a3af9a040d431f3c388f0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,19 +1019,19 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-12291-reciver-eori",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "36c159103eccc6cbf6b724182cfa4cb3139dab24"
+                "reference": "526a77a952fc9115ee9da1e6723439d288628bf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12291-reciver-eori-718c82.zip",
-                "reference": "36c159103eccc6cbf6b724182cfa4cb3139dab24"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.6.1-9b86d9.zip",
+                "reference": "526a77a952fc9115ee9da1e6723439d288628bf5"
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-CGIV-12291-reciver-eori as 1.7.6",
+                "channelgrabber/courieradapter": "^1.7.6",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -1067,20 +1067,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2022-01-06T12:46:33+00:00"
+            "time": "2022-01-07T11:52:35+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-12291-reciver-eori",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "3a28907a46b2d74b1dd66bb9ef8d0bc812c0e059"
+                "reference": "f154235011e697fe7e027cd3df0d5b7df25f0ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-12291-reciver-eori-f87f5f.zip",
-                "reference": "3a28907a46b2d74b1dd66bb9ef8d0bc812c0e059"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.7.6-b1b6be.zip",
+                "reference": "f154235011e697fe7e027cd3df0d5b7df25f0ff1"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1104,7 +1104,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2021-12-15T16:05:56+00:00"
+            "time": "2022-01-07T11:33:05+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2460,16 +2460,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-12291-reciver-eori",
+            "version": "1.59.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d213b70b431fcce1a6671c16fa74b0959d8081d7"
+                "reference": "9dae180e52b76c36c1c3a4e178e0ef54b9e07a71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-12291-reciver-eori-3c9711.zip",
-                "reference": "d213b70b431fcce1a6671c16fa74b0959d8081d7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.9-9c0633.zip",
+                "reference": "9dae180e52b76c36c1c3a4e178e0ef54b9e07a71"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2540,7 +2540,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2021-12-15T16:15:26+00:00"
+            "time": "2022-01-07T11:39:28+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -12046,32 +12046,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.1",
-            "alias_normalized": "1.6.1.0",
-            "version": "dev-CGIV-12291-reciver-eori",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.7.6",
-            "alias_normalized": "1.7.6.0",
-            "version": "dev-CGIV-12291-reciver-eori",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.59.9",
-            "alias_normalized": "1.59.9.0",
-            "version": "dev-CGIV-12291-reciver-eori",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
