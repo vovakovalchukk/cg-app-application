@@ -52,7 +52,7 @@
         "channelgrabber/feature-flags": "~2.1.3",
         "channelgrabber/file-storage": "~1.1.4",
         "channelgrabber/ftp-account": "~1.0.1",
-        "channelgrabber/gearman": "~1.10.0",
+        "channelgrabber/gearman": "~1.10.3",
         "channelgrabber/http": "~1.3.33",
         "channelgrabber/image": "~1.3.1",
         "channelgrabber/intercom": "~1.6.0",
