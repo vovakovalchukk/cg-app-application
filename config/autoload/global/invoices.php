@@ -1,4 +1,6 @@
 <?php
+
+use CG\Order\Client\Gearman\Generator\SetPrintedDate;
 use CG\Order\Client\Pdf\OrderTable\PopulateForOrdersInterface;
 use CG\Order\Client\Pdf\OrderTable\Storage\RuntimeBulk as OrderTableRelatedDataRuntimeBulkStorage;
 use CG\Order\Client\Pdf\OrderTable\StorageInterface as OrderTableRelatedDataStorage;
@@ -21,6 +23,11 @@ return [
             'preferences' => [
                 OrderTableRelatedDataStorage::class => OrderTableRelatedDataRuntimeBulkStorage::class,
             ],
+            SetPrintedDate::class => [
+                'parameters' => [
+                    'gearmanClient' => 'orderGearmanClient'
+                ]
+            ]
         ],
     ],
 ];
