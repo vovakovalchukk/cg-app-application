@@ -28,7 +28,7 @@ use CG\Template\Type as TemplateType;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Orders\Order\Service as OrderService;
-use function CG\Stdlib\mergePdfData;
+use function CG\Stdlib\registerShutdownFunction;
 
 class Service extends ClientService implements StatsAwareInterface
 {
@@ -166,7 +166,9 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $this->setVatNumberOnOrderCollection($orderCollection);
 
-        $this->printedDateGenerator->createJobs($orderCollection, new DateTime());
+        registerShutdownFunction(function () use ($orderCollection) {
+            $this->printedDateGenerator->createJobs($orderCollection, new DateTime());
+        });
 
         /** @var Order $order */
         foreach ($orderCollection as $order) {
