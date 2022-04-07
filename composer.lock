@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0d7d7e92f7d7a47b855d03623460bb0",
+    "content-hash": "3c686426b33f9f7f2c090bade9b2a9c6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1460,21 +1460,21 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.19.2",
+            "version": "1.19.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "48598c755659c84a460d8cdf7ad0330b5620ec96"
+                "reference": "fed9843f21f011abb46332d34f0f49e927b07867"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.19.2-09c765.zip",
-                "reference": "48598c755659c84a460d8cdf7ad0330b5620ec96"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.19.2.1-4f0019.zip",
+                "reference": "fed9843f21f011abb46332d34f0f49e927b07867"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "~1.47.1",
+                "channelgrabber/channel": "^1.47.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.2",
@@ -1517,7 +1517,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2021-07-15T14:29:42+00:00"
+            "time": "2022-01-04T17:04:56+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -12048,8 +12048,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.47.5",
-            "alias_normalized": "1.47.5.0",
+            "alias": "1.48.2",
+            "alias_normalized": "1.48.2.0",
             "version": "dev-CGIV-12342-prevent-gearman-exception-remove-account",
             "package": "channelgrabber/channel"
         }

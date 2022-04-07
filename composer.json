@@ -26,7 +26,7 @@
         "channelgrabber/billing": "~1.21.0",
         "channelgrabber/cache": "~2.8.0",
         "channelgrabber/cglib": "~1.17.1",
-        "channelgrabber/channel": "dev-CGIV-12342-prevent-gearman-exception-remove-account as 1.47.5",
+        "channelgrabber/channel": "dev-CGIV-12342-prevent-gearman-exception-remove-account as 1.48.2",
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
         "channelgrabber/clearbooks": "~1.12.3",
