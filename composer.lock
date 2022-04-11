@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e067f84f6ee2294b5b6890c131994f7",
+    "content-hash": "2f6d7bd45f2778c591a01fba801b68b5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1025,6 +1025,11 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "17090e58e3c05442d35b5b0fa8e6a89b987e5ff7"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12365-geopost-replace-s3-to-ftp-d358d5.zip",
+                "reference": "17090e58e3c05442d35b5b0fa8e6a89b987e5ff7"
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.6",
                 "channelgrabber/locale": "^1.0.17",
@@ -1062,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2022-01-07T11:52:35+00:00"
+            "time": "2022-04-11T13:49:58+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10592,7 +10597,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -12042,8 +12048,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.6.2",
-            "alias_normalized": "1.6.2.0",
+            "alias": "1.7.0",
+            "alias_normalized": "1.7.0.0",
             "version": "dev-CGIV-12365-geopost-replace-s3-to-ftp",
             "package": "channelgrabber/courier"
         }
@@ -12053,8 +12059,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
