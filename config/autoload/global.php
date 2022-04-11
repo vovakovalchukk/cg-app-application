@@ -185,7 +185,6 @@ use CG\Email\Smtp;
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
 use League\Flysystem\Filesystem;
-use League\Flysystem\Sftp\SftpAdapter;
 
 $config = array(
     'di' => array(
@@ -243,7 +242,6 @@ $config = array(
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
                 'StockImportS3FileImportAdapter' => S3FileImportAdapter::class,
-                'GeopostGeogazSftpAdapter' => SftpAdapter::class,
                 'GeopostGeogazFilesystem' => Filesystem::class,
             ],
             ExchangeRateApiStorage::class => [
@@ -657,18 +655,6 @@ $config = array(
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
                 ],
-            ],
-            'GeopostGeogazSftpAdapter' => [
-                'parameter' => [
-                    'config' => [
-                        'host' => 'ftp.orderhub.io',
-                        'port' => 22,
-                        'username' => 'geopost',
-                        'password' => 'fcQ33WUdgfRBu8wn',
-                        'root' => '',
-                        'timeout' => 10,
-                    ]
-                ]
             ],
             'GeopostGeogazFilesystem' => [
                 'parameter' => [
