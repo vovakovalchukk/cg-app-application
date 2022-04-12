@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f6d7bd45f2778c591a01fba801b68b5",
+    "content-hash": "b92ca5412a40fedcc55aa5fb2080a3ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -762,16 +762,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.47.4",
+            "version": "1.48.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "261b6a52fa31e0535edc9fda63c15900bdf98c2d"
+                "reference": "fea1d574a58fdb6ea1f407f93086a499f5fcbe4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.47.4-21720f.zip",
-                "reference": "261b6a52fa31e0535edc9fda63c15900bdf98c2d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.2-feee8d.zip",
+                "reference": "fea1d574a58fdb6ea1f407f93086a499f5fcbe4a"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -782,7 +782,7 @@
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/feature-flags": "^2.1.0",
-                "channelgrabber/gearman": "^1.10.0",
+                "channelgrabber/gearman": "^1.10.1",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.20.0",
@@ -839,7 +839,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2021-12-10T13:48:57+00:00"
+            "time": "2022-04-12T08:25:32+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1460,21 +1460,21 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.19.2",
+            "version": "1.19.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "48598c755659c84a460d8cdf7ad0330b5620ec96"
+                "reference": "fed9843f21f011abb46332d34f0f49e927b07867"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.19.2-09c765.zip",
-                "reference": "48598c755659c84a460d8cdf7ad0330b5620ec96"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ekm/channelgrabber-ekm-1.19.2.1-4f0019.zip",
+                "reference": "fed9843f21f011abb46332d34f0f49e927b07867"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "~1.47.1",
+                "channelgrabber/channel": "^1.47.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.1.2",
@@ -1517,7 +1517,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2021-07-15T14:29:42+00:00"
+            "time": "2022-01-04T17:04:56+00:00"
         },
         {
             "name": "channelgrabber/email",
