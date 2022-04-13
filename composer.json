@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-12365-geopost-replace-s3-to-ftp as 1.7.0",
+        "channelgrabber/courier": "~1.7.0",
         "channelgrabber/courieradapter": "~1.7.6",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.4",

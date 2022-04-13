@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b92ca5412a40fedcc55aa5fb2080a3ca",
+    "content-hash": "d8dbb2bcf11b2fcc4037373b0b3b8750",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,16 +1019,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-12365-geopost-replace-s3-to-ftp",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "17090e58e3c05442d35b5b0fa8e6a89b987e5ff7"
+                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-12365-geopost-replace-s3-to-ftp-d358d5.zip",
-                "reference": "17090e58e3c05442d35b5b0fa8e6a89b987e5ff7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.7.0-b1507b.zip",
+                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.6",
@@ -1067,7 +1067,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2022-04-11T13:49:58+00:00"
+            "time": "2022-04-13T13:33:40+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -12046,18 +12046,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.7.0",
-            "alias_normalized": "1.7.0.0",
-            "version": "dev-CGIV-12365-geopost-replace-s3-to-ftp",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
