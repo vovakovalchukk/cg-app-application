@@ -254,6 +254,8 @@ class Create extends PostAbstract
 
     protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
+        $packageId = 1;
+
         $packages = $this->shipment->getPackages();
         $totalWeight = count($packages) === 1 ? $this->getTotalPackageWeight() : 0;
         /** @var Package $package */
@@ -265,6 +267,7 @@ class Create extends PostAbstract
                 }
 
                 $itemInformation = $xml->addChild('itemInformation');
+                $itemInformation->addChild('packageId', $packageId);
                 $itemInformation->addChild('itemHsCode', $this->sanitiseString($packageContents->getHSCode(), static::MAX_LEN_HS_CODE));
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
@@ -272,6 +275,8 @@ class Create extends PostAbstract
                 $itemInformation->addChild('itemCOO', $this->sanitiseItemCountryOfOrigin($packageContents->getOrigin()));
                 $itemInformation->addChild('itemNetWeight', $packageWeight);
             }
+
+            $packageId++;
         }
         return $xml;
     }
