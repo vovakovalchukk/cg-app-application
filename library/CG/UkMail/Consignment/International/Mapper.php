@@ -6,6 +6,7 @@ use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\UkMail\Consignment\MapperTrait;
 use CG\UkMail\Consignment\Domestic\Mapper as DomesticConsignmentMapper;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
@@ -17,6 +18,8 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
+    use MapperTrait;
+
     protected const ROAD_SERVICES = ['204', '206'];
 
     /** @var CustomsDeclarationService */
@@ -47,7 +50,7 @@ class Mapper
             $this->getDeliveryDetails($deliveryAddress),
             $shipment->getDeliveryService()->getReference(),
             count($packages),
-            $shipment->getCustomerReference(),
+            $this->getCustomerReference($shipment),
             $this->getAlternativeReference($shipment),
             $this->getParcels($packages),
             false,

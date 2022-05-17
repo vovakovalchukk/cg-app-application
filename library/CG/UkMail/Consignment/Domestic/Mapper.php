@@ -6,6 +6,7 @@ use CG\CourierAdapter\Provider\Implementation\Package\Content;
 use CG\Locale\CountryNameByAlpha3Code;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\UkMail\Consignment\MapperTrait;
 use CG\UkMail\CustomsDeclaration\CustomsDeclarationInterface;
 use CG\UkMail\CustomsDeclaration\Service as CustomsDeclarationService;
 use CG\UkMail\Request\Rest\DomesticConsignment as DomesticConsignmentRequest;
@@ -16,6 +17,8 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
+    use MapperTrait;
+
     public const ADDRESS_TYPE_RESIDENTIAL = 'residential';
     public const ADDRESS_TYPE_DOORSTEP = 'doorstep';
     public const CONTACT_NUMBER_TYPE_MOBILE = 'mobile';
@@ -56,7 +59,7 @@ class Mapper
             $shipment->getDeliveryService()->getReference(),
             count($packages),
             $this->getTotalWeight($packages),
-            $shipment->getCustomerReference(),
+            $this->getCustomerReference($shipment),
             $this->getAlternativeReference($shipment),
             $this->getParcels($packages),
             null,
