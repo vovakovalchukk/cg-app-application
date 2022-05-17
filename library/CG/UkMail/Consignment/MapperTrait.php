@@ -12,7 +12,9 @@ trait MapperTrait
      */
     protected function getCustomerReference(Shipment $shipment): string
     {
+        $customerRefOffset = -20;
+
         $result = explode(',', $shipment->getCustomerReference());
-        return substr($result[0], -20);
+        return substr($result[0], $customerRefOffset);
     }
 }
