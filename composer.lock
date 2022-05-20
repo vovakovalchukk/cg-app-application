@@ -383,12 +383,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2e7824ac6ca9f6bd9531c327d52d0c37559d328f"
+                "reference": "de43091b3b613422b5e691caa4017239f808422e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-665-migrate-newly-connected-mws-account-to-sp-ed6fa2.zip",
-                "reference": "2e7824ac6ca9f6bd9531c327d52d0c37559d328f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-665-migrate-newly-connected-mws-account-to-sp-bb35ad.zip",
+                "reference": "de43091b3b613422b5e691caa4017239f808422e",
                 "shasum": null
             },
             "require": {
@@ -785,16 +785,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.48.2",
+            "version": "1.48.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "fea1d574a58fdb6ea1f407f93086a499f5fcbe4a"
+                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.2-feee8d.zip",
-                "reference": "fea1d574a58fdb6ea1f407f93086a499f5fcbe4a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.4-fd0471.zip",
+                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4",
                 "shasum": null
             },
             "require": {
@@ -863,7 +863,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2022-04-12T08:25:32+00:00"
+            "time": "2022-04-26T10:36:31+00:00"
         },
         {
             "name": "channelgrabber/cilex",
