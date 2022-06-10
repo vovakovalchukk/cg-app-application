@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8dbb2bcf11b2fcc4037373b0b3b8750",
+    "content-hash": "9728a8afa86557dedb1ff864cceeeb84",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1019,16 +1019,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.7.0",
+            "version": "dev-CGIV-12382-shpping-documents-for-eu",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.7.0-b1507b.zip",
-                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
+                "reference": "16b0242c613e98a9f59653eabb5034d5a07007d7"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.6",
@@ -12046,13 +12041,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.7.1",
+            "alias_normalized": "1.7.1.0",
+            "version": "dev-CGIV-12382-shpping-documents-for-eu",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
