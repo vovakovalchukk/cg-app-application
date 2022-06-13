@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.2.3",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-12382-shpping-documents-for-eu as 1.7.1",
+        "channelgrabber/courier": "~1.7.1",
         "channelgrabber/courieradapter": "~1.7.6",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/data-exchange": "~1.2.4",
