@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29366b7886c2346bffe40a157d8c03c8",
+    "content-hash": "46b3fc67db81f16e7e82612c11de8c37",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -382,12 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "b7825b6dcc3d8bfa50355a2fa71c3a481de77a38"
+                "reference": "8c22239668164daa6e524f4bc62bce2c04ef2697"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-678-shipping-services-list-9e74ea.zip",
-                "reference": "b7825b6dcc3d8bfa50355a2fa71c3a481de77a38"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-678-shipping-services-list-d9576d.zip",
+                "reference": "8c22239668164daa6e524f4bc62bce2c04ef2697"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -433,7 +433,7 @@
             "extra": {
                 "patches": {
                     "symfony/serializer": {
-                        "Symfony Serializer XmlEncoder Configurable CDATA": "vendor/channelgrabber/amazon/patches/0001-symfony-serializer-xmlencoder-configurable-cdata.patch"
+                        "Symfony Serializer XmlEncoder Configurable CDATA": "patches/0001-symfony-serializer-xmlencoder-configurable-cdata.patch"
                     }
                 },
                 "composer-exit-on-patch-failure": true
@@ -452,7 +452,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-05-30T12:51:22+00:00"
+            "time": "2022-06-14T14:26:01+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1034,16 +1034,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
+                "reference": "1517bded06f11461771150a5067767138707c42e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.7.0-b1507b.zip",
-                "reference": "d89f2f5b522a42c57f069a25b96e28acf83ce6de"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.7.1-ac013a.zip",
+                "reference": "1517bded06f11461771150a5067767138707c42e"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.7.6",
@@ -1082,7 +1082,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2022-04-13T13:33:40+00:00"
+            "time": "2022-06-13T15:05:07+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3299,12 +3299,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "59b7e5ce476147954b463c37b0385c552e345a41"
+                "reference": "0428e985e398d4f38f7c6d6b39fb5034d28c347c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-TAC-678-shipping-services-list-16e0d1.zip",
-                "reference": "59b7e5ce476147954b463c37b0385c552e345a41"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-TAC-678-shipping-services-list-9372c4.zip",
+                "reference": "0428e985e398d4f38f7c6d6b39fb5034d28c347c"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3347,7 +3347,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-05-27T14:59:34+00:00"
+            "time": "2022-06-14T14:24:09+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -9131,6 +9131,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
+            "abandoned": "symfony/error-handler",
             "time": "2016-07-30T07:22:48+00:00"
         },
         {
@@ -9664,6 +9665,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.8-dev"
+                },
+                "patches_applied": {
+                    "Symfony Serializer XmlEncoder Configurable CDATA": "patches/0001-symfony-serializer-xmlencoder-configurable-cdata.patch"
                 }
             },
             "autoload": {
@@ -12458,14 +12462,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.42.2",
-            "alias_normalized": "1.42.2.0",
+            "alias": "1.43.1",
+            "alias_normalized": "1.43.1.0",
             "version": "dev-TAC-678-shipping-services-list",
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.3.2",
-            "alias_normalized": "1.3.2.0",
+            "alias": "1.3.3",
+            "alias_normalized": "1.3.3.0",
             "version": "dev-TAC-678-shipping-services-list",
             "package": "channelgrabber/selling-partner-api"
         }

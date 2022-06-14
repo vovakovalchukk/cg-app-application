@@ -23,6 +23,7 @@ pipelines:
             script:
               - vendor/bin/phpunit --log-junit ./test-reports/junit.xml
         - step:
+            size: 2x
             name: Static Analysis
             script:
               - mkdir -p ./test-reports
