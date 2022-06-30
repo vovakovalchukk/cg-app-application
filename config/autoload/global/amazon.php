@@ -8,6 +8,7 @@ use CG\Amazon\Carrier\SpApi\GetEligibleShippingServices as SpApiGetEligibleShipp
 use CG\Amazon\Carrier\SpApi\GetShipment as SpApiGetShipment;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Amazon\Marketplace\Participation\SpApi\Service as AmazonMarketplaceParticipationSpApiService;
+use CG\Amazon\Marketplace\Participation\Mws\Service as AmazonMarketplaceParticipationMwsService;
 use CG\Amazon\Region\Service as AmazonRegionService;
 use CG\Amazon\Serializer\NameConverter\LowerCamelCaseToUpperCamelCaseNameConverter;
 use SellingPartnerApi\Api\SellersApi;
@@ -61,6 +62,11 @@ return [
                 ],
             ],
             AmazonMarketplaceParticipationSpApiService::class => [
+                'parameter' => [
+                    'cryptor' => 'amazon_cryptor',
+                ],
+            ],
+            AmazonMarketplaceParticipationMwsService::class => [
                 'parameter' => [
                     'cryptor' => 'amazon_cryptor',
                 ],
