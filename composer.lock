@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4712ebbd8cb60a480309fc6e80762f2",
+    "content-hash": "2f814708d6c2917d33312734bdf4c414",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,16 +378,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-679-create-shipment",
+            "version": "1.44.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0589167262947111ab836106a0e593104898914c"
+                "reference": "f020cbf0fa4d8791e1c1f6f4c9cfc6d43a9426dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-679-create-shipment-23f695.zip",
-                "reference": "0589167262947111ab836106a0e593104898914c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.44.2-8dae62.zip",
+                "reference": "f020cbf0fa4d8791e1c1f6f4c9cfc6d43a9426dd"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-06-29T15:38:25+00:00"
+            "time": "2022-07-05T09:32:02+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3296,16 +3296,16 @@
         },
         {
             "name": "channelgrabber/selling-partner-api",
-            "version": "dev-TAC-679-create-shipment",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "665f606e3f0e0b239ed449607a3cdf7e09e352fd"
+                "reference": "6674042334a92d6887fa0abb8783f36af5e161b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-TAC-679-create-shipment-32ee36.zip",
-                "reference": "665f606e3f0e0b239ed449607a3cdf7e09e352fd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.5-e79b5c.zip",
+                "reference": "6674042334a92d6887fa0abb8783f36af5e161b7"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3348,7 +3348,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-06-29T15:28:18+00:00"
+            "time": "2022-07-05T08:45:22+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12461,25 +12461,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.2",
-            "alias_normalized": "1.44.2.0",
-            "version": "dev-TAC-679-create-shipment",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.3.5",
-            "alias_normalized": "1.3.5.0",
-            "version": "dev-TAC-679-create-shipment",
-            "package": "channelgrabber/selling-partner-api"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/selling-partner-api": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
