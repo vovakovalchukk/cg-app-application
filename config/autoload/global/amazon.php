@@ -6,6 +6,7 @@ use CG\Amazon\Carrier\SpApi\CancelShipment as SpApiCancelShipment;
 use CG\Amazon\Carrier\SpApi\CreateShipment as SpApiCreateShipment;
 use CG\Amazon\Carrier\SpApi\GetEligibleShippingServices as SpApiGetEligibleShippingServices;
 use CG\Amazon\Carrier\SpApi\GetShipment as SpApiGetShipment;
+use CG\Amazon\Carrier\SpApi\Mapper as CarrierSpApiMapper;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Amazon\Marketplace\Participation\SpApi\Service as AmazonMarketplaceParticipationSpApiService;
 use CG\Amazon\Marketplace\Participation\Mws\Service as AmazonMarketplaceParticipationMwsService;
@@ -88,6 +89,11 @@ return [
                         JsonEncoder::FORMAT => new JsonEncoder(),
                         'xml' => new XmlEncoder(),
                     ],
+                ],
+            ],
+            CarrierSpApiMapper::class => [
+                'parameters' => [
+                    'serializer' => 'json_object_serializer',
                 ],
             ],
             SpApiGetEligibleShippingServices::class => [
