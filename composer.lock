@@ -382,7 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "32de47ad76df1c7218e0d59bd2c8f2a0dd795162"
+                "reference": "328bca693a45f4ad5d8633ea5344bb436142e29f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12407-sfp-request-error-506cdd.zip",
+                "reference": "328bca693a45f4ad5d8633ea5344bb436142e29f"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -448,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-05T09:32:02+00:00"
+            "time": "2022-07-06T16:01:48+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3295,7 +3300,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "89b7f9862348cb6c62245948424b7d7bb8d64ce2"
+                "reference": "8d5d94fc99a5327c1c5ff91ef25a11a42788cedc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-CGIV-12407-sfp-request-error-712cb7.zip",
+                "reference": "8d5d94fc99a5327c1c5ff91ef25a11a42788cedc"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3338,7 +3348,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-07-05T08:45:22+00:00"
+            "time": "2022-07-06T16:09:57+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12471,8 +12481,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/selling-partner-api": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
