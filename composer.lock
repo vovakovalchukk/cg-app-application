@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b355cfeeed261d3884abd9c8b16146e",
+    "content-hash": "43d959de87c7c170933b74966d244206",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -382,12 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "328bca693a45f4ad5d8633ea5344bb436142e29f"
+                "reference": "5891c4b091ce2674d282ff868b4f31e797040494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12407-sfp-request-error-506cdd.zip",
-                "reference": "328bca693a45f4ad5d8633ea5344bb436142e29f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12407-sfp-request-error-0d01b5.zip",
+                "reference": "5891c4b091ce2674d282ff868b4f31e797040494"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-06T16:01:48+00:00"
+            "time": "2022-07-12T10:08:08+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3300,12 +3300,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "8d5d94fc99a5327c1c5ff91ef25a11a42788cedc"
+                "reference": "75761901b6df3faaebcc3e761c67cfd4b3e5a2cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-CGIV-12407-sfp-request-error-712cb7.zip",
-                "reference": "8d5d94fc99a5327c1c5ff91ef25a11a42788cedc"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-CGIV-12407-sfp-request-error-bdfe20.zip",
+                "reference": "75761901b6df3faaebcc3e761c67cfd4b3e5a2cf"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3348,7 +3348,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-07-06T16:09:57+00:00"
+            "time": "2022-07-12T10:24:21+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12463,8 +12463,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.44.3",
-            "alias_normalized": "1.44.3.0",
+            "alias": "1.44.4",
+            "alias_normalized": "1.44.4.0",
             "version": "dev-CGIV-12407-sfp-request-error",
             "package": "channelgrabber/amazon"
         },
