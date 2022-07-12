@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "863498092a88df7ebed84b7fd9fbafd2",
+    "content-hash": "f2c110dab53073b42064160800ae099c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3296,16 +3296,16 @@
         },
         {
             "name": "channelgrabber/selling-partner-api",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "6674042334a92d6887fa0abb8783f36af5e161b7"
+                "reference": "d7e97c563bac3613e21d793973246150175493d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.5-e79b5c.zip",
-                "reference": "6674042334a92d6887fa0abb8783f36af5e161b7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.6-136638.zip",
+                "reference": "d7e97c563bac3613e21d793973246150175493d1"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3348,7 +3348,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-07-05T08:45:22+00:00"
+            "time": "2022-07-12T13:22:26+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12463,8 +12463,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.44.3",
-            "alias_normalized": "1.44.3.0",
+            "alias": "1.44.5",
+            "alias_normalized": "1.44.5.0",
             "version": "dev-TAC-665-migrate-new-mws-accounts-to-sp-api",
             "package": "channelgrabber/amazon"
         }
