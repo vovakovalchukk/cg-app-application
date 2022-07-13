@@ -382,12 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "b1a905a8bee7ae9dd118674e479b611a264648a0"
+                "reference": "228439a44d7ec8217367ddc0042188d68f350407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-665-migrate-new-mws-accounts-to-sp-api-d86f14.zip",
-                "reference": "b1a905a8bee7ae9dd118674e479b611a264648a0"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-665-migrate-new-mws-accounts-to-sp-api-2b92b9.zip",
+                "reference": "228439a44d7ec8217367ddc0042188d68f350407"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-12T14:56:38+00:00"
+            "time": "2022-07-13T13:39:44+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
