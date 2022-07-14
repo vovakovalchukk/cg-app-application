@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2c110dab53073b42064160800ae099c",
+    "content-hash": "c20565af72fc738125c514aaa1617550",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,16 +378,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-665-migrate-new-mws-accounts-to-sp-api",
+            "version": "1.44.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "228439a44d7ec8217367ddc0042188d68f350407"
+                "reference": "74d0bc859bd4eb7737f8f7a9014f9156b64fc3ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-TAC-665-migrate-new-mws-accounts-to-sp-api-2b92b9.zip",
-                "reference": "228439a44d7ec8217367ddc0042188d68f350407"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.44.5-def31c.zip",
+                "reference": "74d0bc859bd4eb7737f8f7a9014f9156b64fc3ec"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-13T13:39:44+00:00"
+            "time": "2022-07-14T13:25:07+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -12461,17 +12461,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.5",
-            "alias_normalized": "1.44.5.0",
-            "version": "dev-TAC-665-migrate-new-mws-accounts-to-sp-api",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
