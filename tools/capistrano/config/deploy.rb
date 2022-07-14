@@ -3,7 +3,7 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 set :keep_releases, 5
 
 set :scm, :git
-set :repo_url, 'git@bitbucket.org:channelgrabber/cg-orders-application.git'
+set :repo_url, 'git@bitbucket.org:channelgrabber/cg-app-application.git'
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 set :deploy_via, :remote_cache
 
