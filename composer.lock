@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "772015927adc0df1ca39f1d106dca538",
+    "content-hash": "a8d44da367c9c4bb0d762b64fe1236f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -382,12 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "38f8f360fa9b39baca2c1b89c15b816d92d8c705"
+                "reference": "403610d618c93db2ad8e0d5c0497679675ea2d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12419-amazon-reconnect-issue-544a7e.zip",
-                "reference": "38f8f360fa9b39baca2c1b89c15b816d92d8c705"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12419-amazon-reconnect-issue-f23e6d.zip",
+                "reference": "403610d618c93db2ad8e0d5c0497679675ea2d53"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-25T10:57:55+00:00"
+            "time": "2022-07-25T12:48:09+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -12463,8 +12463,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.44.6",
-            "alias_normalized": "1.44.6.0",
+            "alias": "1.44.7",
+            "alias_normalized": "1.44.7.0",
             "version": "dev-CGIV-12419-amazon-reconnect-issue",
             "package": "channelgrabber/amazon"
         }
