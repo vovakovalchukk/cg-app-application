@@ -382,12 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "403610d618c93db2ad8e0d5c0497679675ea2d53"
+                "reference": "887e544b106d2d18512791c61ec824e87a5f5b8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12419-amazon-reconnect-issue-f23e6d.zip",
-                "reference": "403610d618c93db2ad8e0d5c0497679675ea2d53"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12419-amazon-reconnect-issue-d707ae.zip",
+                "reference": "887e544b106d2d18512791c61ec824e87a5f5b8b"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-25T12:48:09+00:00"
+            "time": "2022-07-26T09:45:38+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -6894,6 +6894,7 @@
                 }
             ],
             "description": "Flysystem adapter for SFTP",
+            "abandoned": "league/flysystem-sftp-v3",
             "time": "2019-09-19T09:11:05+00:00"
         },
         {
