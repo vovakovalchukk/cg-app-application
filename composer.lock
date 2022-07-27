@@ -382,7 +382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "70d62c7b2fa17d1c9a4a65ab3616d26421086572"
+                "reference": "63037400a5b2bad5f8c8659cb531b89894f40a6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-CGIV-12419-amazon-reconnect-issue-962d26.zip",
+                "reference": "63037400a5b2bad5f8c8659cb531b89894f40a6a"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -448,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-26T09:45:38+00:00"
+            "time": "2022-07-27T14:54:13+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -12470,8 +12475,8 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
