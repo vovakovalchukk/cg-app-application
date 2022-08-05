@@ -12,8 +12,6 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use CG\User\UserInterface;
-
 /** @var Di $di */
 return [
     'adhoc:migrateRoyalMailClickAndDrop' => [
@@ -104,87 +102,6 @@ return [
                 'array' => true,
             ],
         ],
-        'options' => [],
-    ],
-
-
-    'adhoc:test' => [
-        'description' => '',
-        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            $organisationUnitId = 2;
-            $di->instanceManager()->addSharedInstance(
-                new class($organisationUnitId) implements ActiveUserInterface
-                {
-                    /** @var int */
-                    protected $organisationUnitId;
-                    /** @var ?User */
-                    protected $activeUser;
-
-                    public function __construct(int $organisationUnitId)
-                    {
-                        $this->organisationUnitId = $organisationUnitId;
-                    }
-
-                    public function getActiveUser()
-                    {
-                        return $this->activeUser;
-                    }
-
-                    public function setActiveUser(UserInterface $activeUser)
-                    {
-                        $this->activeUser = $activeUser;
-                        return $this;
-                    }
-
-                    public function getActiveUserRootOrganisationUnitId()
-                    {
-                        return $this->getCompanyId();
-                    }
-
-                    public function isAdmin()
-                    {
-                        return false;
-                    }
-
-                    public function getCompanyId()
-                    {
-                        return $this->getCompanyId();
-                    }
-
-                    public function getLocale(): string
-                    {
-                        return 'gb_UK';
-                    }
-
-                    public function setLocale(string $locale)
-                    {
-                        // TODO: Implement setLocale() method.
-                    }
-
-                    public function getTimezone(): string
-                    {
-                        return 'Europe/London';
-                    }
-
-                    public function setTimezone(string $timezone)
-                    {
-                        // TODO: Implement setTimezone() method.
-                    }
-                },
-                ActiveUserInterface::class
-            );
-
-            /** @var $productService CG\Product\Csv\Link\Service */
-            $productService = $di->newInstance(CG\Product\Csv\Link\Service::class);
-
-            $fileContents = 'Parent SKU,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty,Child SKU,Qty
-TP00230,T15070VR17TOUR,1,T11080VR19TOUR,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,';
-
-            $productService->uploadCsv($organisationUnitId, 'username', $fileContents);
-
-
-        },
-        'arguments' => [],
         'options' => [],
     ]
 ];

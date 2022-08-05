@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd42277a7b6fb6b5359e9c22c9d0adea",
+    "content-hash": "588a383d5818c736a6ec5011ab261ffb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1785,11 +1785,16 @@
         },
         {
             "name": "channelgrabber/file-storage",
-            "version": "dev-CGIV-12410-product-link-import-issue",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "6a35ef99995ab883f260ad0a0d3d25db8c2df5d0"
+                "reference": "c40584d29cf29283feb8ee7c124f21a6f9005979"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-1.1.4-5af885.zip",
+                "reference": "c40584d29cf29283feb8ee7c124f21a6f9005979"
             },
             "require": {
                 "guzzlehttp/promises": "~1.0",
@@ -2873,7 +2878,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "55010aaa82630076ad5ec6cc44863fd64b5802fe"
+                "reference": "0d4c08d4c32d20017d323f9434c04718164ff80f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-CGIV-12410-product-link-import-issue-13657d.zip",
+                "reference": "0d4c08d4c32d20017d323f9434c04718164ff80f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2895,7 +2905,7 @@
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
-                "guzzlehttp/psr7": "^1.5",
+                "guzzlehttp/psr7": "~1.8.5",
                 "nocarrier/hal": "~0.9.7",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
@@ -2922,7 +2932,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2021-10-21T13:24:47+00:00"
+            "time": "2022-08-05T11:40:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12454,14 +12464,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
-            "version": "dev-CGIV-12410-product-link-import-issue",
-            "package": "channelgrabber/file-storage"
-        },
-        {
-            "alias": "1.21.1",
-            "alias_normalized": "1.21.1.0",
+            "alias": "1.21.2",
+            "alias_normalized": "1.21.2.0",
             "version": "dev-CGIV-12410-product-link-import-issue",
             "package": "channelgrabber/product"
         }
@@ -12469,11 +12473,10 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/file-storage": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
