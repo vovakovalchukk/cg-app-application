@@ -227,7 +227,7 @@ function(
             if ($(input).attr('name') && $(input).attr('name').match(/orderData\[.+?\]\[service\]/)) {
                 return true; // continue
             }
-            if ($(input).val() == '') {
+            if ($(input).val() == '' || $(input).val() == '0') {
                 available = false;
                 return false; // break
             }
