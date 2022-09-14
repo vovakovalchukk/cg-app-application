@@ -524,11 +524,6 @@ return [
                                     'label' => 'City',
                                     'required' => true,
                                 ],
-                                'state_province' => [
-                                    'name' => 'state_province',
-                                    'label' => 'County',
-                                    'required' => true,
-                                ],
                                 'postal_code' => [
                                     'name' => 'postal_code',
                                     'label' => 'Post code',
