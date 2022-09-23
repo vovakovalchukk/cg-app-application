@@ -3,10 +3,19 @@ use CG\Channel\Service as ChannelService;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account;
 use Shopify\Controller\AccountController;
+use Shopify\Module;
+use Shopify\Controller\AppController;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
 return [
+    'CG' => [
+        'global' => [
+            'white_listed_routes' => [
+                implode('/', [Module::ROUTE, AppController::ROUTE_OAUTH]) => true,
+            ],
+        ],
+    ],
     'SetupWizard' => [
         'SetupWizard' => [
             'white_listed_routes' => [
@@ -35,6 +44,16 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    AppController::ROUTE_OAUTH => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/oauth',
+                            'defaults' => [
+                                'controller' => AppController::class,
+                                'action' => 'oauth',
+                            ],
+                        ],
+                    ],
                     Account::ROUTE_SETUP => [
                         'type' => Literal::class,
                         'options' => [
