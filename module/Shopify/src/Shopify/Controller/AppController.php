@@ -35,28 +35,27 @@ class AppController extends AbstractActionController
         $redirectUri = $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]);
         $parameters = $this->params()->fromQuery();
 
-        $shopHost = $this->params()->fromQuery('shop');
-        $accountId = $this->params()->fromQuery('accountId');
+//        $shopHost = $this->params()->fromQuery('shop');
+//        $accountId = $this->params()->fromQuery('accountId');
 
         try {
-            $account = $this->appService->processOauth($redirectUri, $parameters);
-            $link = $this->accountService->getLink($shopHost, $accountId);
+            $link = $this->appService->processOauth($redirectUri, $parameters);
             return $this->plugin('redirect')->toUrl($link);
 //            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
         } catch (LoginException $exception) {
             try {
-//                $this->appService->cacheOauthRequest($redirectUri, $parameters);
+                $this->appService->cacheOauthRequest($redirectUri, $parameters);
             } catch (\Exception $exception) {
                 // Ignore errors and redirect to login
             }
-            return $this->redirectToLogin();
+            $this->redirectToLogin();
         }
     }
 
-    protected function redirectToLogin()
+    protected function redirectToLogin(): void
     {
         $mvcEvent = $this->getEvent();
-        return $this->appService->saveProgressAndRedirectToLogin(
+        $this->appService->saveProgressAndRedirectToLogin(
             $mvcEvent,
             $mvcEvent->getRouteMatch()->getMatchedRouteName(),
             $this->params()->fromRoute(),
