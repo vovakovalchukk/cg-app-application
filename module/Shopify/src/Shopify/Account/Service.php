@@ -102,7 +102,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this->urlHelper->fromRoute(implode('/', $route));
     }
 
-    public function getLinkJson($shopHost, $accountId = null)
+    public function getLink($shopHost, $accountId = null): string
     {
         $shopHost = $this->parseShopHost(strtolower($shopHost));
         $client = $this->clientFactory->createClientForShop($shopHost);
@@ -114,6 +114,13 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 
         $this->session['oauth'][$shopHost] = ['accountId' => $accountId, 'nonce' => $nonce];
         $this->logDebugDump($this->session->getArrayCopy(), 'Session contents on redirection to Shopify', [], 'ShopifyAccountConnection::OutboundSession');
+
+        return $redirectUrl;
+    }
+
+    public function getLinkJson($shopHost, $accountId = null)
+    {
+        $redirectUrl = $this->getLink($shopHost, $accountId);
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);
     }
 
