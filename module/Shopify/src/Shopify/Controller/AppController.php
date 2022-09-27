@@ -18,12 +18,15 @@ class AppController extends AbstractActionController
 
     /** @var AppService */
     protected $appService;
+    /** @var AccountService */
+    protected $accountService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
 
-    public function __construct(AppService $appService, ViewModelFactory $viewModelFactory)
+    public function __construct(AppService $appService, AccountService $accountService, ViewModelFactory $viewModelFactory)
     {
         $this->appService = $appService;
+        $this->accountService = $accountService;
         $this->viewModelFactory = $viewModelFactory;
     }
 
@@ -32,9 +35,14 @@ class AppController extends AbstractActionController
         $redirectUri = $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]);
         $parameters = $this->params()->fromQuery();
 
+        $shopHost = $this->params()->fromQuery('shop');
+        $accountId = $this->params()->fromQuery('accountId');
+
         try {
             $account = $this->appService->processOauth($redirectUri, $parameters);
-            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+            $link = $this->accountService->getLink($shopHost, $accountId);
+            return $this->plugin('redirect')->toUrl($link);
+//            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
         } catch (LoginException $exception) {
             try {
 //                $this->appService->cacheOauthRequest($redirectUri, $parameters);
@@ -43,18 +51,6 @@ class AppController extends AbstractActionController
             }
             return $this->redirectToLogin();
         }
-    }
-
-    protected function getAccountUrl(Account $account)
-    {
-        $route = [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT];
-        return $this->url()->fromRoute(
-            implode('/', $route),
-            [
-                'type' => $account->getType(),
-                'account' => $account->getId(),
-            ]
-        );
     }
 
     protected function redirectToLogin()
