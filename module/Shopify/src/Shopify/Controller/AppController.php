@@ -7,6 +7,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Shopify\Account\Service as AccountService;
+use Shopify\App\EmbeddedException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Shopify\App\LoginException;
 use Shopify\App\Service as AppService;
@@ -51,6 +52,8 @@ class AppController extends AbstractActionController
                 // Ignore errors and redirect to login
 //            }
             $this->redirectToLogin();
+        } catch (EmbeddedException $exception) {
+            return $this->plugin('redirect')->toUrl($this->getAccountUrl());
         }
     }
 
@@ -63,6 +66,22 @@ class AppController extends AbstractActionController
             $this->params()->fromRoute(),
             [
                 'query' => $this->params()->fromQuery()
+            ]
+        );
+    }
+
+    protected function getAccountUrl(?int $accountId = null)
+    {
+        $route = [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS];
+        if ($accountId) {
+            $route[] = ChannelController::ROUTE_ACCOUNT;
+        }
+
+        return $this->plugin('url')->fromRoute(
+            implode('/', $route),
+            [
+                'type' => ChannelType::SALES,
+                'account' => $accountId,
             ]
         );
     }
