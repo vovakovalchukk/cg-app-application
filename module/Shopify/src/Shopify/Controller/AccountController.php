@@ -15,6 +15,7 @@ class AccountController extends AbstractActionController
 
     /** @var AccountService $accountService */
     protected $accountService;
+    /** @var AppService */
     protected $appService;
 
     public function __construct(AccountService $accountService, AppService $appService)
