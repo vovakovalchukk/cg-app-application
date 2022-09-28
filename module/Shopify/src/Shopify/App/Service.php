@@ -38,6 +38,10 @@ class Service
             throw new LoginException('User is not logged in');
         }
 
+        if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
+            throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
+        }
+
         $accountId = $this->userService->getAccountId($user->getId());
         if (!is_null($accountId)) {
             $this->userService->removeAccountId($user->getId());
