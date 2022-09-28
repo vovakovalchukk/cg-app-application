@@ -2,7 +2,7 @@
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client\Factory as ClientFactory;
 use Shopify\Account\Service as AccountService;
-use Shopify\App\UserService;
+use Shopify\App\UserService as AppUserService;
 use Zend\Session\Container as Session;
 
 return [
@@ -32,7 +32,7 @@ return [
                     'cryptor' => 'shopify_cryptor',
                 ],
             ],
-            UserService::class => [
+            AppUserService::class => [
                 'parameters' => [
                     'predis' => 'reliable_redis',
                 ],

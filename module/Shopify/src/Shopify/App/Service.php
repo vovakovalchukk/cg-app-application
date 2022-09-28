@@ -4,6 +4,7 @@ namespace Shopify\App;
 use CG\User\ActiveUserInterface;
 use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
+use Shopify\App\UserService as AppUserService;
 use Zend\Mvc\MvcEvent;
 
 class Service
@@ -16,14 +17,14 @@ class Service
     protected $activeUser;
     /** @var LoginService */
     protected $loginService;
-    /** @var UserService */
+    /** @var AppUserService */
     protected $userService;
 
     public function __construct(
         AccountService $accountService,
         ActiveUserInterface $activeUser,
         LoginService $loginService,
-        UserService $userService
+        AppUserService $userService
     ) {
         $this->accountService = $accountService;
         $this->activeUser = $activeUser;
@@ -37,19 +38,13 @@ class Service
             throw new LoginException('User is not logged in');
         }
 
-        $accountId = $this->userService->getAccountId($user->getId);
+        $accountId = $this->userService->getAccountId($user->getId());
         if (!is_null($accountId)) {
-            $this->userService->removeAccountId($user->getId);
+            $this->userService->removeAccountId($user->getId());
         }
 
         return $this->accountService->getLink($parameters['shop'], $accountId);
     }
-
-//    public function cacheOauthRequest($redirectUri, array $parameters)
-//    {
-//        $accountId = $parameters['accountId'] ?? null;
-//        return $this->accountService->getLink($parameters['shop'], $accountId);
-//    }
 
     public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = []): void
     {
