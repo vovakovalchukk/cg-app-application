@@ -21,6 +21,7 @@ return [
             'white_listed_routes' => [
                 implode('/', [Account::ROUTE_SHOPIFY, Account::ROUTE_SETUP, AccountController::ROUTE_SETUP_LINK]) => true,
                 implode('/', [Account::ROUTE_SHOPIFY, Account::ROUTE_SETUP, AccountController::ROUTE_SETUP_RETURN]) => true,
+                implode('/', [Module::ROUTE, AppController::ROUTE_OAUTH]) => true,
             ]
         ]
     ],
