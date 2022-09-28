@@ -6,6 +6,7 @@ use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Shopify\Account\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Shopify\App\Service as AppService;
 
 class AccountController extends AbstractActionController
 {
@@ -14,16 +15,19 @@ class AccountController extends AbstractActionController
 
     /** @var AccountService $accountService */
     protected $accountService;
+    protected $appService;
 
-    public function __construct(AccountService $accountService)
+    public function __construct(AccountService $accountService, AppService $appService)
     {
-        $this->setAccountService($accountService);
+        $this->appService = $appService;
+        $this->accountService = $accountService;
     }
 
     public function setupAction()
     {
         $accountId = $this->params()->fromQuery('accountId');
-        return $this->accountService->getSetupView($accountId, $this->getAccountUrl($accountId));
+        $this->appService->cacheUpdateRequest($accountId);
+        return $this->plugin('redirect')->toUrl($this->appService->getAppLink());
     }
 
     public function linkAction()
@@ -56,13 +60,4 @@ class AccountController extends AbstractActionController
             ]
         );
     }
-
-    /**
-     * @return self
-     */
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-} 
+}
