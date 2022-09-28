@@ -102,7 +102,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this->urlHelper->fromRoute(implode('/', $route));
     }
 
-    public function getLink($shopHost, $accountId = null): string
+    public function getLink(string $shopHost, ?int $accountId = null): string
     {
         $shopHost = $this->parseShopHost(strtolower($shopHost));
         $client = $this->clientFactory->createClientForShop($shopHost);
@@ -118,7 +118,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $redirectUrl;
     }
 
-    public function getLinkJson($shopHost, $accountId = null)
+    public function getLinkJson(string $shopHost, ?int $accountId = null)
     {
         $redirectUrl = $this->getLink($shopHost, $accountId);
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);

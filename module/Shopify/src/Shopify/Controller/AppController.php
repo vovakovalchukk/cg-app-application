@@ -38,16 +38,18 @@ class AppController extends AbstractActionController
 //        $shopHost = $this->params()->fromQuery('shop');
 //        $accountId = $this->params()->fromQuery('accountId');
 
+
+
         try {
             $link = $this->appService->processOauth($redirectUri, $parameters);
             return $this->plugin('redirect')->toUrl($link);
 //            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
         } catch (LoginException $exception) {
-            try {
-                $this->appService->cacheOauthRequest($redirectUri, $parameters);
-            } catch (\Exception $exception) {
+//            try {
+//                $this->appService->cacheOauthRequest($redirectUri, $parameters);
+//            } catch (\Exception $exception) {
                 // Ignore errors and redirect to login
-            }
+//            }
             $this->redirectToLogin();
         }
     }
@@ -63,23 +65,5 @@ class AppController extends AbstractActionController
                 'query' => $this->params()->fromQuery()
             ]
         );
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAppService(AppService $appService)
-    {
-        $this->appService = $appService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
     }
 }
