@@ -5,8 +5,8 @@ use CG\Channel\Type as ChannelType;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Shopify\Account\Service as AccountService;
-use Zend\Mvc\Controller\AbstractActionController;
 use Shopify\App\Service as AppService;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
