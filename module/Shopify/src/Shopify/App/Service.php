@@ -1,15 +1,24 @@
 <?php
 namespace Shopify\App;
 
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
 use Zend\Mvc\MvcEvent;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     protected const APP_LINK = 'https://apps.shopify.com/search?q=channelgrabber';
+
+    protected const LOG_CODE = 'ShopifyAppService';
+    protected const LOGIN_EXC_MSG = 'Unknown user is trying connect Shopify or use Embedded mode on Shopify. Redirect to login page.';
+    protected const EMBEDDED_EXC_MSG = 'User %d is trying to use Embedded mode on Shopify.';
+    protected const RECONNECT_MSG = 'User %d is trying to reconnect his Shopify (accountId %d)';
 
     /** @var AccountService */
     protected $accountService;
@@ -35,15 +44,19 @@ class Service
     public function processOauth($redirectUri, array $parameters): string
     {
         if (!($user = $this->activeUser->getActiveUser())) {
+            $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
             throw new LoginException('User is not logged in');
+
         }
 
         if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
+            $this->logDebug(static::EMBEDDED_EXC_MSG, ['userId' => $user->getId()], static::LOG_CODE);
             throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
         }
 
         $accountId = $this->userService->getAccountId($user->getId());
         if (!is_null($accountId)) {
+            $this->logDebug(static::RECONNECT_MSG, ['userId' => $user->getId(), 'accountId' => $accountId], static::LOG_CODE);
             $this->userService->removeAccountId($user->getId());
         }
 
