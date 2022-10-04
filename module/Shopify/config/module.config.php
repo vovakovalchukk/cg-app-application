@@ -3,8 +3,8 @@ use CG\Channel\Service as ChannelService;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account;
 use Shopify\Controller\AccountController;
-use Shopify\Module;
 use Shopify\Controller\AppController;
+use Shopify\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
