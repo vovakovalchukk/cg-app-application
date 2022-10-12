@@ -46,7 +46,6 @@ class Service implements LoggerAwareInterface
         if (!($user = $this->activeUser->getActiveUser())) {
             $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
             throw new LoginException('User is not logged in');
-
         }
 
         if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
