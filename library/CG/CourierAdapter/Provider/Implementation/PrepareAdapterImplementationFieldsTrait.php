@@ -74,6 +74,12 @@ trait PrepareAdapterImplementationFieldsTrait
                 $values[$fieldsOrSet->getName()] = $this->prepareAdapterImplementationFormValuesForSubmission($fieldsOrSet, $subSetValues);
                 continue;
             }
+            if ($fieldsOrSet instanceof ZendFormElement\Select) {
+                if(strtolower($values[$fieldsOrSet->getName()]) == 'no') {
+                    $values[$fieldsOrSet->getName()] = 0;
+                    continue;
+                }
+            }
             if (isset($values[$fieldsOrSet->getName()])) {
                 continue;
             }
