@@ -3,6 +3,8 @@ namespace Etsy\Account;
 
 use CG\Etsy\AccessToken;
 use CG\Etsy\Client\Factory as ClientFactory;
+use CG\Etsy\Client\Scopes;
+use CG\Etsy\Client\State;
 use CG\Etsy\Request\AccessToken as AccessTokenRequest;
 use CG\Etsy\Request\RequestToken as RequestTokenRequest;
 use CG\Etsy\Request\User as UserRequest;
@@ -14,6 +16,8 @@ use Zend\Session\Container as Session;
 
 class Service
 {
+    protected const URI = 'https://www.etsy.com/oauth/connect?response_type=code&redirect_uri=%s&scope=%s&client_id=%s&state=%s&code_challenge=%s&code_challenge_method=S256';
+
     /** @var Session */
     protected $session;
     /** @var ClientFactory */
@@ -30,11 +34,36 @@ class Service
 
     public function getLoginUrl(?int $accountId): string
     {
-        $requestToken = $this->getRequestToken($accountId);
-        $this->session[$requestToken->getToken()] = $requestToken->getSecret();
-        return $requestToken->getLoginUrl();
+        $codeVerifier = $this->generateCodeVerifier();
+        $codeChallenge = $this->generateCodeChallenge($codeVerifier);
+        $id = uniqid('etsy');
+        $state = (new State($id, $accountId))->encode();
+
+        $this->session[$id] = $codeVerifier;
+
+        return sprintf(
+            static::URI,
+            $this->getCallbackUrl($accountId),
+            implode(' ', Scopes::getAllScopes()),
+            $this->clientFactory->getClientId(),
+            $state,
+            $codeChallenge
+        );
     }
 
+    protected function generateCodeVerifier(): string
+    {
+        $verifierBytes = random_bytes(64);
+        return rtrim(strtr(base64_encode($verifierBytes), "+/", "-_"), "=");
+    }
+
+    protected function generateCodeChallenge(string $codeVerifier): string
+    {
+        $challengeBytes = hash("sha256", $codeVerifier, true);
+        return rtrim(strtr(base64_encode($challengeBytes), "+/", "-_"), "=");
+    }
+
+    /** @deprecated */
     protected function getRequestToken(?int $accountId): RequestTokenResponse
     {
         $client = $this->clientFactory->createClientWithoutToken();

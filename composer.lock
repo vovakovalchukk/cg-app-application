@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baacae4611e6432c8dba768ef42009d3",
+    "content-hash": "5a7bfe3b2a9a4a64675f2f647fcc6e1b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1674,20 +1674,15 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.2.6",
+            "version": "dev-PRD-153-migration-oauth",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "839f7dc8e1e92a2932f448ed03ac49d3d67c7bfe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.6-982a1a.zip",
-                "reference": "839f7dc8e1e92a2932f448ed03ac49d3d67c7bfe"
+                "reference": "588ee41d37790e3dd7d91edc27baab8765471cc4"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
-                "channelgrabber/channel": "^1.45.5",
+                "channelgrabber/channel": "^1.46.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/gearman": "^1.5.0",
@@ -1713,7 +1708,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2021-06-11T13:00:01+00:00"
+            "time": "2022-10-19T08:04:08+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -12462,13 +12457,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.0",
+            "alias_normalized": "1.3.0.0",
+            "version": "dev-PRD-153-migration-oauth",
+            "package": "channelgrabber/etsy"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/etsy": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

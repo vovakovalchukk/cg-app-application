@@ -12,11 +12,11 @@ return [
                     'channelAccount' => Account::class,
                 ],
             ],
-            ClientFactory::class => [
-                'parameters' => [
-                    'cryptor' => 'etsy_cryptor',
-                ],
-            ],
+//            ClientFactory::class => [
+//                'parameters' => [
+//                    'cryptor' => 'etsy_cryptor',
+//                ],
+//            ],
         ]
     ]
 ];
