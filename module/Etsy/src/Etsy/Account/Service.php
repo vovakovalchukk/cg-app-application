@@ -6,6 +6,7 @@ use CG\Etsy\Client\Factory as ClientFactory;
 use CG\Etsy\Client\Scopes;
 use CG\Etsy\Client\State;
 use CG\Etsy\Request\AccessToken as AccessTokenRequest;
+use CG\Etsy\Request\AuthorizationCode;
 use CG\Etsy\Request\RequestToken as RequestTokenRequest;
 use CG\Etsy\Request\User as UserRequest;
 use CG\Etsy\Response\AccessToken as AccessTokenResponse;
@@ -13,6 +14,7 @@ use CG\Etsy\Response\RequestToken as RequestTokenResponse;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 use Etsy\Controller\AccountController;
 use Zend\Session\Container as Session;
+use CG\Etsy\Client\AccessToken\Service as AccessTokenService;
 
 class Service
 {
@@ -24,12 +26,19 @@ class Service
     protected $clientFactory;
     /** @var UrlHelper */
     protected $urlHelper;
+    /** @var AccessTokenService */
+    protected $accessTokenService;
 
-    public function __construct(Session $session, ClientFactory $clientFactory, UrlHelper $urlHelper)
-    {
+    public function __construct(
+        Session $session,
+        ClientFactory $clientFactory,
+        UrlHelper $urlHelper,
+        AccessTokenService $accessTokenService
+    ) {
         $this->session = $session;
         $this->clientFactory = $clientFactory;
         $this->urlHelper = $urlHelper;
+        $this->accessTokenService = $accessTokenService;
     }
 
     public function getLoginUrl(?int $accountId): string
@@ -49,6 +58,25 @@ class Service
             $state,
             $codeChallenge
         );
+    }
+
+    public function getCodeVerifier($encodedState): string
+    {
+        $state = State::decode($encodedState);
+        return $this->session[$state->getId()];
+    }
+
+    public function getAccessToken(string $code, string $codeVerifier, ?int $accountId = null): AccessTokenResponse
+    {
+        $authorizationCodeRequest = new AuthorizationCode(
+            $this->clientFactory->getClientId(),
+            $this->getCallbackUrl($accountId),
+            $code,
+            $codeVerifier
+        );
+        $client = $this->clientFactory->createClientWithoutToken();
+        /** @var AccessTokenResponse $accessTokenResponse */
+        return $client->send($authorizationCodeRequest);
     }
 
     protected function generateCodeVerifier(): string
@@ -85,11 +113,11 @@ class Service
         return new AccessToken($accessToken->getToken(), $accessToken->getSecret());
     }
 
-    protected function getAccessToken(AccessToken $accessToken, string $verifier): AccessTokenResponse
-    {
-        $client = $this->clientFactory->createClientForToken($accessToken);
-        return $client->send(new AccessTokenRequest($verifier));
-    }
+//    protected function getAccessToken(AccessToken $accessToken, string $verifier): AccessTokenResponse
+//    {
+//        $client = $this->clientFactory->createClientForToken($accessToken);
+//        return $client->send(new AccessTokenRequest($verifier));
+//    }
 
     public function getLoginName(AccessToken $accessToken): string
     {
