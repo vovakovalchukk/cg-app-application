@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7bfe3b2a9a4a64675f2f647fcc6e1b",
+    "content-hash": "58627c9d73af6a5a3ff7ad6dba158dc4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -778,16 +778,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.48.4",
+            "version": "dev-PRD-153-migration-oauth",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4"
+                "reference": "b95d7a04bb56d10f07398a9cebb81fe797b30bb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.4-fd0471.zip",
-                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-PRD-153-migration-oauth-51b210.zip",
+                "reference": "b95d7a04bb56d10f07398a9cebb81fe797b30bb0"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -855,7 +855,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2022-04-26T10:36:31+00:00"
+            "time": "2022-10-20T13:32:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1680,6 +1680,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
                 "reference": "de84dcc977ad209db29858cffc900d91849a8ef0"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-1f918b.zip",
+                "reference": "de84dcc977ad209db29858cffc900d91849a8ef0"
+            },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
                 "channelgrabber/channel": "^1.46.1",
@@ -1708,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-10-19T16:17:00+00:00"
+            "time": "2022-10-20T14:06:35+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -12459,6 +12464,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.48.5",
+            "alias_normalized": "1.48.5.0",
+            "version": "dev-PRD-153-migration-oauth",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.3.0",
             "alias_normalized": "1.3.0.0",
             "version": "dev-PRD-153-migration-oauth",
@@ -12467,11 +12478,12 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/etsy": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
