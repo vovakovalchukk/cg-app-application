@@ -1,7 +1,7 @@
 <?php
 namespace Etsy\Account;
 
-use CG\Etsy\AccessToken;
+use CG\Etsy\Client\AccessToken;
 use CG\Etsy\Client\Factory as ClientFactory;
 use CG\Etsy\Client\Scopes;
 use CG\Etsy\Client\State;
@@ -9,12 +9,14 @@ use CG\Etsy\Request\AccessToken as AccessTokenRequest;
 use CG\Etsy\Request\AuthorizationCode;
 use CG\Etsy\Request\RequestToken as RequestTokenRequest;
 use CG\Etsy\Request\User as UserRequest;
+use CG\Etsy\Request\UserShops;
 use CG\Etsy\Response\AccessToken as AccessTokenResponse;
 use CG\Etsy\Response\RequestToken as RequestTokenResponse;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 use Etsy\Controller\AccountController;
 use Zend\Session\Container as Session;
 use CG\Etsy\Client\AccessToken\Service as AccessTokenService;
+use CG\Etsy\Response\Shop as EtsyShop;
 
 class Service
 {
@@ -91,12 +93,12 @@ class Service
         return rtrim(strtr(base64_encode($challengeBytes), "+/", "-_"), "=");
     }
 
-    /** @deprecated */
-    protected function getRequestToken(?int $accountId): RequestTokenResponse
-    {
-        $client = $this->clientFactory->createClientWithoutToken();
-        return $client->send(new RequestTokenRequest($this->getCallbackUrl($accountId)));
-    }
+//    /** @deprecated */
+//    protected function getRequestToken(?int $accountId): RequestTokenResponse
+//    {
+//        $client = $this->clientFactory->createClientWithoutToken();
+//        return $client->send(new RequestTokenRequest($this->getCallbackUrl($accountId)));
+//    }
 
     protected function getCallbackUrl(?int $accountId): string
     {
@@ -107,11 +109,11 @@ class Service
         );
     }
 
-    public function exchangeRequestTokenForAccessToken(string $token, string $verifier): AccessToken
-    {
-        $accessToken = $this->getAccessToken(new AccessToken($token, $this->session[$token] ?? ''), $verifier);
-        return new AccessToken($accessToken->getToken(), $accessToken->getSecret());
-    }
+//    public function exchangeRequestTokenForAccessToken(string $token, string $verifier): AccessToken
+//    {
+//        $accessToken = $this->getAccessToken(new AccessToken($token, $this->session[$token] ?? ''), $verifier);
+//        return new AccessToken($accessToken->getToken(), $accessToken->getSecret());
+//    }
 
 //    protected function getAccessToken(AccessToken $accessToken, string $verifier): AccessTokenResponse
 //    {
@@ -119,9 +121,24 @@ class Service
 //        return $client->send(new AccessTokenRequest($verifier));
 //    }
 
-    public function getLoginName(AccessToken $accessToken): string
+//    public function getLoginName(AccessToken $accessToken): string
+//    {
+//        $client = $this->clientFactory->createClientForToken($accessToken);
+//        return $client->send(new UserRequest())->getLoginName();
+//    }
+
+    public function getEtsyUserId(AccessTokenResponse $accessTokenResponse)
     {
-        $client = $this->clientFactory->createClientForToken($accessToken);
-        return $client->send(new UserRequest())->getLoginName();
+        [$userId, ] = explode('.', $accessTokenResponse->getRefreshToken());
+        return $userId;
+    }
+
+    public function getUsersShop(AccessTokenResponse $accessTokenResponse, int $userId): EtsyShop
+    {
+        $client = $this->clientFactory->createClientWithAccessToken(
+            new AccessToken($accessTokenResponse->getAccessToken(), $accessTokenResponse->getExpiresIn())
+        );
+
+        $userShopResponse = $client->send(new UserShops($userId));
     }
 }

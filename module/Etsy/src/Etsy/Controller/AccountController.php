@@ -11,6 +11,7 @@ use Settings\Controller\ChannelController;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Etsy\Response\AccessToken as AccessTokenResponse;
+use CG\Etsy\Response\Shop as ShopResponse;
 
 class AccountController extends AbstractActionController
 {
@@ -48,35 +49,37 @@ class AccountController extends AbstractActionController
 
         $codeVerifier = $this->accountService->getCodeVerifier($state);
         $accessTokenResponse = $this->accountService->getAccessToken($code, $codeVerifier);
+        $etsyUserId = $this->accountService->getEtsyUserId($accessTokenResponse);
+        $etsyShopResponse = $this->accountService->getUsersShop($accessTokenResponse, $etsyUserId);
 
-        $account = $this->connectAccount($accessTokenResponse);
+        $account = $this->connectAccount($accessTokenResponse, $etsyShopResponse);
         return $this->redirect()->toRoute(
             implode('/', [Settings::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]),
             ['type' => $account->getType(), 'account' => $account->getId()]
         );
     }
 
-    protected function getAccessToken(): AccessToken
-    {
+//    protected function getAccessToken(): AccessToken
+//    {
+//
+//
+//        return $this->accountService->exchangeRequestTokenForAccessToken(
+//            $this->params()->fromQuery('oauth_token', ''),
+//            $this->params()->fromQuery('oauth_verifier', '')
+//        );
+//    }
 
+//    protected function getLoginName(AccessToken $accessToken): string
+//    {
+//        return $this->accountService->getLoginName($accessToken);
+//    }
 
-        return $this->accountService->exchangeRequestTokenForAccessToken(
-            $this->params()->fromQuery('oauth_token', ''),
-            $this->params()->fromQuery('oauth_verifier', '')
-        );
-    }
-
-    protected function getLoginName(AccessToken $accessToken): string
-    {
-        return $this->accountService->getLoginName($accessToken);
-    }
-
-    protected function connectAccount(AccessTokenResponse $accessToken): Account
+    protected function connectAccount(AccessTokenResponse $accessTokenResponse, ShopResponse $shopResponse): Account
     {
         return $this->accountCreationService->connectAccount(
             $this->activeUserInterface->getCompanyId(),
             $this->params()->fromRoute('account'),
-            compact('accessToken')
+            compact('accessTokenResponse', 'shopResponse')
         );
     }
 }
