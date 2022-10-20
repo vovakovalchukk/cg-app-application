@@ -1678,7 +1678,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "a23c61b62a54dd8ac3f90a0afe3a0ef94adc3a31"
+                "reference": "de84dcc977ad209db29858cffc900d91849a8ef0"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",

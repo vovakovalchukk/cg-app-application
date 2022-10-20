@@ -139,6 +139,6 @@ class Service
             new AccessToken($accessTokenResponse->getAccessToken(), $accessTokenResponse->getExpiresIn())
         );
 
-        $userShopResponse = $client->send(new UserShops($userId));
+         return $client->send(new UserShops($userId));
     }
 }
