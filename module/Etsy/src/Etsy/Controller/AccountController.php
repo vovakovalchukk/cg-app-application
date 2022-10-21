@@ -4,6 +4,7 @@ namespace Etsy\Controller;
 use CG\Account\Shared\Entity as Account;
 use CG\Etsy\AccessToken;
 use CG\Etsy\Account\CreationService as AccountCreationService;
+use CG\Etsy\Client\State;
 use CG\Etsy\Request\AuthorizationCode;
 use CG\User\ActiveUserInterface;
 use Etsy\Account\Service as AccountService;
@@ -52,7 +53,7 @@ class AccountController extends AbstractActionController
         $etsyUserId = $this->accountService->getEtsyUserId($accessTokenResponse);
         $etsyShopResponse = $this->accountService->getUsersShop($accessTokenResponse, $etsyUserId);
 
-        $account = $this->connectAccount($accessTokenResponse, $etsyShopResponse);
+        $account = $this->connectAccount($accessTokenResponse, $etsyShopResponse, (State::decode($state))->getAccountId());
         return $this->redirect()->toRoute(
             implode('/', [Settings::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]),
             ['type' => $account->getType(), 'account' => $account->getId()]
@@ -74,11 +75,11 @@ class AccountController extends AbstractActionController
 //        return $this->accountService->getLoginName($accessToken);
 //    }
 
-    protected function connectAccount(AccessTokenResponse $accessTokenResponse, ShopResponse $shopResponse): Account
+    protected function connectAccount(AccessTokenResponse $accessTokenResponse, ShopResponse $shopResponse, ?int $accountId = null): Account
     {
         return $this->accountCreationService->connectAccount(
             $this->activeUserInterface->getCompanyId(),
-            $this->params()->fromRoute('account'),
+            $accountId,
             compact('accessTokenResponse', 'shopResponse')
         );
     }

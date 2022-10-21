@@ -54,7 +54,7 @@ class Service
 
         return sprintf(
             static::URI,
-            $this->getCallbackUrl($accountId),
+            $this->getCallbackUrl(), //$accountId
             implode(' ', Scopes::getAllScopes()),
             $this->clientFactory->getClientId(),
             $state,
@@ -72,7 +72,7 @@ class Service
     {
         $authorizationCodeRequest = new AuthorizationCode(
             $this->clientFactory->getClientId(),
-            $this->getCallbackUrl($accountId),
+            $this->getCallbackUrl(), //$accountId
             $code,
             $codeVerifier
         );
@@ -100,11 +100,12 @@ class Service
 //        return $client->send(new RequestTokenRequest($this->getCallbackUrl($accountId)));
 //    }
 
-    protected function getCallbackUrl(?int $accountId): string
+    protected function getCallbackUrl(): string
     {
         return $this->urlHelper->fromRoute(
             AccountController::ROUTE_REGISTER,
-            ['account' => $accountId],
+//            ['account' => $accountId],
+            [],
             ['force_canonical' => true]
         );
     }
@@ -139,6 +140,6 @@ class Service
             new AccessToken($accessTokenResponse->getAccessToken(), $accessTokenResponse->getExpiresIn())
         );
 
-         return $client->send(new UserShops($userId));
+        return $client->send(new UserShops($userId));
     }
 }
