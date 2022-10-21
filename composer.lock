@@ -1678,12 +1678,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "34d94590f40179d0e55f4bc83194fa10dc1b3976"
+                "reference": "7e72eb40c8603434c71428ad58192c93f44ea4c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-ef4879.zip",
-                "reference": "34d94590f40179d0e55f4bc83194fa10dc1b3976"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-2b828c.zip",
+                "reference": "7e72eb40c8603434c71428ad58192c93f44ea4c4"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-10-20T15:28:49+00:00"
+            "time": "2022-10-21T09:33:21+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
