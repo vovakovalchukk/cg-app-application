@@ -2,10 +2,8 @@
 namespace Etsy\Controller;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Etsy\AccessToken;
 use CG\Etsy\Account\CreationService as AccountCreationService;
 use CG\Etsy\Client\State;
-use CG\Etsy\Request\AuthorizationCode;
 use CG\User\ActiveUserInterface;
 use Etsy\Account\Service as AccountService;
 use Settings\Controller\ChannelController;
@@ -59,21 +57,6 @@ class AccountController extends AbstractActionController
             ['type' => $account->getType(), 'account' => $account->getId()]
         );
     }
-
-//    protected function getAccessToken(): AccessToken
-//    {
-//
-//
-//        return $this->accountService->exchangeRequestTokenForAccessToken(
-//            $this->params()->fromQuery('oauth_token', ''),
-//            $this->params()->fromQuery('oauth_verifier', '')
-//        );
-//    }
-
-//    protected function getLoginName(AccessToken $accessToken): string
-//    {
-//        return $this->accountService->getLoginName($accessToken);
-//    }
 
     protected function connectAccount(AccessTokenResponse $accessTokenResponse, ShopResponse $shopResponse, ?int $accountId = null): Account
     {
