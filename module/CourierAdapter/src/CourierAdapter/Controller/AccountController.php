@@ -4,6 +4,7 @@ namespace CourierAdapter\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Type as ChannelType;
+use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
@@ -226,7 +227,10 @@ class AccountController extends AbstractActionController implements LoggerAwareI
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class
         );
-        $params = $this->prepareAdapterImplementationParamsForSubmission($params, $courierInstance);
+
+        if ($courierInstance instanceof DpdCourier) {
+            $params = $this->prepareAdapterImplementationParamsPostCodeValueForSubmission($params);
+        }
 
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);

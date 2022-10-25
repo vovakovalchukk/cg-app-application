@@ -1,7 +1,6 @@
 <?php
 namespace CG\CourierAdapter\Provider\Implementation;
 
-use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
 use Zend\Form\Element\Checkbox as ZendFormCheckbox;
@@ -83,14 +82,6 @@ trait PrepareAdapterImplementationFieldsTrait
             } else {
                 $values[$fieldsOrSet->getName()] = null;
             }
-        }
-        return $values;
-    }
-
-    protected function prepareAdapterImplementationParamsForSubmission(array $values, $courierInstance = null): array
-    {
-        if ($courierInstance instanceof DpdCourier) {
-            $values = $this->prepareAdapterImplementationParamsPostCodeValueForSubmission($values);
         }
         return $values;
     }
