@@ -226,6 +226,7 @@ class AccountController extends AbstractActionController implements LoggerAwareI
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class
         );
+        $params = $this->prepareAdapterImplementationParamsForSubmission($params, $courierInstance);
 
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
