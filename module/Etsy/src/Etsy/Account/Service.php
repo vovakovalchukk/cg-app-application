@@ -50,7 +50,7 @@ class Service
 
         return sprintf(
             static::URI,
-            $this->getCallbackUrl(), //$accountId
+            $this->getCallbackUrl(),
             implode(' ', Scopes::getAllScopes()),
             $this->clientFactory->getClientId(),
             $state,
@@ -68,7 +68,7 @@ class Service
     {
         $authorizationCodeRequest = new AuthorizationCode(
             $this->clientFactory->getClientId(),
-            $this->getCallbackUrl(), //$accountId
+            $this->getCallbackUrl(),
             $code,
             $codeVerifier
         );

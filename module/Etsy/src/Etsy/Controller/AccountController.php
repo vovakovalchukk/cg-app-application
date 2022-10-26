@@ -4,13 +4,13 @@ namespace Etsy\Controller;
 use CG\Account\Shared\Entity as Account;
 use CG\Etsy\Account\CreationService as AccountCreationService;
 use CG\Etsy\Client\State;
+use CG\Etsy\Response\AccessToken as AccessTokenResponse;
+use CG\Etsy\Response\Shop as ShopResponse;
 use CG\User\ActiveUserInterface;
 use Etsy\Account\Service as AccountService;
 use Settings\Controller\ChannelController;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Etsy\Response\AccessToken as AccessTokenResponse;
-use CG\Etsy\Response\Shop as ShopResponse;
 
 class AccountController extends AbstractActionController
 {
