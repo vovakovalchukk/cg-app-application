@@ -41,10 +41,11 @@ class ProductList extends React.Component {
             height: null,
             width: null
         },
-        fetchingUpdatedStockLevelsForSkus: {}
+        fetchingUpdatedStockLevelsForSkus: {},
+        order: '',
     };
 
-    componentDidUpdate = function(prevProps) {
+    componentDidUpdate = function (prevProps) {
         if (prevProps.products.visibleRows.length !== this.props.products.visibleRows.length) {
             this.props.actions.updateRowsForPortals();
         }
@@ -133,7 +134,7 @@ class ProductList extends React.Component {
             if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                 return;
             }
-            let CreatedColumn = columnCreator(column, this.props);
+            let CreatedColumn = columnCreator(column, this.props, this.state, this.setOrder);
             horizontalDistanceOfColumn += column.width;
             return CreatedColumn
         });
@@ -180,6 +181,11 @@ class ProductList extends React.Component {
             this.props.actions.updateHorizontalScrollIndex(index)
         }, 120);
         return true;
+    };
+    setOrder = (item) => {
+        this.setState({
+            order: item
+        });
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
@@ -310,6 +316,8 @@ class ProductList extends React.Component {
                 />
                 <ProductFooter
                     pagination={this.props.pagination}
+                    order={this.state.order}
+                    setOrder={this.setOrder}
                     actions={{
                         changePage: this.props.actions.changePage,
                         changeLimit: this.props.actions.changeLimit

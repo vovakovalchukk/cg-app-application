@@ -163,17 +163,25 @@ var actionCreators = (function() {
                 }
             }
         },
-        getProducts: (pageNumber, searchTerm, skuList) => {
+        getProducts: (pageNumber, searchTerm, skuList, order) => {
             return async function(dispatch, getState) {
                 let state = getState();
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
+                order = [order,];
                 let filter = new ProductFilter(
                     searchTerm,
                     null,
                     null,
-                    skuList
+                    skuList,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    order,
                 );
                 filter.setPage(pageNumber);
                 filter.setLimit(getState.customGetters.getPaginationLimit());

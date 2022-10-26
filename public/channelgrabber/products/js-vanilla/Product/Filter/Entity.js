@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn, returnOnlyFirstImage)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn, returnOnlyFirstImage, order)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -13,6 +13,7 @@ define([
         this.embedVariationsAsLinks = embedVariationsAsLinks;
         this.embeddedDataToReturn = embeddedDataToReturn;
         this.returnOnlyFirstImage = returnOnlyFirstImage;
+        this.order = order
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -42,6 +43,15 @@ define([
         this.getPage = function() {
             return this.page;
         };
+
+        this.getOrder = function() {
+            return this.order;
+        }
+
+        this.setOrder = function(order) {
+            this.order = order;
+            return this;
+        }
 
         this.setPage = function(newPage)
         {
@@ -148,6 +158,10 @@ define([
 
         if (typeof this.getReturnOnlyFirstImage() === 'boolean') {
             object['returnOnlyFirstImage'] = this.getReturnOnlyFirstImage();
+        }
+
+        if (this.getOrder()) {
+            object['order'] = this.getOrder();
         }
 
         return object;

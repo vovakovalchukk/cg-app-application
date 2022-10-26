@@ -840,3 +840,48 @@ $tabs-container-height: 50px;
 .safe-input-box .submit-input input.no-max-width {
     max-width: unset;
 }
+
+.sorting {
+    .fixedDataTableCellLayout_wrap2{
+        .fixedDataTableCellLayout_wrap3{
+                background-image: url("../img/sorting.png");
+                background-repeat: no-repeat;
+                padding-right: 20px;
+                background-position-x: right;
+                background-position-y: center;
+        }
+    }
+}
+
+.sorting_asc {
+    .fixedDataTableCellLayout_wrap2{
+        .fixedDataTableCellLayout_wrap3{
+                background-image: url("../img/sorting_asc.png");
+                background-repeat: no-repeat;
+                padding-right: 20px;
+                background-position-x: right;
+                background-position-y: center;
+        }
+    }
+}
+
+.sorting_desc {
+    .fixedDataTableCellLayout_wrap2{
+        .fixedDataTableCellLayout_wrap3{
+                background-image: url("../img/sorting_desc.png");
+                background-repeat: no-repeat;
+                padding-right: 20px;
+                background-position-x: right;
+                background-position-y: center;
+        }
+    }
+}
+
+.sorting, .sorting_asc, .sorting_desc {
+    &:hover{
+        background-color: #74b9df;
+    }
+    &:active{
+        background-color: #1477aa;
+    }
+}

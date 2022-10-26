@@ -14,11 +14,11 @@ let paginationActions = (function() {
         }
     };
     return {
-        changePage: desiredPageNumber => {
+        changePage: (desiredPageNumber, orderState) => {
             return async (dispatch, getState) => {
                 const state = getState();
                 let {searchTerm} = state.search;
-                await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
+                await dispatch(productActions.getProducts(desiredPageNumber, searchTerm, null, orderState.order));
                 dispatch(productActions.moveVerticalScrollbarToTop());
                 dispatch(rowActions.updateRowsForPortals());
                 dispatch(expandActions.changeStatusExpandAll('collapsed'));

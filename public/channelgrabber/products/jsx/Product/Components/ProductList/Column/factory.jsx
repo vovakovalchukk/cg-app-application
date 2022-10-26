@@ -34,7 +34,7 @@ const alignFlexMap = {
 
 let cellWrappers = {};
 
-let columnCreator = function(column, parentProps) {
+let columnCreator = function(column, parentProps, orderState, setOrder) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
@@ -42,7 +42,7 @@ let columnCreator = function(column, parentProps) {
     createCellWrapper(column);
 
     let CellToRender = getCell(column);
-    let HeaderCellToRender = headerCellFactory.createHeaderCellContent(column, parentProps.userSettings);
+    let HeaderCellToRender = headerCellFactory.createHeaderCellContent(column, parentProps, orderState, setOrder);
 
     return (<Column
         pureRendering={true}
