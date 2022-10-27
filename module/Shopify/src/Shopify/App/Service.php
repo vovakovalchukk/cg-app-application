@@ -18,7 +18,7 @@ class Service implements LoggerAwareInterface
 
     protected const LOG_CODE = 'ShopifyAppService';
     protected const LOGIN_EXC_MSG = 'Unknown user is trying connect Shopify or use Embedded mode on Shopify. Redirect to login page.';
-    protected const EMBEDDED_EXC_MSG = 'User %d is trying to use Embedded mode on Shopify.';
+    protected const EMBEDDED_EXC_MSG = 'User from shop %s is trying to use Embedded mode on Shopify.';
     protected const RECONNECT_MSG = 'User %d is trying to reconnect his Shopify (accountId %d)';
 
     /** @var AccountService */
@@ -60,8 +60,7 @@ class Service implements LoggerAwareInterface
     public function isEmbeddedMode(array $parameters): bool
     {
         if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
-            $user = $this->activeUser->getActiveUser();
-            $this->logDebug(static::EMBEDDED_EXC_MSG, ['userId' => $user->getId()], static::LOG_CODE);
+            $this->logDebug(static::EMBEDDED_EXC_MSG, [$parameters['shop']], static::LOG_CODE);
             return true;
         }
 
