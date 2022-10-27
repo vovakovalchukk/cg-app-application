@@ -7,8 +7,15 @@ use CG\CourierAdapter\Provider\Implementation\ParamsMapperRules\PostcodeValidati
 class ParamsMapper
 {
     const RULES = [
-        // Courier name we want to apply the rule
+        // Courier name (DPD) we want to apply the rule
         "dpd-ca" => [
+            // Parameters structure we target
+            'AccountInformation' => [
+                "postcodeValidation" => PostcodeValidationRule::class
+            ]
+        ],
+        // Courier name (DPD Local) we want to apply the rule
+        "interlink-ca" => [
             // Parameters structure we target
             'AccountInformation' => [
                 "postcodeValidation" => PostcodeValidationRule::class
