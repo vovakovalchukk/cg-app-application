@@ -4,6 +4,7 @@ namespace Shopify\App;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG\User\UserInterface;
 use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
@@ -43,23 +44,38 @@ class Service implements LoggerAwareInterface
 
     public function processOauth($redirectUri, array $parameters): string
     {
-        if (!($user = $this->activeUser->getActiveUser())) {
-            $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
-            throw new LoginException('User is not logged in');
+        $accountId = null;
+        if ($user = $this->activeUser->getActiveUser()) {
+            $accountId = $this->userService->getAccountId($user->getId());
         }
 
-        if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
-            $this->logDebug(static::EMBEDDED_EXC_MSG, ['userId' => $user->getId()], static::LOG_CODE);
-            throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
-        }
-
-        $accountId = $this->userService->getAccountId($user->getId());
         if (!is_null($accountId)) {
             $this->logDebug(static::RECONNECT_MSG, ['userId' => $user->getId(), 'accountId' => $accountId], static::LOG_CODE);
             $this->userService->removeAccountId($user->getId());
         }
 
         return $this->accountService->getLink($parameters['shop'], $accountId);
+    }
+
+    public function isEmbeddedMode(array $parameters): bool
+    {
+        if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
+            $user = $this->activeUser->getActiveUser();
+            $this->logDebug(static::EMBEDDED_EXC_MSG, ['userId' => $user->getId()], static::LOG_CODE);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getActiveUser(): ?UserInterface
+    {
+        if (!($user = $this->activeUser->getActiveUser())) {
+            $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
+            throw new LoginException('User is not logged in');
+        }
+
+        return $user;
     }
 
     public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = []): void
