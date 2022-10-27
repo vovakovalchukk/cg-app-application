@@ -14,7 +14,7 @@ class ParamsMapperProcessor
 
     private function collapseData($array, $prefix = '')
     {
-        $result = array();
+        $result = [];
         foreach($array as $key=>$value) {
             if(is_array($value)) {
                 $result = $result + $this->collapseData($value, $prefix . $key . '.');
