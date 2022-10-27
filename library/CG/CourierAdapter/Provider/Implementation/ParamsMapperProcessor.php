@@ -12,10 +12,10 @@ class ParamsMapperProcessor
         $this->mapperStructure = $mapperStructure;
     }
 
-    private function collapseData($array, $prefix = '')
+    private function collapseData(array $data, $prefix = ''): array
     {
         $result = [];
-        foreach($array as $key=>$value) {
+        foreach($data as $key=> $value) {
             if(is_array($value)) {
                 $result = $result + $this->collapseData($value, $prefix . $key . '.');
             }
@@ -26,7 +26,7 @@ class ParamsMapperProcessor
         return $result;
     }
 
-    private function expandData($data)
+    private function expandData(array $data): array
     {
         $output = [];
         foreach ($data as $key => $value) {
