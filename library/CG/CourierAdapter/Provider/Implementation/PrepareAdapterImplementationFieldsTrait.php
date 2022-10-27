@@ -86,14 +86,9 @@ trait PrepareAdapterImplementationFieldsTrait
         return $values;
     }
 
-    protected function prepareAdapterImplementationParamsPostCodeValueForSubmission(array $values): array
+    protected function prepareAdapterImplementationParamsForSubmission(string $channelName, array $params): array
     {
-        if (!isset($values['AccountInformation']['postcodeValidation'])) {
-            return $values;
-        }
-        if (strtolower($values['AccountInformation']['postcodeValidation']) == 'no') {
-            $values['AccountInformation']['postcodeValidation'] = 0;
-        }
-        return $values;
+        $testClass = new ParamsMapperProcessor(ParamsMapper::RULES);
+        return $testClass->runParamsMapper($channelName, $params);
     }
 }
