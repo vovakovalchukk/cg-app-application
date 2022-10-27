@@ -12,7 +12,8 @@ class ParamsMapperProcessor
         $this->mapperStructure = $mapperStructure;
     }
 
-    private function collapseData($array, $prefix = '') {
+    private function collapseData($array, $prefix = '')
+    {
         $result = array();
         foreach($array as $key=>$value) {
             if(is_array($value)) {
@@ -25,7 +26,8 @@ class ParamsMapperProcessor
         return $result;
     }
 
-    private function expandData($data) {
+    private function expandData($data)
+    {
         $output = [];
         foreach ($data as $key => $value) {
             $parts = explode('.', $key);
@@ -44,11 +46,11 @@ class ParamsMapperProcessor
         $collapsedRules = $this->collapseData($channelRules);
         $collapsedParams = $this->collapseData($params);
 
-        foreach ($collapsedRules as $paramKey => $rule) {
-            if (isset($collapsedParams[$paramKey])) {
-                $paramValue = $collapsedParams[$paramKey];
+        foreach ($collapsedRules as $ruleKey => $rule) {
+            if (isset($collapsedParams[$ruleKey])) {
+                $paramValue = $collapsedParams[$ruleKey];
                 $callbackRule = [$rule, 'run'];
-                $collapsedParams[$paramKey] = is_callable($callbackRule) ? call_user_func($callbackRule, $paramValue) : $rule;
+                $collapsedParams[$ruleKey] = is_callable($callbackRule) ? call_user_func($callbackRule, $paramValue) : $rule;
             }
         }
 
