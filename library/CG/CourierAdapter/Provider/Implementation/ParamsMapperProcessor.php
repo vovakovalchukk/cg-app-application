@@ -38,7 +38,6 @@ class ParamsMapperProcessor
         if (isset($this->mapperStructure[$channelName])) {
             $rules = $this->mapperStructure[$channelName];
             $this->processMapItem($rules, $params);
-            return $params;
         }
         return $params;
     }
