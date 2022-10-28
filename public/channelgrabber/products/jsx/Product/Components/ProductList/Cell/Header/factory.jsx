@@ -22,16 +22,12 @@ let cells = {
     bulkSelect: BulkSelectCell
 };
 
-const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of Manufacture', ];
+const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of Manufacture', 'Cost Price', 'Available',
+    'Awaiting Dispatch', 'Awaiting Dispatch', 'Stock on Order'];
 
 export default (function () {
     return {
         createHeaderCellContent: function (column, props, orderState, setOrder) {
-            // if (columnKeysMetricPropertyMap[column.key]) {
-            //     console.log(column.headerText)
-            //     debugger
-            //     return getHeaderTextWithMetricInfo(column, props.userSettings);
-            // }
             let CellContent = {};
 
             if (cells[column.key]) {
@@ -40,28 +36,31 @@ export default (function () {
                     <CellContent {...column}/>
                 </HeaderCellContainer>);
             }
-            console.log(column.headerText == 'Country Of Manufacture')
-            let onClickOrder = null
-            let className
+            let onClickOrder = null,
+                className,
+                columnName = column.headerText.toLowerCase().replaceAll(' ', '');
             if (ORDER_COLUMNS.includes(column.headerText)) {
-                // if (column.headerText == 'Country Of Manufacture'){
-                //     debugger
-                // }
-
-                let columnName = column.headerText.toLowerCase().replaceAll(' ', '');
-                let order
+                if (columnName == 'costprice') {
+                    columnName = 'cost';
+                } else if (columnName == 'available') {
+                    columnName = 'onhand';
+                } else if (columnName == 'awaitingdispatch') {
+                    columnName = 'allocated'
+                } else if (columnName == 'stockonorder') {
+                    columnName = 'onpurchaseorder'
+                }
                 className = 'sorting'
                 onClickOrder = async (event) => {
                     let currentOrder = orderState.order.split(',');
-                    order = createNewOrder(columnName, currentOrder[0], currentOrder[1], event);
+                    let order = createNewOrder(columnName, currentOrder[0], currentOrder[1], event);
                     setOrder(order);
                     await props.actions.getProducts(props.pagination.page, '', [], order);
                 }
             }
             return (
-                <HeaderCellContainer title={column.headerText} id={column.headerText.toLowerCase()} onClick={onClickOrder}
+                <HeaderCellContainer title={column.headerText} id={columnName} onClick={onClickOrder}
                                      className={className}>
-                    {column.headerText}
+                    {getHeaderTextWithMetricInfo(column, props.userSettings)}
                 </HeaderCellContainer>
             );
         }
@@ -69,9 +68,12 @@ export default (function () {
 }());
 
 function getHeaderTextWithMetricInfo(column, userSettings) {
-    let metricProp = columnKeysMetricPropertyMap[column.key];
-    let metricString = '(' + userSettings[metricProp] + ')';
-    return column.headerText + ' ' + metricString;
+    if (columnKeysMetricPropertyMap[column.key] && column.headerText.slice(column.headerText.length - 1) != ')') {
+        let metricProp = columnKeysMetricPropertyMap[column.key];
+        let metricString = '(' + userSettings[metricProp] + ')';
+        return column.headerText + ' ' + metricString;
+    }
+    return column.headerText
 }
 
 function changeOrderDirection(direction, event) {
@@ -99,9 +101,12 @@ function createNewOrder(currentColumn, previousOrderColumn, previousOrderDirecti
         }
     } else {
         if (previousOrderColumn != '') {
-            let oldColumnSort = document.getElementById(previousOrderColumn)
-            oldColumnSort.classList.add('sorting')
-            oldColumnSort.classList.remove('sorting_' + previousOrderDirection)
+            try {
+                let oldColumnSort = document.getElementById(previousOrderColumn)
+                oldColumnSort.classList.add('sorting')
+                oldColumnSort.classList.remove('sorting_' + previousOrderDirection)
+            } catch (TypeError) {
+            }
         }
         event.currentTarget.classList.add('sorting_asc')
         event.currentTarget.classList.remove('sorting')

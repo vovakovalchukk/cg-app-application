@@ -262,6 +262,10 @@ class ProductsJsonController extends AbstractActionController
         if (!isset($filterParams['embeddedDataToReturn']) || !is_array($filterParams['embeddedDataToReturn'])) {
             $filterParams['embeddedDataToReturn'] = null;
         }
+        if (!array_key_exists('order', $filterParams)) {
+            $filterParams['order'] = null;
+        }
+
 
         $requestFilter = $this->filterMapper->fromArray($filterParams)
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
@@ -269,7 +273,8 @@ class ProductsJsonController extends AbstractActionController
             ->setReturnNonEmptyNames($filterParams['returnNonEmptyNames'] ?? false)
             ->setReturnOnlyFirstImage($filterParams['returnOnlyFirstImage'] ?? false)
             ->setLimit($limit)
-            ->setPage($page);
+            ->setPage($page)
+            ->setOrder($filterParams['order']);
 
         return $requestFilter;
     }
