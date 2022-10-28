@@ -6,62 +6,39 @@ class ParamsMapperProcessor
 {
     /** @var array */
     private $mapperStructure;
+    /** @var string */
+    private $flag = '';
 
     public function __construct(array $mapperStructure)
     {
         $this->mapperStructure = $mapperStructure;
     }
 
-    private function collapseData(array $data, $prefix = ''): array
+    private function processMapItem($channelRules, &$params)
     {
-        $result = [];
-        foreach($data as $key=> $value) {
-            if(is_array($value)) {
-                $result = $result + $this->collapseData($value, $prefix . $key . '.');
-            }
-            else {
-                $result[$prefix . $key] = $value;
+        foreach ($params as $key => &$value) {
+            if (is_array($value)) {
+                $this->flag = $key . '.';
+                $this->processMapItem($channelRules, $value);
+            } else {
+                $keyToCheck = $this->flag . $key;
+                if (isset($channelRules[$keyToCheck])) {
+                    $rule = $channelRules[$keyToCheck];
+                    $valueToSearchFor = $rule['value'];
+                    $valueToReplaceWith = $rule['replace'];
+                    $valuesMatch = strtolower($value) == strtolower($valueToSearchFor);
+                    $params[$key] = $valuesMatch ? $valueToReplaceWith : $value;
+                }
             }
         }
-        return $result;
-    }
-
-    private function expandData(array $data): array
-    {
-        $output = [];
-        foreach ($data as $key => $value) {
-            $parts = explode('.', $key);
-            $nested = &$output;
-            while (count($parts) > 1) {
-                $nested = &$nested[array_shift($parts)];
-                if (!is_array($nested)) $nested = [];
-            }
-            $nested[array_shift($parts)] = $value;
-        }
-        return $output;
-    }
-
-    private function processMapItem($channelRules, $params)
-    {
-        $collapsedRules = $this->collapseData($channelRules);
-        $collapsedParams = $this->collapseData($params);
-
-        foreach ($collapsedRules as $ruleKey => $rule) {
-            if (isset($collapsedParams[$ruleKey])) {
-                $paramValue = $collapsedParams[$ruleKey];
-                $callbackRule = [$rule, 'run'];
-                $collapsedParams[$ruleKey] = is_callable($callbackRule) ? call_user_func($callbackRule, $paramValue) : $rule;
-            }
-        }
-
-        return $this->expandData($collapsedParams);
     }
 
     public function runParamsMapper($channelName, $params)
     {
         if (isset($this->mapperStructure[$channelName])) {
             $rules = $this->mapperStructure[$channelName];
-            return $this->processMapItem($rules, $params);
+            $this->processMapItem($rules, $params);
+            return $params;
         }
         return $params;
     }
