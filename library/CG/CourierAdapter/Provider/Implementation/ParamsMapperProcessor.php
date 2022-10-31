@@ -22,7 +22,7 @@ class ParamsMapperProcessor
         ]
     ];
 
-    private function processMapItem($channelRules, $params)
+    private function processMapItem(string $channelRules, array $params)
     {
         foreach ($params as $key => $value) {
             if (is_array($value)) {
