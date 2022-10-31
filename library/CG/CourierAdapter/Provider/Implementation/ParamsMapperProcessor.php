@@ -4,23 +4,18 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 class ParamsMapperProcessor
 {
-    const RULES = [
-        // Courier name (DPD) we want to apply the rule
-        "dpd-ca" => [
-            // Parameters structure we target
-            'AccountInformation' => [
-                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
-            ],
-        ],
+    /** @var array */
+    private $rules = [];
 
-        // Courier name (DPD Local) we want to apply the rule
-        "interlink-ca" => [
-            // Parameters structure we target
-            'AccountInformation' => [
-                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
-            ],
-        ]
-    ];
+    public function setRules(array $rules)
+    {
+        $this->rules = $rules;
+    }
+
+    public function getRules(): array
+    {
+        return $this->rules;
+    }
 
     private function processMapItem(array $channelRules, array $params): array
     {
@@ -43,10 +38,11 @@ class ParamsMapperProcessor
         return $params;
     }
 
-    public function runParamsMapper(string $channelName, array $params)
+    public function runParamsMapper(string $channelName, array $params): array
     {
-        if (isset(ParamsMapperProcessor::RULES[$channelName])) {
-            return $this->processMapItem(ParamsMapperProcessor::RULES[$channelName], $params);
+        $rules = $this->getRules();
+        if (isset($rules[$channelName])) {
+            return $this->processMapItem($rules[$channelName], $params);
         }
         return $params;
     }

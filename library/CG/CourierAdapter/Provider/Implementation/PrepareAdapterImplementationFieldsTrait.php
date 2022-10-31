@@ -1,4 +1,5 @@
 <?php
+
 namespace CG\CourierAdapter\Provider\Implementation;
 
 use InvalidArgumentException;
@@ -89,6 +90,23 @@ trait PrepareAdapterImplementationFieldsTrait
     protected function prepareAdapterImplementationParamsForSubmission(string $channelName, array $params): array
     {
         $testClass = new ParamsMapperProcessor();
+        $testClass->setRules([
+            // Courier name (DPD) we want to apply the rule
+            "dpd-ca" => [
+                // Parameters structure we target
+                'AccountInformation' => [
+                    'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+                ],
+            ],
+
+            // Courier name (DPD Local) we want to apply the rule
+            "interlink-ca" => [
+                // Parameters structure we target
+                'AccountInformation' => [
+                    'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+                ],
+            ]
+        ]);
         return $testClass->runParamsMapper($channelName, $params);
     }
 }
