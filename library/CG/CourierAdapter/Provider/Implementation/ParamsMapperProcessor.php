@@ -20,12 +20,12 @@ class ParamsMapperProcessor
     /** @var string */
     private $flag = '';
 
-    private function processMapItem($channelRules, &$params)
+    private function processMapItem($channelRules, $params)
     {
-        foreach ($params as $key => &$value) {
+        foreach ($params as $key => $value) {
             if (is_array($value)) {
                 $this->flag = $key . '.';
-                $this->processMapItem($channelRules, $value);
+                $params[$key] =  $this->processMapItem($channelRules, $value);
             } else {
                 $keyToCheck = $this->flag . $key;
                 if (isset($channelRules[$keyToCheck])) {
@@ -36,13 +36,15 @@ class ParamsMapperProcessor
                     $params[$key] = $valuesMatch ? $valueToReplaceWith : $value;
                 }
             }
+
         }
+        return $params;
     }
 
     public function runParamsMapper($channelName, $params)
     {
         if (isset(ParamsMapperProcessor::RULES[$channelName])) {
-            $this->processMapItem(ParamsMapperProcessor::RULES[$channelName], $params);
+            return $this->processMapItem(ParamsMapperProcessor::RULES[$channelName], $params);
         }
         return $params;
     }
