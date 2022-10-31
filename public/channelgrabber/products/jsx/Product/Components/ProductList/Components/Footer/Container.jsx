@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LimitSelect from 'Product/Components/ProductList/Components/Footer/LimitSelect';
 import PageLink from 'Product/Components/ProductList/Components/Footer/PageLink';
+import BlockerModal from "Common/Components/BlockerModal";
 
 const PaginationInfoContainer = styled.div`
         display:inline-block;
@@ -13,7 +14,39 @@ const PageLinksContainer = styled.div`
         margin-left:1rem;
     `;
 
+const ButtonModalSaveSort = styled.button`
+        margin-left: 20px;
+    `;
+
+const ModalSaveSort = styled.form`
+        padding: 1rem;
+        div:nth-of-type(1) {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            padding: 0 0 2rem 0;
+            label {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+                input {
+                    width: 1rem;
+                }
+            }
+        }    
+        div:nth-of-type(2) {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }    
+    `;
+
 class FooterComponent extends React.Component {
+
+    state = {
+        modal: false,
+    };
+
     getPageLinksFromPaginationData = (limit, page, total, pageLinkCount) => {
         var maxPages = Math.ceil(total / limit);
         var pageLinks = [];
@@ -103,6 +136,57 @@ class FooterComponent extends React.Component {
                         changeLimit={this.props.actions.changeLimit}
                         limit={this.props.pagination.limit}
                     />
+
+                    <ButtonModalSaveSort onClick={() => {
+                        this.setState({
+                            modal: true,
+                        })
+                    }}>Save current sort</ButtonModalSaveSort>
+
+                    {
+                        this.state.modal &&
+                        <BlockerModal
+                            headerText="Save Current Sort as Default Page View"
+                            contentJsx={
+                                <ModalSaveSort onSubmit={(e) => {
+                                    e.preventDefault();
+                                    if (e.target[0].checked) {
+                                        console.log('current user');
+                                    } else {
+                                        console.log('all users');
+                                    }
+
+                                    // @TODO ajax request to server with "this.props.order" sort data
+                                    // fetch('', {
+                                    //     method: 'POST'
+                                    // }).then((response) => {
+                                    //     return response.json();
+                                    // }).catch((error) => {
+                                    //     console.log(error);
+                                    // })
+                                }}>
+                                    <div>
+                                        <label>
+                                            <input type='radio' value='current' name='test'/>
+                                            <span>Save for Current User</span>
+                                        </label>
+                                        <label>
+                                            <input type='radio' value='all' name='test'/>
+                                            <span>Save for All Users</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <button type='submit'>Save</button>
+                                        <button onClick={() => {
+                                            this.setState({
+                                                modal: false,
+                                            })
+                                        }} type='button'>Cancel</button>
+                                    </div>
+                                </ModalSaveSort>
+                            }
+                        />
+                    }
                 </div>
             </div>
         );

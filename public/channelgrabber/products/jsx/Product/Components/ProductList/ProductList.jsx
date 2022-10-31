@@ -308,6 +308,7 @@ class ProductList extends React.Component {
                     onEditorClose={this.onProductLinksEditorClose}
                     fetchUpdatedStockLevels={this.props.actions.getUpdatedStockLevels}
                 />
+
                 <ProductFooter
                     pagination={this.props.pagination}
                     actions={{
