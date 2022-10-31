@@ -8,35 +8,37 @@ class ParamsMapperProcessor
         // Courier name (DPD) we want to apply the rule
         "dpd-ca" => [
             // Parameters structure we target
-            'AccountInformation.postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+            'AccountInformation' => [
+                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+            ],
         ],
+
         // Courier name (DPD Local) we want to apply the rule
         "interlink-ca" => [
             // Parameters structure we target
-            'AccountInformation.postcodeValidation' => ['value' => 'no', 'replace' => '0']
+            'AccountInformation' => [
+                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+            ],
         ]
     ];
-
-    /** @var string */
-    private $flag = '';
 
     private function processMapItem($channelRules, $params)
     {
         foreach ($params as $key => $value) {
             if (is_array($value)) {
-                $this->flag = $key . '.';
-                $params[$key] =  $this->processMapItem($channelRules, $value);
+                $availableRuleSet = $channelRules[$key] ?? $channelRules;
+                $params[$key] = $this->processMapItem($availableRuleSet, $value);
             } else {
-                $keyToCheck = $this->flag . $key;
-                if (isset($channelRules[$keyToCheck])) {
-                    $rule = $channelRules[$keyToCheck];
-                    $valueToSearchFor = $rule['value'];
-                    $valueToReplaceWith = $rule['replace'];
-                    $valuesMatch = strtolower($value) == strtolower($valueToSearchFor);
-                    $params[$key] = $valuesMatch ? $valueToReplaceWith : $value;
+                foreach ($channelRules as $chKey => $rule) {
+                    if ($key == $chKey) {
+                        $valueToSearchFor = $rule['value'];
+                        $valueToReplaceWith = $rule['replace'];
+                        $valuesMatch = strtolower($value) == strtolower($valueToSearchFor);
+                        $params[$key] = $valuesMatch ? $valueToReplaceWith : $value;
+                    }
                 }
-            }
 
+            }
         }
         return $params;
     }
