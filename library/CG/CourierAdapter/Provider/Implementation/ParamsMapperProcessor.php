@@ -45,9 +45,8 @@ class ParamsMapperProcessor
 
     public function runParamsMapper(string $channelName, array $params): array
     {
-        $rules = self::RULES;
-        if (isset($rules[$channelName])) {
-            return $this->processMapItem($rules[$channelName], $params);
+        if (isset(self::RULES[$channelName])) {
+            return $this->processMapItem(self::RULES[$channelName], $params);
         }
         return $params;
     }
