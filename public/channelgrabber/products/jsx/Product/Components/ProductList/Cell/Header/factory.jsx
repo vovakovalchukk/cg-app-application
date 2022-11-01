@@ -50,6 +50,15 @@ export default (function () {
                     columnName = 'onpurchaseorder'
                 }
                 className = 'sorting'
+
+                let currentSort = props.sort;
+                if (currentSort.length) {
+                    let sort = currentSort[0];
+                    if (sort.column === columnName) {
+                        className += (' sorting_' + sort.direction);
+                    }
+                }
+
                 onClickSort = () => {
                     props.actions.sortBy(columnName);
                 }
