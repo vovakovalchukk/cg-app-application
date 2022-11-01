@@ -31,7 +31,7 @@ class FooterComponent extends React.Component {
                 <PageLink
                     count={count}
                     isCurrentPage={this.props.pagination.page === count}
-                    onClick={this.props.actions.changePage.bind(this, count, this.props)}
+                    onClick={this.props.actions.changePage.bind(this, count)}
                 >
                     {count}
                 </PageLink>
@@ -87,14 +87,14 @@ class FooterComponent extends React.Component {
                     </PaginationInfoContainer>
                     
                     <PageLinksContainer className="dataTables_paginate paging_full_numbers">
-                        <a onClick={this.props.actions.changePage.bind(this, firstPage, this.props)}
+                        <a onClick={this.props.actions.changePage.bind(this, firstPage)}
                            className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')}>First</a>
                         
                         <span className="pagination-page-links">
                                 {this.getPageLinksFromPaginationData(this.props.pagination.limit, this.props.pagination.page, this.props.pagination.total, 5)}
                             </span>
-                        
-                        <a onClick={this.props.actions.changePage.bind(this, maxPages, this.props)}
+
+                        <a onClick={this.props.actions.changePage.bind(this, maxPages)}
                            className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button') + ' u-margin-left-small'}>Last</a>
                     </PageLinksContainer>
                     

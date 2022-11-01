@@ -2,6 +2,7 @@ import productActions from 'Product/Components/ProductList/ActionCreators/produc
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
 import paginationActions from 'Product/Components/ProductList/ActionCreators/paginationActions';
 import searchActions from 'Product/Components/ProductList/ActionCreators/searchActions'
+import sortActions from 'Product/Components/ProductList/ActionCreators/sortActions';
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions'
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
@@ -26,6 +27,7 @@ export default (ownProps) => {
         productLinkActions,
         paginationActions,
         searchActions,
+        sortActions,
         tabActions,
         stockActions,
         vatActions,

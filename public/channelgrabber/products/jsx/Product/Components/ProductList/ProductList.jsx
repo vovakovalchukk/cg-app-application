@@ -134,7 +134,7 @@ class ProductList extends React.Component {
             if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                 return;
             }
-            let CreatedColumn = columnCreator(column, this.props, this.state, this.setOrder);
+            let CreatedColumn = columnCreator(column, this.props);
             horizontalDistanceOfColumn += column.width;
             return CreatedColumn
         });
@@ -316,8 +316,6 @@ class ProductList extends React.Component {
                 />
                 <ProductFooter
                     pagination={this.props.pagination}
-                    order={this.state.order}
-                    setOrder={this.setOrder}
                     actions={{
                         changePage: this.props.actions.changePage,
                         changeLimit: this.props.actions.changeLimit

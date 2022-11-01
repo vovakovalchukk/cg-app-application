@@ -27,7 +27,7 @@ const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of 
 
 export default (function () {
     return {
-        createHeaderCellContent: function (column, props, orderState, setOrder) {
+        createHeaderCellContent: function (column, props) {
             let CellContent = {};
 
             if (cells[column.key]) {
@@ -36,29 +36,26 @@ export default (function () {
                     <CellContent {...column}/>
                 </HeaderCellContainer>);
             }
-            let onClickOrder = null,
-                className,
+            let onClickSort = null,
+                className = '',
                 columnName = column.headerText.toLowerCase().replaceAll(' ', '');
             if (ORDER_COLUMNS.includes(column.headerText)) {
-                if (columnName == 'costprice') {
+                if (columnName === 'costprice') {
                     columnName = 'cost';
-                } else if (columnName == 'available') {
+                } else if (columnName === 'available') {
                     columnName = 'onhand';
-                } else if (columnName == 'awaitingdispatch') {
+                } else if (columnName === 'awaitingdispatch') {
                     columnName = 'allocated'
-                } else if (columnName == 'stockonorder') {
+                } else if (columnName === 'stockonorder') {
                     columnName = 'onpurchaseorder'
                 }
                 className = 'sorting'
-                onClickOrder = async (event) => {
-                    let currentOrder = orderState.order.split(',');
-                    let order = createNewOrder(columnName, currentOrder[0], currentOrder[1], event);
-                    setOrder(order);
-                    await props.actions.getProducts(props.pagination.page, '', [], order);
+                onClickSort = () => {
+                    props.actions.sortBy(columnName);
                 }
             }
             return (
-                <HeaderCellContainer title={column.headerText} id={columnName} onClick={onClickOrder}
+                <HeaderCellContainer title={column.headerText} id={columnName} onClick={onClickSort}
                                      className={className}>
                     {getHeaderTextWithMetricInfo(column, props.userSettings)}
                 </HeaderCellContainer>

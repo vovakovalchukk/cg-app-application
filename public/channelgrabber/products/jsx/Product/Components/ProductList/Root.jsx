@@ -12,6 +12,7 @@ const mapStateToProps = function(state) {
         tabs: state.tabs,
         list: state.list,
         pagination: state.pagination,
+        sort: state.sort,
         accounts: state.accounts.getAccounts(state),
         columns: state.columns,
         stock: state.stock,

@@ -6,6 +6,7 @@ import listReducer from 'Product/Components/ProductList/Reducers/listReducer';
 import accountsReducer from 'Product/Components/ProductList/Reducers/accountsReducer';
 import paginationReducer from 'Product/Components/ProductList/Reducers/paginationReducer';
 import searchReducer from 'Product/Components/ProductList/Reducers/searchReducer';
+import sortReducer from "Product/Components/ProductList/Reducers/sortReducer";
 import createListingReducer from 'Product/Components/ProductList/Reducers/createListingReducer';
 import stockReducer from 'Product/Components/ProductList/Reducers/stockReducer';
 import vatReducer from 'Product/Components/ProductList/Reducers/vatReducer';
@@ -29,6 +30,7 @@ var appReducer = combineReducers({
     accounts: accountsReducer,
     pagination: paginationReducer,
     search: searchReducer,
+    sort: sortReducer,
     createListing: createListingReducer,
     stock: stockReducer,
     vat: vatReducer,

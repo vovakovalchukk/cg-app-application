@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca34dc21c37e06c2c94c4f3013af1e22",
+    "content-hash": "2e1e1f63d7fdfae3aeec5de8c8afffe7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -12464,8 +12464,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.21.2",
-            "alias_normalized": "1.21.2.0",
+            "alias": "1.21.1",
+            "alias_normalized": "1.21.1.0",
             "version": "dev-PRD-50-sort-products",
             "package": "channelgrabber/product"
         }

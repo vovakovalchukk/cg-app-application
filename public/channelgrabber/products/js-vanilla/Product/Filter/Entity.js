@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn, returnOnlyFirstImage, order)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn, returnOnlyFirstImage, sort)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -13,7 +13,7 @@ define([
         this.embedVariationsAsLinks = embedVariationsAsLinks;
         this.embeddedDataToReturn = embeddedDataToReturn;
         this.returnOnlyFirstImage = returnOnlyFirstImage;
-        this.order = order
+        this.sort = sort;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -44,12 +44,12 @@ define([
             return this.page;
         };
 
-        this.getOrder = function() {
-            return this.order;
+        this.getSort = function() {
+            return this.sort;
         }
 
-        this.setOrder = function(order) {
-            this.order = order;
+        this.setSort = function(sort) {
+            this.sort = sort;
             return this;
         }
 
@@ -160,8 +160,8 @@ define([
             object['returnOnlyFirstImage'] = this.getReturnOnlyFirstImage();
         }
 
-        if (this.getOrder()) {
-            object['order'] = this.getOrder();
+        if (this.getSort()) {
+            object['sort'] = this.getSort().map(e => e.column + ',' + e.direction);
         }
 
         return object;
