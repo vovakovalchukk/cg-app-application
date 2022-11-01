@@ -4,7 +4,7 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 class ParamsMapperProcessor
 {
-    const RULES = [
+    private const RULES = [
         // Courier name (DPD) we want to apply the rule
         "dpd-ca" => [
             // Parameters structure we target
@@ -21,11 +21,6 @@ class ParamsMapperProcessor
             ],
         ]
     ];
-
-    protected function getRules(): array
-    {
-        return ParamsMapperProcessor::RULES;
-    }
 
     private function processMapItem(array $channelRules, array $params): array
     {
@@ -50,7 +45,7 @@ class ParamsMapperProcessor
 
     public function runParamsMapper(string $channelName, array $params): array
     {
-        $rules = $this->getRules();
+        $rules = self::RULES;
         if (isset($rules[$channelName])) {
             return $this->processMapItem($rules[$channelName], $params);
         }
