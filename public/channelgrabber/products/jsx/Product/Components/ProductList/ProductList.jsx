@@ -42,7 +42,6 @@ class ProductList extends React.Component {
             width: null
         },
         fetchingUpdatedStockLevelsForSkus: {},
-        order: '',
     };
 
     componentDidUpdate = function (prevProps) {
@@ -181,11 +180,6 @@ class ProductList extends React.Component {
             this.props.actions.updateHorizontalScrollIndex(index)
         }, 120);
         return true;
-    };
-    setOrder = (item) => {
-        this.setState({
-            order: item
-        });
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
