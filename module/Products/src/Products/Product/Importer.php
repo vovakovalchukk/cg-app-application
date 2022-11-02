@@ -70,8 +70,6 @@ class Importer implements LoggerAwareInterface
                     continue;
                 }
 
-                $this->logDebugDump($productLine, 'PRODUCT LINE 2 ', [], 'MYTEST');
-
                 $productLine = $this->normaliseProductLine($productLine, $headers);
                 $lineId = $index + 1;
 
@@ -201,9 +199,6 @@ class Importer implements LoggerAwareInterface
 
     protected function validateProductLine(array $productLine): array
     {
-        $this->logDebugDump($productLine, 'PRODUCT LINE');
-
-
         $errors = [];
         foreach (static::HEADERS as $header => $validator) {
             try {
