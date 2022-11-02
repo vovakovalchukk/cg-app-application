@@ -82,44 +82,6 @@ function getHeaderTextWithMetricInfo(column, userSettings) {
     return column.headerText
 }
 
-function changeOrderDirection(direction, event) {
-    if (direction == 'asc') {
-        event.currentTarget.classList.add('sorting_desc')
-        event.currentTarget.classList.remove('sorting_asc')
-        return 'desc'
-    } else if (direction == 'desc') {
-        event.currentTarget.classList.remove('sorting_desc')
-        event.currentTarget.classList.add('sorting')
-        return ''
-    } else {
-        event.currentTarget.classList.add('sorting_asc')
-        return 'asc'
-    }
-}
-
-function createNewOrder(currentColumn, previousOrderColumn, previousOrderDirection, event) {
-    if (currentColumn == previousOrderColumn) {
-        let newDirection = changeOrderDirection(previousOrderDirection, event);
-        if (newDirection) {
-            return currentColumn + ',' + newDirection;
-        } else {
-            return '';
-        }
-    } else {
-        if (previousOrderColumn != '') {
-            try {
-                let oldColumnSort = document.getElementById(previousOrderColumn)
-                oldColumnSort.classList.add('sorting')
-                oldColumnSort.classList.remove('sorting_' + previousOrderDirection)
-            } catch (TypeError) {
-            }
-        }
-        event.currentTarget.classList.add('sorting_asc')
-        event.currentTarget.classList.remove('sorting')
-        return currentColumn + ',' + 'asc';
-    }
-}
-
 const columnKeysMetricPropertyMap = {
     [columnKeys.weight]: 'massUnit',
     [columnKeys.dimensions]: 'lengthUnit'
