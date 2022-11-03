@@ -34,6 +34,10 @@ class AppController extends AbstractActionController
         $redirectUri = $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]);
         $parameters = $this->params()->fromQuery();
 
+//        $this->getResponse()->getHeaders()->addHeaders([
+//            'Content-Security-Policy' => 'frame-ancestors https://shopify-dev.myshopify.com https://admin.shopify.com'
+//        ]);
+
         try {
             if ($this->appService->isEmbeddedMode($parameters)) {
                 $this->appService->getActiveUser();
