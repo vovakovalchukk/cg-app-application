@@ -3462,6 +3462,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
                 "reference": "abeaa139a1d5488a024e3f60d9b5e3f15f2ac109"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/shopify/channelgrabber-shopify-dev-PRD-298-shopify-review-2-53584d.zip",
+                "reference": "abeaa139a1d5488a024e3f60d9b5e3f15f2ac109"
+            },
             "require": {
                 "channelgrabber/channel": "^1.45.5",
                 "channelgrabber/constants": "dev-master",
@@ -3494,7 +3499,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2022-11-02T16:33:59+00:00"
+            "time": "2022-11-04T13:32:04+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -12477,8 +12482,8 @@
         "channelgrabber/shopify": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
