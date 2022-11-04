@@ -2,20 +2,21 @@
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client\Factory as ClientFactory;
 use Shopify\Account\Service as AccountService;
+use Shopify\App\Service as AppService;
 use Shopify\App\UserService as AppUserService;
 use Zend\Session\Container as Session;
 
 return [
     'di' => [
         'instance' => [
-            'aliases' => [
-                'shopify_session' => Session::class,
-            ],
-            'shopify_session' => [
-                'parameters' => [
-                    'name' => 'shopify'
-                ],
-            ],
+//            'aliases' => [
+//                'shopify_session' => Session::class,
+//            ],
+//            'shopify_session' => [
+//                'parameters' => [
+//                    'name' => 'shopify'
+//                ],
+//            ],
             AccountService::class => [
                 'parameters' => [
                     'cryptor' => 'shopify_cryptor',
@@ -30,6 +31,11 @@ return [
             ShopifyAccountCreator::class => [
                 'parameters' => [
                     'cryptor' => 'shopify_cryptor',
+                ],
+            ],
+            AppService::class => [
+                'parameters' => [
+                    'session' => 'shopify_session',
                 ],
             ],
             AppUserService::class => [

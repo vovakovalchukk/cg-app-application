@@ -1,6 +1,7 @@
 <?php
 namespace Shopify\App;
 
+use CG\Shopify\EmbeddedMode\Service as ShopifyEmbeddedModeService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -29,17 +30,21 @@ class Service implements LoggerAwareInterface
     protected $loginService;
     /** @var AppUserService */
     protected $userService;
+    /** @var ShopifyEmbeddedModeService */
+    protected $shopifyEmbeddedModeService;
 
     public function __construct(
         AccountService $accountService,
         ActiveUserInterface $activeUser,
         LoginService $loginService,
-        AppUserService $userService
+        AppUserService $userService,
+        ShopifyEmbeddedModeService $shopifyEmbeddedModeService
     ) {
         $this->accountService = $accountService;
         $this->activeUser = $activeUser;
         $this->loginService = $loginService;
         $this->userService = $userService;
+        $this->shopifyEmbeddedModeService = $shopifyEmbeddedModeService;
     }
 
     public function processOauth($redirectUri, array $parameters): string
@@ -61,6 +66,7 @@ class Service implements LoggerAwareInterface
     {
         if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
             $this->logDebug(static::EMBEDDED_EXC_MSG, [$parameters['shop']], static::LOG_CODE);
+            $this->shopifyEmbeddedModeService->saveParameters($parameters);
             return true;
         }
 
