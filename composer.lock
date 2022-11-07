@@ -5444,16 +5444,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0cb10322ced5cf02cc03395df4d64913b8a4a53b"
+                "reference": "e85d8687e8fc5d2af5fc1877b03c47174a61207a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-PRD-298-shopify-review-2-0da626.zip",
-                "reference": "0cb10322ced5cf02cc03395df4d64913b8a4a53b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-PRD-298-shopify-review-2-cb9fae.zip",
+                "reference": "e85d8687e8fc5d2af5fc1877b03c47174a61207a"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
-                "channelgrabber/channel": "^1.17.1",
+                "channelgrabber/channel": "^1.46.0",
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
@@ -5461,10 +5462,11 @@
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": ">=1.4.2",
-                "channelgrabber/notification": "^1.2.0",
-                "channelgrabber/stdlib": "^2.13.1",
-                "channelgrabber/stock": "^1.5.9",
-                "channelgrabber/user": "^1.27.0",
+                "channelgrabber/notification": "^1.7.0",
+                "channelgrabber/shopify": "dev-PRD-298-shopify-review-2 as 1.6.5",
+                "channelgrabber/stdlib": "^2.17.0",
+                "channelgrabber/stock": "^1.17.0",
+                "channelgrabber/user": "^1.28.0",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
@@ -5490,6 +5492,9 @@
                 "zf2-module": "CG_UI",
                 "symlinks": {
                     "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
+                },
+                "branch-alias": {
+                    "dev-PRD-298-shopify-review-2": "1.27.x-dev"
                 }
             },
             "autoload": {
@@ -5500,7 +5505,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2022-11-04T16:12:03+00:00"
+            "time": "2022-11-07T10:09:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
