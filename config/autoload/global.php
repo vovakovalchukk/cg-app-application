@@ -186,9 +186,8 @@ use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
 use League\Flysystem\Filesystem;
 
-use Zend\Session\Container as Session;
-use CG_UI\Layout\Handler as LayoutHandler;
 use CG\Shopify\EmbeddedMode\Service as ShopifyEmbeddedModeService;
+use Zend\Session\Container as Session;
 
 $config = array(
     'di' => array(
@@ -259,9 +258,6 @@ $config = array(
                     'session' => 'shopify_session'
                 ],
             ],
-
-
-
             ExchangeRateApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
