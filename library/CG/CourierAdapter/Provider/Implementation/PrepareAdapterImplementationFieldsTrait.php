@@ -85,10 +85,4 @@ trait PrepareAdapterImplementationFieldsTrait
         }
         return $values;
     }
-
-    protected function prepareAdapterImplementationParamsForSubmission(string $channelName, array $params): array
-    {
-        $testClass = new ParamsMapperProcessor();
-        return $testClass->runParamsMapper($channelName, $params);
-    }
 }

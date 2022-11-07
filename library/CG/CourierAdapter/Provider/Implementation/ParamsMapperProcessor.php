@@ -2,8 +2,18 @@
 
 namespace CG\CourierAdapter\Provider\Implementation;
 
-class ParamsMapperProcessor
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+
+class ParamsMapperProcessor implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    private const LOG_CODE  = 'ParamsMapperProcessorService';
+    private const LOG_STEP_BEFORE  = 'before';
+    private const LOG_STEP_AFTER  = 'after';
+    private const LOG_MSG = 'running extra data mapper on request params';
+
     private const RULES = [
         // Courier name (DPD) we want to apply the rule
         "dpd-ca" => [
@@ -45,8 +55,10 @@ class ParamsMapperProcessor
 
     public function runParamsMapper(string $channelName, array $params): array
     {
+        $this->logDebug(self::LOG_MSG,  $params, [self::LOG_CODE, self::LOG_STEP_BEFORE]);
         if (isset(self::RULES[$channelName])) {
-            return $this->processMapItem(self::RULES[$channelName], $params);
+            $params = $this->processMapItem(self::RULES[$channelName], $params);
+            $this->logDebug(self::LOG_MSG, $params, [self::LOG_CODE, self::LOG_STEP_AFTER]);
         }
         return $params;
     }

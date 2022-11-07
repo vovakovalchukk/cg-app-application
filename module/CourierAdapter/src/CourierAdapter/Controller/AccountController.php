@@ -12,6 +12,7 @@ use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
+use CG\CourierAdapter\Provider\Implementation\ParamsMapperProcessor;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\StorageInterface;
@@ -72,6 +73,8 @@ class AccountController extends AbstractActionController implements LoggerAwareI
     protected $supportEmailService;
     /** @var StorageInterface */
     protected $storage;
+    /** @var ParamsMapperProcessor */
+    protected $paramsMapperProcessor;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -86,7 +89,8 @@ class AccountController extends AbstractActionController implements LoggerAwareI
         CAAccountMapper $caAccountMapper,
         FormFactory $formFactory,
         SupportEmailService $supportEmailService,
-        StorageInterface $storage
+        StorageInterface $storage,
+        ParamsMapperProcessor $paramsMapperProcessor
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -101,6 +105,8 @@ class AccountController extends AbstractActionController implements LoggerAwareI
             ->setFormFactory($formFactory)
             ->setSupportEmailService($supportEmailService)
             ->setStorage($storage);
+
+        $this->paramsMapperProcessor = $paramsMapperProcessor;
     }
 
     public function setupAction()
@@ -223,7 +229,7 @@ class AccountController extends AbstractActionController implements LoggerAwareI
     {
         $channelName = $this->params('channel');
         $params = $this->params()->fromPost();
-        $params = $this->prepareAdapterImplementationParamsForSubmission($channelName, $params);
+        $params = $this->paramsMapperProcessor->runParamsMapper($channelName, $params);
 
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class
