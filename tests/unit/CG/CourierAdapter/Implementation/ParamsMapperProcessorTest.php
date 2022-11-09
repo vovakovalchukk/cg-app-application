@@ -4,6 +4,7 @@ namespace CG\CourierAdapter\Implementation;
 
 use CG\CourierAdapter\Provider\Implementation\ParamsMapperProcessor;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class ParamsMapperProcessorTest extends TestCase
 {
@@ -19,6 +20,24 @@ class ParamsMapperProcessorTest extends TestCase
     private const EXPECTED_PARAMS = [
         'AccountInformation' => [
             'postcodeValidation' => '0',
+        ]
+    ];
+
+    private const EXPECTED_RULES =[
+        // Courier name (DPD) we want to apply the rule
+        "dpd-ca" => [
+            // Parameters structure we target
+            'AccountInformation' => [
+                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+            ],
+        ],
+
+        // Courier name (DPD Local) we want to apply the rule
+        "interlink-ca" => [
+            // Parameters structure we target
+            'AccountInformation' => [
+                'postcodeValidation' => ['value' => 'no', 'replace' => '0'],
+            ],
         ]
     ];
 
@@ -41,5 +60,13 @@ class ParamsMapperProcessorTest extends TestCase
     public function testRunParamsMapperOverDpdLocalSuccess()
     {
         $this->mapperMock('interlink-ca');
+    }
+
+    public function testRulesAreNotChangedWithoutBeingTested()
+    {
+        $mapperProcessor= new ReflectionClass(ParamsMapperProcessor::class);
+        $constants = $mapperProcessor->getConstants();
+        $rules = $constants['RULES'];
+        $this->assertEquals(self::EXPECTED_RULES, $rules);
     }
 }
