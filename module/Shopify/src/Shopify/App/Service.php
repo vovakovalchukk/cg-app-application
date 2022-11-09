@@ -1,9 +1,11 @@
 <?php
 namespace Shopify\App;
 
+use CG\Shopify\EmbeddedMode\Service as ShopifyEmbeddedModeService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG\User\UserInterface;
 use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
@@ -17,7 +19,7 @@ class Service implements LoggerAwareInterface
 
     protected const LOG_CODE = 'ShopifyAppService';
     protected const LOGIN_EXC_MSG = 'Unknown user is trying connect Shopify or use Embedded mode on Shopify. Redirect to login page.';
-    protected const EMBEDDED_EXC_MSG = 'User %d is trying to use Embedded mode on Shopify.';
+    protected const EMBEDDED_EXC_MSG = 'User from shop %s is trying to use Embedded mode on Shopify.';
     protected const RECONNECT_MSG = 'User %d is trying to reconnect his Shopify (accountId %d)';
 
     /** @var AccountService */
@@ -28,38 +30,57 @@ class Service implements LoggerAwareInterface
     protected $loginService;
     /** @var AppUserService */
     protected $userService;
+    /** @var ShopifyEmbeddedModeService */
+    protected $shopifyEmbeddedModeService;
 
     public function __construct(
         AccountService $accountService,
         ActiveUserInterface $activeUser,
         LoginService $loginService,
-        AppUserService $userService
+        AppUserService $userService,
+        ShopifyEmbeddedModeService $shopifyEmbeddedModeService
     ) {
         $this->accountService = $accountService;
         $this->activeUser = $activeUser;
         $this->loginService = $loginService;
         $this->userService = $userService;
+        $this->shopifyEmbeddedModeService = $shopifyEmbeddedModeService;
     }
 
     public function processOauth($redirectUri, array $parameters): string
     {
-        if (!($user = $this->activeUser->getActiveUser())) {
-            $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
-            throw new LoginException('User is not logged in');
+        $accountId = null;
+        if ($user = $this->activeUser->getActiveUser()) {
+            $accountId = $this->userService->getAccountId($user->getId());
         }
 
-        if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
-            $this->logDebug(static::EMBEDDED_EXC_MSG, ['userId' => $user->getId()], static::LOG_CODE);
-            throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
-        }
-
-        $accountId = $this->userService->getAccountId($user->getId());
         if (!is_null($accountId)) {
             $this->logDebug(static::RECONNECT_MSG, ['userId' => $user->getId(), 'accountId' => $accountId], static::LOG_CODE);
             $this->userService->removeAccountId($user->getId());
         }
 
         return $this->accountService->getLink($parameters['shop'], $accountId);
+    }
+
+    public function isEmbeddedMode(array $parameters): bool
+    {
+        if (isset($parameters['embedded']) && $parameters['embedded'] == 1) {
+            $this->logDebug(static::EMBEDDED_EXC_MSG, [$parameters['shop']], static::LOG_CODE);
+            $this->shopifyEmbeddedModeService->saveParameters($parameters);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getActiveUser(): ?UserInterface
+    {
+        if (!($user = $this->activeUser->getActiveUser())) {
+            $this->logDebug(static::LOGIN_EXC_MSG, [], static::LOG_CODE);
+            throw new LoginException('User is not logged in');
+        }
+
+        return $user;
     }
 
     public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = []): void
