@@ -35,6 +35,11 @@ class AppController extends AbstractActionController
         $parameters = $this->params()->fromQuery();
 
         try {
+            if ($this->appService->isEmbeddedMode($parameters)) {
+                $this->appService->getActiveUser();
+                throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
+            }
+
             $link = $this->appService->processOauth($redirectUri, $parameters);
             return $this->plugin('redirect')->toUrl($link);
         } catch (LoginException $exception) {

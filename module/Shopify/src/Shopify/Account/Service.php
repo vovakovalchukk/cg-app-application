@@ -180,7 +180,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         if ($oAuthSession['nonce'] != $nonce) {
             $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => $oAuthSession['nonce'] ?: '-', 'OAuth' => $nonce ?: '-'], [], static::LOG_CODE_INVALID_NONCE);
             throw new InvalidArgumentException(
-                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", $oAuthSession['nonce'] ?: '-', $nonce ?: '-')
+                sprintf("OAuth response has been compromised:\n\"%s\" != \"%s\"", $oAuthSession['nonce'] ?: '-', $nonce ?: '-')
             );
         }
 

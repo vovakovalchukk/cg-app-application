@@ -5,6 +5,7 @@ use CG\Channel\Type as ChannelType;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Shopify\Account\Service as AccountService;
+use Shopify\App\LoginException;
 use Shopify\App\Service as AppService;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -40,10 +41,15 @@ class AccountController extends AbstractActionController
 
     public function returnAction()
     {
-        $account = $this->accountService->activateAccount($this->params()->fromQuery());
-        return $this->plugin('redirect')->toUrl(
-            $this->getAccountUrl($account->getId())
-        );
+        try {
+            $this->appService->getActiveUser();
+            $account = $this->accountService->activateAccount($this->params()->fromQuery());
+            return $this->plugin('redirect')->toUrl(
+                $this->getAccountUrl($account->getId())
+            );
+        } catch (LoginException $exception) {
+            $this->redirectToLogin();
+        }
     }
 
     protected function getAccountUrl($accountId = null)
@@ -58,6 +64,19 @@ class AccountController extends AbstractActionController
             [
                 'type' => ChannelType::SALES,
                 'account' => $accountId,
+            ]
+        );
+    }
+
+    protected function redirectToLogin(): void
+    {
+        $mvcEvent = $this->getEvent();
+        $this->appService->saveProgressAndRedirectToLogin(
+            $mvcEvent,
+            $mvcEvent->getRouteMatch()->getMatchedRouteName(),
+            $this->params()->fromRoute(),
+            [
+                'query' => $this->params()->fromQuery()
             ]
         );
     }
