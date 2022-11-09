@@ -44,7 +44,8 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $lengthUnit; ?>',
         <?= json_encode($this->pickLocations) ?>,
         <?= json_encode($this->pickLocationValues) ?>,
-        <?= json_encode($supplierOptions) ?>
+        <?= json_encode($supplierOptions) ?>,
+        <?= $filterOptions ?>
     );
 });
 <?php $this->inlineScript()->captureEnd(); ?>

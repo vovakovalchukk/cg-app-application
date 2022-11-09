@@ -9,7 +9,13 @@ const sortReducer = reducerCreator(initialState, {
         let column = action.payload;
 
         return applySort(column, state);
-    }
+    },
+    "INITIAL_SORT": (state, action) => {
+        return [
+            ...initialState,
+            ...action.payload,
+        ];
+    },
 });
 
 let applySort = function(column, currentSort) {

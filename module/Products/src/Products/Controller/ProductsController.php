@@ -26,6 +26,7 @@ use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 use Products\Product\Category\Service as CategoryService;
 use Products\Product\Listing\Service as ProductListingService;
+use Products\Product\ProductFilters\Service as ProductFiltersService;
 use Products\Product\Service as ProductService;
 use Products\Product\Supplier\Service as SupplierService;
 use Products\Product\TaxRate\Service as TaxRateService;
@@ -82,6 +83,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $accessUsageExceededService;
     /** @var SupplierService */
     protected $supplierService;
+    /**
+     * @var ProductFiltersService
+     */
+    protected $productFiltersService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -100,7 +105,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ListingTemplateService $listingTemplateService,
         ListingChannelService $listingChannelService,
         AccessUsageExceededService $accessUsageExceededService,
-        SupplierService $supplierService
+        SupplierService $supplierService,
+        ProductFiltersService $productFiltersService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -119,12 +125,14 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->listingChannelService = $listingChannelService;
         $this->accessUsageExceededService = $accessUsageExceededService;
         $this->supplierService = $supplierService;
+        $this->productFiltersService = $productFiltersService;
     }
 
     public function indexAction()
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
+        $productFilter = $this->productFiltersService->getProductFilter($this->activeUserContainer->getActiveUser()->getId(), $rootOuId);
         $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
@@ -213,6 +221,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('pickLocationValues', $this->pickListService->getPickListValues($rootOuId));
         $view->setVariable('listingTemplates', $this->getListingTemplateOptions());
         $view->setVariable('supplierOptions', $this->supplierService->getSupplierOptions());
+        $view->setVariable('filterOptions', $productFilter ? $productFilter->getFilters() : "{}");
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

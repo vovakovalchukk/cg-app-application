@@ -16,6 +16,8 @@ use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
 use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
 use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
 use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\ProductFilter\Storage\Api as ProductFilterApiStorage;
+use CG\Product\ProductFilter\Client\Service as ProductFilterService;
 use CG\Product\Storage\Api as ProductApiStorage;
 use CG\Stock\Location\Service as LocationService;
 use CG\Stock\Location\Storage\Api as LocationApiStorage;
@@ -34,6 +36,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Controller\ProductFiltersJsonController;
 use Products\Csv\Stock\ProgressStorage as StockCsvProgressStorage;
 use Products\Listing\Channel\Amazon\Service as ListingAmazonService;
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
@@ -712,6 +715,17 @@ return [
                             ]
                         ],
                     ],
+
+                    ProductFiltersJsonController::ROUTE_SAVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/filter/save',
+                            'defaults' => [
+                                'controller' => ProductFiltersJsonController::class,
+                                'action' => 'saveFilter'
+                            ],
+                        ]
+                    ],
                 ]
             ]
         ]
@@ -824,6 +838,16 @@ return [
                'parameters' => [
                    'client' => 'cg_app_guzzle'
                ]
+            ],
+            ProductFilterService::class => [
+                'parameters' => [
+                    'repository' => ProductFilterApiStorage::class,
+                ],
+            ],
+            ProductFilterApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ],
             ],
             StockService::class => [
                 'parameter' => [

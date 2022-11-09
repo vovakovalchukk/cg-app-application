@@ -14,6 +14,14 @@ var actionCreators = (function() {
                 await dispatch(productActions.getProducts());
             }
         },
+        storeInitialSort: (initialSort) => {
+            return (dispatch) => {
+                dispatch({
+                    type: "INITIAL_SORT",
+                    payload: initialSort,
+                });
+            };
+        },
     }
 })();
 
