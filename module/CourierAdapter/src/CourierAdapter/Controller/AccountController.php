@@ -229,7 +229,7 @@ class AccountController extends AbstractActionController implements LoggerAwareI
     {
         $channelName = $this->params('channel');
         $params = $this->params()->fromPost();
-        $params = $this->paramsMapperProcessor->runParamsMapper($channelName, $params);
+        $params = $this->paramsMapperProcessor->__invoke($channelName, $params);
 
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class

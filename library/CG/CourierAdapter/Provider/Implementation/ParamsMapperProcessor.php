@@ -53,7 +53,7 @@ class ParamsMapperProcessor implements LoggerAwareInterface
         return $params;
     }
 
-    public function runParamsMapper(string $channelName, array $params): array
+    public function __invoke(string $channelName, array $params): array
     {
         $this->logDebug(self::LOG_MSG,  $params, [self::LOG_CODE, self::LOG_STEP_BEFORE]);
         if (isset(self::RULES[$channelName])) {

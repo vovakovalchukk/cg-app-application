@@ -48,7 +48,7 @@ class ParamsMapperProcessorTest extends TestCase
 
     private function mapperMock(string $givenChannel)
     {
-        $mappedParams = $this->paramsMapperProcessor->runParamsMapper($givenChannel, self::GIVEN_PARAMS);
+        $mappedParams = $this->paramsMapperProcessor->__invoke($givenChannel, self::GIVEN_PARAMS);
         $this->assertEquals(self::EXPECTED_PARAMS, $mappedParams);
     }
 
