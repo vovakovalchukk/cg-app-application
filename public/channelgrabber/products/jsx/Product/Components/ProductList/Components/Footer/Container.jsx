@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LimitSelect from 'Product/Components/ProductList/Components/Footer/LimitSelect';
 import PageLink from 'Product/Components/ProductList/Components/Footer/PageLink';
 import BlockerModal from "Common/Components/BlockerModal";
+import sortActions from "../../ActionCreators/sortActions";
 
 const PaginationInfoContainer = styled.div`
         display:inline-block;
@@ -150,20 +151,8 @@ class FooterComponent extends React.Component {
                             contentJsx={
                                 <ModalSaveSort onSubmit={(e) => {
                                     e.preventDefault();
-                                    if (e.target[0].checked) {
-                                        console.log('current user');
-                                    } else {
-                                        console.log('all users');
-                                    }
-
-                                    // @TODO ajax request to server with "this.props.order" sort data
-                                    // fetch('', {
-                                    //     method: 'POST'
-                                    // }).then((response) => {
-                                    //     return response.json();
-                                    // }).catch((error) => {
-                                    //     console.log(error);
-                                    // })
+                                    this.props.actions.saveDefaultSort(e.target[0].checked);
+                                    this.setState({modal:false});
                                 }}>
                                     <div>
                                         <label>

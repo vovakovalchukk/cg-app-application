@@ -14,7 +14,7 @@ import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 import expandActions from "./ActionCreators/expandActions";
 import supplierActions from "./ActionCreators/supplierActions";
-import actionCreators from "./ActionCreators/sortActions";
+import sortActions from "./ActionCreators/sortActions";
 
 var enhancer = applyMiddleware(thunk);
 
@@ -60,7 +60,7 @@ class ProductListProvider extends React.Component {
         }
 
         store.dispatch(expandActions.changeStatusExpandAll('collapsed'));
-        store.dispatch(actionCreators.storeInitialSort(this.props.sort));
+        store.dispatch(sortActions.storeInitialSort(this.props.sort));
 
         let productsResponse = await store.dispatch(productActions.getProducts());
 
@@ -87,6 +87,9 @@ class ProductListProvider extends React.Component {
             >
                 <ProductListRoot
                     {...this.props}
+                    actions = {{
+                        saveDefaultSort: sortActions.saveDefaultSort
+                    }}
                 />
             </Provider>
         );

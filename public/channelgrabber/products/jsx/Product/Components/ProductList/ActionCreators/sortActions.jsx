@@ -2,7 +2,7 @@
 
 import productActions from "./productActions";
 
-var actionCreators = (function() {
+var sortActions = (function() {
     return {
         sortBy: (column) => {
             return async (dispatch) => {
@@ -22,7 +22,29 @@ var actionCreators = (function() {
                 });
             };
         },
-    }
+        saveDefaultSort: (currentUserOnly) => {
+            return (dispatch, getState) => {
+                const state = getState();
+                $.ajax({
+                    context: this,
+                    url: '/products/filter/save',
+                    type: 'POST',
+                    data: {
+                        filters: {
+                            "sort": state.sort
+                        },
+                        currentUserOnly: currentUserOnly
+                    },
+                    success: function (response) {
+                        return response;
+                    },
+                    error: function (error) {
+                        return error;
+                    }
+                });
+            };
+        },
+    };
 })();
 
-export default actionCreators;
+export default sortActions;

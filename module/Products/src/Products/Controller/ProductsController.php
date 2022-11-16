@@ -14,6 +14,7 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Settings\Product\Service as ProductSettingsService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UsageCheck\Exception\Exceeded as UsageExceeded;
@@ -132,7 +133,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
-        $productFilter = $this->productFiltersService->getProductFilter($this->activeUserContainer->getActiveUser()->getId(), $rootOuId);
+        try {
+            $productFilter = $this->productFiltersService->getProductFilter($this->activeUserContainer->getActiveUser()->getId(), $rootOuId);
+        } catch (NotFound $e) {
+            $productFilter = null;
+        }
         $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 

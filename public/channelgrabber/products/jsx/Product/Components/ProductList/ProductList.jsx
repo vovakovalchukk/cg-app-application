@@ -313,7 +313,8 @@ class ProductList extends React.Component {
                     pagination={this.props.pagination}
                     actions={{
                         changePage: this.props.actions.changePage,
-                        changeLimit: this.props.actions.changeLimit
+                        changeLimit: this.props.actions.changeLimit,
+                        saveDefaultSort: this.props.actions.saveDefaultSort
                     }}
                 />
             </div>

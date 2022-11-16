@@ -11,6 +11,9 @@ const sortReducer = reducerCreator(initialState, {
         return applySort(column, state);
     },
     "INITIAL_SORT": (state, action) => {
+        if (action.payload == null) {
+            return state;
+        }
         return [
             ...initialState,
             ...action.payload,
