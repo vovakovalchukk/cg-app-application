@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b44588b0b2ba2cd46384fa96edbb89ec",
+    "content-hash": "85663f6fc20c58b7c52359857f24d5f7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2874,16 +2874,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-PRD-51-WIP",
+            "version": "dev-PRD-51",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2577172c4a9201769cf1d6ab669cc74d6374707e"
+                "reference": "2787a1827590a0e1130dfe8e799bf9bb893a8789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-PRD-51-WIP-aed7fc.zip",
-                "reference": "2577172c4a9201769cf1d6ab669cc74d6374707e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-PRD-51-172d62.zip",
+                "reference": "2787a1827590a0e1130dfe8e799bf9bb893a8789"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2932,7 +2932,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2022-11-17T12:20:00+00:00"
+            "time": "2022-11-18T13:36:09+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12466,7 +12466,7 @@
         {
             "alias": "1.21.1",
             "alias_normalized": "1.21.1.0",
-            "version": "dev-PRD-51-WIP",
+            "version": "dev-PRD-51",
             "package": "channelgrabber/product"
         }
     ],
