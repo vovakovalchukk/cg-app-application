@@ -15,10 +15,10 @@ const sortReducer = reducerCreator(initialState, {
             return state;
         }
         return [
-            ...initialState,
-            ...action.payload,
+            ...state,
+            ...action.payload
         ];
-    },
+    }
 });
 
 let applySort = function(column, currentSort) {

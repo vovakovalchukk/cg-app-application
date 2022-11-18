@@ -15,6 +15,7 @@ import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/
 import expandActions from "./ActionCreators/expandActions";
 import supplierActions from "./ActionCreators/supplierActions";
 import sortActions from "./ActionCreators/sortActions";
+import paginationActions from "./ActionCreators/paginationActions";
 
 var enhancer = applyMiddleware(thunk);
 
@@ -60,7 +61,8 @@ class ProductListProvider extends React.Component {
         }
 
         store.dispatch(expandActions.changeStatusExpandAll('collapsed'));
-        store.dispatch(sortActions.storeInitialSort(this.props.sort));
+        store.dispatch(sortActions.storeInitialSort(this.props.filterOptions.sort));
+        store.dispatch(paginationActions.storeInitialPagination({"limit": this.props.filterOptions.limit}));
 
         let productsResponse = await store.dispatch(productActions.getProducts());
 

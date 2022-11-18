@@ -237,7 +237,7 @@ class RootComponent extends React.Component {
                     pickLocationValues={this.props.pickLocationValues}
                     supplierOptions={this.props.supplierOptions}
                     initialSearchTerm={this.props.initialSearchTerm}
-                    sort={this.props.filterOptions.sort}
+                    filterOptions={this.props.filterOptions}
                 />
             </div>
         )

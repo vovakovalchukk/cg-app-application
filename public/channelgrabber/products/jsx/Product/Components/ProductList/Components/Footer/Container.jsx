@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import LimitSelect from 'Product/Components/ProductList/Components/Footer/LimitSelect';
 import PageLink from 'Product/Components/ProductList/Components/Footer/PageLink';
 import BlockerModal from "Common/Components/BlockerModal";
-import sortActions from "../../ActionCreators/sortActions";
 
 const PaginationInfoContainer = styled.div`
         display:inline-block;
@@ -156,7 +155,7 @@ class FooterComponent extends React.Component {
                                 }}>
                                     <div>
                                         <label>
-                                            <input type='radio' value='current' name='test'/>
+                                            <input type='radio' value='current' name='test' checked='checked'/>
                                             <span>Save for Current User</span>
                                         </label>
                                         <label>

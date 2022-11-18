@@ -29,7 +29,15 @@ let paginationActions = (function() {
                 dispatch(changePaginationLimitOnState(desiredLimit));
                 await dispatch(productActions.getProducts());
             }
-        }
+        },
+        storeInitialPagination: (initialState) => {
+            return (dispatch) => {
+                dispatch({
+                    type: "INITIAL_PAGINATION",
+                    payload: initialState,
+                });
+            };
+        },
     }
 })();
 

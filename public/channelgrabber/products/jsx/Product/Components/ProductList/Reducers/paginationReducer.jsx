@@ -32,6 +32,15 @@ var paginationReducer = reducerCreator(initialState, {
             limit: desiredLimit
         });
         return newState;
+    },
+    "INITIAL_PAGINATION": (state, action) => {
+        if (action.payload == null) {
+            return state;
+        }
+        return {
+            ...state,
+            ...action.payload
+        };
     }
 });
 
