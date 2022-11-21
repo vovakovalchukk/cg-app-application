@@ -55,7 +55,7 @@ export default [
         key: 'successfulRows',
         label: 'Successful',
         cell: LinkCell,
-        getLink: (data) => (data.failedLink)
+        getLink: (data) => (data.successfulLink)
     },
     {
         key: 'failedRows',
