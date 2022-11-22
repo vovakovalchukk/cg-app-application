@@ -782,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b95d7a04bb56d10f07398a9cebb81fe797b30bb0"
+                "reference": "0ea3e35701fd14f85f8a202968514ad320121547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-PRD-153-migration-oauth-51b210.zip",
-                "reference": "b95d7a04bb56d10f07398a9cebb81fe797b30bb0"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-PRD-153-migration-oauth-a5db55.zip",
+                "reference": "0ea3e35701fd14f85f8a202968514ad320121547"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -855,7 +855,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2022-10-20T13:32:50+00:00"
+            "time": "2022-11-18T16:20:36+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1678,12 +1678,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "f8589e0306aec6a4c914df9b86e3adf4c9251659"
+                "reference": "f7ee35bb131beffa583ec139810d47021aa995bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-afc0eb.zip",
-                "reference": "f8589e0306aec6a4c914df9b86e3adf4c9251659"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-3183a4.zip",
+                "reference": "f7ee35bb131beffa583ec139810d47021aa995bb"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-11-09T15:43:13+00:00"
+            "time": "2022-11-16T14:11:12+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
