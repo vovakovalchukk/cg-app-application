@@ -1,7 +1,7 @@
 <?php
 use CG\Etsy\Account;
 use CG\Etsy\Account\CreationService;
-use CG\Etsy\Client\Factory as ClientFactory;
+use CG\Etsy\Client\AccessToken\Service as AccessTokenService;
 
 return [
     'di' => [
@@ -12,11 +12,11 @@ return [
                     'channelAccount' => Account::class,
                 ],
             ],
-            ClientFactory::class => [
+            AccessTokenService::class => [
                 'parameters' => [
                     'cryptor' => 'etsy_cryptor',
                 ],
-            ],
+            ]
         ]
     ]
 ];
