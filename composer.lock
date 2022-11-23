@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac9ad00c7fe5aecbaa50065a0e4adc2b",
+    "content-hash": "fd87a312c4bbcad7eb6968e4e07c8e64",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -778,16 +778,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-PRD-153-migration-oauth",
+            "version": "1.48.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0ea3e35701fd14f85f8a202968514ad320121547"
+                "reference": "e7b34e481f7fc52ea2df09c1ce6b2fed497af380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-PRD-153-migration-oauth-a5db55.zip",
-                "reference": "0ea3e35701fd14f85f8a202968514ad320121547"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.6-a0d611.zip",
+                "reference": "e7b34e481f7fc52ea2df09c1ce6b2fed497af380"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -855,7 +855,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2022-11-18T16:20:36+00:00"
+            "time": "2022-11-23T13:44:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1674,20 +1674,20 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "dev-PRD-153-migration-oauth",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "f7ee35bb131beffa583ec139810d47021aa995bb"
+                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-153-migration-oauth-3183a4.zip",
-                "reference": "f7ee35bb131beffa583ec139810d47021aa995bb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.3.0-da1451.zip",
+                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
-                "channelgrabber/channel": "dev-PRD-153-migration-oauth as 1.48.5",
+                "channelgrabber/channel": "^1.48.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/gearman": "^1.5.0",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-11-16T14:11:12+00:00"
+            "time": "2022-11-23T13:52:24+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -12466,25 +12466,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.48.5",
-            "alias_normalized": "1.48.5.0",
-            "version": "dev-PRD-153-migration-oauth",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.3.0",
-            "alias_normalized": "1.3.0.0",
-            "version": "dev-PRD-153-migration-oauth",
-            "package": "channelgrabber/etsy"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/etsy": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
