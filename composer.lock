@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd87a312c4bbcad7eb6968e4e07c8e64",
+    "content-hash": "7ad38667ee4e7ff165886787b8c1b525",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1674,16 +1674,16 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.3.0",
+            "version": "dev-PRD-385-etsy-invoice-issiue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "reference": "2131d2a8534b497ea4e55a32f1e0af974899a37f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.3.0-da1451.zip",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-dev-PRD-385-etsy-invoice-issiue-25be0e.zip",
+                "reference": "2131d2a8534b497ea4e55a32f1e0af974899a37f"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-11-23T13:52:24+00:00"
+            "time": "2022-11-24T13:58:44+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -12466,10 +12466,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.0",
+            "alias_normalized": "1.4.0.0",
+            "version": "dev-PRD-385-etsy-invoice-issiue",
+            "package": "channelgrabber/etsy"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/etsy": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
