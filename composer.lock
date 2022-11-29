@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd87a312c4bbcad7eb6968e4e07c8e64",
+    "content-hash": "74f1a48309042e4d2b6e69b0ccd34b23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1674,16 +1674,16 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.3.0-da1451.zip",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.4.0-e53366.zip",
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-11-23T13:52:24+00:00"
+            "time": "2022-11-29T09:56:23+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
