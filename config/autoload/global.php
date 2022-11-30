@@ -186,6 +186,9 @@ use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
 use League\Flysystem\Filesystem;
 
+use CG\Shopify\EmbeddedMode\Service as ShopifyEmbeddedModeService;
+use Zend\Session\Container as Session;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -243,6 +246,17 @@ $config = array(
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
                 'StockImportS3FileImportAdapter' => S3FileImportAdapter::class,
                 'GeopostGeogazFilesystem' => Filesystem::class,
+                'shopify_session' => Session::class,
+            ],
+            'shopify_session' => [
+                'parameters' => [
+                    'name' => 'shopify'
+                ],
+            ],
+            ShopifyEmbeddedModeService::class => [
+                'parameters' => [
+                    'session' => 'shopify_session'
+                ],
             ],
             ExchangeRateApiStorage::class => [
                 'parameters' => [

@@ -249,6 +249,9 @@ class Service implements LoggerAwareInterface
     protected function statusAlterations(array $listings)
     {
         foreach ($listings as &$listing) {
+            if ($listing['status'] == ListingStatus::CANNOT_IMPORT_INCOMPLETE) {
+                $listing['sku'] = sprintf('SKU %s incomplete on sales channel - Cannot Import', $listing['sku']);
+            }
             if ($listing['status'] == ListingStatus::CANNOT_IMPORT_SKU) {
                 $listing['sku'] = 'SKU(s) Not Found - Cannot Import';
             }
