@@ -43,10 +43,18 @@ class AccountController extends AbstractActionController
     {
         try {
             $this->appService->getActiveUser();
+
+            if(!$this->appService->fetchFlagFromSession()){
+                //if redirectFlag is not set
+                return $this->plugin('redirect')->toUrl($this->getAccountUrl());
+            }
             $account = $this->accountService->activateAccount($this->params()->fromQuery());
+            unset($_SESSION['redirectFlag']); //remove redirectFlag
             return $this->plugin('redirect')->toUrl(
                 $this->getAccountUrl($account->getId())
             );
+
+
         } catch (LoginException $exception) {
             $this->redirectToLogin();
         }

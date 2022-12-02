@@ -40,6 +40,9 @@ class AppController extends AbstractActionController
                 throw new EmbeddedException('CG opened in Shopify\'s Embedded App');
             }
 
+            //set flag value here using method from AppService
+            $this->appService->saveFlag(true);
+
             $link = $this->appService->processOauth($redirectUri, $parameters);
             return $this->plugin('redirect')->toUrl($link);
         } catch (LoginException $exception) {

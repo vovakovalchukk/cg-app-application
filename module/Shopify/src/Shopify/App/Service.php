@@ -10,6 +10,8 @@ use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Container as Session;
+use function Webmozart\Assert\Tests\StaticAnalysis\false;
 
 class Service implements LoggerAwareInterface
 {
@@ -32,19 +34,23 @@ class Service implements LoggerAwareInterface
     protected $userService;
     /** @var ShopifyEmbeddedModeService */
     protected $shopifyEmbeddedModeService;
+    /** @var Session */
+    protected $session;
 
     public function __construct(
         AccountService $accountService,
         ActiveUserInterface $activeUser,
         LoginService $loginService,
         AppUserService $userService,
-        ShopifyEmbeddedModeService $shopifyEmbeddedModeService
+        ShopifyEmbeddedModeService $shopifyEmbeddedModeService,
+        Session $session
     ) {
         $this->accountService = $accountService;
         $this->activeUser = $activeUser;
         $this->loginService = $loginService;
         $this->userService = $userService;
         $this->shopifyEmbeddedModeService = $shopifyEmbeddedModeService;
+        $this->session = $session;
     }
 
     public function processOauth($redirectUri, array $parameters): string
@@ -102,4 +108,43 @@ class Service implements LoggerAwareInterface
         $user = $this->activeUser->getActiveUser();
         $this->userService->saveAccountId($user->getId(), $accountId);
     }
+
+    public function saveFlag(bool $redirectFlag)
+    {
+        $this->session['redirectFlag'] = $redirectFlag;
+    }
+
+    public function fetchFlagFromSession(): bool
+    {
+        if (!isset($this->session['redirectFlag'])) {
+            return false;
+        }
+        return true;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
