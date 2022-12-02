@@ -11,7 +11,6 @@ use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container as Session;
-use function Webmozart\Assert\Tests\StaticAnalysis\false;
 
 class Service implements LoggerAwareInterface
 {
@@ -122,29 +121,3 @@ class Service implements LoggerAwareInterface
         return true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
