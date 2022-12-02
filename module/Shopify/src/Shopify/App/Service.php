@@ -115,9 +115,6 @@ class Service implements LoggerAwareInterface
 
     public function fetchFlagFromSession(): bool
     {
-        if (!isset($this->session['redirectFlag'])) {
-            return false;
-        }
-        return true;
+        return isset($this->session['redirectFlag']);
     }
 }

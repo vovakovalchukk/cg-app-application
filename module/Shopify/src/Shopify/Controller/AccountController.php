@@ -49,7 +49,7 @@ class AccountController extends AbstractActionController
                 return $this->plugin('redirect')->toUrl($this->getAccountUrl());
             }
             $account = $this->accountService->activateAccount($this->params()->fromQuery());
-            unset($_SESSION['redirectFlag']); //remove redirectFlag
+            unset($this->session['redirectFlag']); //remove redirectFlag
             return $this->plugin('redirect')->toUrl(
                 $this->getAccountUrl($account->getId())
             );
