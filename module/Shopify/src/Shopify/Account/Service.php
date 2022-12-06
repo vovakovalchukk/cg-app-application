@@ -53,6 +53,8 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     protected $session;
     /** @var ShopifyAccountCreator $shopifyAccountCreator */
     protected $shopifyAccountCreator;
+    /** @var Cryptor $cryptor */
+    protected $cryptor;
 
     public function __construct(
         ActiveUserInterface $activeUser,
@@ -62,7 +64,8 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         UrlHelper $urlHelper,
         ClientFactory $clientFactory,
         Session $session,
-        ShopifyAccountCreator $shopifyAccountCreator
+        ShopifyAccountCreator $shopifyAccountCreator,
+        Cryptor $cryptor
     ) {
         $this
             ->setActiveUser($activeUser)
@@ -72,7 +75,8 @@ class Service implements LoggerAwareInterface, SetupViewInterface
             ->setUrlHelper($urlHelper)
             ->setClientFactory($clientFactory)
             ->setSession($session)
-            ->setShopifyAccountCreator($shopifyAccountCreator);
+            ->setShopifyAccountCreator($shopifyAccountCreator)
+            ->setCryptor($cryptor);
     }
 
     public function getSetupView($accountId = null, $cancelUrl = null)
@@ -280,22 +284,27 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this;
     }
 
+    /**
+     * @return self
+     */
+    protected function setCryptor(Cryptor $cryptor)
+    {
+        $this->cryptor = $cryptor;
+        return $this;
+    }
+
     public function getUserShopifyAccounts(): AccountCollection
     {
-        $this->logDebug('XXX getUserShopifyAccounts Start');
         try {
             $accounts = $this->accountService->fetchByFilter($this->buildShopifyAccountsFilter());
-            $this->logDebug('XXX getUserShopifyAccounts= ' . count($accounts));
             return $accounts;
         } catch (NotFound $e) {
-            $this->logDebug('XXX getUserShopifyAccounts catch');
             return new AccountCollection(Account::class, 'empty');
         }
     }
 
     public function buildShopifyAccountsFilter(): AccountFilter
     {
-        $this->logDebug('XXX buildShopifyAccountsFilter start');
         $filter = (new AccountFilter())
             ->setLimit('all')
             ->setPage(1)
@@ -303,5 +312,17 @@ class Service implements LoggerAwareInterface, SetupViewInterface
             ->setOrganisationUnitId($this->activeUser->getActiveUser()->getOuList())
             ->setChannel(['shopify']);
         return $filter;
+    }
+
+    public function checkShopifyAccount(array $parameters, ?int $accountId): bool
+    {
+        $accounts = $this->getUserShopifyAccounts();
+        foreach ($accounts as $account) {
+            $externalData = $account->getExternalData();
+            if (($externalData['shopHost'] == $parameters['shop']) && $accountId != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

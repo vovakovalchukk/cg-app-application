@@ -10,7 +10,6 @@ use CG_Login\Service as LoginService;
 use Shopify\Account\Service as AccountService;
 use Shopify\App\UserService as AppUserService;
 use Zend\Mvc\MvcEvent;
-use Zend\Session\Container as Session;
 
 class Service implements LoggerAwareInterface
 {
@@ -33,23 +32,19 @@ class Service implements LoggerAwareInterface
     protected $userService;
     /** @var ShopifyEmbeddedModeService */
     protected $shopifyEmbeddedModeService;
-    /** @var Session */
-    protected $session;
 
     public function __construct(
         AccountService $accountService,
         ActiveUserInterface $activeUser,
         LoginService $loginService,
         AppUserService $userService,
-        ShopifyEmbeddedModeService $shopifyEmbeddedModeService,
-        Session $session
+        ShopifyEmbeddedModeService $shopifyEmbeddedModeService
     ) {
         $this->accountService = $accountService;
         $this->activeUser = $activeUser;
         $this->loginService = $loginService;
         $this->userService = $userService;
         $this->shopifyEmbeddedModeService = $shopifyEmbeddedModeService;
-        $this->session = $session;
     }
 
     public function processOauth($redirectUri, array $parameters): string
@@ -106,24 +101,5 @@ class Service implements LoggerAwareInterface
         }
         $user = $this->activeUser->getActiveUser();
         $this->userService->saveAccountId($user->getId(), $accountId);
-    }
-
-    public function saveFlag(bool $redirectFlag)
-    {
-        $this->logDebug('XXX redirectFlag before set= ' . $this->session['redirectFlag']);
-        $this->session['redirectFlag'] = $redirectFlag;
-        $this->logDebug('XXX redirectFlag after set= ' . $this->session['redirectFlag']);
-    }
-
-    public function fetchFlagFromSession(): bool
-    {
-        $this->logDebug('XXX fetchFlagFromSession= ' . $this->session['redirectFlag']);
-        return isset($this->session['redirectFlag']) && $this->session['redirectFlag'];
-    }
-
-    public function unsetFlagFromSession()
-    {
-        unset($this->session['redirectFlag']);
-        $this->logDebug('XXX unsetFlagFromSession= ' . $this->session['redirectFlag']);
     }
 }

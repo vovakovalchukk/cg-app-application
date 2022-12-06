@@ -8,13 +8,9 @@ use Shopify\Account\Service as AccountService;
 use Shopify\App\LoginException;
 use Shopify\App\Service as AppService;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Stdlib\Log\LogTrait;
-use CG\Account\Client\Service as CGAccountService;
 
 class AccountController extends AbstractActionController
 {
-    use LogTrait;
-
     const ROUTE_SETUP_LINK = 'Link';
     const ROUTE_SETUP_RETURN = 'Return';
 
@@ -22,14 +18,11 @@ class AccountController extends AbstractActionController
     protected $accountService;
     /** @var AppService */
     protected $appService;
-    /** @var CGAccountService */
-    protected $cgAccountService;
 
-    public function __construct(AccountService $accountService, AppService $appService, CGAccountService $cgAccountService)
+    public function __construct(AccountService $accountService, AppService $appService)
     {
         $this->appService = $appService;
         $this->accountService = $accountService;
-        $this->cgAccountService = $cgAccountService;
     }
 
     public function setupAction()
@@ -50,13 +43,13 @@ class AccountController extends AbstractActionController
     {
         try {
             $this->appService->getActiveUser();
-            $this->accountService->getUserShopifyAccounts();
-//            if(!$this->appService->fetchFlagFromSession()){
-//                //if redirectFlag is not set
-//                return $this->plugin('redirect')->toUrl($this->getAccountUrl());
-//            }
+            $accountId = $this->params()->fromPost('accountId');
+
+            if(!$this->accountService->checkShopifyAccount($this->params()->fromQuery(), $accountId)){
+                return $this->plugin('redirect')->toUrl($this->getAccountUrl());
+            }
+
             $account = $this->accountService->activateAccount($this->params()->fromQuery());
-//            $this->appService->unsetFlagFromSession(); //remove redirectFlag
             return $this->plugin('redirect')->toUrl(
                 $this->getAccountUrl($account->getId())
             );
