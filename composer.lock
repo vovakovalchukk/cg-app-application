@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4d8a79bb16dc38b97a6b05bc2bd6b84",
+    "content-hash": "74f1a48309042e4d2b6e69b0ccd34b23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -457,16 +457,16 @@
         },
         {
             "name": "channelgrabber/api-lib",
-            "version": "1.0.3",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-api-lib.git",
-                "reference": "e974954fbf35f686017700883ead17158caadeb7"
+                "reference": "3537aa7b871eb8e01070a0d622734f1a82b23bf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/api-lib/channelgrabber-api-lib-1.0.3-1226cd.zip",
-                "reference": "e974954fbf35f686017700883ead17158caadeb7"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/api-lib/channelgrabber-api-lib-1.0.5-def646.zip",
+                "reference": "3537aa7b871eb8e01070a0d622734f1a82b23bf3"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -496,7 +496,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-28T15:31:36+00:00"
+            "time": "2020-01-30T08:25:29+00:00"
         },
         {
             "name": "channelgrabber/bigcommerce",
@@ -778,16 +778,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.48.4",
+            "version": "1.48.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4"
+                "reference": "e7b34e481f7fc52ea2df09c1ce6b2fed497af380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.4-fd0471.zip",
-                "reference": "6300d5f2fbdde392eda19b4a130d05ba4c28b5d4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.48.6-a0d611.zip",
+                "reference": "e7b34e481f7fc52ea2df09c1ce6b2fed497af380"
             },
             "require": {
                 "channelgrabber/access": "^1.1.2",
@@ -855,7 +855,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2022-04-26T10:36:31+00:00"
+            "time": "2022-11-23T13:44:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1674,20 +1674,20 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.2.6",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "839f7dc8e1e92a2932f448ed03ac49d3d67c7bfe"
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.2.6-982a1a.zip",
-                "reference": "839f7dc8e1e92a2932f448ed03ac49d3d67c7bfe"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.4.0-e53366.zip",
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
-                "channelgrabber/channel": "^1.45.5",
+                "channelgrabber/channel": "^1.48.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/gearman": "^1.5.0",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2021-06-11T13:00:01+00:00"
+            "time": "2022-11-29T09:56:23+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -2475,16 +2475,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.59.9",
+            "version": "1.59.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9dae180e52b76c36c1c3a4e178e0ef54b9e07a71"
+                "reference": "1837258946f0bf722ff9adb5bfc3d62ba1cb2e9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.9-9c0633.zip",
-                "reference": "9dae180e52b76c36c1c3a4e178e0ef54b9e07a71"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.59.10-046ab4.zip",
+                "reference": "1837258946f0bf722ff9adb5bfc3d62ba1cb2e9f"
             },
             "require": {
                 "channelgrabber/access": "^1.0.0",
@@ -2555,7 +2555,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2022-01-07T11:39:28+00:00"
+            "time": "2022-01-28T14:59:26+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2873,16 +2873,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-PRD-50-sort-products",
+            "version": "1.21.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "bbabe7a77e5037759bea7feae45526f90309d520"
+                "reference": "f3b5af7c95bcd7527abd3e21d511db46c41c3b02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-PRD-50-sort-products-c5d269.zip",
-                "reference": "bbabe7a77e5037759bea7feae45526f90309d520"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.21.2-b01ec5.zip",
+                "reference": "f3b5af7c95bcd7527abd3e21d511db46c41c3b02"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2931,7 +2931,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2022-11-02T07:47:23+00:00"
+            "time": "2022-08-09T13:21:03+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3688,16 +3688,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.20.0",
+            "version": "1.20.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "d50416707c30f1c09e921a4eac19752c542eae9a"
+                "reference": "72c3849c871a722ae3ed34fdb580824c391c09a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.20.0-ff76b3.zip",
-                "reference": "d50416707c30f1c09e921a4eac19752c542eae9a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.20.2-9f92d2.zip",
+                "reference": "72c3849c871a722ae3ed34fdb580824c391c09a5"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -3742,7 +3742,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2020-04-06T07:46:34+00:00"
+            "time": "2021-08-13T14:50:56+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -12466,18 +12466,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.21.3",
-            "alias_normalized": "1.21.3.0",
-            "version": "dev-PRD-50-sort-products",
-            "package": "channelgrabber/product"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12487,6 +12479,5 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
