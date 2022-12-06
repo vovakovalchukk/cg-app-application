@@ -10,6 +10,7 @@ use Shopify\App\EmbeddedException;
 use Shopify\App\LoginException;
 use Shopify\App\Service as AppService;
 use Zend\Mvc\Controller\AbstractActionController;
+use function Webmozart\Assert\Tests\StaticAnalysis\true;
 
 class AppController extends AbstractActionController
 {
@@ -41,7 +42,7 @@ class AppController extends AbstractActionController
             }
 
             //set flag value here using method from AppService
-            $this->appService->saveFlag(true);
+//            $this->appService->saveFlag(true);
 
             $link = $this->appService->processOauth($redirectUri, $parameters);
             return $this->plugin('redirect')->toUrl($link);

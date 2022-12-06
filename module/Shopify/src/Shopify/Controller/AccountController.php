@@ -8,9 +8,13 @@ use Shopify\Account\Service as AccountService;
 use Shopify\App\LoginException;
 use Shopify\App\Service as AppService;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Stdlib\Log\LogTrait;
+use CG\Account\Client\Service as CGAccountService;
 
 class AccountController extends AbstractActionController
 {
+    use LogTrait;
+
     const ROUTE_SETUP_LINK = 'Link';
     const ROUTE_SETUP_RETURN = 'Return';
 
@@ -18,11 +22,14 @@ class AccountController extends AbstractActionController
     protected $accountService;
     /** @var AppService */
     protected $appService;
+    /** @var CGAccountService */
+    protected $cgAccountService;
 
-    public function __construct(AccountService $accountService, AppService $appService)
+    public function __construct(AccountService $accountService, AppService $appService, CGAccountService $cgAccountService)
     {
         $this->appService = $appService;
         $this->accountService = $accountService;
+        $this->cgAccountService = $cgAccountService;
     }
 
     public function setupAction()
@@ -43,18 +50,16 @@ class AccountController extends AbstractActionController
     {
         try {
             $this->appService->getActiveUser();
-
-            if(!$this->appService->fetchFlagFromSession()){
-                //if redirectFlag is not set
-                return $this->plugin('redirect')->toUrl($this->getAccountUrl());
-            }
+            $this->accountService->getUserShopifyAccounts();
+//            if(!$this->appService->fetchFlagFromSession()){
+//                //if redirectFlag is not set
+//                return $this->plugin('redirect')->toUrl($this->getAccountUrl());
+//            }
             $account = $this->accountService->activateAccount($this->params()->fromQuery());
-            unset($this->session['redirectFlag']); //remove redirectFlag
+//            $this->appService->unsetFlagFromSession(); //remove redirectFlag
             return $this->plugin('redirect')->toUrl(
                 $this->getAccountUrl($account->getId())
             );
-
-
         } catch (LoginException $exception) {
             $this->redirectToLogin();
         }

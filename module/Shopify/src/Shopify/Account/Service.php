@@ -3,13 +3,17 @@ namespace Shopify\Account;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Creation\SetupViewInterface;
+use CG\Channel\Type as ChannelType;
 use CG\Shopify\Account as ShopifyAccount;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client;
 use CG\Shopify\Client\Factory as ClientFactory;
 use CG\Shopify\Credentials;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -274,5 +278,30 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     {
         $this->shopifyAccountCreator = $shopifyAccountCreator;
         return $this;
+    }
+
+    public function getUserShopifyAccounts(): AccountCollection
+    {
+        $this->logDebug('XXX getUserShopifyAccounts Start');
+        try {
+            $accounts = $this->accountService->fetchByFilter($this->buildShopifyAccountsFilter());
+            $this->logDebug('XXX getUserShopifyAccounts= ' . count($accounts));
+            return $accounts;
+        } catch (NotFound $e) {
+            $this->logDebug('XXX getUserShopifyAccounts catch');
+            return new AccountCollection(Account::class, 'empty');
+        }
+    }
+
+    public function buildShopifyAccountsFilter(): AccountFilter
+    {
+        $this->logDebug('XXX buildShopifyAccountsFilter start');
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setType(ChannelType::SALES)
+            ->setOrganisationUnitId($this->activeUser->getActiveUser()->getOuList())
+            ->setChannel(['shopify']);
+        return $filter;
     }
 }

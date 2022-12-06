@@ -110,11 +110,20 @@ class Service implements LoggerAwareInterface
 
     public function saveFlag(bool $redirectFlag)
     {
+        $this->logDebug('XXX redirectFlag before set= ' . $this->session['redirectFlag']);
         $this->session['redirectFlag'] = $redirectFlag;
+        $this->logDebug('XXX redirectFlag after set= ' . $this->session['redirectFlag']);
     }
 
     public function fetchFlagFromSession(): bool
     {
-        return isset($this->session['redirectFlag']);
+        $this->logDebug('XXX fetchFlagFromSession= ' . $this->session['redirectFlag']);
+        return isset($this->session['redirectFlag']) && $this->session['redirectFlag'];
+    }
+
+    public function unsetFlagFromSession()
+    {
+        unset($this->session['redirectFlag']);
+        $this->logDebug('XXX unsetFlagFromSession= ' . $this->session['redirectFlag']);
     }
 }
