@@ -187,7 +187,7 @@ use CG\Courier\Geopost\Command\ImportGeogaz as GeopostImportGeogaz;
 use League\Flysystem\Filesystem;
 
 use CG\Shopify\EmbeddedMode\Service as ShopifyEmbeddedModeService;
-use Shopify\App\Service as ShopifyAppService;
+use Shopify\Account\Service as ShopifyAccountService;
 use Zend\Session\Container as Session;
 
 $config = array(
@@ -259,7 +259,7 @@ $config = array(
                     'session' => 'shopify_session'
                 ],
             ],
-            ShopifyAppService::class => [
+            ShopifyAccountService::class => [
                 'parameters' => [
                     'session' => 'shopify_session'
                 ],

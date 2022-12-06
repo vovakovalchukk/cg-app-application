@@ -53,8 +53,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     protected $session;
     /** @var ShopifyAccountCreator $shopifyAccountCreator */
     protected $shopifyAccountCreator;
-    /** @var Cryptor $cryptor */
-    protected $cryptor;
 
     public function __construct(
         ActiveUserInterface $activeUser,
@@ -64,8 +62,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         UrlHelper $urlHelper,
         ClientFactory $clientFactory,
         Session $session,
-        ShopifyAccountCreator $shopifyAccountCreator,
-        Cryptor $cryptor
+        ShopifyAccountCreator $shopifyAccountCreator
     ) {
         $this
             ->setActiveUser($activeUser)
@@ -75,8 +72,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
             ->setUrlHelper($urlHelper)
             ->setClientFactory($clientFactory)
             ->setSession($session)
-            ->setShopifyAccountCreator($shopifyAccountCreator)
-            ->setCryptor($cryptor);
+            ->setShopifyAccountCreator($shopifyAccountCreator);
     }
 
     public function getSetupView($accountId = null, $cancelUrl = null)
@@ -284,15 +280,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this;
     }
 
-    /**
-     * @return self
-     */
-    protected function setCryptor(Cryptor $cryptor)
-    {
-        $this->cryptor = $cryptor;
-        return $this;
-    }
-
     public function getUserShopifyAccounts(): AccountCollection
     {
         try {
@@ -314,12 +301,14 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $filter;
     }
 
-    public function checkShopifyAccount(array $parameters, ?int $accountId): bool
+    public function checkShopifyAccount(array $parameters): bool
     {
         $accounts = $this->getUserShopifyAccounts();
+        $accountId = isset($this->session['oauth'][$parameters['shop']]['accountId']) ? $this->session['oauth'][$parameters['shop']]['accountId'] : null;
+
         foreach ($accounts as $account) {
             $externalData = $account->getExternalData();
-            if (($externalData['shopHost'] == $parameters['shop']) && $accountId != null) {
+            if (($externalData['shopHost'] == $parameters['shop']) && isset($accountId)) {
                 return true;
             }
         }

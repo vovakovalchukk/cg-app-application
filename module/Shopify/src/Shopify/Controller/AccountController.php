@@ -43,9 +43,8 @@ class AccountController extends AbstractActionController
     {
         try {
             $this->appService->getActiveUser();
-            $accountId = $this->params()->fromPost('accountId');
 
-            if(!$this->accountService->checkShopifyAccount($this->params()->fromQuery(), $accountId)){
+            if(!$this->accountService->checkShopifyAccount($this->params()->fromQuery())){
                 return $this->plugin('redirect')->toUrl($this->getAccountUrl());
             }
 
