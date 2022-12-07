@@ -280,7 +280,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this;
     }
 
-    public function getUserShopifyAccounts(): AccountCollection
+    protected function getUserShopifyAccounts(): AccountCollection
     {
         try {
             $accounts = $this->accountService->fetchByFilter($this->buildShopifyAccountsFilter());
@@ -290,7 +290,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         }
     }
 
-    public function buildShopifyAccountsFilter(): AccountFilter
+    protected function buildShopifyAccountsFilter(): AccountFilter
     {
         $filter = (new AccountFilter())
             ->setLimit('all')
@@ -315,9 +315,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 
     public function checkShopifyAccountId(array $parameters): bool
     {
-        if (isset($this->session['oauth'][$parameters['shop']]['accountId'])) {
-            return true;
-        }
-        return false;
+        return isset($this->session['oauth'][$parameters['shop']]['accountId']);
     }
 }
