@@ -2,7 +2,6 @@
 namespace Shopify\Account;
 
 use CG\Account\Client\Service as AccountService;
-use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
@@ -12,7 +11,6 @@ use CG\Shopify\Account as ShopifyAccount;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client;
 use CG\Shopify\Client\Factory as ClientFactory;
-use CG\Shopify\Credentials;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
