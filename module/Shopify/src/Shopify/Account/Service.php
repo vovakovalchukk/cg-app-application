@@ -315,7 +315,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 
     public function checkShopifyAccountId(array $parameters): bool
     {
-        if(isset($this->session['oauth'][$parameters['shop']]['accountId'])){
+        if (isset($this->session['oauth'][$parameters['shop']]['accountId'])) {
             return true;
         }
         return false;
