@@ -304,13 +304,19 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     public function checkShopifyAccount(array $parameters): bool
     {
         $accounts = $this->getUserShopifyAccounts();
-        $accountId = isset($this->session['oauth'][$parameters['shop']]['accountId']) ? $this->session['oauth'][$parameters['shop']]['accountId'] : null;
-
         foreach ($accounts as $account) {
             $externalData = $account->getExternalData();
-            if (($externalData['shopHost'] == $parameters['shop']) && isset($accountId)) {
+            if (($externalData['shopHost'] == $parameters['shop'])) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public function checkShopifyAccountId(array $parameters): bool
+    {
+        if(isset($this->session['oauth'][$parameters['shop']]['accountId'])){
+            return true;
         }
         return false;
     }
