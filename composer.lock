@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "100751ee7bc2a6c1928e3c49a7c3b56c",
+    "content-hash": "74f1a48309042e4d2b6e69b0ccd34b23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,16 +378,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-PRD-146-spapi-mcf",
+            "version": "1.44.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7629fa047e6540e799c1c4f52c57be9a87f67919"
+                "reference": "ea0cf8c9ffd72d4a896e699e6f930add0ff71061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-PRD-146-spapi-mcf-e89398.zip",
-                "reference": "7629fa047e6540e799c1c4f52c57be9a87f67919"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.44.7-e11029.zip",
+                "reference": "ea0cf8c9ffd72d4a896e699e6f930add0ff71061"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -403,7 +403,7 @@
                 "channelgrabber/gearman": "^1.10.0",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.21.1",
+                "channelgrabber/listing": "^1.18.4",
                 "channelgrabber/locale": "^1.2.4",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
@@ -411,7 +411,7 @@
                 "channelgrabber/predis": "^1.1.14",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/scraper": "^1.2.0",
-                "channelgrabber/selling-partner-api": "dev-PRD-146-fix-get-fullfillment-order as 1.3.7",
+                "channelgrabber/selling-partner-api": "^1.3.3",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.16.11",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-11-23T18:06:06+00:00"
+            "time": "2022-07-28T10:48:31+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1674,16 +1674,16 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.3.0-da1451.zip",
-                "reference": "bb3be7cb4bc00a26d98e05a8df89dcdb8d7362cd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etsy/channelgrabber-etsy-1.4.0-e53366.zip",
+                "reference": "2c77b0e11edef3c2f83118c94275e151f0cadea1"
             },
             "require": {
                 "channelgrabber/cglib": "^1.16.12",
@@ -1713,7 +1713,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2022-11-23T13:52:24+00:00"
+            "time": "2022-11-29T09:56:23+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -3295,16 +3295,16 @@
         },
         {
             "name": "channelgrabber/selling-partner-api",
-            "version": "dev-PRD-146-fix-get-fullfillment-order",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "0a6f06852440c2908a6c28929dfbe61eefeb44fe"
+                "reference": "d7e97c563bac3613e21d793973246150175493d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-dev-PRD-146-fix-get-fullfillment-order-cc10d9.zip",
-                "reference": "0a6f06852440c2908a6c28929dfbe61eefeb44fe"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.6-136638.zip",
+                "reference": "d7e97c563bac3613e21d793973246150175493d1"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3347,7 +3347,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-11-23T17:57:02+00:00"
+            "time": "2022-07-12T13:22:26+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12466,25 +12466,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.44.7",
-            "alias_normalized": "1.44.7.0",
-            "version": "dev-PRD-146-spapi-mcf",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.3.7",
-            "alias_normalized": "1.3.7.0",
-            "version": "dev-PRD-146-fix-get-fullfillment-order",
-            "package": "channelgrabber/selling-partner-api"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/selling-partner-api": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12494,6 +12479,5 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
