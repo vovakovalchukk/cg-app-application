@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74f1a48309042e4d2b6e69b0ccd34b23",
+    "content-hash": "8f6996702292f55664c5b685fd52b13a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -378,16 +378,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.44.7",
+            "version": "1.47.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ea0cf8c9ffd72d4a896e699e6f930add0ff71061"
+                "reference": "82ac897361d7229c98ca90f4ea40572e14e9df8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.44.7-e11029.zip",
-                "reference": "ea0cf8c9ffd72d4a896e699e6f930add0ff71061"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.47.2-09703b.zip",
+                "reference": "82ac897361d7229c98ca90f4ea40572e14e9df8c"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -403,7 +403,7 @@
                 "channelgrabber/gearman": "^1.10.0",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.18.4",
+                "channelgrabber/listing": "^1.21.1",
                 "channelgrabber/locale": "^1.2.4",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
@@ -411,7 +411,7 @@
                 "channelgrabber/predis": "^1.1.14",
                 "channelgrabber/product": "^1.18.6",
                 "channelgrabber/scraper": "^1.2.0",
-                "channelgrabber/selling-partner-api": "^1.3.3",
+                "channelgrabber/selling-partner-api": "^1.3.14",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.16.11",
@@ -453,7 +453,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2022-07-28T10:48:31+00:00"
+            "time": "2022-12-08T14:31:27+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3295,16 +3295,16 @@
         },
         {
             "name": "channelgrabber/selling-partner-api",
-            "version": "1.3.6",
+            "version": "1.3.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-selling-partner-api.git",
-                "reference": "d7e97c563bac3613e21d793973246150175493d1"
+                "reference": "aacb4e7eac0b9ec077940f95a9d795a357658277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.6-136638.zip",
-                "reference": "d7e97c563bac3613e21d793973246150175493d1"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/selling-partner-api/channelgrabber-selling-partner-api-1.3.14-f0afa1.zip",
+                "reference": "aacb4e7eac0b9ec077940f95a9d795a357658277"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.133.15",
@@ -3347,7 +3347,7 @@
                 "selling-partner-api",
                 "sp-api"
             ],
-            "time": "2022-07-12T13:22:26+00:00"
+            "time": "2022-12-08T14:34:17+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -12479,5 +12479,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
