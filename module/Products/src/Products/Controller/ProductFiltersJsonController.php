@@ -5,7 +5,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\ServiceInterface;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Products\Product\ProductFilters\Service;
+use Products\Product\ProductSort\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 

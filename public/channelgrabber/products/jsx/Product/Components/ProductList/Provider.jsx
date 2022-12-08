@@ -61,8 +61,8 @@ class ProductListProvider extends React.Component {
         }
 
         store.dispatch(expandActions.changeStatusExpandAll('collapsed'));
-        store.dispatch(sortActions.storeInitialSort(this.props.filterOptions.sort));
-        store.dispatch(paginationActions.storeInitialPagination({"limit": this.props.filterOptions.limit}));
+        store.dispatch(sortActions.storeInitialSort(this.props.sortOptions.sort));
+        store.dispatch(paginationActions.storeInitialPagination({"limit": this.props.sortOptions.limit}));
 
         let productsResponse = await store.dispatch(productActions.getProducts());
 

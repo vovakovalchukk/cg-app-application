@@ -28,7 +28,7 @@ var Product = function(
     pickLocations,
     pickLocationValues,
     supplierOptions,
-    filterOptions
+    sortOptions
 ) {
     ReactDOM.render(
         <RootComponent
@@ -56,7 +56,7 @@ var Product = function(
             pickLocations={pickLocations}
             pickLocationValues={pickLocationValues}
             supplierOptions={supplierOptions}
-            filterOptions={filterOptions}
+            sortOptions={sortOptions}
         />,
         mountingNode
     );
