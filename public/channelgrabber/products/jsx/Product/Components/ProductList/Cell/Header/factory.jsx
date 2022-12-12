@@ -22,8 +22,7 @@ let cells = {
     bulkSelect: BulkSelectCell
 };
 
-const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of Manufacture', 'Cost Price', 'Available',
-    'Awaiting Dispatch', 'Awaiting Dispatch', 'Stock on Order'];
+const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of Manufacture', 'Cost Price'];
 
 export default (function () {
     return {
@@ -42,12 +41,6 @@ export default (function () {
             if (ORDER_COLUMNS.includes(column.headerText)) {
                 if (columnName === 'costprice') {
                     columnName = 'cost';
-                } else if (columnName === 'available') {
-                    columnName = 'onhand';
-                } else if (columnName === 'awaitingdispatch') {
-                    columnName = 'allocated'
-                } else if (columnName === 'stockonorder') {
-                    columnName = 'onpurchaseorder'
                 }
                 className = 'sorting'
 
