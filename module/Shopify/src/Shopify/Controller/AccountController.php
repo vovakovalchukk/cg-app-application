@@ -43,10 +43,17 @@ class AccountController extends AbstractActionController
     {
         try {
             $this->appService->getActiveUser();
-            $account = $this->accountService->activateAccount($this->params()->fromQuery());
-            return $this->plugin('redirect')->toUrl(
-                $this->getAccountUrl($account->getId())
-            );
+            $params = $this->params()->fromQuery();
+
+            $accountExists = $this->accountService->checkShopifyAccount($params);
+
+            if (!$accountExists || $this->accountService->checkShopifyAccountId($params)) {
+                $account = $this->accountService->activateAccount($params);
+                return $this->plugin('redirect')->toUrl(
+                    $this->getAccountUrl($account->getId())
+                );
+            }
+            return $this->plugin('redirect')->toUrl($this->getAccountUrl());
         } catch (LoginException $exception) {
             $this->redirectToLogin();
         }
