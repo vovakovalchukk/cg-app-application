@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2e55830cd2a166c9a48b7395bbf70ff",
+    "content-hash": "2ee95411566c2f7e92c2d6b688dbb12b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2873,16 +2873,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.21.2",
+            "version": "dev-PRD-50-sort-products",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "f3b5af7c95bcd7527abd3e21d511db46c41c3b02"
+                "reference": "a5111e68c3961e49bbab34d33b1935278a43ff01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.21.2-b01ec5.zip",
-                "reference": "f3b5af7c95bcd7527abd3e21d511db46c41c3b02"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-PRD-50-sort-products-4dc301.zip",
+                "reference": "a5111e68c3961e49bbab34d33b1935278a43ff01"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2931,7 +2931,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2022-08-09T13:21:03+00:00"
+            "time": "2022-11-21T14:58:14+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -12466,10 +12466,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.21.3",
+            "alias_normalized": "1.21.3.0",
+            "version": "dev-PRD-50-sort-products",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
@@ -12479,5 +12487,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
