@@ -719,10 +719,10 @@ return [
                     ProductSortJsonController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/filter/save',
+                            'route' => '/sort/save',
                             'defaults' => [
                                 'controller' => ProductSortJsonController::class,
-                                'action' => 'saveFilter'
+                                'action' => 'saveSort'
                             ],
                         ]
                     ],

@@ -1,17 +1,15 @@
 <?php
 namespace Products\Controller;
 
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\OrganisationUnit\ServiceInterface;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Product\ProductSort\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-class ProductFiltersJsonController extends AbstractActionController
+class ProductSortJsonController extends AbstractActionController
 {
-    const ROUTE_SAVE = 'Filter save';
+    const ROUTE_SAVE = 'Sort save';
 
     /** @var Service $service */
     protected $service;
@@ -40,16 +38,15 @@ class ProductFiltersJsonController extends AbstractActionController
         return $this->jsonModelFactory->newInstance($variables, $options);
     }
 
-    public function saveFilterAction(): JsonModel
+    public function saveSortAction(): JsonModel
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $filters = json_encode($this->params()->fromPost('filters', []));
+        $sortingData = json_encode($this->params()->fromPost('sortingData', []));
         $currentUserOnly = $this->params()->fromPost('currentUserOnly', "true");
         $filterData = [
-            'filters' => $filters,
+            'data' => $sortingData,
             'userId'  => $currentUserOnly == "true" ? $this->activeUserContainer->getActiveUser()->getId() : null,
             'organisationUnitId' => $rootOuId,
-            'defaultFilter' => true,
         ];
         $this->service->save($filterData);
 

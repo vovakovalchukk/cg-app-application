@@ -2,26 +2,19 @@
 namespace Products\Product\ProductSort;
 
 use CG\Product\ProductSort\Client\Service as ProductSortService;
+use CG\Product\ProductSort\Entity as ProductSort;
 use CG\Product\ProductSort\Filter;
 use CG\Product\ProductSort\Mapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use Zend\Di\Di;
 
 class Service
 {
     /** @var ProductSortService $productSortService */
     protected $productSortService;
 
-    /** @var Di $di */
-    protected $di;
-
-    public function __construct(
-        Di                    $di,
-        ProductSortService $productSortService
-    )
+    public function __construct(ProductSortService $productSortService)
     {
-        $this->setDi($di)
-            ->setProductSortService($productSortService);
+        $this->setProductSortService($productSortService);
     }
 
     /**
@@ -42,24 +35,6 @@ class Service
         return $this;
     }
 
-    /**
-     * @return Di
-     */
-    public function getDi(): Di
-    {
-        return $this->di;
-    }
-
-    /**
-     * @param Di $di
-     * @return self
-     */
-    public function setDi(Di $di): self
-    {
-        $this->di = $di;
-        return $this;
-    }
-
     public function save(array $filterData)
     {
         $filter = $this->newProductSortFilter($filterData);
@@ -77,22 +52,29 @@ class Service
         $this->getProductSortService()->save($entity);
     }
 
-    protected function newProductSortFilter(array $filterData)
+    protected function newProductSortFilter(array $filterData): Filter
     {
-        return $this->getDi()->newInstance(Filter::class, $filterData);
+        return new Filter(
+            null,
+            null,
+            null,
+            $filterData['organisationUnitId'],
+            $filterData['userId']
+        );
     }
 
-    protected function newProductSort(array $entityData)
+    protected function newProductSort(array $entityData): ProductSort
     {
-        return $this->getDi()->newInstance(Mapper::class)->fromArray($entityData);
+        $mapper = new Mapper();
+        return $mapper->fromArray($entityData);
     }
 
-    protected function fetchProductSortByFilter(Filter $filter)
+    protected function fetchProductSortByFilter(Filter $filter): ?ProductSort
     {
         return $this->getProductSortService()->fetchEntityByFilter($filter);
     }
 
-    public function getProductSort(int $userId, int $organisationUnitId)
+    public function getProductSort(int $userId, int $organisationUnitId): ?ProductSort
     {
         $filter = $this->newProductSortFilter(['userId' => $userId, 'organisationUnitId' => $organisationUnitId]);
         return $this->fetchProductSortByFilter($filter);

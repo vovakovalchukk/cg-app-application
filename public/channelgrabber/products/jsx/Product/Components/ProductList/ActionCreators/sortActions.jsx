@@ -27,10 +27,10 @@ var sortActions = (function() {
                 const state = getState();
                 $.ajax({
                     context: this,
-                    url: "/products/filter/save",
+                    url: "/products/sort/save",
                     type: "POST",
                     data: {
-                        filters: {
+                        sortingData: {
                             "sort": state.sort,
                             "limit": state.pagination.limit
                         },

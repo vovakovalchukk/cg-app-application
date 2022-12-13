@@ -7,7 +7,6 @@ use CG\Product\ProductSort\Client\Service as ProductSortClientService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use PHPUnit\Framework\TestCase;
 use Products\Product\ProductSort\Service as ProductSortService;
-use Zend\Di\Di;
 
 class ServiceTest extends TestCase
 {
@@ -18,11 +17,10 @@ class ServiceTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $di = $this->createMock(Di::class);
         $this->clientService = $this->createMock(ProductSortClientService::class);
 
         $this->service = $this->getMockBuilder(ProductSortService::class)
-            ->setConstructorArgs([$di, $this->clientService])
+            ->setConstructorArgs([$this->clientService])
             ->setMethods(['newProductSortFilter', 'getProductSortService', 'fetchProductSortByFilter', 'newProductSort'])
             ->getMock();
         $this->service->expects($this->any())
