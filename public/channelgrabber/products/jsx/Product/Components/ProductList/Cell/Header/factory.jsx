@@ -22,7 +22,14 @@ let cells = {
     bulkSelect: BulkSelectCell
 };
 
-const ORDER_COLUMNS = ['Sku', 'Name', 'Weight', 'HS Tariff Number', 'Country Of Manufacture', 'Cost Price'];
+const ORDER_COLUMNS = {
+    'Sku': 'sku',
+    'Name': 'name',
+    'Weight': 'weight',
+    'HS Tariff Number': 'hstariffnumber',
+    'Country Of Manufacture': 'countryofmanufacture',
+    'Cost Price': 'cost'
+};
 
 export default (function () {
     return {
@@ -37,11 +44,9 @@ export default (function () {
             }
             let onClickSort = null,
                 className = '',
-                columnName = column.headerText.toLowerCase().replaceAll(' ', '');
-            if (ORDER_COLUMNS.includes(column.headerText)) {
-                if (columnName === 'costprice') {
-                    columnName = 'cost';
-                }
+                columnName = column.headerText
+            if (ORDER_COLUMNS[columnName]) {
+                columnName = ORDER_COLUMNS[columnName]
                 className = 'sorting'
 
                 let currentSort = props.sort;
