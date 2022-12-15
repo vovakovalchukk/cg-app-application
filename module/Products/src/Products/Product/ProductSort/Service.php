@@ -4,17 +4,38 @@ namespace Products\Product\ProductSort;
 use CG\Product\ProductSort\Client\Service as ProductSortService;
 use CG\Product\ProductSort\Entity as ProductSort;
 use CG\Product\ProductSort\Filter;
-use CG\Product\ProductSort\Mapper;
+use CG\Product\ProductSort\Mapper as ProductSortMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Service
 {
     /** @var ProductSortService $productSortService */
     protected $productSortService;
+    /** @var ProductSortMapper */
+    protected $mapper;
 
-    public function __construct(ProductSortService $productSortService)
+    public function __construct(ProductSortService $productSortService, ProductSortMapper $mapper)
     {
-        $this->setProductSortService($productSortService);
+        $this->setProductSortService($productSortService)
+            ->setMapper($mapper);
+    }
+
+    /**
+     * @return ProductSortMapper
+     */
+    public function getMapper(): ProductSortMapper
+    {
+        return $this->mapper;
+    }
+
+    /**
+     * @param ProductSortMapper $mapper
+     * @return self
+     */
+    public function setMapper(ProductSortMapper $mapper): self
+    {
+        $this->mapper = $mapper;
+        return $this;
     }
 
     /**
@@ -65,8 +86,7 @@ class Service
 
     protected function newProductSort(array $entityData): ProductSort
     {
-        $mapper = new Mapper();
-        return $mapper->fromArray($entityData);
+        return $this->getMapper()->fromArray($entityData);
     }
 
     protected function fetchProductSortByFilter(Filter $filter): ?ProductSort
