@@ -4,6 +4,7 @@ namespace Products\Product\ProductSort;
 use CG\Product\ProductSort\Entity;
 use CG\Product\ProductSort\Filter;
 use CG\Product\ProductSort\Client\Service as ProductSortClientService;
+use CG\Product\ProductSort\Mapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use PHPUnit\Framework\TestCase;
 use Products\Product\ProductSort\Service as ProductSortService;
@@ -20,7 +21,7 @@ class ServiceTest extends TestCase
         $this->clientService = $this->createMock(ProductSortClientService::class);
 
         $this->service = $this->getMockBuilder(ProductSortService::class)
-            ->setConstructorArgs([$this->clientService])
+            ->setConstructorArgs([$this->clientService, $this->createMock(Mapper::class)])
             ->setMethods(['newProductSortFilter', 'getProductSortService', 'fetchProductSortByFilter', 'newProductSort'])
             ->getMock();
         $this->service->expects($this->any())
